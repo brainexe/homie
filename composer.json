@@ -1,0 +1,14 @@
+{
+	"name": "matze/raspberry",
+	"description": "Raspberry",
+	"minimum-stability": "dev",
+	"authors": [
+		{
+			"name": "Matze",
+			"email": "matze@mdoetsch.de"
+		}
+	],
+	"require": {
+		"sly/rpi-manager": "dev-master"
+	}
+}
