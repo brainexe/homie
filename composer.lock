@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "001bf92a574d97b4965076a5cf52a1f8",
+    "hash": "6b8a7e81938aeac88d21a863823e8e59",
     "packages": [
         {
             "name": "evenement/evenement",
@@ -472,6 +472,50 @@
             "time": "2012-12-14 00:58:14"
         },
         {
+            "name": "slim/slim",
+            "version": "2.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/codeguy/Slim.git",
+                "reference": "2e540cc392644b9b5cdcc57e5576db5a92ca2149"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/codeguy/Slim/zipball/2e540cc392644b9b5cdcc57e5576db5a92ca2149",
+                "reference": "2e540cc392644b9b5cdcc57e5576db5a92ca2149",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mcrypt": "*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Slim": "."
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Josh Lockhart",
+                    "email": "info@joshlockhart.com",
+                    "homepage": "http://www.joshlockhart.com/"
+                }
+            ],
+            "description": "Slim Framework, a PHP micro framework",
+            "homepage": "http://github.com/codeguy/Slim",
+            "keywords": [
+                "microframework",
+                "rest",
+                "router"
+            ],
+            "time": "2013-07-20 18:38:05"
+        },
+        {
             "name": "sly/rpi-manager",
             "version": "dev-master",
             "source": {
@@ -569,6 +613,62 @@
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
             "time": "2013-11-25 08:44:14"
+        },
+        {
+            "name": "symfony/dependency-injection",
+            "version": "2.3.x-dev",
+            "target-dir": "Symfony/Component/DependencyInjection",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/DependencyInjection.git",
+                "reference": "bd0c3f5a15ffacb24996145a6f84d2025d8e937c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/DependencyInjection/zipball/bd0c3f5a15ffacb24996145a6f84d2025d8e937c",
+                "reference": "bd0c3f5a15ffacb24996145a6f84d2025d8e937c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "symfony/config": "~2.2",
+                "symfony/yaml": "~2.0"
+            },
+            "suggest": {
+                "symfony/config": "",
+                "symfony/proxy-manager-bridge": "Generate service proxies to lazy load them",
+                "symfony/yaml": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\DependencyInjection\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony DependencyInjection Component",
+            "homepage": "http://symfony.com",
+            "time": "2014-01-07 13:19:25"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -724,6 +824,50 @@
             "description": "Symfony Process Component",
             "homepage": "http://symfony.com",
             "time": "2013-11-25 10:21:43"
+        },
+        {
+            "name": "twig/twig",
+            "version": "1.6.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fabpot/Twig.git",
+                "reference": "97ade38d5c0b095f8ed9fadb61f71ab79f13d7af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/97ade38d5c0b095f8ed9fadb61f71ab79f13d7af",
+                "reference": "97ade38d5c0b095f8ed9fadb61f71ab79f13d7af",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Twig_": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Armin Ronacher",
+                    "email": "armin.ronacher@active-4.com"
+                }
+            ],
+            "description": "Twig, the flexible, fast, and secure template language for PHP",
+            "homepage": "http://twig.sensiolabs.org",
+            "keywords": [
+                "templating"
+            ],
+            "time": "2012-04-11 09:00:38"
         }
     ],
     "packages-dev": [
@@ -734,7 +878,8 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "sly/rpi-manager": 20
+        "sly/rpi-manager": 20,
+        "symfony/dependency-injection": 20
     },
     "platform": [
 

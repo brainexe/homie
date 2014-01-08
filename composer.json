@@ -8,7 +8,13 @@
 			"email": "matze@mdoetsch.de"
 		}
 	],
+	"autoload": {
+		"psr-0": { "Raspberry": "src/" }
+	},
 	"require": {
-		"sly/rpi-manager": "dev-master"
+		"sly/rpi-manager": "dev-master",
+		"symfony/dependency-injection": "2.3.x-dev",
+		"twig/twig": "1.6.5",
+		"slim/slim": "2.3.1"
 	}
 }
