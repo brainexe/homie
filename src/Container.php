@@ -15,6 +15,7 @@ $builder->register('PDO', 'PDO')
 	->addArgument("%db.user%")
 	->addArgument("%db.password%");
 
+$builder->register('Chart', 'Raspberry\Chart\Chart');
 $builder->register('SensorBuilder', 'Raspberry\Sensors\SensorBuilder');
 $builder->register('SensorGateway', 'Raspberry\Sensors\SensorGateway')->addMethodCall('setPDO', [new Reference('PDO')]);
 $builder->register('SensorValuesGateway', 'Raspberry\Sensors\SensorValuesGateway')->addMethodCall('setPDO', [new Reference('PDO')]);

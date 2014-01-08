@@ -22,7 +22,7 @@ class SensorValuesGateway {
 	 * @return array[]
 	 */
 	public function getSensorValues($sensor_id) {
-		$query = 'SELECT * FROM sensor_values WHERE sensor_id = ? ORDER BY timestamp ASC';
+		$query = 'SELECT *, UNIX_TIMESTAMP(timestamp) AS timestamp FROM sensor_values WHERE sensor_id = ? ORDER BY timestamp ASC';
 
 		$stm = $this->getPDO()->prepare($query);
 		$stm->execute([$sensor_id]);
