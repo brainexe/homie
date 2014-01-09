@@ -48,4 +48,24 @@ $app->get('/sensors/', function() use ($twig, $dic) {
 	echo $twig->render('sensors.html.twig', ['sensors' => $sensors, 'json' => $json]);
 });
 
+$app->get('/sensors/:id', function($sensor_id) use ($twig, $dic) {
+	/** @var SensorGateway $sensor_gateway */
+	/** @var SensorValuesGateway $sensor_values_gateway */
+	$sensor_values_gateway = $dic->get('SensorValuesGateway');
+	/** @var Chart $chart */
+	$chart = $dic->get('Chart');
+	$sensor_gateway = $dic->get('SensorGateway');
+
+	$sensor = $sensor_gateway->getSensor($sensor_id);
+
+	$sensor_values = [
+		$sensor_id => $sensor_values_gateway->getSensorValues($sensor_id)
+	];
+
+	$json = $chart->formatJsonData([$sensor], $sensor_values);
+
+	echo $twig->render('sensors.html.twig', ['sensors' => [$sensor], 'json' => $json]);
+});
+
+
 $app->run();

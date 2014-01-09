@@ -8,8 +8,15 @@
 		<div id="legend"></div>
 	</div>
 
-
-	<style>
+		<ul>
+			{% for sensor in sensors %}
+				<li>
+					<a href="/sensors/{{ sensor.id }}">{{ sensor.name }}</a>
+				</li>
+			{% endfor %}
+		</ul>
+		
+		<style>
 		#chart_container {
 			width: 960px;
 		}

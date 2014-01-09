@@ -32,4 +32,17 @@ class SensorGateway {
 		$stm = $this->getPDO()->prepare($query);
 		$stm->execute([$name, $type, $description, $pin, $interval]);
 	}
+
+	/**
+	 * @param integer $sensor_id
+	 * @return array
+	 */
+	public function getSensor($sensor_id) {
+		$query = 'SELECT * from sensors WHERE id = ?';
+
+		$stm = $this->getPDO()->prepare($query);
+		$stm->execute([$sensor_id]);
+
+		return $stm->fetch(\PDO::FETCH_ASSOC);
+	}
 } 
