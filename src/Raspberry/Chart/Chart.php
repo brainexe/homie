@@ -23,13 +23,15 @@ class Chart {
 				'data' => []
 			];
 
-			if ($sensor_values[$sensor_id]) {
+			if (!empty($sensor_values[$sensor_id])) {
 				foreach ($sensor_values[$sensor_id] as $sensor_value) {
 					$sensor_json['data'][] = [
 						'x' => (int)$sensor_value['timestamp'],
 						'y' => (double)$sensor_value['value'],
 					];
 				}
+			} else {
+				continue;
 			}
 
 			$output[] = $sensor_json;

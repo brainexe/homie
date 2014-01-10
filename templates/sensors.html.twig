@@ -8,36 +8,12 @@
 		<div id="legend"></div>
 	</div>
 
-		<ul>
-			{% for sensor in sensors %}
-				<li>
-					<a href="/sensors/{{ sensor.id }}">{{ sensor.name }}</a>
-				</li>
-			{% endfor %}
-		</ul>
-		
 		<style>
 		#chart_container {
 			width: 960px;
 		}
-		.swatch {
-			display: inline-block;
-			width: 10px;
-			height: 10px;
-			margin: 0 8px 0 0;
-		}
-		.label {
-			display: inline-block;
-		}
-		.line {
-			display: inline-block;
-			margin: 0 0 0 30px;
-		}
 		#legend {
 			text-align: center;
-		}
-		.rickshaw_graph .detail {
-			background: none;
 		}
 		#y_axis {
 			position: absolute;
@@ -51,6 +27,7 @@
 		var graph = new Rickshaw.Graph( {
 			element: document.getElementById("chart"),
 			width: 960,
+			interpolation: 'basis',
 			height: 500,
 			renderer: 'line',
 			series: {{ json | json_encode | raw }}
@@ -111,4 +88,12 @@
 		var hover = new Hover( { graph: graph } );
 
 	</script>
+
+	<ul>
+		{% for sensor in sensors %}
+			<li>
+				<a href="/sensors/{{ sensor.id }}">{{ sensor.name }}</a>
+			</li>
+		{% endfor %}
+	</ul>
 {% endblock %}
