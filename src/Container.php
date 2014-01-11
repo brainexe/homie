@@ -16,8 +16,16 @@ $builder->register('PDO', 'PDO')
 	->addArgument("%db.password%");
 
 $builder->register('Chart', 'Raspberry\Chart\Chart');
+$builder->register('LocalClient', 'Raspberry\Client\LocalClient');
+
 $builder->register('SensorBuilder', 'Raspberry\Sensors\SensorBuilder');
 $builder->register('SensorGateway', 'Raspberry\Sensors\SensorGateway')->addMethodCall('setPDO', [new Reference('PDO')]);
-$builder->register('SensorValuesGateway', 'Raspberry\Sensors\SensorValuesGateway')->addMethodCall('setPDO', [new Reference('PDO')]);
+$builder->register('SensorGateway', 'Raspberry\Sensors\SensorGateway')->addMethodCall('setPDO', [new Reference('PDO')]);
+
+$builder->register('RadioGateway', 'Raspberry\Radio\RadioGateway')->addMethodCall('setPDO', [new Reference('PDO')]);
+$builder->register('RadioController', 'Raspberry\Radio\RadioController');
+$builder->register('Radios', 'Raspberry\Radio\Radios')
+	->addMethodCall('setRadioController', [new Reference('RadioController')])
+	->addMethodCall('setRadioGateway', [new Reference('RadioGateway')]);
 
 return $builder;

@@ -1,0 +1,25 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Name</th>
+				<th>Enable</th>
+				<th>Disable</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			{% for radio in radios %}
+				<tr>
+					<td>{{ radio.id }}</td>
+					<td>{{ radio.name }}</td>
+					<td><a href="/sensors/set/{{ radio.id }}/1/" class="btn btn-success">Enable</a></td>
+					<td><a href="/sensors/set/{{ radio.id }}/0/" class="btn btn-danger">Disable</a></td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

@@ -20,3 +20,11 @@ CREATE TABLE IF NOT EXISTS `sensor_values` (
 
 ALTER TABLE `sensor_values`
   ADD CONSTRAINT `sensor_id` FOREIGN KEY (`sensor_id`) REFERENCES `sensors` (`id`) ON DELETE CASCADE;
+
+CREATE TABLE IF NOT EXISTS `radio` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) NOT NULL,
+  `pin` varchar(15) NOT NULL,
+  `description` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;

@@ -1,6 +1,8 @@
 <?php
 
 use Raspberry\Chart\Chart;
+use Raspberry\Radio\RadioGateway;
+use Raspberry\Radio\Radios;
 use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorValuesGateway;
 use Slim\Slim;
@@ -51,6 +53,15 @@ $app->get('/sensors/(:id)', function($single_sensor_id = null) use ($twig, $dic)
 	$json = $chart->formatJsonData($sensors, $sensor_values);
 
 	echo $twig->render('sensors.html.twig', ['sensors' => $sensors, 'json' => $json]);
+});
+
+$app->get('/radio/', function() use ($twig, $dic) {
+	/** @var Radios $radios */
+	$radios = $dic->get('Radios');
+
+	$radios_formatted = $radios->getRadios();
+
+	echo $twig->render('radio.html.twig', ['radios' => $radios_formatted ]);
 });
 
 $app->run();
