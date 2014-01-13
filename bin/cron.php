@@ -24,6 +24,11 @@ foreach ($sensors as $sensor_data) {
 		$sensor = $sensor_builder->build($sensor_data);
 
 		$value = $sensor->getValue($sensor_data['pin']);
+
+		if ($value === null) {
+			continue;
+		}
+
 		$sensor_values_gateway->addValue($sensor_data['id'], $value);
 	}
 }

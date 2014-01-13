@@ -1,6 +1,7 @@
 <?php
 
 use Raspberry\Chart\Chart;
+use Raspberry\Gpio\GpioManager;
 use Raspberry\Radio\RadioGateway;
 use Raspberry\Radio\Radios;
 use Raspberry\Sensors\SensorGateway;
@@ -62,6 +63,15 @@ $app->get('/radio/', function() use ($twig, $dic) {
 	$radios_formatted = $radios->getRadios();
 
 	echo $twig->render('radio.html.twig', ['radios' => $radios_formatted ]);
+});
+
+$app->get('/gpio/', function() use ($twig, $dic) {
+	/** @var GpioManager $gpio_manager */
+	$gpio_manager = $dic->get('GpioManager');
+
+	$gpios = $gpio_manager->getPins();
+
+	echo $twig->render('gpio.html.twig', ['gpio' => $gpios ]);
 });
 
 $app->run();

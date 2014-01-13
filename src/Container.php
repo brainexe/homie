@@ -18,6 +18,8 @@ $builder->register('PDO', 'PDO')
 $builder->register('Chart', 'Raspberry\Chart\Chart');
 $builder->register('LocalClient', 'Raspberry\Client\LocalClient');
 
+$builder->register('GpioManager', 'Raspberry\Gpio\GpioManager')->addMethodCall('setLocalClient', [new Reference('LocalClient')]);
+
 $builder->register('SensorBuilder', 'Raspberry\Sensors\SensorBuilder');
 $builder->register('SensorGateway', 'Raspberry\Sensors\SensorGateway')->addMethodCall('setPDO', [new Reference('PDO')]);
 $builder->register('SensorValuesGateway', 'Raspberry\Sensors\SensorValuesGateway')->addMethodCall('setPDO', [new Reference('PDO')]);
