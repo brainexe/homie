@@ -53,7 +53,11 @@ $app->get('/sensors/(:id)', function($single_sensor_id = null) use ($twig, $dic)
 
 	$json = $chart->formatJsonData($sensors, $sensor_values);
 
-	echo $twig->render('sensors.html.twig', ['sensors' => $sensors, 'json' => $json]);
+	echo $twig->render('sensors.html.twig', [
+		'sensors' => $sensors,
+		'single_sensor_id' => $single_sensor_id,
+		'json' => $json
+	]);
 });
 
 $app->get('/radio/', function() use ($twig, $dic) {

@@ -1,13 +1,20 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
+
+	<div class="btn-group btn-group-justified">
+		{% for sensor in sensors %}
+			<a class="btn {% if single_sensor_id and single_sensor_id == sensor.id %}btn-info{% else %}btn-default{% endif %}" href="/sensors/{{ sensor.id }}">{{ sensor.name }}</a>
+		{% endfor %}
+	</div>
+
 	<div id="chart_container">
 		<div id="y_axis"></div><br>
 		<div id="chart"></div><br>
 		<div id="legend"></div>
 	</div>
 
-		<style>
+	<style>
 		#chart_container {
 			width: 960px;
 		}
@@ -25,7 +32,7 @@
 	<script>
 		var graph = new Rickshaw.Graph( {
 			element: document.getElementById("chart"),
-			width: 960,
+			width: 1000,
 			interpolation: 'basis',
 			height: 500,
 			renderer: 'line',
@@ -46,13 +53,10 @@
 		var legend = document.querySelector('#legend');
 
 		var Hover = Rickshaw.Class.create(Rickshaw.Graph.HoverDetail, {
-
 			render: function(args) {
-
 				legend.innerHTML = args.formattedXValue;
 
 				args.detail.sort(function(a, b) { return a.order - b.order }).forEach( function(d) {
-
 					var line = document.createElement('div');
 					line.className = 'line';
 
@@ -85,14 +89,6 @@
 		});
 
 		var hover = new Hover( { graph: graph } );
-
 	</script>
 
-	<ul>
-		{% for sensor in sensors %}
-			<li>
-				<a href="/sensors/{{ sensor.id }}">{{ sensor.name }}</a>
-			</li>
-		{% endfor %}
-	</ul>
 {% endblock %}
