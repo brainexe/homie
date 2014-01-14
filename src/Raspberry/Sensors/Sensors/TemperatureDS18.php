@@ -21,6 +21,11 @@ class TemperatureDS18 implements SensorInterface {
 		$path = sprintf('/sys/bus/w1/devices/%s/w1_slave', $pin);
 		$content = file_get_contents($path);
 
+		if (strpos($content, 'yes') === false) {
+			// invalid response :(
+			return null;
+		}
+
 		$matches = null;
 		if (!preg_match('/t=(\d+)$/', $content, $matches)) {
 			return null;
