@@ -30,4 +30,23 @@ class SensorValuesGateway {
 		return $stm->fetchAll(\PDO::FETCH_ASSOC);
 	}
 
+	/**
+	 * @return double[]
+	 */
+	public function getLatestValue() {
+		$query = '
+			SELECT sensor_id, value
+			FROM sensor_values
+			WHERE id IN (
+				SELECT max(id)
+				FROM sensor_values
+				GROUP BY sensor_id
+			);';
+
+		$stm = $this->getPDO()->prepare($query);
+		$stm->execute([$sensor_id]);
+
+		return $stm->fetchAll(\PDO::FETCH_ASSOC);
+	}
+
 } 
