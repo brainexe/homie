@@ -16,8 +16,13 @@ class UsedMemorySensor implements SensorInterface {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getValue($pin)
-	{
+	public function getValue($pin) {
 		// TODO: Implement getValue() method.
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function formatValue($value) {
 	}
 }

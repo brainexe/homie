@@ -2,7 +2,7 @@
 
 namespace Raspberry\Sensors\Sensors;
 
-class TemperatureDS18 implements SensorInterface {
+class TemperatureDS18 extends AbstractTemperatureSensor {
 
 	const TYPE = 'temp_ds18';
 

@@ -4,6 +4,7 @@ use Raspberry\Chart\Chart;
 use Raspberry\Gpio\GpioManager;
 use Raspberry\Radio\RadioGateway;
 use Raspberry\Radio\Radios;
+use Raspberry\Sensors\SensorBuilder;
 use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorValuesGateway;
 use Slim\Slim;
@@ -35,17 +36,26 @@ $app->get('/', function() use ($twig, $dic) {
 $app->get('/sensors/(:id)', function($single_sensor_id = null) use ($twig, $dic) {
 	/** @var SensorGateway $sensor_gateway */
 	/** @var SensorValuesGateway $sensor_values_gateway */
-	$sensor_values_gateway = $dic->get('SensorValuesGateway');
 	/** @var Chart $chart */
+	/** @var SensorBuilder $sensor_builder */
+
+	$sensor_builder = $dic->get('SensorBuilder');
+	$sensor_values_gateway = $dic->get('SensorValuesGateway');
 	$chart = $dic->get('Chart');
 	$sensor_gateway = $dic->get('SensorGateway');
+
 	$sensors = $sensor_gateway->getSensors();
-//	$latest_sensor_values = $sensor_values_gateway->getLatestValue();
+	$latest_sensor_values = $sensor_values_gateway->getLatestValue();
 
 	$sensor_values = [];
 
-	foreach ($sensors as $sensor) {
+	foreach ($sensors as &$sensor) {
 		$sensor_id = $sensor['id'];
+
+		if (!empty($latest_sensor_values[$sensor_id])) {
+			$sensor_obj = $sensor_builder->build($sensor);
+			$sensor['latest'] = $sensor_obj->formatValue($latest_sensor_values[$sensor_id]);
+		}
 
 		if ($single_sensor_id && $sensor_id !== $single_sensor_id) {
 			continue;

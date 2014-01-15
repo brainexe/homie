@@ -20,4 +20,11 @@ class LoadSensor implements SensorInterface {
 		return sys_getloadavg()[0];
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
+	public function formatValue($value) {
+		return $value;
+	}
+
 }

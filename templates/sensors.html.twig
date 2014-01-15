@@ -4,7 +4,10 @@
 
 	<div class="btn-group btn-group-justified">
 		{% for sensor in sensors %}
-			<a class="btn {% if single_sensor_id and single_sensor_id == sensor.id %}btn-info{% else %}btn-default{% endif %}" href="/sensors/{{ sensor.id }}">{{ sensor.name }}</a>
+			<a class="btn {% if single_sensor_id and single_sensor_id == sensor.id %}btn-info{% else %}btn-default{% endif %}" href="/sensors/{{ sensor.id }}">
+				{{ sensor.name }}
+				{% if sensor.latest %}({{ sensor.latest }}){% endif %}
+			</a>
 		{% endfor %}
 	</div>
 

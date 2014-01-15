@@ -2,7 +2,7 @@
 
 namespace Raspberry\Sensors\Sensors;
 
-class TemperatureOnBoardSensor implements SensorInterface {
+class TemperatureOnBoardSensor extends AbstractTemperatureSensor {
 
 	const PATH = '/sys/class/thermal/thermal_zone0/temp';
 	const TYPE = 'temperature_onboard';
@@ -21,4 +21,5 @@ class TemperatureOnBoardSensor implements SensorInterface {
 		$temp = file_get_contents(self::PATH);
 		return $temp / 1000;
 	}
+
 }

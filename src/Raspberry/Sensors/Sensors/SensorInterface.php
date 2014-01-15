@@ -15,4 +15,9 @@ interface SensorInterface {
 	 */
 	public function getValue($pin);
 
+	/**
+	 * @param double $value
+	 * @return string
+	 */
+	public function formatValue($value);
 } 
