@@ -13,7 +13,8 @@ $builder->setParameter('db.password', '');
 $builder->register('PDO', 'PDO')
 	->addArgument("mysql:host=%db.host%;dbname=%db.database%")
 	->addArgument("%db.user%")
-	->addArgument("%db.password%");
+	->addArgument("%db.password%")
+	->addArgument([PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']);
 
 $builder->register('Chart', 'Raspberry\Chart\Chart');
 $builder->register('LocalClient', 'Raspberry\Client\LocalClient');

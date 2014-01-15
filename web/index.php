@@ -29,8 +29,8 @@ $app->error(function (\Exception $e) use ($app, $twig) {
 	));
 });
 
-$app->get('/', function() use ($twig, $dic) {
-	echo $twig->render('index.html.twig');
+$app->get('/', function() use ($app) {
+	$app->redirect('/sensors/');
 });
 
 $app->get('/sensors/(:id)', function($single_sensor_id = null) use ($twig, $dic) {
