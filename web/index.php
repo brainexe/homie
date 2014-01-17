@@ -18,6 +18,7 @@ $twig = new Twig_Environment($loader, array(
 	'cache' => '../cache/twig',
 	'auto_reload' => true
 ));
+$twig->addExtension(new Twig_Extension_Optimizer(Twig_NodeVisitor_Optimizer::OPTIMIZE_ALL));
 
 $app = new Slim(array(
 	'debug' => true
