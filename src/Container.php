@@ -16,14 +16,19 @@ $builder->register('PDO', 'PDO')
 	->addArgument("%db.password%")
 	->addArgument([PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']);
 
+$builder->register('Predis', 'Predis\Client');
+
 $builder->register('Chart', 'Raspberry\Chart\Chart');
 $builder->register('LocalClient', 'Raspberry\Client\LocalClient');
 
 $builder->register('GpioManager', 'Raspberry\Gpio\GpioManager')->addMethodCall('setLocalClient', [new Reference('LocalClient')]);
 
 $builder->register('SensorBuilder', 'Raspberry\Sensors\SensorBuilder');
-$builder->register('SensorGateway', 'Raspberry\Sensors\SensorGateway')->addMethodCall('setPDO', [new Reference('PDO')]);
-$builder->register('SensorValuesGateway', 'Raspberry\Sensors\SensorValuesGateway')->addMethodCall('setPDO', [new Reference('PDO')]);
+$builder->register('SensorGateway', 'Raspberry\Sensors\SensorGateway')
+	->addMethodCall('setPDO', [new Reference('PDO')]);
+$builder->register('SensorValuesGateway', 'Raspberry\Sensors\SensorValuesGateway')
+	->addMethodCall('setPredis', [new Reference('Predis')])
+	->addMethodCall('setPDO', [new Reference('PDO')]);
 
 $builder->register('RadioGateway', 'Raspberry\Radio\RadioGateway')->addMethodCall('setPDO', [new Reference('PDO')]);
 $builder->register('RadioJobGateway', 'Raspberry\Radio\RadioJobGateway')->addMethodCall('setPDO', [new Reference('PDO')]);

@@ -4,9 +4,13 @@ namespace Raspberry\Sensors;
 
 use PDO;
 use Raspberry\Traits\PDOTrait;
+use Raspberry\Traits\RedisCacheTrait;
 
 class SensorValuesGateway {
 	use PDOTrait;
+	use RedisCacheTrait;
+
+	const CACHE_KEY_LATEST = 'sensor_values';
 
 	/**
 	 * @param integer $sensor_id
@@ -17,6 +21,8 @@ class SensorValuesGateway {
 		$query = 'INSERT INTO sensor_values (sensor_id, value) VALUES (?, ?)';
 		$stm = $this->getPDO()->prepare($query);
 		$stm->execute([$sensor_id, $value]);
+
+		$this->invalidate(self::CACHE_KEY_LATEST);
 
 		return $this->getPDO()->lastInsertId();
 	}
@@ -49,19 +55,21 @@ class SensorValuesGateway {
 	 * @return double[]
 	 */
 	public function getLatestValue() {
-		$query = '
+		return $this->wrapCache(self::CACHE_KEY_LATEST, function() {
+			$query = '
 			SELECT sensor_id, value
 			FROM sensor_values
 			WHERE id IN (
-				SELECT max(id)
+				SELECT MAX(id)
 				FROM sensor_values
 				GROUP BY sensor_id
 			);';
 
-		$stm = $this->getPDO()->prepare($query);
-		$stm->execute();
+			$stm = $this->getPDO()->prepare($query);
+			$stm->execute();
 
-		return $stm->fetchAll(PDO::FETCH_KEY_PAIR);
+			return $stm->fetchAll(PDO::FETCH_KEY_PAIR);
+		});
 	}
 
 } 
