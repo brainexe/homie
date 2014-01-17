@@ -2,6 +2,7 @@
 
 namespace Raspberry\Sensors;
 
+use PDO;
 use Raspberry\Traits\PDOTrait;
 
 class SensorGateway {
@@ -43,6 +44,6 @@ class SensorGateway {
 		$stm = $this->getPDO()->prepare($query);
 		$stm->execute([$sensor_id]);
 
-		return $stm->fetch(\PDO::FETCH_ASSOC);
+		return $stm->fetch(PDO::FETCH_ASSOC);
 	}
 } 

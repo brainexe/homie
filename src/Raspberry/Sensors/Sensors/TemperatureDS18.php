@@ -31,6 +31,13 @@ class TemperatureDS18 extends AbstractTemperatureSensor {
 			return null;
 		}
 
-		return $matches[1]/1000;
+		$temperature = $matches[1]/1000;
+
+		$invalid_temperatures = [0.0, 85.0];
+		if (in_array($temperature, $invalid_temperatures)) {
+			return null;
+		}
+
+		return $temperature;
 	}
 }

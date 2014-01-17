@@ -11,22 +11,32 @@ class SensorValuesGateway {
 	/**
 	 * @param integer $sensor_id
 	 * @param double $value
+	 * @return integer $sensor_id
 	 */
 	public function addValue($sensor_id, $value) {
 		$query = 'INSERT INTO sensor_values (sensor_id, value) VALUES (?, ?)';
 		$stm = $this->getPDO()->prepare($query);
 		$stm->execute([$sensor_id, $value]);
+
+		return $this->getPDO()->lastInsertId();
 	}
 
 	/**
 	 * @param integer $sensor_id
+	 * @param integer $from
 	 * @return array[]
 	 */
-	public function getSensorValues($sensor_id) {
-		$query = 'SELECT *, UNIX_TIMESTAMP(timestamp) AS timestamp FROM sensor_values WHERE sensor_id = ? ORDER BY timestamp ASC';
+	public function getSensorValues($sensor_id, $from) {
+		$query = '
+			SELECT *, UNIX_TIMESTAMP(timestamp) AS timestamp
+			FROM sensor_values
+			WHERE sensor_id = ?
+			ORDER BY timestamp ASC
+			AND timestamp >= ?
+		';
 
 		$stm = $this->getPDO()->prepare($query);
-		$stm->execute([$sensor_id]);
+		$stm->execute([$sensor_id, $from]);
 
 		return $stm->fetchAll(PDO::FETCH_ASSOC);
 	}

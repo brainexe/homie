@@ -30,5 +30,7 @@ foreach ($sensors as $sensor_data) {
 		}
 
 		$sensor_values_gateway->addValue($sensor_data['id'], $value);
+
+		sleep(2);
 	}
 }
