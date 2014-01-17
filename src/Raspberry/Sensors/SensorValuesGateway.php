@@ -31,9 +31,13 @@ class SensorValuesGateway {
 			SELECT *, UNIX_TIMESTAMP(timestamp) AS timestamp
 			FROM sensor_values
 			WHERE sensor_id = ?
+			AND timestamp >= FROM_UNIXTIME(?)
 			ORDER BY timestamp ASC
-			AND timestamp >= ?
 		';
+
+		if ($from) {
+			$from = time() - $from;
+		}
 
 		$stm = $this->getPDO()->prepare($query);
 		$stm->execute([$sensor_id, $from]);

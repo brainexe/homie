@@ -34,7 +34,7 @@ $app->get('/', function() use ($app) {
 	$app->redirect('/sensors/');
 });
 
-$app->get('/sensors/(:id)', function($single_sensor_id = null) use ($twig, $dic) {
+$app->get('/sensors/(:id)', function($single_sensor_id = null) use ($twig, $dic, $app) {
 	/** @var SensorGateway $sensor_gateway */
 	/** @var SensorValuesGateway $sensor_values_gateway */
 	/** @var Chart $chart */
@@ -50,6 +50,8 @@ $app->get('/sensors/(:id)', function($single_sensor_id = null) use ($twig, $dic)
 
 	$sensor_values = [];
 
+	$from = (int)$app->request()->params('from');
+
 	foreach ($sensors as &$sensor) {
 		$sensor_id = $sensor['id'];
 
@@ -61,7 +63,7 @@ $app->get('/sensors/(:id)', function($single_sensor_id = null) use ($twig, $dic)
 		if ($single_sensor_id && $sensor_id !== $single_sensor_id) {
 			continue;
 		}
-		$sensor_values[$sensor_id] = $sensor_values_gateway->getSensorValues($sensor_id);
+		$sensor_values[$sensor_id] = $sensor_values_gateway->getSensorValues($sensor_id, $from);
 	}
 
 	$json = $chart->formatJsonData($sensors, $sensor_values);
@@ -69,7 +71,15 @@ $app->get('/sensors/(:id)', function($single_sensor_id = null) use ($twig, $dic)
 	echo $twig->render('sensors.html.twig', [
 		'sensors' => $sensors,
 		'single_sensor_id' => $single_sensor_id,
-		'json' => $json
+		'json' => $json,
+		'current_from' => $from,
+		'from_intervals' => [
+			0 => 'All',
+			3600 => 'Last Hour',
+			86400 => 'Last Day',
+			86400*7 => 'Last Week',
+			86400*30 => 'Last Month',
+		]
 	]);
 });
 

@@ -19,6 +19,10 @@ class TemperatureDS18 extends AbstractTemperatureSensor {
 	 */
 	public function getValue($pin) {
 		$path = sprintf('/sys/bus/w1/devices/%s/w1_slave', $pin);
+		if (!is_file($path)) {
+			return null;
+		}
+
 		$content = file_get_contents($path);
 
 		if (strpos($content, 'YES') === false) {
