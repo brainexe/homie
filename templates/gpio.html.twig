@@ -1,4 +1,31 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+
+		<tbody>
+		{% for pin in pins %}
+			<tr>
+				<td>{{ pin.getID() }}</td>
+				<td>
+					{#Direction#}
+					<a href="/gpio/set/{{ pin.getID() }}/{{ pin.getDirection() == 'in' ? "0" : "1" }}/{{ pin.getValue() ? "1" : "0"}}/" class="btn btn-{{ pin.getDirection() == 'out' ? 'success' : 'info'}}">
+						{{ pin.getDirection() }}
+					</a>
+
+					{#Value#}
+					<a href="/gpio/set/{{ pin.getID() }}/{{ pin.getDirection() == 'in' ? "1" : "0" }}/{{ pin.getValue() ? "0" : "1" }}/" class="btn btn-{{ pin.getValue() ? 'success' : 'danger'}}">
+						{{ pin.getValue() ? 'low' : 'heigh' }}
+					</a>
+				</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
 {% endblock %}

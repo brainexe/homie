@@ -54,9 +54,9 @@ $app->get('/sensors/(:id)', function($single_sensor_id = null) use ($twig, $dic,
 	foreach ($sensors as &$sensor) {
 		$sensor_id = $sensor['id'];
 
-		if (!empty($latest_sensor_values[$sensor_id])) {
+		if (!empty($sensor['last_value'])) {
 			$sensor_obj = $sensor_builder->build($sensor);
-			$sensor['latest'] = $sensor_obj->formatValue($latest_sensor_values[$sensor_id]);
+			$sensor['last_value'] = $sensor_obj->formatValue($sensor['last_value']);
 		}
 
 		if ($single_sensor_id && $sensor_id !== $single_sensor_id) {
@@ -95,9 +95,18 @@ $app->get('/gpio/', function() use ($twig, $dic) {
 	/** @var GpioManager $gpio_manager */
 	$gpio_manager = $dic->get('GpioManager');
 
-	$gpios = $gpio_manager->getPins();
+	$pins = $gpio_manager->getPins();
 
-	echo $twig->render('gpio.html.twig', ['gpio' => $gpios ]);
+	echo $twig->render('gpio.html.twig', ['pins' => $pins ]);
+});
+
+$app->get('/gpio/set/:id/:status/:value/', function($id, $status, $value) use ($twig, $dic, $app) {
+	/** @var GpioManager $gpio_manager */
+	$gpio_manager = $dic->get('GpioManager');
+
+	$gpio_manager->setPin($id, $status, $value);
+
+	$app->redirect('/gpio/');
 });
 
 $app->run();
