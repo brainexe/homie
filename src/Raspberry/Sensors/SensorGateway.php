@@ -12,7 +12,7 @@ class SensorGateway {
 	 * @return array[]
 	 */
 	public function getSensors() {
-		$query = 'SELECT * from sensors ORDER BY name';
+		$query = 'SELECT * FROM sensors ORDER BY name';
 
 		$stm = $this->getPDO()->prepare($query);
 		$stm->execute();

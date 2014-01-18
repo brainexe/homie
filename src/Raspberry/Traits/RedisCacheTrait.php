@@ -32,7 +32,8 @@ trait RedisCacheTrait {
 
 		$value = $callback();
 
-		$this->_predis->SET($key, serialize($value), 'EX', $ttl);
+		$this->_predis->SET($key, serialize($value));
+		$this->_predis->EXPIRE($key, $ttl);
 
 		return $value;
 	}

@@ -15,16 +15,15 @@ class SensorValuesGateway {
 	/**
 	 * @param integer $sensor_id
 	 * @param double $value
-	 * @return integer $sensor_id
 	 */
 	public function addValue($sensor_id, $value) {
 		$query = 'INSERT INTO sensor_values (sensor_id, value) VALUES (?, ?)';
 		$stm = $this->getPDO()->prepare($query);
 		$stm->execute([$sensor_id, $value]);
 
-		$this->invalidate(self::CACHE_KEY_LATEST);
-
-		return $this->getPDO()->lastInsertId();
+		$query = 'UPDATE sensors SET last_value = ? WHERE id = ?';
+		$stm = $this->getPDO()->prepare($query);
+		$stm->execute([$value, $sensor_id]);
 	}
 
 	/**
@@ -49,27 +48,6 @@ class SensorValuesGateway {
 		$stm->execute([$sensor_id, $from]);
 
 		return $stm->fetchAll(PDO::FETCH_ASSOC);
-	}
-
-	/**
-	 * @return double[]
-	 */
-	public function getLatestValue() {
-		return $this->wrapCache(self::CACHE_KEY_LATEST, function() {
-			$query = '
-			SELECT sensor_id, value
-			FROM sensor_values
-			WHERE id IN (
-				SELECT MAX(id)
-				FROM sensor_values
-				GROUP BY sensor_id
-			);';
-
-			$stm = $this->getPDO()->prepare($query);
-			$stm->execute();
-
-			return $stm->fetchAll(PDO::FETCH_KEY_PAIR);
-		});
 	}
 
 } 

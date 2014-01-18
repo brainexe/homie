@@ -46,7 +46,6 @@ $app->get('/sensors/(:id)', function($single_sensor_id = null) use ($twig, $dic,
 	$sensor_gateway = $dic->get('SensorGateway');
 
 	$sensors = $sensor_gateway->getSensors();
-	$latest_sensor_values = $sensor_values_gateway->getLatestValue();
 
 	$sensor_values = [];
 

@@ -95,7 +95,7 @@
 		{% for sensor in sensors %}
 			<a class="btn {% if single_sensor_id and single_sensor_id == sensor.id %}btn-info{% else %}btn-default{% endif %}" href="/sensors/{{ sensor.id }}?from={{ current_from }}">
 				{{ sensor.name }}
-				{% if sensor.latest %}({{ sensor.latest }}){% endif %}
+				{% if sensor.last_value %}({{ sensor.last_value }}){% endif %}
 			</a>
 		{% endfor %}
 	</div>
