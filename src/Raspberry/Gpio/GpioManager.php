@@ -3,6 +3,7 @@
 namespace Raspberry\Gpio;
 
 use Raspberry\Client\LocalClient;
+use Raspberry\Client\LocalManager;
 use Raspberry\Traits\PDOTrait;
 use Sly\RPIManager\IO\GPIO\Collection\PinsCollection;
 use Sly\RPIManager\IO\GPIO\Manager;
@@ -27,7 +28,7 @@ class GpioManager {
 	 */
 	public function getPins() {
 		try {
-			$manager = new Manager($this->_local_client);
+			$manager = new LocalManager($this->_local_client);
 			return $manager->getPins();
 		} catch (\RuntimeException $e) {
 			$collection = new PinsCollection();

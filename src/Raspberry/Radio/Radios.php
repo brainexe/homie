@@ -28,14 +28,19 @@ class Radios {
 		$this->_radio_gateway = $radio_gateway;
 	}
 
+	/**
+	 * @return array[]
+	 */
 	public function getRadios() {
 		$radios_raw = $this->_radio_gateway->getRadios();
+		$radios_formatted = [];
 
 		foreach ($radios_raw as $radio_raw) {
-			$radio_raw['status'] = $this->radio_controller->getStatus($radio_raw['pin']);
+			$radio_raw['status'] = $this->radio_controller->getStatus($radio_raw['code'], $radio_raw['pin']);
+			$radios_formatted[$radio_raw['id']] = $radio_raw;
 		}
 
-		return $radios_raw;
+		return $radios_formatted;
 	}
 
-} 
+}

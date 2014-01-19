@@ -2,6 +2,7 @@
 
 namespace Raspberry\Radio;
 
+use PDO;
 use Raspberry\Traits\PDOTrait;
 
 class RadioGateway {
@@ -16,7 +17,7 @@ class RadioGateway {
 		$stm = $this->getPDO()->prepare($query);
 		$stm->execute();
 
-		return $stm->fetchAll(\PDO::FETCH_ASSOC);
+		return $stm->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	/**

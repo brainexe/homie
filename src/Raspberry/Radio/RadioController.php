@@ -3,14 +3,13 @@
 namespace Raspberry\Radio;
 
 use Raspberry\Client\LocalClient;
-use Sly\RPIManager\IO\RadioGPIO\Collection\PointsCollection;
-use Sly\RPIManager\IO\RadioGPIO\Manager;
-use Sly\RPIManager\IO\RadioGPIO\Model\Point;
 
 class RadioController {
 	const STATUS_ENABLED = 'enabled';
 	const STATUS_DISABLED = 'disabled';
 	const STATUS_UNKNOWN = 'unknown';
+
+	const BASE_COMMAND = '/opt/rcswitch-pi/send';
 
 	/**
 	 * @var LocalClient
@@ -25,35 +24,32 @@ class RadioController {
 	}
 
 	/**
-	 * @todo
-	 * @param string $pin
+	 * @param string $code
+	 * @param integer $number
 	 * @param boolean $status
 	 */
-	public function setStatus($pin, $status) {
+	public function setStatus($code, $number, $status) {
+		switch ($status) {
+			case self::STATUS_ENABLED:
+			case true:
+				$status = true;
+				break;
 
-		$points = new PointsCollection();
-
-		$point = new Point('light1');
-		$point->setName('Light 1');
-		$point->setCode('00100');
-		$point->setNumber(2);
-
-		$points->add($point);
-
-		$manager = new Manager($this->_local_client, $points);
-
-		var_dump($manager->getPoints());
-		var_dump($manager->getPoints()->get('light1'));
-
-		$manager->switchOff('light1');
+			case self::STATUS_DISABLED:
+			default:
+				$status = false;
+				break;
+		}
+		$command = sprintf('%s %s %d 1', self::BASE_COMMAND, $code, $number, (int)$status);
+		$this->_local_client->execute($command);
 	}
 
 	/**
-	 * @todo
-	 * @param string $pin
+	 * @param string $code
+	 * @param integer $number
 	 * @return string
 	 */
-	public function getStatus($pin) {
+	public function getStatus($code, $number) {
 		return self::STATUS_UNKNOWN;
 	}
 } 

@@ -1,8 +1,9 @@
 <?php
 
+use Predis\Client;
 use Raspberry\Chart\Chart;
 use Raspberry\Gpio\GpioManager;
-use Raspberry\Radio\RadioGateway;
+use Raspberry\Radio\RadioController;
 use Raspberry\Radio\Radios;
 use Raspberry\Sensors\SensorBuilder;
 use Raspberry\Sensors\SensorGateway;
@@ -89,6 +90,20 @@ $app->get('/radio/', function() use ($twig, $dic) {
 	$radios_formatted = $radios->getRadios();
 
 	echo $twig->render('radio.html.twig', ['radios' => $radios_formatted ]);
+});
+
+$app->get('/radio/:id/:status/', function($id, $status) use ($app, $dic) {
+	/** @var Radios $radios */
+	/** @var Client $predis */
+	$predis = $dic->get('Predis');
+	$radios = $dic->get('Radios');
+
+	$radio = $radios->getRadios()[$id];
+	$radio['status'] = $status;
+
+	$predis->PUBLISH('radio_changes', serialize($radio));
+
+	$app->redirect('/radio/');
 });
 
 $app->get('/gpio/', function() use ($twig, $dic) {

@@ -16,7 +16,8 @@ $builder->register('PDO', 'PDO')
 	->addArgument("%db.password%")
 	->addArgument([PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']);
 
-$builder->register('Predis', 'Predis\Client');
+$builder->register('Predis', 'Predis\Client')
+	->addArgument(['read_write_timeout' => 0]);
 
 $builder->register('Chart', 'Raspberry\Chart\Chart');
 $builder->register('LocalClient', 'Raspberry\Client\LocalClient');
@@ -32,7 +33,8 @@ $builder->register('SensorValuesGateway', 'Raspberry\Sensors\SensorValuesGateway
 
 $builder->register('RadioGateway', 'Raspberry\Radio\RadioGateway')->addMethodCall('setPDO', [new Reference('PDO')]);
 $builder->register('RadioJobGateway', 'Raspberry\Radio\RadioJobGateway')->addMethodCall('setPDO', [new Reference('PDO')]);
-$builder->register('RadioController', 'Raspberry\Radio\RadioController');
+$builder->register('RadioController', 'Raspberry\Radio\RadioController')
+	->addMethodCall('setLocalClient', [new Reference('LocalClient')]);
 $builder->register('Radios', 'Raspberry\Radio\Radios')
 	->addMethodCall('setRadioController', [new Reference('RadioController')])
 	->addMethodCall('setRadioGateway', [new Reference('RadioGateway')]);

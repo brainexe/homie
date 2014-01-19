@@ -16,8 +16,8 @@
 				<tr>
 					<td>{{ radio.id }}</td>
 					<td>{{ radio.name }}</td>
-					<td><a href="/sensors/set/{{ radio.id }}/1/" class="btn btn-success">Enable</a></td>
-					<td><a href="/sensors/set/{{ radio.id }}/0/" class="btn btn-danger">Disable</a></td>
+					<td><a href="/radio/{{ radio.id }}/1/" class="btn btn-success">Enable</a></td>
+					<td><a href="/radio/{{ radio.id }}/0/" class="btn btn-danger">Disable</a></td>
 				</tr>
 			{% endfor %}
 		</tbody>

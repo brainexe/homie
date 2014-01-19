@@ -31,7 +31,7 @@ class TemperatureDS18 extends AbstractTemperatureSensor {
 		}
 
 		$matches = null;
-		if (!preg_match('/t=(\d+)$/', $content, $matches)) {
+		if (!preg_match('/t=(\-\d+)$/', $content, $matches)) {
 			return null;
 		}
 
