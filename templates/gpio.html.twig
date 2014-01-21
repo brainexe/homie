@@ -5,7 +5,9 @@
 		<thead>
 			<tr>
 				<th>#</th>
-				<th>Status</th>
+				<th>Name</th>
+				<th>Value</th>
+				<th>Direction</th>
 			</tr>
 		</thead>
 
@@ -13,15 +15,17 @@
 		{% for pin in pins %}
 			<tr>
 				<td>{{ pin.getID() }}</td>
+				<td>{{ pin.getName() }}</td>
+				<td>
+					{#Value#}
+					<a href="/gpio/set/{{ pin.getID() }}/{{ pin.getDirection() == 'IN' ? "1" : "0" }}/{{ pin.getValue() ? "0" : "1" }}/" class="btn btn-{{ pin.getValue() ? 'success' : 'danger'}}">
+						{{ pin.getValue() ? 'OFF' : 'ON' }}
+					</a>
+				</td>
 				<td>
 					{#Direction#}
-					<a href="/gpio/set/{{ pin.getID() }}/{{ pin.getDirection() == 'in' ? "0" : "1" }}/{{ pin.getValue() ? "1" : "0"}}/" class="btn btn-{{ pin.getDirection() == 'out' ? 'success' : 'info'}}">
+					<a href="/gpio/set/{{ pin.getID() }}/{{ pin.getDirection() == 'IN' ? "0" : "1" }}/{{ pin.getValue() ? "1" : "0"}}/" class="btn btn-{{ pin.getDirection() == 'OUT' ? 'success' : 'info'}}">
 						{{ pin.getDirection() }}
-					</a>
-
-					{#Value#}
-					<a href="/gpio/set/{{ pin.getID() }}/{{ pin.getDirection() == 'in' ? "1" : "0" }}/{{ pin.getValue() ? "0" : "1" }}/" class="btn btn-{{ pin.getValue() ? 'success' : 'danger'}}">
-						{{ pin.getValue() ? 'low' : 'heigh' }}
 					</a>
 				</td>
 			</tr>

@@ -8,6 +8,7 @@ use Raspberry\Radio\Radios;
 use Raspberry\Sensors\SensorBuilder;
 use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorValuesGateway;
+use Raspberry\Twig\Extensions\SensorExtension;
 use Slim\Slim;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -20,6 +21,7 @@ $twig = new Twig_Environment($loader, array(
 	'auto_reload' => true
 ));
 $twig->addExtension(new Twig_Extension_Optimizer(Twig_NodeVisitor_Optimizer::OPTIMIZE_ALL));
+$twig->addExtension(new SensorExtension());
 
 $app = new Slim(array(
 	'debug' => true
@@ -35,7 +37,9 @@ $app->get('/', function() use ($twig) {
 	echo $twig->render('index.html.twig');
 });
 
-$app->get('/sensors/(:id)', function($single_sensor_id = null) use ($twig, $dic, $app) {
+$app->get('/sensors/(:ids)', function($active_sensor_ids = '') use ($twig, $dic, $app) {
+	$active_sensor_ids = array_filter(explode(':', $active_sensor_ids));
+
 	/** @var SensorGateway $sensor_gateway */
 	/** @var SensorValuesGateway $sensor_values_gateway */
 	/** @var Chart $chart */
@@ -52,15 +56,17 @@ $app->get('/sensors/(:id)', function($single_sensor_id = null) use ($twig, $dic,
 
 	$from = (int)$app->request()->params('from');
 
+	$available_sensor_ids = [];
 	foreach ($sensors as &$sensor) {
 		$sensor_id = $sensor['id'];
+		$available_sensor_ids[] = $sensor_id;
 
 		if (!empty($sensor['last_value'])) {
 			$sensor_obj = $sensor_builder->build($sensor);
 			$sensor['last_value'] = $sensor_obj->formatValue($sensor['last_value']);
 		}
 
-		if ($single_sensor_id && $sensor_id !== $single_sensor_id) {
+		if ($active_sensor_ids && !in_array($sensor_id, $active_sensor_ids)) {
 			continue;
 		}
 		$sensor_values[$sensor_id] = $sensor_values_gateway->getSensorValues($sensor_id, $from);
@@ -70,7 +76,7 @@ $app->get('/sensors/(:id)', function($single_sensor_id = null) use ($twig, $dic,
 
 	echo $twig->render('sensors.html.twig', [
 		'sensors' => $sensors,
-		'single_sensor_id' => $single_sensor_id,
+		'active_sensor_ids' => $active_sensor_ids ?: $available_sensor_ids,
 		'json' => $json,
 		'current_from' => $from,
 		'from_intervals' => [

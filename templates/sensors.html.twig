@@ -90,19 +90,18 @@
 {% endblock %}
 
 {% block content %}
-
 	<div class="btn-group btn-group-justified btn-group-x">
 		{% for sensor in sensors %}
-			<a class="btn {% if single_sensor_id and single_sensor_id == sensor.id %}btn-info{% else %}btn-default{% endif %}" href="/sensors/{{ sensor.id }}?from={{ current_from }}">
+			<a class="btn {% if sensor.id in active_sensor_ids %}btn-primary{% else %}btn-default{% endif %}" href="/sensors/{{ sensor.id|sensor(active_sensor_ids) }}?from={{ current_from }}">
 				{{ sensor.name }}
-				{% if sensor.last_value %}({{ sensor.last_value }}){% endif %}
+				{% if sensor.last_value %}<span class="label label-warning">{{ sensor.last_value }}</span>{% endif %}
 			</a>
 		{% endfor %}
 	</div>
 
 	<div class="btn-group btn-group-justified btn-group-xs">
 		{% for interval, label in from_intervals %}
-			<a class="btn {% if interval == current_from %}btn-info{% else %}btn-default{% endif %}" href="?from={{ interval }}">
+			<a class="btn {% if interval == current_from %}btn-primary{% else %}btn-default{% endif %}" href="?from={{ interval }}">
 				{{ label }}
 			</a>
 		{% endfor %}

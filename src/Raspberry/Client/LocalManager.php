@@ -41,17 +41,19 @@ class LocalManager extends Manager {
 	private function init() {
 		$results = $this->client->execute(self::GPIO_COMMAND_READALL);
 		$results = explode("\n", $results);
+		$results = array_slice($results, 3, -2);
 
 		foreach ($results as $r) {
-			if (preg_match('/^\|(.*?)\|(.*?)\|(.*?)\|(.*?)\|(.*?)\|$/', $r, $matches)) {
-				$pin = new Pin();
-				$pin->setID(trim($matches[1]));
-				$pin->setName(trim($matches[3]));
-				$pin->setDirection(trim($matches[1]));
-				$pin->setValue(Pin::VALUE_HIGH == trim($matches[1]) ? true : false);
+			$matches = explode('|', $r);
+			$matches = array_map('trim', $matches);
 
-				$this->pins->add($pin);
-			}
+			$pin = new Pin();
+			$pin->setID($matches[1]);
+			$pin->setName($matches[4]);
+			$pin->setDirection($matches[5]);
+			$pin->setValue((int)('High' == $matches[6]));
+
+			$this->pins->add($pin);
 		}
 	}
 
