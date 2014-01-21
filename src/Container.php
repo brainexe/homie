@@ -22,7 +22,11 @@ $builder->register('Predis', 'Predis\Client')
 $builder->register('Chart', 'Raspberry\Chart\Chart');
 $builder->register('LocalClient', 'Raspberry\Client\LocalClient');
 
-$builder->register('GpioManager', 'Raspberry\Gpio\GpioManager')->addMethodCall('setLocalClient', [new Reference('LocalClient')]);
+$builder->register('GpioManager', 'Raspberry\Gpio\GpioManager')
+	->addMethodCall('setLocalClient', [new Reference('LocalClient')])
+	->addMethodCall('setPinGateway', [new Reference('PinGateway')]);
+$builder->register('PinGateway', 'Raspberry\Gpio\PinGateway')
+	->addMethodCall('setPDO', [new Reference('PDO')]);
 
 $builder->register('SensorBuilder', 'Raspberry\Sensors\SensorBuilder');
 $builder->register('SensorGateway', 'Raspberry\Sensors\SensorGateway')

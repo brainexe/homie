@@ -3,6 +3,7 @@
 use Predis\Client;
 use Raspberry\Chart\Chart;
 use Raspberry\Gpio\GpioManager;
+use Raspberry\Gpio\PinGateway;
 use Raspberry\Radio\RadioController;
 use Raspberry\Radio\Radios;
 use Raspberry\Sensors\SensorBuilder;

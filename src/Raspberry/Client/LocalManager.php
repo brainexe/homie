@@ -5,7 +5,6 @@ namespace Raspberry\Client;
 use Sly\RPIManager\Client\ClientInterface;
 use Sly\RPIManager\IO\GPIO\Collection\PinsCollection;
 use Sly\RPIManager\IO\GPIO\Manager;
-use Sly\RPIManager\IO\GPIO\Model\Pin;
 
 class LocalManager extends Manager {
 	const GPIO_COMMAND_READALL   = 'gpio readall';
@@ -69,9 +68,9 @@ class LocalManager extends Manager {
 	/**
 	 * Update.
 	 *
-	 * @param \Sly\RPIManager\IO\GPIO\Model\Pin $pin Pin
+	 * @param Pin $pin Pin
 	 *
-	 * @return \Sly\RPIManager\IO\GPIO\Model\Pin
+	 * @return Pin
 	 */
 	public function update(Pin $pin) {
 		$pinValue = Pin::VALUE_HIGH == $pin->getValue() ? 1 : 0;

@@ -4,10 +4,10 @@ namespace Raspberry\Gpio;
 
 use Raspberry\Client\LocalClient;
 use Raspberry\Client\LocalManager;
+use Raspberry\Client\Pin;
 use Raspberry\Traits\PDOTrait;
 use Sly\RPIManager\IO\GPIO\Collection\PinsCollection;
 use Sly\RPIManager\IO\GPIO\Manager;
-use Sly\RPIManager\IO\GPIO\Model\Pin;
 
 class GpioManager {
 
@@ -15,6 +15,18 @@ class GpioManager {
 	 * @var LocalClient
 	 */
 	private $_local_client;
+
+	/**
+	 * @var PinGateway
+	 */
+	private $_pin_gateway;
+
+	/**
+	 * @param PinGateway $pin_gateway
+	 */
+	public function setPinGateway(PinGateway $pin_gateway) {
+		$this->_pin_gateway = $pin_gateway;
+	}
 
 	/**
 	 * @param LocalClient $local_client
@@ -27,26 +39,36 @@ class GpioManager {
 	 * @return PinsCollection
 	 */
 	public function getPins() {
+		$descriptions = $this->_pin_gateway->getPinDescriptions();
 		try {
 			$manager = new LocalManager($this->_local_client);
-			return $manager->getPins();
+			$collection = $manager->getPins();
 		} catch (\RuntimeException $e) {
 			$collection = new PinsCollection();
 
 			$pin = new Pin();
 			$pin->setID(2);
-			$pin->setDirection('out');
+			$pin->setName('GPIO 2');
+			$pin->setDirection('OUT');
 			$pin->setValue(true);
 			$collection->add($pin);
 
 			$pin = new Pin();
+			$pin->setName('GPIO 3');
 			$pin->setID(3);
-			$pin->setDirection('in');
+			$pin->setDirection('IN');
 			$pin->setValue(false);
 			$collection->add($pin);
-
-			return $collection;
 		}
+
+		foreach ($collection as $pin) {
+			/** @var Pin $pin */
+			if (!empty($descriptions[$pin->getId()])) {
+				$pin->setDescription($descriptions[$pin->getId()]);
+			}
+		}
+
+		return $collection;
 	}
 
 	/**
@@ -59,7 +81,7 @@ class GpioManager {
 		$pin = $manager->getPins()->get($id);
 
 		$pin->setDirection($status ? 'out' : 'in');
-		$pin->setValue((bool)$value);
+		$pin->setValue($value ? Pin::VALUE_HIGH : Pin::VALUE_LOW);
 
 		$manager->update($pin);
 	}

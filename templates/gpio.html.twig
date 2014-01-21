@@ -15,7 +15,12 @@
 		{% for pin in pins %}
 			<tr>
 				<td>{{ pin.getID() }}</td>
-				<td>{{ pin.getName() }}</td>
+				<td>
+					{{ pin.getName() }}
+					{% if pin.getDescription() %}
+						({{ pin.getDescription }})
+					{% endif %}
+				</td>
 				<td>
 					{#Value#}
 					<a href="/gpio/set/{{ pin.getID() }}/{{ pin.getDirection() == 'IN' ? "1" : "0" }}/{{ pin.getValue() ? "0" : "1" }}/" class="btn btn-{{ pin.getValue() ? 'success' : 'danger'}}">
