@@ -25,14 +25,15 @@
 
 	<script>
 		$(function(){
-			var graph = new Rickshaw.Graph( {
+			var graph = new Rickshaw.Graph({
 				element: document.getElementById("chart"),
 				width: 1000,
 				interpolation: 'basis',
 				height: 500,
+				min: 'auto',
 				renderer: 'line',
 				series: {{ json | json_encode | raw }}
-			} );
+			});
 
 			var axes = new Rickshaw.Graph.Axis.Time( { graph: graph } );
 
@@ -44,7 +45,6 @@
 			} );
 
 			graph.render();
-
 			var legend = document.querySelector('#legend');
 
 			var Hover = Rickshaw.Class.create(Rickshaw.Graph.HoverDetail, {
