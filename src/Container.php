@@ -43,4 +43,6 @@ $builder->register('Radios', 'Raspberry\Radio\Radios')
 	->addMethodCall('setRadioController', [new Reference('RadioController')])
 	->addMethodCall('setRadioGateway', [new Reference('RadioGateway')]);
 
+$builder->register('Espeak', 'Raspberry\Espeak\Espeak');
+
 return $builder;

@@ -20,4 +20,10 @@ interface SensorInterface {
 	 * @return string
 	 */
 	public function formatValue($value);
-} 
+
+	/**
+	 * @param float $value
+	 * @return string|null
+	 */
+	public function getEspeakText($value);
+}

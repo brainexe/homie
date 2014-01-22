@@ -2,6 +2,7 @@
 
 use Predis\Client;
 use Raspberry\Chart\Chart;
+use Raspberry\Espeak\Espeak;
 use Raspberry\Gpio\GpioManager;
 use Raspberry\Gpio\PinGateway;
 use Raspberry\Radio\RadioController;
@@ -65,6 +66,7 @@ $app->get('/sensors/(:ids)', function($active_sensor_ids = '') use ($twig, $dic,
 		if (!empty($sensor['last_value'])) {
 			$sensor_obj = $sensor_builder->build($sensor);
 			$sensor['last_value'] = $sensor_obj->formatValue($sensor['last_value']);
+			$sensor['espeak'] = (bool)$sensor_obj->getEspeakText($sensor['last_value']);
 		}
 
 		if ($active_sensor_ids && !in_array($sensor_id, $active_sensor_ids)) {
@@ -88,6 +90,22 @@ $app->get('/sensors/(:ids)', function($active_sensor_ids = '') use ($twig, $dic,
 			86400*30 => 'Last Month',
 		]
 	]);
+});
+$app->get('/sensors/espeak/(:id)', function($sensor_id) use ($dic, $app) {
+	/** @var SensorGateway $sensor_gateway */
+	/** @var SensorBuilder $sensor_builder */
+	/** @var Espeak $espeak */
+	$espeak = $dic->get('Espeak');
+	$sensor_gateway = $dic->get('SensorGateway');
+	$sensor_builder = $dic->get('SensorBuilder');
+
+	$sensor = $sensor_gateway->getSensor($sensor_id);
+	$sensor_obj = $sensor_builder->build($sensor);
+
+	$text = $sensor_obj->getEspeakText($sensor['last_value']);
+	$espeak->speak($text, 130, 70);
+
+	$app->redirect(sprintf('/sensors/%s', $sensor_id));
 });
 
 $app->get('/radio/', function() use ($twig, $dic) {
@@ -129,6 +147,21 @@ $app->get('/gpio/set/:id/:status/:value/', function($id, $status, $value) use ($
 	$gpio_manager->setPin($id, $status, $value);
 
 	$app->redirect('/gpio/');
+});
+
+$app->get('/espeak/', function() use ($twig) {
+	$speakers = Espeak::getSpeakers();
+	echo $twig->render('espeak.html.twig', ['speakers' => $speakers]);
+});
+
+$app->post('/espeak/', function() use ($dic, $app) {
+	/** @var Espeak $espeak */
+	$espeak = $dic->get('Espeak');
+
+	$speaker = $app->request()->post('speaker');
+	$espeak->speak($app->request()->post('text'), $app->request()->post('volume'), $app->request()->post('speed'), $speaker);
+
+	$app->redirect('/espeak/');
 });
 
 $app->run();

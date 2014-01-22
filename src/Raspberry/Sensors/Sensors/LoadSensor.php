@@ -27,4 +27,11 @@ class LoadSensor implements SensorInterface {
 		return $value;
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getEspeakText($value) {
+		return null;
+	}
+
 }

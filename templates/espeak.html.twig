@@ -1,0 +1,52 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+	<form action="/espeak/" method="POST" class="navbar-forms navbar-lefts">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="input-group">
+					  <span class="input-group-btn">
+						<button class="btn btn-default" type="button">Text</button>
+					  </span>
+					<input type="text" name="text" class="form-control" placeholder="Text"/>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="input-group">
+					<input type="submit" value="Speak" class="btn btn-success btn-lg"/>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="input-group">
+					  <span class="input-group-btn">
+						<button class="btn btn-default" type="button">Volume</button>
+					  </span>
+					<input type="number" class="form-control" max="200" min="0" name="volume" value="150"/>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="input-group">
+					  <span class="input-group-btn">
+							<button class="btn btn-default" type="button">Speed</button>
+					  </span>
+					<input type="number" class="form-control" max="200" min="0" name="speed" value="80"/>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="input-group">
+				  <span class="input-group-btn">
+						<button class="btn btn-default" type="button">Speaker</button>
+				  </span>
+					<select name="speaker" class="form-control">
+						{% for id, text in speakers %}
+							<option value="{{ id }}">{{ text }}</option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+		</div>
+	</form>
+{% endblock %}
+

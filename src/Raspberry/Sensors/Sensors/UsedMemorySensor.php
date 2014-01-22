@@ -25,4 +25,11 @@ class UsedMemorySensor implements SensorInterface {
 	 */
 	public function formatValue($value) {
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getEspeakText($value) {
+		return null;
+	}
 }
