@@ -3,10 +3,9 @@
 namespace Raspberry\Client;
 
 use RuntimeException;
-use Sly\RPIManager\Client\ClientInterface;
 use Symfony\Component\Process\Process;
 
-class LocalClient implements ClientInterface {
+class LocalClient {
 
 	/**
 	 * {@inheritdoc}

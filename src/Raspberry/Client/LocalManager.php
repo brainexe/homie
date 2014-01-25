@@ -2,32 +2,25 @@
 
 namespace Raspberry\Client;
 
-use Sly\RPIManager\Client\ClientInterface;
-use Sly\RPIManager\IO\GPIO\Collection\PinsCollection;
-use Sly\RPIManager\IO\GPIO\Manager;
-
-class LocalManager extends Manager {
+class LocalManager {
 	const GPIO_COMMAND_READALL   = 'gpio readall';
 	const GPIO_COMMAND_DIRECTION = 'gpio mode %d %s';
 	const GPIO_COMMAND_VALUE     = 'gpio write %d %d';
 
 	/**
-	 * @var \Sly\RPIManager\Client\ClientInterface
+	 * @var LocalClient
 	 */
 	private $client;
 
 	/**
-	 * @var \Sly\RPIManager\IO\GPIO\Collection\PinsCollection
+	 * @var PinsCollection
 	 */
 	private $pins;
 
 	/**
-	 * Constructor.
-	 *
-	 * @param \Sly\RPIManager\Client\ClientInterface $client Client
+	 * @param LocalClient $client Client
 	 */
-	public function __construct(ClientInterface $client)
-	{
+	public function __construct(LocalClient $client) {
 		$this->client = $client;
 		$this->pins   = new PinsCollection();
 
@@ -59,7 +52,7 @@ class LocalManager extends Manager {
 	/**
 	 * Get pins (and their statuses).
 	 *
-	 * @return \Sly\RPIManager\IO\GPIO\Collection\PinsCollection
+	 * @return PinsCollection
 	 */
 	public function getPins() {
 		return $this->pins;

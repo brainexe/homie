@@ -5,9 +5,8 @@ namespace Raspberry\Gpio;
 use Raspberry\Client\LocalClient;
 use Raspberry\Client\LocalManager;
 use Raspberry\Client\Pin;
+use Raspberry\Client\PinsCollection;
 use Raspberry\Traits\PDOTrait;
-use Sly\RPIManager\IO\GPIO\Collection\PinsCollection;
-use Sly\RPIManager\IO\GPIO\Manager;
 
 class GpioManager {
 
@@ -77,7 +76,7 @@ class GpioManager {
 	 * @param boolean $value
 	 */
 	public function setPin($id, $status, $value) {
-		$manager = new Manager($this->_local_client);
+		$manager = new LocalManager($this->_local_client);
 		$pin = $manager->getPins()->get($id);
 
 		$pin->setDirection($status ? 'out' : 'in');
