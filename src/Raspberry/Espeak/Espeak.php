@@ -23,6 +23,7 @@ class Espeak {
 			return;
 		}
 
-		system(sprintf('espeak "%s" -s %d -a %d  -v%s --stdout | aplay', $text, $speed, $volume, $speaker));
+//		system(sprintf('espeak "%s" -s %d -a %d  -v%ss --stdout | aplay', $text, $speed, $volume, $speaker));
+		system(sprintf('tts -l %s %s', 'de', $text));
 	}
 } 
