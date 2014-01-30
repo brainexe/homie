@@ -9,7 +9,7 @@ class RadioController {
 	const STATUS_DISABLED = 'disabled';
 	const STATUS_UNKNOWN = 'unknown';
 
-	const BASE_COMMAND = '/opt/rcswitch-pi/send';
+	const BASE_COMMAND = 'sudo /opt/rcswitch-pi/send';
 
 	/**
 	 * @var LocalClient
@@ -40,7 +40,7 @@ class RadioController {
 				$status = false;
 				break;
 		}
-		$command = sprintf('%s %s %d 1', self::BASE_COMMAND, $code, $number, (int)$status);
+		$command = sprintf('%s %s %d %d', self::BASE_COMMAND, $code, $number, (int)$status);
 		$this->_local_client->execute($command);
 	}
 
