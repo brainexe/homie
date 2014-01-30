@@ -3,6 +3,9 @@
 namespace Raspberry\Chart;
 
 class Chart {
+
+	const DEFAULT_TIME = 604800;
+
 	/**
 	 * @param array[] $sensors
 	 * @param array[] $sensor_values

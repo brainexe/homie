@@ -31,6 +31,8 @@ class SensorExtension extends Twig_Extension {
 			$available_sensors[] = $sensor_id;
 		}
 
+		sort($available_sensors);
+
 		return implode(':', $available_sensors);
 	}
 

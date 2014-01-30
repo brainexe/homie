@@ -56,7 +56,12 @@ $app->get('/sensors/(:ids)', function($active_sensor_ids = '') use ($twig, $dic,
 
 	$sensor_values = [];
 
-	$from = (int)$app->request()->params('from');
+	$from = $app->request()->params('from');
+	if ($from === null) {
+		$from = Chart::DEFAULT_TIME;
+	} else {
+		$from = (int)$from;
+	}
 
 	$available_sensor_ids = [];
 	foreach ($sensors as &$sensor) {
