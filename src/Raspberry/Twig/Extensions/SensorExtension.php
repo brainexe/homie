@@ -14,9 +14,9 @@ class SensorExtension extends Twig_Extension {
 	}
 
 	public function getFilters() {
-		return array(
+		return [
 			'sensor' => new \Twig_Filter_Method($this, 'sensorsFilter'),
-		);
+		];
 	}
 
 	/**
