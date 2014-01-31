@@ -15,8 +15,8 @@
 		"symfony/dependency-injection": "2.3.x-dev",
 		"symfony/process": "2.3.x-dev",
 		"twig/twig": "1.6.5",
-		"slim/slim": "2.3.1",
 		"predis/predis": "0.8.x-dev",
-		"monolog/monolog": "1.7.0"
+		"monolog/monolog": "1.7.0",
+		"silex/silex": "1.1.2"
 	}
 }

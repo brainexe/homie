@@ -9,6 +9,7 @@ $builder->setParameter('db.host', 'localhost');
 $builder->setParameter('db.database', 'raspberry');
 $builder->setParameter('db.user', 'root');
 $builder->setParameter('db.password', '');
+$builder->setParameter('debug', true);
 
 $builder->register('PDO', 'PDO')
 	->addArgument("mysql:host=%db.host%;dbname=%db.database%")
@@ -45,6 +46,7 @@ $builder->register('Radios', 'Raspberry\Radio\Radios')
 
 $builder->register('Espeak', 'Raspberry\Espeak\Espeak');
 
-$builder->register('Monolog.Logger', 'Monolog\Logger');
+$builder->register('Monolog.Logger', 'Monolog\Logger')
+	->addArgument('raspberry');
 
 return $builder;
