@@ -6,7 +6,7 @@ use Raspberry\Sensors\SensorValuesGateway;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /** @var ContainerBuilder $dic */
-$dic = include '../src/bootstrap.php';
+$dic = include __DIR__ . '/../src/bootstrap.php';
 
 $minute = date('i');
 
@@ -32,5 +32,12 @@ foreach ($sensors as $sensor_data) {
 		$sensor_values_gateway->addValue($sensor_data['id'], $value);
 
 		sleep(2);
+	}
+
+	if ($minute == 0 && date('G') == 0) {
+		$sensor_values_gateway->deleteOldValues(1, 25);
+		$sensor_values_gateway->deleteOldValues(3, 50);
+		$sensor_values_gateway->deleteOldValues(5, 75);
+		$sensor_values_gateway->deleteOldValues(10, 90);
 	}
 }

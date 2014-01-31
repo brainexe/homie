@@ -50,4 +50,19 @@ class SensorValuesGateway {
 		return $stm->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	/**
+	 * @param integer $days
+	 * @param integer $deleted_percent
+	 */
+	public function deleteOldValues($days, $deleted_percent) {
+		$query = '
+			DELETE FROM sensor_values
+			WHERE (crc32(MD5(id)) % 100 < ?)
+			AND timestamp < (DATE_SUB(NOW(), INTERVAL ? DAY));
+		';
+
+		$stm = $this->getPDO()->prepare($query);
+		$stm->execute([$deleted_percent, $days]);
+	}
+
 } 

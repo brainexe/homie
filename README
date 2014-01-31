@@ -1,3 +1,7 @@
+
+Delete Old entries
+
 DELETE FROM sensor_values
-WHERE (crc32(MD5(id))% 100 < 70)
-AND timestamp < FROM_UNIXTIME(1391106323-3600*24*3);
+WHERE (crc32(MD5(id)) % 100 < 75)
+AND timestamp < (DATE_SUB(NOW(), INTERVAL 3 DAY));
+

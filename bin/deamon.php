@@ -5,7 +5,7 @@ use Raspberry\Radio\RadioController;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /** @var ContainerBuilder $dic */
-$dic = include '../src/bootstrap.php';
+$dic = include __DIR__ . '/../src/bootstrap.php';
 
 /** @var RadioController $radio_controller */
 /** @var Client $predis */

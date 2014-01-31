@@ -45,4 +45,6 @@ $builder->register('Radios', 'Raspberry\Radio\Radios')
 
 $builder->register('Espeak', 'Raspberry\Espeak\Espeak');
 
+$builder->register('Monolog.Logger', 'Monolog\Logger');
+
 return $builder;
