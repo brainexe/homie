@@ -4,7 +4,7 @@ namespace Raspberry\Sensors\Sensors;
 
 use Symfony\Component\Process\Process;
 
-class HumidDHT11Sensor implements SensorInterface {
+class HumidDHT11Sensor extends AbstractDHT11Sensor {
 
 	const TYPE = 'humid_dht11';
 
@@ -20,23 +20,16 @@ class HumidDHT11Sensor implements SensorInterface {
 	 * @return double
 	 */
 	public function getValue($pin) {
-		$command = sprintf('sudo /opt/Adafruit-Raspberry-Pi-Python-Code/Adafruit_DHT_Driver/Adafruit_DHT 11 %d', $pin);
-
-		$process = new Process($command);
-		$process->run();
-
-		if ($process->isSuccessful()) {
-			$output = $process->getOutput();
-			if (strpos($output, 'Hum') === false) {
-				return null;
-			}
-
-			if (preg_match('/Hum = (\d+) %/', $output, $matches)) {
-				return (double)$matches[1];
-			}
+		$output = $this->getContent($pin);
+		if (!$output) {
+			return null;
 		}
 
-		return null;
+		if (!preg_match('/Hum = (\d+) %/', $output, $matches)) {
+			return null;
+		}
+
+		return (double)$matches[1];
 	}
 
 	/**
@@ -52,6 +45,7 @@ class HumidDHT11Sensor implements SensorInterface {
 	 * @return string|null
 	 */
 	public function getEspeakText($value) {
-		return sprintf('Luftfeuchtigkeit %d%%', $value);
+		return sprintf('%d Prozent', $value);
 	}
+
 }

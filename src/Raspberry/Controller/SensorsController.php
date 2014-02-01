@@ -54,6 +54,8 @@ class SensorsController implements ControllerProviderInterface {
 					$sensor_obj = $sensor_builder->build($sensor);
 					$sensor['last_value'] = $sensor_obj->formatValue($sensor['last_value']);
 					$sensor['espeak'] = (bool)$sensor_obj->getEspeakText($sensor['last_value']);
+				} else {
+					$sensor['espeak'] = false;
 				}
 
 				if ($active_sensor_ids && !in_array($sensor_id, $active_sensor_ids)) {

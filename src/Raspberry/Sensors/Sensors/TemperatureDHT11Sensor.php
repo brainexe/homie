@@ -2,7 +2,9 @@
 
 namespace Raspberry\Sensors\Sensors;
 
-class TemperatureDHT11Sensor extends AbstractTemperatureSensor {
+use Symfony\Component\Process\Process;
+
+class TemperatureDHT11Sensor extends AbstractDHT11Sensor {
 
 	const TYPE =  'temp_dht11';
 
@@ -18,6 +20,30 @@ class TemperatureDHT11Sensor extends AbstractTemperatureSensor {
 	 * @return double
 	 */
 	public function getValue($pin) {
-		// TODO: Implement getValue() method.
+		$output = $this->getContent($pin);
+
+		if (!$output) {
+			return null;
+		}
+
+		if (!preg_match('/Temp = (\d+) /', $output, $matches)) {
+			return null;
+		}
+
+		return (double)$matches[1];
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function formatValue($value) {
+		return sprintf('%1.2f°', $value);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getEspeakText($value) {
+		return str_replace('.', ',', sprintf('Es ist %0.1f Grad warm.', $value));
 	}
 }
