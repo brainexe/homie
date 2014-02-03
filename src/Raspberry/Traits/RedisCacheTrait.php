@@ -3,6 +3,7 @@
 namespace Raspberry\Traits;
 
 use Predis\Client;
+use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
 
 trait RedisCacheTrait {
 
@@ -12,7 +13,7 @@ trait RedisCacheTrait {
 	private $_predis;
 
 	/**
-	 * @param Client $client
+	 * @DI\Inject("@Predis")
 	 */
 	public function setPredis(Client $client) {
 		$this->_predis = $client;

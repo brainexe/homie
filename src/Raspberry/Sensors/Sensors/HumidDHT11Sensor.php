@@ -3,7 +3,11 @@
 namespace Raspberry\Sensors\Sensors;
 
 use Symfony\Component\Process\Process;
+use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
 
+/**
+ * @DI\Service(public=false, tags={{"name" = "sensor"}})
+ */
 class HumidDHT11Sensor extends AbstractDHT11Sensor {
 
 	const TYPE = 'humid_dht11';

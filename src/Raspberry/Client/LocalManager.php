@@ -1,7 +1,11 @@
 <?php
 
 namespace Raspberry\Client;
+use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
 
+/**
+ * @DI\Service(public=false)
+ */
 class LocalManager {
 	const GPIO_COMMAND_READALL   = 'gpio readall';
 	const GPIO_COMMAND_DIRECTION = 'gpio mode %d %s';

@@ -17,6 +17,7 @@
 		"twig/twig": "1.6.5",
 		"predis/predis": "0.8.x-dev",
 		"monolog/monolog": "1.7.0",
-		"silex/silex": "1.1.2"
+		"silex/silex": "1.1.2",
+		"loso/di-annotations-bundle": "dev-master"
 	}
 }

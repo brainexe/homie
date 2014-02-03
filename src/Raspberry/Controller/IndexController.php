@@ -3,9 +3,19 @@
 namespace Raspberry\Controller;
 
 use Silex\Application;
-use Silex\ControllerProviderInterface;
+use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
 
-class IndexController implements ControllerProviderInterface {
+/**
+ * @DI\Service(name="Controller.IndexController", public=false, tags={{"name" = "controller"}})
+ */
+class IndexController implements ControllerInterface {
+
+	/**
+	 * @return string
+	 */
+	public function getPath() {
+		return '/';
+	}
 
 	public function connect(Application $app) {
 		$controllers = $app['controllers_factory'];

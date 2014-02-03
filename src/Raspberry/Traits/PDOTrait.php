@@ -3,6 +3,7 @@
 namespace Raspberry\Traits;
 
 use PDO;
+use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
 
 trait PDOTrait {
 
@@ -19,7 +20,7 @@ trait PDOTrait {
 	}
 
 	/**
-	 * @param PDO $pdo
+	 * @DI\Inject("@PDO")
 	 */
 	public function setPDO(PDO $pdo) {
 		$this->_pdo = $pdo;

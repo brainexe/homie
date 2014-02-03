@@ -2,6 +2,11 @@
 
 namespace Raspberry\Sensors\Sensors;
 
+use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
+
+/**
+ * @DI\Service(public=false, tags={{"name" = "sensor"}})
+ */
 class TemperatureDS18 extends AbstractTemperatureSensor {
 
 	const TYPE = 'temp_ds18';

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <parameter key="debug">false</parameter>
+
+		<parameter key="db.host">127.0.0.1</parameter>
+		<parameter key="db.system">mysql</parameter>
+		<parameter key="db.database">raspberry</parameter>
+		<parameter key="db.user">root</parameter>
+		<parameter key="db.password"></parameter>
+
+		<parameter key="redis.host">127.0.0.1</parameter>
+
+		<parameter key="logger.error.log">../logs/error.log</parameter>
+        <parameter key="logger.sensor.log">../logs/sensor.log</parameter>
+        <parameter key="logger.info.log">../logs/info.log</parameter>
+
+		<parameter key="delete_sensor_values" type="collection">
+			<parameter type="collection">
+				<parameter key="days">1</parameter>
+				<parameter key="percentage">12</parameter>
+			</parameter>
+			<parameter type="collection">
+				<parameter key="days">3</parameter>
+				<parameter key="percentage">50</parameter>
+			</parameter>
+		</parameter>
+		<parameter key="application.name">raspberry</parameter>
+    </parameters>
+
+</container>

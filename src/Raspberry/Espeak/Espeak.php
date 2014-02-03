@@ -1,9 +1,16 @@
 <?php
 
 namespace Raspberry\Espeak;
+use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
 
+/**
+ * @DI\Service(public=false)
+ */
 class Espeak {
-	public static function getSpeakers() {
+	/**
+	 * @return array
+	 */
+	public function getSpeakers() {
 		return [
 			'de+m1' => 'DE Male',
 			'de+f1' => 'DE Female',
@@ -23,7 +30,7 @@ class Espeak {
 			return;
 		}
 
-//		system(sprintf('espeak "%s" -s %d -a %d  -v%ss --stdout | aplay', $text, $speed, $volume, $speaker));
-		system(sprintf('tts -l %s %s', 'de', $text));
+		system(sprintf('espeak "%s" -s %d -a %d  -v%ss --stdout | aplay', $text, $speed, $volume, $speaker));
+//		system(sprintf('tts -l %s %s', 'de', $text));
 	}
 } 

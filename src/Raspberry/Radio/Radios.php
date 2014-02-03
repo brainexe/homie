@@ -2,6 +2,11 @@
 
 namespace Raspberry\Radio;
 
+use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
+
+/**
+ * @DI\Service(public=false)
+ */
 class Radios {
 
 	/**
@@ -15,16 +20,10 @@ class Radios {
 	private $radio_controller;
 
 	/**
-	 * @param RadioController$radio_controller
+	 * @DI\Inject({"@RadioController", "@RadioGateway"})
 	 */
-	public function setRadioController($radio_controller) {
+	public function __construct(RadioController $radio_controller, RadioGateway $radio_gateway) {
 		$this->radio_controller = $radio_controller;
-	}
-
-	/**
-	 * @param RadioGateway $radio_gateway
-	 */
-	public function setRadioGateway($radio_gateway) {
 		$this->_radio_gateway = $radio_gateway;
 	}
 

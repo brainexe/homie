@@ -8,10 +8,56 @@ use Raspberry\Sensors\SensorBuilder;
 use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorValuesGateway;
 use Silex\Application;
-use Silex\ControllerProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
 
-class SensorsController implements ControllerProviderInterface {
+/**
+ * @DI\Service(name="Controller.SensorsController", public=false, tags={{"name" = "controller"}})
+ */
+class SensorsController implements ControllerInterface {
+
+	/**
+	 * @var SensorGateway
+	 */
+	private $_sensor_gateway;
+
+	/**
+	 * @var SensorValuesGateway
+	 */
+	private $_sensor_values_gateway;
+
+	/**
+	 * @var Espeak
+	 */
+	private $_espeak;
+
+	/**
+	 * @var SensorBuilder;
+	 */
+	private $_sensor_builder;
+
+	/**
+	 * @var Chart
+	 */
+	private $_chart;
+
+	/**
+	 * @DI\Inject({"@SensorGateway", "@SensorValuesGateway", "@Chart", "@SensorBuilder", "@Espeak"})
+	 */
+	public function __construct(SensorGateway $sensor_gateway, SensorValuesGateway $sensor_values_gateway, Chart $chart, SensorBuilder $sensor_builder, Espeak $espeak) {
+		$this->_sensor_gateway = $sensor_gateway;
+		$this->_sensor_values_gateway = $sensor_values_gateway;
+		$this->_espeak = $espeak;
+		$this->_chart = $chart;
+		$this->_sensor_builder = $sensor_builder;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getPath() {
+		return '/sensors/';
+	}
 
 	public function connect(Application $app) {
 		$controllers = $app['controllers_factory'];
@@ -21,20 +67,7 @@ class SensorsController implements ControllerProviderInterface {
 		});
 
 		$controllers->get('/{active_sensor_ids}', function($active_sensor_ids, Request $request, Application $app) {
-			$dic = $app['dic'];
-			$active_sensor_ids = array_filter(explode(':', $active_sensor_ids));
-
-			/** @var SensorGateway $sensor_gateway */
-			/** @var SensorValuesGateway $sensor_values_gateway */
-			/** @var Chart $chart */
-			/** @var SensorBuilder $sensor_builder */
-
-			$sensor_builder = $dic->get('SensorBuilder');
-			$sensor_values_gateway = $dic->get('SensorValuesGateway');
-			$chart = $dic->get('Chart');
-			$sensor_gateway = $dic->get('SensorGateway');
-
-			$sensors = $sensor_gateway->getSensors();
+			$sensors = $this->_sensor_gateway->getSensors();
 
 			$sensor_values = [];
 
@@ -51,7 +84,7 @@ class SensorsController implements ControllerProviderInterface {
 				$available_sensor_ids[] = $sensor_id;
 
 				if (!empty($sensor['last_value'])) {
-					$sensor_obj = $sensor_builder->build($sensor);
+					$sensor_obj = $this->_sensor_builder->build($sensor);
 					$sensor['last_value'] = $sensor_obj->formatValue($sensor['last_value']);
 					$sensor['espeak'] = (bool)$sensor_obj->getEspeakText($sensor['last_value']);
 				} else {
@@ -61,10 +94,10 @@ class SensorsController implements ControllerProviderInterface {
 				if ($active_sensor_ids && !in_array($sensor_id, $active_sensor_ids)) {
 					continue;
 				}
-				$sensor_values[$sensor_id] = $sensor_values_gateway->getSensorValues($sensor_id, $from);
+				$sensor_values[$sensor_id] = $this->_sensor_values_gateway->getSensorValues($sensor_id, $from);
 			}
 
-			$json = $chart->formatJsonData($sensors, $sensor_values);
+			$json = $this->_chart->formatJsonData($sensors, $sensor_values);
 
 			return $app['twig']->render('sensors.html.twig', [
 				'sensors' => $sensors,
@@ -82,20 +115,11 @@ class SensorsController implements ControllerProviderInterface {
 		});
 
 		$controllers->get('/espeak/{id}', function($sensor_id, Application $app) {
-			$dic = $app['dic'];
-
-			/** @var SensorGateway $sensor_gateway */
-			/** @var SensorBuilder $sensor_builder */
-			/** @var Espeak $espeak */
-			$espeak = $dic->get('Espeak');
-			$sensor_gateway = $dic->get('SensorGateway');
-			$sensor_builder = $dic->get('SensorBuilder');
-
-			$sensor = $sensor_gateway->getSensor($sensor_id);
-			$sensor_obj = $sensor_builder->build($sensor);
+			$sensor = $this->_sensor_gateway->getSensor($sensor_id);
+			$sensor_obj = $this->_sensor_builder->build($sensor);
 
 			$text = $sensor_obj->getEspeakText($sensor['last_value']);
-			$espeak->speak($text, 130, 70);
+			$this->_espeak->speak($text, 130, 70);
 
 			$app->redirect(sprintf('/sensors/%s', $sensor_id));
 		});

@@ -7,7 +7,11 @@ use Raspberry\Client\LocalManager;
 use Raspberry\Client\Pin;
 use Raspberry\Client\PinsCollection;
 use Raspberry\Traits\PDOTrait;
+use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
 
+/**
+ * @DI\Service(public=false)
+ */
 class GpioManager {
 
 	/**
@@ -21,16 +25,10 @@ class GpioManager {
 	private $_pin_gateway;
 
 	/**
-	 * @param PinGateway $pin_gateway
+	 * @DI\Inject({"@PinGateway", "@LocalClient"})
 	 */
-	public function setPinGateway(PinGateway $pin_gateway) {
+	public function __construct(PinGateway $pin_gateway, LocalClient $local_client) {
 		$this->_pin_gateway = $pin_gateway;
-	}
-
-	/**
-	 * @param LocalClient $local_client
-	 */
-	public function setLocalClient(LocalClient $local_client) {
 		$this->_local_client = $local_client;
 	}
 

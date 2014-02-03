@@ -3,7 +3,11 @@
 namespace Raspberry\Radio;
 
 use Raspberry\Client\LocalClient;
+use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
 
+/**
+ * @DI\Service(public=false)
+ */
 class RadioController {
 	const STATUS_ENABLED = 'enabled';
 	const STATUS_DISABLED = 'disabled';
@@ -17,9 +21,9 @@ class RadioController {
 	private $_local_client;
 
 	/**
-	 * @param LocalClient $local_client
+	 * @DI\Inject("@LocalClient")
 	 */
-	public function setLocalClient(LocalClient $local_client) {
+	public function __construct(LocalClient $local_client) {
 		$this->_local_client = $local_client;
 	}
 

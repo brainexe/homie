@@ -5,32 +5,52 @@ namespace Raspberry\Controller;
 use Predis\Client;
 use Raspberry\Radio\Radios;
 use Silex\Application;
-use Silex\ControllerProviderInterface;
+use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
 
-class RadioController implements ControllerProviderInterface {
+/**
+ * @DI\Service(name="Controller.RadioController", public=false, tags={{"name" = "controller"}})
+ */
+class RadioController implements ControllerInterface {
+
+	/**
+	 * @var Radios;
+	 */
+	private $_service_radios;
+
+	/**
+	 * @var Client
+	 */
+	private $_service_predis;
+
+	/**
+	 * @return string
+	 */
+	public function getPath() {
+		return '/radio/';
+	}
+
+	/**
+	 * @DI\Inject({"@Radios", "@Predis"})
+	 */
+	public function __construct(Radios $radios, Client $predis) {
+		$this->_service_radios = $radios;
+		$this->_service_predis = $predis;
+	}
 
 	public function connect(Application $app) {
 		$controllers = $app['controllers_factory'];
 
 		$controllers->get('/', function(Application $app) {
-			/** @var Radios $radios */
-			$radios = $app['dic']->get('Radios');
-
-			$radios_formatted = $radios->getRadios();
+			$radios_formatted = $this->_service_radios->getRadios();
 
 			return $app['twig']->render('radio.html.twig', ['radios' => $radios_formatted ]);
 		});
 
 		$controllers->get('/{id}/{status}/', function($id, $status, Application $app) {
-			/** @var Radios $radios */
-			/** @var Client $predis */
-			$predis = $app['dic']->get('Predis');
-			$radios = $app['dic']->get('Radios');
-
-			$radio = $radios->getRadios()[$id];
+			$radio = $this->_service_radios->getRadios()[$id];
 			$radio['status'] = $status;
 
-			$predis->PUBLISH('radio_changes', serialize($radio));
+			$this->_service_predis->PUBLISH('radio_changes', serialize($radio));
 
 			return $app->redirect('/radio/');
 		});

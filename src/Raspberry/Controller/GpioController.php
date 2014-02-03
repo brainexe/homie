@@ -4,27 +4,36 @@ namespace Raspberry\Controller;
 
 use Raspberry\Gpio\GpioManager;
 use Silex\Application;
-use Silex\ControllerProviderInterface;
+use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
 
-class GpioController implements ControllerProviderInterface {
+/**
+ * @DI\Service(name="Controller.GpioController", public=false, tags={{"name" = "controller"}})
+ */
+class GpioController implements ControllerInterface {
+
+	/**
+	 * @var GpioManager;
+	 */
+	private $_service_gpio_manager;
+
+	/**
+	 * @DI\Inject("@GpioManager")
+	 */
+	public function __construct(GpioManager $service_gpio_manager) {
+		$this->_service_gpio_manager = $service_gpio_manager;
+	}
 
 	public function connect(Application $app) {
 		$controllers = $app['controllers_factory'];
 
 		$controllers->get('/', function(Application $app)  {
-			/** @var GpioManager $gpio_manager */
-			$gpio_manager = $app['dic']->get('GpioManager');
-
-			$pins = $gpio_manager->getPins();
+			$pins = $this->_service_gpio_manager->getPins();
 
 			return $app['twig']->render('gpio.html.twig', ['pins' => $pins ]);
 		});
 
 		$controllers->get('/set/{id}/{status}/{value}/', function($id, $status, $value, Application $app) {
-			/** @var GpioManager $gpio_manager */
-			$gpio_manager = $app['dic']->get('GpioManager');
-
-			$gpio_manager->setPin($id, $status, $value);
+			$this->_service_gpio_manager->setPin($id, $status, $value);
 
 			return $app->redirect('/gpio/');
 		});
@@ -32,4 +41,10 @@ class GpioController implements ControllerProviderInterface {
 		return $controllers;
 	}
 
+	/**
+	 * @return string
+	 */
+	public function getPath() {
+		return '/gpio/';
+	}
 }

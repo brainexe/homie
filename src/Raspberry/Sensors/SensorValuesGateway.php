@@ -5,7 +5,11 @@ namespace Raspberry\Sensors;
 use PDO;
 use Raspberry\Traits\PDOTrait;
 use Raspberry\Traits\RedisCacheTrait;
+use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
 
+/**
+ * @DI\Service(public=false)
+ */
 class SensorValuesGateway {
 	use PDOTrait;
 	use RedisCacheTrait;

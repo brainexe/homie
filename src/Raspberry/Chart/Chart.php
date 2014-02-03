@@ -2,6 +2,11 @@
 
 namespace Raspberry\Chart;
 
+use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
+
+/**
+ * @DI\Service(public=false)
+ */
 class Chart {
 
 	const DEFAULT_TIME = 86400;

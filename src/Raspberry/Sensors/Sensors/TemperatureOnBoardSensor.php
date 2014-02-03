@@ -2,6 +2,11 @@
 
 namespace Raspberry\Sensors\Sensors;
 
+use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
+
+/**
+ * @DI\Service(public=false, tags={{"name" = "sensor"}})
+ */
 class TemperatureOnBoardSensor extends AbstractTemperatureSensor {
 
 	const PATH = '/sys/class/thermal/thermal_zone0/temp';

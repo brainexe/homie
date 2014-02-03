@@ -38,9 +38,7 @@ class Pin {
 	private $value;
 
 	/**
-	 * __toString.
-	 *
-	 * @return string|integer
+	 * @return Pin
 	 */
 	public function __construct()
 	{

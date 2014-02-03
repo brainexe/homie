@@ -3,7 +3,11 @@
 namespace Raspberry\Radio;
 
 use Raspberry\Traits\PDOTrait;
+use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
 
+/**
+ * @DI\Service(public=false)
+ */
 class RadioJobGateway {
 	use PDOTrait;
 
