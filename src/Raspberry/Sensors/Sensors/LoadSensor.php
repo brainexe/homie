@@ -3,6 +3,7 @@
 namespace Raspberry\Sensors\Sensors;
 
 use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @DI\Service(public=false, tags={{"name" = "sensor"}})
@@ -37,6 +38,10 @@ class LoadSensor implements SensorInterface {
 	 */
 	public function getEspeakText($value) {
 		return null;
+	}
+
+	public function isSupported(OutputInterface $output) {
+		return true;
 	}
 
 }

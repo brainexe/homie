@@ -48,6 +48,6 @@ class TemperatureDHT11Sensor extends AbstractDHT11Sensor {
 	 * {@inheritdoc}
 	 */
 	public function getEspeakText($value) {
-		return str_replace('.', ',', sprintf('Es ist %0.1f Grad warm.', $value));
+		return str_replace('.', ',', sprintf('%0.1f Grad', $value));
 	}
 }

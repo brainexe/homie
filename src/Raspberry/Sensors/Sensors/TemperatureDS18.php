@@ -3,6 +3,7 @@
 namespace Raspberry\Sensors\Sensors;
 
 use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @DI\Service(public=false, tags={{"name" = "sensor"}})
@@ -48,5 +49,16 @@ class TemperatureDS18 extends AbstractTemperatureSensor {
 		}
 
 		return $temperature;
+	}
+
+	public function isSupported(OutputInterface $output) {
+		$bus_system = '/sys/bus/w1/devices';
+
+		if (!is_dir($bus_system)) {
+			$output->writeln(sprintf('<error>%s: w1 bus not exists: %s</error>', self::getSensorType(), $bus_system));
+			return false;
+		}
+
+		return true;
 	}
 }

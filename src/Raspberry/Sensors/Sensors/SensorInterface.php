@@ -2,6 +2,8 @@
 
 namespace Raspberry\Sensors\Sensors;
 
+use Symfony\Component\Console\Output\OutputInterface;
+
 interface SensorInterface {
 
 	/**
@@ -26,4 +28,11 @@ interface SensorInterface {
 	 * @return string|null
 	 */
 	public function getEspeakText($value);
+
+	/**
+	 * @param OutputInterface $output
+	 * @return boolean
+	 */
+	public function isSupported(OutputInterface $output);
+
 }

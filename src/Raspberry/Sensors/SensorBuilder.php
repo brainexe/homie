@@ -2,12 +2,7 @@
 
 namespace Raspberry\Sensors;
 
-use Raspberry\Sensors\Sensors\HumidDHT11Sensor;
-use Raspberry\Sensors\Sensors\LoadSensor;
 use Raspberry\Sensors\Sensors\SensorInterface;
-use Raspberry\Sensors\Sensors\TemperatureDHT11Sensor;
-use Raspberry\Sensors\Sensors\TemperatureDS18;
-use Raspberry\Sensors\Sensors\TemperatureOnBoardSensor;
 use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
 
 /**
@@ -19,6 +14,13 @@ class SensorBuilder {
 	 * @var SensorInterface[]
 	 */
 	private $_sensors;
+
+	/**
+	 * @return SensorInterface[]
+	 */
+	public function getSensors() {
+		return $this->_sensors;
+	}
 
 	/**
 	 * @param string $type

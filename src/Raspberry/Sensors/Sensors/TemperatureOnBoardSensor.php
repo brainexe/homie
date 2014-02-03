@@ -3,6 +3,7 @@
 namespace Raspberry\Sensors\Sensors;
 
 use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @DI\Service(public=false, tags={{"name" = "sensor"}})
@@ -25,6 +26,15 @@ class TemperatureOnBoardSensor extends AbstractTemperatureSensor {
 	public function getValue($pin) {
 		$temp = file_get_contents(self::PATH);
 		return $temp / 1000;
+	}
+
+	public function isSupported(OutputInterface $output) {
+		if (!is_dir(self::PATH)) {
+			$output->writeln(sprintf('<error>%s: Thermal zone file does not exist: %s</error>', self::getSensorType(), self::PATH));
+			return false;
+		}
+
+		return true;
 	}
 
 }
