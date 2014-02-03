@@ -72,13 +72,6 @@ class SensorCronCommand extends Command {
 
 				sleep(1);
 			}
-
-			if ($minute == 0 && date('G') == 0) {
-				$this->_sensor_values_gateway->deleteOldValues(1, 25);
-				$this->_sensor_values_gateway->deleteOldValues(3, 50);
-				$this->_sensor_values_gateway->deleteOldValues(5, 75);
-				$this->_sensor_values_gateway->deleteOldValues(10, 90);
-			}
 		}
 	}
 
