@@ -41,6 +41,11 @@
 					<argument key="twig.path">../templates</argument>
 				</argument>
 			</call>
+			<call method="register">
+				<argument type="service">
+					<service class="Silex\Provider\SessionServiceProvider"/>
+				</argument>
+			</call>
 		</service>
 
 		<service id="Console" class="Symfony\Component\Console\Application">

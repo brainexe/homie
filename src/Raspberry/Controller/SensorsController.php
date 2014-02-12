@@ -16,6 +16,8 @@ use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
  */
 class SensorsController implements ControllerInterface {
 
+	const SESSION_LAST_VIEW = 'last_sensor_view';
+
 	/**
 	 * @var SensorGateway
 	 */
@@ -62,11 +64,17 @@ class SensorsController implements ControllerInterface {
 	public function connect(Application $app) {
 		$controllers = $app['controllers_factory'];
 
-		$controllers->get('/', function(Application $app) {
-			return $app->redirect('/sensors/0');
+		$controllers->get('/', function(Request $request, Application $app) {
+			$last_page = $request->getSession()->get(self::SESSION_LAST_VIEW) ?: '0';
+
+			return $app->redirect(sprintf('/sensors/%s', $last_page));
 		});
 
 		$controllers->get('/{active_sensor_ids}', function($active_sensor_ids, Request $request, Application $app) {
+			$request->getSession()->set(self::SESSION_LAST_VIEW, $active_sensor_ids);
+
+			$active_sensor_ids = explode(':', $active_sensor_ids);
+
 			$sensors = $this->_sensor_gateway->getSensors();
 
 			$sensor_values = [];
