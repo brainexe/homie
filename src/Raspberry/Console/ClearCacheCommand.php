@@ -2,13 +2,11 @@
 
 namespace Raspberry\Console;
 
-use Raspberry\Sensors\SensorBuilder;
-use Raspberry\Sensors\SensorGateway;
-use Raspberry\Sensors\SensorValuesGateway;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
 
 /**
@@ -31,9 +29,15 @@ class ClearCacheCommand extends Command {
 	protected function execute(InputInterface $input, OutputInterface $output) {
 		unlink('../cache/dic.php');
 
+		$output->write('Rebuild DIC...');
 		rebuild_dic();
+		$output->writeln('<info>...done</info>');
 
-		$output->writeln('<info>done</info>');
+		$output->write('Clear Twig Cache...');
+		$file_system = new Filesystem();
+		$file_system->remove('../cache/twig/');
+		$file_system->mkdir('../cache/twig/', 0777);
+		$output->writeln('<info>...done</info>');
 	}
 
 } 

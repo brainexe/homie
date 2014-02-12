@@ -47,6 +47,7 @@ class SensorCronCommand extends Command {
 		$this->_sensor_gateway = $sensor_gateway;
 		$this->_sensor_values_gateway = $sensor_values_gateway;
 	}
+
 	/**
 	 * {@inheritdoc}
 	 */
@@ -54,10 +55,16 @@ class SensorCronCommand extends Command {
 		$minute = date('i');
 		$sensors = $this->_sensor_gateway->getSensors();
 
+		foreach($this->_sensor_builder->getSensors() as $sensor) {
+			if ($sensor->isSupported($output)) {
+				$output->writeln(sprintf('<info>%s: supported</info>', $sensor->getSensorType()));
+			}
+		}
+
 		foreach ($sensors as $sensor_data) {
 			$interval = $sensor_data['interval'];
 			if ($minute % $interval === 0) {
-				$sensor = $this->_sensor_builder->build($sensor_data);
+				$sensor = $this->_sensor_builder->build($sensor_data['type']);
 
 				$value = $sensor->getValue($sensor_data['pin']);
 

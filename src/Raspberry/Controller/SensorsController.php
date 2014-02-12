@@ -84,7 +84,7 @@ class SensorsController implements ControllerInterface {
 				$available_sensor_ids[] = $sensor_id;
 
 				if (!empty($sensor['last_value'])) {
-					$sensor_obj = $this->_sensor_builder->build($sensor);
+					$sensor_obj = $this->_sensor_builder->build($sensor['type']);
 					$sensor['last_value'] = $sensor_obj->formatValue($sensor['last_value']);
 					$sensor['espeak'] = (bool)$sensor_obj->getEspeakText($sensor['last_value']);
 				} else {
@@ -116,7 +116,7 @@ class SensorsController implements ControllerInterface {
 
 		$controllers->get('/espeak/{id}', function($sensor_id, Application $app) {
 			$sensor = $this->_sensor_gateway->getSensor($sensor_id);
-			$sensor_obj = $this->_sensor_builder->build($sensor);
+			$sensor_obj = $this->_sensor_builder->build($sensor['type']);
 
 			$text = $sensor_obj->getEspeakText($sensor['last_value']);
 			$this->_espeak->speak($text, 130, 70);

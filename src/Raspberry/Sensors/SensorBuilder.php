@@ -31,16 +31,16 @@ class SensorBuilder {
 	}
 
 	/**
-	 * @param array $sensor_data
+	 * @param string$sensor_type
 	 * @throws \Exception
 	 * @return SensorInterface
 	 */
-	public function build(array $sensor_data) {
-		if (!empty($this->_sensors[$sensor_data['type']])) {
-			return $this->_sensors[$sensor_data['type']];
+	public function build($sensor_type) {
+		if (!empty($this->_sensors[$sensor_type])) {
+			return $this->_sensors[$sensor_type];
 		}
 
-		throw new \Exception(sprintf('Invalid sensor type: %s', $sensor_data['type']));
+		throw new \Exception(sprintf('Invalid sensor type: %s', $sensor_type));
 	}
 
 }
