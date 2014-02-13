@@ -1,11 +1,9 @@
 <?php
 
+use Matze\Core\DependencyInjection\GlobalCompilerPass;
 use Monolog\ErrorHandler;
 use Monolog\Logger;
 use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Loader\AnnotationLoader;
-use Raspberry\DIC\ConsoleCompilerPass;
-use Raspberry\DIC\ControllerCompilerPass;
-use Raspberry\DIC\SensorCompilerPass;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
@@ -36,7 +34,7 @@ function rebuild_dic () {
 
 	$container_builder = new ContainerBuilder();
 	$annotation_loader = new AnnotationLoader($container_builder);
-	$annotation_loader->load('../src/Raspberry');
+	$annotation_loader->load('../src/');
 
 	$loader = new XmlFileLoader($container_builder, new FileLocator('../config'));
 	$loader->load('services.xml');
@@ -45,9 +43,11 @@ function rebuild_dic () {
 		$loader->load('config.xml');
 	}
 
-	$container_builder->addCompilerPass(new ConsoleCompilerPass());
-	$container_builder->addCompilerPass(new ControllerCompilerPass());
-	$container_builder->addCompilerPass(new SensorCompilerPass());
+
+	$container_builder->addCompilerPass(new GlobalCompilerPass());
+//	$container_builder->addCompilerPass(new ConsoleCompilerPass());
+//	$container_builder->addCompilerPass(new ControllerCompilerPass());
+//	$container_builder->addCompilerPass(new SensorCompilerPass());
 	$container_builder->compile();
 
 	$dumper = new PhpDumper($container_builder);

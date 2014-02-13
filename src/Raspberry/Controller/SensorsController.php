@@ -2,6 +2,7 @@
 
 namespace Raspberry\Controller;
 
+use Matze\Core\Controller\ControllerInterface;
 use Raspberry\Chart\Chart;
 use Raspberry\Espeak\Espeak;
 use Raspberry\Sensors\SensorBuilder;

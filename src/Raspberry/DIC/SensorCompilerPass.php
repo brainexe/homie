@@ -2,7 +2,6 @@
 
 namespace Raspberry\DIC;
 
-use Raspberry\Controller\ControllerInterface;
 use Raspberry\Sensors\Sensors\SensorInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

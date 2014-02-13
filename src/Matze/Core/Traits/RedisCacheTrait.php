@@ -1,6 +1,6 @@
 <?php
 
-namespace Raspberry\Traits;
+namespace Matze\Core\Traits;
 
 use Predis\Client;
 use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;

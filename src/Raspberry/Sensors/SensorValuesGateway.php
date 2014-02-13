@@ -2,9 +2,9 @@
 
 namespace Raspberry\Sensors;
 
+use Matze\Core\Traits\PDOTrait;
+use Matze\Core\Traits\RedisCacheTrait;
 use PDO;
-use Raspberry\Traits\PDOTrait;
-use Raspberry\Traits\RedisCacheTrait;
 use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
 
 /**

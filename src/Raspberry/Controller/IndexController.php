@@ -2,6 +2,7 @@
 
 namespace Raspberry\Controller;
 
+use Matze\Core\Controller\ControllerInterface;
 use Silex\Application;
 use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
 

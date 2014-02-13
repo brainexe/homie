@@ -2,8 +2,8 @@
 
 namespace Raspberry\Radio;
 
+use Matze\Core\Traits\PDOTrait;
 use PDO;
-use Raspberry\Traits\PDOTrait;
 use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
 
 /**

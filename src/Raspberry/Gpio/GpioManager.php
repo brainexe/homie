@@ -6,7 +6,6 @@ use Raspberry\Client\LocalClient;
 use Raspberry\Client\LocalManager;
 use Raspberry\Client\Pin;
 use Raspberry\Client\PinsCollection;
-use Raspberry\Traits\PDOTrait;
 use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
 
 /**

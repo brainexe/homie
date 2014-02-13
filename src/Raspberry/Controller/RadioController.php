@@ -2,6 +2,7 @@
 
 namespace Raspberry\Controller;
 
+use Matze\Core\Controller\ControllerInterface;
 use Predis\Client;
 use Raspberry\Radio\Radios;
 use Silex\Application;

@@ -2,8 +2,6 @@
 
 namespace Raspberry\Console;
 
-use Raspberry\Sensors\SensorBuilder;
-use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorValuesGateway;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;

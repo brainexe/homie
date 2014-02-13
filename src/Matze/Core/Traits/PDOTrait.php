@@ -1,6 +1,6 @@
 <?php
 
-namespace Raspberry\Traits;
+namespace Matze\Core\Traits;
 
 use PDO;
 use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;

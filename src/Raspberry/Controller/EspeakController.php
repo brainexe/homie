@@ -2,6 +2,7 @@
 
 namespace Raspberry\Controller;
 
+use Matze\Core\Controller\ControllerInterface;
 use Raspberry\Espeak\Espeak;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;

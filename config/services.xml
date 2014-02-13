@@ -28,6 +28,9 @@
             <argument type="constant">Monolog\Logger::DEBUG</argument>
         </service>
 
+		<service id="EventDispatcher" class="Symfony\Component\EventDispatcher\EventDispatcher" public="false">
+		</service>
+
 		<service id="Application" class="Silex\Application">
 			<argument type="collection">
 				<argument key="debug">%debug%</argument>
