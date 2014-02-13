@@ -14,13 +14,21 @@
 			"Matze": "src/"
 		}
 	},
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "git@mdoetsch.de:matze/slim-losolib.git"
+		}
+	],
 	"require": {
-		"symfony/dependency-injection": "2.3.x-dev",
-		"symfony/process": "2.3.x-dev",
-		"twig/twig": "1.6.5",
-		"predis/predis": "0.8.x-dev",
-		"monolog/monolog": "1.7.0",
-		"silex/silex": "1.1.2",
-		"loso/di-annotations-bundle": "dev-master"
+		"symfony/dependency-injection": "2.4.*",
+		"symfony/process": "2.4.*",
+		"symfony/config": "2.4.*",
+		"symfony/console": "2.4.*",
+		"twig/twig": "1.6.*",
+		"predis/predis": "0.8.*",
+		"monolog/monolog": "1.7.*",
+		"silex/silex": "1.1.*",
+		"matze/slim-losolib": "dev-master"
 	}
 }

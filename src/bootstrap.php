@@ -29,8 +29,9 @@ $error_handler->registerExceptionHandler();
 $error_handler->registerFatalHandler();
 
 function rebuild_dic () {
-	require_once "../vendor/loso/di-annotations-bundle/Loso/Bundle/DiAnnotationsBundle/DependencyInjection/Annotations/Service.php";
-	require_once "../vendor/loso/di-annotations-bundle/Loso/Bundle/DiAnnotationsBundle/DependencyInjection/Annotations/Inject.php";
+	require_once "../vendor/matze/slim-losolib/Loso/Bundle/DiAnnotationsBundle/DependencyInjection/Annotations/Service.php";
+	require_once "../vendor/matze/slim-losolib/Loso/Bundle/DiAnnotationsBundle/DependencyInjection/Annotations/Inject.php";
+	require_once "../vendor/matze/slim-losolib/Loso/Bundle/DiAnnotationsBundle/DependencyInjection/Loader/AnnotationLoader.php";
 
 	$container_builder = new ContainerBuilder();
 	$annotation_loader = new AnnotationLoader($container_builder);
@@ -42,7 +43,6 @@ function rebuild_dic () {
 	if (file_exists('config/config.xml')) {
 		$loader->load('config.xml');
 	}
-
 
 	$container_builder->addCompilerPass(new GlobalCompilerPass());
 //	$container_builder->addCompilerPass(new ConsoleCompilerPass());
