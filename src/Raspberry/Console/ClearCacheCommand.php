@@ -2,6 +2,7 @@
 
 namespace Raspberry\Console;
 
+use Matze\Core\Core;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -27,10 +28,10 @@ class ClearCacheCommand extends Command {
 	 * {@inheritdoc}
 	 */
 	protected function execute(InputInterface $input, OutputInterface $output) {
-		unlink('../cache/dic.php');
+		unlink('cache/dic.php');
 
 		$output->write('Rebuild DIC...');
-		rebuild_dic();
+		Core::rebuildDIC();
 		$output->writeln('<info>...done</info>');
 
 		$output->write('Clear Twig Cache...');

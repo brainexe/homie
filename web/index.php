@@ -2,6 +2,7 @@
 
 use Raspberry\Twig\Extensions\SensorExtension;
 use Silex\Application;
+use Symfony\Component\DependencyInjection\Container;
 
 /** @var Container $dic */
 $dic = include '../src/bootstrap.php';

@@ -11,9 +11,9 @@
 
 		<parameter key="redis.host">127.0.0.1</parameter>
 
-		<parameter key="logger.error.log">../logs/error.log</parameter>
-        <parameter key="logger.sensor.log">../logs/sensor.log</parameter>
-        <parameter key="logger.info.log">../logs/info.log</parameter>
+		<parameter key="logger.error.log">logs/error.log</parameter>
+        <parameter key="logger.sensor.log">logs/sensor.log</parameter>
+        <parameter key="logger.info.log">logs/info.log</parameter>
 
 		<parameter key="delete_sensor_values" type="collection">
 			<parameter type="collection">

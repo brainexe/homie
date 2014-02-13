@@ -41,7 +41,7 @@
 					<service class="Silex\Provider\TwigServiceProvider"/>
 				</argument>
 				<argument type="collection">
-					<argument key="twig.path">../templates</argument>
+					<argument key="twig.path">templates</argument>
 				</argument>
 			</call>
 			<call method="register">
