@@ -4,7 +4,7 @@ namespace Raspberry\Radio;
 
 use Matze\Core\Traits\PDOTrait;
 use PDO;
-use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
+use Matze\Annotations\Annotations as DI;
 
 /**
  * @DI\Service(public=false)

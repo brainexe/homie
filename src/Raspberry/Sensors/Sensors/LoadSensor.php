@@ -2,7 +2,7 @@
 
 namespace Raspberry\Sensors\Sensors;
 
-use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
+use Matze\Annotations\Annotations as DI;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**

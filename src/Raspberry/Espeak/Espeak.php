@@ -1,7 +1,7 @@
 <?php
 
 namespace Raspberry\Espeak;
-use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
+use Matze\Annotations\Annotations as DI;
 
 /**
  * @DI\Service(public=false)

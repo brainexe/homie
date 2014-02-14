@@ -3,7 +3,7 @@
 namespace Raspberry\Sensors;
 
 use Raspberry\Sensors\Sensors\SensorInterface;
-use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
+use Matze\Annotations\Annotations as DI;
 
 /**
  * @DI\Service(public=false)

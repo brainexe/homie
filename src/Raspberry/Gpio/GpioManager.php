@@ -6,7 +6,7 @@ use Raspberry\Client\LocalClient;
 use Raspberry\Client\LocalManager;
 use Raspberry\Client\Pin;
 use Raspberry\Client\PinsCollection;
-use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
+use Matze\Annotations\Annotations as DI;
 
 /**
  * @DI\Service(public=false)

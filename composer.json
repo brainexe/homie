@@ -16,8 +16,8 @@
 	},
 	"repositories": [
 		{
-			"type": "vcs",
-			"url": "git@mdoetsch.de:matze/slim-losolib.git"
+			"type": "composer",
+			"url": "http://satis.mdoetsch.de"
 		}
 	],
 	"require": {
@@ -29,6 +29,6 @@
 		"predis/predis": "0.8.*",
 		"monolog/monolog": "1.7.*",
 		"silex/silex": "1.1.*",
-		"matze/slim-losolib": "dev-master"
+		"matze/annotations": "dev-master"
 	}
 }

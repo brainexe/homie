@@ -5,7 +5,7 @@ namespace Raspberry\Controller;
 use Matze\Core\Controller\ControllerInterface;
 use Raspberry\Gpio\GpioManager;
 use Silex\Application;
-use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
+use Matze\Annotations\Annotations as DI;
 
 /**
  * @DI\Service(name="Controller.GpioController", public=false, tags={{"name" = "controller"}})

@@ -2,7 +2,7 @@
 
 namespace Matze\Core;
 
-use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Loader\AnnotationLoader;
+use Matze\Annotations\Loader\AnnotationLoader;
 use Matze\Core\DependencyInjection\GlobalCompilerPass;
 use Monolog\ErrorHandler;
 use Monolog\Logger;
@@ -44,9 +44,8 @@ class Core {
 	 */
 	public static function rebuildDIC () {
 		// TODO patch loso-lib
-		require_once "vendor/matze/slim-losolib/Loso/Bundle/DiAnnotationsBundle/DependencyInjection/Annotations/Service.php";
-		require_once "vendor/matze/slim-losolib/Loso/Bundle/DiAnnotationsBundle/DependencyInjection/Annotations/Inject.php";
-		require_once "vendor/matze/slim-losolib/Loso/Bundle/DiAnnotationsBundle/DependencyInjection/Loader/AnnotationLoader.php";
+		require_once "vendor/matze/annotations/src/Matze/Annotations/Annotations/Service.php";
+		require_once "vendor/matze/annotations/src/Matze/Annotations/Annotations/Inject.php";
 
 		$container_builder = new ContainerBuilder();
 		$annotation_loader = new AnnotationLoader($container_builder);

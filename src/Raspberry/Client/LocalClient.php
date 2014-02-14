@@ -4,7 +4,7 @@ namespace Raspberry\Client;
 
 use RuntimeException;
 use Symfony\Component\Process\Process;
-use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
+use Matze\Annotations\Annotations as DI;
 
 /**
  * @DI\Service(public=false)

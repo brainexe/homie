@@ -6,7 +6,7 @@ use Matze\Core\Controller\ControllerInterface;
 use Raspberry\Espeak\Espeak;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
-use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
+use Matze\Annotations\Annotations as DI;
 
 /**
  * @DI\Service(name="Controller.EspeakController", public=false, tags={{"name" = "controller"}})

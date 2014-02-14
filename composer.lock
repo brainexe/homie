@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "d763d97a15c7a8f5fedac8a027c92548",
+    "hash": "08852ac3d6736c07c7f2807011c22ed5",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -135,43 +135,25 @@
             "time": "2013-12-20 21:39:00"
         },
         {
-            "name": "matze/slim-losolib",
+            "name": "matze/annotations",
             "version": "dev-master",
-            "target-dir": "Loso/Bundle/DiAnnotationsBundle",
             "source": {
                 "type": "git",
                 "url": "git@mdoetsch.de:matze/slim-losolib.git",
-                "reference": "f7459db02db7563c25e077a90f5da715643569f6"
+                "reference": "1c5e2fa5568e101c95b479e518922f17a33c069d"
             },
             "require": {
-                "doctrine/annotations": "dev-master",
-                "php": ">=5.3.3",
+                "doctrine/annotations": "1.2.*@dev",
+                "symfony/config": "2.4.*",
                 "symfony/dependency-injection": "2.4.*"
             },
             "type": "library",
             "autoload": {
                 "psr-0": {
-                    "Loso\\Bundle\\DiAnnotationsBundle": ""
+                    "Matze\\Annotations": "src/"
                 }
             },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Loïc Frering",
-                    "email": "loic.frering@gmail.com",
-                    "homepage": "http://github.com/loicfrering"
-                }
-            ],
-            "description": "A bundle that enables Dependency Injection by annotations into your Symfony2 projects.",
-            "homepage": "http://github.com/loicfrering/LosoDiAnnotationsBundle",
-            "keywords": [
-                "annotations",
-                "dependency injection",
-                "dependencyinjection"
-            ],
-            "time": "2014-02-13 20:48:48"
+            "time": "2014-02-14 12:29:06"
         },
         {
             "name": "monolog/monolog",
@@ -1088,7 +1070,7 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "matze/slim-losolib": 20
+        "matze/annotations": 20
     },
     "platform": [
 

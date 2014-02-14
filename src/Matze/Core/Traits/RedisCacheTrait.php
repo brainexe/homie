@@ -3,7 +3,7 @@
 namespace Matze\Core\Traits;
 
 use Predis\Client;
-use Loso\Bundle\DiAnnotationsBundle\DependencyInjection\Annotations as DI;
+use Matze\Annotations\Annotations as DI;
 
 trait RedisCacheTrait {
 
