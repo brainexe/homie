@@ -7,6 +7,9 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
+/**
+ * @DI\Service(tags={{"name" = "compiler_pass"}})
+ */
 class SensorCompilerPass implements CompilerPassInterface {
 
 	public function process(ContainerBuilder $container) {
