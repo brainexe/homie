@@ -10,8 +10,7 @@
 	],
 	"autoload": {
 		"psr-0": {
-			"Raspberry": "src/",
-			"Matze": "src/"
+			"Raspberry": "src/"
 		}
 	},
 	"repositories": [
@@ -21,14 +20,7 @@
 		}
 	],
 	"require": {
-		"symfony/dependency-injection": "2.4.*",
 		"symfony/process": "2.4.*",
-		"symfony/config": "2.4.*",
-		"symfony/console": "2.4.*",
-		"twig/twig": "1.6.*",
-		"predis/predis": "0.8.*",
-		"monolog/monolog": "1.7.*",
-		"silex/silex": "1.1.*",
-		"matze/annotations": "dev-master"
+		"matze/core": "1.*"
 	}
 }

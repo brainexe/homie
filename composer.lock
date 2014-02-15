@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "08852ac3d6736c07c7f2807011c22ed5",
+    "hash": "46567874c72d700eeec763490d77e016",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -140,7 +140,7 @@
             "source": {
                 "type": "git",
                 "url": "git@mdoetsch.de:matze/slim-losolib.git",
-                "reference": "1c5e2fa5568e101c95b479e518922f17a33c069d"
+                "reference": "f76a94b8ef8395b7164c279b0ab91b2113cb5a52"
             },
             "require": {
                 "doctrine/annotations": "1.2.*@dev",
@@ -153,7 +153,40 @@
                     "Matze\\Annotations": "src/"
                 }
             },
-            "time": "2014-02-14 12:29:06"
+            "time": "2014-02-15 17:32:27"
+        },
+        {
+            "name": "matze/core",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "git@mdoetsch.de:matze/core.git",
+                "reference": "5e2345e474d6c4dc5448abff7fd6c630e4d969cf"
+            },
+            "require": {
+                "matze/annotations": "dev-master",
+                "monolog/monolog": "1.7.*",
+                "predis/predis": "0.8.*",
+                "silex/silex": "1.1.*",
+                "symfony/config": "2.4.*",
+                "symfony/console": "2.4.*",
+                "symfony/dependency-injection": "2.4.*",
+                "twig/twig": "1.6.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Matze\\Core": "src/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Matze",
+                    "email": "matze@mdoetsch.de"
+                }
+            ],
+            "description": "Framework core",
+            "time": "2014-02-15 19:01:05"
         },
         {
             "name": "monolog/monolog",
@@ -1069,9 +1102,9 @@
 
     ],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "matze/annotations": 20
-    },
+    "stability-flags": [
+
+    ],
     "platform": [
 
     ],
