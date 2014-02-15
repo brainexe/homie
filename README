@@ -1,7 +1,0 @@
-
-Delete Old entries
-
-DELETE FROM sensor_values
-WHERE (crc32(MD5(id)) % 100 < 75)
-AND timestamp < (DATE_SUB(NOW(), INTERVAL 3 DAY));
-
