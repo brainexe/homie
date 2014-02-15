@@ -2,6 +2,8 @@
 
 namespace Matze\Core;
 
+use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\Common\Annotations\AnnotationRegistry;
 use Matze\Annotations\Loader\AnnotationLoader;
 use Matze\Core\DependencyInjection\GlobalCompilerPass;
 use Monolog\ErrorHandler;
@@ -18,6 +20,8 @@ class Core {
 	 * @return Container
 	 */
 	public static function boot() {
+		chdir(ROOT);
+
 		date_default_timezone_set('Europe/Berlin');
 
 		/** @var Container $dic */
@@ -42,10 +46,12 @@ class Core {
 	/**
 	 * @return ContainerBuilder
 	 */
-	public static function rebuildDIC () {
-		// TODO patch loso-lib
-		require_once "vendor/matze/annotations/src/Matze/Annotations/Annotations/Service.php";
-		require_once "vendor/matze/annotations/src/Matze/Annotations/Annotations/Inject.php";
+	public static function rebuildDIC() {
+		$class_loader = include ROOT . '/vendor/autoload.php';
+
+		AnnotationRegistry::registerLoader(function($class) use ($class_loader) {
+			return $class_loader->loadClass($class);
+		});
 
 		$container_builder = new ContainerBuilder();
 		$annotation_loader = new AnnotationLoader($container_builder);
