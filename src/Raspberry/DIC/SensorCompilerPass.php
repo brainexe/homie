@@ -6,6 +6,7 @@ use Raspberry\Sensors\Sensors\SensorInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+use Matze\Annotations\Annotations as DI;
 
 /**
  * @DI\Service(tags={{"name" = "compiler_pass"}})

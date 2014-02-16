@@ -140,7 +140,7 @@
             "source": {
                 "type": "git",
                 "url": "git@mdoetsch.de:matze/slim-losolib.git",
-                "reference": "f76a94b8ef8395b7164c279b0ab91b2113cb5a52"
+                "reference": "05cf55a5b356186eaca096c60386d231c72de302"
             },
             "require": {
                 "doctrine/annotations": "1.2.*@dev",
@@ -153,7 +153,7 @@
                     "Matze\\Annotations": "src/"
                 }
             },
-            "time": "2014-02-15 17:32:27"
+            "time": "2014-02-16 11:54:48"
         },
         {
             "name": "matze/core",

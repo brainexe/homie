@@ -3,17 +3,7 @@
     <parameters>
         <parameter key="debug">false</parameter>
 
-		<parameter key="db.host">127.0.0.1</parameter>
-		<parameter key="db.system">mysql</parameter>
-		<parameter key="db.database">raspberry</parameter>
-		<parameter key="db.user">root</parameter>
-		<parameter key="db.password"></parameter>
-
-		<parameter key="redis.host">127.0.0.1</parameter>
-
-		<parameter key="logger.error.log">logs/error.log</parameter>
         <parameter key="logger.sensor.log">logs/sensor.log</parameter>
-        <parameter key="logger.info.log">logs/info.log</parameter>
 
 		<parameter key="delete_sensor_values" type="collection">
 			<parameter type="collection">
