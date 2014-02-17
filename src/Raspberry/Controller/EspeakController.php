@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Matze\Annotations\Annotations as DI;
 
 /**
- * @DI\Service(name="Controller.EspeakController", public=false, tags={{"name" = "controller"}})
+ * @DI\Controller
  */
 class EspeakController implements ControllerInterface {
 

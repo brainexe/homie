@@ -9,7 +9,7 @@ use Silex\Application;
 use Matze\Annotations\Annotations as DI;
 
 /**
- * @DI\Service(name="Controller.RadioController", public=false, tags={{"name" = "controller"}})
+ * @DI\Controller
  */
 class RadioController implements ControllerInterface {
 

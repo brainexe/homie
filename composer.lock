@@ -140,7 +140,7 @@
             "source": {
                 "type": "git",
                 "url": "git@mdoetsch.de:matze/slim-losolib.git",
-                "reference": "05cf55a5b356186eaca096c60386d231c72de302"
+                "reference": "7db49c45899fab12749381cebe650f7b28b21e3f"
             },
             "require": {
                 "doctrine/annotations": "1.2.*@dev",
@@ -153,15 +153,15 @@
                     "Matze\\Annotations": "src/"
                 }
             },
-            "time": "2014-02-16 11:54:48"
+            "time": "2014-02-16 15:52:50"
         },
         {
             "name": "matze/core",
-            "version": "1.0.1",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "git@mdoetsch.de:matze/core.git",
-                "reference": "5e2345e474d6c4dc5448abff7fd6c630e4d969cf"
+                "reference": "f89964f80a0e802e2e4181419fffb8b123718af7"
             },
             "require": {
                 "matze/annotations": "dev-master",
@@ -171,6 +171,7 @@
                 "symfony/config": "2.4.*",
                 "symfony/console": "2.4.*",
                 "symfony/dependency-injection": "2.4.*",
+                "symfony/process": "2.4.*",
                 "twig/twig": "1.6.*"
             },
             "type": "library",
@@ -186,7 +187,7 @@
                 }
             ],
             "description": "Framework core",
-            "time": "2014-02-15 19:01:05"
+            "time": "2014-02-16 21:02:43"
         },
         {
             "name": "monolog/monolog",

@@ -8,7 +8,7 @@ use Silex\Application;
 use Matze\Annotations\Annotations as DI;
 
 /**
- * @DI\Service(name="Controller.WebcamController", public=false, tags={{"name" = "controller"}})
+ *@DI\Controller
  */
 class WebcamController implements ControllerInterface {
 

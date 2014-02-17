@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Matze\Annotations\Annotations as DI;
 
 /**
- * @DI\Service(name="Controller.SensorsController", public=false, tags={{"name" = "controller"}})
+ * @DI\Controller
  */
 class SensorsController implements ControllerInterface {
 
