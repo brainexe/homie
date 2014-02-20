@@ -3,6 +3,8 @@
 namespace Raspberry\Controller;
 
 use Matze\Core\Controller\ControllerInterface;
+use Matze\Core\EventDispatcher\MessageQueueEvent;
+use Matze\Core\Traits\EventDispatcherTrait;
 use Raspberry\Espeak\Espeak;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,6 +15,8 @@ use Matze\Core\Annotations as CoreDI;
  * @CoreDI\Controller
  */
 class EspeakController implements ControllerInterface {
+
+	use EventDispatcherTrait;
 
 	/**
 	 * @var Espeak
@@ -47,7 +51,8 @@ class EspeakController implements ControllerInterface {
 			$volume = $request->request->getInt('volume');
 			$speed = $request->request->getInt('speed');
 
-			$this->_service_espeak->speak($text, $volume, $speed, $speaker);
+			$event = new MessageQueueEvent('Espeak', 'speak', [$text, $volume, $speed, $speaker]);
+			$this->getEventDispatcher()->dispatch(MessageQueueEvent::NAME, $event);
 
 			return $app->redirect('/espeak/');
 		});
