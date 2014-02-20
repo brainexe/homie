@@ -29,7 +29,7 @@ class TemperatureOnBoardSensor extends AbstractTemperatureSensor {
 	}
 
 	public function isSupported(OutputInterface $output) {
-		if (!is_dir(self::PATH)) {
+		if (!is_file(self::PATH)) {
 			$output->writeln(sprintf('<error>%s: Thermal zone file does not exist: %s</error>', self::getSensorType(), self::PATH));
 			return false;
 		}
