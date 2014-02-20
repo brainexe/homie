@@ -7,9 +7,10 @@ use Raspberry\Espeak\Espeak;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Matze\Annotations\Annotations as DI;
+use Matze\Core\Annotations as CoreDI;
 
 /**
- * @DI\Controller
+ * @CoreDI\Controller
  */
 class EspeakController implements ControllerInterface {
 

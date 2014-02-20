@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "46567874c72d700eeec763490d77e016",
+    "hash": "348ca0346d755fe572882963dcf7ba35",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -43,7 +43,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan Wage",
+                    "name": "Jonathan H. Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/",
                     "role": "Creator"
@@ -62,7 +62,7 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
-                    "name": "Johannes Schmitt",
+                    "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
                     "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
@@ -120,7 +120,7 @@
                     "email": "roman@code-factory.org"
                 },
                 {
-                    "name": "Johannes Schmitt",
+                    "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
                     "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
@@ -139,8 +139,8 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "git@mdoetsch.de:matze/slim-losolib.git",
-                "reference": "7db49c45899fab12749381cebe650f7b28b21e3f"
+                "url": "git@mdoetsch.de:matze/annotations.git",
+                "reference": "702b429c31dfa514f7ba69b313b735ab5658e6d4"
             },
             "require": {
                 "doctrine/annotations": "1.2.*@dev",
@@ -153,15 +153,15 @@
                     "Matze\\Annotations": "src/"
                 }
             },
-            "time": "2014-02-16 15:52:50"
+            "time": "2014-02-20 19:37:37"
         },
         {
             "name": "matze/core",
-            "version": "1.0.4",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "git@mdoetsch.de:matze/core.git",
-                "reference": "f89964f80a0e802e2e4181419fffb8b123718af7"
+                "reference": "517efca17b88183620c540385fa2ff1e7cd35e33"
             },
             "require": {
                 "matze/annotations": "dev-master",
@@ -172,8 +172,11 @@
                 "symfony/console": "2.4.*",
                 "symfony/dependency-injection": "2.4.*",
                 "symfony/process": "2.4.*",
-                "twig/twig": "1.6.*"
+                "twig/twig": "1.15.*"
             },
+            "bin": [
+                "console.php"
+            ],
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -187,7 +190,7 @@
                 }
             ],
             "description": "Framework core",
-            "time": "2014-02-16 21:02:43"
+            "time": "2014-02-18 17:47:13"
         },
         {
             "name": "monolog/monolog",
@@ -195,12 +198,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "6cabe95f23322735f446b00ca8582b6c875dcbfe"
+                "reference": "08f09c20805695212ebe713b6706b8efb24f96e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/6cabe95f23322735f446b00ca8582b6c875dcbfe",
-                "reference": "6cabe95f23322735f446b00ca8582b6c875dcbfe",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/08f09c20805695212ebe713b6706b8efb24f96e7",
+                "reference": "08f09c20805695212ebe713b6706b8efb24f96e7",
                 "shasum": ""
             },
             "require": {
@@ -231,8 +234,8 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Monolog": "src/"
+                "psr-4": {
+                    "Monolog\\": "src/Monolog"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -254,7 +257,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2014-02-06 20:35:10"
+            "time": "2014-02-20 10:38:44"
         },
         {
             "name": "pimple/pimple",
@@ -537,12 +540,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "940f217cbc3c8a33e5403e7c595495c4884400fe"
+                "reference": "43717a2ba9a8695dac525b928134d1b6d620f13a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/940f217cbc3c8a33e5403e7c595495c4884400fe",
-                "reference": "940f217cbc3c8a33e5403e7c595495c4884400fe",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/43717a2ba9a8695dac525b928134d1b6d620f13a",
+                "reference": "43717a2ba9a8695dac525b928134d1b6d620f13a",
                 "shasum": ""
             },
             "require": {
@@ -583,7 +586,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-11 13:52:09"
+            "time": "2014-02-18 15:41:06"
         },
         {
             "name": "symfony/debug",
@@ -592,12 +595,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Debug.git",
-                "reference": "cb1965864a27a74685860bfe4babca593100f503"
+                "reference": "57ad6f754ede53488e8613c0a50334b26e14753e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Debug/zipball/cb1965864a27a74685860bfe4babca593100f503",
-                "reference": "cb1965864a27a74685860bfe4babca593100f503",
+                "url": "https://api.github.com/repos/symfony/Debug/zipball/57ad6f754ede53488e8613c0a50334b26e14753e",
+                "reference": "57ad6f754ede53488e8613c0a50334b26e14753e",
                 "shasum": ""
             },
             "require": {
@@ -640,7 +643,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-11 13:52:21"
+            "time": "2014-02-16 10:08:14"
         },
         {
             "name": "symfony/dependency-injection",
@@ -938,12 +941,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Process.git",
-                "reference": "c175448bac997556f8ab972908a4e14c7291fb03"
+                "reference": "bfa6a176e9c680cf87bbd65096826ef000c46f51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Process/zipball/c175448bac997556f8ab972908a4e14c7291fb03",
-                "reference": "c175448bac997556f8ab972908a4e14c7291fb03",
+                "url": "https://api.github.com/repos/symfony/Process/zipball/bfa6a176e9c680cf87bbd65096826ef000c46f51",
+                "reference": "bfa6a176e9c680cf87bbd65096826ef000c46f51",
                 "shasum": ""
             },
             "require": {
@@ -978,7 +981,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-11 13:52:09"
+            "time": "2014-02-18 16:29:54"
         },
         {
             "name": "symfony/routing",
@@ -1050,22 +1053,27 @@
         },
         {
             "name": "twig/twig",
-            "version": "1.6.5",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "97ade38d5c0b095f8ed9fadb61f71ab79f13d7af"
+                "reference": "c756082c0ccf103733682e5243c114c165d77158"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/97ade38d5c0b095f8ed9fadb61f71ab79f13d7af",
-                "reference": "97ade38d5c0b095f8ed9fadb61f71ab79f13d7af",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/c756082c0ccf103733682e5243c114c165d77158",
+                "reference": "c756082c0ccf103733682e5243c114c165d77158",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.4"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.15-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "Twig_": "lib/"
@@ -1073,7 +1081,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD"
+                "BSD-3-Clause"
             ],
             "authors": [
                 {
@@ -1083,9 +1091,14 @@
                     "role": "Lead Developer"
                 },
                 {
-                    "name": "Armin Ronacher",
+                    "name": "Armin Ronacher2",
                     "email": "armin.ronacher@active-4.com",
                     "role": "Project Founder"
+                },
+                {
+                    "name": "Twig Team",
+                    "homepage": "https://github.com/fabpot/Twig/graphs/contributors",
+                    "role": "Contributors"
                 }
             ],
             "description": "Twig, the flexible, fast, and secure template language for PHP",
@@ -1093,7 +1106,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2012-04-11 09:00:38"
+            "time": "2014-02-13 21:54:38"
         }
     ],
     "packages-dev": [
@@ -1103,9 +1116,9 @@
 
     ],
     "minimum-stability": "dev",
-    "stability-flags": [
-
-    ],
+    "stability-flags": {
+        "matze/core": 20
+    },
     "platform": [
 
     ],

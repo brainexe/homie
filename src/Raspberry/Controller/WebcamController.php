@@ -6,9 +6,10 @@ use Matze\Core\Controller\ControllerInterface;
 use Raspberry\Webcam\Webcam;
 use Silex\Application;
 use Matze\Annotations\Annotations as DI;
+use Matze\Core\Annotations as CoreDI;
 
 /**
- *@DI\Controller
+ *@CoreDI\Controller
  */
 class WebcamController implements ControllerInterface {
 

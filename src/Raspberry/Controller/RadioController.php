@@ -7,9 +7,10 @@ use Predis\Client;
 use Raspberry\Radio\Radios;
 use Silex\Application;
 use Matze\Annotations\Annotations as DI;
+use Matze\Core\Annotations as CoreDI;
 
 /**
- * @DI\Controller
+ * @CoreDI\Controller
  */
 class RadioController implements ControllerInterface {
 

@@ -11,9 +11,10 @@ use Raspberry\Sensors\SensorValuesGateway;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Matze\Annotations\Annotations as DI;
+use Matze\Core\Annotations as CoreDI;
 
 /**
- * @DI\Controller
+ * @CoreDI\Controller
  */
 class SensorsController implements ControllerInterface {
 

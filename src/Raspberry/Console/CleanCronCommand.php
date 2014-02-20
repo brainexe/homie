@@ -7,11 +7,11 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-
 use Matze\Annotations\Annotations as DI;
+use Matze\Core\Annotations as CoreDI;
 
 /**
- * @DI\Service(public=false, tags={{"name" = "console"}})
+ * @CoreDI\Command
  */
 class CleanCronCommand extends Command {
 
