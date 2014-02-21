@@ -33,7 +33,7 @@ class RadioController implements ControllerInterface {
 	/**
 	 * @DI\Inject("@Radios")
 	 */
-	public function __construct(Radios $radios, Client $predis) {
+	public function __construct(Radios $radios) {
 		$this->_service_radios = $radios;
 	}
 
