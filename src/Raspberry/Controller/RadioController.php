@@ -3,6 +3,8 @@
 namespace Raspberry\Controller;
 
 use Matze\Core\Controller\ControllerInterface;
+use Matze\Core\EventDispatcher\MessageQueueEvent;
+use Matze\Core\Traits\EventDispatcherTrait;
 use Predis\Client;
 use Raspberry\Radio\Radios;
 use Silex\Application;
@@ -14,15 +16,12 @@ use Matze\Core\Annotations as CoreDI;
  */
 class RadioController implements ControllerInterface {
 
+	use EventDispatcherTrait;
+
 	/**
 	 * @var Radios;
 	 */
 	private $_service_radios;
-
-	/**
-	 * @var Client
-	 */
-	private $_service_predis;
 
 	/**
 	 * @return string
@@ -32,13 +31,15 @@ class RadioController implements ControllerInterface {
 	}
 
 	/**
-	 * @DI\Inject({"@Radios", "@Predis"})
+	 * @DI\Inject("@Radios")
 	 */
-	public function __construct(Radios $radios, Client $predis) {
+	public function __construct(Radios $radios) {
 		$this->_service_radios = $radios;
-		$this->_service_predis = $predis;
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function connect(Application $app) {
 		$controllers = $app['controllers_factory'];
 
@@ -50,9 +51,9 @@ class RadioController implements ControllerInterface {
 
 		$controllers->get('/{id}/{status}/', function($id, $status, Application $app) {
 			$radio = $this->_service_radios->getRadios()[$id];
-			$radio['status'] = $status;
 
-			$this->_service_predis->PUBLISH('radio_changes', serialize($radio));
+			$event = new MessageQueueEvent('RadioController', 'setStatus', [$radio['code'], $radio['pin'], $status]);
+			$this->getEventDispatcher()->dispatch(MessageQueueEvent::NAME, $event);
 
 			return $app->redirect('/radio/');
 		});
