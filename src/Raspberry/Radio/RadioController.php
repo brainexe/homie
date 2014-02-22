@@ -3,10 +3,10 @@
 namespace Raspberry\Radio;
 
 use Raspberry\Client\LocalClient;
-use Matze\Annotations\Annotations as DI;
+
 
 /**
- * @DI\Service(public=false)
+ * @Service(public=false)
  */
 class RadioController {
 	const STATUS_ENABLED = 'enabled';
@@ -21,7 +21,7 @@ class RadioController {
 	private $_local_client;
 
 	/**
-	 * @DI\Inject("@LocalClient")
+	 * @Inject("@LocalClient")
 	 */
 	public function __construct(LocalClient $local_client) {
 		$this->_local_client = $local_client;

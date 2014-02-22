@@ -1,22 +1,17 @@
 <?php
 
 namespace Raspberry\Espeak;
-use Matze\Annotations\Annotations as DI;
+
 
 /**
- * @DI\Service(public=false)
+ * @Service(public=false)
  */
 class Espeak {
 	/**
 	 * @return array
 	 */
 	public function getSpeakers() {
-		return [
-			'de+m1' => 'DE Male',
-			'de+f1' => 'DE Female',
-			'en' => 'EN',
-			'fr' => 'FR',
-		];
+		return ['de+m1' => 'DE Male', 'de+f1' => 'DE Female', 'en' => 'EN', 'fr' => 'FR',];
 	}
 
 	/**

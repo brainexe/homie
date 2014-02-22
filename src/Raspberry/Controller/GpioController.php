@@ -5,11 +5,9 @@ namespace Raspberry\Controller;
 use Matze\Core\Controller\ControllerInterface;
 use Raspberry\Gpio\GpioManager;
 use Silex\Application;
-use Matze\Annotations\Annotations as DI;
-use Matze\Core\Annotations as CoreDI;
 
 /**
- * @CoreDI\Controller
+ * @Controller
  */
 class GpioController implements ControllerInterface {
 
@@ -19,7 +17,7 @@ class GpioController implements ControllerInterface {
 	private $_service_gpio_manager;
 
 	/**
-	 * @DI\Inject("@GpioManager")
+	 * @Inject("@GpioManager")
 	 */
 	public function __construct(GpioManager $service_gpio_manager) {
 		$this->_service_gpio_manager = $service_gpio_manager;
@@ -28,13 +26,13 @@ class GpioController implements ControllerInterface {
 	public function connect(Application $app) {
 		$controllers = $app['controllers_factory'];
 
-		$controllers->get('/', function(Application $app)  {
+		$controllers->get('/', function (Application $app) {
 			$pins = $this->_service_gpio_manager->getPins();
 
-			return $app['twig']->render('gpio.html.twig', ['pins' => $pins ]);
+			return $app['twig']->render('gpio.html.twig', ['pins' => $pins]);
 		});
 
-		$controllers->get('/set/{id}/{status}/{value}/', function($id, $status, $value, Application $app) {
+		$controllers->get('/set/{id}/{status}/{value}/', function ($id, $status, $value, Application $app) {
 			$this->_service_gpio_manager->setPin($id, $status, $value);
 
 			return $app->redirect('/gpio/');

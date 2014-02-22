@@ -5,10 +5,10 @@ namespace Raspberry\Webcam;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Process\Process;
-use Matze\Annotations\Annotations as DI;
+
 
 /**
- * @DI\Service(public=false)
+ * @Service(public=false)
  */
 class Webcam {
 	const ROOT = '/htdocs/webcam/';

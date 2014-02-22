@@ -6,10 +6,9 @@ use Raspberry\Client\LocalClient;
 use Raspberry\Client\LocalManager;
 use Raspberry\Client\Pin;
 use Raspberry\Client\PinsCollection;
-use Matze\Annotations\Annotations as DI;
 
 /**
- * @DI\Service(public=false)
+ * @Service(public=false)
  */
 class GpioManager {
 
@@ -24,7 +23,7 @@ class GpioManager {
 	private $_pin_gateway;
 
 	/**
-	 * @DI\Inject({"@PinGateway", "@LocalClient"})
+	 * @Inject({"@PinGateway", "@LocalClient"})
 	 */
 	public function __construct(PinGateway $pin_gateway, LocalClient $local_client) {
 		$this->_pin_gateway = $pin_gateway;

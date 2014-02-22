@@ -2,10 +2,9 @@
 
 namespace Raspberry\Radio;
 
-use Matze\Annotations\Annotations as DI;
 
 /**
- * @DI\Service(public=false)
+ * @Service(public=false)
  */
 class Radios {
 
@@ -20,7 +19,7 @@ class Radios {
 	private $radio_controller;
 
 	/**
-	 * @DI\Inject({"@RadioController", "@RadioGateway"})
+	 * @Inject({"@RadioController", "@RadioGateway"})
 	 */
 	public function __construct(RadioController $radio_controller, RadioGateway $radio_gateway) {
 		$this->radio_controller = $radio_controller;

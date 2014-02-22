@@ -2,11 +2,11 @@
 
 namespace Raspberry\Radio;
 
-use Matze\Annotations\Annotations as DI;
+
 use Matze\Core\Traits\PDOTrait;
 
 /**
- * @DI\Service(public=false)
+ * @Service(public=false)
  */
 class RadioJobGateway {
 	use PDOTrait;

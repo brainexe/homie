@@ -4,10 +4,10 @@ namespace Raspberry\Client;
 
 use RuntimeException;
 use Symfony\Component\Process\Process;
-use Matze\Annotations\Annotations as DI;
+
 
 /**
- * @DI\Service(public=false)
+ * @Service(public=false)
  */
 class LocalClient {
 

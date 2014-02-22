@@ -1,15 +1,15 @@
 <?php
 
 namespace Raspberry\Client;
-use Matze\Annotations\Annotations as DI;
+
 
 /**
- * @DI\Service(public=false)
+ * @Service(public=false)
  */
 class LocalManager {
-	const GPIO_COMMAND_READALL   = 'gpio readall';
+	const GPIO_COMMAND_READALL = 'gpio readall';
 	const GPIO_COMMAND_DIRECTION = 'gpio mode %d %s';
-	const GPIO_COMMAND_VALUE     = 'gpio write %d %d';
+	const GPIO_COMMAND_VALUE = 'gpio write %d %d';
 
 	/**
 	 * @var LocalClient
@@ -26,7 +26,7 @@ class LocalManager {
 	 */
 	public function __construct(LocalClient $client) {
 		$this->client = $client;
-		$this->pins   = new PinsCollection();
+		$this->pins = new PinsCollection();
 
 		$this->init();
 	}

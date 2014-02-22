@@ -9,10 +9,10 @@ class Pin {
 	 */
 	protected $_description;
 
-	const DIRECTION_IN  = 'in';
+	const DIRECTION_IN = 'in';
 	const DIRECTION_OUT = 'out';
 
-	const VALUE_LOW  = 'LOW';
+	const VALUE_LOW = 'LOW';
 	const VALUE_HIGH = 'HIGH';
 
 	/**
@@ -40,8 +40,7 @@ class Pin {
 	/**
 	 * @return Pin
 	 */
-	public function __construct()
-	{
+	public function __construct() {
 		return $this->getName() ? : $this->getId();
 	}
 
@@ -50,8 +49,7 @@ class Pin {
 	 *
 	 * @return integer
 	 */
-	public function getID()
-	{
+	public function getID() {
 		return $this->id;
 	}
 
@@ -62,8 +60,7 @@ class Pin {
 	 *
 	 * @return Pin
 	 */
-	public function setID($id)
-	{
+	public function setID($id) {
 		$this->id = $id;
 
 		return $this;
@@ -74,8 +71,7 @@ class Pin {
 	 *
 	 * @return string
 	 */
-	public function getName()
-	{
+	public function getName() {
 		return $this->name;
 	}
 
@@ -86,8 +82,7 @@ class Pin {
 	 *
 	 * @return Pin
 	 */
-	public function setName($name)
-	{
+	public function setName($name) {
 		$this->name = $name;
 
 		return $this;
@@ -98,8 +93,7 @@ class Pin {
 	 *
 	 * @return string
 	 */
-	public function getDirection()
-	{
+	public function getDirection() {
 		return $this->direction;
 	}
 
@@ -110,8 +104,7 @@ class Pin {
 	 *
 	 * @return Pin
 	 */
-	public function setDirection($direction)
-	{
+	public function setDirection($direction) {
 		$this->direction = $direction;
 
 		return $this;
@@ -122,8 +115,7 @@ class Pin {
 	 *
 	 * @return boolean
 	 */
-	public function getValue()
-	{
+	public function getValue() {
 		return $this->value;
 	}
 
@@ -134,8 +126,7 @@ class Pin {
 	 *
 	 * @return Pin
 	 */
-	public function setValue($value)
-	{
+	public function setValue($value) {
 		$this->value = $value;
 
 		return $this;

@@ -7,11 +7,10 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Matze\Annotations\Annotations as DI;
-use Matze\Core\Annotations as CoreDI;
+
 
 /**
- * @CoreDI\Command
+ * @Command
  */
 class CleanCronCommand extends Command {
 
@@ -24,13 +23,11 @@ class CleanCronCommand extends Command {
 	 * {@inheritdoc}
 	 */
 	protected function configure() {
-		$this
-			->setName('cron:clean')
-			->setDescription('Delete old sensor values');
+		$this->setName('cron:clean')->setDescription('Delete old sensor values');
 	}
 
 	/**
-	 * @DI\Inject({"@SensorValuesGateway"})
+	 * @Inject({"@SensorValuesGateway"})
 	 */
 	public function setDependencies(SensorValuesGateway $sensor_values_gateway) {
 		$this->_sensor_values_gateway = $sensor_values_gateway;

@@ -5,11 +5,9 @@ namespace Raspberry\Controller;
 use Matze\Core\Controller\ControllerInterface;
 use Raspberry\Webcam\Webcam;
 use Silex\Application;
-use Matze\Annotations\Annotations as DI;
-use Matze\Core\Annotations as CoreDI;
 
 /**
- *@CoreDI\Controller
+ * @Controller
  */
 class WebcamController implements ControllerInterface {
 
@@ -19,7 +17,7 @@ class WebcamController implements ControllerInterface {
 	private $_service_webcam;
 
 	/**
-	 * @DI\Inject("@Webcam")
+	 * @Inject("@Webcam")
 	 */
 	public function __construct(Webcam $webcam) {
 		$this->_service_webcam = $webcam;

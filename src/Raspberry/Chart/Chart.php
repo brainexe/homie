@@ -2,10 +2,8 @@
 
 namespace Raspberry\Chart;
 
-use Matze\Annotations\Annotations as DI;
-
 /**
- * @DI\Service(public=false)
+ * @Service(public=false)
  */
 class Chart {
 
@@ -22,21 +20,11 @@ class Chart {
 		foreach ($sensors as $sensor) {
 			$sensor_id = $sensor['id'];
 
-			$sensor_json = [
-				'sensor_id' => $sensor_id,
-				'color' => '#' . substr(md5($sensor_id), 0, 6),
-				'name' => $sensor['name'],
-				'description' => $sensor['description'],
-				'pin' => $sensor['pin'],
-				'data' => []
-			];
+			$sensor_json = ['sensor_id' => $sensor_id, 'color' => '#' . substr(md5($sensor_id), 0, 6), 'name' => $sensor['name'], 'description' => $sensor['description'], 'pin' => $sensor['pin'], 'data' => []];
 
 			if (!empty($sensor_values[$sensor_id])) {
 				foreach ($sensor_values[$sensor_id] as $sensor_value) {
-					$sensor_json['data'][] = [
-						'x' => (int)$sensor_value['timestamp'],
-						'y' => (double)$sensor_value['value'],
-					];
+					$sensor_json['data'][] = ['x' => (int)$sensor_value['timestamp'], 'y' => (double)$sensor_value['value'],];
 				}
 			} else {
 				continue;

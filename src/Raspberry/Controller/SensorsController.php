@@ -10,11 +10,10 @@ use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorValuesGateway;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
-use Matze\Annotations\Annotations as DI;
-use Matze\Core\Annotations as CoreDI;
+
 
 /**
- * @CoreDI\Controller
+ * @Controller
  */
 class SensorsController implements ControllerInterface {
 
@@ -46,7 +45,7 @@ class SensorsController implements ControllerInterface {
 	private $_chart;
 
 	/**
-	 * @DI\Inject({"@SensorGateway", "@SensorValuesGateway", "@Chart", "@SensorBuilder", "@Espeak"})
+	 * @Inject({"@SensorGateway", "@SensorValuesGateway", "@Chart", "@SensorBuilder", "@Espeak"})
 	 */
 	public function __construct(SensorGateway $sensor_gateway, SensorValuesGateway $sensor_values_gateway, Chart $chart, SensorBuilder $sensor_builder, Espeak $espeak) {
 		$this->_sensor_gateway = $sensor_gateway;
@@ -66,13 +65,13 @@ class SensorsController implements ControllerInterface {
 	public function connect(Application $app) {
 		$controllers = $app['controllers_factory'];
 
-		$controllers->get('/', function(Request $request, Application $app) {
-			$last_page = $request->getSession()->get(self::SESSION_LAST_VIEW) ?: '0';
+		$controllers->get('/', function (Request $request, Application $app) {
+			$last_page = $request->getSession()->get(self::SESSION_LAST_VIEW) ? : '0';
 
 			return $app->redirect(sprintf('/sensors/%s', $last_page));
 		});
 
-		$controllers->get('/{active_sensor_ids}', function($active_sensor_ids, Request $request, Application $app) {
+		$controllers->get('/{active_sensor_ids}', function ($active_sensor_ids, Request $request, Application $app) {
 			$request->getSession()->set(self::SESSION_LAST_VIEW, $active_sensor_ids);
 
 			$active_sensor_ids = explode(':', $active_sensor_ids);
@@ -109,22 +108,10 @@ class SensorsController implements ControllerInterface {
 
 			$json = $this->_chart->formatJsonData($sensors, $sensor_values);
 
-			return $app['twig']->render('sensors.html.twig', [
-				'sensors' => $sensors,
-				'active_sensor_ids' => $active_sensor_ids ?: $available_sensor_ids,
-				'json' => $json,
-				'current_from' => $from,
-				'from_intervals' => [
-					0 => 'All',
-					3600 => 'Last Hour',
-					86400 => 'Last Day',
-					86400*7 => 'Last Week',
-					86400*30 => 'Last Month',
-				]
-			]);
+			return $app['twig']->render('sensors.html.twig', ['sensors' => $sensors, 'active_sensor_ids' => $active_sensor_ids ? : $available_sensor_ids, 'json' => $json, 'current_from' => $from, 'from_intervals' => [0 => 'All', 3600 => 'Last Hour', 86400 => 'Last Day', 86400 * 7 => 'Last Week', 86400 * 30 => 'Last Month',]]);
 		});
 
-		$controllers->get('/espeak/{id}', function($sensor_id, Application $app) {
+		$controllers->get('/espeak/{id}', function ($sensor_id, Application $app) {
 			$sensor = $this->_sensor_gateway->getSensor($sensor_id);
 			$sensor_obj = $this->_sensor_builder->build($sensor['type']);
 

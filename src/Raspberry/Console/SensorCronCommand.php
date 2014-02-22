@@ -9,10 +9,10 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Matze\Annotations\Annotations as DI;
+
 
 /**
- * @DI\Service(public=false, tags={{"name" = "console"}})
+ * @Service(public=false, tags={{"name" = "console"}})
  */
 class SensorCronCommand extends Command {
 
@@ -30,17 +30,16 @@ class SensorCronCommand extends Command {
 	 * @var SensorBuilder
 	 */
 	private $_sensor_builder;
+
 	/**
 	 * {@inheritdoc}
 	 */
 	protected function configure() {
-		$this
-			->setName('cron:sensor')
-			->setDescription('Runs sensor cron');
+		$this->setName('cron:sensor')->setDescription('Runs sensor cron');
 	}
 
 	/**
-	 * @DI\Inject({"@SensorGateway", "@SensorValuesGateway", "@SensorBuilder"})
+	 * @Inject({"@SensorGateway", "@SensorValuesGateway", "@SensorBuilder"})
 	 */
 	public function setDependencies(SensorGateway $sensor_gateway, SensorValuesGateway $sensor_values_gateway, SensorBuilder $sensor_builder) {
 		$this->_sensor_builder = $sensor_builder;
@@ -55,7 +54,7 @@ class SensorCronCommand extends Command {
 		$minute = date('i');
 		$sensors = $this->_sensor_gateway->getSensors();
 
-		foreach($this->_sensor_builder->getSensors() as $sensor) {
+		foreach ($this->_sensor_builder->getSensors() as $sensor) {
 			if ($sensor->isSupported($output)) {
 				$output->writeln(sprintf('<info>%s: supported</info>', $sensor->getSensorType()));
 			}

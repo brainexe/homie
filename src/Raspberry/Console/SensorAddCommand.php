@@ -12,11 +12,11 @@ use Symfony\Component\Console\Helper\DialogHelper;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Matze\Annotations\Annotations as DI;
+
 use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 
 /**
- * @DI\Service(public=false, tags={{"name" = "console"}})
+ * @Service(public=false, tags={{"name" = "console"}})
  */
 class SensorAddCommand extends Command {
 
@@ -34,13 +34,11 @@ class SensorAddCommand extends Command {
 	 * {@inheritdoc}
 	 */
 	protected function configure() {
-		$this
-			->setName('sensor:add')
-			->setDescription('Add a new Sensor');
+		$this->setName('sensor:add')->setDescription('Add a new Sensor');
 	}
 
 	/**
-	 * @DI\Inject({"@SensorGateway", "@SensorBuilder"})
+	 * @Inject({"@SensorGateway", "@SensorBuilder"})
 	 */
 	public function setDependencies(SensorGateway $sensor_gateway, SensorBuilder $sensor_builder) {
 		$this->_sensor_gateway = $sensor_gateway;

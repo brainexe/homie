@@ -3,10 +3,10 @@
 namespace Raspberry\Sensors;
 
 use Raspberry\Sensors\Sensors\SensorInterface;
-use Matze\Annotations\Annotations as DI;
+
 
 /**
- * @DI\Service(public=false)
+ * @Service(public=false)
  */
 class SensorBuilder {
 
@@ -31,7 +31,7 @@ class SensorBuilder {
 	}
 
 	/**
-	 * @param string$sensor_type
+	 * @param string $sensor_type
 	 * @throws \Exception
 	 * @return SensorInterface
 	 */

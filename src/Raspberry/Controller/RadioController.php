@@ -8,11 +8,10 @@ use Matze\Core\Traits\EventDispatcherTrait;
 use Predis\Client;
 use Raspberry\Radio\Radios;
 use Silex\Application;
-use Matze\Annotations\Annotations as DI;
-use Matze\Core\Annotations as CoreDI;
+
 
 /**
- * @CoreDI\Controller
+ * @Controller
  */
 class RadioController implements ControllerInterface {
 
@@ -31,7 +30,7 @@ class RadioController implements ControllerInterface {
 	}
 
 	/**
-	 * @DI\Inject("@Radios")
+	 * @Inject("@Radios")
 	 */
 	public function __construct(Radios $radios) {
 		$this->_service_radios = $radios;
@@ -40,13 +39,13 @@ class RadioController implements ControllerInterface {
 	public function connect(Application $app) {
 		$controllers = $app['controllers_factory'];
 
-		$controllers->get('/', function(Application $app) {
+		$controllers->get('/', function (Application $app) {
 			$radios_formatted = $this->_service_radios->getRadios();
 
-			return $app['twig']->render('radio.html.twig', ['radios' => $radios_formatted ]);
+			return $app['twig']->render('radio.html.twig', ['radios' => $radios_formatted]);
 		});
 
-		$controllers->get('/{id}/{status}/', function($id, $status, Application $app) {
+		$controllers->get('/{id}/{status}/', function ($id, $status, Application $app) {
 			$radio = $this->_service_radios->getRadios()[$id];
 
 			$event = new MessageQueueEvent('RadioController', 'setStatus', [$radio['code'], $radio['pin'], $status]);

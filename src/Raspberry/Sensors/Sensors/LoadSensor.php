@@ -2,11 +2,11 @@
 
 namespace Raspberry\Sensors\Sensors;
 
-use Matze\Annotations\Annotations as DI;
+
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * @DI\Service(public=false, tags={{"name" = "sensor"}})
+ * @Service(public=false, tags={{"name" = "sensor"}})
  */
 class LoadSensor implements SensorInterface {
 

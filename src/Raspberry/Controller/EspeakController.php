@@ -8,11 +8,10 @@ use Matze\Core\Traits\EventDispatcherTrait;
 use Raspberry\Espeak\Espeak;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
-use Matze\Annotations\Annotations as DI;
-use Matze\Core\Annotations as CoreDI;
+
 
 /**
- * @CoreDI\Controller
+ * @Controller
  */
 class EspeakController implements ControllerInterface {
 
@@ -24,7 +23,7 @@ class EspeakController implements ControllerInterface {
 	private $_service_espeak;
 
 	/**
-	 * @DI\Inject("@Espeak")
+	 * @Inject("@Espeak")
 	 */
 	public function __construct(Espeak $espeak) {
 		$this->_service_espeak = $espeak;
@@ -40,12 +39,12 @@ class EspeakController implements ControllerInterface {
 	public function connect(Application $app) {
 		$controllers = $app['controllers_factory'];
 
-		$controllers->get('/', function(Application $app) {
+		$controllers->get('/', function (Application $app) {
 			$speakers = $this->_service_espeak->getSpeakers();
 			return $app['twig']->render('espeak.html.twig', ['speakers' => $speakers]);
 		});
 
-		$controllers->post('/', function(Application $app, Request $request) {
+		$controllers->post('/', function (Application $app, Request $request) {
 			$speaker = $request->request->get('speaker');
 			$text = $request->request->get('text');
 			$volume = $request->request->getInt('volume');

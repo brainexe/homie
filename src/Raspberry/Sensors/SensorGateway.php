@@ -4,10 +4,10 @@ namespace Raspberry\Sensors;
 
 use Matze\Core\Traits\PDOTrait;
 use PDO;
-use Matze\Annotations\Annotations as DI;
+
 
 /**
- * @DI\Service(public=false)
+ * @Service(public=false)
  */
 class SensorGateway {
 	use PDOTrait;
