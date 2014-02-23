@@ -24,4 +24,49 @@
 			{% endfor %}
 		</tbody>
 	</table>
+	<form action="/radio/add/" method="POST" class="navbar-forms navbar-lefts">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="input-group">
+					  <span class="input-group-btn">
+						<button class="btn btn-default" type="button">Name</button>
+					  </span>
+					<input type="text" name="name" class="form-control" placeholder="Name"/>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="input-group">
+					  <span class="input-group-btn">
+						<button class="btn btn-default" type="button">Description</button>
+					  </span>
+					<input type="text" name="description" class="form-control" placeholder="Description"/>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="input-group">
+					  <span class="input-group-btn">
+						<button class="btn btn-default" type="button">Pin</button>
+					  </span>
+					<input type="text" class="form-control" max="5" min="0" name="pin" placeholder="00000"/>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="input-group">
+					  <span class="input-group-btn">
+							<button class="btn btn-default" type="button">Code</button>
+					  </span>
+					<input type="text" class="form-control" max="5" min="0" name="code" placeholder="00000"/>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="input-group">
+				  <span class="input-group-btn">
+						<button class="btn btn-default" type="submit">Add</button>
+				  </span>
+				</div>
+			</div>
+		</div>
+	</form>
 {% endblock %}

@@ -2,43 +2,53 @@
 
 namespace Raspberry\Radio;
 
-
-use Matze\Core\Traits\PDOTrait;
+use Matze\Core\Traits\RedisTrait;
 
 /**
  * @Service(public=false)
  */
 class RadioJobGateway {
-	use PDOTrait;
+
+	use RedisTrait;
+
+	const REDIS_QUEUE = 'radio_jobs';
 
 	/**
 	 * @return array[]
 	 */
 	public function getJobs() {
-		$query = 'SELECT * FROM radio_job';
-
-		$stm = $this->getPDO()->prepare($query);
-		$stm->execute();
-
-		return $stm->fetchAll(\PDO::FETCH_ASSOC);
+		return $this->_getJobs('0', '+inf');
 	}
 
 	/**
-	 * @param integer $timestamp
+	 * @param integer $now
 	 * @return array[]
 	 */
-	public function getPendingJobs($timestamp) {
-		$query = '
-			SELECT r.*, j.status
-			FROM radio_job AS j
-			JOIN radio AS r ON (j.radio_id = j.id)
-			WHERE j.time >= ?
-			';
+	public function getPendingJobs($now) {
+		return $this->_getJobs('0', $now);
+	}
 
-		$stm = $this->getPDO()->prepare($query);
-		$stm->execute([$timestamp]);
+	/**
+	 * @param integer $from
+	 * @param integer $to
+	 * @return array[]
+	 */
+	private function _getJobs($from, $to) {
+		$jobs = [];
 
-		return $stm->fetchAll(\PDO::FETCH_ASSOC);
+		$redis_result = $this->getPredis()->ZRANGEBYSCORE(self::REDIS_QUEUE, $from, $to, 'WITHSCORES');
+		foreach ($redis_result as $job) {
+			list ($radio_id, $status) = $job[0];
+			$timestamp = $job[1];
+
+			$jobs[] = [
+				'radio_id' => $radio_id,
+				'status' => $status,
+				'timestamp' => $timestamp,
+			];
+		}
+
+		return $jobs;
 	}
 
 	/**
@@ -47,9 +57,9 @@ class RadioJobGateway {
 	 * @param string $status
 	 */
 	public function addRadioJob($radio_id, $timestamp, $status) {
-		$query = 'INSERT INTO radio_job (radio_id, time, status) VALUES (?, ?, ?)';
+		$predis = $this->getPredis();
 
-		$stm = $this->getPDO()->prepare($query);
-		$stm->execute([$radio_id, $timestamp, $status]);
+		$redis_member = sprintf('%d-%d', $radio_id, $status);
+		$predis->ZADD(self::REDIS_QUEUE, $timestamp, $redis_member);
 	}
 } 

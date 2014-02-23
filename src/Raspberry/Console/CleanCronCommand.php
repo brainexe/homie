@@ -2,12 +2,12 @@
 
 namespace Raspberry\Console;
 
+use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorValuesGateway;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-
 
 /**
  * @Command
@@ -20,6 +20,16 @@ class CleanCronCommand extends Command {
 	private $_sensor_values_gateway;
 
 	/**
+	 * @var SensorGateway
+	 */
+	private $_sensor_gateway;
+
+	/**
+	 * @var array
+	 */
+	private $_value_delete_sensor_values;
+
+	/**
 	 * {@inheritdoc}
 	 */
 	protected function configure() {
@@ -27,22 +37,38 @@ class CleanCronCommand extends Command {
 	}
 
 	/**
-	 * @Inject({"@SensorValuesGateway"})
+	 * @Inject({"@SensorValuesGateway", "@SensorGateway", "%delete_sensor_values%"})
 	 */
-	public function setDependencies(SensorValuesGateway $sensor_values_gateway) {
+	public function setDependencies(SensorValuesGateway $sensor_values_gateway, SensorGateway $sensor_gateway, $delete_sensor_values) {
 		$this->_sensor_values_gateway = $sensor_values_gateway;
+		$this->_value_delete_sensor_values = $delete_sensor_values;
+		$this->_sensor_gateway = $sensor_gateway;
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
 	protected function execute(InputInterface $input, OutputInterface $output) {
-		$this->_sensor_values_gateway->deleteOldValues(1, 25);
-		$this->_sensor_values_gateway->deleteOldValues(3, 50);
-		$this->_sensor_values_gateway->deleteOldValues(5, 75);
-		$this->_sensor_values_gateway->deleteOldValues(10, 90);
+		$sensor_ids = $this->_sensor_gateway->getSensorIds();
+
+		foreach ($sensor_ids as $sensor_id) {
+			$this->_deleteOldValues($output, $sensor_id);
+		}
 
 		$output->writeln('<info>done</info>');
+	}
+
+	/**
+	 * @param OutputInterface $output
+	 * @param integer $sensor_id
+	 */
+	private function _deleteOldValues(OutputInterface $output, $sensor_id) {
+		$deleted_rows = 0;
+
+		foreach ($this->_value_delete_sensor_values as $delete) {
+			$deleted_rows += $this->_sensor_values_gateway->deleteOldValues($sensor_id, $delete['days'], $delete['percentage']);
+		}
+		$output->writeln(sprintf('<info>sensor #%d, deleted %d rows</info>', $sensor_id, $deleted_rows));
 	}
 
 } 

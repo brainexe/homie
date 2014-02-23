@@ -2,26 +2,23 @@
 
 namespace Raspberry\Gpio;
 
-use Matze\Core\Traits\PDOTrait;
-use PDO;
-
+use Matze\Core\Traits\RedisTrait;
 
 /**
  * @Service(public=false)
  */
 class PinGateway {
-	use PDOTrait;
+	const REDIS_PINS = 'pins';
+
+	use RedisTrait;
 
 	/**
 	 * @return array[]
 	 */
 	public function getPinDescriptions() {
-		$query = 'SELECT id, description FROM pins';
+		$predis = $this->getPredis();
 
-		$stm = $this->getPDO()->prepare($query);
-		$stm->execute();
-
-		return $stm->fetchAll(PDO::FETCH_KEY_PAIR);
+		return $predis->HGETALL(self::REDIS_PINS);
 	}
 
 } 

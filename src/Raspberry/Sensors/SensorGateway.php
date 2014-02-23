@@ -9,7 +9,7 @@ use Matze\Core\Traits\RedisTrait;
  */
 class SensorGateway {
 
-	const SENSOR_PREFIX = 'sensor:';
+	const REDIS_SENSOR_PREFIX = 'sensor:';
 	const SENSOR_IDS = 'sensor_ids';
 
 	use RedisTrait;
@@ -20,13 +20,12 @@ class SensorGateway {
 	public function getSensors() {
 		$sensor_ids = $this->getSensorIds();
 
-		$sensors = [];
-		$redis = $this->getPredis();
+		$redis = $this->getPredis()->pipeline();
 		foreach ($sensor_ids as $sensor_id) {
-			$sensors[str_replace(self::SENSOR_PREFIX, '', $sensor_id)] = $redis->HGETALL($this->_getKey($sensor_id));
+			$redis->HGETALL($this->_getKey($sensor_id));
 		}
 
-		return $sensors;
+		return $redis->execute();
 	}
 
 	/**
@@ -50,22 +49,27 @@ class SensorGateway {
 	 */
 	public function addSensor($name, $type, $description, $pin, $interval) {
 		$sensor_ids = $this->getSensorIds();
+		$new_sensor_id = end($sensor_ids) + 1;
 
-		$sensor_id = end($sensor_ids) + 1;
+		$predis = $this->getPredis()->pipeline();
 
-		$this->getPredis()->HMSET(self::SENSOR_PREFIX.$sensor_id, [
-			'id' => $sensor_id,
+		$key = $this->_getKey($new_sensor_id);
+		$predis->HMSET($key, [
+			'id' => $new_sensor_id,
 			'name' => $name,
 			'type' => $type,
 			'description' => $description,
 			'pin' => $pin,
 			'interval' => $interval,
-			'last_value' => 0
+			'last_value' => 0,
+			'last_value_timestamp' => 0
 		]);
 
-		$this->getPredis()->SADD(self::SENSOR_IDS, $sensor_id);
+		$this->getPredis()->SADD(self::SENSOR_IDS, $new_sensor_id);
 
-		return $sensor_id;
+		$predis->execute();
+
+		return $new_sensor_id;
 	}
 
 	/**
@@ -73,7 +77,7 @@ class SensorGateway {
 	 * @return array
 	 */
 	public function getSensor($sensor_id) {
-		$key = self::SENSOR_PREFIX . $sensor_id;
+		$key = $this->_getKey($sensor_id);
 
 		return $this->getPredis()->HGETALL($key);
 	}
@@ -83,6 +87,6 @@ class SensorGateway {
 	 * @return string
 	 */
 	private function _getKey($sensor_id) {
-		return self::SENSOR_PREFIX . $sensor_id;
+		return self::REDIS_SENSOR_PREFIX . $sensor_id;
 	}
 } 

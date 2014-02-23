@@ -2,36 +2,75 @@
 
 namespace Raspberry\Radio;
 
-use Matze\Core\Traits\PDOTrait;
-use PDO;
+use Matze\Core\Traits\RedisTrait;
 
 /**
  * @Service(public=false)
  */
 class RadioGateway {
-	use PDOTrait;
+
+	use RedisTrait;
+
+	const REDIS_RADIO = 'radios:%d';
+	const REDIS_RADIO_IDS = 'radio_ids';
 
 	/**
 	 * @return array[]
 	 */
 	public function getRadios() {
-		$query = 'SELECT * from radio ORDER BY name';
+		$radio_ids = $this->getRadioIds();
 
-		$stm = $this->getPDO()->prepare($query);
-		$stm->execute();
+		$pipeline = $this->getPredis()->pipeline();
 
-		return $stm->fetchAll(PDO::FETCH_ASSOC);
+		foreach ($radio_ids as $radio_id) {
+			$pipeline->HGETALL(self::_getRadioKey($radio_id));
+		}
+
+		return $pipeline->execute();
+	}
+
+	/**
+	 * @return integer[]
+	 */
+	public function getRadioIds() {
+		$radio_ids = $this->getPredis()->SMEMBERS(self::REDIS_RADIO_IDS);
+
+		sort($radio_ids);
+
+		return $radio_ids;
 	}
 
 	/**
 	 * @param string $name
 	 * @param string $description
 	 * @param string $pin
+	 * @param string $code
 	 */
-	public function addRadio($name, $description, $pin) {
-		$query = 'INSERT INTO sensors (name, description, pin) VALUES (?, ?, ?)';
+	public function addRadio($name, $description, $pin, $code) {
+		$radio_ids = $this->getRadioIds();
+		$new_radio_id = end($radio_ids) + 1;
 
-		$stm = $this->getPDO()->prepare($query);
-		$stm->execute([$name, $description, $pin]);
+		$pipeline = $this->getPredis()->pipeline();
+
+		$key = $this->_getRadioKey($new_radio_id);
+		$pipeline->HMSET($key, [
+			'id' => $new_radio_id,
+			'name' => $name,
+			'description' => $description,
+			'pin' => $pin,
+			'code' => $code,
+		]);
+
+		$this->getPredis()->SADD(self::REDIS_RADIO_IDS, $new_radio_id);
+
+		$pipeline->execute();
+	}
+
+	/**
+	 * @param integer $radio_id
+	 * @return string
+	 */
+	private function _getRadioKey($radio_id) {
+		return sprintf(self::REDIS_RADIO, $radio_id);
 	}
 } 
