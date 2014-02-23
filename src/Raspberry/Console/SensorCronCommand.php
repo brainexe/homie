@@ -53,26 +53,28 @@ class SensorCronCommand extends Command {
 	 * {@inheritdoc}
 	 */
 	protected function execute(InputInterface $input, OutputInterface $output) {
-		$minute = date('i');
+		$now = time();
 		$sensors = $this->_sensor_gateway->getSensors();
 
 		foreach ($sensors as $sensor_data) {
 			$interval = $sensor_data['interval'] ?: 1;
-			if ($minute % $interval === 0 || $input->getOption('force')) {
+
+			$last_run_timestamp = $sensor_data['last_value_timestamp'];
+			$delta = $now - $last_run_timestamp;
+			if ($delta > $interval * 60 || $input->getOption('force')) {
 				$sensor = $this->_sensor_builder->build($sensor_data['type']);
 
-				$value = $sensor->getValue($sensor_data['pin']);
-
-				if ($value === null) {
+				$current_sensor_value = $sensor->getValue($sensor_data['pin']);
+				if ($current_sensor_value === null) {
 					$output->writeln(sprintf('<error>Invalid sensor value: #%d %s (%s)</error>', $sensor_data['id'], $sensor_data['type'], $sensor_data['name']));
 					continue;
 				}
 
-				$this->_sensor_values_gateway->addValue($sensor_data['id'], $value);
+				$this->_sensor_values_gateway->addValue($sensor_data['id'], $current_sensor_value);
 
-				$output->writeln(sprintf('<info>Sensor value: #%d %s (%s): %s</info>', $sensor_data['id'], $sensor_data['type'], $sensor_data['name'], $sensor->formatValue($value)));
+				$output->writeln(sprintf('<info>Sensor value: #%d %s (%s): %s</info>', $sensor_data['id'], $sensor_data['type'], $sensor_data['name'], $sensor->formatValue($current_sensor_value)));
 
-				sleep(1);
+				usleep(500000);
 			}
 		}
 	}

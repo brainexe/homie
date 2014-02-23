@@ -7,11 +7,19 @@
 		<parameter key="delete_sensor_values" type="collection">
 			<parameter type="collection">
 				<parameter key="days">1</parameter>
-				<parameter key="percentage">12</parameter>
+				<parameter key="percentage">25</parameter>
 			</parameter>
 			<parameter type="collection">
-				<parameter key="days">3</parameter>
+				<parameter key="days">7</parameter>
 				<parameter key="percentage">50</parameter>
+			</parameter>
+			<parameter type="collection">
+				<parameter key="days">14</parameter>
+				<parameter key="percentage">75</parameter>
+			</parameter>
+			<parameter type="collection">
+				<parameter key="days">30</parameter>
+				<parameter key="percentage">90</parameter>
 			</parameter>
 		</parameter>
     </parameters>
