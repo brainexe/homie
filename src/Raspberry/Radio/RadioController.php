@@ -4,9 +4,8 @@ namespace Raspberry\Radio;
 
 use Raspberry\Client\LocalClient;
 
-
 /**
- * @Service(public=false)
+ * @Service
  */
 class RadioController {
 	const STATUS_ENABLED = 'enabled';
@@ -46,14 +45,5 @@ class RadioController {
 		}
 		$command = sprintf('%s %s %d %d', self::BASE_COMMAND, $code, $number, (int)$status);
 		$this->_local_client->execute($command);
-	}
-
-	/**
-	 * @param string $code
-	 * @param integer $number
-	 * @return string
-	 */
-	public function getStatus($code, $number) {
-		return self::STATUS_UNKNOWN;
 	}
 } 

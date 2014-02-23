@@ -2,7 +2,6 @@
 
 namespace Raspberry\Radio;
 
-
 /**
  * @Service(public=false)
  */
@@ -14,31 +13,25 @@ class Radios {
 	private $_radio_gateway;
 
 	/**
-	 * @var RadioController
+	 * @Inject("@RadioGateway")
 	 */
-	private $radio_controller;
+	public function __construct(RadioGateway $radio_gateway) {
+		$this->_radio_gateway = $radio_gateway;
+	}
 
 	/**
-	 * @Inject({"@RadioController", "@RadioGateway"})
+	 * @param integer $radio_id
+	 * @return array
 	 */
-	public function __construct(RadioController $radio_controller, RadioGateway $radio_gateway) {
-		$this->radio_controller = $radio_controller;
-		$this->_radio_gateway = $radio_gateway;
+	public function getRadio($radio_id) {
+		return $this->_radio_gateway->getRadio($radio_id);
 	}
 
 	/**
 	 * @return array[]
 	 */
 	public function getRadios() {
-		$radios_raw = $this->_radio_gateway->getRadios();
-		$radios_formatted = [];
-
-		foreach ($radios_raw as $radio_raw) {
-			$radio_raw['status'] = $this->radio_controller->getStatus($radio_raw['code'], $radio_raw['pin']);
-			$radios_formatted[$radio_raw['id']] = $radio_raw;
-		}
-
-		return $radios_formatted;
+		return $this->_radio_gateway->getRadios();
 	}
 
 }

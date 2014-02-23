@@ -16,8 +16,8 @@
 		<tbody>
 			{% for radio in radios %}
 				<tr>
-					<td>{{ radio.id }}</td>
-					<td>{{ radio.name }}</td>
+					<td>{{ radio.code }}|{{ radio.pin }}</td>
+					<td title="{{ radio.description }}">{{ radio.name }}</td>
 					<td><a href="/radio/{{ radio.id }}/1/" class="btn btn-success">Enable</a></td>
 					<td><a href="/radio/{{ radio.id }}/0/" class="btn btn-danger">Disable</a></td>
 				</tr>
@@ -26,7 +26,7 @@
 	</table>
 	<form action="/radio/add/" method="POST" class="navbar-forms navbar-lefts">
 		<div class="row">
-			<div class="col-lg-6">
+			<div class="col-lg-5">
 				<div class="input-group">
 					  <span class="input-group-btn">
 						<button class="btn btn-default" type="button">Name</button>
@@ -34,7 +34,7 @@
 					<input type="text" name="name" class="form-control" placeholder="Name"/>
 				</div>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-5">
 				<div class="input-group">
 					  <span class="input-group-btn">
 						<button class="btn btn-default" type="button">Description</button>
@@ -44,15 +44,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-lg-4">
-				<div class="input-group">
-					  <span class="input-group-btn">
-						<button class="btn btn-default" type="button">Pin</button>
-					  </span>
-					<input type="text" class="form-control" max="5" min="0" name="pin" placeholder="00000"/>
-				</div>
-			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-2">
 				<div class="input-group">
 					  <span class="input-group-btn">
 							<button class="btn btn-default" type="button">Code</button>
@@ -60,7 +52,15 @@
 					<input type="text" class="form-control" max="5" min="0" name="code" placeholder="00000"/>
 				</div>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-2">
+				<div class="input-group">
+					  <span class="input-group-btn">
+						<button class="btn btn-default" type="button">Pin</button>
+					  </span>
+					<input type="text" class="form-control" max="2" min="0" name="pin" placeholder="1"/>
+				</div>
+			</div>
+			<div class="col-lg-2">
 				<div class="input-group">
 				  <span class="input-group-btn">
 						<button class="btn btn-default" type="submit">Add</button>

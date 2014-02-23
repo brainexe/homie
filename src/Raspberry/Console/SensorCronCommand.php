@@ -2,6 +2,7 @@
 
 namespace Raspberry\Console;
 
+use Matze\Core\Traits\LoggerTrait;
 use Raspberry\Sensors\SensorBuilder;
 use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorValuesGateway;
@@ -15,6 +16,8 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @Command
  */
 class SensorCronCommand extends Command {
+
+	use LoggerTrait;
 
 	/**
 	 * @var SensorGateway

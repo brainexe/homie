@@ -20,7 +20,7 @@ class Chart {
 		foreach ($sensors as $sensor) {
 			$sensor_id = $sensor['id'];
 
-			$sensor_json = ['sensor_id' => $sensor_id, 'color' => '#' . substr(md5($sensor_id), 0, 6), 'name' => $sensor['name'], 'description' => $sensor['description'], 'pin' => $sensor['pin'], 'data' => []];
+			$sensor_json = ['sensor_id' => $sensor_id, 'color' => $this->_getColor($sensor_id), 'name' => $sensor['name'], 'description' => $sensor['description'], 'pin' => $sensor['pin'], 'data' => []];
 
 			if (!empty($sensor_values[$sensor_id])) {
 				foreach ($sensor_values[$sensor_id] as $timestamp => $value) {
@@ -34,6 +34,14 @@ class Chart {
 		}
 
 		return $output;
+	}
+
+	/**
+	 * @param integer $sensor_id
+	 * @return string
+	 */
+	private function _getColor($sensor_id) {
+		return sprintf('#%s', substr(md5($sensor_id), 0, 6));
 	}
 
 } 

@@ -5,7 +5,6 @@ namespace Raspberry\Client;
 use RuntimeException;
 use Symfony\Component\Process\Process;
 
-
 /**
  * @Service(public=false)
  */

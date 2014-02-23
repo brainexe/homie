@@ -32,13 +32,12 @@ class GpioController extends AbstractController {
 	}
 
 	/**
-	 * @param Request $request
-	 * @param $id
-	 * @param $status
-	 * @param $value
+	 * @param integer $id
+	 * @param string $status
+	 * @param integer $value
 	 * @return RedirectResponse
 	 */
-	public function setStatus(Request $request, $id, $status, $value) {
+	public function setStatus($id, $status, $value) {
 		$this->_service_gpio_manager->setPin($id, $status, $value);
 
 		return new RedirectResponse('/gpio/');
@@ -51,11 +50,11 @@ class GpioController extends AbstractController {
 		return [
 			'gpio.index' => [
 				'pattern' => '/gpio/',
-				'defaults' => ['_controller' =>  'Gpio::index']
+				'defaults' => ['_controller' => 'Gpio::index']
 			],
 			'gpio.set' => [
 				'pattern' => '/gpio/set/{id}/{status}/{value}/',
-				'defaults' => ['_controller' =>  'Gpio::setStats']
+				'defaults' => ['_controller' => 'Gpio::setStatus']
 			]
 		];
 	}

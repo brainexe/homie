@@ -30,6 +30,14 @@ class RadioGateway {
 	}
 
 	/**
+	 * @param integer $radio_id
+	 * @return array
+	 */
+	public function getRadio($radio_id) {
+		return $this->getPredis()->HGETALL($this->_getRadioKey($radio_id));
+	}
+
+	/**
 	 * @return integer[]
 	 */
 	public function getRadioIds() {

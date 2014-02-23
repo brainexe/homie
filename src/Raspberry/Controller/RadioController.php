@@ -42,15 +42,15 @@ class RadioController extends AbstractController {
 		return [
 			'radio.index' => [
 				'pattern' => '/radio/',
-				'defaults' => ['_controller' =>  'Radio::index']
+				'defaults' => ['_controller' => 'Radio::index']
 			],
 			'radio.set' => [
-				'pattern' => '/radio/{id}/{status}/',
-				'defaults' => ['_controller' =>  'Radio::setStatus']
+				'pattern' => '/radio/{radio_id}/{status}/',
+				'defaults' => ['_controller' => 'Radio::setStatus']
 			],
 			'radio.add' => [
 				'pattern' => '/radio/add/',
-				'defaults' => ['_controller' =>  'Radio::addRadio']
+				'defaults' => ['_controller' => 'Radio::addRadio']
 			]
 		];
 	}
@@ -62,12 +62,12 @@ class RadioController extends AbstractController {
 	}
 
 	/**
-	 * @param integer $id
+	 * @param integer $radio_id
 	 * @param integer $status
 	 * @return RedirectResponse
 	 */
-	public function setStatus($id, $status) {
-		$radio = $this->_service_radios->getRadios()[$id];
+	public function setStatus($radio_id, $status) {
+		$radio = $this->_service_radios->getRadio($radio_id);
 
 		$event = new MessageQueueEvent('RadioController', 'setStatus', [$radio['code'], $radio['pin'], $status]);
 		$this->getEventDispatcher()->dispatch(MessageQueueEvent::NAME, $event);
@@ -85,6 +85,8 @@ class RadioController extends AbstractController {
 		$code = $request->request->get('code');
 		$pin = $request->request->get('pin');
 
+		// TODO validate
+		// todo map code from A/B/C.. -> 1/2/3..
 		$this->_service_radio_gateway->addRadio($name, $description, $pin, $code);
 
 		return new RedirectResponse('/radio/');

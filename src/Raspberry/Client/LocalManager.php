@@ -2,7 +2,6 @@
 
 namespace Raspberry\Client;
 
-
 /**
  * @Service(public=false)
  */
@@ -31,9 +30,6 @@ class LocalManager {
 		$this->init();
 	}
 
-	/**
-	 * Init.
-	 */
 	private function init() {
 		$results = $this->client->execute(self::GPIO_COMMAND_READALL);
 		$results = explode("\n", $results);
@@ -66,7 +62,6 @@ class LocalManager {
 	 * Update.
 	 *
 	 * @param Pin $pin Pin
-	 *
 	 * @return Pin
 	 */
 	public function update(Pin $pin) {

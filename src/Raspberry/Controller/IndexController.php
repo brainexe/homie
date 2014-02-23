@@ -17,7 +17,7 @@ class IndexController extends AbstractController {
 		return [
 			'index.index' => [
 				'pattern' => '/',
-				'defaults' => ['_controller' =>  'Index::index']
+				'defaults' => ['_controller' => 'Index::index']
 			]
 		];
 	}

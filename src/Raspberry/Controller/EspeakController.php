@@ -36,11 +36,11 @@ class EspeakController extends AbstractController {
 		return [
 			'espeak.index' => [
 				'pattern' => '/espeak/',
-				'defaults' => ['_controller' =>  'Espeak::index']
+				'defaults' => ['_controller' => 'Espeak::index']
 			],
 			'espeak.speak' => [
 				'pattern' => '/espeak/speak/',
-				'defaults' => ['_controller' =>  'Espeak::speak'],
+				'defaults' => ['_controller' => 'Espeak::speak'],
 				'methods' => ['POST']
 			]
 		];
