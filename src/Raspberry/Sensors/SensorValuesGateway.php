@@ -41,8 +41,8 @@ class SensorValuesGateway {
 		$redis_result = $this->getPredis()->ZRANGEBYSCORE($key, $from, time(), 'WITHSCORES');
 		$result = [];
 
-		foreach ($redis_result as $result) {
-			$result[$result[1]] = explode('-', $result[0])[1];
+		foreach ($redis_result as $part) {
+			$result[$part[1]] = explode('-', $part[0])[1];
 		}
 
 		return $result;
