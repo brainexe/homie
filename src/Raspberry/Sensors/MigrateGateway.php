@@ -56,7 +56,7 @@ class MigrateGateway {
 			foreach ($sensor_values as $sensor_value) {
 				echo ".";
 				$key = SensorValuesGateway::SENSOR_VALUES_PREFIX . $sensor_id;
-				$predis->ZADD($key, $sensor_value['timestamp'], $sensor_value['value']);
+				$predis->ZADD($key, $sensor_value['timestamp'], $sensor_value['timestamp'].'-'.$sensor_value['value']);
 			}
 		}
 	}

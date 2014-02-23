@@ -22,7 +22,7 @@ class SensorValuesGateway {
 		$predis = $this->getPredis();
 
 		$key = self::SENSOR_VALUES_PREFIX . $sensor_id;
-		$predis->ZADD($key, time(), $value);
+		$predis->ZADD($key, time(), time().'-'.$value);
 
 		$predis->HSET(SensorGateway::SENSOR_PREFIX . $sensor_id, 'last_value', $value);
 	}
@@ -38,7 +38,12 @@ class SensorValuesGateway {
 		}
 
 		$key = self::SENSOR_VALUES_PREFIX . $sensor_id;
-		$result = $this->getPredis()->ZRANGEBYSCORE($key, $from, time(), 'WITHSCORES');
+		$redis_result = $this->getPredis()->ZRANGEBYSCORE($key, $from, time(), 'WITHSCORES');
+		$result = [];
+
+		foreach ($redis_result as $result) {
+			$result[$result[1]] = explode('-', $result[0])[1];
+		}
 
 		return $result;
 	}

@@ -23,8 +23,8 @@ class Chart {
 			$sensor_json = ['sensor_id' => $sensor_id, 'color' => '#' . substr(md5($sensor_id), 0, 6), 'name' => $sensor['name'], 'description' => $sensor['description'], 'pin' => $sensor['pin'], 'data' => []];
 
 			if (!empty($sensor_values[$sensor_id])) {
-				foreach ($sensor_values[$sensor_id] as $sensor_value) {
-					$sensor_json['data'][] = ['x' => (int)$sensor_value[1], 'y' => (double)$sensor_value[0],];
+				foreach ($sensor_values[$sensor_id] as $timestamp => $value) {
+					$sensor_json['data'][] = ['x' => (int)$timestamp, 'y' => (double)$value];
 				}
 			} else {
 				continue;
