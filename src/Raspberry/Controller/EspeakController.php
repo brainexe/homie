@@ -2,18 +2,18 @@
 
 namespace Raspberry\Controller;
 
-use Matze\Core\Controller\ControllerInterface;
+use Matze\Core\Controller\AbstractController;
 use Matze\Core\EventDispatcher\MessageQueueEvent;
 use Matze\Core\Traits\EventDispatcherTrait;
 use Raspberry\Espeak\Espeak;
-use Silex\Application;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 
 /**
  * @Controller
  */
-class EspeakController implements ControllerInterface {
+class EspeakController extends AbstractController {
 
 	use EventDispatcherTrait;
 
@@ -32,31 +32,38 @@ class EspeakController implements ControllerInterface {
 	/**
 	 * @return string
 	 */
-	public function getPath() {
-		return '/espeak/';
+	public function getRoutes() {
+		return [
+			'espeak.index' => [
+				'pattern' => '/espeak/',
+				'defaults' =>  ['_controller' =>  'Espeak::index']
+			],
+			'espeak.speak' => [
+				'pattern' => '/espeak/speak/',
+				'defaults' =>  ['_controller' =>  'Espeak::speak']
+				// TODO require post
+			]
+		];
 	}
 
-	public function connect(Application $app) {
-		$controllers = $app['controllers_factory'];
-
-		$controllers->get('/', function (Application $app) {
-			$speakers = $this->_service_espeak->getSpeakers();
-			return $app['twig']->render('espeak.html.twig', ['speakers' => $speakers]);
-		});
-
-		$controllers->post('/', function (Application $app, Request $request) {
-			$speaker = $request->request->get('speaker');
-			$text = $request->request->get('text');
-			$volume = $request->request->getInt('volume');
-			$speed = $request->request->getInt('speed');
-
-			$event = new MessageQueueEvent('Espeak', 'speak', [$text, $volume, $speed, $speaker]);
-			$this->getEventDispatcher()->dispatch(MessageQueueEvent::NAME, $event);
-
-			return $app->redirect('/espeak/');
-		});
-
-		return $controllers;
+	public function index() {
+		$speakers = $this->_service_espeak->getSpeakers();
+		return $this->render('espeak.html.twig', ['speakers' => $speakers]);
 	}
 
+	/**
+	 * @param Request $request
+	 * @return RedirectResponse
+	 */
+	public function speak(Request $request) {
+		$speaker = $request->request->get('speaker');
+		$text = $request->request->get('text');
+		$volume = $request->request->getInt('volume');
+		$speed = $request->request->getInt('speed');
+
+		$event = new MessageQueueEvent('Espeak', 'speak', [$text, $volume, $speed, $speaker]);
+		$this->getEventDispatcher()->dispatch(MessageQueueEvent::NAME, $event);
+
+		return new RedirectResponse('/espeak/');
+	}
 }

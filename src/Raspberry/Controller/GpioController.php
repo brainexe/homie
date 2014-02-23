@@ -2,14 +2,16 @@
 
 namespace Raspberry\Controller;
 
-use Matze\Core\Controller\ControllerInterface;
+use Matze\Core\Controller\AbstractController;
+use Matze\Core\Traits\EventDispatcherTrait;
 use Raspberry\Gpio\GpioManager;
-use Silex\Application;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Controller
  */
-class GpioController implements ControllerInterface {
+class GpioController extends AbstractController {
 
 	/**
 	 * @var GpioManager;
@@ -23,28 +25,38 @@ class GpioController implements ControllerInterface {
 		$this->_service_gpio_manager = $service_gpio_manager;
 	}
 
-	public function connect(Application $app) {
-		$controllers = $app['controllers_factory'];
+	public function index() {
+		$pins = $this->_service_gpio_manager->getPins();
 
-		$controllers->get('/', function (Application $app) {
-			$pins = $this->_service_gpio_manager->getPins();
+		return $this->render('gpio.html.twig', ['pins' => $pins]);
+	}
 
-			return $app['twig']->render('gpio.html.twig', ['pins' => $pins]);
-		});
+	/**
+	 * @param Request $request
+	 * @param $id
+	 * @param $status
+	 * @param $value
+	 * @return RedirectResponse
+	 */
+	public function setStatus(Request $request, $id, $status, $value) {
+		$this->_service_gpio_manager->setPin($id, $status, $value);
 
-		$controllers->get('/set/{id}/{status}/{value}/', function ($id, $status, $value, Application $app) {
-			$this->_service_gpio_manager->setPin($id, $status, $value);
-
-			return $app->redirect('/gpio/');
-		});
-
-		return $controllers;
+		return new RedirectResponse('/gpio/');
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getPath() {
-		return '/gpio/';
+	public function getRoutes() {
+		return [
+			'gpio.index' => [
+				'pattern' => '/gpio/',
+				'defaults' =>  ['_controller' =>  'Gpio::index']
+			],
+			'gpio.set' => [
+				'pattern' => '/gpio/set/{id}/{status}/{value}/',
+				'defaults' =>  ['_controller' =>  'Gpio::setStats']
+			]
+		];
 	}
 }

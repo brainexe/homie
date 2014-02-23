@@ -61,7 +61,7 @@ class SensorCronCommand extends Command {
 		}
 
 		foreach ($sensors as $sensor_data) {
-			$interval = $sensor_data['interval'];
+			$interval = $sensor_data['interval'] ?: 1;
 			if ($minute % $interval === 0) {
 				$sensor = $this->_sensor_builder->build($sensor_data['type']);
 

@@ -2,18 +2,16 @@
 
 namespace Raspberry\Controller;
 
-use Matze\Core\Controller\ControllerInterface;
+use Matze\Core\Controller\AbstractController;
 use Matze\Core\EventDispatcher\MessageQueueEvent;
 use Matze\Core\Traits\EventDispatcherTrait;
-use Predis\Client;
 use Raspberry\Radio\Radios;
-use Silex\Application;
-
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * @Controller
  */
-class RadioController implements ControllerInterface {
+class RadioController extends AbstractController {
 
 	use EventDispatcherTrait;
 
@@ -23,37 +21,41 @@ class RadioController implements ControllerInterface {
 	private $_service_radios;
 
 	/**
-	 * @return string
-	 */
-	public function getPath() {
-		return '/radio/';
-	}
-
-	/**
 	 * @Inject("@Radios")
 	 */
 	public function __construct(Radios $radios) {
 		$this->_service_radios = $radios;
 	}
 
-	public function connect(Application $app) {
-		$controllers = $app['controllers_factory'];
-
-		$controllers->get('/', function (Application $app) {
-			$radios_formatted = $this->_service_radios->getRadios();
-
-			return $app['twig']->render('radio.html.twig', ['radios' => $radios_formatted]);
-		});
-
-		$controllers->get('/{id}/{status}/', function ($id, $status, Application $app) {
-			$radio = $this->_service_radios->getRadios()[$id];
-
-			$event = new MessageQueueEvent('RadioController', 'setStatus', [$radio['code'], $radio['pin'], $status]);
-			$this->getEventDispatcher()->dispatch(MessageQueueEvent::NAME, $event);
-
-			return $app->redirect('/radio/');
-		});
-
-		return $controllers;
+	/**
+	 * @return string
+	 */
+	public function getRoutes() {
+		return [
+			'radio.index' => [
+				'pattern' => '/radio/',
+				'defaults' =>  ['_controller' =>  'Radio::index']
+			],
+			'radio.set' => [
+				'pattern' => '/radio/{id}/{status}/',
+				'defaults' =>  ['_controller' =>  'Radio::setStatus']
+			]
+		];
 	}
+
+	public function index() {
+		$radios_formatted = $this->_service_radios->getRadios();
+
+		return $this->render('radio.html.twig', ['radios' => $radios_formatted]);
+	}
+
+	public function setStatus() {
+		$radio = $this->_service_radios->getRadios()[$id];
+
+		$event = new MessageQueueEvent('RadioController', 'setStatus', [$radio['code'], $radio['pin'], $status]);
+		$this->getEventDispatcher()->dispatch(MessageQueueEvent::NAME, $event);
+
+		return new RedirectResponse('/radio/');
+	}
+
 }

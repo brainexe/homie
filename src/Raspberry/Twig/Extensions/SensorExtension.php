@@ -4,6 +4,9 @@ namespace Raspberry\Twig\Extensions;
 
 use Twig_Extension;
 
+/**
+ * @TwigExtension
+ */
 class SensorExtension extends Twig_Extension {
 
 	/**

@@ -2,16 +2,15 @@
 
 namespace Raspberry\Espeak;
 
-
 /**
  * @Service(public=false)
  */
-class Espeak {
+class Espeak implements SpeakOutputInterface {
 	/**
 	 * @return array
 	 */
 	public function getSpeakers() {
-		return ['de+m1' => 'DE Male', 'de+f1' => 'DE Female', 'en' => 'EN', 'fr' => 'FR',];
+		return ['de+m1' => 'DE Male', 'de+f1' => 'DE Female', 'en' => 'EN', 'fr' => 'FR'];
 	}
 
 	/**
@@ -20,7 +19,7 @@ class Espeak {
 	 * @param integer $speed
 	 * @param string $speaker
 	 */
-	public function speak($text, $volume = 100, $speed = 100, $speaker = 'de') {
+	public function speak($text, $volume = 100, $speed = 100, $speaker = 'de+m1') {
 		if (empty($text)) {
 			return;
 		}

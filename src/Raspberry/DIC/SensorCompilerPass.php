@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 
 /**
- * @Service(tags={{"name" = "compiler_pass"}})
+ * @Service(tags={{"name" = "compiler_pass"}}, public=false)
  */
 class SensorCompilerPass implements CompilerPassInterface {
 

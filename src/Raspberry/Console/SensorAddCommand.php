@@ -2,18 +2,14 @@
 
 namespace Raspberry\Console;
 
-use Predis\Client;
-use Raspberry\Radio\RadioController;
 use Raspberry\Sensors\SensorBuilder;
 use Raspberry\Sensors\SensorGateway;
-use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\DialogHelper;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 
-use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @Service(public=false, tags={{"name" = "console"}})

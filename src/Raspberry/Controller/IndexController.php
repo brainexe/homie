@@ -2,29 +2,31 @@
 
 namespace Raspberry\Controller;
 
-use Matze\Core\Controller\ControllerInterface;
-use Silex\Application;
-
+use Matze\Core\Controller\AbstractController;
+use Matze\Core\Traits\TwigTrait;
 
 /**
  * @Controller
  */
-class IndexController implements ControllerInterface {
+class IndexController extends AbstractController {
 
 	/**
 	 * @return string
 	 */
-	public function getPath() {
-		return '/';
+	public function getRoutes() {
+		return [
+			'index.index' => [
+				'pattern' => '/',
+				'defaults' =>  ['_controller' =>  'Index::index']
+			]
+		];
 	}
 
-	public function connect(Application $app) {
-		$controllers = $app['controllers_factory'];
-
-		$controllers->get('/', function (Application $app) {
-			return $app['twig']->render('index.html.twig');
-		});
-
-		return $controllers;
+	/**
+	 * @Route('/')
+	 */
+	public function index() {
+		return $this->render('index.html.twig');
 	}
+
 }
