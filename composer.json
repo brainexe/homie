@@ -20,7 +20,6 @@
 		}
 	],
 	"require": {
-		"symfony/process": "2.4.*",
 		"matze/core": "dev-master"
 	}
 }

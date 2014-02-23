@@ -8,6 +8,7 @@ use Raspberry\Sensors\SensorValuesGateway;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -34,7 +35,9 @@ class SensorCronCommand extends Command {
 	 * {@inheritdoc}
 	 */
 	protected function configure() {
-		$this->setName('cron:sensor')->setDescription('Runs sensor cron');
+		$this->setName('cron:sensor')
+			->setDescription('Runs sensor cron')
+			->addOption('force', null, InputOption::VALUE_NONE, 'Force sensor mesasure');
 	}
 
 	/**
@@ -53,15 +56,9 @@ class SensorCronCommand extends Command {
 		$minute = date('i');
 		$sensors = $this->_sensor_gateway->getSensors();
 
-		foreach ($this->_sensor_builder->getSensors() as $sensor) {
-			if ($sensor->isSupported($output)) {
-				$output->writeln(sprintf('<info>%s: supported</info>', $sensor->getSensorType()));
-			}
-		}
-
 		foreach ($sensors as $sensor_data) {
 			$interval = $sensor_data['interval'] ?: 1;
-			if ($minute % $interval === 0) {
+			if ($minute % $interval === 0 || $input->getOption('force')) {
 				$sensor = $this->_sensor_builder->build($sensor_data['type']);
 
 				$value = $sensor->getValue($sensor_data['pin']);
