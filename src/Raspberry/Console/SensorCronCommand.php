@@ -10,9 +10,8 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-
 /**
- * @Service(public=false, tags={{"name" = "console"}})
+ * @Command
  */
 class SensorCronCommand extends Command {
 

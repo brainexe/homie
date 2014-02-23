@@ -2,26 +2,42 @@
 
 namespace Raspberry\Sensors;
 
-use Matze\Core\Traits\PDOTrait;
-use PDO;
-
+use Matze\Core\Traits\RedisTrait;
 
 /**
  * @Service(public=false)
  */
 class SensorGateway {
-	use PDOTrait;
+
+	const SENSOR_PREFIX = 'sensor:';
+	const SENSOR_IDS = 'sensor_ids';
+
+	use RedisTrait;
 
 	/**
 	 * @return array[]
 	 */
 	public function getSensors() {
-		$query = 'SELECT * FROM sensors ORDER BY name';
+		$sensor_ids = $this->getSensorIds();
 
-		$stm = $this->getPDO()->prepare($query);
-		$stm->execute();
+		$sensors = [];
+		$redis = $this->getPredis();
+		foreach ($sensor_ids as $sensor_id) {
+			$sensors[str_replace(self::SENSOR_PREFIX, '', $sensor_id)] = $redis->HGETALL($this->_getKey($sensor_id));
+		}
 
-		return $stm->fetchAll(\PDO::FETCH_ASSOC);
+		return $sensors;
+	}
+
+	/**
+	 * @return integer[]
+	 */
+	public function getSensorIds() {
+		$sensor_ids = $this->getPredis()->SMEMBERS(self::SENSOR_IDS);
+
+		sort($sensor_ids);
+
+		return $sensor_ids;
 	}
 
 	/**
@@ -30,12 +46,26 @@ class SensorGateway {
 	 * @param string $description
 	 * @param integer $pin
 	 * @param integer $interval
+	 * @return integer
 	 */
 	public function addSensor($name, $type, $description, $pin, $interval) {
-		$query = 'INSERT INTO sensors (name, type, description, pin, `interval`) VALUES (?, ?, ?, ?, ?)';
+		$sensor_ids = $this->getSensorIds();
 
-		$stm = $this->getPDO()->prepare($query);
-		$stm->execute([$name, $type, $description, $pin, $interval]);
+		$sensor_id = end($sensor_ids) + 1;
+
+		$this->getPredis()->HMSET(self::SENSOR_PREFIX.$sensor_id, [
+			'id' => $sensor_id,
+			'name' => $name,
+			'type' => $type,
+			'description' => $description,
+			'pin' => $pin,
+			'interval' => $interval,
+			'last_value' => 0
+		]);
+
+		$this->getPredis()->SADD(self::SENSOR_IDS, $sensor_id);
+
+		return $sensor_id;
 	}
 
 	/**
@@ -43,11 +73,16 @@ class SensorGateway {
 	 * @return array
 	 */
 	public function getSensor($sensor_id) {
-		$query = 'SELECT * from sensors WHERE id = ?';
+		$key = self::SENSOR_PREFIX . $sensor_id;
 
-		$stm = $this->getPDO()->prepare($query);
-		$stm->execute([$sensor_id]);
+		return $this->getPredis()->HGETALL($key);
+	}
 
-		return $stm->fetch(PDO::FETCH_ASSOC);
+	/**
+	 * @param integer $sensor_id
+	 * @return string
+	 */
+	private function _getKey($sensor_id) {
+		return self::SENSOR_PREFIX . $sensor_id;
 	}
 } 

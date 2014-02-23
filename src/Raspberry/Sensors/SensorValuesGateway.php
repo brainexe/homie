@@ -2,32 +2,29 @@
 
 namespace Raspberry\Sensors;
 
-use Matze\Core\Traits\PDOTrait;
 use Matze\Core\Traits\RedisCacheTrait;
-use PDO;
-
+use Matze\Core\Traits\RedisTrait;
 
 /**
  * @Service(public=false)
  */
 class SensorValuesGateway {
-	use PDOTrait;
-	use RedisCacheTrait;
 
-	const CACHE_KEY_LATEST = 'sensor_values';
+	const SENSOR_VALUES_PREFIX = 'sensor_values:';
+
+	use RedisTrait;
 
 	/**
 	 * @param integer $sensor_id
 	 * @param double $value
 	 */
 	public function addValue($sensor_id, $value) {
-		$query = 'INSERT INTO sensor_values (sensor_id, value) VALUES (?, ?)';
-		$stm = $this->getPDO()->prepare($query);
-		$stm->execute([$sensor_id, $value]);
+		$predis = $this->getPredis();
 
-		$query = 'UPDATE sensors SET last_value = ? WHERE id = ?';
-		$stm = $this->getPDO()->prepare($query);
-		$stm->execute([$value, $sensor_id]);
+		$key = self::SENSOR_VALUES_PREFIX . $sensor_id;
+		$predis->ZADD($key, time(), $value);
+
+		$predis->HSET(SensorGateway::SENSOR_PREFIX . $sensor_id, 'last_value', $value);
 	}
 
 	/**
@@ -36,22 +33,14 @@ class SensorValuesGateway {
 	 * @return array[]
 	 */
 	public function getSensorValues($sensor_id, $from) {
-		$query = '
-			SELECT *, UNIX_TIMESTAMP(timestamp) AS timestamp
-			FROM sensor_values
-			WHERE sensor_id = ?
-			AND timestamp >= FROM_UNIXTIME(?)
-			ORDER BY timestamp ASC
-		';
-
 		if ($from) {
 			$from = time() - $from;
 		}
 
-		$stm = $this->getPDO()->prepare($query);
-		$stm->execute([$sensor_id, $from]);
+		$key = self::SENSOR_VALUES_PREFIX . $sensor_id;
+		$result = $this->getPredis()->ZRANGEBYSCORE($key, $from, time(), 'WITHSCORES');
 
-		return $stm->fetchAll(PDO::FETCH_ASSOC);
+		return $result;
 	}
 
 	/**
@@ -59,14 +48,13 @@ class SensorValuesGateway {
 	 * @param integer $deleted_percent
 	 */
 	public function deleteOldValues($days, $deleted_percent) {
+		return;
+		//TODO
 		$query = '
 			DELETE FROM sensor_values
 			WHERE (crc32(MD5(id)) % 100 < ?)
 			AND timestamp < (DATE_SUB(NOW(), INTERVAL ? DAY));
 		';
-
-		$stm = $this->getPDO()->prepare($query);
-		$stm->execute([$deleted_percent, $days]);
 	}
 
 } 

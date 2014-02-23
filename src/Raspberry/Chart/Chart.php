@@ -24,7 +24,7 @@ class Chart {
 
 			if (!empty($sensor_values[$sensor_id])) {
 				foreach ($sensor_values[$sensor_id] as $sensor_value) {
-					$sensor_json['data'][] = ['x' => (int)$sensor_value['timestamp'], 'y' => (double)$sensor_value['value'],];
+					$sensor_json['data'][] = ['x' => (int)$sensor_value[1], 'y' => (double)$sensor_value[0],];
 				}
 			} else {
 				continue;

@@ -12,7 +12,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * @Service(public=false, tags={{"name" = "console"}})
+ * @Command
  */
 class SensorAddCommand extends Command {
 
@@ -64,7 +64,7 @@ class SensorAddCommand extends Command {
 		$name = $dialog->ask($output, "Sensor name\n");
 		$description = $dialog->ask($output, "Description (optional)\n");
 		$pin = $dialog->ask($output, "Pin (optional)\n");
-		$interval = (int)$dialog->ask($output, "Interval in minutes\n");
+		$interval = (int)$dialog->ask($output, "Interval in minutes\n") ?: 1;
 
 		// get test value
 		$test_value = $sensor->getValue($pin);

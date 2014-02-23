@@ -5,7 +5,6 @@ namespace Raspberry\Radio;
 use Matze\Core\Traits\PDOTrait;
 use PDO;
 
-
 /**
  * @Service(public=false)
  */
