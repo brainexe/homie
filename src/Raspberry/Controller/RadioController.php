@@ -34,11 +34,11 @@ class RadioController extends AbstractController {
 		return [
 			'radio.index' => [
 				'pattern' => '/radio/',
-				'defaults' =>  ['_controller' =>  'Radio::index']
+				'defaults' => ['_controller' =>  'Radio::index']
 			],
 			'radio.set' => [
 				'pattern' => '/radio/{id}/{status}/',
-				'defaults' =>  ['_controller' =>  'Radio::setStatus']
+				'defaults' => ['_controller' =>  'Radio::setStatus']
 			]
 		];
 	}

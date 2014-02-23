@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 
 use Symfony\Component\Console\Application;

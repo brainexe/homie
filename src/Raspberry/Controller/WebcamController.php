@@ -29,7 +29,7 @@ class WebcamController extends AbstractController {
 		return [
 			'webcam.index' => [
 				'pattern' => '/webcam/',
-				'defaults' =>  ['_controller' =>  'Webcam::index']
+				'defaults' => ['_controller' =>  'Webcam::index']
 			]
 		];
 	}

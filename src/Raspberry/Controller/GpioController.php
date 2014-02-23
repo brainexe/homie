@@ -51,11 +51,11 @@ class GpioController extends AbstractController {
 		return [
 			'gpio.index' => [
 				'pattern' => '/gpio/',
-				'defaults' =>  ['_controller' =>  'Gpio::index']
+				'defaults' => ['_controller' =>  'Gpio::index']
 			],
 			'gpio.set' => [
 				'pattern' => '/gpio/set/{id}/{status}/{value}/',
-				'defaults' =>  ['_controller' =>  'Gpio::setStats']
+				'defaults' => ['_controller' =>  'Gpio::setStats']
 			]
 		];
 	}

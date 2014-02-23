@@ -58,19 +58,19 @@ class SensorsController extends AbstractController {
 		return [
 			'sensor.index' => [
 				'pattern' => '/sensors/',
-				'defaults' =>  ['_controller' =>  'Sensors::index']
+				'defaults' => ['_controller' =>  'Sensors::index']
 			],
 			'sensor.indexSensor' => [
 				'pattern' => '/sensors/{active_sensor_ids}',
-				'defaults' =>  ['_controller' =>  'Sensors::indexSensor']
+				'defaults' => ['_controller' =>  'Sensors::indexSensor']
 			],
 			'sensor.set' => [
 				'pattern' => '/sensors/set/{id}/{status}/{value}/',
-				'defaults' =>  ['_controller' =>  'Sensors::setStats']
+				'defaults' => ['_controller' =>  'Sensors::setStats']
 			],
 			'sensor.espeak' => [
 				'pattern' => '/sensors/espeak/{sensor_id}/',
-				'defaults' =>  ['_controller' =>  'Sensors::espeak']
+				'defaults' => ['_controller' =>  'Sensors::espeak']
 			]
 		];
 	}
