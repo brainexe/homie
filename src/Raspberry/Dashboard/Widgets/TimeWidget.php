@@ -1,12 +1,15 @@
 <?php
 
 namespace Raspberry\Dashboard\Widgets;
+use Matze\Core\Traits\TranslatorTrait;
 use Raspberry\Dashboard\AbstractWidget;
 
 /**
  * @Service(public=false, tags={{"name" = "widget"}})
  */
 class TimeWidget extends AbstractWidget {
+
+	use TranslatorTrait;
 
 	const TYPE = 'time';
 
@@ -15,7 +18,7 @@ class TimeWidget extends AbstractWidget {
 	 */
 	public function renderWidget() {
 		return $this->render('widgets/widget.html.twig', [
-			'title' => 'Time',
+			'title' => $this->trans('Time'),
 			'content' => date('c')
 		]);
 	}

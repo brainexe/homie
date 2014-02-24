@@ -33,7 +33,8 @@ class CleanCronCommand extends Command {
 	 * {@inheritdoc}
 	 */
 	protected function configure() {
-		$this->setName('cron:clean')->setDescription('Delete old sensor values');
+		$this->setName('cron:clean')
+			->setDescription('Delete old sensor values');
 	}
 
 	/**

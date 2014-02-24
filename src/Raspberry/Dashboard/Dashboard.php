@@ -68,6 +68,9 @@ class Dashboard {
 	 * @param array $payload
 	 */
 	public function addWidget($user_id, $type, $payload) {
+		$widget = $this->_widget_factory->getWidget($type);
+		$widget->validate($payload);
+
 		$payload['type'] = $type;
 
 		$new_id = mt_rand(1000, 1000000);

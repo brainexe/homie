@@ -2,7 +2,11 @@
 
 namespace Raspberry\Sensors\Sensors;
 
+use Matze\Core\Traits\TranslatorTrait;
+
 abstract class AbstractTemperatureSensor implements SensorInterface {
+
+	use TranslatorTrait;
 
 	/**
 	 * {@inheritdoc}
@@ -15,7 +19,7 @@ abstract class AbstractTemperatureSensor implements SensorInterface {
 	 * {@inheritdoc}
 	 */
 	public function getEspeakText($value) {
-		return str_replace('.', ',', sprintf('%0.1f Grad', $value));
+		return str_replace('.', ',', sprintf($this->trans('%0.1f Degree'), $value));
 	}
 
 } 
