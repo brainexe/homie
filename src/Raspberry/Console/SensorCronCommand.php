@@ -46,10 +46,12 @@ class SensorCronCommand extends Command {
 	/**
 	 * @Inject({"@SensorGateway", "@SensorValuesGateway", "@SensorBuilder"})
 	 */
-	public function setDependencies(SensorGateway $sensor_gateway, SensorValuesGateway $sensor_values_gateway, SensorBuilder $sensor_builder) {
+	public function __construct(SensorGateway $sensor_gateway, SensorValuesGateway $sensor_values_gateway, SensorBuilder $sensor_builder) {
 		$this->_sensor_builder = $sensor_builder;
 		$this->_sensor_gateway = $sensor_gateway;
 		$this->_sensor_values_gateway = $sensor_values_gateway;
+
+		parent::__construct();
 	}
 
 	/**

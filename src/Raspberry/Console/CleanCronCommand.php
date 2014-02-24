@@ -40,10 +40,11 @@ class CleanCronCommand extends Command {
 	/**
 	 * @Inject({"@SensorValuesGateway", "@SensorGateway", "%delete_sensor_values%"})
 	 */
-	public function setDependencies(SensorValuesGateway $sensor_values_gateway, SensorGateway $sensor_gateway, $delete_sensor_values) {
+	public function __construct(SensorValuesGateway $sensor_values_gateway, SensorGateway $sensor_gateway, $delete_sensor_values) {
 		$this->_sensor_values_gateway = $sensor_values_gateway;
 		$this->_value_delete_sensor_values = $delete_sensor_values;
 		$this->_sensor_gateway = $sensor_gateway;
+		parent::__construct();
 	}
 
 	/**
