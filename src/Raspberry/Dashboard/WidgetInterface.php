@@ -12,10 +12,9 @@ interface WidgetInterface {
 	/**
 	 * @return string
 	 */
-	public function render();
+	public function renderWidget();
 
-	/**
-	 * @return string
-	 */
-	public function getTitle();
-} 
+	public function create(array $payload);
+
+	public function validate(array $payload);
+}

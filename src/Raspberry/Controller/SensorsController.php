@@ -130,13 +130,11 @@ class SensorsController extends AbstractController {
 		$sensor_obj = $this->_sensor_builder->build($sensor['type']);
 
 		$text = $sensor_obj->getEspeakText($sensor['last_value']);
-$text = 'foo';
 
 		$event = new MessageQueueEvent('Espeak', 'speak', [$text, 130, 70]);
 		$this->getEventDispatcher()->dispatch(MessageQueueEvent::NAME, $event);
 
-		return $text;
-//		return new RedirectResponse(sprintf('/sensors/%s', $sensor_id));
+		return new RedirectResponse(sprintf('/sensors/%s', $sensor_id));
 	}
 
 }

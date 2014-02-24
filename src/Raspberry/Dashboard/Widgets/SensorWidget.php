@@ -3,6 +3,8 @@
 namespace Raspberry\Dashboard\Widgets;
 
 use Raspberry\Dashboard\AbstractWidget;
+use Raspberry\Sensors\SensorBuilder;
+use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\Sensors\SensorInterface;
 
 /**
@@ -23,17 +25,32 @@ class SensorWidget extends AbstractWidget {
 	private $_sensor_data;
 
 	/**
-	 * @return string
+	 * @var SensorGateway
 	 */
-	public function render() {
-		return $this->_sensor->formatValue($this->_sensor_data['last_value']);
+	private $_sensor_gateway;
+
+	/**
+	 * @var SensorBuilder
+	 */
+	private $_sensor_builder;
+
+	/**
+	 * @Inject({"@SensorGateway", "@SensorBuilder"})
+	 */
+	public function __construct(SensorGateway $sensor_gateway, SensorBuilder $sensor_builder) {
+		$this->_sensor_gateway = $sensor_gateway;
+		$this->_sensor_builder = $sensor_builder;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getTitle() {
-		return sprintf('%s (%s)', $this->_sensor_data['name'], $this->_sensor_data['description']);
+	public function renderWidget() {
+		return $this->render('widgets/sensor_widget.html.twig', [
+			'title' => $this->_sensor_data['name'],
+			'temperature' => $this->_sensor->formatValue($this->_sensor_data['last_value']),
+			'sensor' => $this->_sensor_data
+		]);
 	}
 
 	/**
@@ -45,8 +62,13 @@ class SensorWidget extends AbstractWidget {
 
 	/**
 	 * @param array $payload
+	 * @throws \InvalidArgumentException
 	 */
 	public function create(array $payload) {
-		// TODO set payload
+		if (empty($payload['sensor_id'])) {
+			throw new \InvalidArgumentException("No sensor_id passed");
+		}
+		$this->_sensor_data = $this->_sensor_gateway->getSensor($payload['sensor_id']);
+		$this->_sensor = $this->_sensor_builder->build($this->_sensor_data['type']);
 	}
 }

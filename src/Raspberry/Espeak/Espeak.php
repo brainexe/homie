@@ -3,7 +3,7 @@
 namespace Raspberry\Espeak;
 
 /**
- * @Service(public=false)
+ * @Service
  */
 class Espeak implements SpeakOutputInterface {
 	/**

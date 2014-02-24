@@ -1,13 +1,44 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
-df
-    {% for widget in widgets %}
-        d
-        <div class="widget">
-            <div class="title">{{ widget.getTitle() }}</div>
-            <div class="content">{{ widget.render() }}</div>
-        </div>
-    {% endfor %}
-
+	<div class="span-9">
+		<div class="row">
+			{% for row in dashboard %}
+				<div class="col-md-6">
+					{% for widget in row %}
+						{{ widget.renderWidget()|raw }}
+					{% endfor %}
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+	<form action="/dashboard/add/" method="POST" class="navbar-forms navbar-lefts">
+		<div class="row">
+			<div class="col-lg-5">
+				<div class="input-group">
+					  <span class="input-group-btn">
+						<button class="btn btn-default" type="button">Type</button>
+					  </span>
+					<input type="text" name="type" class="form-control" placeholder="Type"/>
+				</div>
+			</div>
+			<div class="col-lg-5">
+				<div class="input-group">
+					  <span class="input-group-btn">
+						<button class="btn btn-default" type="button">Payload</button>
+					  </span>
+					<input type="text" name="payload" class="form-control" placeholder="{'sensor_id':1}"/>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-10">
+				<div class="input-group">
+				  <span class="input-group-btn">
+						<button class="btn btn-default" type="submit">Add</button>
+				  </span>
+				</div>
+			</div>
+		</div>
+	</form>
 {% endblock %}

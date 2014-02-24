@@ -1,0 +1,11 @@
+{% extends "widgets/widget.html.twig" %}
+{% block title %}
+	{{ sensor.name }} ({{ sensor.type }})
+{% endblock %}
+
+{% block content %}
+	{{ temperature }} ({{ sensor.last_value_timestamp|date }})
+
+	<a href="/sensor/{{ sensor.id }}/reload/" class="glyphicon glyphicon-repeat"></a>
+{% endblock %}
+

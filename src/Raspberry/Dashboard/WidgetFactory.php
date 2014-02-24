@@ -9,7 +9,7 @@ use InvalidArgumentException;
 class WidgetFactory {
 
 	/**
-	 * @var WidgetInterface
+	 * @var WidgetInterface[]
 	 */
 	private $_widgets;
 
@@ -32,6 +32,13 @@ class WidgetFactory {
 		}
 
 		return $this->_widgets[$id];
+	}
+
+	/**
+	 * @return string[]
+	 */
+	public function getAvailableWidgets() {
+		return array_keys($this->_widgets);
 	}
 
 } 

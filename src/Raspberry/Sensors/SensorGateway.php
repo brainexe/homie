@@ -84,6 +84,17 @@ class SensorGateway {
 
 	/**
 	 * @param integer $sensor_id
+	 */
+	public function deleteSensor($sensor_id) {
+		$redis = $this->getPredis();
+
+		$redis->DEL($this->_getKey($sensor_id));
+		$redis->SREM(self::SENSOR_IDS, $sensor_id);
+		$redis->DEF(sprintf(SensorValuesGateway::REDIS_SENSOR_VALUES, $sensor_id));
+	}
+
+	/**
+	 * @param integer $sensor_id
 	 * @return string
 	 */
 	private function _getKey($sensor_id) {
