@@ -2,27 +2,29 @@
 
 namespace Raspberry\DIC;
 
-use Raspberry\Sensors\Sensors\SensorInterface;
+use Raspberry\Dashboard\WidgetInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * @CompilerPass
  */
-class SensorCompilerPass implements CompilerPassInterface {
+class WidgetCompilerPass implements CompilerPassInterface {
 
-	const TAG = 'sensor';
+	const TAG = 'widget';
 
 	public function process(ContainerBuilder $container) {
-		$definition = $container->getDefinition('SensorBuilder');
+		/** @var Definition $definition */
+		$definition = $container->getDefinition('WidgetFactory');
 
 		$taggedServices = $container->findTaggedServiceIds(self::TAG);
 		foreach ($taggedServices as $id => $attributes) {
-			/** @var SensorInterface $service */
+			/** @var WidgetInterface $service */
 			$service = $container->get($id);
 
-			$definition->addMethodCall('addSensor', [$service->getSensorType(), new Reference($id)]);
+			$definition->addMethodCall('addWidget', [$service->getId(), new Reference($id)]);
 		}
 	}
 

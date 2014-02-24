@@ -1,13 +1,16 @@
 <?php
 
-namespace Raspberry\Dashboard;
+namespace Raspberry\Dashboard\Widgets;
 
+use Raspberry\Dashboard\AbstractWidget;
 use Raspberry\Sensors\Sensors\SensorInterface;
 
 /**
- * @Widget
+ * @Service(public=false, tags={{"name" = "widget"}})
  */
-class TemperatureWidget extends AbstractWidget {
+class SensorWidget extends AbstractWidget {
+
+	const TYPE = 'sensor';
 
 	/**
 	 * @var SensorInterface
@@ -34,9 +37,16 @@ class TemperatureWidget extends AbstractWidget {
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getId() {
+		return self::TYPE;
+	}
+
+	/**
 	 * @param array $payload
 	 */
 	public function create(array $payload) {
-
+		// TODO set payload
 	}
 }

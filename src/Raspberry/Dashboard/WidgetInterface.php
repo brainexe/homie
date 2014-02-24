@@ -7,6 +7,11 @@ interface WidgetInterface {
 	/**
 	 * @return string
 	 */
+	public function getId();
+
+	/**
+	 * @return string
+	 */
 	public function render();
 
 	/**

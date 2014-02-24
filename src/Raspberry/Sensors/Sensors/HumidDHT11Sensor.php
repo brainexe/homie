@@ -4,7 +4,6 @@ namespace Raspberry\Sensors\Sensors;
 
 use Symfony\Component\Process\Process;
 
-
 /**
  * @Service(public=false, tags={{"name" = "sensor"}})
  */

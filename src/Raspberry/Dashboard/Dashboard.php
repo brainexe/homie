@@ -1,7 +1,9 @@
 <?php
 
 namespace Raspberry\Dashboard;
+
 use Matze\Core\Traits\RedisTrait;
+use Raspberry\Dashboard\Widgets\TimeWidget;
 
 /**
  * @Service(public=false)
@@ -28,6 +30,8 @@ class Dashboard {
 	 */
 	public function getWidgets($user_id) {
 		$widgets = [];
+
+		$widgets[] = $this->_widget_factory->getWidget(TimeWidget::TYPE);
 
 		return $widgets;
 	}

@@ -39,11 +39,12 @@ class IndexController extends AbstractController {
 	 * @Route('/')
 	 */
 	public function index() {
-		$user_id = 0;
+		$user_id = 0; //TODO
 
-		$dashboards = $this->_dashboard->getWidgets(1);
+		$widgets = $this->_dashboard->getWidgets($user_id);
+
 		return $this->render('index.html.twig', [
-			'dashboards' => $dashboards
+			'widgets' => $widgets
 		]);
 	}
 

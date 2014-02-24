@@ -1,4 +1,13 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
+df
+    {% for widget in widgets %}
+        d
+        <div class="widget">
+            <div class="title">{{ widget.getTitle() }}</div>
+            <div class="content">{{ widget.render() }}</div>
+        </div>
+    {% endfor %}
+
 {% endblock %}
