@@ -22,5 +22,9 @@
 	],
 	"require": {
 		"matze/core": "dev-master"
+	},
+
+	"scripts": {
+		"post-update-cmd": "php vendor/bin/console cache:clear"
 	}
 }
