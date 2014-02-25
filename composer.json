@@ -2,6 +2,7 @@
 	"name": "matze/raspberry",
 	"description": "Raspberry",
 	"minimum-stability": "dev",
+	"prefer-stable": true,
 	"authors": [
 		{
 			"name": "Matze",
