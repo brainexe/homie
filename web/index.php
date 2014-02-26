@@ -11,5 +11,6 @@ $dic = include '../src/bootstrap.php';
 $request = Request::createFromGlobals();
 $request->setSession(new Session());
 
-$kernel = new AppKernel($request, $dic);
-$kernel->handle();
+/** @var AppKernel $kernel */
+$kernel = $dic->get('AppKernel');
+$kernel->handle($request);
