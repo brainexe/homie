@@ -38,7 +38,7 @@ class RadioJobGateway {
 
 		$redis_result = $this->getPredis()->ZRANGEBYSCORE(self::REDIS_QUEUE, $from, $to, 'WITHSCORES');
 		foreach ($redis_result as $job) {
-			list ($radio_id, $status) = $job[0];
+			list ($radio_id, $status) = explode('-', $job[0]);
 			$timestamp = $job[1];
 
 			$jobs[] = [
@@ -60,6 +60,14 @@ class RadioJobGateway {
 		$predis = $this->getPredis();
 
 		$redis_member = sprintf('%d-%d', $radio_id, $status);
+
 		$predis->ZADD(self::REDIS_QUEUE, $timestamp, $redis_member);
+	}
+
+	/**
+	 * @param string $pending_job
+	 */
+	public function deleteJob($pending_job) {
+		$this->getPredis()->ZREM(self::REDIS_QUEUE, $pending_job);
 	}
 } 

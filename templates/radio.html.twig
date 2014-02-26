@@ -18,8 +18,8 @@
 				<tr>
 					<td>{{ radio.code }}|{{ radio.pin }}</td>
 					<td title="{{ radio.description }}">{{ radio.name }}</td>
-					<td><a href="/radio/{{ radio.id }}/1/" class="btn btn-success">Enable</a></td>
-					<td><a href="/radio/{{ radio.id }}/0/" class="btn btn-danger">Disable</a></td>
+					<td><a href="/radio/status/{{ radio.id }}/1/" class="btn btn-success">Enable</a></td>
+					<td><a href="/radio/status/{{ radio.id }}/0/" class="btn btn-danger">Disable</a></td>
 				</tr>
 			{% endfor %}
 		</tbody>
@@ -58,6 +58,44 @@
 						<button class="btn btn-default" type="button">Pin</button>
 					  </span>
 					<input type="text" class="form-control" max="2" min="0" name="pin" placeholder="1"/>
+				</div>
+			</div>
+			<div class="col-lg-2">
+				<div class="input-group">
+				  <span class="input-group-btn">
+						<button class="btn btn-default" type="submit">Add</button>
+				  </span>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<hr/>
+
+	<form action="/radio/job/add/" method="POST" class="navbar-forms navbar-lefts">
+		<div class="row">
+			<div class="col-lg-3">
+				<div class="input-group">
+					  <span class="input-group-btn">
+						<button class="btn btn-default" type="button">Radio-id</button>
+					  </span>
+					<input type="number" name="radio_id" class="form-control" placeholder="Radio-Id"/>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="input-group">
+					  <span class="input-group-btn">
+						<button class="btn btn-default" type="button">ETA</button>
+					  </span>
+					<input type="number" name="eta" class="form-control" placeholder="3600"/>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="input-group">
+					  <span class="input-group-btn">
+						<button class="btn btn-default" type="button">Status</button>
+					  </span>
+					<input type="text" name="status" class="form-control" placeholder="0|1"/>
 				</div>
 			</div>
 			<div class="col-lg-2">

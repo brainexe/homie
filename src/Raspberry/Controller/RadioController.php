@@ -6,6 +6,7 @@ use Matze\Core\Controller\AbstractController;
 use Matze\Core\EventDispatcher\MessageQueueEvent;
 use Matze\Core\Traits\EventDispatcherTrait;
 use Raspberry\Radio\RadioGateway;
+use Raspberry\Radio\RadioJob;
 use Raspberry\Radio\Radios;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,11 +29,17 @@ class RadioController extends AbstractController {
 	private $_service_radio_gateway;
 
 	/**
-	 * @Inject({"@Radios", "@RadioGateway"})
+	 * @var RadioJob
 	 */
-	public function __construct(Radios $radios, RadioGateway $radio_gateway) {
+	private $_radio_job;
+
+	/**
+	 * @Inject({"@Radios", "@RadioGateway", "@RadioJob"})
+	 */
+	public function __construct(Radios $radios, RadioGateway $radio_gateway, RadioJob $radio_job) {
 		$this->_service_radios = $radios;
 		$this->_service_radio_gateway = $radio_gateway;
+		$this->_radio_job = $radio_job;
 	}
 
 	/**
@@ -45,12 +52,16 @@ class RadioController extends AbstractController {
 				'defaults' => ['_controller' => 'Radio::index']
 			],
 			'radio.set' => [
-				'pattern' => '/radio/{radio_id}/{status}/',
+				'pattern' => '/radio/status/{radio_id}/{status}/',
 				'defaults' => ['_controller' => 'Radio::setStatus']
 			],
 			'radio.add' => [
 				'pattern' => '/radio/add/',
 				'defaults' => ['_controller' => 'Radio::addRadio']
+			],
+			'radiojob.add' => [
+				'pattern' => '/radio/job/add/',
+				'defaults' => ['_controller' => 'Radio::addRadioJob']
 			]
 		];
 	}
@@ -88,6 +99,19 @@ class RadioController extends AbstractController {
 		// TODO validate
 		// todo map code from A/B/C.. -> 1/2/3..
 		$this->_service_radio_gateway->addRadio($name, $description, $pin, $code);
+
+		return new RedirectResponse('/radio/');
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function addRadioJob(Request $request) {
+		$radio_id = $request->request->getInt('radio_id');
+		$status = $request->request->getInt('status');
+		$eta = $request->request->getInt('eta');
+
+		$this->_radio_job->addRadioJob($radio_id, time() + $eta, $status);
 
 		return new RedirectResponse('/radio/');
 	}

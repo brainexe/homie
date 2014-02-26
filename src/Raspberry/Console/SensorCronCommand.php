@@ -3,6 +3,7 @@
 namespace Raspberry\Console;
 
 use Matze\Core\Traits\LoggerTrait;
+use Raspberry\Radio\RadioJob;
 use Raspberry\Sensors\SensorBuilder;
 use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorValuesGateway;
@@ -35,6 +36,11 @@ class SensorCronCommand extends Command {
 	private $_sensor_builder;
 
 	/**
+	 * @var RadioJob
+	 */
+	private $_radio_job;
+
+	/**
 	 * {@inheritdoc}
 	 */
 	protected function configure() {
@@ -44,12 +50,13 @@ class SensorCronCommand extends Command {
 	}
 
 	/**
-	 * @Inject({"@SensorGateway", "@SensorValuesGateway", "@SensorBuilder"})
+	 * @Inject({"@SensorGateway", "@SensorValuesGateway", "@SensorBuilder", "@RadioJob"})
 	 */
-	public function __construct(SensorGateway $sensor_gateway, SensorValuesGateway $sensor_values_gateway, SensorBuilder $sensor_builder) {
+	public function __construct(SensorGateway $sensor_gateway, SensorValuesGateway $sensor_values_gateway, SensorBuilder $sensor_builder, RadioJob $radio_job) {
 		$this->_sensor_builder = $sensor_builder;
 		$this->_sensor_gateway = $sensor_gateway;
 		$this->_sensor_values_gateway = $sensor_values_gateway;
+		$this->_radio_job = $radio_job;
 
 		parent::__construct();
 	}
@@ -82,6 +89,8 @@ class SensorCronCommand extends Command {
 				usleep(500000);
 			}
 		}
+
+		$this->_radio_job->handlePendingJobs();
 	}
 
 } 
