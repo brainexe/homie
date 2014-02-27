@@ -3,23 +3,30 @@
 {% block title %}Radio{% endblock %}
 
 {% block content %}
-	<table class="table table-bordered">
+	<table class="table table-bordered table-striped table-hover">
 		<thead>
 			<tr>
 				<th>#</th>
 				<th>Name</th>
 				<th>Enable</th>
 				<th>Disable</th>
+				<th>Delete</th>
 			</tr>
 		</thead>
 
 		<tbody>
 			{% for radio in radios %}
 				<tr>
-					<td>{{ radio.code }}|{{ radio.pin }}</td>
-					<td title="{{ radio.description }}">{{ radio.name }}</td>
+					<td title="ID: {{ radio.id }}">{{ radio.code }}|{{ radio.pin }}</td>
+					<td>
+                        {{ radio.name }}
+                        {% if radio.description %}
+                            <small>({{ radio.description }})</small>
+                        {% endif %}
+                    </td>
 					<td><a href="/radio/status/{{ radio.id }}/1/" class="btn btn-success">Enable</a></td>
 					<td><a href="/radio/status/{{ radio.id }}/0/" class="btn btn-danger">Disable</a></td>
+					<td><a href="/radio/delete/{{ radio.id }}/" onclick="return confirm('Remove this Radio?')" class="glyphicon glyphicon-remove"></a></td>
 				</tr>
 			{% endfor %}
 		</tbody>

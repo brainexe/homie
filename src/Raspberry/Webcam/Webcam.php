@@ -6,7 +6,6 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Process\Process;
 
-
 /**
  * @Service(public=false)
  */
@@ -30,6 +29,5 @@ class Webcam {
 		$process = new Process($command);
 		$process->setTimeout(10000);
 		$process->run();
-
 	}
 } 

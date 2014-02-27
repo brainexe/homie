@@ -49,12 +49,21 @@ class RadioGateway {
 	}
 
 	/**
+	 * @param integer $radio_id
+	 * @return string
+	 */
+	private function _getRadioKey($radio_id) {
+		return sprintf(self::REDIS_RADIO, $radio_id);
+	}
+
+	/**
 	 * @param string $name
 	 * @param string $description
-	 * @param string $pin
 	 * @param string $code
+	 * @param string $pin
+	 * @return integer $radio_id
 	 */
-	public function addRadio($name, $description, $pin, $code) {
+	public function addRadio($name, $description, $code, $pin) {
 		$radio_ids = $this->getRadioIds();
 		$new_radio_id = end($radio_ids) + 1;
 
@@ -72,13 +81,17 @@ class RadioGateway {
 		$this->getPredis()->SADD(self::REDIS_RADIO_IDS, $new_radio_id);
 
 		$pipeline->execute();
+
+		return $new_radio_id;
 	}
 
 	/**
 	 * @param integer $radio_id
-	 * @return string
 	 */
-	private function _getRadioKey($radio_id) {
-		return sprintf(self::REDIS_RADIO, $radio_id);
+	public function deleteRadio($radio_id) {
+		$predis = $this->getPredis();
+
+		$predis->SREM(self::REDIS_RADIO_IDS, $radio_id);
+		$predis->DEL(self::_getRadioKey($radio_id));
 	}
-} 
+}

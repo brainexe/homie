@@ -59,6 +59,10 @@ class RadioController extends AbstractController {
 				'pattern' => '/radio/add/',
 				'defaults' => ['_controller' => 'Radio::addRadio']
 			],
+			'radio.delete' => [
+				'pattern' => '/radio/delete/{radio_id}/',
+				'defaults' => ['_controller' => 'Radio::deleteRadio']
+			],
 			'radiojob.add' => [
 				'pattern' => '/radio/job/add/',
 				'defaults' => ['_controller' => 'Radio::addRadioJob']
@@ -96,9 +100,19 @@ class RadioController extends AbstractController {
 		$code = $request->request->get('code');
 		$pin = $request->request->get('pin');
 
-		// TODO validate
-		// todo map code from A/B/C.. -> 1/2/3..
-		$this->_service_radio_gateway->addRadio($name, $description, $pin, $code);
+		$pin = $this->_service_radios->getRadioPin($pin);
+
+		$this->_service_radio_gateway->addRadio($name, $description, $code, $pin);
+
+		return new RedirectResponse('/radio/');
+	}
+
+	/**
+	 * @param integer $radio_id
+	 * @return RedirectResponse
+	 */
+	public function deleteRadio($radio_id) {
+		$this->_service_radios->deleteRadio($radio_id);
 
 		return new RedirectResponse('/radio/');
 	}
