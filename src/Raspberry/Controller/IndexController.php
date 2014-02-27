@@ -59,7 +59,7 @@ class IndexController extends AbstractController {
 
 	public function addWidget(Request $request) {
 		$type = $request->request->get('type');
-		$payload = json_decode($request->request->get('payload'), true);
+		$payload = (array)json_decode($request->request->get('payload'), true);
 		$user_id = 0;
 
 		$this->_dashboard->addWidget($user_id, $type, $payload);

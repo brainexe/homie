@@ -73,7 +73,10 @@ class RadioController extends AbstractController {
 	public function index() {
 		$radios_formatted = $this->_service_radios->getRadios();
 
-		return $this->render('radio.html.twig', ['radios' => $radios_formatted]);
+		return $this->render('radio.html.twig', [
+			'radios' => $radios_formatted,
+			'pins' => Radios::$radio_pins,
+		]);
 	}
 
 	/**

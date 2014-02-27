@@ -68,6 +68,10 @@ class SensorsController extends AbstractController {
 				'pattern' => '/sensors/set/{id}/{status}/{value}/',
 				'defaults' => ['_controller' => 'Sensors::setStats']
 			],
+			'sensor.addSensor' => [
+				'pattern' => '/sensors/add/',
+				'defaults' => ['_controller' => 'Sensors::addSensor']
+			],
 			'sensor.espeak' => [
 				'pattern' => '/sensors/espeak/{sensor_id}/',
 				'defaults' => ['_controller' => 'Sensors::espeak']
@@ -81,6 +85,11 @@ class SensorsController extends AbstractController {
 		return new RedirectResponse(sprintf('/sensors/%s', $last_page));
 	}
 
+	/**
+	 * @param Request $request
+	 * @param string $active_sensor_ids
+	 * @return string
+	 */
 	public function indexSensor(Request $request, $active_sensor_ids) {
 		$request->getSession()->set(self::SESSION_LAST_VIEW, $active_sensor_ids);
 
@@ -118,7 +127,38 @@ class SensorsController extends AbstractController {
 
 		$json = $this->_chart->formatJsonData($sensors, $sensor_values);
 
-		return $this->render('sensors.html.twig', ['sensors' => $sensors, 'active_sensor_ids' => $active_sensor_ids ? : $available_sensor_ids, 'json' => $json, 'current_from' => $from, 'from_intervals' => [0 => 'All', 3600 => 'Last Hour', 86400 => 'Last Day', 86400 * 7 => 'Last Week', 86400 * 30 => 'Last Month',]]);
+		return $this->render('sensors.html.twig', [
+			'sensors' => $sensors,
+			'active_sensor_ids' => $active_sensor_ids ? : $available_sensor_ids,
+			'json' => $json,
+			'current_from' => $from,
+			'available_sensors' => $this->_sensor_builder->getSensors(),
+			'from_intervals' => [
+				0 => 'All',
+				3600 => 'Last Hour',
+				86400 => 'Last Day',
+				86400 * 7 => 'Last Week',
+				86400 * 30 => 'Last Month'
+			]
+		]);
+	}
+
+	/**
+	 * @param Request $request
+	 * @return RedirectResponse
+	 */
+	public function addSensor(Request $request) {
+		$sensor_type = $request->request->get('type');
+		$name = $request->request->get('name');
+		$description = $request->request->get('description');
+		$pin = $request->request->get('pin');
+		$interval = $request->request->getInt('interval');
+
+		$sensor = $this->_sensor_builder->build($sensor_type);
+
+		$sensor_id = $this->_sensor_gateway->addSensor($name, $sensor->getSensorType(), $description, $pin, $interval);
+
+		return new RedirectResponse(sprintf('/sensors/%d', $sensor_id));
 	}
 
 	/**

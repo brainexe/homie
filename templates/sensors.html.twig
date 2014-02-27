@@ -13,9 +13,11 @@
 		#chart_container {
 			width: 960px;
 		}
+
 		#legend {
 			text-align: center;
 		}
+
 		#y_axis {
 			position: absolute;
 			top: 0;
@@ -26,7 +28,7 @@
 	</style>
 
 	<script>
-		$(function(){
+		$(function () {
 			var graph = new Rickshaw.Graph({
 				element: document.getElementById("chart"),
 				width: 1000,
@@ -37,19 +39,19 @@
 				series: {{ json | json_encode | raw }}
 			});
 
-			new Rickshaw.Graph.Axis.Time( { graph: graph } );
+			new Rickshaw.Graph.Axis.Time({ graph: graph });
 
-			var y_axis = new Rickshaw.Graph.Axis.Y( {
+			var y_axis = new Rickshaw.Graph.Axis.Y({
 				graph: graph,
 				orientation: 'left',
 				tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
 				element: document.getElementById('y_axis')
-			} );
+			});
 
 			graph.render();
 			var legend = document.querySelector('#legend');
 
-			new Rickshaw.Graph.HoverDetail( {
+			new Rickshaw.Graph.HoverDetail({
 				graph: graph
 			});
 
@@ -61,10 +63,12 @@
 {% block content %}
 	<div class="btn-group btn-group-justified btn-group-x">
 		{% for sensor in sensors %}
-			<a class="btn {% if sensor.id in active_sensor_ids %}btn-info{% else %}btn-default{% endif %}" href="/sensors/{{ sensor.id|sensor(active_sensor_ids) }}?from={{ current_from }}">
+			<a class="btn {% if sensor.id in active_sensor_ids %}btn-info{% else %}btn-default{% endif %}"
+			   href="/sensors/{{ sensor.id|sensor(active_sensor_ids) }}?from={{ current_from }}">
 				{{ sensor.name }}
 				{% if sensor.espeak %}
-					<span onclick="window.location.href='/sensors/espeak/{{ sensor.id }}'" class="label label-warning glyphicon glyphicon-bullhorn">&nbsp;</span>
+					<span onclick="window.location.href='/sensors/espeak/{{ sensor.id }}'"
+						  class="label label-warning glyphicon glyphicon-bullhorn">&nbsp;</span>
 				{% endif %}
 				{% if sensor.last_value %}<span class="label label-warning">{{ sensor.last_value }}</span>{% endif %}
 			</a>
@@ -73,15 +77,81 @@
 
 	<div class="btn-group btn-group-justified btn-group-xs">
 		{% for interval, label in from_intervals %}
-			<a class="btn {% if interval == current_from %}btn-primary{% else %}btn-default{% endif %}" href="?from={{ interval }}">
+			<a class="btn {% if interval == current_from %}btn-primary{% else %}btn-default{% endif %}"
+			   href="?from={{ interval }}">
 				{{ label }}
 			</a>
 		{% endfor %}
 	</div>
 	<div id="chart_container">
-		<div id="y_axis"></div><br>
-		<div id="chart"></div><br>
+		<div id="y_axis"></div>
+		<br>
+
+		<div id="chart"></div>
+		<br>
+
 		<div id="legend"></div>
+	</div>
+
+	</table>
+	<div class="panel panel-primary">
+		<div class="panel-heading panel-toggle" onclick="togglePanel(this)">Add Sensor</div>
+		<div class="panel-body hidden">
+			<form action="/sensors/add/" method="POST" class="navbar-forms navbar-lefts">
+				<div class="row">
+					<div class="col-lg-5">
+						<div class="input-group">
+					  <span class="input-group-btn">
+						<button class="btn btn-default" type="button">Name</button>
+					  </span>
+							<input type="text" name="name" class="form-control" placeholder="Name"/>
+						</div>
+					</div>
+					<div class="col-lg-5">
+						<div class="input-group">
+					  <span class="input-group-btn">
+						<button class="btn btn-default" type="button">Description</button>
+					  </span>
+							<input type="text" name="description" class="form-control" placeholder="Description"/>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="input-group">
+					  <span class="input-group-btn">
+						<button class="btn btn-default" type="button">Type</button>
+					  </span>
+							<select name="type" class="form-control">
+								<option value="" selected="selected"></option>
+								{% for type, sensor in available_sensors %}
+									<option>{{ type }}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<div class="col-lg-2">
+						<div class="input-group">
+					  <span class="input-group-btn">
+						<button class="btn btn-default" type="button">Interval</button>
+					  </span>
+							<input type="number" min="1" name="interval" class="form-control" value="10"/>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="input-group">
+					  <span class="input-group-btn">
+						<button class="btn btn-default" type="button">Pin (optional)</button>
+					  </span>
+							<input type="text" name="pin" class="form-control" placeholder="Pin"/>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-10"><input type="submit" class="btn btn-primary form-control" value="Add"/></div>
+				</div>
+			</form>
+		</div>
 	</div>
 
 {% endblock %}
