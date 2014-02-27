@@ -2,6 +2,7 @@
 
 namespace Raspberry\Console;
 
+use Matze\Core\MessageQueue\MessageQueueWorker;
 use Matze\Core\Traits\LoggerTrait;
 use Raspberry\Radio\RadioJob;
 use Raspberry\Sensors\SensorBuilder;
@@ -41,6 +42,11 @@ class SensorCronCommand extends Command {
 	private $_radio_job;
 
 	/**
+	 * @var MessageQueueWorker
+	 */
+	private $_message_queue_worker;
+
+	/**
 	 * {@inheritdoc}
 	 */
 	protected function configure() {
@@ -50,12 +56,13 @@ class SensorCronCommand extends Command {
 	}
 
 	/**
-	 * @Inject({"@SensorGateway", "@SensorValuesGateway", "@SensorBuilder", "@RadioJob"})
+	 * @Inject({"@SensorGateway", "@SensorValuesGateway", "@SensorBuilder", "@RadioJob", "@MessageQueueWorker"})
 	 */
-	public function __construct(SensorGateway $sensor_gateway, SensorValuesGateway $sensor_values_gateway, SensorBuilder $sensor_builder, RadioJob $radio_job) {
+	public function __construct(SensorGateway $sensor_gateway, SensorValuesGateway $sensor_values_gateway, SensorBuilder $sensor_builder, RadioJob $radio_job, MessageQueueWorker $message_queue_worker) {
 		$this->_sensor_builder = $sensor_builder;
 		$this->_sensor_gateway = $sensor_gateway;
 		$this->_sensor_values_gateway = $sensor_values_gateway;
+		$this->_message_queue_worker = $message_queue_worker;
 		$this->_radio_job = $radio_job;
 
 		parent::__construct();
@@ -91,6 +98,8 @@ class SensorCronCommand extends Command {
 		}
 
 		$this->_radio_job->handlePendingJobs();
+
+		$this->_message_queue_worker->run(1);
 	}
 
 } 
