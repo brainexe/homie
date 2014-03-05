@@ -2,6 +2,30 @@
 
 {% block content %}
     <h2>Error</h2>
-    <div class="alert alert-danger">{{ error_message }}</div>
+    <div class="alert alert-danger">
+		{{ exception.getMessage() }}
+	</div>
+
+	{% if debug %}
+		<h3>Exception</h3>
+
+		{{ exception.getFile() }}:{{ exception.getLine() }}<br />
+		{{ exception.getTraceAsString() }}
+
+		<h3>Query</h3>
+		{{ dump(request.query.all()) }}
+
+		<h3>Request</h3>
+		{{ dump(request.request.all()) }}
+
+		<h3>Session</h3>
+		{{ dump(request.session.all()) }}
+
+		<h3>Headers</h3>
+		{{ dump(request.headers.all()) }}
+
+		<h3>Server</h3>
+		{{ dump(request.server.all()) }}
+	{% endif %}
 {% endblock %}
 

@@ -35,6 +35,7 @@ class RadioJobGateway {
 	 */
 	private function _getJobs($from, $to) {
 		$jobs = [];
+		$now = time();
 
 		$redis_result = $this->getPredis()->ZRANGEBYSCORE(self::REDIS_QUEUE, $from, $to, 'WITHSCORES');
 		foreach ($redis_result as $job) {
@@ -45,6 +46,7 @@ class RadioJobGateway {
 				'radio_id' => $radio_id,
 				'status' => $status,
 				'timestamp' => $timestamp,
+				'eta' => $timestamp - $now,
 			];
 		}
 

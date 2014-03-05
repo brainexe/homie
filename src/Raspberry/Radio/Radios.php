@@ -2,7 +2,7 @@
 
 namespace Raspberry\Radio;
 
-use InvalidArgumentException;
+use Matze\Core\Application\UserException;
 
 /**
  * @Service(public=false)
@@ -31,20 +31,21 @@ class Radios {
 
 	/**
 	 * @param integer|string $pin
+	 * @throws UserException
 	 * @return integer
-	 * @throws InvalidArgumentException
 	 */
 	public function getRadioPin($pin) {
 		if (is_int($pin)) {
 			$flipped = array_flip(self::$radio_pins);
 			if (!isset($flipped[$pin])) {
-				throw new InvalidArgumentException(sprintf("Invalid pin: %s", $pin));
+				throw new UserException(sprintf("Invalid pin: %s", $pin));
 			}
 			return $pin;
 		}
+
 		$pin = strtoupper($pin);
 		if (empty(self::$radio_pins[$pin])) {
-			throw new InvalidArgumentException(sprintf("Invalid pin: %s", $pin));
+			throw new UserException(sprintf("Invalid pin: %s", $pin));
 		}
 
 		return self::$radio_pins[$pin];

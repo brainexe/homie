@@ -1,16 +1,8 @@
 <?php
 
-use Matze\Core\Application\AppKernel;
-use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Session;
-
 /** @var Container $dic */
-$dic = include '../src/bootstrap.php';
+use Symfony\Component\DependencyInjection\Container;
 
-$request = Request::createFromGlobals();
-$request->setSession(new Session());
+$dic = include __DIR__ . '/../src/bootstrap.php';
 
-/** @var AppKernel $kernel */
-$kernel = $dic->get('AppKernel');
-$kernel->handle($request);
+include  __DIR__ . '/../vendor/matze/core/scripts/web.php';

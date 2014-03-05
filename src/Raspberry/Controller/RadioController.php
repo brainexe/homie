@@ -66,6 +66,10 @@ class RadioController extends AbstractController {
 			'radiojob.add' => [
 				'pattern' => '/radio/job/add/',
 				'defaults' => ['_controller' => 'Radio::addRadioJob']
+			],
+			'radiojob.delete' => [
+				'pattern' => '/radio/job/delete/{job_id}/',
+				'defaults' => ['_controller' => 'Radio::deleteRadioJob']
 			]
 		];
 	}
@@ -75,6 +79,7 @@ class RadioController extends AbstractController {
 
 		return $this->render('radio.html.twig', [
 			'radios' => $radios_formatted,
+			'radio_jobs' => $this->_radio_job->getJobs(),
 			'pins' => Radios::$radio_pins,
 		]);
 	}
@@ -133,4 +138,10 @@ class RadioController extends AbstractController {
 		return new RedirectResponse('/radio/');
 	}
 
+	public function deleteRadioJob($job_id) {
+		$this->_radio_job->deleteJob($job_id);
+
+		return new RedirectResponse('/radio/');
+
+	}
 }

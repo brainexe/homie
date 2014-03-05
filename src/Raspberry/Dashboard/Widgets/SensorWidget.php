@@ -2,6 +2,7 @@
 
 namespace Raspberry\Dashboard\Widgets;
 
+use Matze\Core\Application\UserException;
 use Raspberry\Dashboard\AbstractWidget;
 use Raspberry\Sensors\SensorBuilder;
 use Raspberry\Sensors\SensorGateway;
@@ -62,11 +63,11 @@ class SensorWidget extends AbstractWidget {
 
 	/**
 	 * @param array $payload
-	 * @throws \InvalidArgumentException
+	 * @throws UserException
 	 */
 	public function create(array $payload) {
 		if (empty($payload['sensor_id'])) {
-			throw new \InvalidArgumentException("No sensor_id passed");
+			throw new UserException("No sensor_id passed");
 		}
 		$this->_sensor_data = $this->_sensor_gateway->getSensor($payload['sensor_id']);
 		$this->_sensor = $this->_sensor_builder->build($this->_sensor_data['type']);

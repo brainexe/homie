@@ -59,4 +59,11 @@ class RadioJob {
 			$this->_radio_job_gateway->deleteJob(sprintf('%s-%s', $pending_job['radio_id'], $pending_job['status']));
 		}
 	}
+
+	/**
+	 * @param string $job_id
+	 */
+	public function deleteJob($job_id) {
+		$this->_radio_job_gateway->deleteJob($job_id);
+	}
 }

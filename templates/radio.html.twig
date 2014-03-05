@@ -5,13 +5,13 @@
 {% block content %}
 	<table class="table table-bordered table-striped table-hover">
 		<thead>
-		<tr>
-			<th>#</th>
-			<th>Name</th>
-			<th>Enable</th>
-			<th>Disable</th>
-			<th>Delete</th>
-		</tr>
+			<tr>
+				<th>#</th>
+				<th>Name</th>
+				<th>Enable</th>
+				<th>Disable</th>
+				<th>Delete</th>
+			</tr>
 		</thead>
 
 		<tbody>
@@ -26,12 +26,40 @@
 				</td>
 				<td><a href="/radio/status/{{ radio.id }}/1/" class="btn btn-success">Enable</a></td>
 				<td><a href="/radio/status/{{ radio.id }}/0/" class="btn btn-danger">Disable</a></td>
-				<td><a href="/radio/delete/{{ radio.id }}/" onclick="return confirm('Remove this Radio?')"
-					   class="glyphicon glyphicon-remove"></a></td>
+				<td>
+					<a href="/radio/delete/{{ radio.id }}/" onclick="return confirm('Remove this Radio?')"
+					   class="glyphicon glyphicon-remove"></a>
+				</td>
 			</tr>
 		{% endfor %}
 		</tbody>
 	</table>
+
+	<table class="table table-bordered table-striped table-hover">
+		<thead>
+		<tr>
+			<th>Time</th>
+			<th>Radio-ID</th>
+			<th>Status</th>
+			<th>Delete</th>
+		</tr>
+		</thead>
+
+		<tbody>
+		{% for radio_job in radio_jobs %}
+			<tr>
+				<td>{{ radio_job.timestamp|date }} ({{ radio_job.eta }})</td>
+				<td>{{ radio_job.radio_id }}</td>
+				<td>{{ radio_job.status }}</td>
+				<td>
+					<a href="/radio/job/delete/{{ radio_job.radio_id }}-{{ radio_job.status }}/" onclick="return confirm('Remove this Radio-Job?')"
+					   class="glyphicon glyphicon-remove"></a>
+				</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+
 	<div class="panel panel-primary">
 		<div class="panel-heading panel-toggle" onclick="togglePanel(this)">Add Radio</div>
 		<div class="panel-body hidden">

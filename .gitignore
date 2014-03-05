@@ -2,3 +2,4 @@
 vendor
 composer.phar
 app/config.xml
+coverage
