@@ -29,7 +29,7 @@ class RadiosTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testGetRadioPin($input_pin, $expected_pin) {
 		if (false === $expected_pin) {
-			$this->setExpectedException('\InvalidArgumentException');
+			$this->setExpectedException('Matze\Core\Application\UserException');
 		}
 		$actual_pin = $this->_subject->getRadioPin($input_pin);
 
