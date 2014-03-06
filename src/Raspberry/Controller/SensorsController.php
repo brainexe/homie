@@ -20,6 +20,7 @@ class SensorsController extends AbstractController {
 	use EventDispatcherTrait;
 
 	const SESSION_LAST_VIEW = 'last_sensor_view';
+	const SESSION_LAST_TIMESPAN = 'last_sensor_timespan';
 
 	/**
 	 * @var SensorGateway
@@ -80,9 +81,12 @@ class SensorsController extends AbstractController {
 	}
 
 	public function index(Request $request) {
-		$last_page = $request->getSession()->get(self::SESSION_LAST_VIEW) ? : '0';
+		$session = $request->getSession();
 
-		return new RedirectResponse(sprintf('/sensors/%s', $last_page));
+		$last_page = $session->get(self::SESSION_LAST_VIEW) ?: '0';
+		$last_page_timespan = $session->get(self::SESSION_LAST_TIMESPAN) ?: Chart::DEFAULT_TIME;
+
+		return new RedirectResponse(sprintf('/sensors/%s?from=%s', $last_page, $last_page_timespan));
 	}
 
 	/**
@@ -91,14 +95,6 @@ class SensorsController extends AbstractController {
 	 * @return string
 	 */
 	public function indexSensor(Request $request, $active_sensor_ids) {
-		$request->getSession()->set(self::SESSION_LAST_VIEW, $active_sensor_ids);
-
-		$active_sensor_ids = explode(':', $active_sensor_ids);
-
-		$sensors = $this->_sensor_gateway->getSensors();
-
-		$sensor_values = [];
-
 		$from = $request->query->get('from');
 		if ($from === null) {
 			$from = Chart::DEFAULT_TIME;
@@ -106,6 +102,16 @@ class SensorsController extends AbstractController {
 			$from = (int)$from;
 		}
 
+		$session = $request->getSession();
+
+		$session->set(self::SESSION_LAST_VIEW, $active_sensor_ids);
+		$session->set(self::SESSION_LAST_TIMESPAN, $from);
+
+		$active_sensor_ids = explode(':', $active_sensor_ids);
+
+		$sensors = $this->_sensor_gateway->getSensors();
+
+		$sensor_values = [];
 		$available_sensor_ids = [];
 		foreach ($sensors as &$sensor) {
 			$sensor_id = $sensor['id'];
