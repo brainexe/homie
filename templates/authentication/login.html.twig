@@ -1,0 +1,11 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+	<form action="/login/login/" method="POST">
+		<input type="text" name="username" class="form-control"/>
+		<input type="password" name="password" class="form-control"/>
+		<input type="submit" value="Login" class="btn btn-default"/>
+	</form>
+{% endblock %}

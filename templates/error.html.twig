@@ -18,8 +18,10 @@
 		<h3>Request</h3>
 		{{ dump(request.request.all()) }}
 
-		<h3>Session</h3>
-		{{ dump(request.session.all()) }}
+		{% if request.session %}
+			<h3>Session</h3>
+			{{ dump(request.session.all()) }}
+		{% endif %}
 
 		<h3>Headers</h3>
 		{{ dump(request.headers.all()) }}

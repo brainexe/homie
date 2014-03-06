@@ -36,6 +36,12 @@
 					<li><a href="/espeak/">Espeak</a></li>
 					<li><a href="/webcam/">Webcam</a></li>
 					<li><a href="/status/">Status</a></li>
+					{% if not isLoggedIn() %}
+						<li><a href="/login/">Login</a></li>
+						<li><a href="/register/">Register</a></li>
+					{% else %}
+						<li><a href="/logout/">Logout</a></li>
+					{% endif %}
 				</ul>
 			</div>
 		</div>

@@ -45,7 +45,13 @@ class IndexController extends AbstractController {
 		];
 	}
 
-	public function index() {
+	/**
+	 * @param Request $request
+	 * @return string
+	 * @Route("/sdsd", defaults={"id" = 1})
+	 */
+	public function index(Request $request) {
+//		$user = $request->getSession()->get('user');
 		$user_id = 0; //TODO
 
 		$dashboard = $this->_dashboard->getDashboard($user_id);
