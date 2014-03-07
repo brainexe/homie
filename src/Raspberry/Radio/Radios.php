@@ -64,7 +64,14 @@ class Radios {
 	 * @return array[]
 	 */
 	public function getRadios() {
-		return $this->_radio_gateway->getRadios();
+		$radios = [];
+		$radios_raw = $this->_radio_gateway->getRadios();
+
+		foreach ($radios_raw as $radio) {
+			$radios[$radio['id']] = $radio;
+		}
+
+		return $radios;
 	}
 
 	/**

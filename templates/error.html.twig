@@ -21,8 +21,8 @@
 				{% for trace in exception.getTrace() %}
 					<tr>
 						<td>
-							#{{ loop.index }} {{ trace.file }}:{{ trace.line }}
-							{{ trace.class }}{{ trace.type }}{{ trace.function }}()
+							#{{ loop.index }} {% if "file" in trace %}{{ trace.file }}:{{ trace.line }}{% endif %}
+							{% if "class" in trace %}{{ trace.class }}{{ trace.type }}{{ trace.function }}(){% endif %}
 						</td>
 					</tr>
 				{% endfor %}

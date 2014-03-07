@@ -3,44 +3,44 @@
 {% block title %}Radio{% endblock %}
 
 {% block content %}
-	<table class="table table-bordered table-striped table-hover">
-		<thead>
-			<tr>
-				<th>#</th>
-				<th>Name</th>
-				<th>Enable</th>
-				<th>Disable</th>
-				<th>Delete</th>
-			</tr>
-		</thead>
-
-		<tbody>
-		{% for radio in radios %}
-			<tr>
-				<td title="ID: {{ radio.id }}">{{ radio.code }}|{{ radio.pin }}</td>
-				<td>
-					{{ radio.name }}
-					{% if radio.description %}
-						<small>({{ radio.description }})</small>
-					{% endif %}
-				</td>
-				<td><a href="/radio/status/{{ radio.id }}/1/" class="btn btn-success">Enable</a></td>
-				<td><a href="/radio/status/{{ radio.id }}/0/" class="btn btn-danger">Disable</a></td>
-				<td>
-					<a href="/radio/delete/{{ radio.id }}/" onclick="return confirm('Remove this Radio?')"
-					   class="glyphicon glyphicon-remove"></a>
-				</td>
-			</tr>
-		{% endfor %}
-		</tbody>
-	</table>
-
+	{% if radios %}
+		<table class="table table-bordered table-striped table-hover">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Name</th>
+					<th>Enable</th>
+					<th>Disable</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for radio in radios %}
+					<tr>
+						<td title="ID: {{ radio.id }}">{{ radio.code }}|{{ radio.pin }}</td>
+						<td>
+							{{ radio.name }}
+							{% if radio.description %}
+								<small>({{ radio.description }})</small>
+							{% endif %}
+						</td>
+						<td><a href="/radio/status/{{ radio.id }}/1/" class="btn btn-success">Enable</a></td>
+						<td><a href="/radio/status/{{ radio.id }}/0/" class="btn btn-danger">Disable</a></td>
+						<td>
+							<a href="/radio/delete/{{ radio.id }}/" onclick="return confirm('Remove this Radio?')"
+							   class="glyphicon glyphicon-remove"></a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% endif %}
 	{% if radio_jobs %}
 		<table class="table table-bordered table-striped table-hover">
 			<thead>
 			<tr>
 				<th>Time</th>
-				<th>Radio-ID</th>
+				<th>Radio</th>
 				<th>Status</th>
 				<th>Delete</th>
 			</tr>
@@ -50,8 +50,14 @@
 			{% for radio_job in radio_jobs %}
 				<tr>
 					<td>{{ radio_job.timestamp|date }} ({{ radio_job.eta }})</td>
-					<td>{{ radio_job.radio_id }}</td>
-					<td>{{ radio_job.status }}</td>
+					<td>{{ radios[radio_job.radio_id].name }}</td>
+					<td>
+						{% if radio_job.status %}
+							<a href="#" class="btn btn-success">ON</a>
+						{% else %}
+							<a href="#" class="btn btn-danger">OFF</a>
+						{% endif %}
+					</td>
 					<td>
 						<a href="/radio/job/delete/{{ radio_job.radio_id }}-{{ radio_job.status }}/" onclick="return confirm('Remove this Radio-Job?')"
 						   class="glyphicon glyphicon-remove"></a>
@@ -115,44 +121,50 @@
 			</form>
 		</div>
 	</div>
-	<div class="panel panel-primary">
-		<div class="panel-heading panel-toggle" onclick="togglePanel(this)">Add Job</div>
-		<div class="panel-body hidden">
-			<form action="/radio/job/add/" method="POST" class="navbar-forms navbar-lefts ">
-				<div class="row">
-					<div class="col-lg-3">
-						<div class="input-group">
+	{% if radios %}
+		<div class="panel panel-primary">
+			<div class="panel-heading panel-toggle" onclick="togglePanel(this)">Add Job</div>
+			<div class="panel-body hidden">
+				<form action="/radio/job/add/" method="POST" class="navbar-forms navbar-lefts ">
+					<div class="row">
+						<div class="col-lg-3">
+							<div class="input-group">
+						  <span class="input-group-btn">
+							<button class="btn btn-default" type="button">Radio-id</button>
+						  </span>
+								<select name="radio_id" class="form-control">
+									{% for radio in radios %}
+										<option value="{{ radio.id }}">{{ radio.name }}</option>
+									{% endfor %}
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="input-group">
+						  <span class="input-group-btn">
+							<button class="btn btn-default" type="button">ETA</button>
+						  </span>
+								<input type="number" name="eta" class="form-control" placeholder="3600"/>
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="input-group">
+						  <span class="input-group-btn">
+							<button class="btn btn-default" type="button">Status</button>
+						  </span>
+								<input type="checkbox" name="status" class="form-control" value="1"/>
+							</div>
+						</div>
+						<div class="col-lg-2">
+							<div class="input-group">
 					  <span class="input-group-btn">
-						<button class="btn btn-default" type="button">Radio-id</button>
+							<button class="btn btn-primary form-control" type="submit">Add</button>
 					  </span>
-							<input type="number" name="radio_id" class="form-control" placeholder="Radio-Id"/>
+							</div>
 						</div>
 					</div>
-					<div class="col-lg-3">
-						<div class="input-group">
-					  <span class="input-group-btn">
-						<button class="btn btn-default" type="button">ETA</button>
-					  </span>
-							<input type="number" name="eta" class="form-control" placeholder="3600"/>
-						</div>
-					</div>
-					<div class="col-lg-3">
-						<div class="input-group">
-					  <span class="input-group-btn">
-						<button class="btn btn-default" type="button">Status</button>
-					  </span>
-							<input type="checkbox" name="status" class="form-control" value="1"/>
-						</div>
-					</div>
-					<div class="col-lg-2">
-						<div class="input-group">
-				  <span class="input-group-btn">
-						<button class="btn btn-primary form-control" type="submit">Add</button>
-				  </span>
-						</div>
-					</div>
-				</div>
-			</form>
+				</form>
+			</div>
 		</div>
-	</div>
+	{% endif %}
 {% endblock %}
