@@ -64,10 +64,10 @@
 	<div class="btn-group btn-group-justified btn-group-x">
 		{% for sensor in sensors %}
 			<a class="btn {% if sensor.id in active_sensor_ids %}btn-info{% else %}btn-default{% endif %}"
-			   href="/sensors/{{ sensor.id|sensor(active_sensor_ids) }}?from={{ current_from }}">
+			   href="/sensors/{{ sensor.id|sensor(active_sensor_ids)|raw }}?from={{ current_from }}">
 				{{ sensor.name }}
 				{% if sensor.espeak %}
-					<span onclick="window.location.href='/sensors/espeak/{{ sensor.id }}'"
+					<span onclick="window.location.href='/sensors/espeak/{{ sensor.id|raw }}'"
 						  class="label label-warning glyphicon glyphicon-bullhorn">&nbsp;</span>
 				{% endif %}
 				{% if sensor.last_value %}<span class="label label-warning">{{ sensor.last_value }}</span>{% endif %}

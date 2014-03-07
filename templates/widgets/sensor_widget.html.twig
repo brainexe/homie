@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block content %}
-	{{ temperature }} ({{ sensor.last_value_timestamp|date }})
+	{{ temperature }} ({{ sensor.last_value_timestamp|date|raw }})
 
 	<a href="/sensor/{{ sensor.id }}/reload/" class="glyphicon glyphicon-repeat"></a>
 {% endblock %}

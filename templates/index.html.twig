@@ -24,7 +24,7 @@
 					  </span>
 							<select name="type" class="form-control">
 								{% for type in widgets %}
-									<option>{{ type }}</option>
+									<option>{{ type|raw }}</option>
 								{% endfor %}
 							</select>
 						</div>

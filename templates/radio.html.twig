@@ -17,17 +17,17 @@
 			<tbody>
 				{% for radio in radios %}
 					<tr>
-						<td title="ID: {{ radio.id }}">{{ radio.code }}|{{ radio.pin }}</td>
+						<td title="ID: {{ radio.id|raw }}">{{ radio.code }}|{{ radio.pin }}</td>
 						<td>
 							{{ radio.name }}
 							{% if radio.description %}
 								<small>({{ radio.description }})</small>
 							{% endif %}
 						</td>
-						<td><a href="/radio/status/{{ radio.id }}/1/" class="btn btn-success">Enable</a></td>
-						<td><a href="/radio/status/{{ radio.id }}/0/" class="btn btn-danger">Disable</a></td>
+						<td><a href="/radio/status/{{ radio.id|raw }}/1/" class="btn btn-success">Enable</a></td>
+						<td><a href="/radio/status/{{ radio.id|raw }}/0/" class="btn btn-danger">Disable</a></td>
 						<td>
-							<a href="/radio/delete/{{ radio.id }}/" onclick="return confirm('Remove this Radio?')"
+							<a href="/radio/delete/{{ radio.id|raw }}/" onclick="return confirm('Remove this Radio?')"
 							   class="glyphicon glyphicon-remove"></a>
 						</td>
 					</tr>
@@ -49,7 +49,7 @@
 			<tbody>
 			{% for radio_job in radio_jobs %}
 				<tr>
-					<td>{{ radio_job.timestamp|date }} ({{ radio_job.eta }})</td>
+					<td>{{ radio_job.timestamp|date|raw }} ({{ radio_job.eta|raw }})</td>
 					<td>{{ radios[radio_job.radio_id].name }}</td>
 					<td>
 						{% if radio_job.status %}
@@ -59,7 +59,7 @@
 						{% endif %}
 					</td>
 					<td>
-						<a href="/radio/job/delete/{{ radio_job.radio_id }}-{{ radio_job.status }}/" onclick="return confirm('Remove this Radio-Job?')"
+						<a href="/radio/job/delete/{{ radio_job.radio_id|raw }}-{{ radio_job.status|raw }}/" onclick="return confirm('Remove this Radio-Job?')"
 						   class="glyphicon glyphicon-remove"></a>
 					</td>
 				</tr>
@@ -134,7 +134,7 @@
 						  </span>
 								<select name="radio_id" class="form-control">
 									{% for radio in radios %}
-										<option value="{{ radio.id }}">{{ radio.name }}</option>
+										<option value="{{ radio.id|raw }}">{{ radio.name }}</option>
 									{% endfor %}
 								</select>
 							</div>

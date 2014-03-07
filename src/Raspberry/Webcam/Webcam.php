@@ -10,7 +10,7 @@ use Symfony\Component\Process\Process;
  * @Service(public=false)
  */
 class Webcam {
-	const ROOT = '/htdocs/webcam/';
+	const ROOT = '/web/static/webcam/';
 
 	/**
 	 * @return SplFileInfo

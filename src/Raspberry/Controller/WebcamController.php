@@ -24,7 +24,7 @@ class WebcamController extends AbstractController {
 
 	/**
 	 * @return string
-	 * @Route("webcam", name="webcam.index")
+	 * @Route("/webcam/", name="webcam.index")
 	 */
 	public function index() {
 		$shots = $this->_service_webcam->getPhotos();
