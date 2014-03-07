@@ -53,33 +53,10 @@ class SensorsController extends AbstractController {
 	}
 
 	/**
-	 * @return string
+	 * @param Request $request
+	 * @return RedirectResponse
+	 * @Route("/sensors/", name="sensor.index")
 	 */
-	public function getRoutes() {
-		return [
-			'sensor.index' => [
-				'pattern' => '/sensors/',
-				'defaults' => ['_controller' => 'Sensors::index']
-			],
-			'sensor.indexSensor' => [
-				'pattern' => '/sensors/{active_sensor_ids}',
-				'defaults' => ['_controller' => 'Sensors::indexSensor']
-			],
-			'sensor.set' => [
-				'pattern' => '/sensors/set/{id}/{status}/{value}/',
-				'defaults' => ['_controller' => 'Sensors::setStats']
-			],
-			'sensor.addSensor' => [
-				'pattern' => '/sensors/add/',
-				'defaults' => ['_controller' => 'Sensors::addSensor']
-			],
-			'sensor.espeak' => [
-				'pattern' => '/sensors/espeak/{sensor_id}/',
-				'defaults' => ['_controller' => 'Sensors::espeak']
-			]
-		];
-	}
-
 	public function index(Request $request) {
 		$session = $request->getSession();
 
@@ -93,6 +70,7 @@ class SensorsController extends AbstractController {
 	 * @param Request $request
 	 * @param string $active_sensor_ids
 	 * @return string
+	 * @Route("/sensors/{active_sensor_ids}")
 	 */
 	public function indexSensor(Request $request, $active_sensor_ids) {
 		$from = $request->query->get('from');
@@ -152,6 +130,7 @@ class SensorsController extends AbstractController {
 	/**
 	 * @param Request $request
 	 * @return RedirectResponse
+	 * @Route("/sensors/add/", name="sensors.add", methods="POST")
 	 */
 	public function addSensor(Request $request) {
 		$sensor_type = $request->request->get('type');
@@ -170,6 +149,7 @@ class SensorsController extends AbstractController {
 	/**
 	 * @param integer $sensor_id
 	 * @return RedirectResponse
+	 * @Route("/sensors/espeak/{sensor_id}/", name="sensor.espeak")
 	 */
 	public function espeak($sensor_id) {
 		$sensor = $this->_sensor_gateway->getSensor($sensor_id);

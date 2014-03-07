@@ -35,7 +35,8 @@ class Radios {
 	 * @return integer
 	 */
 	public function getRadioPin($pin) {
-		if (is_int($pin)) {
+		if (is_numeric($pin)) {
+			$pin = (int)$pin;
 			$flipped = array_flip(self::$radio_pins);
 			if (!isset($flipped[$pin])) {
 				throw new UserException(sprintf("Invalid pin: %s", $pin));

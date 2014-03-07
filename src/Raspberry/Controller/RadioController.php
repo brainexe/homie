@@ -44,36 +44,8 @@ class RadioController extends AbstractController {
 
 	/**
 	 * @return string
+	 * @Route("/radio/", name="radio.index")
 	 */
-	public function getRoutes() {
-		return [
-			'radio.index' => [
-				'pattern' => '/radio/',
-				'defaults' => ['_controller' => 'Radio::index']
-			],
-			'radio.set' => [
-				'pattern' => '/radio/status/{radio_id}/{status}/',
-				'defaults' => ['_controller' => 'Radio::setStatus']
-			],
-			'radio.add' => [
-				'pattern' => '/radio/add/',
-				'defaults' => ['_controller' => 'Radio::addRadio']
-			],
-			'radio.delete' => [
-				'pattern' => '/radio/delete/{radio_id}/',
-				'defaults' => ['_controller' => 'Radio::deleteRadio']
-			],
-			'radiojob.add' => [
-				'pattern' => '/radio/job/add/',
-				'defaults' => ['_controller' => 'Radio::addRadioJob']
-			],
-			'radiojob.delete' => [
-				'pattern' => '/radio/job/delete/{job_id}/',
-				'defaults' => ['_controller' => 'Radio::deleteRadioJob']
-			]
-		];
-	}
-
 	public function index() {
 		$radios_formatted = $this->_service_radios->getRadios();
 
@@ -88,6 +60,7 @@ class RadioController extends AbstractController {
 	 * @param integer $radio_id
 	 * @param integer $status
 	 * @return RedirectResponse
+	 * @Route("/radio/status/{radio_id}/{status}/")
 	 */
 	public function setStatus($radio_id, $status) {
 		$radio = $this->_service_radios->getRadio($radio_id);
@@ -101,6 +74,7 @@ class RadioController extends AbstractController {
 	/**
 	 * @param Request $request
 	 * @return RedirectResponse
+	 * @Route("/radio/add/", methods="POST")
 	 */
 	public function addRadio(Request $request) {
 		$name = $request->request->get('name');
@@ -118,6 +92,7 @@ class RadioController extends AbstractController {
 	/**
 	 * @param integer $radio_id
 	 * @return RedirectResponse
+ 	 * @Route("/radio/delete/{radio_id}/", name="radio.delete")
 	 */
 	public function deleteRadio($radio_id) {
 		$this->_service_radios->deleteRadio($radio_id);
@@ -126,7 +101,9 @@ class RadioController extends AbstractController {
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @param Request $request
+	 * @return RedirectResponse
+	 * @Route("/radio/job/add/", name="radiojob.add", methods="POST")
 	 */
 	public function addRadioJob(Request $request) {
 		$radio_id = $request->request->getInt('radio_id');
@@ -138,10 +115,14 @@ class RadioController extends AbstractController {
 		return new RedirectResponse('/radio/');
 	}
 
+	/**
+	 * @param integer $job_id
+	 * @return RedirectResponse
+	 * @Route("/radio/job/delete/{job_id}/", name="radiojob.delete")
+	 */
 	public function deleteRadioJob($job_id) {
 		$this->_radio_job->deleteJob($job_id);
 
 		return new RedirectResponse('/radio/');
-
 	}
 }

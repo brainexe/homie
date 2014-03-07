@@ -31,21 +31,8 @@ class EspeakController extends AbstractController {
 
 	/**
 	 * @return string
+	 * @Route("/espeak/", name="espeak.index")
 	 */
-	public function getRoutes() {
-		return [
-			'espeak.index' => [
-				'pattern' => '/espeak/',
-				'defaults' => ['_controller' => 'Espeak::index']
-			],
-			'espeak.speak' => [
-				'pattern' => '/espeak/speak/',
-				'defaults' => ['_controller' => 'Espeak::speak'],
-				'methods' => ['POST']
-			]
-		];
-	}
-
 	public function index() {
 		$speakers = $this->_service_espeak->getSpeakers();
 		return $this->render('espeak.html.twig', ['speakers' => $speakers]);
@@ -54,6 +41,7 @@ class EspeakController extends AbstractController {
 	/**
 	 * @param Request $request
 	 * @return RedirectResponse
+	 * @Route("/espeak/speak/", methods="POST")
 	 */
 	public function speak(Request $request) {
 		$speaker = $request->request->get('speaker');

@@ -91,6 +91,7 @@ class RadiosTest extends \PHPUnit_Framework_TestCase {
 		return [
 			[1, 1],
 			[2, 2],
+			["2", 2],
 			[0, false],
 			[0.5, false],
 			['A', 1],

@@ -9,25 +9,31 @@
 	{% if debug %}
 		<h3>Exception</h3>
 
-		{{ exception.getFile() }}:{{ exception.getLine() }}<br />
-		{{ exception.getTraceAsString() }}
-
-		<h3>Query</h3>
-		{{ dump(request.query.all()) }}
-
-		<h3>Request</h3>
-		{{ dump(request.request.all()) }}
-
-		{% if request.session %}
-			<h3>Session</h3>
-			{{ dump(request.session.all()) }}
-		{% endif %}
-
-		<h3>Headers</h3>
-		{{ dump(request.headers.all()) }}
-
-		<h3>Server</h3>
-		{{ dump(request.server.all()) }}
+		<table class="table table-bordered table-striped table-hover">
+			<thead>
+				<tr>
+					<th>
+						{{ exception.getFile() }}:{{ exception.getLine() }}<br />
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for trace in exception.getTrace() %}
+					<tr>
+						<td>
+							#{{ loop.index }} {{ trace.file }}:{{ trace.line }}
+							{{ trace.class }}{{ trace.type }}{{ trace.function }}()
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		{% include 'show_parameter_bag.html.twig' with {'title': 'GET', 'parameters': request.query } only %}
+		{% include 'show_parameter_bag.html.twig' with {'title': 'POST', 'parameters': request.request } only %}
+		{% include 'show_parameter_bag.html.twig' with {'title': 'Session', 'parameters': request.session } only %}
+		{% include 'show_parameter_bag.html.twig' with {'title': 'Headers', 'parameters': request.headers } only %}
+		{% include 'show_parameter_bag.html.twig' with {'title': 'Server', 'parameters': request.server } only %}
+		{% include 'show_parameter_bag.html.twig' with {'title': 'Cookies', 'parameters': request.cookies } only %}
 	{% endif %}
 {% endblock %}
 

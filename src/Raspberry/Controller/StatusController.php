@@ -18,17 +18,8 @@ class StatusController extends AbstractController {
 	use RedisTrait;
 
 	/**
-	 * @return string
+	 * @Route("/status/")
 	 */
-	public function getRoutes() {
-		return [
-			'status.index' => [
-				'pattern' => '/status/',
-				'defaults' => ['_controller' => 'Status::index']
-			]
-		];
-	}
-
 	public function index() {
 		$predis = $this->getPredis();
 

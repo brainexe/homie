@@ -25,6 +25,10 @@ class GpioController extends AbstractController {
 		$this->_service_gpio_manager = $service_gpio_manager;
 	}
 
+	/**
+	 * @Route("/gpio/", name="gpio.index");
+	 * @return string
+	 */
 	public function index() {
 		$pins = $this->_service_gpio_manager->getPins();
 
@@ -36,6 +40,7 @@ class GpioController extends AbstractController {
 	 * @param string $status
 	 * @param integer $value
 	 * @return RedirectResponse
+	 * @Route("/gpio/set/{id}/{status}/{value}/", name="gpio.set")
 	 */
 	public function setStatus($id, $status, $value) {
 		$this->_service_gpio_manager->setPin($id, $status, $value);
@@ -43,19 +48,4 @@ class GpioController extends AbstractController {
 		return new RedirectResponse('/gpio/');
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getRoutes() {
-		return [
-			'gpio.index' => [
-				'pattern' => '/gpio/',
-				'defaults' => ['_controller' => 'Gpio::index']
-			],
-			'gpio.set' => [
-				'pattern' => '/gpio/set/{id}/{status}/{value}/',
-				'defaults' => ['_controller' => 'Gpio::setStatus']
-			]
-		];
-	}
 }

@@ -30,25 +30,9 @@ class IndexController extends AbstractController {
 	}
 
 	/**
-	 * @return string
-	 */
-	public function getRoutes() {
-		return [
-			'index.index' => [
-				'pattern' => '/',
-				'defaults' => ['_controller' => 'Index::index']
-			],
-			'index.addWidget' => [
-				'pattern' => '/dashboard/add/',
-				'defaults' => ['_controller' => 'Index::addWidget']
-			]
-		];
-	}
-
-	/**
 	 * @param Request $request
 	 * @return string
-	 * @Route("/sdsd", defaults={"id" = 1})
+	 * @Route("/", name="index")
 	 */
 	public function index(Request $request) {
 //		$user = $request->getSession()->get('user');
@@ -63,6 +47,11 @@ class IndexController extends AbstractController {
 		]);
 	}
 
+	/**
+	 * @param Request $request
+	 * @return RedirectResponse
+	 * @Route("/dashboard/add/", methods="POST")
+	 */
 	public function addWidget(Request $request) {
 		$type = $request->request->get('type');
 		$payload = (array)json_decode($request->request->get('payload'), true);
