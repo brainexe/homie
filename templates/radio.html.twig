@@ -35,31 +35,32 @@
 		</tbody>
 	</table>
 
-	<table class="table table-bordered table-striped table-hover">
-		<thead>
-		<tr>
-			<th>Time</th>
-			<th>Radio-ID</th>
-			<th>Status</th>
-			<th>Delete</th>
-		</tr>
-		</thead>
-
-		<tbody>
-		{% for radio_job in radio_jobs %}
+	{% if radio_jobs %}
+		<table class="table table-bordered table-striped table-hover">
+			<thead>
 			<tr>
-				<td>{{ radio_job.timestamp|date }} ({{ radio_job.eta }})</td>
-				<td>{{ radio_job.radio_id }}</td>
-				<td>{{ radio_job.status }}</td>
-				<td>
-					<a href="/radio/job/delete/{{ radio_job.radio_id }}-{{ radio_job.status }}/" onclick="return confirm('Remove this Radio-Job?')"
-					   class="glyphicon glyphicon-remove"></a>
-				</td>
+				<th>Time</th>
+				<th>Radio-ID</th>
+				<th>Status</th>
+				<th>Delete</th>
 			</tr>
-		{% endfor %}
-		</tbody>
-	</table>
+			</thead>
 
+			<tbody>
+			{% for radio_job in radio_jobs %}
+				<tr>
+					<td>{{ radio_job.timestamp|date }} ({{ radio_job.eta }})</td>
+					<td>{{ radio_job.radio_id }}</td>
+					<td>{{ radio_job.status }}</td>
+					<td>
+						<a href="/radio/job/delete/{{ radio_job.radio_id }}-{{ radio_job.status }}/" onclick="return confirm('Remove this Radio-Job?')"
+						   class="glyphicon glyphicon-remove"></a>
+					</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	{% endif %}
 	<div class="panel panel-primary">
 		<div class="panel-heading panel-toggle" onclick="togglePanel(this)">Add Radio</div>
 		<div class="panel-body hidden">
