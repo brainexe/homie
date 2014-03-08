@@ -2,6 +2,7 @@
 
 namespace Raspberry\Sensors;
 
+use InvalidArgumentException;
 use Raspberry\Sensors\Sensors\SensorInterface;
 
 
@@ -32,7 +33,7 @@ class SensorBuilder {
 
 	/**
 	 * @param string $sensor_type
-	 * @throws \Exception
+	 * @throws InvalidArgumentException
 	 * @return SensorInterface
 	 */
 	public function build($sensor_type) {
@@ -40,7 +41,7 @@ class SensorBuilder {
 			return $this->_sensors[$sensor_type];
 		}
 
-		throw new \Exception(sprintf('Invalid sensor type: %s', $sensor_type));
+		throw new InvalidArgumentException(sprintf('Invalid sensor type: %s', $sensor_type));
 	}
 
 }

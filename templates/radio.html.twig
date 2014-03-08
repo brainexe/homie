@@ -104,7 +104,7 @@
 						<button class="btn btn-default" type="button">Pin</button>
 					  </span>
 							<select name="pin" class="form-control">
-								{% for pin in pins %}
+								{% for pin in pins|keys %}
 									<option>{{ pin }}</option>
 								{% endfor %}
 							</select>
@@ -141,10 +141,10 @@
 						</div>
 						<div class="col-lg-3">
 							<div class="input-group">
-						  <span class="input-group-btn">
-							<button class="btn btn-default" type="button">ETA</button>
-						  </span>
-								<input type="number" name="eta" class="form-control" placeholder="3600"/>
+							  <span class="input-group-btn">
+								<button class="btn btn-default" type="button">Time</button>
+							  </span>
+								<input type="text" name="time" class="form-control" value="1h"/>
 							</div>
 						</div>
 						<div class="col-lg-3">

@@ -65,7 +65,7 @@ class RadioController extends AbstractController {
 	public function setStatus($radio_id, $status) {
 		$radio = $this->_service_radios->getRadio($radio_id);
 
-		$event = new MessageQueueEvent('RadioController', 'setStatus', [$radio['code'], $radio['pin'], $status]);
+		$event = new MessageQueueEvent('RadioController', 'setStatus', [$radio['code'], $radio['pin'], (bool)$status]);
 		$this->getEventDispatcher()->dispatch(MessageQueueEvent::NAME, $event);
 
 		return new RedirectResponse('/radio/');
@@ -108,9 +108,9 @@ class RadioController extends AbstractController {
 	public function addRadioJob(Request $request) {
 		$radio_id = $request->request->getInt('radio_id');
 		$status = $request->request->getInt('status');
-		$eta = $request->request->getInt('eta');
+		$time_string = $request->request->getInt('time');
 
-		$this->_radio_job->addRadioJob($radio_id, time() + $eta, $status);
+		$this->_radio_job->addRadioJob($radio_id, $time_string, $status);
 
 		return new RedirectResponse('/radio/');
 	}

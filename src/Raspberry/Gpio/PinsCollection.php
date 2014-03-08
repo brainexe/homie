@@ -1,18 +1,10 @@
 <?php
 
-namespace Raspberry\Client;
+namespace Raspberry\Gpio;
 
 use ArrayIterator;
 use InvalidArgumentException;
 
-/**
- * PinsCollection.
- *
- * @uses \IteratorAggregate
- * @uses \Countable
- *
- * @author Cédric Dugat <cedric@dugat.me>
- */
 class PinsCollection implements \IteratorAggregate, \Countable {
 	/**
 	 * @var ArrayIterator

@@ -5,6 +5,7 @@ namespace Raspberry\Sensors;
 use Matze\Core\Traits\RedisTrait;
 
 /**
+ * @codeCoverageIgnore
  * @Service(public=false)
  */
 class SensorGateway {

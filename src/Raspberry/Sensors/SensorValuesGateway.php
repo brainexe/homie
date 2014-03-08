@@ -6,6 +6,7 @@ use Matze\Core\Traits\RedisCacheTrait;
 use Matze\Core\Traits\RedisTrait;
 
 /**
+ * @codeCoverageIgnore
  * @Service(public=false)
  */
 class SensorValuesGateway {

@@ -5,6 +5,7 @@ namespace Raspberry\Radio;
 use Matze\Core\Traits\RedisTrait;
 
 /**
+ * @codeCoverageIgnore
  * @Service(public=false)
  */
 class RadioJobGateway {

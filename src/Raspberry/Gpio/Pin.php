@@ -1,6 +1,6 @@
 <?php
 
-namespace Raspberry\Client;
+namespace Raspberry\Gpio;
 
 class Pin {
 

@@ -36,6 +36,23 @@ class RadiosTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals($expected_pin, $actual_pin);
 	}
 
+	public function testGetRadios() {
+		$radio = [
+			'id' => 1,
+			'name' => 'test'
+		];
+
+		$this->_mock_radio_gateway
+			->expects($this->once())
+			->method('getRadios')
+			->will($this->returnValue([$radio]));
+
+		$actual_result = $this->_subject->getRadios();
+
+		$this->assertEquals([$radio['id'] => $radio], $actual_result);
+
+	}
+
 	public function testAddRadio() {
 		$name = 'foo';
 		$description = 'foo extended';

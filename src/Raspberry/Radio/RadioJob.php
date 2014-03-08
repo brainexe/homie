@@ -24,11 +24,17 @@ class RadioJob {
 	private $_radios;
 
 	/**
-	 * @Inject({"@RadioJobGateway", "@Radios"})
+	 * @var TimeParser
 	 */
-	public function __construct(RadioJobGateway $radio_job_gateway, Radios $radios) {
+	private $_time_parser;
+
+	/**
+	 * @Inject({"@RadioJobGateway", "@Radios", "@TimeParser"})
+	 */
+	public function __construct(RadioJobGateway $radio_job_gateway, Radios $radios, TimeParser $time_parser) {
 		$this->_radio_job_gateway = $radio_job_gateway;
 		$this->_radios = $radios;
+		$this->_time_parser = $time_parser;
 	}
 
 	/**
@@ -40,10 +46,12 @@ class RadioJob {
 
 	/**
 	 * @param integer $radio_id
-	 * @param integer $timestamp
+	 * @param string $time_string
 	 * @param integer $status
 	 */
-	public function addRadioJob($radio_id, $timestamp, $status) {
+	public function addRadioJob($radio_id, $time_string, $status) {
+		$timestamp = $this->_time_parser->parseString($time_string);
+
 		$this->_radio_job_gateway->addRadioJob($radio_id, $timestamp, $status);
 	}
 

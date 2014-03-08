@@ -5,6 +5,7 @@ namespace Raspberry\Gpio;
 use Matze\Core\Traits\RedisTrait;
 
 /**
+ * @codeCoverageIgnore
  * @Service(public=false)
  */
 class PinGateway {

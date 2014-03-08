@@ -9,6 +9,9 @@ use Matze\Core\Application\UserException;
  */
 class Radios {
 
+	/**
+	 * @var array
+	 */
 	public static $radio_pins = [
 		'A' => 1,
 		'B' => 2,
