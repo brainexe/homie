@@ -3,7 +3,6 @@
 {% block title %}Sensors{% endblock %}
 
 {% block meta %}
-	<script src="/jquery.min.js"></script>
 	<link href="/rickshaw/rickshaw.css" rel="stylesheet">
 	<script src="/rickshaw/d3.min.js"></script>
 	<script src="/rickshaw/d3.layout.min.js"></script>
@@ -54,35 +53,58 @@
 			new Rickshaw.Graph.HoverDetail({
 				graph: graph
 			});
-
 		});
 	</script>
-
 {% endblock %}
 
 {% block content %}
-	<div class="btn-group btn-group-justified btn-group-x">
-		{% for sensor in sensors %}
-			<a class="btn {% if sensor.id in active_sensor_ids %}btn-info{% else %}btn-default{% endif %}"
-			   href="/sensors/{{ sensor.id|sensor(active_sensor_ids)|raw }}?from={{ current_from }}">
-				{{ sensor.name }}
-				{% if sensor.espeak %}
-					<span onclick="window.location.href='/sensors/espeak/{{ sensor.id|raw }}'"
-						  class="label label-warning glyphicon glyphicon-bullhorn">&nbsp;</span>
-				{% endif %}
-				{% if sensor.last_value %}<span class="label label-warning">{{ sensor.last_value }}</span>{% endif %}
-			</a>
-		{% endfor %}
-	</div>
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
 
-	<div class="btn-group btn-group-justified btn-group-xs">
-		{% for interval, label in from_intervals %}
-			<a class="btn {% if interval == current_from %}btn-primary{% else %}btn-default{% endif %}"
-			   href="?from={{ interval }}">
-				{{ label }}
-			</a>
-		{% endfor %}
-	</div>
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					{% for sensor in sensors %}
+						<li {% if sensor.id in active_sensor_ids %}class="active"{% endif %}>
+							<a class="tip" data-placement="bottom" title="Latest: {{ sensor.last_value }}"
+							   href="/sensors/{{ sensor.id|sensor(active_sensor_ids)|raw }}?from={{ current_from }}">
+								{{ sensor.name }}
+							</a>
+							{#{% if sensor.espeak %}#}
+							{#<span onclick="window.location.href='/sensors/espeak/{{ sensor.id|raw }}'"#}
+							{#class="label label-warning glyphicon glyphicon-bullhorn">&nbsp;</span>#}
+							{#{% endif %}#}
+						</li>
+					{% endfor %}
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#" data-toggle="modal" data-target="#modalAddSensor">Add Sensor</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Timespan <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							{% for interval, label in from_intervals %}
+								<li {% if interval == current_from %}class="active"{% endif %}>
+									<a href="?from={{ interval }}">
+										{{ label }}
+									</a>
+								</li>
+							{% endfor %}
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
 	<div id="chart_container">
 		<div id="y_axis"></div>
 		<br>
@@ -94,63 +116,74 @@
 	</div>
 
 	</table>
-	<div class="panel panel-primary">
-		<div class="panel-heading panel-toggle" onclick="togglePanel(this)">Add Sensor</div>
-		<div class="panel-body hidden">
-			<form action="/sensors/add/" method="POST" class="navbar-forms navbar-lefts">
-				<div class="row">
-					<div class="col-lg-5">
-						<div class="input-group">
-					  <span class="input-group-btn">
-						<button class="btn btn-default" type="button">Name</button>
-					  </span>
-							<input type="text" name="name" class="form-control" placeholder="Name"/>
-						</div>
-					</div>
-					<div class="col-lg-5">
-						<div class="input-group">
-					  <span class="input-group-btn">
-						<button class="btn btn-default" type="button">Description</button>
-					  </span>
-							<input type="text" name="description" class="form-control" placeholder="Description"/>
-						</div>
-					</div>
+
+	<div class="modal fade" id="modalAddSensor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+		 aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Add Sensor</h4>
 				</div>
-				<div class="row">
-					<div class="col-lg-4">
-						<div class="input-group">
-					  <span class="input-group-btn">
-						<button class="btn btn-default" type="button">Type</button>
-					  </span>
-							<select name="type" class="form-control">
-								<option value="" selected="selected"></option>
-								{% for type, sensor in available_sensors %}
-									<option>{{ type }}</option>
-								{% endfor %}
-							</select>
+				<div class="modal-body">
+					<form action="/sensors/add/" method="POST" class="navbar-forms navbar-lefts">
+						<div class="row">
+							<div class="col-lg-5">
+								<div class="input-group">
+								  <span class="input-group-btn">
+									<button class="btn btn-default" type="button">Name</button>
+								  </span>
+									<input type="text" name="name" class="form-control" placeholder="Name"/>
+								</div>
+							</div>
+							<div class="col-lg-5">
+								<div class="input-group">
+									  <span class="input-group-btn">
+										<button class="btn btn-default" type="button">Description</button>
+									  </span>
+									<input type="text" name="description" class="form-control"
+										   placeholder="Description"/>
+								</div>
+							</div>
 						</div>
-					</div>
-					<div class="col-lg-2">
-						<div class="input-group">
-					  <span class="input-group-btn">
-						<button class="btn btn-default" type="button">Interval</button>
-					  </span>
-							<input type="number" min="1" name="interval" class="form-control" value="10"/>
+						<div class="row">
+							<div class="col-lg-4">
+								<div class="input-group">
+								  <span class="input-group-btn">
+									<button class="btn btn-default" type="button">Type</button>
+								  </span>
+									<select name="type" class="form-control">
+										<option value="" selected="selected"></option>
+										{% for type, sensor in available_sensors %}
+											<option>{{ type }}</option>
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+							<div class="col-lg-2">
+								<div class="input-group">
+								  <span class="input-group-btn">
+									<button class="btn btn-default" type="button">Interval</button>
+								  </span>
+									<input type="number" min="1" name="interval" class="form-control" value="10"/>
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<div class="input-group">
+									  <span class="input-group-btn">
+										<button class="btn btn-default" type="button">Pin (optional)</button>
+									  </span>
+									<input type="text" name="pin" class="form-control" placeholder="Pin"/>
+								</div>
+							</div>
 						</div>
-					</div>
-					<div class="col-lg-4">
-						<div class="input-group">
-					  <span class="input-group-btn">
-						<button class="btn btn-default" type="button">Pin (optional)</button>
-					  </span>
-							<input type="text" name="pin" class="form-control" placeholder="Pin"/>
-						</div>
-					</div>
+					</form>
 				</div>
-				<div class="row">
-					<div class="col-lg-10"><input type="submit" class="btn btn-primary form-control" value="Add"/></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Add</button>
 				</div>
-			</form>
+			</div>
 		</div>
 	</div>
 
