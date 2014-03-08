@@ -25,6 +25,6 @@
 	},
 
 	"scripts": {
-		"post-update-cmd": "rm cache/dic -f && php vendor/bin/console cache:clear"
+		"post-update-cmd": "rm cache/dic.php -f && php vendor/bin/console cache:clear"
 	}
 }
