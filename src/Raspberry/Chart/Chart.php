@@ -20,6 +20,10 @@ class Chart {
 		foreach ($sensors as $sensor) {
 			$sensor_id = $sensor['id'];
 
+			if (empty($sensor_values[$sensor_id])) {
+				continue;
+			}
+
 			$sensor_json = [
 				'sensor_id' => $sensor_id,
 				'color' => $this->_getColor($sensor_id),
@@ -29,12 +33,8 @@ class Chart {
 				'data' => []
 			];
 
-			if (!empty($sensor_values[$sensor_id])) {
-				foreach ($sensor_values[$sensor_id] as $timestamp => $value) {
-					$sensor_json['data'][] = ['x' => (int)$timestamp, 'y' => (double)$value];
-				}
-			} else {
-				continue;
+			foreach ($sensor_values[$sensor_id] as $timestamp => $value) {
+				$sensor_json['data'][] = ['x' => (int)$timestamp, 'y' => (double)$value];
 			}
 
 			$output[] = $sensor_json;

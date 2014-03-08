@@ -42,11 +42,6 @@ class SensorCronCommand extends Command {
 	private $_radio_job;
 
 	/**
-	 * @var MessageQueueWorker
-	 */
-	private $_message_queue_worker;
-
-	/**
 	 * {@inheritdoc}
 	 */
 	protected function configure() {
@@ -56,13 +51,12 @@ class SensorCronCommand extends Command {
 	}
 
 	/**
-	 * @Inject({"@SensorGateway", "@SensorValuesGateway", "@SensorBuilder", "@RadioJob", "@MessageQueueWorker"})
+	 * @Inject({"@SensorGateway", "@SensorValuesGateway", "@SensorBuilder", "@RadioJob"})
 	 */
-	public function __construct(SensorGateway $sensor_gateway, SensorValuesGateway $sensor_values_gateway, SensorBuilder $sensor_builder, RadioJob $radio_job, MessageQueueWorker $message_queue_worker) {
+	public function __construct(SensorGateway $sensor_gateway, SensorValuesGateway $sensor_values_gateway, SensorBuilder $sensor_builder, RadioJob $radio_job) {
 		$this->_sensor_builder = $sensor_builder;
 		$this->_sensor_gateway = $sensor_gateway;
 		$this->_sensor_values_gateway = $sensor_values_gateway;
-		$this->_message_queue_worker = $message_queue_worker;
 		$this->_radio_job = $radio_job;
 
 		parent::__construct();
@@ -97,9 +91,8 @@ class SensorCronCommand extends Command {
 			}
 		}
 
+		// TODO move into regular MQ
 		$this->_radio_job->handlePendingJobs();
-
-		$this->_message_queue_worker->run(1);
 	}
 
 } 
