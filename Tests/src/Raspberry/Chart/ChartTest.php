@@ -4,11 +4,6 @@ namespace Raspberry\Tests\Radio;
 
 use PHPUnit_Framework_MockObject_MockObject;
 use Raspberry\Chart\Chart;
-use Raspberry\Radio\RadioGateway;
-use Raspberry\Radio\RadioJob;
-use Raspberry\Radio\RadioJobGateway;
-use Raspberry\Radio\Radios;
-use Raspberry\Radio\TimeParser;
 
 class ChartTest extends \PHPUnit_Framework_TestCase {
 
@@ -16,11 +11,10 @@ class ChartTest extends \PHPUnit_Framework_TestCase {
 	 * @var Chart
 	 */
 	private $_subject;
-	public function setUp() {
 
+	public function setUp() {
 		$this->_subject = new Chart();
 	}
-
 
 	public function testFormatJsonData() {
 		$sensors = [

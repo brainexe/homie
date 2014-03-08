@@ -50,7 +50,6 @@ class RadiosTest extends \PHPUnit_Framework_TestCase {
 		$actual_result = $this->_subject->getRadios();
 
 		$this->assertEquals([$radio['id'] => $radio], $actual_result);
-
 	}
 
 	public function testAddRadio() {

@@ -3,7 +3,6 @@
 namespace Raspberry\Dashboard;
 
 use Matze\Core\Traits\RedisTrait;
-use Raspberry\Dashboard\Widgets\TimeWidget;
 
 /**
  * @Service(public=false)

@@ -108,7 +108,7 @@ class RadioController extends AbstractController {
 	public function addRadioJob(Request $request) {
 		$radio_id = $request->request->getInt('radio_id');
 		$status = $request->request->getInt('status');
-		$time_string = $request->request->getInt('time');
+		$time_string = $request->request->get('time');
 
 		$this->_radio_job->addRadioJob($radio_id, $time_string, $status);
 

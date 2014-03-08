@@ -2,7 +2,6 @@
 
 namespace Raspberry\Console;
 
-use Matze\Core\MessageQueue\MessageQueueWorker;
 use Matze\Core\Traits\LoggerTrait;
 use Raspberry\Radio\RadioJob;
 use Raspberry\Sensors\SensorBuilder;
