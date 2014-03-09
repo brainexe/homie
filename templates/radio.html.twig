@@ -74,9 +74,7 @@
 				<div class="row">
 					<div class="col-lg-5">
 						<div class="input-group">
-					  <span class="input-group-btn">
-						<button class="btn btn-default" type="button">Name</button>
-					  </span>
+							<span class='input-group-addon'>Name</span>
 							<input type="text" name="name" class="form-control" placeholder="Name"/>
 						</div>
 					</div>
@@ -92,17 +90,13 @@
 				<div class="row">
 					<div class="col-lg-2">
 						<div class="input-group">
-					  <span class="input-group-btn">
-							<button class="btn btn-default" type="button">Code</button>
-					  </span>
+							<span class='input-group-addon'>Code</span>
 							<input type="text" class="form-control" max="5" min="0" name="code" placeholder="00000"/>
 						</div>
 					</div>
 					<div class="col-lg-2">
 						<div class="input-group">
-                    <span class="input-group-btn">
-						<button class="btn btn-default" type="button">Pin</button>
-					  </span>
+							<span class='input-group-addon'>Pin</span>
 							<select name="pin" class="form-control">
 								{% for pin in pins|keys %}
 									<option>{{ pin }}</option>
@@ -113,6 +107,7 @@
 					<div class="col-lg-2">
 						<div class="input-group">
 				  <span class="input-group-btn">
+					  {#todo#}
 						<button class="btn btn-primary form-control" type="submit">Add</button>
 				  </span>
 						</div>
@@ -129,9 +124,7 @@
 					<div class="row">
 						<div class="col-lg-3">
 							<div class="input-group">
-						  <span class="input-group-btn">
-							<button class="btn btn-default" type="button">Radio-id</button>
-						  </span>
+								<span class='input-group-addon'>Radio</span>
 								<select name="radio_id" class="form-control">
 									{% for radio in radios %}
 										<option value="{{ radio.id|raw }}">{{ radio.name }}</option>
@@ -141,23 +134,20 @@
 						</div>
 						<div class="col-lg-3">
 							<div class="input-group">
-							  <span class="input-group-btn">
-								<button class="btn btn-default" type="button">Time</button>
-							  </span>
+								<span class='input-group-addon'>Time</span>
 								<input type="text" name="time" class="form-control" value="1h"/>
 							</div>
 						</div>
 						<div class="col-lg-3">
 							<div class="input-group">
-						  <span class="input-group-btn">
-							<button class="btn btn-default" type="button">Status</button>
-						  </span>
+								<span class='input-group-addon'>Status</span>
 								<input type="checkbox" name="status" class="form-control" value="1"/>
 							</div>
 						</div>
 						<div class="col-lg-2">
 							<div class="input-group">
 					  <span class="input-group-btn">
+						  {#todo#}
 							<button class="btn btn-primary form-control" type="submit">Add</button>
 					  </span>
 							</div>

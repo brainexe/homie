@@ -128,30 +128,23 @@
 				<div class="modal-body">
 					<form action="/sensors/add/" method="POST" class="navbar-forms navbar-lefts">
 						<div class="row">
-							<div class="col-lg-5">
+							<div class="col-lg-6">
 								<div class="input-group">
-								  <span class="input-group-btn">
-									<button class="btn btn-default" type="button">Name</button>
-								  </span>
+									<span class='input-group-addon'>Name</span>
 									<input type="text" name="name" class="form-control" placeholder="Name"/>
 								</div>
 							</div>
-							<div class="col-lg-5">
+							<div class="col-lg-6">
 								<div class="input-group">
-									  <span class="input-group-btn">
-										<button class="btn btn-default" type="button">Description</button>
-									  </span>
-									<input type="text" name="description" class="form-control"
-										   placeholder="Description"/>
+									<span class='input-group-addon'>Description</span>
+									<input type="text" name="description" class="form-control" placeholder="Description"/>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-lg-4">
 								<div class="input-group">
-								  <span class="input-group-btn">
-									<button class="btn btn-default" type="button">Type</button>
-								  </span>
+									<span class='input-group-addon'>Type</span>
 									<select name="type" class="form-control">
 										<option value="" selected="selected"></option>
 										{% for type, sensor in available_sensors %}
@@ -160,19 +153,15 @@
 									</select>
 								</div>
 							</div>
-							<div class="col-lg-2">
+							<div class="col-lg-4">
 								<div class="input-group">
-								  <span class="input-group-btn">
-									<button class="btn btn-default" type="button">Interval</button>
-								  </span>
+									<span class='input-group-addon'>Interval</span>
 									<input type="number" min="1" name="interval" class="form-control" value="10"/>
 								</div>
 							</div>
 							<div class="col-lg-4">
 								<div class="input-group">
-									  <span class="input-group-btn">
-										<button class="btn btn-default" type="button">Pin (optional)</button>
-									  </span>
+									<span class='input-group-addon'>Pin</span>
 									<input type="text" name="pin" class="form-control" placeholder="Pin"/>
 								</div>
 							</div>

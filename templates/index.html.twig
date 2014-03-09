@@ -19,9 +19,7 @@
 				<div class="row">
 					<div class="col-lg-5">
 						<div class="input-group">
-					  <span class="input-group-btn">
-						<button class="btn btn-default" type="button">Type</button>
-					  </span>
+							<span class='input-group-addon'>Type</span>
 							<select name="type" class="form-control">
 								{% for type in widgets %}
 									<option>{{ type|raw }}</option>
@@ -31,9 +29,7 @@
 					</div>
 					<div class="col-lg-5">
 						<div class="input-group">
-					  <span class="input-group-btn">
-						<button class="btn btn-default" type="button">Payload</button>
-					  </span>
+							<span class='input-group-addon'>Payload</span>
 							<input type="text" name="payload" class="form-control" placeholder="{'sensor_id':1}"/>
 						</div>
 					</div>
@@ -41,6 +37,7 @@
 				<div class="row">
 					<div class="col-lg-10">
 						<div class="input-group">
+							{#TODO#}
 				  <span class="input-group-btn">
 						<button class="btn btn-default" type="submit">Add</button>
 				  </span>
