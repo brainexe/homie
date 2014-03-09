@@ -3,7 +3,6 @@
 namespace Raspberry\Controller;
 
 use Matze\Core\Controller\AbstractController;
-use Matze\Core\Traits\TranslatorTrait;
 use Matze\Core\Traits\TwigTrait;
 use Raspberry\Dashboard\Dashboard;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -14,8 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
  * @Controller
  */
 class IndexController extends AbstractController {
-
-	use TranslatorTrait;
 
 	/**
 	 * @var Dashboard

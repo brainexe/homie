@@ -2,7 +2,6 @@
 
 namespace Raspberry\Sensors;
 
-use Matze\Core\Traits\RedisCacheTrait;
 use Matze\Core\Traits\RedisTrait;
 
 /**
