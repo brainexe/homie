@@ -14,15 +14,14 @@ class LocalClient {
 	 * {@inheritdoc}
 	 */
 	public function execute($command) {
-//		$process = new Process($command);
-//		$process->setTimeout(3600);
-//		$process->run();
+		$process = new Process($command);
+		$process->setTimeout(3600);
+		$process->run();
 
-		echo $command;
-//		if (!$process->isSuccessful()) {
-//			throw new RuntimeException($process->getErrorOutput());
-//		}
-//
-//		return $process->getOutput();
+		if (!$process->isSuccessful()) {
+			throw new RuntimeException($process->getErrorOutput());
+		}
+
+		return $process->getOutput();
 	}
 }
