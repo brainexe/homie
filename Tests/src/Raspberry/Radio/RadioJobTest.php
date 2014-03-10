@@ -2,12 +2,12 @@
 
 namespace Raspberry\Tests\Radio;
 
+use Matze\Core\Util\TimeParser;
 use PHPUnit_Framework_MockObject_MockObject;
-use Raspberry\Radio\RadioGateway;
 use Raspberry\Radio\RadioJob;
 use Raspberry\Radio\RadioJobGateway;
 use Raspberry\Radio\Radios;
-use Raspberry\Radio\TimeParser;
+use Raspberry\Radio\VO\RadioVO;
 
 class RadioJobTest extends \PHPUnit_Framework_TestCase {
 
@@ -22,21 +22,18 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase {
 	private $_mock_radio_job_gateway;
 
 	/**
-	 * @var Radios|PHPUnit_Framework_MockObject_MockObject
-	 */
-	private $_mock_radios;
-
-	/**
 	 * @var TimeParser|PHPUnit_Framework_MockObject_MockObject
 	 */
 	private $_mock_time_parser;
 
 	public function setUp() {
 		$this->_mock_radio_job_gateway = $this->getMock('Raspberry\Radio\RadioJobGateway');
-		$this->_mock_radios = $this->getMock('Raspberry\Radio\Radios', [], [], '', false);
-		$this->_mock_time_parser = $this->getMock('Raspberry\Radio\TimeParser');
+		$this->_mock_time_parser = $this->getMock('Matze\Core\Util\TimeParser');
 
-		$this->_subject = new RadioJob($this->_mock_radio_job_gateway, $this->_mock_radios, $this->_mock_time_parser);
+		$mock_dispatcher = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcher');
+
+		$this->_subject = new RadioJob($this->_mock_radio_job_gateway, $this->_mock_time_parser);
+		$this->_subject->setEventDispatcher($mock_dispatcher);
 	}
 
 	public function testGetJobs() {
@@ -53,23 +50,25 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testAddJob() {
-		$radio_id = 1;
 		$time_string = '1h';
-		$eta = '3600';
+		$timestamp = 1345465;
 		$status = true;
+
+		$radio_vo = new RadioVO();
+		$radio_vo->id = 1;
 
 		$this->_mock_time_parser
 			->expects($this->once())
 			->method('parseString')
 			->with($time_string)
-			->will($this->returnValue($eta));
+			->will($this->returnValue($timestamp));
 
 		$this->_mock_radio_job_gateway
 			->expects($this->once())
 			->method('addRadioJob')
-			->with($radio_id, $eta, $status);
+			->with($radio_vo->id, $timestamp, $status);
 
-		$this->_subject->addRadioJob($radio_id, $time_string, $status);
+		$this->_subject->addRadioJob($radio_vo, $time_string, $status);
 	}
 
 } 

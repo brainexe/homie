@@ -3,9 +3,10 @@
 namespace Raspberry\Controller;
 
 use Matze\Core\Controller\AbstractController;
-use Matze\Core\EventDispatcher\MessageQueueEvent;
 use Matze\Core\Traits\EventDispatcherTrait;
 use Raspberry\Chart\Chart;
+use Raspberry\Espeak\EspeakEvent;
+use Raspberry\Espeak\EspeakVO;
 use Raspberry\Sensors\SensorBuilder;
 use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorValuesGateway;
@@ -161,8 +162,9 @@ class SensorsController extends AbstractController {
 
 		$text = $sensor_obj->getEspeakText($sensor['last_value']);
 
-		$event = new MessageQueueEvent('Espeak', 'speak', [$text, 130, 70]);
-		$this->getEventDispatcher()->dispatch(MessageQueueEvent::NAME, $event);
+		$espeak_vo = new EspeakVO($text);
+		$event = new EspeakEvent($espeak_vo);
+		$this->dispatchInBackground($event);
 
 		return new RedirectResponse(sprintf('/sensors/%s', $sensor_id));
 	}

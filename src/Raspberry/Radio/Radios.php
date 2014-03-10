@@ -3,6 +3,7 @@
 namespace Raspberry\Radio;
 
 use Matze\Core\Application\UserException;
+use Raspberry\Radio\VO\RadioVO;
 
 /**
  * @Service(public=false)
@@ -57,10 +58,12 @@ class Radios {
 
 	/**
 	 * @param integer $radio_id
-	 * @return array
+	 * @return RadioVO
 	 */
 	public function getRadio($radio_id) {
-		return $this->_radio_gateway->getRadio($radio_id);
+		$raw = $this->_radio_gateway->getRadio($radio_id);
+
+		return $this->_buildRadioVO($raw);
 	}
 
 	/**
@@ -71,21 +74,18 @@ class Radios {
 		$radios_raw = $this->_radio_gateway->getRadios();
 
 		foreach ($radios_raw as $radio) {
-			$radios[$radio['id']] = $radio;
+			$radios[$radio['id']] = $this->_buildRadioVO($radio);
 		}
 
 		return $radios;
 	}
 
 	/**
-	 * @param string $name
-	 * @param string $description
-	 * @param string $code
-	 * @param integer $pin
+	 * @param RadioVO $radio_vo
 	 * @return integer $radio_id
 	 */
-	public function addRadio($name, $description, $code, $pin) {
-		return $this->_radio_gateway->addRadio($name, $description, $code, $pin);
+	public function addRadio(RadioVO $radio_vo) {
+		return $this->_radio_gateway->addRadio($radio_vo);
 	}
 
 	/**
@@ -95,4 +95,18 @@ class Radios {
 		$this->_radio_gateway->deleteRadio($radio_id);
 	}
 
+	/**
+	 * @param array $raw
+	 * @return RadioVO
+	 */
+	private function _buildRadioVO(array $raw) {
+		$radio_vo = new RadioVO();
+		$radio_vo->id = $raw['id'];
+		$radio_vo->name = $raw['name'];
+		$radio_vo->description = $raw['description'];
+		$radio_vo->code = $raw['code'];
+		$radio_vo->pin = $raw['pin'];
+
+		return $radio_vo;
+	}
 }

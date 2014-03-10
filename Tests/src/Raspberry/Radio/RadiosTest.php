@@ -5,6 +5,7 @@ namespace Raspberry\Tests\Radio;
 use PHPUnit_Framework_MockObject_MockObject;
 use Raspberry\Radio\RadioGateway;
 use Raspberry\Radio\Radios;
+use Raspberry\Radio\VO\RadioVO;
 
 class RadiosTest extends \PHPUnit_Framework_TestCase {
 
@@ -39,7 +40,10 @@ class RadiosTest extends \PHPUnit_Framework_TestCase {
 	public function testGetRadios() {
 		$radio = [
 			'id' => 1,
-			'name' => 'test'
+			'name' => 'test',
+			'description' => 'description',
+			'pin' => 100,
+			'code' => 1
 		];
 
 		$this->_mock_radio_gateway
@@ -49,24 +53,32 @@ class RadiosTest extends \PHPUnit_Framework_TestCase {
 
 		$actual_result = $this->_subject->getRadios();
 
-		$this->assertEquals([$radio['id'] => $radio], $actual_result);
+		$expected = new RadioVO();
+		$expected->id = $radio['id'];
+		$expected->name = $radio['name'];
+		$expected->description = $radio['description'];
+		$expected->pin = $radio['pin'];
+		$expected->code = $radio['code'];
+
+		$this->assertEquals([$radio['id'] => $expected], $actual_result);
 	}
 
 	public function testAddRadio() {
-		$name = 'foo';
-		$description = 'foo extended';
-		$code = '1101';
-		$pin = 1;
+		$radio_vo = new RadioVO();
+		$radio_vo->name = 'foo';
+		$radio_vo->description = 'foo extended';
+		$radio_vo->code = '1101';
+		$radio_vo->pin = 1;
 
 		$radio_id = 12;
 
 		$this->_mock_radio_gateway
 			->expects($this->once())
 			->method('addRadio')
-			->with($name, $description, $code, $pin)
+			->with($radio_vo)
 			->will($this->returnValue($radio_id));
 
-		$actual_result = $this->_subject->addRadio($name, $description, $code, $pin);
+		$actual_result = $this->_subject->addRadio($radio_vo);
 
 		$this->assertEquals($radio_id, $actual_result);
 	}
@@ -86,9 +98,13 @@ class RadiosTest extends \PHPUnit_Framework_TestCase {
 		$radio_id = 21;
 
 		$radio = [
-			'code' => '1011',
-			'pin' => 1
+			'id' => $radio_id,
+			'name' => 'test',
+			'description' => 'description',
+			'pin' => 100,
+			'code' => 1
 		];
+
 		$this->_mock_radio_gateway
 			->expects($this->once())
 			->method('getRadio')
@@ -97,7 +113,14 @@ class RadiosTest extends \PHPUnit_Framework_TestCase {
 
 		$result = $this->_subject->getRadio($radio_id);
 
-		$this->assertEquals($radio, $result);
+		$radio_vo = new RadioVO();
+		$radio_vo->id = $radio_id;
+		$radio_vo->name = $radio['name'];
+		$radio_vo->description = $radio['description'];
+		$radio_vo->code = $radio['code'];
+		$radio_vo->pin = $radio['pin'];
+
+		$this->assertEquals($radio_vo, $result);
 	}
 
 	/**

@@ -3,11 +3,12 @@
 namespace Raspberry\Controller;
 
 use Matze\Core\Controller\AbstractController;
-use Matze\Core\EventDispatcher\MessageQueueEvent;
 use Matze\Core\Traits\EventDispatcherTrait;
+use Raspberry\Radio\RadioChangeEvent;
 use Raspberry\Radio\RadioGateway;
 use Raspberry\Radio\RadioJob;
 use Raspberry\Radio\Radios;
+use Raspberry\Radio\VO\RadioVO;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -63,10 +64,10 @@ class RadioController extends AbstractController {
 	 * @Route("/radio/status/{radio_id}/{status}/")
 	 */
 	public function setStatus($radio_id, $status) {
-		$radio = $this->_service_radios->getRadio($radio_id);
+		$radio_vo = $this->_service_radios->getRadio($radio_id);
 
-		$event = new MessageQueueEvent('RadioController', 'setStatus', [$radio['code'], $radio['pin'], (bool)$status]);
-		$this->getEventDispatcher()->dispatch(MessageQueueEvent::NAME, $event);
+		$event = new RadioChangeEvent($radio_vo, $status);
+		$this->dispatchInBackground($event);
 
 		return new RedirectResponse('/radio/');
 	}
@@ -84,7 +85,13 @@ class RadioController extends AbstractController {
 
 		$pin = $this->_service_radios->getRadioPin($pin);
 
-		$this->_service_radio_gateway->addRadio($name, $description, $code, $pin);
+		$radio_vo = new RadioVO();
+		$radio_vo->name = $name;
+		$radio_vo->description = $description;
+		$radio_vo->code = $code;
+		$radio_vo->pin = $pin;
+
+		$this->_service_radios->addRadio($radio_vo);
 
 		return new RedirectResponse('/radio/');
 	}
@@ -110,18 +117,21 @@ class RadioController extends AbstractController {
 		$status = $request->request->getInt('status');
 		$time_string = $request->request->get('time');
 
-		$this->_radio_job->addRadioJob($radio_id, $time_string, $status);
+		$radio_vo = $this->_service_radios->getRadio($radio_id);
+
+		$this->_radio_job->addRadioJob($radio_vo, $time_string, $status);
 
 		return new RedirectResponse('/radio/');
 	}
 
 	/**
-	 * @param integer $job_id
+	 * @param integer $radio_id
+	 * @param string$status
 	 * @return RedirectResponse
-	 * @Route("/radio/job/delete/{job_id}/", name="radiojob.delete")
+	 * @Route("/radio/job/delete/{radio_id}/{status}/", name="radiojob.delete")
 	 */
-	public function deleteRadioJob($job_id) {
-		$this->_radio_job->deleteJob($job_id);
+	public function deleteRadioJob($radio_id, $status) {
+		$this->_radio_job->deleteJob($radio_id, $status);
 
 		return new RedirectResponse('/radio/');
 	}

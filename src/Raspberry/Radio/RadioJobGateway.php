@@ -6,7 +6,7 @@ use Matze\Core\Traits\RedisTrait;
 
 /**
  * @codeCoverageIgnore
- * @Service(public=false)
+ * @Service
  */
 class RadioJobGateway {
 
@@ -68,9 +68,21 @@ class RadioJobGateway {
 	}
 
 	/**
-	 * @param string $pending_job
+	 * @param integer $radio_id
+	 * @param boolean $status
 	 */
-	public function deleteJob($pending_job) {
-		$this->getPredis()->ZREM(self::REDIS_QUEUE, $pending_job);
+	public function deleteJob($radio_id, $status) {
+		$job_id = $this->_getJobId($radio_id, $status);
+
+		$this->getPredis()->ZREM(self::REDIS_QUEUE, $job_id);
 	}
-} 
+
+	/**
+	 * @param integer $radio_id
+	 * @param boolean $status
+	 * @return string
+	 */
+	private function _getJobId($radio_id, $status) {
+		return sprintf('%d-%d', $radio_id, $status);
+	}
+}

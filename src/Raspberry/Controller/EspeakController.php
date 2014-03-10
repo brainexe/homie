@@ -3,12 +3,12 @@
 namespace Raspberry\Controller;
 
 use Matze\Core\Controller\AbstractController;
-use Matze\Core\EventDispatcher\MessageQueueEvent;
 use Matze\Core\Traits\EventDispatcherTrait;
 use Raspberry\Espeak\Espeak;
+use Raspberry\Espeak\EspeakEvent;
+use Raspberry\Espeak\EspeakVO;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
 
 /**
  * @Controller
@@ -48,9 +48,12 @@ class EspeakController extends AbstractController {
 		$text = $request->request->get('text');
 		$volume = $request->request->getInt('volume');
 		$speed = $request->request->getInt('speed');
+		$delay = $request->request->get('delay');
 
-		$event = new MessageQueueEvent('Espeak', 'speak', [$text, $volume, $speed, $speaker]);
-		$this->getEventDispatcher()->dispatch(MessageQueueEvent::NAME, $event);
+		$espeak_vo = new EspeakVO($text, $volume, $speed, $speaker);
+		$event = new EspeakEvent($espeak_vo);
+
+		$this->dispatchInBackground($event, $delay);
 
 		return new RedirectResponse('/espeak/');
 	}

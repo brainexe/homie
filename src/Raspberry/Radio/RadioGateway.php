@@ -2,7 +2,9 @@
 
 namespace Raspberry\Radio;
 
+use Matze\Core\Traits\IdGeneratorTrait;
 use Matze\Core\Traits\RedisTrait;
+use Raspberry\Radio\VO\RadioVO;
 
 /**
  * @codeCoverageIgnore
@@ -11,6 +13,7 @@ use Matze\Core\Traits\RedisTrait;
 class RadioGateway {
 
 	use RedisTrait;
+	use IdGeneratorTrait;
 
 	const REDIS_RADIO = 'radios:%d';
 	const REDIS_RADIO_IDS = 'radio_ids';
@@ -58,25 +61,21 @@ class RadioGateway {
 	}
 
 	/**
-	 * @param string $name
-	 * @param string $description
-	 * @param string $code
-	 * @param string $pin
+	 * @param RadioVO $radio_vo
 	 * @return integer $radio_id
 	 */
-	public function addRadio($name, $description, $code, $pin) {
-		$radio_ids = $this->getRadioIds();
-		$new_radio_id = end($radio_ids) + 1;
+	public function addRadio(RadioVO $radio_vo) {
+		$new_radio_id = $this->generateRandomId();
 
 		$pipeline = $this->getPredis()->pipeline();
 
 		$key = $this->_getRadioKey($new_radio_id);
 		$pipeline->HMSET($key, [
 			'id' => $new_radio_id,
-			'name' => $name,
-			'description' => $description,
-			'pin' => $pin,
-			'code' => $code,
+			'name' => $radio_vo->name,
+			'description' => $radio_vo->description,
+			'pin' => $radio_vo->pin,
+			'code' => $radio_vo->code,
 		]);
 
 		$this->getPredis()->SADD(self::REDIS_RADIO_IDS, $new_radio_id);
