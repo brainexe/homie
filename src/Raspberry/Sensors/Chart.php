@@ -1,6 +1,6 @@
 <?php
 
-namespace Raspberry\Chart;
+namespace Raspberry\Sensors;
 
 /**
  * @Service(public=false)

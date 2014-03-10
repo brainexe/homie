@@ -6,9 +6,9 @@ use RuntimeException;
 use Symfony\Component\Process\Process;
 
 /**
- * @Service(public=false)
+ * @Service("RaspberryClient.Local", public=false)
  */
-class LocalClient {
+class LocalClient implements ClientInterface {
 
 	/**
 	 * {@inheritdoc}

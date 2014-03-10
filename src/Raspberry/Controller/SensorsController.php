@@ -4,9 +4,9 @@ namespace Raspberry\Controller;
 
 use Matze\Core\Controller\AbstractController;
 use Matze\Core\Traits\EventDispatcherTrait;
-use Raspberry\Chart\Chart;
 use Raspberry\Espeak\EspeakEvent;
 use Raspberry\Espeak\EspeakVO;
+use Raspberry\Sensors\Chart;
 use Raspberry\Sensors\SensorBuilder;
 use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorValuesGateway;

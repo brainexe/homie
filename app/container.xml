@@ -4,6 +4,8 @@
         <parameter key="logger.sensor.log">logs/sensor.log</parameter>
 		<parameter key="application.name">raspberry</parameter>
 
+		<parameter key="raspberry_client.class"></parameter>
+
 		<parameter key="delete_sensor_values" type="collection">
 			<parameter type="collection">
 				<parameter key="days">7</parameter>
@@ -15,4 +17,8 @@
 			</parameter>
 		</parameter>
     </parameters>
+
+	<services>
+		<service id="RaspberryClient" alias="RaspberryClient.Local"/>
+	</services>
 </container>

@@ -1,11 +1,25 @@
 <?php
 
 namespace Raspberry\Espeak;
+use Raspberry\Client\ClientInterface;
 
 /**
  * @Service
  */
 class Espeak implements SpeakOutputInterface {
+
+	/**
+	 * @var ClientInterface
+	 */
+	private $_raspberry_client;
+
+	/**
+	 * @Inject("@RaspberryClient")
+	 */
+	public function __construct(ClientInterface $client) {
+		$this->_raspberry_client = $client;
+	}
+
 	/**
 	 * @return array
 	 */
@@ -24,7 +38,8 @@ class Espeak implements SpeakOutputInterface {
 			return;
 		}
 
-		system(sprintf('espeak "%s" -s %d -a %d  -v%ss --stdout | aplay', $text, $speed, $volume, $speaker));
-//		system(sprintf('tts -l %s %s', 'de', $text));
+		$command = sprintf('espeak "%s" -s %d -a %d  -v%ss --stdout | aplay', $text, $speed, $volume, $speaker);
+
+		$this->_raspberry_client->execute($command);
 	}
 } 

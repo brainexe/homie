@@ -2,8 +2,7 @@
 
 namespace Raspberry\Tests\Radio;
 
-use PHPUnit_Framework_MockObject_MockObject;
-use Raspberry\Chart\Chart;
+use Raspberry\Sensors\Chart;
 
 class ChartTest extends \PHPUnit_Framework_TestCase {
 

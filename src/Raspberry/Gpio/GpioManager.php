@@ -2,6 +2,7 @@
 
 namespace Raspberry\Gpio;
 
+use Raspberry\Client\ClientInterface;
 use Raspberry\Client\LocalClient;
 
 /**
@@ -29,9 +30,9 @@ class GpioManager {
 	private $_pins = null;
 
 	/**
-	 * @Inject({"@PinGateway", "@LocalClient"})
+	 * @Inject({"@PinGateway", "@RaspberryClient"})
 	 */
-	public function __construct(PinGateway $pin_gateway, LocalClient $local_client) {
+	public function __construct(PinGateway $pin_gateway, ClientInterface $local_client) {
 		$this->_pin_gateway = $pin_gateway;
 		$this->_local_client = $local_client;
 	}

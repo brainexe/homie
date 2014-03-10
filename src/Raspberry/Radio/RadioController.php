@@ -2,7 +2,7 @@
 
 namespace Raspberry\Radio;
 
-use Raspberry\Client\LocalClient;
+use Raspberry\Client\ClientInterface;
 
 /**
  * @Service
@@ -11,14 +11,14 @@ class RadioController {
 	const BASE_COMMAND = 'sudo /opt/rcswitch-pi/send';
 
 	/**
-	 * @var LocalClient
+	 * @var ClientInterface
 	 */
 	private $_local_client;
 
 	/**
-	 * @Inject("@LocalClient")
+	 * @Inject("@RaspberryClient")
 	 */
-	public function __construct(LocalClient $local_client) {
+	public function __construct(ClientInterface $local_client) {
 		$this->_local_client = $local_client;
 	}
 
