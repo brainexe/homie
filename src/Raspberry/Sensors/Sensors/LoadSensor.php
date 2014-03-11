@@ -30,7 +30,7 @@ class LoadSensor implements SensorInterface {
 	 * {@inheritdoc}
 	 */
 	public function formatValue($value) {
-		return $value;
+		return sprintf('%0.1f', $value);
 	}
 
 	/**

@@ -27,11 +27,10 @@ class IndexController extends AbstractController {
 	}
 
 	/**
-	 * @param Request $request
 	 * @return string
 	 * @Route("/", name="index")
 	 */
-	public function index(Request $request) {
+	public function index() {
 //		$user = $request->getSession()->get('user');
 		$user_id = 0; //TODO
 

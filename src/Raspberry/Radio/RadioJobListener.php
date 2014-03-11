@@ -17,7 +17,7 @@ class RadioJobListener extends AbstractEventListener {
 	 */
 	public static function getSubscribedEvents() {
 		return [
-			RadioChangeEvent::NAME => 'handleChangeEvent'
+			RadioChangeEvent::CHANGE_RADIO => 'handleChangeEvent'
 		];
 	}
 
@@ -29,11 +29,5 @@ class RadioJobListener extends AbstractEventListener {
 		$radio_controller = $this->getService('RadioController');
 
 		$radio_controller->setStatus($event->radio_vo->code, $event->radio_vo->pin, $event->status);
-
-		if ($event->is_job) {
-			/** @var RadioJobGateway $radio_job_gateway */
-			$radio_job_gateway = $this->getService('RadioJobGateway');
-			$radio_job_gateway->deleteJob($event->radio_vo->id, $event->status);
-		}
 	}
 }

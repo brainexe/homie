@@ -4,6 +4,7 @@ namespace Raspberry\Controller;
 
 use Matze\Core\Controller\AbstractController;
 use Matze\Core\Traits\EventDispatcherTrait;
+use Matze\Core\Util\TimeParser;
 use Raspberry\Espeak\Espeak;
 use Raspberry\Espeak\EspeakEvent;
 use Raspberry\Espeak\EspeakVO;
@@ -23,10 +24,16 @@ class EspeakController extends AbstractController {
 	private $_service_espeak;
 
 	/**
-	 * @Inject("@Espeak")
+	 * @var TimeParser
 	 */
-	public function __construct(Espeak $espeak) {
+	private $_time_parser;
+
+	/**
+	 * @Inject({"@Espeak", "@TimeParser"})
+	 */
+	public function __construct(Espeak $espeak, TimeParser $time_parser) {
 		$this->_service_espeak = $espeak;
+		$this->_time_parser = $time_parser;
 	}
 
 	/**
@@ -35,7 +42,10 @@ class EspeakController extends AbstractController {
 	 */
 	public function index() {
 		$speakers = $this->_service_espeak->getSpeakers();
-		return $this->render('espeak.html.twig', ['speakers' => $speakers]);
+
+		return $this->render('espeak.html.twig', [
+			'speakers' => $speakers
+		]);
 	}
 
 	/**
@@ -48,12 +58,14 @@ class EspeakController extends AbstractController {
 		$text = $request->request->get('text');
 		$volume = $request->request->getInt('volume');
 		$speed = $request->request->getInt('speed');
-		$delay = $request->request->get('delay');
+		$delay_raw = $request->request->get('delay');
+
+		$timestamp = $this->_time_parser->parseString($delay_raw);
 
 		$espeak_vo = new EspeakVO($text, $volume, $speed, $speaker);
 		$event = new EspeakEvent($espeak_vo);
 
-		$this->dispatchInBackground($event, $delay);
+		$this->dispatchInBackground($event, $timestamp);
 
 		return new RedirectResponse('/espeak/');
 	}

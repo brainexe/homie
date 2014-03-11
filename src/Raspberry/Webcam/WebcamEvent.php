@@ -11,13 +11,13 @@ class WebcamEvent extends AbstractEvent {
 	/**
 	 * @var string
 	 */
-	public $file_name;
+	public $name;
 
 	/**
-	 * @param string $file_name
+	 * @param string $name
 	 */
-	public function __construct($file_name) {
+	public function __construct($name) {
 		$this->event_name = self::NAME;
-		$this->file_name = $file_name;
+		$this->name = $name;
 	}
 } 

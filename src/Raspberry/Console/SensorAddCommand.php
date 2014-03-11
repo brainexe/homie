@@ -85,7 +85,7 @@ class SensorAddCommand extends Command {
 	 * @param OutputInterface $output
 	 */
 	private function _askForTermination(DialogHelper $dialog, OutputInterface $output) {
-		if ($dialog->askConfirmation($output, 'Abort adding this sersor? (y/n)')) {
+		if ($dialog->askConfirmation($output, 'Abort adding this sensor? (y/n)')) {
 			exit(1);
 		}
 	}

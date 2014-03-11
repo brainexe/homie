@@ -5,7 +5,6 @@ namespace Raspberry\Controller;
 use Matze\Core\Controller\AbstractController;
 use Matze\Core\Traits\EventDispatcherTrait;
 use Raspberry\Radio\RadioChangeEvent;
-use Raspberry\Radio\RadioGateway;
 use Raspberry\Radio\RadioJob;
 use Raspberry\Radio\Radios;
 use Raspberry\Radio\VO\RadioVO;
@@ -25,21 +24,15 @@ class RadioController extends AbstractController {
 	private $_service_radios;
 
 	/**
-	 * @var RadioGateway
-	 */
-	private $_service_radio_gateway;
-
-	/**
 	 * @var RadioJob
 	 */
 	private $_radio_job;
 
 	/**
-	 * @Inject({"@Radios", "@RadioGateway", "@RadioJob"})
+	 * @Inject({"@Radios", "@RadioJob"})
 	 */
-	public function __construct(Radios $radios, RadioGateway $radio_gateway, RadioJob $radio_job) {
+	public function __construct(Radios $radios, RadioJob $radio_job) {
 		$this->_service_radios = $radios;
-		$this->_service_radio_gateway = $radio_gateway;
 		$this->_radio_job = $radio_job;
 	}
 
@@ -125,13 +118,12 @@ class RadioController extends AbstractController {
 	}
 
 	/**
-	 * @param integer $radio_id
-	 * @param string$status
+	 * @param string $job_id
 	 * @return RedirectResponse
-	 * @Route("/radio/job/delete/{radio_id}/{status}/", name="radiojob.delete")
+	 * @Route("/radio/job/delete/{job_id}/", name="radiojob.delete")
 	 */
-	public function deleteRadioJob($radio_id, $status) {
-		$this->_radio_job->deleteJob($radio_id, $status);
+	public function deleteRadioJob($job_id) {
+		$this->_radio_job->deleteJob($job_id);
 
 		return new RedirectResponse('/radio/');
 	}

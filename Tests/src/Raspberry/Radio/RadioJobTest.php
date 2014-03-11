@@ -2,12 +2,15 @@
 
 namespace Raspberry\Tests\Radio;
 
+use Matze\Core\EventDispatcher\BackgroundEvent;
+use Matze\Core\EventDispatcher\DelayedEvent;
+use Matze\Core\MessageQueue\MessageQueueGateway;
 use Matze\Core\Util\TimeParser;
 use PHPUnit_Framework_MockObject_MockObject;
+use Raspberry\Radio\RadioChangeEvent;
 use Raspberry\Radio\RadioJob;
-use Raspberry\Radio\RadioJobGateway;
-use Raspberry\Radio\Radios;
 use Raspberry\Radio\VO\RadioVO;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class RadioJobTest extends \PHPUnit_Framework_TestCase {
 
@@ -17,31 +20,36 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var RadioJobGateway|PHPUnit_Framework_MockObject_MockObject
-	 */
-	private $_mock_radio_job_gateway;
-
-	/**
 	 * @var TimeParser|PHPUnit_Framework_MockObject_MockObject
 	 */
 	private $_mock_time_parser;
 
+	/**
+	 * @var MessageQueueGateway|PHPUnit_Framework_MockObject_MockObject
+	 */
+	private $_mock_message_queue_gateway;
+
+	/**
+	 * @var EventDispatcher|PHPUnit_Framework_MockObject_MockObject
+	 */
+	private $_mock_dispatcher;
+
 	public function setUp() {
-		$this->_mock_radio_job_gateway = $this->getMock('Raspberry\Radio\RadioJobGateway');
 		$this->_mock_time_parser = $this->getMock('Matze\Core\Util\TimeParser');
+		$this->_mock_message_queue_gateway = $this->getMock('Matze\Core\MessageQueue\MessageQueueGateway');
+		$this->_mock_dispatcher = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcher');
 
-		$mock_dispatcher = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcher');
-
-		$this->_subject = new RadioJob($this->_mock_radio_job_gateway, $this->_mock_time_parser);
-		$this->_subject->setEventDispatcher($mock_dispatcher);
+		$this->_subject = new RadioJob($this->_mock_message_queue_gateway, $this->_mock_time_parser);
+		$this->_subject->setEventDispatcher($this->_mock_dispatcher);
 	}
 
 	public function testGetJobs() {
 		$jobs = [];
 
-		$this->_mock_radio_job_gateway
+		$this->_mock_message_queue_gateway
 			->expects($this->once())
-			->method('getJobs')
+			->method('getEventsByType')
+			->with(RadioChangeEvent::CHANGE_RADIO)
 			->will($this->returnValue($jobs));
 
 		$actual_result = $this->_subject->getJobs();
@@ -63,10 +71,12 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase {
 			->with($time_string)
 			->will($this->returnValue($timestamp));
 
-		$this->_mock_radio_job_gateway
+		$event = new RadioChangeEvent($radio_vo, $status);
+		$background_event = new DelayedEvent($event, $timestamp);
+		$this->_mock_dispatcher
 			->expects($this->once())
-			->method('addRadioJob')
-			->with($radio_vo->id, $timestamp, $status);
+			->method('dispatch')
+			->with(DelayedEvent::DELAYED, $background_event);
 
 		$this->_subject->addRadioJob($radio_vo, $time_string, $status);
 	}

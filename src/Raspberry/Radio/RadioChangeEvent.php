@@ -7,7 +7,7 @@ use Raspberry\Radio\VO\RadioVO;
 
 class RadioChangeEvent extends AbstractEvent {
 
-	const NAME = 'radio.change';
+	const CHANGE_RADIO = 'radio.change';
 
 	/**
 	 * @var RadioVO
@@ -27,12 +27,10 @@ class RadioChangeEvent extends AbstractEvent {
 	/**
 	 * @param RadioVO $radio_vo
 	 * @param boolean $status
-	 * @param boolean $is_job
 	 */
-	public function __construct(RadioVO $radio_vo, $status, $is_job = false) {
-		$this->event_name = self::NAME;
+	public function __construct(RadioVO $radio_vo, $status) {
+		$this->event_name = self::CHANGE_RADIO;
 		$this->radio_vo = $radio_vo;
 		$this->status = $status;
-		$this->is_job = $is_job;
 	}
 }

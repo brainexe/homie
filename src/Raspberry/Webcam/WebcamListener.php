@@ -9,8 +9,6 @@ use Matze\Core\Traits\ServiceContainerTrait;
  */
 class WebcamListener extends AbstractEventListener {
 
-	use ServiceContainerTrait;
-
 	/**
 	 * {@inheritdoc}
 	 */
@@ -26,6 +24,6 @@ class WebcamListener extends AbstractEventListener {
 	public function handleWebcamEvent(WebcamEvent $event) {
 		/** @var Webcam $webcam */
 		$webcam = $this->getService('Webcam');
-		$webcam->takePhoto($event->file_name);
+		$webcam->takePhoto($event->name);
 	}
 }

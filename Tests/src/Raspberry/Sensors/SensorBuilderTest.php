@@ -2,12 +2,6 @@
 
 namespace Raspberry\Tests\Sensors;
 
-use PHPUnit_Framework_MockObject_MockObject;
-use Raspberry\Radio\RadioGateway;
-use Raspberry\Radio\RadioJob;
-use Raspberry\Radio\RadioJobGateway;
-use Raspberry\Radio\Radios;
-use Raspberry\Radio\TimeParser;
 use Raspberry\Sensors\SensorBuilder;
 
 class SensorBuilderTest extends \PHPUnit_Framework_TestCase {

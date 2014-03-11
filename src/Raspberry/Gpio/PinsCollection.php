@@ -5,6 +5,9 @@ namespace Raspberry\Gpio;
 use ArrayIterator;
 use InvalidArgumentException;
 
+/**
+ * @todo cleanup
+ */
 class PinsCollection implements \IteratorAggregate, \Countable {
 	/**
 	 * @var ArrayIterator

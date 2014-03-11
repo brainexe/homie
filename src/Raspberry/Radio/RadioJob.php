@@ -2,6 +2,8 @@
 
 namespace Raspberry\Radio;
 
+use Matze\Core\MessageQueue\MessageQueueGateway;
+use Matze\Core\MessageQueue\MessageQueueJob;
 use Matze\Core\Traits\EventDispatcherTrait;
 use Matze\Core\Traits\RedisTrait;
 use Matze\Core\Util\TimeParser;
@@ -15,28 +17,28 @@ class RadioJob {
 	use EventDispatcherTrait;
 
 	/**
-	 * @var RadioJobGateway
-	 */
-	private $_radio_job_gateway;
-
-	/**
 	 * @var TimeParser
 	 */
 	private $_time_parser;
 
 	/**
-	 * @Inject({"@RadioJobGateway", "@TimeParser"})
+	 * @var MessageQueueGateway
 	 */
-	public function __construct(RadioJobGateway $radio_job_gateway, TimeParser $time_parser) {
-		$this->_radio_job_gateway = $radio_job_gateway;
+	private $_message_queue_gateway;
+
+	/**
+	 * @Inject({"@MessageQueueGateway", "@TimeParser"})
+	 */
+	public function __construct(MessageQueueGateway $message_queue_gateway, TimeParser $time_parser) {
+		$this->_message_queue_gateway = $message_queue_gateway;
 		$this->_time_parser = $time_parser;
 	}
 
 	/**
-	 * @return array[]
+	 * @return MessageQueueJob[]
 	 */
 	public function getJobs() {
-		return $this->_radio_job_gateway->getJobs();
+		return $this->_message_queue_gateway->getEventsByType(RadioChangeEvent::CHANGE_RADIO);
 	}
 
 	/**
@@ -47,17 +49,14 @@ class RadioJob {
 	public function addRadioJob(RadioVO $radio_vo, $time_string, $status) {
 		$timestamp = $this->_time_parser->parseString($time_string);
 
-		$event = new RadioChangeEvent($radio_vo, $status, true);
+		$event = new RadioChangeEvent($radio_vo, $status);
 		$this->dispatchInBackground($event, $timestamp);
-
-		$this->_radio_job_gateway->addRadioJob($radio_vo->id, $timestamp, $status);
 	}
 
 	/**
-	 * @param integer $radio_id
-	 * @param integer $status
+	 * @param string $job_id
 	 */
-	public function deleteJob($radio_id, $status) {
-		$this->_radio_job_gateway->deleteJob($radio_id, $status);
+	public function deleteJob($job_id) {
+		$this->_message_queue_gateway->deleteEvent($job_id, RadioChangeEvent::CHANGE_RADIO);
 	}
 }
