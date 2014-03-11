@@ -31,7 +31,9 @@ class GpioController extends AbstractController {
 	public function index() {
 		$pins = $this->_service_gpio_manager->getPins();
 
-		return $this->render('gpio.html.twig', ['pins' => $pins]);
+		return $this->render('gpio.html.twig', [
+			'pins' => $pins->getAll()
+		]);
 	}
 
 	/**

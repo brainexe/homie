@@ -2,76 +2,41 @@
 
 namespace Raspberry\Gpio;
 
-use ArrayIterator;
 use InvalidArgumentException;
+use IteratorAggregate;
+use Traversable;
 
-/**
- * @todo cleanup
- */
-class PinsCollection implements \IteratorAggregate, \Countable {
+class PinsCollection {
 	/**
-	 * @var ArrayIterator
+	 * @var Pin[]
 	 */
-	private $coll;
+	private $_pins = [];
 
 	/**
-	 * Constructor.
-	 */
-	public function __construct() {
-		$this->coll = new ArrayIterator();
-	}
-
-	/**
-	 * Get iterator.
-	 *
-	 * @return ArrayIterator
-	 */
-	public function getIterator() {
-		return $this->coll;
-	}
-
-	/**
-	 * @param Pin $pin Pin
+	 * @param Pin $pin
 	 */
 	public function add(Pin $pin) {
-		$this->coll[$pin->getID()] = $pin;
+		$pin_id = $pin->getID();
+		$this->_pins[$pin_id] = $pin;
 	}
 
 	/**
-	 * @param integer $id ID
+	 * @param integer $id
 	 * @return Pin
 	 * @throws InvalidArgumentException
 	 */
 	public function get($id) {
-		if (false === array_key_exists($id, $this->coll)) {
+		if (empty($this->_pins[$id])) {
 			throw new InvalidArgumentException(sprintf('Pin #%s does not exist', $id));
 		}
 
-		return $this->coll[$id];
+		return $this->_pins[$id];
 	}
 
 	/**
-	 * Count.
-	 *
-	 * @return integer
+	 * @return Pin[]
 	 */
-	public function count() {
-		return count($this->getIterator());
-	}
-
-	/**
-	 * isEmpty.
-	 *
-	 * @return boolean
-	 */
-	public function isEmpty() {
-		return (bool)$this->count();
-	}
-
-	/**
-	 * Clear collection.
-	 */
-	public function clear() {
-		$this->coll = new ArrayIterator();
+	public function getAll() {
+		return $this->_pins;
 	}
 }
