@@ -7,7 +7,6 @@
 		<table class="table table-bordered table-striped table-hover">
 			<thead>
 				<tr>
-					<th>#</th>
 					<th>Name</th>
 					<th>Enable</th>
 					<th>Disable</th>
@@ -17,12 +16,13 @@
 			<tbody>
 				{% for radio in radios %}
 					<tr>
-						<td title="ID: {{ radio.id|raw }}">{{ radio.code }}|{{ radio.pin }}</td>
 						<td>
-							{{ radio.name }}
-							{% if radio.description %}
-								<small>({{ radio.description }})</small>
-							{% endif %}
+							<div title="Code: {{ radio.code }} Pin: {{ radio.pin }} ID: {{ radio.id|raw }}" class="tip">
+								{{ radio.name }}
+								{% if radio.description %}
+									<small>({{ radio.description }})</small>
+								{% endif %}
+							</div>
 						</td>
 						<td><a href="/radio/status/{{ radio.id|raw }}/1/" class="btn btn-success">Enable</a></td>
 						<td><a href="/radio/status/{{ radio.id|raw }}/0/" class="btn btn-danger">Disable</a></td>
