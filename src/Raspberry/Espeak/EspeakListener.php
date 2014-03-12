@@ -3,21 +3,18 @@
 namespace Raspberry\Espeak;
 
 use Matze\Core\EventDispatcher\AbstractEventListener;
-use Matze\Core\Traits\ServiceContainerTrait;
 
 /**
  * @EventListener
  */
 class EspeakListener extends AbstractEventListener {
 
-	use ServiceContainerTrait;
-
 	/**
 	 * {@inheritdoc}
 	 */
 	public static function getSubscribedEvents() {
 		return [
-			EspeakEvent::NAME => 'handleEspeakEvent'
+			EspeakEvent::SPEAK => 'handleEspeakEvent'
 		];
 	}
 

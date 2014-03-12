@@ -1,8 +1,8 @@
 <?php
 
 namespace Raspberry\Webcam;
+
 use Matze\Core\EventDispatcher\AbstractEventListener;
-use Matze\Core\Traits\ServiceContainerTrait;
 
 /**
  * @EventListener

@@ -1,0 +1,12 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}{{ sensor.name }} - {{ sensor_value_formatted }}{% endblock %}
+{% block navigation %}{% endblock %}
+{% block meta %}
+	<meta http-equiv="refresh" content="{{ refresh_interval }}" />
+{% endblock %}
+
+{% block content %}
+	<h1 style="font-size: 100px">{{ sensor.name }}</h1>
+	<h1 style="font-size: 100px">{{ sensor_value_formatted }}</h1>
+{% endblock %}

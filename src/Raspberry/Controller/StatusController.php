@@ -28,7 +28,7 @@ class StatusController extends AbstractController {
 	}
 
 	/**
-	 * @Route("/status/")
+	 * @Route("/status/", name="status.index")
 	 */
 	public function index() {
 		$predis = $this->getPredis();

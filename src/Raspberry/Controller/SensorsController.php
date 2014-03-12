@@ -169,4 +169,21 @@ class SensorsController extends AbstractController {
 		return new RedirectResponse(sprintf('/sensors/%s', $sensor_id));
 	}
 
+	/**
+	 * @Route("/sensors/slim/{sensor_id}/", name="sensor.slim")
+	 * @param integer $sensor_id
+	 * @return string
+	 */
+	public function slim($sensor_id) {
+		$sensor = $this->_sensor_gateway->getSensor($sensor_id);
+		$sensor_obj = $this->_sensor_builder->build($sensor['type']);
+
+		return $this->render('sensor_slim.html.twig', [
+			'sensor' => $sensor,
+			'sensor_value_formatted' => $sensor_obj->getEspeakText($sensor['last_value']),
+			'sensor_obj' => $sensor_obj,
+			'refresh_interval' => 60
+		]);
+	}
+
 }

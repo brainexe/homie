@@ -10,8 +10,6 @@ use Matze\Core\Traits\ServiceContainerTrait;
  */
 class RadioJobListener extends AbstractEventListener {
 
-	use ServiceContainerTrait;
-
 	/**
 	 * {@inheritdoc}
 	 */

@@ -21,7 +21,7 @@ class EspeakController extends AbstractController {
 	/**
 	 * @var Espeak
 	 */
-	private $_service_espeak;
+	private $_espeak;
 
 	/**
 	 * @var TimeParser
@@ -32,7 +32,7 @@ class EspeakController extends AbstractController {
 	 * @Inject({"@Espeak", "@TimeParser"})
 	 */
 	public function __construct(Espeak $espeak, TimeParser $time_parser) {
-		$this->_service_espeak = $espeak;
+		$this->_espeak = $espeak;
 		$this->_time_parser = $time_parser;
 	}
 
@@ -41,10 +41,11 @@ class EspeakController extends AbstractController {
 	 * @Route("/espeak/", name="espeak.index")
 	 */
 	public function index() {
-		$speakers = $this->_service_espeak->getSpeakers();
+		$speakers = $this->_espeak->getSpeakers();
 
 		return $this->render('espeak.html.twig', [
-			'speakers' => $speakers
+			'speakers' => $speakers,
+			'jobs' => $this->_espeak->getPendingJobs()
 		]);
 	}
 
@@ -66,6 +67,17 @@ class EspeakController extends AbstractController {
 		$event = new EspeakEvent($espeak_vo);
 
 		$this->dispatchInBackground($event, $timestamp);
+
+		return new RedirectResponse('/espeak/');
+	}
+
+	/**
+	 * @param string $job_id
+	 * @return RedirectResponse
+	 * @Route("/espeak/job/delete/{job_id}/", name="espeak.delete")
+	 */
+	public function deleteJobJob($job_id) {
+		$this->_espeak->deleteJob($job_id);
 
 		return new RedirectResponse('/espeak/');
 	}

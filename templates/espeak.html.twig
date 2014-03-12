@@ -3,50 +3,78 @@
 {% block title %}Espeak{% endblock %}
 
 {% block content %}
-	<form action="/espeak/speak/" method="POST" class="navbar-forms navbar-lefts">
-		<div class="row">
-			<div class="col-lg-6">
-				<div class="input-group">
-					<span class='input-group-addon'>Text</span>
-					<input type="text" name="text" class="form-control" placeholder="Text"/>
-				</div>
-			</div>
-			<div class="col-lg-6">
-				<div class="input-group">
-					<span class='input-group-addon'>Delay</span>
-					<input type="text" value="0" name="delay" class="form-control" placeholder="Delay"/>
-				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="input-group">
-					<input type="submit" value="Speak" class="btn btn-success btn-lg"/>
-				</div>
+	<form action="{% url "espeak.speak" %}" class="form-horizontal" method="POST" role="form">
+		<div class="form-group">
+			<label for="espeakTextInput" class="col-sm-2 control-label">Text</label>
+
+			<div class="col-sm-10">
+				<input name="text" type="text" class="form-control input-lg" id="espeakTextInput" placeholder="Text">
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-lg-4">
-				<div class="input-group">
-					<span class='input-group-addon'>Volume</span>
-					<input type="number" class="form-control" max="200" min="0" name="volume" value="150"/>
-				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="input-group">
-					<span class='input-group-addon'>Speed</span>
-					<input type="number" class="form-control" max="200" min="0" name="speed" value="80"/>
-				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="input-group">
-					<span class='input-group-addon'>Speak</span>
-					<select name="speaker" class="form-control">
-						{% for id, text in speakers %}
-							<option value="{{ id }}">{{ text }}</option>
-						{% endfor %}
-					</select>
-				</div>
+		<div class="form-group">
+			<label for="espeakDelayInput" class="col-sm-2 control-label">Delay</label>
+
+			<div class="col-sm-10">
+				<input name="delay" type="text" class="form-control" id="espeakDelayInput" placeholder="1h">
+				<span class="help-block">e.g. 10s, 30m, 1h</span>
 			</div>
 		</div>
+		<div class="form-group">
+			<label for="espeakVolumeInput" class="col-sm-2 control-label">Volume</label>
+
+			<div class="col-sm-10">
+				<input name="volume" type="number" value="100" min="1" max="300" class="form-control input-sm" id="espeakVolumeInput" placeholder="100%">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="espeakSpeedInput" class="col-sm-2 control-label">Speed</label>
+
+			<div class="col-sm-10">
+				<input name="speed" type="number" value="100" min="1" max="300" class="form-control" id="espeakSpeedInput" placeholder="100%">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="espeakSpeakerInput" class="col-sm-2 control-label">Speed</label>
+
+			<div class="col-sm-10">
+				<select name="speaker" class="form-control" id="espeakSpeakerInput">
+					{% for id, text in speakers %}
+						<option value="{{ id }}">{{ text }}</option>
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+
+		<button type="submit" class="btn btn-primary btn-lg">Submit</button>
 	</form>
+
+	{% if jobs %}
+		<table class="table table-bordered table-striped table-hover">
+			<thead>
+			<tr>
+				<th>Time</th>
+				<th>Text</th>
+				<th>Delete</th>
+			</tr>
+			</thead>
+
+			<tbody>
+			{% for job in jobs %}
+				<tr>
+					<td>{{ job.timestamp|date|raw }} ({{ job.timestamp|eta }})</td>
+					<td>{{ job.event.espeak.text }}</td>
+					<td>
+						<a href="/espeak/job/delete/{{ job.getShortId|raw }}/"
+						   onclick="return confirm('Remove this Job?')"
+						   class="glyphicon glyphicon-remove">
+						</a>
+					</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	{% endif %}
 {% endblock %}
 

@@ -6,7 +6,7 @@ use Matze\Core\EventDispatcher\AbstractEvent;
 
 class EspeakEvent extends AbstractEvent {
 
-	const NAME = 'espeak.speak';
+	const SPEAK = 'espeak.speak';
 
 	/**
 	 * @var EspeakVO
@@ -17,7 +17,7 @@ class EspeakEvent extends AbstractEvent {
 	 * @param EspeakVO $espeak
 	 */
 	function __construct(EspeakVO $espeak) {
-		$this->event_name = self::NAME;
+		$this->event_name = self::SPEAK;
 		$this->espeak = $espeak;
 	}
 

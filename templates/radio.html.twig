@@ -49,7 +49,7 @@
 			<tbody>
 			{% for radio_job in radio_jobs %}
 				<tr>
-					<td>{{ radio_job.timestamp|date|raw }} (TODO eta)</td>
+					<td>{{ radio_job.timestamp|date|raw }} ({{ radio_job.timestamp|eta }})</td>
 					<td>{{ radios[radio_job.event.radio_vo.id].name }}</td>
 					<td>
 						{% if radio_job.event.status %}
