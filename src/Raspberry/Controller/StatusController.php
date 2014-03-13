@@ -3,7 +3,6 @@
 namespace Raspberry\Controller;
 
 use Matze\Core\Controller\AbstractController;
-use Matze\Core\MessageQueue\MessageQueue;
 use Matze\Core\MessageQueue\MessageQueueGateway;
 use Matze\Core\Traits\RedisTrait;
 use Matze\Core\Traits\TwigTrait;
@@ -12,8 +11,6 @@ use Matze\Core\Traits\TwigTrait;
  * @Controller
  */
 class StatusController extends AbstractController {
-
-	use RedisTrait;
 
 	/**
 	 * @var MessageQueueGateway
@@ -31,16 +28,22 @@ class StatusController extends AbstractController {
 	 * @Route("/status/", name="status.index")
 	 */
 	public function index() {
-		$predis = $this->getPredis();
-
-		$queue_len = $predis->ZCARD(MessageQueue::REDIS_MESSAGE_QUEUE);
 
 		return $this->render('status.html.twig', [
 			'jobs' => $this->_message_queue_gateway->getEventsByType(),
 			'stats' => [
-				'Queue Len' => $queue_len
+				'Queue Len' => $this->_message_queue_gateway->countJobs()
 			],
 		]);
+	}
+
+	/**
+	 * @Route("/status/event/delete/{event_type}/{job_id}/")
+	 * @param $event_type
+	 * @param string string $job_id
+	 */
+	public function deleteJob($event_type, $job_id) {
+		$this->_message_queue_gateway->deleteEvent($job_id, $event_type);
 	}
 
 }

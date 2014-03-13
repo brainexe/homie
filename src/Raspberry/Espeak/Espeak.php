@@ -40,7 +40,7 @@ class Espeak implements SpeakOutputInterface {
 	 * @return MessageQueueJob[]
 	 */
 	public function getPendingJobs() {
-		return $this->_message_queue_gateway->getEventsByType(EspeakEvent::SPEAK);
+		return $this->_message_queue_gateway->getEventsByType(EspeakEvent::SPEAK, time());
 	}
 
 	/**

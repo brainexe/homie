@@ -38,7 +38,7 @@ class RadioJob {
 	 * @return MessageQueueJob[]
 	 */
 	public function getJobs() {
-		return $this->_message_queue_gateway->getEventsByType(RadioChangeEvent::CHANGE_RADIO);
+		return $this->_message_queue_gateway->getEventsByType(RadioChangeEvent::CHANGE_RADIO, time());
 	}
 
 	/**

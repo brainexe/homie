@@ -51,13 +51,16 @@ class RadioController extends AbstractController {
 	}
 
 	/**
+	 * @param Request $request
 	 * @param integer $radio_id
 	 * @param integer $status
 	 * @return RedirectResponse
 	 * @Route("/radio/status/{radio_id}/{status}/")
 	 */
-	public function setStatus($radio_id, $status) {
+	public function setStatus(Request $request, $radio_id, $status) {
 		$radio_vo = $this->_service_radios->getRadio($radio_id);
+
+		$this->_addFlash($request, self::ALERT_SUCCESS, 'Set Radio');
 
 		$event = new RadioChangeEvent($radio_vo, $status);
 		$this->dispatchInBackground($event);
@@ -113,6 +116,8 @@ class RadioController extends AbstractController {
 		$radio_vo = $this->_service_radios->getRadio($radio_id);
 
 		$this->_radio_job->addRadioJob($radio_vo, $time_string, $status);
+
+		$this->_addFlash($request, self::ALERT_SUCCESS, 'The job was sored successfully');
 
 		return new RedirectResponse('/radio/');
 	}

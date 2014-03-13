@@ -63,13 +63,14 @@
 	{% endblock %}
 	<div class="container">
 		<div class="starter-template">
-			{#{% for type, flashs in flash_bag %}#}
-			{#{% for flash in flashs%}#}
-			{#<div class="alert alert-{{ type }}">#}
-			{#<strong>Warning!</strong> Better check yourself, you're not looking too good.#}
-			{#</div>#}
-			{#{% endfor %}#}
-			{#{% endfor %}#}
+			{% for type, flashs in getFlashBag() %}
+				{% for flash in flashs %}
+					<div class="alert alert-{{ type }} alert-dismissable" data-dismiss="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						{{ flash }}
+					</div>
+				{% endfor %}
+			{% endfor %}
 			{% block content %}{% endblock %}
 		</div>
 	</div>
