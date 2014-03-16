@@ -15,7 +15,7 @@
 			<label for="espeakDelayInput" class="col-sm-2 control-label">Delay</label>
 
 			<div class="col-sm-10">
-				<input name="delay" type="text" class="form-control" id="espeakDelayInput" placeholder="1h">
+				<input name="delay" type="text" class="form-control input-sm" id="espeakDelayInput" placeholder="1h">
 				<span class="help-block">e.g. 10s, 30m, 1h</span>
 			</div>
 		</div>
@@ -31,7 +31,7 @@
 			<label for="espeakSpeedInput" class="col-sm-2 control-label">Speed</label>
 
 			<div class="col-sm-10">
-				<input name="speed" type="number" value="100" min="1" max="300" class="form-control" id="espeakSpeedInput" placeholder="100%">
+				<input name="speed" type="number" value="100" min="1" max="300" class="form-control input-sm" id="espeakSpeedInput" placeholder="100%">
 			</div>
 		</div>
 
@@ -39,7 +39,7 @@
 			<label for="espeakSpeakerInput" class="col-sm-2 control-label">Speed</label>
 
 			<div class="col-sm-10">
-				<select name="speaker" class="form-control" id="espeakSpeakerInput">
+				<select name="speaker" class="form-control input-sm" id="espeakSpeakerInput">
 					{% for id, text in speakers %}
 						<option value="{{ id }}">{{ text }}</option>
 					{% endfor %}

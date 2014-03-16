@@ -24,10 +24,11 @@
 								{% endif %}
 							</div>
 						</td>
-						<td><a href="/radio/status/{{ radio.id|raw }}/1/" class="btn btn-success">Enable</a></td>
-						<td><a href="/radio/status/{{ radio.id|raw }}/0/" class="btn btn-danger">Disable</a></td>
+						<td><a href="/radio/status/{{ radio.id|raw }}/1/" class="btn btn-success">{% trans "Enable" %}</a></td>
+						<td><a href="/radio/status/{{ radio.id|raw }}/0/" class="btn btn-danger">{% trans "Disable" %}</a></td>
 						<td>
-							<a href="/radio/delete/{{ radio.id|raw }}/" onclick="return confirm('Remove this Radio?')"
+							<a href="/radio/delete/{{ radio.id|raw }}/"
+							   onclick="return confirm('{% trans "Remove this Radio?" %}')"
 							   class="glyphicon glyphicon-remove"></a>
 						</td>
 					</tr>

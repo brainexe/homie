@@ -60,7 +60,7 @@ class RadioController extends AbstractController {
 	public function setStatus(Request $request, $radio_id, $status) {
 		$radio_vo = $this->_service_radios->getRadio($radio_id);
 
-		$this->_addFlash($request, self::ALERT_SUCCESS, 'Set Radio');
+		$this->_addFlash($request, self::ALERT_SUCCESS, _('Set Radio'));
 
 		$event = new RadioChangeEvent($radio_vo, $status);
 		$this->dispatchInBackground($event);
@@ -117,7 +117,7 @@ class RadioController extends AbstractController {
 
 		$this->_radio_job->addRadioJob($radio_vo, $time_string, $status);
 
-		$this->_addFlash($request, self::ALERT_SUCCESS, 'The job was sored successfully');
+		$this->_addFlash($request, self::ALERT_SUCCESS, _('The job was sored successfully'));
 
 		return new RedirectResponse('/radio/');
 	}
