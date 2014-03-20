@@ -4,31 +4,12 @@
 	<title>{% block title %}Raspberry{% endblock %}</title>
 	<meta charset="utf-8">
 
-	<link href="/Bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="/Bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="/cache/merged.css" rel="stylesheet">
 
-	<script src="/js/jquery-2.1.0.min.js"></script>
-	<script src="/Bootstrap/js/bootstrap.min.js"></script>
-	<script src="/js/moment.min.js"></script>
-	<script src="/js/script.js"></script>
+	<script src="/cache/merged.js"></script>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	{% block meta %}{% endblock %}
-
-	<style type="text/css">
-		body {
-			padding-top: 50px;
-		}
-
-		.starter-template {
-			padding: 10px 10px;
-			text-align: center;
-		}
-
-		.panel-toggle {
-			cursor: pointer;
-		}
-	</style>
 </head>
 <body role="document">
 	{% block navigation %}

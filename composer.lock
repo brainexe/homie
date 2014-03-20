@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "5433b39d63b28b68331bc4b92a84d8df",
+    "hash": "cecacf418b0190def1f7b727008a7f61",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "088ea3b5dfbe52adf7b12623caa897e9ee1d795e"
+                "reference": "316b956b70c0ceab28ba0817fc3343624aa83b56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/088ea3b5dfbe52adf7b12623caa897e9ee1d795e",
-                "reference": "088ea3b5dfbe52adf7b12623caa897e9ee1d795e",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/316b956b70c0ceab28ba0817fc3343624aa83b56",
+                "reference": "316b956b70c0ceab28ba0817fc3343624aa83b56",
                 "shasum": ""
             },
             "require": {
@@ -75,7 +75,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2014-02-23 21:16:16"
+            "time": "2014-03-03 13:00:20"
         },
         {
             "name": "doctrine/lexer",
@@ -130,12 +130,85 @@
             "time": "2013-01-12 18:59:04"
         },
         {
+            "name": "kriswallsmith/assetic",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kriswallsmith/assetic.git",
+                "reference": "c501da7ffbf311a7133113186540a572d9fe5135"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/c501da7ffbf311a7133113186540a572d9fe5135",
+                "reference": "c501da7ffbf311a7133113186540a572d9fe5135",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.1",
+                "symfony/process": "~2.1"
+            },
+            "require-dev": {
+                "cssmin/cssmin": "*",
+                "joliclic/javascript-packer": "*",
+                "kamicane/packager": "*",
+                "leafo/lessphp": "*",
+                "leafo/scssphp": "*",
+                "leafo/scssphp-compass": "*",
+                "mrclay/minify": "*",
+                "patchwork/jsqueeze": "*",
+                "phpunit/phpunit": "~3.7",
+                "ptachoire/cssembed": "*",
+                "twig/twig": "~1.6"
+            },
+            "suggest": {
+                "leafo/lessphp": "Assetic provides the integration with the lessphp LESS compiler",
+                "leafo/scssphp": "Assetic provides the integration with the scssphp SCSS compiler",
+                "leafo/scssphp-compass": "Assetic provides the integration with the SCSS compass plugin",
+                "patchwork/jsqueeze": "Assetic provides the integration with the JSqueeze JavaScript compressor",
+                "ptachoire/cssembed": "Assetic provides the integration with phpcssembed to embed data uris",
+                "twig/twig": "Assetic provides the integration with the Twig templating engine"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Assetic": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kris Wallsmith",
+                    "email": "kris.wallsmith@gmail.com",
+                    "homepage": "http://kriswallsmith.net/"
+                }
+            ],
+            "description": "Asset Management for PHP",
+            "homepage": "https://github.com/kriswallsmith/assetic",
+            "keywords": [
+                "assets",
+                "compression",
+                "minification"
+            ],
+            "time": "2014-03-18 09:11:56"
+        },
+        {
             "name": "matze/annotations",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "git@mdoetsch.de:matze/annotations.git",
-                "reference": "b7fc24c41f8bb9e16046bea6d15f626dae0bb23a"
+                "reference": "89cf1d048f24e8be72af88a202e70525262a8278"
             },
             "require": {
                 "doctrine/annotations": "1.2.*@dev",
@@ -148,7 +221,7 @@
                     "Matze\\Annotations": "src/"
                 }
             },
-            "time": "2014-02-25 16:17:41"
+            "time": "2014-03-06 22:03:56"
         },
         {
             "name": "matze/core",
@@ -156,9 +229,10 @@
             "source": {
                 "type": "git",
                 "url": "git@mdoetsch.de:matze/core.git",
-                "reference": "57ce2adae73728152436d466950c50d82b37595d"
+                "reference": "9fb2d0a452b631fc0f6a43014fd16d440842376e"
             },
             "require": {
+                "kriswallsmith/assetic": "dev-master",
                 "matze/annotations": "dev-master",
                 "monolog/monolog": "1.7.*",
                 "predis/predis": "0.8.*",
@@ -173,7 +247,8 @@
                 "symfony/security": "2.4.*",
                 "symfony/translation": "2.4.*",
                 "symfony/yaml": "2.4.*",
-                "twig/twig": "1.15.*"
+                "twig/twig": "1.15.*",
+                "wmather/nexmo-php-lib": "dev-master"
             },
             "bin": [
                 "console"
@@ -191,7 +266,7 @@
                 }
             ],
             "description": "Framework core",
-            "time": "2014-02-25 18:36:41"
+            "time": "2014-03-16 21:34:34"
         },
         {
             "name": "monolog/monolog",
@@ -1200,6 +1275,32 @@
                 "templating"
             ],
             "time": "2014-02-13 10:19:29"
+        },
+        {
+            "name": "wmather/nexmo-php-lib",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wmather/Nexmo-PHP-lib.git",
+                "reference": "19ecba373a5d8611f398e22133f3b70ce664eb98"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wmather/Nexmo-PHP-lib/zipball/19ecba373a5d8611f398e22133f3b70ce664eb98",
+                "reference": "19ecba373a5d8611f398e22133f3b70ce664eb98",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Nexmo": "./"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "time": "2014-02-03 13:02:47"
         }
     ],
     "packages-dev": [
