@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-16 19:00+0100\n"
+"POT-Creation-Date: 2014-03-22 13:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,6 +35,7 @@ msgstr ""
 
 #: /www/raspberry/cache/twig/2a/06/d3edfb45404f46f2f99eaf4b71995a96aff61394fbf1eb2e320a180effa2.php:141
 #: /www/raspberry/cache/twig/5b/9e/bde6804d02545a0dc8940ebe660854bc3c674f2205aa4dd758dc568b88be.php:141
+#: /www/raspberry/cache/twig/5b/9e/bde6804d02545a0dc8940ebe660854bc3c674f2205aa4dd758dc568b88be.php:94
 msgid "Sensors"
 msgstr ""
 
@@ -51,22 +52,22 @@ msgstr ""
 msgid "%d Percent"
 msgstr ""
 
-#: /www/raspberry/cache/twig/5b/9e/bde6804d02545a0dc8940ebe660854bc3c674f2205aa4dd758dc568b88be.php:150
+#: /www/raspberry/cache/twig/5b/9e/bde6804d02545a0dc8940ebe660854bc3c674f2205aa4dd758dc568b88be.php:101
 msgid "Radios"
 msgstr ""
 
-#: /www/raspberry/cache/twig/5b/9e/bde6804d02545a0dc8940ebe660854bc3c674f2205aa4dd758dc568b88be.php:155
+#: /www/raspberry/cache/twig/5b/9e/bde6804d02545a0dc8940ebe660854bc3c674f2205aa4dd758dc568b88be.php:105
 msgid "Speek"
 msgstr ""
 
-#: /www/raspberry/cache/twig/18/58/803855f9b475a372e2eab713714215ed5d4a0483d58355cfa0b1c256021b.php:87
+#: /www/raspberry/cache/twig/18/58/803855f9b475a372e2eab713714215ed5d4a0483d58355cfa0b1c256021b.php:74
 msgid "Enable"
 msgstr ""
 
-#: /www/raspberry/cache/twig/18/58/803855f9b475a372e2eab713714215ed5d4a0483d58355cfa0b1c256021b.php:92
+#: /www/raspberry/cache/twig/18/58/803855f9b475a372e2eab713714215ed5d4a0483d58355cfa0b1c256021b.php:78
 msgid "Disable"
 msgstr ""
 
-#: /www/raspberry/cache/twig/18/58/803855f9b475a372e2eab713714215ed5d4a0483d58355cfa0b1c256021b.php:100
+#: /www/raspberry/cache/twig/18/58/803855f9b475a372e2eab713714215ed5d4a0483d58355cfa0b1c256021b.php:84
 msgid "Remove this Radio?"
 msgstr ""
