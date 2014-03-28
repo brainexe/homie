@@ -48,7 +48,7 @@ class HumidDHT11Sensor extends AbstractDHT11Sensor {
 	 * @return string|null
 	 */
 	public function getEspeakText($value) {
-		return t('%d Percent', $value);
+		return sprintf(_('%d Percent'), $value);
 	}
 
 }
