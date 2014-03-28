@@ -21,19 +21,19 @@ class SensorGateway {
 	public function getSensors() {
 		$sensor_ids = $this->getSensorIds();
 
-		$redis = $this->getPredis()->pipeline();
+		$redis = $this->getRedis()->pipeline();
 		foreach ($sensor_ids as $sensor_id) {
 			$redis->HGETALL($this->_getKey($sensor_id));
 		}
 
-		return $redis->execute();
+		return $redis->exec();
 	}
 
 	/**
 	 * @return integer[]
 	 */
 	public function getSensorIds() {
-		$sensor_ids = $this->getPredis()->SMEMBERS(self::SENSOR_IDS);
+		$sensor_ids = $this->getRedis()->SMEMBERS(self::SENSOR_IDS);
 
 		sort($sensor_ids);
 
@@ -52,10 +52,10 @@ class SensorGateway {
 		$sensor_ids = $this->getSensorIds();
 		$new_sensor_id = end($sensor_ids) + 1;
 
-		$predis = $this->getPredis()->pipeline();
+		$redis = $this->getRedis()->pipeline();
 
 		$key = $this->_getKey($new_sensor_id);
-		$predis->HMSET($key, [
+		$redis->HMSET($key, [
 			'id' => $new_sensor_id,
 			'name' => $name,
 			'type' => $type,
@@ -66,9 +66,9 @@ class SensorGateway {
 			'last_value_timestamp' => 0
 		]);
 
-		$this->getPredis()->SADD(self::SENSOR_IDS, $new_sensor_id);
+		$this->getRedis()->SADD(self::SENSOR_IDS, $new_sensor_id);
 
-		$predis->execute();
+		$redis->exec();
 
 		return $new_sensor_id;
 	}
@@ -80,14 +80,14 @@ class SensorGateway {
 	public function getSensor($sensor_id) {
 		$key = $this->_getKey($sensor_id);
 
-		return $this->getPredis()->HGETALL($key);
+		return $this->getRedis()->HGETALL($key);
 	}
 
 	/**
 	 * @param integer $sensor_id
 	 */
 	public function deleteSensor($sensor_id) {
-		$redis = $this->getPredis();
+		$redis = $this->getRedis();
 
 		$redis->DEL($this->_getKey($sensor_id));
 		$redis->SREM(self::SENSOR_IDS, $sensor_id);

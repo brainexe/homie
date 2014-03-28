@@ -32,7 +32,7 @@ class Dashboard {
 	public function getDashboard($user_id) {
 		$dashboard = [];
 
-		$widgets_raw = $this->getPredis()->HGETALL($this->_getKey($user_id));
+		$widgets_raw = $this->getRedis()->HGETALL($this->_getKey($user_id));
 
 		foreach ($widgets_raw as $i => $widget_raw) {
 			$widget_raw = json_decode($widget_raw, true);

@@ -24,13 +24,13 @@ class RadioGateway {
 	public function getRadios() {
 		$radio_ids = $this->getRadioIds();
 
-		$pipeline = $this->getPredis()->pipeline();
+		$pipeline = $this->getRedis()->pipeline();
 
 		foreach ($radio_ids as $radio_id) {
 			$pipeline->HGETALL(self::_getRadioKey($radio_id));
 		}
 
-		return $pipeline->execute();
+		return $pipeline->exec();
 	}
 
 	/**
@@ -38,14 +38,14 @@ class RadioGateway {
 	 * @return array
 	 */
 	public function getRadio($radio_id) {
-		return $this->getPredis()->HGETALL($this->_getRadioKey($radio_id));
+		return $this->getRedis()->HGETALL($this->_getRadioKey($radio_id));
 	}
 
 	/**
 	 * @return integer[]
 	 */
 	public function getRadioIds() {
-		$radio_ids = $this->getPredis()->SMEMBERS(self::REDIS_RADIO_IDS);
+		$radio_ids = $this->getRedis()->SMEMBERS(self::REDIS_RADIO_IDS);
 
 		sort($radio_ids);
 
@@ -67,7 +67,7 @@ class RadioGateway {
 	public function addRadio(RadioVO $radio_vo) {
 		$new_radio_id = $this->generateRandomId();
 
-		$pipeline = $this->getPredis()->pipeline();
+		$pipeline = $this->getRedis()->pipeline();
 
 		$key = $this->_getRadioKey($new_radio_id);
 		$pipeline->HMSET($key, [
@@ -78,9 +78,9 @@ class RadioGateway {
 			'code' => $radio_vo->code,
 		]);
 
-		$this->getPredis()->SADD(self::REDIS_RADIO_IDS, $new_radio_id);
+		$this->getRedis()->SADD(self::REDIS_RADIO_IDS, $new_radio_id);
 
-		$pipeline->execute();
+		$pipeline->exec();
 
 		return $new_radio_id;
 	}
@@ -89,9 +89,9 @@ class RadioGateway {
 	 * @param integer $radio_id
 	 */
 	public function deleteRadio($radio_id) {
-		$predis = $this->getPredis();
+		$redis = $this->getPedis();
 
-		$predis->SREM(self::REDIS_RADIO_IDS, $radio_id);
-		$predis->DEL(self::_getRadioKey($radio_id));
+		$redis->SREM(self::REDIS_RADIO_IDS, $radio_id);
+		$redis->DEL(self::_getRadioKey($radio_id));
 	}
 }

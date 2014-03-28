@@ -1,8 +1,0 @@
-parameters:
-    assets_priorities:
-        - js/jquery-2.1.0.min.js
-        - rickshaw/d3.min.js
-        - rickshaw/d3.layout.min.js
-    assets_mergable:
-        - js
-        - css

@@ -19,17 +19,17 @@ class SensorValuesGateway {
 	 * @param double $value
 	 */
 	public function addValue($sensor_id, $value) {
-		$predis = $this->getPredis()->pipeline();
+		$redis = $this->getRedis()->pipeline();
 
 		$key = $this->_getKey($sensor_id);
-		$predis->ZADD($key, time(), time().'-'.$value);
+		$redis->ZADD($key, time(), time().'-'.$value);
 
-		$predis->HMSET(SensorGateway::REDIS_SENSOR_PREFIX . $sensor_id, [
+		$redis->HMSET(SensorGateway::REDIS_SENSOR_PREFIX . $sensor_id, [
 			'last_value' => $value,
 			'last_value_timestamp' => time()
 		]);
 
-		$predis->execute();
+		$redis->exec();
 	}
 
 	/**
@@ -43,7 +43,7 @@ class SensorValuesGateway {
 		}
 
 		$key = $this->_getKey($sensor_id);
-		$redis_result = $this->getPredis()->ZRANGEBYSCORE($key, $from, time());
+		$redis_result = $this->getRedis()->ZRANGEBYSCORE($key, $from, time());
 		$result = [];
 
 		foreach ($redis_result as $part) {
@@ -63,17 +63,17 @@ class SensorValuesGateway {
 	public function deleteOldValues($sensor_id, $days, $deleted_percent) {
 		$deleted = 0;
 
-		$predis = $this->getPredis();
+		$redis = $this->getRedis();
 
 		$until_timestamp = time() - $days * 86000;
 		$key = $this->_getKey($sensor_id);
-		$old_sensor_values = $predis->ZRANGEBYSCORE($key, 0, $until_timestamp);
+		$old_sensor_values = $redis->ZRANGEBYSCORE($key, 0, $until_timestamp);
 
 		foreach ($old_sensor_values as $result) {
 			$crc_32 = crc32(md5($result));
 
 			if ($crc_32 % 100 < $deleted_percent) {
-				$predis->ZREM($key, $result);
+				$redis->ZREM($key, $result);
 
 				$deleted += 1;
 			}
