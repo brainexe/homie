@@ -2,62 +2,83 @@
 
 namespace Raspberry\Controller;
 
-use Matze\Core\Controller\ControllerInterface;
-use Matze\Core\EventDispatcher\MessageQueueEvent;
+use Matze\Core\Controller\AbstractController;
 use Matze\Core\Traits\EventDispatcherTrait;
+use Matze\Core\Util\TimeParser;
 use Raspberry\Espeak\Espeak;
-use Silex\Application;
+use Raspberry\Espeak\EspeakEvent;
+use Raspberry\Espeak\EspeakVO;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Matze\Annotations\Annotations as DI;
-use Matze\Core\Annotations as CoreDI;
 
 /**
- * @CoreDI\Controller
+ * @Controller
  */
-class EspeakController implements ControllerInterface {
+class EspeakController extends AbstractController {
 
 	use EventDispatcherTrait;
 
 	/**
 	 * @var Espeak
 	 */
-	private $_service_espeak;
+	private $_espeak;
 
 	/**
-	 * @DI\Inject("@Espeak")
+	 * @var TimeParser
 	 */
-	public function __construct(Espeak $espeak) {
-		$this->_service_espeak = $espeak;
+	private $_time_parser;
+
+	/**
+	 * @Inject({"@Espeak", "@TimeParser"})
+	 */
+	public function __construct(Espeak $espeak, TimeParser $time_parser) {
+		$this->_espeak = $espeak;
+		$this->_time_parser = $time_parser;
 	}
 
 	/**
 	 * @return string
+	 * @Route("/espeak/", name="espeak.index")
 	 */
-	public function getPath() {
-		return '/espeak/';
+	public function index() {
+		$speakers = $this->_espeak->getSpeakers();
+
+		return $this->render('espeak.html.twig', [
+			'speakers' => $speakers,
+			'jobs' => $this->_espeak->getPendingJobs()
+		]);
 	}
 
-	public function connect(Application $app) {
-		$controllers = $app['controllers_factory'];
+	/**
+	 * @param Request $request
+	 * @return RedirectResponse
+	 * @Route("/espeak/speak/", methods="POST")
+	 */
+	public function speak(Request $request) {
+		$speaker = $request->request->get('speaker');
+		$text = $request->request->get('text');
+		$volume = $request->request->getInt('volume');
+		$speed = $request->request->getInt('speed');
+		$delay_raw = $request->request->get('delay');
 
-		$controllers->get('/', function(Application $app) {
-			$speakers = $this->_service_espeak->getSpeakers();
-			return $app['twig']->render('espeak.html.twig', ['speakers' => $speakers]);
-		});
+		$timestamp = $this->_time_parser->parseString($delay_raw);
 
-		$controllers->post('/', function(Application $app, Request $request) {
-			$speaker = $request->request->get('speaker');
-			$text = $request->request->get('text');
-			$volume = $request->request->getInt('volume');
-			$speed = $request->request->getInt('speed');
+		$espeak_vo = new EspeakVO($text, $volume, $speed, $speaker);
+		$event = new EspeakEvent($espeak_vo);
 
-			$event = new MessageQueueEvent('Espeak', 'speak', [$text, $volume, $speed, $speaker]);
-			$this->getEventDispatcher()->dispatch(MessageQueueEvent::NAME, $event);
+		$this->dispatchInBackground($event, $timestamp);
 
-			return $app->redirect('/espeak/');
-		});
-
-		return $controllers;
+		return new RedirectResponse('/espeak/');
 	}
 
+	/**
+	 * @param string $job_id
+	 * @return RedirectResponse
+	 * @Route("/espeak/job/delete/{job_id}/", name="espeak.delete")
+	 */
+	public function deleteJobJob($job_id) {
+		$this->_espeak->deleteJob($job_id);
+
+		return new RedirectResponse('/espeak/');
+	}
 }

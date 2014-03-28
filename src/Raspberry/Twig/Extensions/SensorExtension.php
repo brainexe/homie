@@ -4,6 +4,9 @@ namespace Raspberry\Twig\Extensions;
 
 use Twig_Extension;
 
+/**
+ * @TwigExtension
+ */
 class SensorExtension extends Twig_Extension {
 
 	/**
@@ -14,9 +17,7 @@ class SensorExtension extends Twig_Extension {
 	}
 
 	public function getFilters() {
-		return [
-			'sensor' => new \Twig_Filter_Method($this, 'sensorsFilter'),
-		];
+		return ['sensor' => new \Twig_Filter_Method($this, 'sensorsFilter')];
 	}
 
 	/**
@@ -30,6 +31,8 @@ class SensorExtension extends Twig_Extension {
 		} else {
 			$available_sensors[] = $sensor_id;
 		}
+
+		$available_sensors = array_filter($available_sensors);
 
 		sort($available_sensors);
 

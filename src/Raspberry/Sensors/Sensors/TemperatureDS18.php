@@ -2,11 +2,11 @@
 
 namespace Raspberry\Sensors\Sensors;
 
-use Matze\Annotations\Annotations as DI;
+
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * @DI\Service(public=false, tags={{"name" = "sensor"}})
+ * @Service(public=false, tags={{"name" = "sensor"}})
  */
 class TemperatureDS18 extends AbstractTemperatureSensor {
 
@@ -41,7 +41,7 @@ class TemperatureDS18 extends AbstractTemperatureSensor {
 			return null;
 		}
 
-		$temperature = $matches[1]/1000;
+		$temperature = $matches[1] / 1000;
 
 		$invalid_temperatures = [0.0, 85.0];
 		if (in_array($temperature, $invalid_temperatures)) {

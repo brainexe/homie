@@ -2,28 +2,23 @@
 
 namespace Raspberry\Radio;
 
-use Raspberry\Client\LocalClient;
-use Matze\Annotations\Annotations as DI;
+use Raspberry\Client\ClientInterface;
 
 /**
- * @DI\Service(public=false)
+ * @Service
  */
 class RadioController {
-	const STATUS_ENABLED = 'enabled';
-	const STATUS_DISABLED = 'disabled';
-	const STATUS_UNKNOWN = 'unknown';
-
 	const BASE_COMMAND = 'sudo /opt/rcswitch-pi/send';
 
 	/**
-	 * @var LocalClient
+	 * @var ClientInterface
 	 */
 	private $_local_client;
 
 	/**
-	 * @DI\Inject("@LocalClient")
+	 * @Inject("@RaspberryClient")
 	 */
-	public function __construct(LocalClient $local_client) {
+	public function __construct(ClientInterface $local_client) {
 		$this->_local_client = $local_client;
 	}
 
@@ -33,27 +28,7 @@ class RadioController {
 	 * @param boolean $status
 	 */
 	public function setStatus($code, $number, $status) {
-		switch ($status) {
-			case self::STATUS_ENABLED:
-			case true:
-				$status = true;
-				break;
-
-			case self::STATUS_DISABLED:
-			default:
-				$status = false;
-				break;
-		}
 		$command = sprintf('%s %s %d %d', self::BASE_COMMAND, $code, $number, (int)$status);
 		$this->_local_client->execute($command);
-	}
-
-	/**
-	 * @param string $code
-	 * @param integer $number
-	 * @return string
-	 */
-	public function getStatus($code, $number) {
-		return self::STATUS_UNKNOWN;
 	}
 } 

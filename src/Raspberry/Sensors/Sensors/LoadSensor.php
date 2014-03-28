@@ -2,11 +2,11 @@
 
 namespace Raspberry\Sensors\Sensors;
 
-use Matze\Annotations\Annotations as DI;
+
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * @DI\Service(public=false, tags={{"name" = "sensor"}})
+ * @Service(public=false, tags={{"name" = "sensor"}})
  */
 class LoadSensor implements SensorInterface {
 
@@ -30,14 +30,14 @@ class LoadSensor implements SensorInterface {
 	 * {@inheritdoc}
 	 */
 	public function formatValue($value) {
-		return $value;
+		return sprintf('%0.1f', $value);
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function getEspeakText($value) {
-		return null;
+		return sprintf('%1.2f', $value);
 	}
 
 	public function isSupported(OutputInterface $output) {

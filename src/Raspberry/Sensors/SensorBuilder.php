@@ -2,11 +2,12 @@
 
 namespace Raspberry\Sensors;
 
+use InvalidArgumentException;
 use Raspberry\Sensors\Sensors\SensorInterface;
-use Matze\Annotations\Annotations as DI;
+
 
 /**
- * @DI\Service(public=false)
+ * @Service(public=false)
  */
 class SensorBuilder {
 
@@ -31,8 +32,8 @@ class SensorBuilder {
 	}
 
 	/**
-	 * @param string$sensor_type
-	 * @throws \Exception
+	 * @param string $sensor_type
+	 * @throws InvalidArgumentException
 	 * @return SensorInterface
 	 */
 	public function build($sensor_type) {
@@ -40,7 +41,7 @@ class SensorBuilder {
 			return $this->_sensors[$sensor_type];
 		}
 
-		throw new \Exception(sprintf('Invalid sensor type: %s', $sensor_type));
+		throw new InvalidArgumentException(sprintf('Invalid sensor type: %s', $sensor_type));
 	}
 
 }

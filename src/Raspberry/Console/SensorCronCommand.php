@@ -2,19 +2,22 @@
 
 namespace Raspberry\Console;
 
+use Matze\Core\Traits\LoggerTrait;
 use Raspberry\Sensors\SensorBuilder;
 use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorValuesGateway;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Matze\Annotations\Annotations as DI;
 
 /**
- * @DI\Service(public=false, tags={{"name" = "console"}})
+ * @Command
  */
 class SensorCronCommand extends Command {
+
+	use LoggerTrait;
 
 	/**
 	 * @var SensorGateway
@@ -30,54 +33,53 @@ class SensorCronCommand extends Command {
 	 * @var SensorBuilder
 	 */
 	private $_sensor_builder;
+
 	/**
 	 * {@inheritdoc}
 	 */
 	protected function configure() {
-		$this
-			->setName('cron:sensor')
-			->setDescription('Runs sensor cron');
+		$this->setName('cron:sensor')
+			->setDescription('Runs sensor cron')
+			->addOption('force', null, InputOption::VALUE_NONE, 'Force sensor mesasure');
 	}
 
 	/**
-	 * @DI\Inject({"@SensorGateway", "@SensorValuesGateway", "@SensorBuilder"})
+	 * @Inject({"@SensorGateway", "@SensorValuesGateway", "@SensorBuilder"})
 	 */
-	public function setDependencies(SensorGateway $sensor_gateway, SensorValuesGateway $sensor_values_gateway, SensorBuilder $sensor_builder) {
+	public function __construct(SensorGateway $sensor_gateway, SensorValuesGateway $sensor_values_gateway, SensorBuilder $sensor_builder) {
 		$this->_sensor_builder = $sensor_builder;
 		$this->_sensor_gateway = $sensor_gateway;
 		$this->_sensor_values_gateway = $sensor_values_gateway;
+
+		parent::__construct();
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
 	protected function execute(InputInterface $input, OutputInterface $output) {
-		$minute = date('i');
+		$now = time();
 		$sensors = $this->_sensor_gateway->getSensors();
 
-		foreach($this->_sensor_builder->getSensors() as $sensor) {
-			if ($sensor->isSupported($output)) {
-				$output->writeln(sprintf('<info>%s: supported</info>', $sensor->getSensorType()));
-			}
-		}
-
 		foreach ($sensors as $sensor_data) {
-			$interval = $sensor_data['interval'];
-			if ($minute % $interval === 0) {
+			$interval = $sensor_data['interval'] ?: 1;
+
+			$last_run_timestamp = $sensor_data['last_value_timestamp'];
+			$delta = $now - $last_run_timestamp;
+			if ($delta > $interval * 60 || $input->getOption('force')) {
 				$sensor = $this->_sensor_builder->build($sensor_data['type']);
 
-				$value = $sensor->getValue($sensor_data['pin']);
-
-				if ($value === null) {
+				$current_sensor_value = $sensor->getValue($sensor_data['pin']);
+				if ($current_sensor_value === null) {
 					$output->writeln(sprintf('<error>Invalid sensor value: #%d %s (%s)</error>', $sensor_data['id'], $sensor_data['type'], $sensor_data['name']));
 					continue;
 				}
 
-				$this->_sensor_values_gateway->addValue($sensor_data['id'], $value);
+				$this->_sensor_values_gateway->addValue($sensor_data['id'], $current_sensor_value);
 
-				$output->writeln(sprintf('<info>Sensor value: #%d %s (%s): %s</info>', $sensor_data['id'], $sensor_data['type'], $sensor_data['name'], $sensor->formatValue($value)));
+				$output->writeln(sprintf('<info>Sensor value: #%d %s (%s): %s</info>', $sensor_data['id'], $sensor_data['type'], $sensor_data['name'], $sensor->formatValue($current_sensor_value)));
 
-				sleep(1);
+				usleep(500000);
 			}
 		}
 	}

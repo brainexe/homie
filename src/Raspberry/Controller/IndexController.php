@@ -2,30 +2,60 @@
 
 namespace Raspberry\Controller;
 
-use Matze\Core\Controller\ControllerInterface;
-use Silex\Application;
-use Matze\Annotations\Annotations as DI;
-use Matze\Core\Annotations as CoreDI;
+use Matze\Core\Controller\AbstractController;
+use Matze\Core\Traits\TwigTrait;
+use Raspberry\Dashboard\Dashboard;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @CoreDI\Controller
+ * @todo set locale
+ * @Controller
  */
-class IndexController implements ControllerInterface {
+class IndexController extends AbstractController {
+
+	/**
+	 * @var Dashboard
+	 */
+	private $_dashboard;
+
+	/**
+	 * @Inject("@Dashboard")
+	 */
+	public function __construct(Dashboard $dashboard) {
+		$this->_dashboard = $dashboard;
+	}
 
 	/**
 	 * @return string
+	 * @Route("/", name="index")
 	 */
-	public function getPath() {
-		return '/';
+	public function index() {
+//		$user = $request->getSession()->get('user');
+		$user_id = 0; //TODO
+
+		$dashboard = $this->_dashboard->getDashboard($user_id);
+		$widgets = $this->_dashboard->getAvailableWidgets();
+
+		return $this->render('index.html.twig', [
+			'dashboard' => $dashboard,
+			'widgets' => $widgets
+		]);
 	}
 
-	public function connect(Application $app) {
-		$controllers = $app['controllers_factory'];
+	/**
+	 * @param Request $request
+	 * @return RedirectResponse
+	 * @Route("/dashboard/add/", methods="POST")
+	 */
+	public function addWidget(Request $request) {
+		$type = $request->request->get('type');
+		$payload = (array)json_decode($request->request->get('payload'), true);
+		$user_id = 0;
 
-		$controllers->get('/', function (Application $app) {
-			return $app['twig']->render('index.html.twig');
-		});
+		$this->_dashboard->addWidget($user_id, $type, $payload);
 
-		return $controllers;
+		return new RedirectResponse('/');
 	}
+
 }

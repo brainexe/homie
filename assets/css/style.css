@@ -1,0 +1,28 @@
+body {
+	padding-top: 50px;
+}
+
+.starter-template {
+	padding: 10px 10px;
+	text-align: center;
+}
+
+.panel-toggle {
+	cursor: pointer;
+}
+
+#chart_container {
+	width: 960px;
+}
+
+#legend {
+	text-align: center;
+}
+
+#y_axis {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 40px;
+	margin-top: 135px;
+}

@@ -3,10 +3,9 @@
 namespace Raspberry\Sensors\Sensors;
 
 use Symfony\Component\Process\Process;
-use Matze\Annotations\Annotations as DI;
 
 /**
- * @DI\Service(public=false, tags={{"name" = "sensor"}})
+ * @Service(public=false, tags={{"name" = "sensor"}})
  */
 class HumidDHT11Sensor extends AbstractDHT11Sensor {
 
@@ -49,7 +48,7 @@ class HumidDHT11Sensor extends AbstractDHT11Sensor {
 	 * @return string|null
 	 */
 	public function getEspeakText($value) {
-		return sprintf('%d Prozent', $value);
+		return t('%d Percent', $value);
 	}
 
 }

@@ -2,16 +2,20 @@
 
 namespace Raspberry\Controller;
 
-use Matze\Core\Controller\ControllerInterface;
+use Matze\Core\Controller\AbstractController;
+use Matze\Core\Traits\EventDispatcherTrait;
+use Matze\Core\Traits\IdGeneratorTrait;
 use Raspberry\Webcam\Webcam;
-use Silex\Application;
-use Matze\Annotations\Annotations as DI;
-use Matze\Core\Annotations as CoreDI;
+use Raspberry\Webcam\WebcamEvent;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
- *@CoreDI\Controller
+ * @Controller
  */
-class WebcamController implements ControllerInterface {
+class WebcamController extends AbstractController {
+
+	use EventDispatcherTrait;
+	use IdGeneratorTrait;
 
 	/**
 	 * @var Webcam
@@ -19,7 +23,7 @@ class WebcamController implements ControllerInterface {
 	private $_service_webcam;
 
 	/**
-	 * @DI\Inject("@Webcam")
+	 * @Inject("@Webcam")
 	 */
 	public function __construct(Webcam $webcam) {
 		$this->_service_webcam = $webcam;
@@ -27,19 +31,34 @@ class WebcamController implements ControllerInterface {
 
 	/**
 	 * @return string
+	 * @Route("/webcam/", name="webcam.index")
 	 */
-	public function getPath() {
-		return '/webcam/';
+	public function index() {
+		$shots = $this->_service_webcam->getPhotos();
+
+		return $this->render('webcam.html.twig', [
+			'shots' => $shots
+		]);
 	}
 
-	public function connect(Application $app) {
-		$controllers = $app['controllers_factory'];
+	/**
+	 * @Route("/webcam/take/", name="webcam.take")
+	 */
+	public function takePhoto() {
+		$name = $this->generateRandomId();
 
-		$controllers->get('/', function (Application $app) {
-			$shots = $this->_service_webcam->getPhotos();
-			return $app['twig']->render('webcam.html.twig', ['shots' => $shots]);
-		});
+		$event = new WebcamEvent($name);
+		$this->dispatchInBackground($event);
 
-		return $controllers;
+		return new RedirectResponse('/webcam/');
+	}
+
+	/**
+	 * @Route("/webcam/delete/{shot_id}/", name="webcam.delete")
+	 */
+	public function delete($shot_id) {
+		$this->_service_webcam->delete($shot_id);
+
+		return new RedirectResponse('/webcam/');
 	}
 }

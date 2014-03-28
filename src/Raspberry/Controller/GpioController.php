@@ -2,16 +2,15 @@
 
 namespace Raspberry\Controller;
 
-use Matze\Core\Controller\ControllerInterface;
+use Matze\Core\Controller\AbstractController;
+use Matze\Core\Traits\EventDispatcherTrait;
 use Raspberry\Gpio\GpioManager;
-use Silex\Application;
-use Matze\Annotations\Annotations as DI;
-use Matze\Core\Annotations as CoreDI;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
- * @CoreDI\Controller
+ * @Controller
  */
-class GpioController implements ControllerInterface {
+class GpioController extends AbstractController {
 
 	/**
 	 * @var GpioManager;
@@ -19,34 +18,35 @@ class GpioController implements ControllerInterface {
 	private $_service_gpio_manager;
 
 	/**
-	 * @DI\Inject("@GpioManager")
+	 * @Inject("@GpioManager")
 	 */
 	public function __construct(GpioManager $service_gpio_manager) {
 		$this->_service_gpio_manager = $service_gpio_manager;
 	}
 
-	public function connect(Application $app) {
-		$controllers = $app['controllers_factory'];
+	/**
+	 * @Route("/gpio/", name="gpio.index");
+	 * @return string
+	 */
+	public function index() {
+		$pins = $this->_service_gpio_manager->getPins();
 
-		$controllers->get('/', function(Application $app)  {
-			$pins = $this->_service_gpio_manager->getPins();
-
-			return $app['twig']->render('gpio.html.twig', ['pins' => $pins ]);
-		});
-
-		$controllers->get('/set/{id}/{status}/{value}/', function($id, $status, $value, Application $app) {
-			$this->_service_gpio_manager->setPin($id, $status, $value);
-
-			return $app->redirect('/gpio/');
-		});
-
-		return $controllers;
+		return $this->render('gpio.html.twig', [
+			'pins' => $pins->getAll()
+		]);
 	}
 
 	/**
-	 * @return string
+	 * @param integer $id
+	 * @param string $status
+	 * @param integer $value
+	 * @return RedirectResponse
+	 * @Route("/gpio/set/{id}/{status}/{value}/", name="gpio.set")
 	 */
-	public function getPath() {
-		return '/gpio/';
+	public function setStatus($id, $status, $value) {
+		$this->_service_gpio_manager->setPin($id, $status, $value);
+
+		return new RedirectResponse('/gpio/');
 	}
+
 }

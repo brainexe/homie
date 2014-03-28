@@ -3,14 +3,14 @@
 namespace Raspberry\Sensors\Sensors;
 
 use Symfony\Component\Process\Process;
-use Matze\Annotations\Annotations as DI;
+
 
 /**
- * @DI\Service(public=false, tags={{"name" = "sensor"}})
+ * @Service(public=false, tags={{"name" = "sensor"}})
  */
 class TemperatureDHT11Sensor extends AbstractDHT11Sensor {
 
-	const TYPE =  'temp_dht11';
+	const TYPE = 'temp_dht11';
 
 	/**
 	 * @return string
@@ -48,6 +48,6 @@ class TemperatureDHT11Sensor extends AbstractDHT11Sensor {
 	 * {@inheritdoc}
 	 */
 	public function getEspeakText($value) {
-		return str_replace('.', ',', sprintf('%0.1f Grad', $value));
+		return str_replace('.', ',', t('%0.1f Grad', $value));
 	}
 }

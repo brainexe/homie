@@ -4,12 +4,11 @@ namespace Raspberry\Client;
 
 use RuntimeException;
 use Symfony\Component\Process\Process;
-use Matze\Annotations\Annotations as DI;
 
 /**
- * @DI\Service(public=false)
+ * @Service("RaspberryClient.Local", public=false)
  */
-class LocalClient {
+class LocalClient implements ClientInterface {
 
 	/**
 	 * {@inheritdoc}

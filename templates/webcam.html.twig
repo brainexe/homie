@@ -1,40 +1,21 @@
 {% extends "layout.html.twig" %}
 
-{% block content %}
-	<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th>#</th>
-				<th>Name</th>
-				<th>Value</th>
-				<th>Direction</th>
-			</tr>
-		</thead>
+{% block title %}Webcam{% endblock %}
 
-		<tbody>
-		{% for pin in pins %}
-			<tr>
-				<td>{{ pin.getID() }}</td>
-				<td>
-					{{ pin.getName() }}
-					{% if pin.getDescription() %}
-						({{ pin.getDescription }})
-					{% endif %}
-				</td>
-				<td>
-					{#Value#}
-					<a href="/gpio/set/{{ pin.getID() }}/{{ pin.getDirection() == 'IN' ? "1" : "0" }}/{{ pin.getValue() ? "0" : "1" }}/" class="btn btn-{{ pin.getValue() ? 'success' : 'danger'}}">
-						{{ pin.getValue() ? 'OFF' : 'ON' }}
-					</a>
-				</td>
-				<td>
-					{#Direction#}
-					<a href="/gpio/set/{{ pin.getID() }}/{{ pin.getDirection() == 'IN' ? "0" : "1" }}/{{ pin.getValue() ? "1" : "0"}}/" class="btn btn-{{ pin.getDirection() == 'OUT' ? 'success' : 'info'}}">
-						{{ pin.getDirection() }}
-					</a>
-				</td>
-			</tr>
-		{% endfor %}
-		</tbody>
-	</table>
+{% block content %}
+	{% if shots %}
+		<div class="container">
+			<div class="row">
+				{% for shot in shots %}
+					<div class="col-xs-4">
+						<img src="{{ shot.web_path }}" class="img-thumbnail thumbnail"/>
+						<a href="/webcam/delete/{{ shot.getId }}/" title="Delete" onclick="return confirm('Remove image')" class="tip glyphicon glyphicon-remove">&nbsp;</a>
+					</div>
+				{% endfor %}
+
+			</div>
+		</div>
+	{% endif %}
+
+	<a class="btn btn-primary" href="/webcam/take/">Take Photo</a>
 {% endblock %}

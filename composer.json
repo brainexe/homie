@@ -2,6 +2,7 @@
 	"name": "matze/raspberry",
 	"description": "Raspberry",
 	"minimum-stability": "dev",
+	"prefer-stable": true,
 	"authors": [
 		{
 			"name": "Matze",
@@ -20,7 +21,10 @@
 		}
 	],
 	"require": {
-		"symfony/process": "2.4.*",
 		"matze/core": "dev-master"
+	},
+
+	"scripts": {
+		"post-update-cmd": "rm cache/dic.php -f && php vendor/bin/console cache:clear"
 	}
 }

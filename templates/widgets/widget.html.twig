@@ -1,0 +1,6 @@
+<div class="panel panel-default">
+	<div class="panel-heading panel-toggle" onclick="togglePanel(this)">{% block title %}{{ title }}{% endblock %}</div>
+	<div class="panel-body">
+		{% block content %}{{ content }}{% endblock %}
+	</div>
+</div>

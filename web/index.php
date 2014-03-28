@@ -1,20 +1,8 @@
 <?php
 
-use Raspberry\Twig\Extensions\SensorExtension;
-use Silex\Application;
+/** @var Container $dic */
 use Symfony\Component\DependencyInjection\Container;
 
-/** @var Container $dic */
-$dic = include '../src/bootstrap.php';
+$dic = include __DIR__ . '/../src/bootstrap.php';
 
-/** @var Application $app */
-$app = $dic->get('Application');
-
-$app['twig']->addExtension(new SensorExtension());
-$app->error(function(Exception $e) use ($app) {
-	return $app['twig']->render('error.html.twig', [
-		'error_message'=> $e->getMessage()
-	]);
-});
-
-$app->run();
+include  __DIR__ . '/../vendor/matze/core/scripts/web.php';

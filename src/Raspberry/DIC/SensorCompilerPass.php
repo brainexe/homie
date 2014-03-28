@@ -6,17 +6,18 @@ use Raspberry\Sensors\Sensors\SensorInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
-use Matze\Annotations\Annotations as DI;
 
 /**
- * @DI\Service(tags={{"name" = "compiler_pass"}})
+ * @CompilerPass
  */
 class SensorCompilerPass implements CompilerPassInterface {
+
+	const TAG = 'sensor';
 
 	public function process(ContainerBuilder $container) {
 		$definition = $container->getDefinition('SensorBuilder');
 
-		$taggedServices = $container->findTaggedServiceIds('sensor');
+		$taggedServices = $container->findTaggedServiceIds(self::TAG);
 		foreach ($taggedServices as $id => $attributes) {
 			/** @var SensorInterface $service */
 			$service = $container->get($id);

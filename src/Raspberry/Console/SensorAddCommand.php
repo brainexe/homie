@@ -2,21 +2,17 @@
 
 namespace Raspberry\Console;
 
-use Predis\Client;
-use Raspberry\Radio\RadioController;
 use Raspberry\Sensors\SensorBuilder;
 use Raspberry\Sensors\SensorGateway;
-use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\DialogHelper;
 use Symfony\Component\Console\Input\InputArgument;
+
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Matze\Annotations\Annotations as DI;
-use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 
 /**
- * @DI\Service(public=false, tags={{"name" = "console"}})
+ * @Command
  */
 class SensorAddCommand extends Command {
 
@@ -34,17 +30,17 @@ class SensorAddCommand extends Command {
 	 * {@inheritdoc}
 	 */
 	protected function configure() {
-		$this
-			->setName('sensor:add')
-			->setDescription('Add a new Sensor');
+		$this->setName('sensor:add')->setDescription('Add a new Sensor');
 	}
 
 	/**
-	 * @DI\Inject({"@SensorGateway", "@SensorBuilder"})
+	 * @Inject({"@SensorGateway", "@SensorBuilder"})
 	 */
-	public function setDependencies(SensorGateway $sensor_gateway, SensorBuilder $sensor_builder) {
+	public function __construct(SensorGateway $sensor_gateway, SensorBuilder $sensor_builder) {
 		$this->_sensor_gateway = $sensor_gateway;
 		$this->_sensor_builder = $sensor_builder;
+
+		parent::__construct();
 	}
 
 	/**
@@ -70,7 +66,7 @@ class SensorAddCommand extends Command {
 		$name = $dialog->ask($output, "Sensor name\n");
 		$description = $dialog->ask($output, "Description (optional)\n");
 		$pin = $dialog->ask($output, "Pin (optional)\n");
-		$interval = (int)$dialog->ask($output, "Interval in minutes\n");
+		$interval = (int)$dialog->ask($output, "Interval in minutes\n") ?: 1;
 
 		// get test value
 		$test_value = $sensor->getValue($pin);
@@ -89,7 +85,7 @@ class SensorAddCommand extends Command {
 	 * @param OutputInterface $output
 	 */
 	private function _askForTermination(DialogHelper $dialog, OutputInterface $output) {
-		if ($dialog->askConfirmation($output, 'Abort adding this sersor? (y/n)')) {
+		if ($dialog->askConfirmation($output, 'Abort adding this sensor? (y/n)')) {
 			exit(1);
 		}
 	}
