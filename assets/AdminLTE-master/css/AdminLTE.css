@@ -640,10 +640,6 @@ body > .header .logo .icon {
   background-color: #3c8dbc;
   color: #f9f9f9;
 }
-/*Drodown in navbars*/
-.skin-blue .navbar .dropdown-menu > li > a {
-  color: #444444;
-}
 /*
     Navbar custom dropdown menu
 ------------------------------------
@@ -1080,65 +1076,6 @@ body > .header .logo .icon {
 }
 .progress.vertical.xs {
   width: 10px;
-}
-/* Remove margins from progress bars when put in a table */
-.table tr > td .progress {
-  margin: 0;
-}
-.progress-bar-light-blue,
-.progress-bar-primary {
-  background-color: #3c8dbc;
-}
-.progress-striped .progress-bar-light-blue,
-.progress-striped .progress-bar-primary {
-  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-}
-.progress-bar-green,
-.progress-bar-success {
-  background-color: #00a65a;
-}
-.progress-striped .progress-bar-green,
-.progress-striped .progress-bar-success {
-  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-}
-.progress-bar-aqua,
-.progress-bar-info {
-  background-color: #00c0ef;
-}
-.progress-striped .progress-bar-aqua,
-.progress-striped .progress-bar-info {
-  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-}
-.progress-bar-yellow,
-.progress-bar-warning {
-  background-color: #f39c12;
-}
-.progress-striped .progress-bar-yellow,
-.progress-striped .progress-bar-warning {
-  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-}
-.progress-bar-red,
-.progress-bar-danger {
-  background-color: #f56954;
-}
-.progress-striped .progress-bar-red,
-.progress-striped .progress-bar-danger {
-  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 /*
     Component: Small boxes
@@ -2423,268 +2360,114 @@ Component: timeline
     Skins
     -----
 */
-/* 
-    Skin Blue 
-    ---------
-*/
-/* skin-blue navbar */
-.skin-blue .navbar {
-  background-color: #3c8dbc;
-}
-.skin-blue .navbar .nav a {
-  color: rgba(255, 255, 255, 0.8);
-}
-.skin-blue .navbar .nav > li > a:hover,
-.skin-blue .navbar .nav > li > a:active,
-.skin-blue .navbar .nav > li > a:focus,
-.skin-blue .navbar .nav .open > a,
-.skin-blue .navbar .nav .open > a:hover,
-.skin-blue .navbar .nav .open > a:focus {
-  background: rgba(0, 0, 0, 0.1);
-  color: #f6f6f6;
-}
-.skin-blue .navbar .navbar-right > .nav {
-  margin-right: 10px;
-}
-.skin-blue .navbar .sidebar-toggle .icon-bar {
-  background: rgba(255, 255, 255, 0.8);
-}
-.skin-blue .navbar .sidebar-toggle:hover .icon-bar {
-  background: #f6f6f6 !important;
-}
-/* skin-blue logo */
-.skin-blue .logo {
-  background-color: #367fa9;
-  color: #f9f9f9;
-}
-.skin-blue .logo > a {
-  color: #f9f9f9;
-}
-.skin-blue .logo:hover {
-  background: #357ca5;
-}
-/* skin-blue content header */
-.skin-blue .right-side > .content-header {
-  background: #fbfbfb;
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-}
-/* Skin-blue user panel */
-.skin-blue .user-panel > .image > img {
-  border: 1px solid #dfdfdf;
-}
-.skin-blue .user-panel > .info,
-.skin-blue .user-panel > .info > a {
-  color: #555555;
-}
-/* skin-blue sidebar */
-.skin-blue .sidebar {
-  border-bottom: 1px solid #fff;
-}
-.skin-blue .sidebar > .sidebar-menu > li {
-  border-top: 1px solid #fff;
-  border-bottom: 1px solid #dbdbdb;
-}
-.skin-blue .sidebar > .sidebar-menu > li:first-of-type {
-  border-top: 1px solid #dbdbdb;
-}
-.skin-blue .sidebar > .sidebar-menu > li:first-of-type > a {
-  border-top: 1px solid #fff;
-}
-.skin-blue .sidebar > .sidebar-menu > li > a {
-  margin-right: 1px;
-}
-.skin-blue .sidebar > .sidebar-menu > li > a:hover,
-.skin-blue .sidebar > .sidebar-menu > li.active > a {
-  color: #222;
-  background: #f9f9f9;
-}
-.skin-blue .sidebar > .sidebar-menu > li > .treeview-menu {
-  margin: 0 1px;
-  background: #f9f9f9;
-}
-.skin-blue .left-side {
-  background: #f4f4f4;
-  -webkit-box-shadow: inset -3px 0px 8px -4px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: inset -3px 0px 8px -4px rgba(0, 0, 0, 0.1);
-  box-shadow: inset -3px 0px 8px -4px rgba(0, 0, 0, 0.07);
-}
-.skin-blue .sidebar a {
-  color: #555555;
-}
-.skin-blue .sidebar a:hover {
-  text-decoration: none;
-}
-.skin-blue .treeview-menu > li > a {
-  color: #777;
-}
-.skin-blue .treeview-menu > li.active > a,
-.skin-blue .treeview-menu > li > a:hover {
-  color: #111;
-}
-.skin-blue .sidebar-form {
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
-  border: 1px solid #dbdbdb;
-  margin: 10px 10px;
-}
-.skin-blue .sidebar-form input[type="text"],
-.skin-blue .sidebar-form .btn {
-  box-shadow: none;
-  background-color: #fafafa;
-  border: 1px solid #fafafa;
-  height: 35px;
-}
-.skin-blue .sidebar-form input[type="text"] {
-  color: #666;
-  -webkit-border-top-left-radius: 2px !important;
-  -webkit-border-top-right-radius: 0 !important;
-  -webkit-border-bottom-right-radius: 0 !important;
-  -webkit-border-bottom-left-radius: 2px !important;
-  -moz-border-radius-topleft: 2px !important;
-  -moz-border-radius-topright: 0 !important;
-  -moz-border-radius-bottomright: 0 !important;
-  -moz-border-radius-bottomleft: 2px !important;
-  border-top-left-radius: 2px !important;
-  border-top-right-radius: 0 !important;
-  border-bottom-right-radius: 0 !important;
-  border-bottom-left-radius: 2px !important;
-}
-.skin-blue .sidebar-form input[type="text"]:focus,
-.skin-blue .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
-  background-color: #fff;
-  color: #666;
-}
-.skin-blue .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
-  border-left-color: #fff;
-}
-.skin-blue .sidebar-form .btn {
-  color: #999;
-  -webkit-border-top-left-radius: 0 !important;
-  -webkit-border-top-right-radius: 2px !important;
-  -webkit-border-bottom-right-radius: 2px !important;
-  -webkit-border-bottom-left-radius: 0 !important;
-  -moz-border-radius-topleft: 0 !important;
-  -moz-border-radius-topright: 2px !important;
-  -moz-border-radius-bottomright: 2px !important;
-  -moz-border-radius-bottomleft: 0 !important;
-  border-top-left-radius: 0 !important;
-  border-top-right-radius: 2px !important;
-  border-bottom-right-radius: 2px !important;
-  border-bottom-left-radius: 0 !important;
-}
-/*
-    Skin Black
-    --------
-*/
 /* skin-black navbar */
-.skin-black .navbar {
+.navbar {
   background-color: #ffffff;
   border-bottom: 1px solid #eee;
 }
-.skin-black .navbar .nav a {
+.navbar .nav a {
   color: #333333;
 }
-.skin-black .navbar .nav > li > a:hover,
-.skin-black .navbar .nav > li > a:active,
-.skin-black .navbar .nav > li > a:focus,
-.skin-black .navbar .nav .open > a,
-.skin-black .navbar .nav .open > a:hover,
-.skin-black .navbar .nav .open > a:focus {
+.navbar .nav > li > a:hover,
+.navbar .nav > li > a:active,
+.navbar .nav > li > a:focus,
+.navbar .nav .open > a,
+.navbar .nav .open > a:hover,
+.navbar .nav .open > a:focus {
   background: #ffffff;
   color: #999999;
 }
-.skin-black .navbar .navbar-right > .nav {
+.navbar .navbar-right > .nav {
   margin-right: 10px;
 }
-.skin-black .navbar .sidebar-toggle .icon-bar {
+.navbar .sidebar-toggle .icon-bar {
   background: #333333;
 }
-.skin-black .navbar .sidebar-toggle:hover .icon-bar {
+.navbar .sidebar-toggle:hover .icon-bar {
   background: #999999 !important;
 }
 /* skin-black logo */
-.skin-black .logo {
+.logo {
   background-color: #333333;
   color: #f9f9f9;
 }
-.skin-black .logo > a {
+.logo > a {
   color: #f9f9f9;
 }
-.skin-black .logo:hover {
+.logo:hover {
   background: #303030;
 }
 /* skin-black content header */
-.skin-black .right-side > .content-header {
+.right-side > .content-header {
   background: transparent;
   box-shadow: none;
 }
 /* Skin-red user panel */
-.skin-black .user-panel > .image > img {
+.user-panel > .image > img {
   border: 1px solid #444;
 }
-.skin-black .user-panel > .info,
-.skin-black .user-panel > .info > a {
+.user-panel > .info,
+.user-panel > .info > a {
   color: #eee;
 }
 /* skin-black sidebar */
-.skin-black .sidebar {
+.sidebar {
   border-bottom: 1px solid #333;
 }
-.skin-black .sidebar > .sidebar-menu > li {
+.sidebar > .sidebar-menu > li {
   border-top: 1px solid #333;
   border-bottom: 0px solid #444;
 }
-.skin-black .sidebar > .sidebar-menu > li:first-of-type {
+.sidebar > .sidebar-menu > li:first-of-type {
   border-top: 1px solid #444;
 }
-.skin-black .sidebar > .sidebar-menu > li:first-of-type > a {
+.sidebar > .sidebar-menu > li:first-of-type > a {
   border-top: 0px solid #333;
 }
-.skin-black .sidebar > .sidebar-menu > li > a {
+.sidebar > .sidebar-menu > li > a {
   margin-right: 1px;
 }
-.skin-black .sidebar > .sidebar-menu > li > a:hover,
-.skin-black .sidebar > .sidebar-menu > li.active > a {
+.sidebar > .sidebar-menu > li > a:hover,
+.sidebar > .sidebar-menu > li.active > a {
   color: #f6f6f6;
   background: #444;
 }
-.skin-black .sidebar > .sidebar-menu > li > .treeview-menu {
+.sidebar > .sidebar-menu > li > .treeview-menu {
   margin: 0 1px;
   background: #444;
 }
-.skin-black .left-side {
+.left-side {
   background: #333;
 }
-.skin-black .sidebar a {
+.sidebar a {
   color: #eee;
 }
-.skin-black .sidebar a:hover {
+.sidebar a:hover {
   text-decoration: none;
 }
-.skin-black .treeview-menu > li > a {
+.treeview-menu > li > a {
   color: #ccc;
 }
-.skin-black .treeview-menu > li.active > a,
-.skin-black .treeview-menu > li > a:hover {
+.treeview-menu > li.active > a,
+.treeview-menu > li > a:hover {
   color: #fff;
 }
-.skin-black .sidebar-form {
+.sidebar-form {
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   border-radius: 2px;
   border: 0px solid #555;
   margin: 10px 10px;
 }
-.skin-black .sidebar-form input[type="text"],
-.skin-black .sidebar-form .btn {
+.sidebar-form input[type="text"],
+.sidebar-form .btn {
   box-shadow: none;
   background-color: rgba(255, 255, 255, 0.1);
   border: 0 solid rgba(255, 255, 255, 0.1);
   height: 35px;
   outline: none;
 }
-.skin-black .sidebar-form input[type="text"] {
+.sidebar-form input[type="text"] {
   color: #666;
   -webkit-border-top-left-radius: 2px !important;
   -webkit-border-top-right-radius: 0 !important;
@@ -2699,15 +2482,15 @@ Component: timeline
   border-bottom-right-radius: 0 !important;
   border-bottom-left-radius: 2px !important;
 }
-.skin-black .sidebar-form input[type="text"]:focus,
-.skin-black .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
+.sidebar-form input[type="text"]:focus,
+.sidebar-form input[type="text"]:focus + .input-group-btn .btn {
   background-color: #444;
   border: 0;
 }
-.skin-black .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
+.sidebar-form input[type="text"]:focus + .input-group-btn .btn {
   border-left: 0;
 }
-.skin-black .sidebar-form .btn {
+.sidebar-form .btn {
   color: #999;
   -webkit-border-top-left-radius: 0 !important;
   -webkit-border-top-right-radius: 2px !important;
@@ -2723,61 +2506,7 @@ Component: timeline
   border-bottom-left-radius: 0 !important;
   border-left: 0;
 }
-/*!
- * iCheck v1.0.1, http://git.io/arlzeA
- * =================================
- * Powerful jQuery and Zepto plugin for checkboxes and radio buttons customization
- *
- * (c) 2013 Damir Sultanov, http://fronteed.com
- * MIT Licensed
- */
-/* iCheck plugin Minimal skin, black
------------------------------------ */
-.icheckbox_minimal,
-.iradio_minimal {
-  display: inline-block;
-  *display: inline;
-  vertical-align: middle;
-  margin: 0;
-  padding: 0;
-  width: 18px;
-  height: 18px;
-  background: rgba(255, 255, 255, 0.7) url(iCheck/minimal/minimal.png) no-repeat;
-  border: none;
-  cursor: pointer;
-}
-.icheckbox_minimal {
-  background-position: 0 0;
-}
-.icheckbox_minimal.hover {
-  background-position: -20px 0;
-}
-.icheckbox_minimal.checked {
-  background-position: -40px 0;
-}
-.icheckbox_minimal.disabled {
-  background-position: -60px 0;
-  cursor: default;
-}
-.icheckbox_minimal.checked.disabled {
-  background-position: -80px 0;
-}
-.iradio_minimal {
-  background-position: -100px 0;
-}
-.iradio_minimal.hover {
-  background-position: -120px 0;
-}
-.iradio_minimal.checked {
-  background-position: -140px 0;
-}
-.iradio_minimal.disabled {
-  background-position: -160px 0;
-  cursor: default;
-}
-.iradio_minimal.checked.disabled {
-  background-position: -180px 0;
-}
+
 /* Retina support */
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (min-device-pixel-ratio: 1.5) {
   .icheckbox_minimal,
@@ -2786,19 +2515,4 @@ Component: timeline
     -webkit-background-size: 200px 20px;
     background-size: 200px 20px;
   }
-}
-.pace .pace-progress {
-  background: #00c0ef;
-  position: fixed;
-  z-index: 2000;
-  top: 0;
-  left: 0;
-  height: 2px;
-  -webkit-transition: width 1s;
-  -moz-transition: width 1s;
-  -o-transition: width 1s;
-  transition: width 1s;
-}
-.pace-inactive {
-  display: none;
 }
