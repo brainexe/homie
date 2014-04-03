@@ -16,7 +16,7 @@
 				<parameter key="percentage">50</parameter>
 			</parameter>
 		</parameter>
-		<parameter key="assets_priorities" type="collection">
+		<parameter key="assets.priorities" type="collection">
 			<parameter>js/jquery-2.1.0.min.js</parameter>
 			<parameter>rickshaw/d3.min.js</parameter>
 			<parameter>rickshaw/d3.layout.min.js</parameter>
