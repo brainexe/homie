@@ -20,11 +20,16 @@
 			"url": "http://satis.mdoetsch.de"
 		}
 	],
+
 	"require": {
-		"matze/core": "dev-master",
+		"matze/core": "dev-master"
+	},
+
+	"require-dev": {
 		"behat/mink": "1.4.*@stable",
 		"behat/mink-goutte-driver": "*"
 	},
+
 	"config": {
 		"bin-dir": "bin/"
 	},
