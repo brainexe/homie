@@ -5,3 +5,4 @@ app/config.xml
 coverage
 messages.mo
 /lang/de_DE/LC_MESSAGES/messages.po~
+web/*
