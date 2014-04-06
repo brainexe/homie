@@ -36,7 +36,7 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase {
 
 	public function setUp() {
 		$this->_mock_time_parser = $this->getMock('Matze\Core\Util\TimeParser');
-		$this->_mock_message_queue_gateway = $this->getMock('Matze\Core\MessageQueue\MessageQueueGateway');
+		$this->_mock_message_queue_gateway = $this->getMock('Matze\Core\MessageQueue\MessageQueueGateway', [], [], '', false);
 		$this->_mock_dispatcher = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcher');
 
 		$this->_subject = new RadioJob($this->_mock_message_queue_gateway, $this->_mock_time_parser);
