@@ -90,4 +90,4 @@ class SensorValuesGateway {
 		return sprintf(self::REDIS_SENSOR_VALUES, $sensor_id);
 	}
 
-} 
+}
