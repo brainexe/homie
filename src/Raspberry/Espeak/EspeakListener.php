@@ -22,7 +22,6 @@ class EspeakListener extends AbstractEventListener {
 	 * @param EspeakEvent $event
 	 */
 	public function handleEspeakEvent(EspeakEvent $event) {
-		echo "..";
 		$espeak_vo = $event->espeak;
 
 		/** @var Espeak $espeak */

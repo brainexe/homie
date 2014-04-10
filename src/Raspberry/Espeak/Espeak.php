@@ -11,6 +11,8 @@ use Raspberry\Client\ClientInterface;
  */
 class Espeak implements SpeakOutputInterface {
 
+	const DEFAULT_SPEAKER = 'de+m1';
+
 	/**
 	 * @var ClientInterface
 	 */
@@ -49,7 +51,7 @@ class Espeak implements SpeakOutputInterface {
 	 * @param integer $speed
 	 * @param string $speaker
 	 */
-	public function speak($text, $volume = 100, $speed = 100, $speaker = 'de+m1') {
+	public function speak($text, $volume = 100, $speed = 100, $speaker = self::DEFAULT_SPEAKER) {
 		if (empty($text)) {
 			return;
 		}
