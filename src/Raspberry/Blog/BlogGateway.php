@@ -1,0 +1,61 @@
+<?php
+
+namespace Raspberry\Blog;
+use Matze\Core\Traits\RedisTrait;
+
+/**
+ * @Service(public=false)
+ */
+class BlogGateway {
+	const REDIS_KEY = 'blog:%d';
+
+	use RedisTrait;
+
+	/**
+	 * @param integer $user_id
+	 * @param string $from
+	 * @param string $to
+	 * @return BlogPostVO[]
+	 */
+	public function getPosts($user_id, $from = '0', $to = '+inf') {
+		$key = $this->_getKey($user_id);
+
+		$posts = [];
+		$posts_raw = $this->getRedis()->zRangeByScore($key, $from, $to, ['withscores' => true]);
+
+		foreach ($posts_raw as $serialized => $timestamp) {
+			$posts[$timestamp] = unserialize($serialized);
+		}
+
+		return $posts;
+	}
+
+	/**
+	 * @param integer $user_id
+	 * @param integer $timestamp
+	 * @param BlogPostVO $post_vo
+	 */
+	public function addPost($user_id, $timestamp, BlogPostVO $post_vo) {
+		$key = $this->_getKey($user_id);
+		$this->getRedis()->zAdd($key, $timestamp, serialize($post_vo));
+	}
+
+	/**
+	 * @param integer $user_id
+	 * @param integer $timestamp
+	 */
+	public function deletePost($user_id, $timestamp) {
+		$key = $this->_getKey($user_id);
+
+		$this->getRedis()->zDeleteRangeByScore($key, $timestamp, $timestamp);
+	}
+
+	/**
+	 * @param integer $user_id
+	 * @return string
+	 */
+	private function _getKey($user_id) {
+		return sprintf(self::REDIS_KEY, $user_id);
+	}
+
+} 
