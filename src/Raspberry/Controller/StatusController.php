@@ -6,6 +6,7 @@ use Matze\Core\Controller\AbstractController;
 use Matze\Core\MessageQueue\MessageQueueGateway;
 use Matze\Core\Traits\RedisTrait;
 use Matze\Core\Traits\TwigTrait;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * @Controller
@@ -40,9 +41,12 @@ class StatusController extends AbstractController {
 	/**
 	 * @Route("/status/event/delete/{job_id}/")
 	 * @param string string $job_id
+	 * @return RedirectResponse
 	 */
 	public function deleteJob($job_id) {
 		$this->_message_queue_gateway->deleteEvent($job_id);
+
+		return new RedirectResponse('/status/');
 	}
 
 }
