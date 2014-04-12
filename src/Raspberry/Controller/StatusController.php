@@ -39,11 +39,10 @@ class StatusController extends AbstractController {
 
 	/**
 	 * @Route("/status/event/delete/{job_id}/")
-	 * @param string $event_type
 	 * @param string string $job_id
 	 */
-	public function deleteJob($event_type, $job_id) {
-		$this->_message_queue_gateway->deleteEvent($job_id, $event_type);
+	public function deleteJob($job_id) {
+		$this->_message_queue_gateway->deleteEvent($job_id);
 	}
 
 }
