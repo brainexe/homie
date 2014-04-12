@@ -38,8 +38,8 @@ class StatusController extends AbstractController {
 	}
 
 	/**
-	 * @Route("/status/event/delete/{event_type}/{job_id}/")
-	 * @param $event_type
+	 * @Route("/status/event/delete/{job_id}/")
+	 * @param string $event_type
 	 * @param string string $job_id
 	 */
 	public function deleteJob($event_type, $job_id) {
