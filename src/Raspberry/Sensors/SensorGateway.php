@@ -33,7 +33,7 @@ class SensorGateway {
 	 * @return integer[]
 	 */
 	public function getSensorIds() {
-		$sensor_ids = $this->getRedis()->SMEMBERS(self::SENSOR_IDS);
+		$sensor_ids = $this->getRedis()->sMembers(self::SENSOR_IDS);
 
 		sort($sensor_ids);
 
@@ -66,7 +66,7 @@ class SensorGateway {
 			'last_value_timestamp' => 0
 		]);
 
-		$this->getRedis()->SADD(self::SENSOR_IDS, $new_sensor_id);
+		$redis->sAdd(self::SENSOR_IDS, $new_sensor_id);
 
 		$redis->exec();
 
@@ -80,7 +80,7 @@ class SensorGateway {
 	public function getSensor($sensor_id) {
 		$key = $this->_getKey($sensor_id);
 
-		return $this->getRedis()->HGETALL($key);
+		return $this->getRedis()->hGetAll($key);
 	}
 
 	/**

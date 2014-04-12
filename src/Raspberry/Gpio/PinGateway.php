@@ -19,7 +19,7 @@ class PinGateway {
 	public function getPinDescriptions() {
 		$redis = $this->getRedis();
 
-		return $redis->HGETALL(self::REDIS_PINS);
+		return $redis->hGetAll(self::REDIS_PINS);
 	}
 
 } 
