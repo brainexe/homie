@@ -1,34 +1,67 @@
 {% extends "layout.html.twig" %}
 
 {% block title %}Blog{% endblock %}
-
+{% block meta %}
+	<style>
+		.blog_mood {
+			font-weight: bold;
+			font-size: 1.2em;
+		}
+		.blog_mood_0 {color: #c00}
+		.blog_mood_1 {color: #c00}
+		.blog_mood_2 {color: #c00}
+		.blog_mood_3 {color: #c00}
+		.blog_mood_4 {color: #c00}
+		.blog_mood_5 {color: #c00}
+		.blog_mood_6 {color: #c00}
+		.blog_mood_7 {color: #c00}
+		.blog_mood_8 {color: #c00}
+		.blog_mood_9 {color: #c00}
+		.blog_mood_10 {color: #0c0}
+	</style>
+{% endblock %}
 {% block content %}
-	<table class="table table-bordered table-striped table-hover">
-		<thead>
-			<tr>
-				<th>Time</th>
-				<th>Text</th>
-				<th>Mood</th>
-				<th class="glyphicon glyphicon-remove">&nbsp;</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for timestamp, post in posts %}
-				<tr>
-					<td>{{ timestamp|date}}</td>
-					<td>{{ post.mood }}</td>
-					<td>{{ post.text }}</td>
-					<td><a href="/blog/delete/{{ timestamp|raw}}/" onclick="return confirm('{% trans "Remove this Post?" %}')" class="glyphicon glyphicon-remove"></a></td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-
-	<form style="width: 400px; margin: auto" role="form" method="post" action="/blog/add/">
+	<form style="width: 400px;" role="form" method="post" action="/blog/add/">
 		<h2>Add Post</h2>
 		<input type="text" name="text" class="form-control" placeholder="Text" required autofocus>
-		<input type="number" min="0" max="10" name="mood" class="form-control" placeholder="0-10" value="">
+
+		<select class="form-control" name="mood">
+			<option value="0" selected="selected">-</option>
+			{% for mood in 1..10 %}
+				<option value="{{ mood }}">{{ mood }}/10</option>
+			{% endfor %}
+		</select>
 		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 	</form>
+
+	{% if posts %}
+		<hr/>
+		<table class="table table-bordered table-striped table-hover">
+			<thead>
+				<tr>
+					<th>Time</th>
+					<th>Mood</th>
+					<th>Text</th>
+					<th><span class="glyphicon glyphicon-remove"></span></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for timestamp, post in posts %}
+					<tr>
+						<td>{{ timestamp|date}} ({{ timestamp|eta }})</td>
+						<td>
+							{% if post.mood %}
+								<span class="blog_mood blog_mood_{{ post.mood|raw }}">{{ post.mood|raw }}</span>
+							{% else %}
+								-
+							{% endif %}
+						</td>
+						<td>{{ post.text }}</td>
+						<td><a href="/blog/delete/{{ timestamp|raw}}/" onclick="return confirm('{% trans "Remove this Post?" %}')" class="glyphicon glyphicon-remove"> </a></td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% endif %}
 
 {% endblock %}

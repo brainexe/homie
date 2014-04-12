@@ -2,6 +2,7 @@
 
 namespace Raspberry\Controller;
 
+use Matze\Core\Authentication\UserVO;
 use Matze\Core\Controller\AbstractController;
 use Matze\Core\Traits\TwigTrait;
 use Raspberry\Blog\Blog;
@@ -50,13 +51,14 @@ class BlogController extends AbstractController {
 		$text = $request->request->get('text');
 		$mood = $request->request->getInt('mood');
 
-		$user_id = $request->getSession()->get('user')->id;
+		/** @var UserVO $user */
+		$user = $request->getSession()->get('user');
 
 		$blog_post_vo = new BlogPostVO();
 		$blog_post_vo->text = $text;
 		$blog_post_vo->mood = $mood;
 
-		$this->_blog->addPost($user_id, $blog_post_vo);
+		$this->_blog->addPost($user, $blog_post_vo);
 
 		return new RedirectResponse('/blog/');
 	}
