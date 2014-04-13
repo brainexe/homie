@@ -14,7 +14,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class BlogPostNotifyListener extends AbstractEventListener {
 
-	const NOTIFY_TIME = '18:00';
+	const NOTIFY_TIME = '19:55';
 
 	use EventDispatcherTrait;
 
@@ -33,7 +33,9 @@ class BlogPostNotifyListener extends AbstractEventListener {
 	public function handlePostEvent(BlogEvent $speak_event) {
 		$post = $speak_event->post;
 
-		$text = sprintf('%s hat geschrieben: %s.', $speak_event->user_vo->username,$post->text);
+		$hour = date('G');
+		$minute = (int)date('i');
+		$text = sprintf('%s hat um %d Uhr %d geschrieben: %s.', $speak_event->user_vo->username, $hour, $minute, $post->text);
 
 		if ($post->mood) {
 			$text .= sprintf(' Stimmung: %d von %d', $post->mood, BlogPostVO::MAX_MOOD);
