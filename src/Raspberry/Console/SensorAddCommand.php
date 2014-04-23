@@ -67,6 +67,7 @@ class SensorAddCommand extends Command {
 		$description = $dialog->ask($output, "Description (optional)\n");
 		$pin = $dialog->ask($output, "Pin (optional)\n");
 		$interval = (int)$dialog->ask($output, "Interval in minutes\n") ?: 1;
+		$node = (int)$dialog->ask($output, "Node\n");
 
 		// get test value
 		$test_value = $sensor->getValue($pin);
@@ -77,7 +78,7 @@ class SensorAddCommand extends Command {
 			$this->_askForTermination($dialog, $output);
 		}
 
-		$this->_sensor_gateway->addSensor($name, $sensor_type, $description, $pin, $interval);
+		$this->_sensor_gateway->addSensor($name, $sensor_type, $description, $pin, $interval, $node);
 	}
 
 	/**

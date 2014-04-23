@@ -143,10 +143,11 @@ class SensorsController extends AbstractController {
 		$description = $request->request->get('description');
 		$pin = $request->request->get('pin');
 		$interval = $request->request->getInt('interval');
+		$node = $request->request->getInt('node');
 
 		$sensor = $this->_sensor_builder->build($sensor_type);
 
-		$sensor_id = $this->_sensor_gateway->addSensor($name, $sensor->getSensorType(), $description, $pin, $interval);
+		$sensor_id = $this->_sensor_gateway->addSensor($name, $sensor->getSensorType(), $description, $pin, $interval, $node);
 
 		return new RedirectResponse(sprintf('/sensors/%d', $sensor_id));
 	}

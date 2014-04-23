@@ -30,6 +30,18 @@ class SensorGateway {
 	}
 
 	/**
+	 * @param integer $node_id
+	 * @return array[]
+	 */
+	public function getSensorsForNode($node_id) {
+		$sensors = $this->getSensors();
+
+		return array_filter($sensors, function($sensor) use($node_id) {
+			return $sensor['node'] == $node_id;
+		});
+	}
+
+	/**
 	 * @return integer[]
 	 */
 	public function getSensorIds() {
@@ -46,9 +58,10 @@ class SensorGateway {
 	 * @param string $description
 	 * @param integer $pin
 	 * @param integer $interval
+	 * @param integer $node
 	 * @return integer
 	 */
-	public function addSensor($name, $type, $description, $pin, $interval) {
+	public function addSensor($name, $type, $description, $pin, $interval, $node) {
 		$sensor_ids = $this->getSensorIds();
 		$new_sensor_id = end($sensor_ids) + 1;
 
@@ -63,7 +76,8 @@ class SensorGateway {
 			'pin' => $pin,
 			'interval' => $interval,
 			'last_value' => 0,
-			'last_value_timestamp' => 0
+			'last_value_timestamp' => 0,
+			'node' => $node
 		]);
 
 		$redis->sAdd(self::SENSOR_IDS, $new_sensor_id);
@@ -85,13 +99,14 @@ class SensorGateway {
 
 	/**
 	 * @param integer $sensor_id
+	 * @todo pipeline
 	 */
 	public function deleteSensor($sensor_id) {
 		$redis = $this->getRedis();
 
-		$redis->DEL($this->_getKey($sensor_id));
-		$redis->SREM(self::SENSOR_IDS, $sensor_id);
-		$redis->DEF(sprintf(SensorValuesGateway::REDIS_SENSOR_VALUES, $sensor_id));
+		$redis->del($this->_getKey($sensor_id));
+		$redis->sRem(self::SENSOR_IDS, $sensor_id);
+		$redis->del(sprintf(SensorValuesGateway::REDIS_SENSOR_VALUES, $sensor_id));
 	}
 
 	/**

@@ -4,5 +4,6 @@
         <parameter key="debug">false</parameter>
         <parameter key="piwik.site"/>
         <parameter key="piwik.id"/>
+        <parameter key="node.id">0</parameter>
     </parameters>
 </container>

@@ -35,6 +35,11 @@ class SensorCronCommand extends Command {
 	private $_sensor_builder;
 
 	/**
+	 * @var integer
+	 */
+	private $_node_id;
+
+	/**
 	 * {@inheritdoc}
 	 */
 	protected function configure() {
@@ -44,12 +49,13 @@ class SensorCronCommand extends Command {
 	}
 
 	/**
-	 * @Inject({"@SensorGateway", "@SensorValuesGateway", "@SensorBuilder"})
+	 * @Inject({"@SensorGateway", "@SensorValuesGateway", "@SensorBuilder", "%node.id%"})
 	 */
-	public function __construct(SensorGateway $sensor_gateway, SensorValuesGateway $sensor_values_gateway, SensorBuilder $sensor_builder) {
+	public function __construct(SensorGateway $sensor_gateway, SensorValuesGateway $sensor_values_gateway, SensorBuilder $sensor_builder, $node_id) {
 		$this->_sensor_builder = $sensor_builder;
 		$this->_sensor_gateway = $sensor_gateway;
 		$this->_sensor_values_gateway = $sensor_values_gateway;
+		$this->_node_id = $node_id;
 
 		parent::__construct();
 	}
@@ -59,7 +65,7 @@ class SensorCronCommand extends Command {
 	 */
 	protected function execute(InputInterface $input, OutputInterface $output) {
 		$now = time();
-		$sensors = $this->_sensor_gateway->getSensors();
+		$sensors = $this->_sensor_gateway->getSensors($this->_node_id);
 
 		foreach ($sensors as $sensor_data) {
 			$interval = $sensor_data['interval'] ?: 1;
