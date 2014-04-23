@@ -44,13 +44,13 @@ class BlogPostNotifyListener extends AbstractEventListener {
 		$espeak = new EspeakVO($text);
 		$speak_event = new EspeakEvent($espeak);
 
+		// speak NOW and today at next defined time
+		$this->dispatchInBackground($speak_event);
+
 		$time = strtotime(self::NOTIFY_TIME);
-		if ($time < time()) {
-			$time += 86400;
+		if ($time > time()) {
+			$this->dispatchInBackground($speak_event, $time);
 		}
 
-		// speak NOW and at next defined time
-		$this->dispatchInBackground($speak_event);
-		$this->dispatchInBackground($speak_event, $time);
 	}
 }

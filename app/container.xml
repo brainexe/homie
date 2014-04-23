@@ -3,6 +3,7 @@
     <parameters>
         <parameter key="logger.sensor.log">logs/sensor.log</parameter>
 		<parameter key="application.name">raspberry</parameter>
+		<parameter key="application.registration_enabled">false</parameter>
 
 		<parameter key="raspberry_client.class"></parameter>
 
