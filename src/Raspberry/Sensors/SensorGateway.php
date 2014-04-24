@@ -53,32 +53,22 @@ class SensorGateway {
 	}
 
 	/**
-	 * @param string $name
-	 * @param string $type
-	 * @param string $description
-	 * @param integer $pin
-	 * @param integer $interval
-	 * @param integer $node
+	 * @param SensorVO $sensor_vo
 	 * @return integer
 	 */
-	public function addSensor($name, $type, $description, $pin, $interval, $node) {
+	public function addSensor(SensorVO $sensor_vo) {
 		$sensor_ids = $this->getSensorIds();
 		$new_sensor_id = end($sensor_ids) + 1;
 
 		$redis = $this->getRedis()->pipeline();
 
 		$key = $this->_getKey($new_sensor_id);
-		$redis->HMSET($key, [
-			'id' => $new_sensor_id,
-			'name' => $name,
-			'type' => $type,
-			'description' => $description,
-			'pin' => $pin,
-			'interval' => $interval,
-			'last_value' => 0,
-			'last_value_timestamp' => 0,
-			'node' => $node
-		]);
+
+		$sensor_data = (array)$sensor_vo;
+		$sensor_vo['last_value'] = 0;
+		$sensor_vo['last_value_timestamp'] = 0;
+
+		$redis->HMSET($key, $sensor_data);
 
 		$redis->sAdd(self::SENSOR_IDS, $new_sensor_id);
 

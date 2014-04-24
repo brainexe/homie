@@ -10,6 +10,7 @@ use Raspberry\Sensors\Chart;
 use Raspberry\Sensors\SensorBuilder;
 use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorValuesGateway;
+use Raspberry\Sensors\SensorVO;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -147,7 +148,15 @@ class SensorsController extends AbstractController {
 
 		$sensor = $this->_sensor_builder->build($sensor_type);
 
-		$sensor_id = $this->_sensor_gateway->addSensor($name, $sensor->getSensorType(), $description, $pin, $interval, $node);
+		$sensor_vo = new SensorVO();
+		$sensor_vo->name = $name;
+		$sensor_vo->type = $sensor->getSensorType();
+		$sensor_vo->description = $description;
+		$sensor_vo->pin = $pin;
+		$sensor_vo->interval = $interval;
+		$sensor_vo->node = $node;
+
+		$sensor_id = $this->_sensor_gateway->addSensor($sensor_vo);
 
 		return new RedirectResponse(sprintf('/sensors/%d', $sensor_id));
 	}

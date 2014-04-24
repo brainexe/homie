@@ -4,6 +4,7 @@ namespace Raspberry\Console;
 
 use Raspberry\Sensors\SensorBuilder;
 use Raspberry\Sensors\SensorGateway;
+use Raspberry\Sensors\SensorVO;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\DialogHelper;
 use Symfony\Component\Console\Input\InputArgument;
@@ -53,9 +54,9 @@ class SensorAddCommand extends Command {
 		$sensor_types = array_keys($this->_sensor_builder->getSensors());
 
 		$sensor_type_idx = $dialog->select($output, "Sensor type?\n", $sensor_types);
-		$sensor_type = $sensor_types[$sensor_type_idx];
+		$type = $sensor_types[$sensor_type_idx];
 
-		$sensor = $this->_sensor_builder->build($sensor_type);
+		$sensor = $this->_sensor_builder->build($type);
 		if (!$sensor->isSupported($output)) {
 			$output->writeln('<error>Sensor is not supported</error>');
 			$this->_askForTermination($dialog, $output);
@@ -78,7 +79,15 @@ class SensorAddCommand extends Command {
 			$this->_askForTermination($dialog, $output);
 		}
 
-		$this->_sensor_gateway->addSensor($name, $sensor_type, $description, $pin, $interval, $node);
+		$sensor_vo = new SensorVO();
+		$sensor_vo->name = $name;
+		$sensor_vo->type = $type;
+		$sensor_vo->description = $description;
+		$sensor_vo->pin = $pin;
+		$sensor_vo->interval = $interval;
+		$sensor_vo->node = $node;
+
+		$this->_sensor_gateway->addSensor($sensor_vo);
 	}
 
 	/**
