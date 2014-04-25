@@ -74,7 +74,7 @@ class EspeakController extends AbstractController {
 	/**
 	 * @param string $job_id
 	 * @return RedirectResponse
-	 * @Route("/espeak/job/delete/{job_id}/", name="espeak.delete")
+	 * @Route("/espeak/job/delete/{job_id}/", name="espeak.delete", csrf=true)
 	 */
 	public function deleteJobJob($job_id) {
 		$this->_espeak->deleteJob($job_id);

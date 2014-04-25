@@ -38,7 +38,7 @@ class StatusController extends AbstractController {
 	}
 
 	/**
-	 * @Route("/status/event/delete/{job_id}/")
+	 * @Route("/status/event/delete/{job_id}/", csrf=true)
 	 * @param Request $request
 	 * @param string $job_id
 	 * @return RedirectResponse

@@ -136,7 +136,7 @@ class SensorsController extends AbstractController {
 	/**
 	 * @param Request $request
 	 * @return RedirectResponse
-	 * @Route("/sensors/add/", name="sensors.add", methods="POST")
+	 * @Route("/sensors/add/", name="sensors.add", methods="POST", csrf=true)
 	 */
 	public function addSensor(Request $request) {
 		$sensor_type = $request->request->get('type');
@@ -165,7 +165,7 @@ class SensorsController extends AbstractController {
 	 * @param Request $request
 	 * @param integer $sensor_id
 	 * @return RedirectResponse
-	 * @Route("/sensors/espeak/{sensor_id}/", name="sensor.espeak")
+	 * @Route("/sensors/espeak/{sensor_id}/", name="sensor.espeak", csrf=true)
 	 */
 	public function espeak(Request $request, $sensor_id) {
 		$sensor = $this->_sensor_gateway->getSensor($sensor_id);

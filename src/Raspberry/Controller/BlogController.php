@@ -67,7 +67,7 @@ class BlogController extends AbstractController {
 	 * @param Request $request
 	 * @param integer $timestamp
 	 * @return RedirectResponse
-	 * @Route("/blog/delete/{timestamp}/", name="blog.delete")
+	 * @Route("/blog/delete/{timestamp}/", name="blog.delete", csrf=true)
 	 */
 	public function deletePost(Request $request, $timestamp) {
 		$user_id = $request->getSession()->get('user')->id;

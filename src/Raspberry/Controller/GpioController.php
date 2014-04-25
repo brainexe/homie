@@ -42,7 +42,7 @@ class GpioController extends AbstractController {
 	 * @param string $status
 	 * @param integer $value
 	 * @return RedirectResponse
-	 * @Route("/gpio/set/{id}/{status}/{value}/", name="gpio.set")
+	 * @Route("/gpio/set/{id}/{status}/{value}/", name="gpio.set", csrf=true)
 	 */
 	public function setStatus(Request $request, $id, $status, $value) {
 		$this->_service_gpio_manager->setPin($id, $status, $value);

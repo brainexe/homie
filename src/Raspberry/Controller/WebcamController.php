@@ -42,7 +42,7 @@ class WebcamController extends AbstractController {
 	}
 
 	/**
-	 * @Route("/webcam/take/", name="webcam.take")
+	 * @Route("/webcam/take/", name="webcam.take", csrf=true)
 	 */
 	public function takePhoto() {
 		$name = $this->generateRandomId();
@@ -54,7 +54,7 @@ class WebcamController extends AbstractController {
 	}
 
 	/**
-	 * @Route("/webcam/delete/{shot_id}/", name="webcam.delete")
+	 * @Route("/webcam/delete/{shot_id}/", name="webcam.delete", csrf=true)
 	 */
 	public function delete(Request $request, $shot_id) {
 		$this->_service_webcam->delete($shot_id);
