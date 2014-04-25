@@ -162,11 +162,12 @@ class SensorsController extends AbstractController {
 	}
 
 	/**
+	 * @param Request $request
 	 * @param integer $sensor_id
 	 * @return RedirectResponse
 	 * @Route("/sensors/espeak/{sensor_id}/", name="sensor.espeak")
 	 */
-	public function espeak($sensor_id) {
+	public function espeak(Request $request, $sensor_id) {
 		$sensor = $this->_sensor_gateway->getSensor($sensor_id);
 		$sensor_obj = $this->_sensor_builder->build($sensor['type']);
 
@@ -181,10 +182,11 @@ class SensorsController extends AbstractController {
 
 	/**
 	 * @Route("/sensors/slim/{sensor_id}/", name="sensor.slim")
+	 * @param Request $request
 	 * @param integer $sensor_id
 	 * @return string
 	 */
-	public function slim($sensor_id) {
+	public function slim(Request $request, $sensor_id) {
 		$sensor = $this->_sensor_gateway->getSensor($sensor_id);
 		$sensor_obj = $this->_sensor_builder->build($sensor['type']);
 

@@ -56,7 +56,7 @@ class WebcamController extends AbstractController {
 	/**
 	 * @Route("/webcam/delete/{shot_id}/", name="webcam.delete")
 	 */
-	public function delete($shot_id) {
+	public function delete(Request $request, $shot_id) {
 		$this->_service_webcam->delete($shot_id);
 
 		return new RedirectResponse('/webcam/');

@@ -93,11 +93,12 @@ class RadioController extends AbstractController {
 	}
 
 	/**
+	 * @param Request $request
 	 * @param integer $radio_id
 	 * @return RedirectResponse
- 	 * @Route("/radio/delete/{radio_id}/", name="radio.delete")
+	 * @Route("/radio/delete/{radio_id}/", name="radio.delete")
 	 */
-	public function deleteRadio($radio_id) {
+	public function deleteRadio(Request $request, $radio_id) {
 		$this->_service_radios->deleteRadio($radio_id);
 
 		return new RedirectResponse('/radio/');
@@ -123,11 +124,12 @@ class RadioController extends AbstractController {
 	}
 
 	/**
+	 * @param Request $request
 	 * @param string $job_id
 	 * @return RedirectResponse
 	 * @Route("/radio/job/delete/{job_id}/", name="radiojob.delete")
 	 */
-	public function deleteRadioJob($job_id) {
+	public function deleteRadioJob(Request $request, $job_id) {
 		$this->_radio_job->deleteJob($job_id);
 
 		return new RedirectResponse('/radio/');
