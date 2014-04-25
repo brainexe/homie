@@ -26,7 +26,11 @@
 			<tbody>
 				{% for job in jobs %}
 					<tr>
-						<th>{{ job.event_id|raw }}</th>
+						<th>
+							{{ job.event_id|raw }}
+							<hr />
+							{{ dump(job.event)}}
+						</th>
 						<th>{{ job.timestamp|date|raw }} ({{ job.timestamp|eta }})</th>
 						<td><a href="/status/event/delete/{{ job.event_id|raw }}/" class="glyphicon glyphicon-remove"></a></td>
 					</tr>
