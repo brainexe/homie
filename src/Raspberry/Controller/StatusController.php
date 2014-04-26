@@ -7,6 +7,7 @@ use Matze\Core\MessageQueue\MessageQueueGateway;
 use Matze\Core\Traits\RedisTrait;
 use Matze\Core\Traits\TwigTrait;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Controller

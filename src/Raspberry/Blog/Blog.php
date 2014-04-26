@@ -20,7 +20,7 @@ class Blog {
 	/**
 	 * @Inject("@BlogGateway")
 	 */
-	public function __construct($blog_gateway) {
+	public function __construct(BlogGateway $blog_gateway) {
 		$this->_blog_gateway = $blog_gateway;
 	}
 

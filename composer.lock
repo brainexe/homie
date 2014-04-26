@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "c725c0e5b764ad09abea8fe637d095fa",
+    "hash": "1c3679478d7f90f52438a6fad50c863f",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "316b956b70c0ceab28ba0817fc3343624aa83b56"
+                "reference": "373c0d08bf1f326ff40bc237046aa10638bf28f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/316b956b70c0ceab28ba0817fc3343624aa83b56",
-                "reference": "316b956b70c0ceab28ba0817fc3343624aa83b56",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/373c0d08bf1f326ff40bc237046aa10638bf28f6",
+                "reference": "373c0d08bf1f326ff40bc237046aa10638bf28f6",
                 "shasum": ""
             },
             "require": {
@@ -24,7 +24,8 @@
                 "php": ">=5.3.2"
             },
             "require-dev": {
-                "doctrine/cache": "1.*"
+                "doctrine/cache": "1.*",
+                "phpunit/phpunit": "4.*"
             },
             "type": "library",
             "extra": {
@@ -64,7 +65,7 @@
                 {
                     "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -75,7 +76,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2014-03-03 13:00:20"
+            "time": "2014-04-24 04:07:43"
         },
         {
             "name": "doctrine/cache",
@@ -209,12 +210,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kriswallsmith/assetic.git",
-                "reference": "f19cb3434ff4212309861ebdb03c581567af7ca8"
+                "reference": "f2a5214034928d4c6849bc94cfd462ea832a50a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/f19cb3434ff4212309861ebdb03c581567af7ca8",
-                "reference": "f19cb3434ff4212309861ebdb03c581567af7ca8",
+                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/f2a5214034928d4c6849bc94cfd462ea832a50a8",
+                "reference": "f2a5214034928d4c6849bc94cfd462ea832a50a8",
                 "shasum": ""
             },
             "require": {
@@ -274,7 +275,7 @@
                 "compression",
                 "minification"
             ],
-            "time": "2014-04-05 12:21:29"
+            "time": "2014-04-08 21:27:14"
         },
         {
             "name": "matze/annotations",
@@ -303,14 +304,13 @@
             "source": {
                 "type": "git",
                 "url": "git@mdoetsch.de:matze/core.git",
-                "reference": "848a1a6c3bcd198a5832fe8b624ed6022d58f20f"
+                "reference": "6ec88585b81aa0014db52d5d8af301a75e4f55d5"
             },
             "require": {
                 "doctrine/cache": "1.3.*",
                 "kriswallsmith/assetic": "dev-master",
                 "matze/annotations": "dev-master",
                 "monolog/monolog": "1.7.*",
-                "patchwork/jsqueeze": "*",
                 "symfony/config": "2.4.*",
                 "symfony/console": "2.4.*",
                 "symfony/dependency-injection": "2.4.*",
@@ -338,7 +338,7 @@
                 }
             ],
             "description": "Framework core",
-            "time": "2014-04-06 15:07:42"
+            "time": "2014-04-25 19:06:53"
         },
         {
             "name": "monolog/monolog",
@@ -406,49 +406,6 @@
                 "psr-3"
             ],
             "time": "2013-11-14 19:48:31"
-        },
-        {
-            "name": "patchwork/jsqueeze",
-            "version": "v1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nicolas-grekas/JSqueeze.git",
-                "reference": "4d75272c6316ab70c281afd863a7b6c2dc5446dd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nicolas-grekas/JSqueeze/zipball/4d75272c6316ab70c281afd863a7b6c2dc5446dd",
-                "reference": "4d75272c6316ab70c281afd863a7b6c2dc5446dd",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.1.4"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "JSqueeze": "class/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "(Apache-2.0 or GPL-2.0)"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Efficient JavaScript minification in PHP",
-            "homepage": "https://github.com/nicolas-grekas/JSqueeze",
-            "keywords": [
-                "compression",
-                "javascript",
-                "minification"
-            ],
-            "time": "2014-01-28 08:41:24"
         },
         {
             "name": "psr/log",
@@ -1464,17 +1421,17 @@
         },
         {
             "name": "guzzle/common",
-            "version": "v3.8.1",
+            "version": "v3.9.0",
             "target-dir": "Guzzle/Common",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/common.git",
-                "reference": "67f6c3fd04bae387d47c2a673fa623ed8f4189bb"
+                "reference": "ada14a205bf73d8b34e6af8bbe6c07d4edb3674e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/common/zipball/67f6c3fd04bae387d47c2a673fa623ed8f4189bb",
-                "reference": "67f6c3fd04bae387d47c2a673fa623ed8f4189bb",
+                "url": "https://api.github.com/repos/guzzle/common/zipball/ada14a205bf73d8b34e6af8bbe6c07d4edb3674e",
+                "reference": "ada14a205bf73d8b34e6af8bbe6c07d4edb3674e",
                 "shasum": ""
             },
             "require": {
@@ -1504,21 +1461,21 @@
                 "event",
                 "exception"
             ],
-            "time": "2014-01-28 22:29:15"
+            "time": "2014-04-23 20:33:31"
         },
         {
             "name": "guzzle/http",
-            "version": "v3.8.1",
+            "version": "v3.9.0",
             "target-dir": "Guzzle/Http",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/http.git",
-                "reference": "565fd64be16d91c840f497c5de76f86d54a822d8"
+                "reference": "9780379f23c99241bbe185c516d392d9d5d31e1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/http/zipball/565fd64be16d91c840f497c5de76f86d54a822d8",
-                "reference": "565fd64be16d91c840f497c5de76f86d54a822d8",
+                "url": "https://api.github.com/repos/guzzle/http/zipball/9780379f23c99241bbe185c516d392d9d5d31e1a",
+                "reference": "9780379f23c99241bbe185c516d392d9d5d31e1a",
                 "shasum": ""
             },
             "require": {
@@ -1561,21 +1518,21 @@
                 "http",
                 "http client"
             ],
-            "time": "2014-01-23 18:23:29"
+            "time": "2014-04-23 21:02:48"
         },
         {
             "name": "guzzle/parser",
-            "version": "v3.8.1",
+            "version": "v3.9.0",
             "target-dir": "Guzzle/Parser",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/parser.git",
-                "reference": "3f52387052f2e4ef083145a0f73c3654aa14e086"
+                "reference": "6874d171318a8e93eb6d224cf85e4678490b625c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/parser/zipball/3f52387052f2e4ef083145a0f73c3654aa14e086",
-                "reference": "3f52387052f2e4ef083145a0f73c3654aa14e086",
+                "url": "https://api.github.com/repos/guzzle/parser/zipball/6874d171318a8e93eb6d224cf85e4678490b625c",
+                "reference": "6874d171318a8e93eb6d224cf85e4678490b625c",
                 "shasum": ""
             },
             "require": {
@@ -1605,11 +1562,11 @@
                 "message",
                 "url"
             ],
-            "time": "2013-10-24 00:04:09"
+            "time": "2014-02-05 18:29:46"
         },
         {
             "name": "guzzle/stream",
-            "version": "v3.8.1",
+            "version": "v3.9.0",
             "target-dir": "Guzzle/Stream",
             "source": {
                 "type": "git",
