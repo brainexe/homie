@@ -1,0 +1,53 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Egg Timer{% endblock %}
+
+{% block content %}
+	<form action="{% url "egg_timer.add" %}" class="form-horizontal" method="POST" role="form">
+		<div class="form-group">
+			<label for="eggTimerTextInput" class="col-sm-2 control-label">Text</label>
+
+			<div class="col-sm-10">
+				<input name="text" type="text" class="form-control input-lg" id="eggTimerTextInput" placeholder="Text">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="eggTimerTimeInput" class="col-sm-2 control-label">Delay</label>
+
+			<div class="col-sm-10">
+				<input name="time" type="text" class="form-control input-sm" id="eggTimerTimeInput" placeholder="15m">
+				<span class="help-block">e.g. 10s, 30m, 1h</span>
+			</div>
+		</div>
+
+		<button type="submit" class="btn btn-primary btn-lg">Submit</button>
+	</form>
+
+	{% if jobs %}
+		<table class="table table-bordered table-striped table-hover">
+			<thead>
+			<tr>
+				<th>Time</th>
+				<th>Text</th>
+				<th>Delete</th>
+			</tr>
+			</thead>
+
+			<tbody>
+			{% for job in jobs %}
+				<tr>
+					<td>{{ job.timestamp|date|raw }} ({{ job.timestamp|eta }})</td>
+					<td>{% if job.event.espeak %}{{ job.event.espeak.text }}{% else %}--{% endif %}</td>
+					<td>
+						<a href="/egg_timer/delete/{{ job.getShortId|raw }}/"
+						   onclick="return confirm('Remove this Job?')"
+						   class="glyphicon glyphicon-remove">
+						</a>
+					</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	{% endif %}
+{% endblock %}
+
