@@ -65,8 +65,9 @@ class SensorGateway {
 		$key = $this->_getKey($new_sensor_id);
 
 		$sensor_data = (array)$sensor_vo;
-		$sensor_vo['last_value'] = 0;
-		$sensor_vo['last_value_timestamp'] = 0;
+		$sensor_data['id'] = $new_sensor_id;
+		$sensor_data['last_value'] = 0;
+		$sensor_data['last_value_timestamp'] = 0;
 
 		$redis->HMSET($key, $sensor_data);
 

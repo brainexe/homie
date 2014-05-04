@@ -44,7 +44,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan Wage",
+                    "name": "Jonathan H. Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/",
                     "role": "Creator"
@@ -63,9 +63,9 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
-                    "name": "Johannes Schmitt",
+                    "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -119,7 +119,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan Wage",
+                    "name": "Jonathan H. Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/",
                     "role": "Creator"
@@ -138,7 +138,7 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
-                    "name": "Johannes Schmitt",
+                    "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
                     "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
@@ -304,7 +304,7 @@
             "source": {
                 "type": "git",
                 "url": "git@mdoetsch.de:matze/core.git",
-                "reference": "5592a11848bd77204d87d35b5d6c85d0f08093b6"
+                "reference": "d0fd671af07a9a31e2ea3af2608766f214ecea6b"
             },
             "require": {
                 "doctrine/cache": "1.3.*",
@@ -317,7 +317,6 @@
                 "symfony/finder": "2.4.*",
                 "symfony/http-foundation": "2.4.*",
                 "symfony/http-kernel": "2.4.*",
-                "symfony/monolog-bundle": "~2.4",
                 "symfony/process": "2.4.*",
                 "symfony/routing": "2.4.*",
                 "symfony/security": "2.4.*",
@@ -339,7 +338,7 @@
                 }
             ],
             "description": "Framework core",
-            "time": "2014-04-26 21:37:26"
+            "time": "2014-04-29 20:34:41"
         },
         {
             "name": "monolog/monolog",
@@ -950,128 +949,6 @@
             "time": "2014-04-27 13:39:18"
         },
         {
-            "name": "symfony/monolog-bridge",
-            "version": "v2.4.4",
-            "target-dir": "Symfony/Bridge/Monolog",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/MonologBridge.git",
-                "reference": "46325ecbcf9f7ca71445bcbaca98e59b5cb7301b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/MonologBridge/zipball/46325ecbcf9f7ca71445bcbaca98e59b5cb7301b",
-                "reference": "46325ecbcf9f7ca71445bcbaca98e59b5cb7301b",
-                "shasum": ""
-            },
-            "require": {
-                "monolog/monolog": "~1.3",
-                "php": ">=5.3.3"
-            },
-            "require-dev": {
-                "symfony/console": "~2.3",
-                "symfony/event-dispatcher": "~2.2",
-                "symfony/http-kernel": "~2.2"
-            },
-            "suggest": {
-                "symfony/console": "For the possibility to show log messages in console commands depending on verbosity settings. You need version ~2.3 of the console for it.",
-                "symfony/event-dispatcher": "Needed when using log messages in console commands",
-                "symfony/http-kernel": "For using the debugging handlers together with the response life cycle of the HTTP kernel."
-            },
-            "type": "symfony-bridge",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.4-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Symfony\\Bridge\\Monolog\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony Monolog Bridge",
-            "homepage": "http://symfony.com",
-            "time": "2014-04-16 10:34:42"
-        },
-        {
-            "name": "symfony/monolog-bundle",
-            "version": "v2.5.1",
-            "target-dir": "Symfony/Bundle/MonologBundle",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/MonologBundle.git",
-                "reference": "71ad844ac29401f86619f9d643393265451e858b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/MonologBundle/zipball/71ad844ac29401f86619f9d643393265451e858b",
-                "reference": "71ad844ac29401f86619f9d643393265451e858b",
-                "shasum": ""
-            },
-            "require": {
-                "monolog/monolog": "~1.6",
-                "php": ">=5.3.2",
-                "symfony/config": "~2.3",
-                "symfony/dependency-injection": "~2.3",
-                "symfony/http-kernel": "~2.3",
-                "symfony/monolog-bridge": "~2.3"
-            },
-            "require-dev": {
-                "symfony/console": "~2.3",
-                "symfony/yaml": "~2.3"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.5.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Symfony\\Bundle\\MonologBundle": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony MonologBundle",
-            "homepage": "http://symfony.com",
-            "keywords": [
-                "log",
-                "logging"
-            ],
-            "time": "2014-02-19 14:49:26"
-        },
-        {
             "name": "symfony/process",
             "version": "v2.4.4",
             "target-dir": "Symfony/Component/Process",
@@ -1304,7 +1181,7 @@
                     "role": "Lead Developer"
                 },
                 {
-                    "name": "Armin Ronacher",
+                    "name": "Armin Ronacher2",
                     "email": "armin.ronacher@active-4.com",
                     "role": "Project Founder"
                 },

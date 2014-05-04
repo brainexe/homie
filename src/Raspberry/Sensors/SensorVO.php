@@ -5,6 +5,11 @@ namespace Raspberry\Sensors;
 class SensorVO {
 
 	/**
+	 * @var int
+	 */
+	public $id;
+
+	/**
 	 * @var string
 	 */
 	public $name;
@@ -25,7 +30,7 @@ class SensorVO {
 	public $pin;
 
 	/**
-	 * @var interval
+	 * @var int
 	 */
 	public $interval;
 
@@ -33,4 +38,14 @@ class SensorVO {
 	 * @var integer
 	 */
 	public $node;
+
+	/**
+	 * @var int - unix timestamp
+	 */
+	public $last_value_timestamp;
+
+	/**
+	 * @var float
+	 */
+	public $last_value;
 }
