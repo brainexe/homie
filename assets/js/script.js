@@ -20,6 +20,14 @@ $.fn.prettyDate = function(interval) {
 	});
 };
 
+window.emitter = new EventEmitter2({
+	'wildcard': true
+});
+
+emitter.on('*.*', function(event){
+	console.log("socket server:", event.event_name, event)
+});
+
 $(function() {
 	$('.tip').tooltip();
 
@@ -27,4 +35,11 @@ $(function() {
 	if (etas.length) {
 		etas.prettyDate(1);
 	}
+
+	var sockjs = new SockJS("http://localhost:8081/socket"); //TODO config
+	sockjs.onmessage = function(message) {
+		var event = JSON.parse(message.data);
+		var event_name = event.event_name;
+		window.emitter.emit(event_name, event);
+	};
 });

@@ -56,13 +56,12 @@ class StatusController extends AbstractController {
 
 	/**
 	 * @Route("/status/self_update/", name="status.self_update", csrf=true)
-	 * @return RedirectResponse
 	 */
 	public function startSelfUpdate() {
 		$event = new SelfUpdateEvent(SelfUpdateEvent::TRIGGER);
 
 		$this->dispatchInBackground($event);
 
-		return new RedirectResponse('/status/');
+		return '';
 	}
 }

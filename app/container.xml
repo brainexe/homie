@@ -21,6 +21,7 @@
 			<parameter>js/jquery-2.1.0.min.js</parameter>
 			<parameter>rickshaw/d3.min.js</parameter>
 			<parameter>rickshaw/d3.layout.min.js</parameter>
+			<parameter>js/eventemitter2.js</parameter>
 		</parameter>
     </parameters>
 
