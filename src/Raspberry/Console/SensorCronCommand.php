@@ -2,6 +2,7 @@
 
 namespace Raspberry\Console;
 
+use Matze\Core\EventDispatcher\EventDispatcher;
 use Matze\Core\Traits\LoggerTrait;
 use Raspberry\Sensors\SensorBuilder;
 use Raspberry\Sensors\SensorGateway;
@@ -9,11 +10,9 @@ use Raspberry\Sensors\SensorValueEvent;
 use Raspberry\Sensors\SensorValuesGateway;
 use Raspberry\Sensors\SensorVOBuilder;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /**
  * @Command
@@ -98,7 +97,7 @@ class SensorCronCommand extends Command {
 				}
 
 				$event = new SensorValueEvent($sensor_vo, $sensor, $current_sensor_value);
-				$this->_event_dispatcher->dispatch($event->event_name, $event);
+				$this->_event_dispatcher->dispatchEvent($event);
 
 				$this->_sensor_values_gateway->addValue($sensor_vo->id, $current_sensor_value);
 

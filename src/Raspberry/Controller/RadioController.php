@@ -55,7 +55,7 @@ class RadioController extends AbstractController {
 	 * @param integer $radio_id
 	 * @param integer $status
 	 * @return RedirectResponse
-	 * @Route("/radio/status/{radio_id}/{status}/", name="radio.set_status" csrf=true)
+	 * @Route("/radio/status/{radio_id}/{status}/", name="radio.set_status", csrf=true)
 	 */
 	public function setStatus(Request $request, $radio_id, $status) {
 		$radio_vo = $this->_service_radios->getRadio($radio_id);

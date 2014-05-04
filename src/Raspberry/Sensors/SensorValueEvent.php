@@ -4,9 +4,10 @@ namespace Raspberry\Sensors;
 
 
 use Matze\Core\EventDispatcher\AbstractEvent;
+use Matze\Core\EventDispatcher\PushViaWebsocketInterface;
 use Raspberry\Sensors\Sensors\SensorInterface;
 
-class SensorValueEvent extends AbstractEvent {
+class SensorValueEvent extends AbstractEvent implements PushViaWebsocketInterface {
 
     const VALUE = 'sensor.value';
 

@@ -3,10 +3,10 @@
 namespace Raspberry\Espeak;
 
 use Matze\Core\EventDispatcher\AbstractEventListener;
+use Matze\Core\EventDispatcher\EventDispatcher;
 use Raspberry\EggTimer\EggTimer;
 use Raspberry\EggTimer\EggTimerEvent;
 use Raspberry\Media\Sound;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /**
  * @EventListener
@@ -32,7 +32,7 @@ class EggTimerListener extends AbstractEventListener {
 
 			/** @var EventDispatcher $dispatcher */
 			$dispatcher = $this->getService('eventdispatcher');
-			$dispatcher->dispatch($new_event->event_name, $new_event);
+			$dispatcher->dispatchEvent($new_event);
 		}
 
 		/** @var Sound $sound */
