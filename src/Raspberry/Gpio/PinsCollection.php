@@ -2,10 +2,6 @@
 
 namespace Raspberry\Gpio;
 
-use InvalidArgumentException;
-use IteratorAggregate;
-use Traversable;
-
 class PinsCollection {
 	/**
 	 * @var Pin[]

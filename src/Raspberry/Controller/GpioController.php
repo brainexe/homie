@@ -6,6 +6,7 @@ use Matze\Core\Controller\AbstractController;
 use Matze\Core\Traits\EventDispatcherTrait;
 use Raspberry\Gpio\GpioManager;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Controller

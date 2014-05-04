@@ -3,10 +3,6 @@
 namespace Raspberry\Console;
 
 use Matze\Core\Traits\EventDispatcherTrait;
-use Matze\Core\Traits\LoggerTrait;
-use Raspberry\Sensors\SensorBuilder;
-use Raspberry\Sensors\SensorGateway;
-use Raspberry\Sensors\SensorValuesGateway;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

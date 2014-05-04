@@ -2,8 +2,10 @@
 
 namespace Raspberry\Controller;
 
+use Matze\Core\Application\SelfUpdate\SelfUpdateEvent;
 use Matze\Core\Controller\AbstractController;
 use Matze\Core\MessageQueue\MessageQueueGateway;
+use Matze\Core\Traits\EventDispatcherTrait;
 use Matze\Core\Traits\RedisTrait;
 use Matze\Core\Traits\TwigTrait;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -13,6 +15,8 @@ use Symfony\Component\HttpFoundation\Request;
  * @Controller
  */
 class StatusController extends AbstractController {
+
+	use EventDispatcherTrait;
 
 	/**
 	 * @var MessageQueueGateway
@@ -50,4 +54,15 @@ class StatusController extends AbstractController {
 		return new RedirectResponse('/status/');
 	}
 
+	/**
+	 * @Route("/status/self_update/", name="status.self_update", csrf=true)
+	 * @return RedirectResponse
+	 */
+	public function startSelfUpdate() {
+		$event = new SelfUpdateEvent(SelfUpdateEvent::TRIGGER);
+
+		$this->dispatchInBackground($event);
+
+		return new RedirectResponse('/status/');
+	}
 }

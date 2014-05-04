@@ -6,8 +6,6 @@ use Matze\Core\EventDispatcher\AbstractEventListener;
 use Matze\Core\Traits\EventDispatcherTrait;
 use Raspberry\Blog\Events\BlogEvent;
 use Raspberry\Espeak\EspeakEvent;
-use Raspberry\Espeak\EspeakVO;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * @EventListener
