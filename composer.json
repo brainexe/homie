@@ -35,6 +35,6 @@
 	},
 
 	"scripts": {
-		"post-update-cmd": "rm cache/dic.php -f && php console cache:clear"
+		"post-update-cmd": "rm cache/dic_*.php -f && php console cache:clear"
 	}
 }
