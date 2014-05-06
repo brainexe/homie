@@ -3,7 +3,6 @@
 namespace Raspberry\Gpio;
 
 use Raspberry\Client\ClientInterface;
-use Raspberry\Client\LocalClient;
 
 /**
  * @Service(public=false)
@@ -15,7 +14,7 @@ class GpioManager {
 	const GPIO_COMMAND_VALUE = 'gpio write %d %d';
 
 	/**
-	 * @var LocalClient
+	 * @var ClientInterface
 	 */
 	private $_local_client;
 
@@ -102,11 +101,12 @@ class GpioManager {
 	 * @return PinsCollection
 	 */
 	private function _loadPins() {
+		echo "sd";
 		if (null !== $this->_pins) {
 			return $this->_pins;
 		}
 
-		$results = $this->_local_client->execute(self::GPIO_COMMAND_READALL);
+		$results = $this->_local_client->executeWithReturn(self::GPIO_COMMAND_READALL);
 		$results = explode("\n", $results);
 		$results = array_slice($results, 3, -2);
 

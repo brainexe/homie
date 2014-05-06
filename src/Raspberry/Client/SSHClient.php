@@ -13,4 +13,13 @@ class SSHClient implements ClientInterface {
 	public function execute($command) {
 		throw new \Exception("SSH client is not implemented");
 	}
+
+	/**
+	 * @param string $command
+	 * @return string
+	 */
+	public function executeWithReturn($command) {
+		throw new \Exception("SSH client is not implemented");
+
+	}
 }

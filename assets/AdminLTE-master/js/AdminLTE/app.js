@@ -79,7 +79,6 @@ $(function() {
      * wrapper gets resized and upon page load. We will use
      * Ben Alman's method for detecting the resize event.
      **/
-    //alert($(window).height());
     function _fix() {
         //Get window height and the wrapper height
         var height = $(window).height() - $("body > .header").height();

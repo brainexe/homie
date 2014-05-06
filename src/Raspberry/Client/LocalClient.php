@@ -6,7 +6,7 @@ use RuntimeException;
 use Symfony\Component\Process\Process;
 
 /**
- * @Service("RaspberryClient.Local", public=false)
+ * @Service("RaspberryClient.Local")
  */
 class LocalClient implements ClientInterface {
 
@@ -14,6 +14,13 @@ class LocalClient implements ClientInterface {
 	 * {@inheritdoc}
 	 */
 	public function execute($command) {
+		$this->execute($command);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function executeWithReturn($command) {
 		$process = new Process($command);
 		$process->setTimeout(3600);
 		$process->run();

@@ -15,6 +15,16 @@ class DummyClient implements ClientInterface {
 	 * @param string $command
 	 */
 	public function execute($command) {
+		$this->execute($command);
+	}
+
+	/**
+	 * @param string $command
+	 * @return string
+	 */
+	public function executeWithReturn($command) {
 		$this->info($command);
+
+		return '';
 	}
 }
