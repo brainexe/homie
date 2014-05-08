@@ -101,7 +101,6 @@ class GpioManager {
 	 * @return PinsCollection
 	 */
 	private function _loadPins() {
-		echo "sd";
 		if (null !== $this->_pins) {
 			return $this->_pins;
 		}

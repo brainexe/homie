@@ -21,12 +21,14 @@ class SensorValuesGateway {
 	public function addValue($sensor_id, $value) {
 		$redis = $this->getRedis()->pipeline();
 
+		$now = time();
+
 		$key = $this->_getKey($sensor_id);
-		$redis->ZADD($key, time(), time().'-'.$value);
+		$redis->ZADD($key, $now, $now.'-'.$value);
 
 		$redis->HMSET(SensorGateway::REDIS_SENSOR_PREFIX . $sensor_id, [
 			'last_value' => $value,
-			'last_value_timestamp' => time()
+			'last_value_timestamp' => $now
 		]);
 
 		$redis->exec();
@@ -38,12 +40,14 @@ class SensorValuesGateway {
 	 * @return array[]
 	 */
 	public function getSensorValues($sensor_id, $from) {
+		$now = time();
+
 		if ($from) {
-			$from = time() - $from;
+			$from = $now - $from;
 		}
 
 		$key = $this->_getKey($sensor_id);
-		$redis_result = $this->getRedis()->ZRANGEBYSCORE($key, $from, time());
+		$redis_result = $this->getRedis()->ZRANGEBYSCORE($key, $from, $now);
 		$result = [];
 
 		foreach ($redis_result as $part) {

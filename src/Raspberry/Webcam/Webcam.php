@@ -2,6 +2,7 @@
 
 namespace Raspberry\Webcam;
 
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Process\Process;
@@ -51,16 +52,19 @@ class Webcam {
 
 	/**
 	 * @param string $name
+	 */
+	public function delete($name) {
+		$filename = $this->getFilename($name);
+
+		$filesystem = new Filesystem();
+		$filesystem->remove($filename);
+	}
+
+	/**
+	 * @param string $name
 	 * @return string
 	 */
 	public function getFilename($name) {
 		return sprintf('%s%s%s.%s', ROOT, self::ROOT, $name, self::EXTENSION);
-	}
-
-	/**
-	 * @param string $shot_id
-	 */
-	public function delete($shot_id) {
-		// TODO
 	}
 }
