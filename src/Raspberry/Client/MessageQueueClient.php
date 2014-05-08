@@ -28,13 +28,10 @@ class MessageQueueClient implements ClientInterface {
 	 * {@inheritdoc}
 	 */
 	public function executeWithReturn($command) {
-		echo "1";
 		$event = new ExecuteCommandEvent($command, true);
 
-		echo "2";
 		$this->dispatchInBackground($event);
 
-		echo "3";
-		return $this->getRedis()->brPop(self::RETURN_CHANNEL);
+		return $this->getRedis()->brPop(self::RETURN_CHANNEL, 5);
 	}
 }
