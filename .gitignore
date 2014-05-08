@@ -1,7 +1,7 @@
 .idea
 vendor
 composer.phar
-composer.json
+composer.lock
 app/config.xml
 coverage
 messages.mo
