@@ -14,7 +14,7 @@ class LocalClient implements ClientInterface {
 	 * {@inheritdoc}
 	 */
 	public function execute($command) {
-		$this->execute($command);
+		$this->executeWithReturn($command);
 	}
 
 	/**
