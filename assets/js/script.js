@@ -36,7 +36,7 @@ $(function() {
 		etas.prettyDate(1);
 	}
 
-	var sockjs = new SockJS("http://localhost:8081/socket"); //TODO config
+	var sockjs = new SockJS(App.socket_url);
 	sockjs.onmessage = function(message) {
 		var event = JSON.parse(message.data);
 		var event_name = event.event_name;
