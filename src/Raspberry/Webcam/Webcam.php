@@ -2,6 +2,7 @@
 
 namespace Raspberry\Webcam;
 
+use Matze\Core\Traits\EventDispatcherTrait;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
@@ -13,6 +14,8 @@ use Symfony\Component\Process\Process;
 class Webcam {
 	const ROOT = '/web/static/webcam/';
 	const EXTENSION = 'jpg';
+
+	use EventDispatcherTrait;
 
 	/**
 	 * @return WebcamVO[]
@@ -48,6 +51,9 @@ class Webcam {
 		$process = new Process($command);
 		$process->setTimeout(10000);
 		$process->run();
+
+		$event = new WebcamEvent($name, WebcamEvent::TOOK_PHOTO);
+		$this->dispatchEvent($event);
 	}
 
 	/**

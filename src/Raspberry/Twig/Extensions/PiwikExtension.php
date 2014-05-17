@@ -5,6 +5,7 @@ namespace Raspberry\Twig\Extensions;
 use Twig_Extension;
 
 /**
+ * @todo compile only once
  * @TwigExtension
  */
 class PiwikExtension extends Twig_Extension {

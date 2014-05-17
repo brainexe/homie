@@ -3,10 +3,12 @@
 namespace Raspberry\Webcam;
 
 use Matze\Core\EventDispatcher\AbstractEvent;
+use Matze\Core\EventDispatcher\PushViaWebsocketInterface;
 
-class WebcamEvent extends AbstractEvent {
+class WebcamEvent extends AbstractEvent implements PushViaWebsocketInterface {
 
-	const NAME = 'webcam.photo';
+	const TAKE_PHOTO = 'webcam.take_photo';
+	const TOOK_PHOTO = 'webcam.took_photo';
 
 	/**
 	 * @var string
@@ -15,9 +17,10 @@ class WebcamEvent extends AbstractEvent {
 
 	/**
 	 * @param string $name
+	 * @param string $event_type self::*
 	 */
-	public function __construct($name) {
-		$this->event_name = self::NAME;
+	public function __construct($name, $event_type) {
+		$this->event_name = $event_type;
 		$this->name = $name;
 	}
 } 

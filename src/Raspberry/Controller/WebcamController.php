@@ -47,7 +47,7 @@ class WebcamController extends AbstractController {
 	public function takePhoto() {
 		$name = $this->generateRandomId();
 
-		$event = new WebcamEvent($name);
+		$event = new WebcamEvent($name, WebcamEvent::TAKE_PHOTO);
 		$this->dispatchInBackground($event);
 
 		return new RedirectResponse('/webcam/');

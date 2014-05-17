@@ -14,7 +14,7 @@ class WebcamListener extends AbstractEventListener {
 	 */
 	public static function getSubscribedEvents() {
 		return [
-			WebcamEvent::NAME => 'handleWebcamEvent'
+			WebcamEvent::TAKE_PHOTO => 'handleWebcamEvent'
 		];
 	}
 

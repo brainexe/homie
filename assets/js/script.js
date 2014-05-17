@@ -20,14 +20,6 @@ $.fn.prettyDate = function(interval) {
 	});
 };
 
-window.emitter = new EventEmitter2({
-	'wildcard': true
-});
-
-emitter.on('*.*', function(event){
-	console.log("socket server:", event.event_name, event)
-});
-
 $(function() {
 	$('.tip').tooltip();
 
@@ -35,11 +27,31 @@ $(function() {
 	if (etas.length) {
 		etas.prettyDate(1);
 	}
-
-	var sockjs = new SockJS(App.socket_url);
-	sockjs.onmessage = function(message) {
-		var event = JSON.parse(message.data);
-		var event_name = event.event_name;
-		window.emitter.emit(event_name, event);
-	};
 });
+
+var App = {
+	debug: false,
+	emitter: null,
+
+	start: function() {
+		this.emitter = new EventEmitter2({
+			'wildcard': true
+		});
+
+		if (this.debug) {
+			this.emitter.on('*.*', function(event){
+				console.log("socket server:", event.event_name, event)
+			});
+		}
+	},
+
+	connectToSocketServer: function(socket_url) {
+		var sockjs = new SockJS(socket_url);
+
+		sockjs.onmessage = function(message) {
+			var event = JSON.parse(message.data);
+			var event_name = event.event_name;
+			App.emitter.emit(event_name, event);
+		};
+	}
+};

@@ -8,9 +8,9 @@
 	<link href="{{ asset_url("merged.css") }}" rel="stylesheet">
 	<script src="{{ asset_url("merged.js") }}"></script>
 	<script>
-		var App = {
-			socket_url: '{{ config('socket.url') }}'
-		};
+		App.debug = '{% config 'debug' %}';
+		App.start();
+		App.connectToSocketServer('{% config 'socket.url' %}');
 	</script>
 	{% block meta %}{% endblock %}
 </head>

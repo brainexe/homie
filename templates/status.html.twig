@@ -14,11 +14,11 @@
 				var button = document.getElementById('self_update_button');
 				button.remove();
 
-				window.emitter.on('update.process', function(event) {
+				App.emitter.on('update.process', function(event) {
 					textarea.value += event.payload;
 				});
 
-				window.emitter.on('update.done', function(event) {
+				App.emitter.on('update.done', function(event) {
 					textarea.value += "Update is done!";
 				});
 
