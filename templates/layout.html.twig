@@ -7,7 +7,7 @@
 
 	<link href="{{ asset_url("merged.css") }}" rel="stylesheet">
 	<script src="{{ asset_url("merged.js") }}"></script>
-	<script>
+	<script type="text/javascript">
 		App.debug = '{% config 'debug' %}';
 		App.start();
 		App.connectToSocketServer('{% config 'socket.url' %}');
@@ -208,6 +208,6 @@
 	<!-- /.right-side -->
 </div>
 <!-- ./wrapper -->
-{{ piwik() }}
+{% piwik "" %}
 </body>
 </html>
