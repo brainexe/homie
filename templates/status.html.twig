@@ -4,16 +4,10 @@
 
 {% block content %}
 	<script>
-		var Status = {
-			startUpdate: function() {
+		App.Status = {
+			init: function() {
 				var textarea = document.getElementById('self_update_textarea');
-				textarea.classList.remove('hidden');
-				textarea.style.width = '800px';
-				textarea.style.height= '300px';
-
-				var button = document.getElementById('self_update_button');
-				button.remove();
-
+				
 				App.emitter.on('update.process', function(event) {
 					textarea.value += event.payload;
 				});
@@ -21,10 +15,14 @@
 				App.emitter.on('update.done', function(event) {
 					textarea.value += "Update is done!";
 				});
-
+			},
+			startUpdate: function() {
 				$.post('/status/self_update/');
 			}
 		};
+		$(function(){
+			App.Status.init();
+		});
 	</script>
 	<table class="table table-striped table-bordered table-hover">
 		<tbody>
@@ -64,7 +62,7 @@
 
     <h2>Self update</h2>
 
-    <a id="self_update_button" class="btn btn-primary" onclick="return (confirm('Do you want to start self update? This may take some time...') && Status.startUpdate())" href="#">Start self update in background</a>
-	<textarea id="self_update_textarea" class="hidden" readonly="readonly"></textarea>
+    <a id="self_update_button" class="btn btn-primary" onclick="return (confirm('Do you want to start self update? This may take some time...') && Status.startUpdate())" href="#">Start self update in background</a><br />
+	<textarea style="width:800px; height: 300px" id="self_update_textarea" readonly="readonly"></textarea>
 {% endblock %}
 
