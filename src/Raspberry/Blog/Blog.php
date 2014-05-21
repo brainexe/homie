@@ -65,4 +65,12 @@ class Blog {
 		$this->_blog_gateway->addSubscriber($user_id, $target_id);
 	}
 
+	/**
+	 * @param integer $user_id
+	 * @return null|BlogPostVO
+	 */
+	public function getRecentPost($user_id) {
+		return $this->_blog_gateway->getRecentPost($user_id);
+	}
+
 } 

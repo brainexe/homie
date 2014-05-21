@@ -7,7 +7,7 @@
 		App.Status = {
 			init: function() {
 				var textarea = document.getElementById('self_update_textarea');
-				
+
 				App.emitter.on('update.process', function(event) {
 					textarea.value += event.payload;
 				});

@@ -33,6 +33,22 @@ class BlogGateway {
 
 	/**
 	 * @param integer $user_id
+	 * @return BlogPostVO|null
+	 */
+	public function getRecentPost($user_id) {
+		$key = $this->_getPostKey($user_id);
+
+		$posts_raw = $this->getRedis()->zRevRangeByScore($key, '+inf', '0', ['limit' => [0, 1]]);
+
+		if (empty($posts_raw)) {
+			return null;
+		}
+
+		return unserialize($posts_raw[0]);
+	}
+
+	/**
+	 * @param integer $user_id
 	 * @param integer $target_id
 	 */
 	public function addSubscriber($user_id, $target_id) {

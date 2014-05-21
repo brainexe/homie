@@ -6,7 +6,6 @@ use Matze\Core\Application\UserException;
 use Matze\Core\Authentication\DatabaseUserProvider;
 use Matze\Core\Authentication\UserVO;
 use Matze\Core\Controller\AbstractController;
-use Matze\Core\Traits\TwigTrait;
 use Raspberry\Blog\Blog;
 use Raspberry\Blog\BlogPostVO;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -47,10 +46,26 @@ class BlogController extends AbstractController {
 
 	/**
 	 * @param Request $request
+	 * @return string
+	 * @Route("/blog/mood/", name="blog.mood", methods="GET")
+	 */
+	public function getMood(Request $request) {
+		$user_id = $request->getSession()->get('user')->id;
+
+		$recent_post = $this->_blog->getRecentPost($user_id);
+
+		return $this->render('mood.html.twig', [
+			'mood' => $recent_post->mood * 10,
+			'thought' => $recent_post->text,
+		]);
+	}
+
+	/**
+	 * @param Request $request
 	 * @param integer $user_id
 	 * @throws UserException
 	 * @return string
-	 * @Route("/blog/{user_id}/", name="blog.user")
+	 * @Route("/blog/{user_id}/", name="blog.user", methods="GET")
 	 */
 	public function blogForUser(Request $request, $user_id) {
 		$current_user_id = $request->getSession()->get('user')->id;

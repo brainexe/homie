@@ -23,6 +23,7 @@
 			<parameter>rickshaw/d3.layout.min.js</parameter>
 			<parameter>js/eventemitter2.js</parameter>
 			<parameter>js/moment.min.js</parameter>
+			<parameter>js/createjs.min.js</parameter>
 		</parameter>
     </parameters>
 

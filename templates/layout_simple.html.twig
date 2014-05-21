@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %}Raspberry{% endblock %}</title>
+	<meta charset="utf-8">
+	<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+
+	<link href="{{ asset_url("merged.css") }}" rel="stylesheet">
+	<script src="{{ asset_url("merged.js") }}"></script>
+	<script type="text/javascript">
+		App.debug = '{% config 'debug' %}';
+		App.start();
+		App.connectToSocketServer('{% config 'socket.url' %}');
+	</script>
+	{% block meta %}{% endblock %}
+</head>
+<body>
+	{% block full_content %}{% endblock %}
+{% piwik "" %}
+</body>
+</html>
