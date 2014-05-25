@@ -2,6 +2,7 @@
 
 namespace Raspberry\TodoList;
 
+use Matze\Core\Authentication\UserVO;
 use Matze\Core\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,9 +57,9 @@ class TodoListController extends AbstractController {
 		$item_vo->description = $request->request->get('description');
 		$item_vo->deadline = strtotime($request->request->get('deadline'));
 
-		$user_id = $this->_getCurrentUserId($request);
+		$user = $this->_getCurrentUser($request);
 
-		$this->_todo_list->addItem($user_id, $item_vo);
+		$this->_todo_list->addItem($user, $item_vo);
 
 		return new JsonResponse($item_vo);
 	}

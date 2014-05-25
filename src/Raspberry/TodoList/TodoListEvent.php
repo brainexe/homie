@@ -13,7 +13,7 @@ class TodoListEvent extends AbstractEvent implements PushViaWebsocketInterface {
 	/**
 	 * @var TodoItemVO
 	 */
-	private $item_vo;
+	public $item_vo;
 
 	/**
 	 * @param TodoItemVO $item_vo

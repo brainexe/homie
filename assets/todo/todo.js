@@ -11,6 +11,8 @@ App.Todo.init = function(data) {
 		todoHeader: "task-header",
 		todoDate: "task-date",
 		todoDescription: "task-description",
+		todoDeadline: "task-deadline",
+		todoUser: "task-user",
 		taskId: "task-",
 		formId: "todo-form",
 		dataAttribute: "data",
@@ -43,14 +45,30 @@ App.Todo.init = function(data) {
 		}).appendTo(wrapper);
 
 		$("<div />", {
+			"class" : options.todoUser,
+			"text": "User: " + params.user_name
+		}).appendTo(wrapper);
+
+		$("<div />", {
 			"class" : options.todoDate,
 			"text": params.date
 		}).appendTo(wrapper);
 
-		$("<div />", {
-			"class" : options.todoDescription,
-			"text": params.description
-		}).appendTo(wrapper);
+		if (params.description) {
+			$("<div />", {
+				"class": options.todoDescription,
+				"text": params.description
+			}).appendTo(wrapper);
+		}
+
+		if (params.deadline) {
+			var deadline = $("<div />", {
+				"class": options.todoDeadline,
+				"text": params.deadline,
+				"data": {timestamp: params.deadline}
+			}).appendTo(wrapper);
+			deadline.prettyDate();
+		}
 
 		wrapper.draggable({
 			start: function() {

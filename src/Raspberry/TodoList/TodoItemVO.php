@@ -26,6 +26,11 @@ class TodoItemVO extends AbstractVO {
 	public $user_id;
 
 	/**
+	 * @var int
+	 */
+	public $user_name;
+
+	/**
 	 * @var string
 	 */
 	public $description;

@@ -29,7 +29,6 @@
 .task-list input[type="button"]{
 	width: 100px;
 	margin: 5px;
-
 }
 
 .todo-task > .task-header{
@@ -41,8 +40,17 @@
 	font-style: italic;
 }
 
-.todo-task > .task-description{
+.todo-task > .task-deadline{
+	font-size: small;
+	font-style: italic;
+}
+
+.todo-task > .task-description, .todo-task > .task-user{
 	font-size: smaller;
+}
+
+#completed .todo-task {
+	text-decoration: line-through;
 }
 
 #delete-div{

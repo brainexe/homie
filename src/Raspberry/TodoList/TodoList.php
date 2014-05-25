@@ -1,6 +1,7 @@
 <?php
 
 namespace Raspberry\TodoList;
+use Matze\Core\Authentication\UserVO;
 use Matze\Core\Traits\EventDispatcherTrait;
 use Matze\Core\Traits\IdGeneratorTrait;
 use Matze\Core\Util\IdGenerator;
@@ -27,13 +28,14 @@ class TodoList {
 	}
 
 	/**
-	 * @param int $user_id
+	 * @param UserVO $user
 	 * @param TodoItemVO $item_vo
 	 * @return TodoItemVO
 	 */
-	public function addItem($user_id, TodoItemVO $item_vo) {
+	public function addItem(UserVO $user, TodoItemVO $item_vo) {
 		$item_vo->id = $this->generateRandomNumericId();
-		$item_vo->user_id = $user_id;
+		$item_vo->user_id = $user->id;
+		$item_vo->user_name = $user->username;
 		$item_vo->created_at = $item_vo->last_change = time();
 		$item_vo->status = TodoItemVO::STATUS_PENDING;
 

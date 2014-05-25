@@ -22,7 +22,7 @@ $.fn.prettyDate = function(interval) {
 
 $(function() {
 	$('.tip').tooltip();
-	$( ".datetimepicker" ).datetimepicker();
+	$(".datetimepicker").datetimepicker();
 
 	var etas = $(".eta");
 	if (etas.length) {
