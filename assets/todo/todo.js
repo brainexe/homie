@@ -25,6 +25,10 @@ App.Todo.init = function(data) {
 		"completed" : "#completed"
 	};
 
+	$(".datetimepicker").datetimepicker({
+		showMinute:false,
+	});
+
 	// Add Task
 	var generateElement = function(params) {
 		var parent = $(stati[params.status]);

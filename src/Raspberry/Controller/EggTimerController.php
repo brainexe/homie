@@ -3,7 +3,6 @@
 namespace Raspberry\Controller;
 
 use Matze\Core\Controller\AbstractController;
-use Matze\Core\Traits\EventDispatcherTrait;
 use Raspberry\EggTimer\EggTimer;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

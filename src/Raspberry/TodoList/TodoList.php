@@ -1,10 +1,10 @@
 <?php
 
 namespace Raspberry\TodoList;
+
 use Matze\Core\Authentication\UserVO;
 use Matze\Core\Traits\EventDispatcherTrait;
 use Matze\Core\Traits\IdGeneratorTrait;
-use Matze\Core\Util\IdGenerator;
 
 /**
  * @Service(public=false)
@@ -38,6 +38,9 @@ class TodoList {
 		$item_vo->user_name = $user->username;
 		$item_vo->created_at = $item_vo->last_change = time();
 		$item_vo->status = TodoItemVO::STATUS_PENDING;
+		if ($item_vo->deadline < time()) {
+			$item_vo->deadline = 0;
+		}
 
 		$this->_todo_list_gateway->addItem($item_vo);
 

@@ -5,7 +5,6 @@ namespace Raspberry\Radio;
 use Matze\Core\MessageQueue\MessageQueueGateway;
 use Matze\Core\MessageQueue\MessageQueueJob;
 use Matze\Core\Traits\EventDispatcherTrait;
-use Matze\Core\Traits\RedisTrait;
 use Matze\Core\Util\TimeParser;
 use Raspberry\Radio\VO\RadioVO;
 

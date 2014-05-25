@@ -1,6 +1,7 @@
 <?php
 
 namespace Raspberry\TodoList;
+
 use Matze\Core\Traits\RedisTrait;
 
 /**
@@ -46,7 +47,6 @@ class TodoListGateway {
 	 */
 	public function getRawItem($item_id) {
 		return 	$this->getRedis()->HGETALL($this->_getRedisKey($item_id));
-
 	}
 
 	/**

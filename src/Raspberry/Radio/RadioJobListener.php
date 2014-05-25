@@ -3,7 +3,6 @@
 namespace Raspberry\Radio;
 
 use Matze\Core\EventDispatcher\AbstractEventListener;
-use Matze\Core\Traits\ServiceContainerTrait;
 
 /**
  * @EventListener

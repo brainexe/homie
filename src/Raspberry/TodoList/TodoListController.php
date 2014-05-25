@@ -2,7 +2,6 @@
 
 namespace Raspberry\TodoList;
 
-use Matze\Core\Authentication\UserVO;
 use Matze\Core\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

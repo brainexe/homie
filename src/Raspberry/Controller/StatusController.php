@@ -6,7 +6,6 @@ use Matze\Core\Application\SelfUpdate\SelfUpdateEvent;
 use Matze\Core\Controller\AbstractController;
 use Matze\Core\MessageQueue\MessageQueueGateway;
 use Matze\Core\Traits\EventDispatcherTrait;
-use Matze\Core\Traits\RedisTrait;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
