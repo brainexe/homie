@@ -3,6 +3,7 @@
 {% block title %}Sensors{% endblock %}
 
 {% block meta %}
+	<script src="{{ asset_url("sensors.js") }}"></script>
 	<script>
 		$(function () {
 			var graph = new Rickshaw.Graph({

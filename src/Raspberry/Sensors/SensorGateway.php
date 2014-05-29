@@ -90,7 +90,6 @@ class SensorGateway {
 
 	/**
 	 * @param integer $sensor_id
-	 * @todo pipeline
 	 */
 	public function deleteSensor($sensor_id) {
 		$redis = $this->getRedis();

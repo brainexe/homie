@@ -2,12 +2,12 @@
 
 {% block title %}Blog{% endblock %}
 {% block meta %}
+	<script src="{{ asset_url("mood.js") }}"></script>
 	<style>
 		body {
 			background-color: darkgray;
 		}
 	</style>
-
 {% endblock %}
 {% block full_content %}
 	<canvas id="mood_stage"></canvas>

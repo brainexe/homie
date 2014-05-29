@@ -26,6 +26,7 @@
 	</div>
 
 	<div style="clear:both;"></div>
+	<script src="{{ asset_url("todo.js") }}"></script>
 	<script type="text/javascript">
 		App.Todo.init({{ list|json_encode()|raw }});
 	</script>

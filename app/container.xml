@@ -17,18 +17,94 @@
 				<parameter key="percentage">50</parameter>
 			</parameter>
 		</parameter>
-		<parameter key="assets.priorities" type="collection">
-			<parameter>js/jquery-2.1.0.min.js</parameter>
-			<parameter>rickshaw/d3.min.js</parameter>
-			<parameter>rickshaw/d3.layout.min.js</parameter>
-			<parameter>js/eventemitter2.js</parameter>
-			<parameter>js/moment.min.js</parameter>
-			<parameter>js/createjs.min.js</parameter>
-			<parameter>js/script.js</parameter>
-		</parameter>
     </parameters>
 
 	<services>
 		<service id="RaspberryClient" alias="RaspberryClient.Local"/>
+		<service id="AssetCollector" class="Matze\Core\Assets\AssetCollector">
+			<argument type="service" id="Assetic"/>
+
+			<call method="addProcessor">
+				<argument type="service">
+					<service parent="Assets.JsProcessor">
+						<call method="addDefinition">
+							<argument type="service">
+								<service class="Matze\Core\Assets\Rules\MergableFilesDefinition">
+									<argument>mood.js</argument>
+									<argument type="collection">
+										<argument>mood\/createjs.min.js</argument>
+										<argument>mood\/.*</argument>
+									</argument>
+								</service>
+							</argument>
+						</call>
+						<call method="addDefinition">
+							<argument type="service">
+								<service class="Matze\Core\Assets\Rules\MergableFilesDefinition">
+									<argument>sensors.js</argument>
+									<argument type="collection">
+										<argument>sensor\/d3.min.js</argument>
+										<argument>sensor\/d3.layout.min.js</argument>
+										<argument>sensor\/.*</argument>
+									</argument>
+								</service>
+							</argument>
+						</call>
+						<call method="addDefinition">
+							<argument type="service">
+								<service class="Matze\Core\Assets\Rules\MergableFilesDefinition">
+									<argument>todo.js</argument>
+									<argument type="collection">
+										<argument>todo\/jquery-ui-1.10.4.custom.min.js</argument>
+										<argument>todo\/jquery-ui-timepicker-addon.js</argument>
+										<argument>todo\/.*</argument>
+									</argument>
+								</service>
+							</argument>
+						</call>
+						<call method="addDefinition">
+							<argument type="service">
+								<service class="Matze\Core\Assets\Rules\MergableFilesDefinition">
+									<argument>common.js</argument>
+									<argument type="collection">
+										<argument>js\/jquery-2.1.0.min.js</argument>
+										<argument>js\/sockjs-0.3.min</argument>
+										<argument>js\/eventemitter2.js</argument>
+										<argument>js\/moment.min.js</argument>
+										<argument>js\/createjs.min.js</argument>
+										<argument>js\/script.js</argument>
+									</argument>
+								</service>
+							</argument>
+						</call>
+						<call method="setFallback">
+							<argument>common.js</argument>
+						</call>
+					</service>
+				</argument>
+			</call>
+			<call method="addProcessor">
+				<argument type="service">
+					<service parent="Assets.CssProcessor">
+						<call method="addDefinition">
+							<argument type="service">
+								<service class="Matze\Core\Assets\Rules\MergableFilesDefinition">
+									<argument>common.css</argument>
+									<argument type="collection">
+									</argument>
+								</service>
+							</argument>
+						</call>
+
+						<call method="setFallback">
+							<argument>common.css</argument>
+						</call>
+					</service>
+				</argument>
+			</call>
+			<call method="addProcessor">
+				<argument type="service" id="Assets.ImageProcessor"/>
+			</call>
+		</service>
 	</services>
 </container>

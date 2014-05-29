@@ -1,5 +1,5 @@
 
-// TODO replace by bootstrap
+// TODO replace by bootstrap/jquery
 function togglePanel(element) {
 	element.nextElementSibling.classList.toggle('hidden');
 }

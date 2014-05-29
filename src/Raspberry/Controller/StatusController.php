@@ -6,6 +6,7 @@ use Matze\Core\Application\SelfUpdate\SelfUpdateEvent;
 use Matze\Core\Controller\AbstractController;
 use Matze\Core\MessageQueue\MessageQueueGateway;
 use Matze\Core\Traits\EventDispatcherTrait;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -60,6 +61,6 @@ class StatusController extends AbstractController {
 
 		$this->dispatchInBackground($event);
 
-		return '';
+		return new JsonResponse(true);
 	}
 }

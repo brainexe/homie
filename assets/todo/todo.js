@@ -26,7 +26,7 @@ App.Todo.init = function(data) {
 	};
 
 	$(".datetimepicker").datetimepicker({
-		showMinute:false,
+		showMinute:false
 	});
 
 	// Add Task
