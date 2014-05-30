@@ -3,8 +3,9 @@
 namespace Raspberry\Espeak;
 
 use Matze\Core\EventDispatcher\AbstractEvent;
+use Matze\Core\EventDispatcher\PushViaWebsocketInterface;
 
-class EspeakEvent extends AbstractEvent {
+class EspeakEvent extends AbstractEvent implements PushViaWebsocketInterface {
 
 	const SPEAK = 'espeak.speak';
 

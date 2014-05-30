@@ -53,5 +53,35 @@ var App = {
 			var event_name = event.event_name;
 			App.emitter.emit(event_name, event);
 		};
+
+		App.emitter.on('espeak.speak', function(event) {
+			console.log(event);
+			App.showNotification()
+		})
+	},
+
+	showNotification: function(content) {
+		if (!("Notification" in window)) {
+			return;
+		} else if (Notification.permission === "granted") {
+			// If it's okay let's create a notification
+			var notification = new Notification(content);
+		} else if (Notification.permission !== 'denied') {
+			Notification.requestPermission(function (permission) {
+
+				// Whatever the user answers, we make sure we store the information
+				if(!('permission' in Notification)) {
+					Notification.permission = permission;
+				}
+
+				// If the user is okay, let's create a notification
+				if (permission === "granted") {
+					var notification = new Notification(content);
+				}
+			});
+		}
+
+		// At last, if the user already denied any notification, and you
+		// want to be respectful there is no need to bother him any more.
 	}
 };

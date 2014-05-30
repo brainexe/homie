@@ -51,7 +51,7 @@ class SensorWidget extends AbstractWidget {
 			'title' => $this->_sensor_data['name'],
 			'temperature' => $this->_sensor->formatValue($this->_sensor_data['last_value']),
 			'sensor' => $this->_sensor_data
-		]);
+		])->getContent();
 	}
 
 	/**
