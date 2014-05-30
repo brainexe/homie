@@ -55,8 +55,7 @@ var App = {
 		};
 
 		App.emitter.on('espeak.speak', function(event) {
-			console.log(event);
-			App.showNotification()
+			App.showNotification(event.espeak.text);
 		})
 	},
 
@@ -80,8 +79,5 @@ var App = {
 				}
 			});
 		}
-
-		// At last, if the user already denied any notification, and you
-		// want to be respectful there is no need to bother him any more.
 	}
 };
