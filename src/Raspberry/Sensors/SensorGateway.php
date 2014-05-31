@@ -3,6 +3,7 @@
 namespace Raspberry\Sensors;
 
 use Matze\Core\Traits\RedisTrait;
+use Redis;
 
 /**
  * @codeCoverageIgnore
@@ -21,7 +22,7 @@ class SensorGateway {
 	public function getSensors() {
 		$sensor_ids = $this->getSensorIds();
 
-		$redis = $this->getRedis()->pipeline();
+		$redis = $this->getRedis()->multi(Redis::PIPELINE);
 		foreach ($sensor_ids as $sensor_id) {
 			$redis->HGETALL($this->_getKey($sensor_id));
 		}
@@ -60,7 +61,7 @@ class SensorGateway {
 		$sensor_ids = $this->getSensorIds();
 		$new_sensor_id = end($sensor_ids) + 1;
 
-		$redis = $this->getRedis()->pipeline();
+		$redis = $this->getRedis()->multi(Redis::PIPELINE);
 
 		$key = $this->_getKey($new_sensor_id);
 

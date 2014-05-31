@@ -1,11 +1,8 @@
-/*
- * @author Shaumik "Dada" Daityari
- * @copyright December 2013
- */
 
 App.Todo = {};
+App.Todo.user_names = {};
 
-App.Todo.init = function(data) {
+App.Todo.init = function(data, user_names) {
 	var options = {
 		todoTask: "todo-task",
 		todoHeader: "task-header",
@@ -29,6 +26,14 @@ App.Todo.init = function(data) {
 		showMinute:false
 	});
 
+	var user_switcher = $("<select />", {
+	});
+
+	console.log(user_names);
+	for(var user_id in user_names) {
+		$('<option />').text(user_names[user_id]).val(user_id).appendTo(user_switcher);
+	}
+
 	// Add Task
 	var generateElement = function(params) {
 		var parent = $(stati[params.status]);
@@ -48,10 +53,17 @@ App.Todo.init = function(data) {
 			"text": params.name
 		}).appendTo(wrapper);
 
-		$("<div />", {
-			"class" : options.todoUser,
-			"text": "User: " + params.user_name
-		}).appendTo(wrapper);
+		var task_user_switcher = user_switcher.clone()
+		task_user_switcher.val(params.user_id);
+		task_user_switcher.change(function() {
+			var user_id = this.value;
+
+			$.post('/todo/assign/', {
+				id: params.id,
+				user_id: user_id
+			});
+		});
+		task_user_switcher.appendTo(wrapper);
 
 		$("<div />", {
 			"class" : options.todoDate,

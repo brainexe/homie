@@ -5,6 +5,7 @@ namespace Raspberry\TodoList;
 use Matze\Core\Authentication\UserVO;
 use Matze\Core\Traits\EventDispatcherTrait;
 use Matze\Core\Traits\IdGeneratorTrait;
+use Raspberry\TodoList\VO\TodoItemVO;
 
 /**
  * @Service(public=false)

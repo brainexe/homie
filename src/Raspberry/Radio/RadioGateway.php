@@ -5,6 +5,7 @@ namespace Raspberry\Radio;
 use Matze\Core\Traits\IdGeneratorTrait;
 use Matze\Core\Traits\RedisTrait;
 use Raspberry\Radio\VO\RadioVO;
+use Redis;
 
 /**
  * @codeCoverageIgnore
@@ -24,7 +25,7 @@ class RadioGateway {
 	public function getRadios() {
 		$radio_ids = $this->getRadioIds();
 
-		$pipeline = $this->getRedis()->pipeline();
+		$pipeline = $this->getRedis()->multi(Redis::PIPELINE);
 
 		foreach ($radio_ids as $radio_id) {
 			$pipeline->HGETALL(self::_getRadioKey($radio_id));
@@ -67,7 +68,7 @@ class RadioGateway {
 	public function addRadio(RadioVO $radio_vo) {
 		$new_radio_id = $this->generateRandomId();
 
-		$pipeline = $this->getRedis()->pipeline();
+		$pipeline = $this->getRedis()->multi(Redis::PIPELINE);
 
 		$key = $this->_getRadioKey($new_radio_id);
 		$pipeline->HMSET($key, [
@@ -89,7 +90,7 @@ class RadioGateway {
 	 * @param integer $radio_id
 	 */
 	public function deleteRadio($radio_id) {
-		$redis = $this->getPedis();
+		$redis = $this->getRedis();
 
 		$redis->SREM(self::REDIS_RADIO_IDS, $radio_id);
 		$redis->DEL(self::_getRadioKey($radio_id));

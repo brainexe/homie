@@ -4,6 +4,7 @@ namespace Raspberry\TodoList;
 
 use Matze\Core\EventDispatcher\AbstractEvent;
 use Matze\Core\EventDispatcher\PushViaWebsocketInterface;
+use Raspberry\TodoList\VO\TodoItemVO;
 
 class TodoListEvent extends AbstractEvent implements PushViaWebsocketInterface {
 	const ADD = 'todo.add';

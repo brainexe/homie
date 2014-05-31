@@ -21,7 +21,7 @@ class SendTodoReminderCommand extends AbstractCommand {
 	protected function configure() {
 		$this
 			->setName('todo:reminder')
-			->setDescription('Send removder mail');
+			->setDescription('Todo removder');
 	}
 
 	/**

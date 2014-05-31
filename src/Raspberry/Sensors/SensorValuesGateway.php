@@ -3,6 +3,7 @@
 namespace Raspberry\Sensors;
 
 use Matze\Core\Traits\RedisTrait;
+use Redis;
 
 /**
  * @codeCoverageIgnore
@@ -19,7 +20,7 @@ class SensorValuesGateway {
 	 * @param double $value
 	 */
 	public function addValue($sensor_id, $value) {
-		$redis = $this->getRedis()->pipeline();
+		$redis = $this->getRedis()->multi(Redis::PIPELINE);
 
 		$now = time();
 

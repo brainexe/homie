@@ -73,7 +73,7 @@ class Dashboard {
 		$payload['type'] = $type;
 
 		$new_id = mt_rand(1000, 1000000);
-		$this->getPredis()->HSET($this->_getKey($user_id), $new_id, json_encode($payload));
+		$this->getRedis()->HSET($this->_getKey($user_id), $new_id, json_encode($payload));
 	}
 
 } 

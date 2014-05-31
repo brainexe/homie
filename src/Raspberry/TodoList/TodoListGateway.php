@@ -3,6 +3,8 @@
 namespace Raspberry\TodoList;
 
 use Matze\Core\Traits\RedisTrait;
+use Raspberry\TodoList\VO\TodoItemVO;
+use Redis;
 
 /**
  * @Service(public=false)
@@ -33,7 +35,7 @@ class TodoListGateway {
 	public function getList() {
 		$item_ids = $this->getRedis()->sMembers(self::TODO_IDS);
 
-		$redis = $this->getRedis()->pipeline();
+		$redis = $this->getRedis()->multi(Redis::PIPELINE);
 		foreach ($item_ids as $item_id) {
 			$redis->HGETALL($this->_getRedisKey($item_id));
 		}

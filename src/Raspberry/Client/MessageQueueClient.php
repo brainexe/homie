@@ -4,7 +4,6 @@ namespace Raspberry\Client;
 
 use Matze\Core\Traits\EventDispatcherTrait;
 use Matze\Core\Traits\RedisTrait;
-use Symfony\Component\Process\Process;
 
 /**
  * @Service("MessageQueueClient.Local", public=false)

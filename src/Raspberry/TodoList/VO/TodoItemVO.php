@@ -1,6 +1,6 @@
 <?php
 
-namespace Raspberry\TodoList;
+namespace Raspberry\TodoList\VO;
 
 use Matze\Core\Util\AbstractVO;
 

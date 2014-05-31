@@ -1,8 +1,11 @@
 <?php
 
-namespace Raspberry\TodoList;
+namespace Raspberry\TodoList\Controller;
 
+use Matze\Core\Authentication\DatabaseUserProvider;
 use Matze\Core\Controller\AbstractController;
+use Raspberry\TodoList\TodoList;
+use Raspberry\TodoList\VO\TodoItemVO;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -17,10 +20,16 @@ class TodoListController extends AbstractController {
 	private $_todo_list;
 
 	/**
-	 * @Inject({"@TodoList"})
+	 * @var DatabaseUserProvider
 	 */
-	public function __construct(TodoList $todo_list) {
+	private $_database_user_provider;
+
+	/**
+	 * @Inject({"@TodoList", "@DatabaseUserProvider"})
+	 */
+	public function __construct(TodoList $todo_list, DatabaseUserProvider $database_user_provider) {
 		$this->_todo_list = $todo_list;
+		$this->_database_user_provider = $database_user_provider;
 	}
 
 	/**
@@ -30,7 +39,8 @@ class TodoListController extends AbstractController {
 	 */
 	public function index(Request $request) {
 		return $this->render('todo/index.html.twig', [
-			'list' => $this->_todo_list->getList()
+			'list' => $this->_todo_list->getList(),
+			'user_names' => array_flip($this->_database_user_provider->getAllUserNames())
 		]);
 	}
 
@@ -74,6 +84,24 @@ class TodoListController extends AbstractController {
 		$changes = $request->request->get('changes');
 		$item_vo = $this->_todo_list->editItem($item_id, $changes);
 
+		return new JsonResponse($item_vo);
+	}
+
+	/**
+	 * @param Request $request
+	 * @Route("/todo/assign/", name="todo.assign")
+	 * @return JsonResponse
+	 */
+	public function setAssignee(Request $request) {
+		$item_id = $request->request->getInt('id');
+		$user_id = $request->request->getInt('user_id');
+
+		$user = $this->_database_user_provider->loadUserById($user_id);
+
+		$item_vo = $this->_todo_list->editItem($item_id, [
+			'user_id' => $user_id,
+			'user_name' => $user->username,
+		]);
 		return new JsonResponse($item_vo);
 	}
 

@@ -5,6 +5,7 @@ namespace Raspberry\TodoList;
 use Matze\Core\Traits\EventDispatcherTrait;
 use Raspberry\Espeak\EspeakEvent;
 use Raspberry\Espeak\EspeakVO;
+use Raspberry\TodoList\VO\TodoItemVO;
 
 /**
  * @Service
@@ -47,8 +48,10 @@ class TodoReminder {
 		foreach ($issues_per_state as $state => $issues_per_status) {
 			$text .= $this->_getStateName(count($issues_per_status), $state);
 			$text .= ': ';
+
+			/** @var TodoItemVO $todo */
 			foreach ($issues_per_status as $todo) {
-				$text .= $todo->name.". ";
+				$text .= sprintf('%s: %s. ', $todo->user_name, $todo->name);
 			}
 		}
 
@@ -65,9 +68,9 @@ class TodoReminder {
 	 */
 	private function _getStateName($count, $state) {
 		switch ($state) {
-			case TodoItemVO::STATUS_PROGRESS:
-				return sprintf(ngettext('%d offene Aufgabe', '%d offene Aufgaben', $count), $count);
 			case TodoItemVO::STATUS_PENDING:
+				return sprintf(ngettext('%d offene Aufgabe', '%d offene Aufgaben', $count), $count);
+			case TodoItemVO::STATUS_PROGRESS:
 				return sprintf(ngettext('%d Aufgabe in Arbeit', '%d offene Aufgaben in Arbeit', $count), $count);
 			default:
 				return '';
