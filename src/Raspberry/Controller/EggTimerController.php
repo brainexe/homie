@@ -31,7 +31,7 @@ class EggTimerController extends AbstractController {
 	public function index() {
 		$current_jobs = $this->_egg_timer->getJobs();
 
-		return $this->render('egg_timer.html.twig', [
+		return $this->renderToResponse('egg_timer.html.twig', [
 			'jobs' => $current_jobs
 		]);
 	}

@@ -65,6 +65,16 @@
 						<call method="addDefinition">
 							<argument type="service">
 								<service class="Matze\Core\Assets\Rules\MergableFilesDefinition">
+									<argument>scrabble.js</argument>
+									<argument type="collection">
+										<argument>scrabble\/.*</argument>
+									</argument>
+								</service>
+							</argument>
+						</call>
+						<call method="addDefinition">
+							<argument type="service">
+								<service class="Matze\Core\Assets\Rules\MergableFilesDefinition">
 									<argument>common.js</argument>
 									<argument type="collection">
 										<argument>js\/jquery-2.1.0.min.js</argument>

@@ -17,7 +17,7 @@ class AuthenticationController extends AbstractAuthenticationController {
 	 * @Route("/login/", name="authenticate.login", methods="GET")
 	 */
 	public function loginForm(Request $request) {
-		return $this->render('authentication/login.html.twig');
+		return $this->renderToResponse('authentication/login.html.twig');
 	}
 
 	/**
@@ -29,7 +29,7 @@ class AuthenticationController extends AbstractAuthenticationController {
 
 		$response = new Response();
 
-		$response->setContent($this->render('authentication/register.html.twig', [
+		$response->setContent($this->renderToResponse('authentication/register.html.twig', [
 			'token' => $token
 		]));
 

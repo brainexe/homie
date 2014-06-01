@@ -29,6 +29,16 @@ $(function() {
 	}
 });
 
+String.prototype.format = function() {
+	var args = arguments;
+	return this.replace(/{(\d+)}/g, function(match, number) {
+		return typeof args[number] != 'undefined'
+			? args[number]
+			: match
+			;
+	});
+};
+
 var App = {
 	debug: false,
 	emitter: null,
@@ -54,9 +64,13 @@ var App = {
 			App.emitter.emit(event_name, event);
 		};
 
+		App.emitter.on('sensor.value', function(event) {
+			var text = '{0}: {1}'.format(event.sensor_vo.name, event.value_formatted);
+			App.showNotification(text);
+		});
 		App.emitter.on('espeak.speak', function(event) {
 			App.showNotification(event.espeak.text);
-		})
+		});
 	},
 
 	showNotification: function(content) {

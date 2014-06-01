@@ -36,7 +36,7 @@ class WebcamController extends AbstractController {
 	public function index() {
 		$shots = $this->_service_webcam->getPhotos();
 
-		return $this->render('webcam.html.twig', [
+		return $this->renderToResponse('webcam.html.twig', [
 			'shots' => $shots
 		]);
 	}

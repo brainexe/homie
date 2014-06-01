@@ -38,7 +38,7 @@ class TodoListController extends AbstractController {
 	 * @return string
 	 */
 	public function index(Request $request) {
-		return $this->render('todo/index.html.twig', [
+		return $this->renderToResponse('todo/index.html.twig', [
 			'list' => $this->_todo_list->getList(),
 			'user_names' => array_flip($this->_database_user_provider->getAllUserNames())
 		]);

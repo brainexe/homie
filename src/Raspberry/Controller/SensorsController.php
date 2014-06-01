@@ -117,7 +117,7 @@ class SensorsController extends AbstractController {
 
 		$json = $this->_chart->formatJsonData($sensors, $sensor_values);
 
-		return $this->render('sensors.html.twig', [
+		return $this->renderToResponse('sensors.html.twig', [
 			'sensors' => $sensors,
 			'active_sensor_ids' => $active_sensor_ids ? : $available_sensor_ids,
 			'json' => $json,
@@ -190,7 +190,7 @@ class SensorsController extends AbstractController {
 		$sensor = $this->_sensor_gateway->getSensor($sensor_id);
 		$sensor_obj = $this->_sensor_builder->build($sensor['type']);
 
-		return $this->render('sensor_slim.html.twig', [
+		return $this->renderToResponse('sensor_slim.html.twig', [
 			'sensor' => $sensor,
 			'sensor_value_formatted' => $sensor_obj->getEspeakText($sensor['last_value']),
 			'sensor_obj' => $sensor_obj,

@@ -35,7 +35,7 @@ class IndexController extends AbstractController {
 		$dashboard = $this->_dashboard->getDashboard($user_id);
 		$widgets = $this->_dashboard->getAvailableWidgets();
 
-		return $this->render('index.html.twig', [
+		return $this->renderToResponse('index.html.twig', [
 			'dashboard' => $dashboard,
 			'widgets' => $widgets
 		]);

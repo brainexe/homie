@@ -54,7 +54,7 @@ class BlogController extends AbstractController {
 
 		$recent_post = $this->_blog->getRecentPost($user_id);
 
-		return $this->render('mood.html.twig', [
+		return $this->renderToResponse('mood.html.twig', [
 			'mood' => $recent_post->mood * 10,
 			'thought' => $recent_post->text,
 		]);
@@ -76,7 +76,7 @@ class BlogController extends AbstractController {
 			throw new UserException(sprintf('User not found: %s', $user_id));
 		}
 
-		return $this->render('blog.html.twig', [
+		return $this->renderToResponse('blog.html.twig', [
 			'posts' => $posts,
 			'users' => $users,
 			'active_user_id' => $user_id,

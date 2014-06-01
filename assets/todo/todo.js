@@ -29,7 +29,6 @@ App.Todo.init = function(data, user_names) {
 	var user_switcher = $("<select />", {
 	});
 
-	console.log(user_names);
 	for(var user_id in user_names) {
 		$('<option />').text(user_names[user_id]).val(user_id).appendTo(user_switcher);
 	}

@@ -33,7 +33,7 @@ class StatusController extends AbstractController {
 	 * @Route("/status/", name="status.index")
 	 */
 	public function index() {
-		return $this->render('status.html.twig', [
+		return $this->renderToResponse('status.html.twig', [
 			'jobs' => $this->_message_queue_gateway->getEventsByType(),
 			'stats' => [
 				'Queue Len' => $this->_message_queue_gateway->countJobs()

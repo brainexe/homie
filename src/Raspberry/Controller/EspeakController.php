@@ -43,7 +43,7 @@ class EspeakController extends AbstractController {
 	public function index() {
 		$speakers = $this->_espeak->getSpeakers();
 
-		return $this->render('espeak.html.twig', [
+		return $this->renderToResponse('espeak.html.twig', [
 			'speakers' => $speakers,
 			'jobs' => $this->_espeak->getPendingJobs()
 		]);
