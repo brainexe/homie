@@ -79,6 +79,9 @@ var App = {
 		} else if (Notification.permission === "granted") {
 			// If it's okay let's create a notification
 			var notification = new Notification(content);
+			window.setTimeout(function() {
+				notification.close();
+			}, 10000);
 		} else if (Notification.permission !== 'denied') {
 			Notification.requestPermission(function (permission) {
 
