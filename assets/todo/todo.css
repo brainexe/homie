@@ -17,12 +17,13 @@
 	border: 1px darkgray solid;
 }
 
-.task-list{
+.task-list {
 	width: 250px;
 	float: left;
 	margin: 0 5px;
 	background-color: #e3e3e3;
-	min-height: 500px;
+	height: 500px;
+	overflow-y: scroll;
 	border-radius: 10px;
 	padding-bottom: 15px;
 }
@@ -39,7 +40,7 @@
 .todo-task {
 	border-radius: 5px;
 	background-color: #fff;
-	width: 230px;
+	width: 220px;
 	margin: 5px;
 	padding: 5px;
 	border: 1px darkgray solid;
