@@ -2,6 +2,41 @@
 App.Todo = {};
 App.Todo.user_names = {};
 
+App.Todo.initShoppingList = function(shopping_list) {
+	function generateShoppingEntry(name) {
+		var entry = $("<div />", {
+			"class" : "shopping_entry",
+			"data-name" : name
+		}).appendTo(shopping_list_el);
+		entry.text(name);
+
+		$('<input />',  {
+			type: "checkbox",
+			change: function() {
+				$.post('/todo/shopping/remove/', {name:name});
+				entry.remove();
+			}
+		}).appendTo(entry);
+	}
+
+	$('#shopping_add_button').click(function() {
+		var name = $('#shopping_add_name').val();
+		if (!name) {
+			return;
+		}
+
+		$.post('/todo/shopping/add/', {name:name}, function() {
+			generateShoppingEntry(name);
+		});
+
+	});
+
+	var shopping_list_el = $('#shopping_list');
+	shopping_list.forEach(function(name) {
+		generateShoppingEntry(name);
+	});
+};
+
 App.Todo.init = function(data, user_names) {
 	var options = {
 		todoTask: "todo-task",
@@ -15,6 +50,8 @@ App.Todo.init = function(data, user_names) {
 		dataAttribute: "data",
 		deleteDiv: "delete-div"
 	};
+
+
 
 	var stati = {
 		"pending" : "#pending",

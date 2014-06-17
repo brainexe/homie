@@ -1,4 +1,22 @@
 
+#shopping_list {
+	width: 250px;
+	float: left;
+	margin: 0 5px;
+	background-color: #e3e3e3;
+	min-height: 500px;
+	border-radius: 10px;
+	padding-bottom: 15px;
+}
+.shopping-entry {
+	border-radius: 5px;
+	background-color: #fff;
+	width: 230px;
+	margin: 5px;
+	padding: 5px;
+	border: 1px darkgray solid;
+}
+
 .task-list{
 	width: 250px;
 	float: left;
@@ -18,7 +36,7 @@
 	height: 30px;
 }
 
-.todo-task{
+.todo-task {
 	border-radius: 5px;
 	background-color: #fff;
 	width: 230px;

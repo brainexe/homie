@@ -26,8 +26,16 @@
 	</div>
 
 	<div style="clear:both;"></div>
+
+	<div id="shopping_list">
+		<h3>Shopping List</h3>
+		<input type="text" placeholder="Item" id="shopping_add_name"/>
+		<input type="submit" value="Add" class="btn btn-primary" id="shopping_add_button"/>
+	</div>
+
 	<script src="{{ asset_url("todo.js") }}"></script>
 	<script type="text/javascript">
+		App.Todo.initShoppingList({{ shopping_list|json_encode()|raw }});
 		App.Todo.init({{ list|json_encode()|raw }}, {{ user_names|json_encode()|raw }});
 	</script>
 {% endblock %}

@@ -4,6 +4,7 @@ namespace Raspberry\TodoList\Controller;
 
 use Matze\Core\Authentication\DatabaseUserProvider;
 use Matze\Core\Controller\AbstractController;
+use Raspberry\TodoList\ShoppingList;
 use Raspberry\TodoList\TodoList;
 use Raspberry\TodoList\VO\TodoItemVO;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -23,13 +24,18 @@ class TodoListController extends AbstractController {
 	 * @var DatabaseUserProvider
 	 */
 	private $_database_user_provider;
+	/**
+	 * @var \Raspberry\TodoList\ShoppingList
+	 */
+	private $_shopping_list;
 
 	/**
-	 * @Inject({"@TodoList", "@DatabaseUserProvider"})
+	 * @Inject({"@TodoList", "@DatabaseUserProvider", "@ShoppingList"})
 	 */
-	public function __construct(TodoList $todo_list, DatabaseUserProvider $database_user_provider) {
+	public function __construct(TodoList $todo_list, DatabaseUserProvider $database_user_provider, ShoppingList $shopping_list) {
 		$this->_todo_list = $todo_list;
 		$this->_database_user_provider = $database_user_provider;
+		$this->_shopping_list = $shopping_list;
 	}
 
 	/**
@@ -40,6 +46,7 @@ class TodoListController extends AbstractController {
 	public function index(Request $request) {
 		return $this->renderToResponse('todo/index.html.twig', [
 			'list' => $this->_todo_list->getList(),
+			'shopping_list' => $this->_shopping_list->getShoppingListItems(),
 			'user_names' => array_flip($this->_database_user_provider->getAllUserNames())
 		]);
 	}
@@ -71,6 +78,32 @@ class TodoListController extends AbstractController {
 		$this->_todo_list->addItem($user, $item_vo);
 
 		return new JsonResponse($item_vo);
+	}
+
+	/**
+	 * @param Request $request
+	 * @Route("/todo/shopping/add/", name="todo.shopping.add")
+	 * @return JsonResponse
+	 */
+	public function addShoppingListItem(Request $request) {
+		$name = $request->request->get('name');
+
+		$this->_shopping_list->addShoppingListItem($name);
+
+		return new JsonResponse(true);
+	}
+
+	/**
+	 * @param Request $request
+	 * @Route("/todo/shopping/remove/", name="todo.shopping.remove")
+	 * @return JsonResponse
+	 */
+	public function removeShoppingListItem(Request $request) {
+		$name = $request->request->get('name');
+
+		$this->_shopping_list->removeShoppingListItem($name);
+
+		return new JsonResponse(true);
 	}
 
 	/**
