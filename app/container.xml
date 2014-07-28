@@ -5,7 +5,7 @@
 		<parameter key="application.name">raspberry</parameter>
 		<parameter key="application.registration_enabled">false</parameter>
 
-		<parameter key="raspberry_client.class"></parameter>
+		<parameter key="raspberry_client.class"/>
 
 		<parameter key="delete_sensor_values" type="collection">
 			<parameter type="collection">
@@ -62,16 +62,7 @@
 								</service>
 							</argument>
 						</call>
-						<call method="addDefinition">
-							<argument type="service">
-								<service class="Matze\Core\Assets\Rules\MergableFilesDefinition">
-									<argument>scrabble.js</argument>
-									<argument type="collection">
-										<argument>scrabble\/.*</argument>
-									</argument>
-								</service>
-							</argument>
-						</call>
+
 						<call method="addDefinition">
 							<argument type="service">
 								<service class="Matze\Core\Assets\Rules\MergableFilesDefinition">

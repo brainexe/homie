@@ -22,7 +22,8 @@
 	],
 
 	"require": {
-		"matze/core": "dev-master"
+		"matze/core": "dev-master",
+		"matze/trigger": "dev-master"
 	},
 
 	"require-dev": {
