@@ -55,6 +55,7 @@
 								<service class="Matze\Core\Assets\Rules\MergableFilesDefinition">
 									<argument>todo.js</argument>
 									<argument type="collection">
+										<argument>js\/jquery-ui-1.10.4.custom.min.js</argument>
 										<argument>todo\/jquery-ui-1.10.4.custom.min.js</argument>
 										<argument>todo\/jquery-ui-timepicker-addon.js</argument>
 										<argument>todo\/.*</argument>
@@ -62,16 +63,14 @@
 								</service>
 							</argument>
 						</call>
-
 						<call method="addDefinition">
 							<argument type="service">
 								<service class="Matze\Core\Assets\Rules\MergableFilesDefinition">
 									<argument>common.js</argument>
 									<argument type="collection">
 										<argument>js\/jquery-2.1.0.min.js</argument>
-										<argument>js\/jquery-ui-1.10.4.custom.min.js</argument>
-										<argument>js\/jquery.ui.touch-punch.minjs</argument>
-										<argument>js\/sockjs-0.3.min</argument>
+										<argument>js\/jquery.ui.touch-punch.min.js</argument>
+										<argument>js\/sockjs-0.3.min.js</argument>
 										<argument>js\/eventemitter2.js</argument>
 										<argument>js\/moment.min.js</argument>
 										<argument>js\/createjs.min.js</argument>
@@ -98,7 +97,6 @@
 								</service>
 							</argument>
 						</call>
-
 						<call method="setFallback">
 							<argument>common.css</argument>
 						</call>
