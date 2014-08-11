@@ -71,6 +71,7 @@
 										<argument>js\/jquery-2.1.0.min.js</argument>
 										<argument>js\/jquery.ui.touch-punch.min.js</argument>
 										<argument>js\/sockjs-0.3.min.js</argument>
+										<argument>js\/angular.min.js</argument>
 										<argument>js\/eventemitter2.js</argument>
 										<argument>js\/moment.min.js</argument>
 										<argument>js\/createjs.min.js</argument>

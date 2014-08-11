@@ -3,38 +3,28 @@ App.Todo = {};
 App.Todo.user_names = {};
 
 App.Todo.initShoppingList = function(shopping_list) {
-	function generateShoppingEntry(name) {
-		var entry = $("<div />", {
-			"class" : "shopping_entry",
-			"data-name" : name
-		}).appendTo(shopping_list_el);
-		entry.text(name);
+	angular.module('raspberry', [])
+		.controller('TodoController', ['$scope', function($scope) {
+			$scope.todos =
+				shopping_list.map(function(text) {
+					return {text:text, done:false};
+				});
 
-		$('<input />',  {
-			type: "checkbox",
-			change: function() {
-				$.post('/todo/shopping/remove/', {name:name});
-				entry.remove();
-			}
-		}).appendTo(entry);
-	}
+			$scope.addTodo = function(text) {
+				$.post('/todo/shopping/add/', {name: $scope.todoText});
 
-	$('#shopping_add_button').click(function() {
-		var name = $('#shopping_add_name').val();
-		if (!name) {
-			return;
-		}
+				$scope.todos.push({text:$scope.todoText, done:false});
+				$scope.todoText = '';
+			};
 
-		$.post('/todo/shopping/add/', {name:name}, function() {
-			generateShoppingEntry(name);
-		});
-
-	});
-
-	var shopping_list_el = $('#shopping_list');
-	shopping_list.forEach(function(name) {
-		generateShoppingEntry(name);
-	});
+			$scope.change = function(name, done) {
+				if (done) {
+					$.post('/todo/shopping/remove/', {name:name});
+				}else {
+					$.post('/todo/shopping/add/', {name: name});
+				}
+			};
+		}]);
 };
 
 App.Todo.init = function(data, user_names) {
@@ -50,8 +40,6 @@ App.Todo.init = function(data, user_names) {
 		dataAttribute: "data",
 		deleteDiv: "delete-div"
 	};
-
-
 
 	var stati = {
 		"pending" : "#pending",
@@ -89,7 +77,7 @@ App.Todo.init = function(data, user_names) {
 			"text": params.name
 		}).appendTo(wrapper);
 
-		var task_user_switcher = user_switcher.clone()
+		var task_user_switcher = user_switcher.clone();
 		task_user_switcher.val(params.user_id);
 		task_user_switcher.change(function() {
 			var user_id = this.value;
@@ -151,6 +139,10 @@ App.Todo.init = function(data, user_names) {
 
 				// Removing old element
 				removeElement(object);
+
+				if (object.status == index) {
+					return;
+				}
 
 				// Changing object code
 				object.status = index;
