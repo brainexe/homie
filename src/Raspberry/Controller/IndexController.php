@@ -3,8 +3,7 @@
 namespace Raspberry\Controller;
 
 use Matze\Core\Controller\AbstractController;
-use Raspberry\Dashboard\Dashboard;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Matze\Core\Traits\TwigTrait;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -12,48 +11,16 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class IndexController extends AbstractController {
 
-	/**
-	 * @var Dashboard
-	 */
-	private $_dashboard;
-
-	/**
-	 * @Inject("@Dashboard")
-	 */
-	public function __construct(Dashboard $dashboard) {
-		$this->_dashboard = $dashboard;
-	}
-
-	/**
-	 * @return string
-	 * @Route("/", name="index")
-	 */
-	public function index() {
-//		$user = $request->getSession()->get('user');
-		$user_id = 0; //TODO
-
-		$dashboard = $this->_dashboard->getDashboard($user_id);
-		$widgets = $this->_dashboard->getAvailableWidgets();
-
-		return $this->renderToResponse('index.html.twig', [
-			'dashboard' => $dashboard,
-			'widgets' => $widgets
-		]);
-	}
+	use TwigTrait;
 
 	/**
 	 * @param Request $request
-	 * @return RedirectResponse
-	 * @Route("/dashboard/add/", methods="POST")
+	 * @return Response
+	 * @Route("/", name="index")
 	 */
-	public function addWidget(Request $request) {
-		$type = $request->request->get('type');
-		$payload = (array)json_decode($request->request->get('payload'), true);
-		$user_id = 0;
-
-		$this->_dashboard->addWidget($user_id, $type, $payload);
-
-		return new RedirectResponse('/');
+	public function index(Request $request) {
+		return $this->renderToResponse('layout.html.twig', [
+			'current_user' => $request->attributes->get('user')
+		]);
 	}
-
 }

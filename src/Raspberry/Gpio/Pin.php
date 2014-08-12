@@ -2,7 +2,9 @@
 
 namespace Raspberry\Gpio;
 
-class Pin {
+use JsonSerializable;
+
+class Pin implements JsonSerializable {
 
 	/**
 	 * @var string
@@ -20,22 +22,22 @@ class Pin {
 	 *
 	 * @var integer
 	 */
-	private $id;
+	private $_id;
 
 	/**
 	 * @var string
 	 */
-	private $name;
+	private $_name;
 
 	/**
 	 * @var string
 	 */
-	private $direction;
+	private $_direction;
 
 	/**
 	 * @var boolean
 	 */
-	private $value;
+	protected $_value;
 
 	/**
 	 * @return Pin
@@ -50,7 +52,7 @@ class Pin {
 	 * @return integer
 	 */
 	public function getID() {
-		return $this->id;
+		return $this->_id;
 	}
 
 	/**
@@ -61,7 +63,7 @@ class Pin {
 	 * @return Pin
 	 */
 	public function setID($id) {
-		$this->id = $id;
+		$this->_id = $id;
 
 		return $this;
 	}
@@ -72,7 +74,7 @@ class Pin {
 	 * @return string
 	 */
 	public function getName() {
-		return $this->name;
+		return $this->_name;
 	}
 
 	/**
@@ -83,7 +85,7 @@ class Pin {
 	 * @return Pin
 	 */
 	public function setName($name) {
-		$this->name = $name;
+		$this->_name = $name;
 
 		return $this;
 	}
@@ -94,7 +96,7 @@ class Pin {
 	 * @return string
 	 */
 	public function getDirection() {
-		return $this->direction;
+		return $this->_direction;
 	}
 
 	/**
@@ -105,7 +107,7 @@ class Pin {
 	 * @return Pin
 	 */
 	public function setDirection($direction) {
-		$this->direction = $direction;
+		$this->_direction = $direction;
 
 		return $this;
 	}
@@ -116,7 +118,7 @@ class Pin {
 	 * @return boolean
 	 */
 	public function getValue() {
-		return $this->value;
+		return $this->_value;
 	}
 
 	/**
@@ -127,7 +129,7 @@ class Pin {
 	 * @return Pin
 	 */
 	public function setValue($value) {
-		$this->value = $value;
+		$this->_value = $value;
 
 		return $this;
 	}
@@ -144,5 +146,18 @@ class Pin {
 	 */
 	public function setDescription($description) {
 		$this->_description = $description;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function jsonSerialize() {
+		return [
+			'id' => $this->_id,
+			'value' => $this->_value,
+			'name' => $this->_name,
+			'description' => $this->_description,
+			'direction' => $this->_direction == 'OUT' ? 1 : 0,
+		];
 	}
 } 

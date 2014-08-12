@@ -3,6 +3,7 @@
 namespace Raspberry\Gpio;
 
 use Raspberry\Client\ClientInterface;
+use RuntimeException;
 
 /**
  * @Service(public=false)
@@ -42,8 +43,9 @@ class GpioManager {
 	public function getPins() {
 		$descriptions = $this->_pin_gateway->getPinDescriptions();
 		try {
+			throw new RuntimeException;
 			$this->_loadPins();
-		} catch (\RuntimeException $e) {
+		} catch (RuntimeException $e) {
 			$this->_pins = new PinsCollection();
 
 			$pin = new Pin();
@@ -75,6 +77,7 @@ class GpioManager {
 	 * @param integer $id
 	 * @param string $status
 	 * @param boolean $value
+	 * @return Pin
 	 */
 	public function setPin($id, $status, $value) {
 		$this->_loadPins();
@@ -85,6 +88,8 @@ class GpioManager {
 		$pin->setValue($value ? Pin::VALUE_HIGH : Pin::VALUE_LOW);
 
 		$this->_updatePin($pin);
+
+		return $pin;
 	}
 
 	/**

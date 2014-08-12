@@ -76,6 +76,8 @@ class SensorGateway {
 
 		$redis->exec();
 
+		$sensor_vo->id = $new_sensor_id;
+
 		return $new_sensor_id;
 	}
 

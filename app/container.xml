@@ -30,10 +30,22 @@
 						<call method="addDefinition">
 							<argument type="service">
 								<service class="Matze\Core\Assets\Rules\MergableFilesDefinition">
+									<argument>sensor.js</argument>
+									<argument type="collection">
+										<argument>js\/vendor\/d3.min.js</argument>
+										<argument>js\/vendor\/d3.layout.min.js</argument>
+										<argument>js\/vendor\/rickshaw.min.js</argument>
+									</argument>
+								</service>
+							</argument>
+						</call>
+						<call method="addDefinition">
+							<argument type="service">
+								<service class="Matze\Core\Assets\Rules\MergableFilesDefinition">
 									<argument>mood.js</argument>
 									<argument type="collection">
-										<argument>mood\/createjs.min.js</argument>
-										<argument>mood\/.*</argument>
+										<argument>js\/vendor\/createjs.min.js</argument>
+										<argument>js\/controllers\/mood\/.*</argument>
 									</argument>
 								</service>
 							</argument>
@@ -41,24 +53,18 @@
 						<call method="addDefinition">
 							<argument type="service">
 								<service class="Matze\Core\Assets\Rules\MergableFilesDefinition">
-									<argument>sensors.js</argument>
+									<argument>vendor.js</argument>
 									<argument type="collection">
-										<argument>sensor\/d3.min.js</argument>
-										<argument>sensor\/d3.layout.min.js</argument>
-										<argument>sensor\/.*</argument>
-									</argument>
-								</service>
-							</argument>
-						</call>
-						<call method="addDefinition">
-							<argument type="service">
-								<service class="Matze\Core\Assets\Rules\MergableFilesDefinition">
-									<argument>todo.js</argument>
-									<argument type="collection">
-										<argument>js\/jquery-ui-1.10.4.custom.min.js</argument>
-										<argument>todo\/jquery-ui-1.10.4.custom.min.js</argument>
-										<argument>todo\/jquery-ui-timepicker-addon.js</argument>
-										<argument>todo\/.*</argument>
+										<argument>js\/vendor\/jquery-2.1.0.min.js</argument>
+										<argument>js\/vendor\/sockjs-0.3.min.js</argument>
+										<argument>js\/vendor\/createjs.min.js</argument>
+										<argument>js\/vendor\/angular.min.js</argument>
+										<argument>js\/vendor\/angular-route.min.js</argument>
+										<argument>js\/vendor\/draganddrop.js</argument>
+										<argument>js\/vendor\/require.min.js</argument>
+										<argument>js\/vendor\/ui-bootstrap-custom-0.10.0.min.js</argument>
+										<argument>js\/vendor\/timeAgo.js</argument>
+										<argument>js\/vendor\/jquery.ui.touch-punch.min.js</argument>
 									</argument>
 								</service>
 							</argument>
@@ -68,14 +74,9 @@
 								<service class="Matze\Core\Assets\Rules\MergableFilesDefinition">
 									<argument>common.js</argument>
 									<argument type="collection">
-										<argument>js\/jquery-2.1.0.min.js</argument>
-										<argument>js\/jquery.ui.touch-punch.min.js</argument>
-										<argument>js\/sockjs-0.3.min.js</argument>
-										<argument>js\/angular.min.js</argument>
-										<argument>js\/eventemitter2.js</argument>
-										<argument>js\/moment.min.js</argument>
-										<argument>js\/createjs.min.js</argument>
-										<argument>js\/script.js</argument>
+										<argument>js\/app.js</argument>
+										<argument>js\/util\/.*</argument>
+										<argument>js\/controllers\/.*</argument>
 									</argument>
 								</service>
 							</argument>
@@ -106,6 +107,9 @@
 			</call>
 			<call method="addProcessor">
 				<argument type="service" id="Assets.ImageProcessor"/>
+			</call>
+			<call method="addProcessor">
+				<argument type="service" id="Assets.TemplateProcessor"/>
 			</call>
 		</service>
 	</services>

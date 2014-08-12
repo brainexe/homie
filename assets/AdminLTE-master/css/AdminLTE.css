@@ -111,7 +111,7 @@ body.fixed .wrapper {
 }
 /* Content */
 .content {
-  padding: 20px 15px;
+  padding: 15px 15px;
   background: #f9f9f9;
 }
 /* Utility */
@@ -411,7 +411,7 @@ body > .header .logo .icon {
 }
 .right-side > .content-header {
   position: relative;
-  padding: 15px 15px 10px 20px;
+  padding: 10px 10px 10px 10px;
 }
 .right-side > .content-header > h1 {
   margin: 0;

@@ -7,7 +7,6 @@ use Matze\Core\Controller\AbstractController;
 use Matze\Core\MessageQueue\MessageQueueGateway;
 use Matze\Core\Traits\EventDispatcherTrait;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -24,6 +23,7 @@ class StatusController extends AbstractController {
 
 	/**
 	 * @Inject("@MessageQueueGateway")
+	 * @param MessageQueueGateway $message_queue_gateway
 	 */
 	public function __construct(MessageQueueGateway $message_queue_gateway) {
 		$this->_message_queue_gateway = $message_queue_gateway;
@@ -33,7 +33,7 @@ class StatusController extends AbstractController {
 	 * @Route("/status/", name="status.index")
 	 */
 	public function index() {
-		return $this->renderToResponse('status.html.twig', [
+		return new JsonResponse([
 			'jobs' => $this->_message_queue_gateway->getEventsByType(),
 			'stats' => [
 				'Queue Len' => $this->_message_queue_gateway->countJobs()
@@ -42,19 +42,19 @@ class StatusController extends AbstractController {
 	}
 
 	/**
-	 * @Route("/status/event/delete/{job_id}/", csrf=true)
+	 * @Route("/status/event/delete/", methods="POST")
 	 * @param Request $request
-	 * @param string $job_id
-	 * @return RedirectResponse
+	 * @return JsonResponse
 	 */
-	public function deleteJob(Request $request, $job_id) {
+	public function deleteJob(Request $request) {
+		$job_id = $request->request->get('job_id');
 		$this->_message_queue_gateway->deleteEvent($job_id);
 
-		return new RedirectResponse('/status/');
+		return new JsonResponse(true);
 	}
 
 	/**
-	 * @Route("/status/self_update/", name="status.self_update", csrf=true)
+	 * @Route("/status/self_update/", name="status.self_update", methods="POST")
 	 */
 	public function startSelfUpdate() {
 		$event = new SelfUpdateEvent(SelfUpdateEvent::TRIGGER);

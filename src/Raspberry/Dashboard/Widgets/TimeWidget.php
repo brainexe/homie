@@ -14,16 +14,6 @@ class TimeWidget extends AbstractWidget {
 	/**
 	 * @return string
 	 */
-	public function renderWidget() {
-		return $this->renderToResponse('widgets/widget.html.twig', [
-			'title' => 'Time',
-			'content' => date('c')
-		])->getContent();
-	}
-
-	/**
-	 * @return string
-	 */
 	public function getId() {
 		return self::TYPE;
 	}

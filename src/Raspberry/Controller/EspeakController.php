@@ -8,6 +8,7 @@ use Matze\Core\Util\TimeParser;
 use Raspberry\Espeak\Espeak;
 use Raspberry\Espeak\EspeakEvent;
 use Raspberry\Espeak\EspeakVO;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -30,6 +31,8 @@ class EspeakController extends AbstractController {
 
 	/**
 	 * @Inject({"@Espeak", "@TimeParser"})
+	 * @param Espeak $espeak
+	 * @param TimeParser $time_parser
 	 */
 	public function __construct(Espeak $espeak, TimeParser $time_parser) {
 		$this->_espeak = $espeak;
@@ -37,13 +40,13 @@ class EspeakController extends AbstractController {
 	}
 
 	/**
-	 * @return string
+	 * @return JsonResponse
 	 * @Route("/espeak/", name="espeak.index")
 	 */
 	public function index() {
 		$speakers = $this->_espeak->getSpeakers();
 
-		return $this->renderToResponse('espeak.html.twig', [
+		return new JsonResponse([
 			'speakers' => $speakers,
 			'jobs' => $this->_espeak->getPendingJobs()
 		]);
@@ -51,7 +54,7 @@ class EspeakController extends AbstractController {
 
 	/**
 	 * @param Request $request
-	 * @return RedirectResponse
+	 * @return JsonResponse
 	 * @Route("/espeak/speak/", methods="POST")
 	 */
 	public function speak(Request $request) {
@@ -68,17 +71,19 @@ class EspeakController extends AbstractController {
 
 		$this->dispatchInBackground($event, $timestamp);
 
-		return new RedirectResponse('/espeak/');
+		return new JsonResponse($this->_espeak->getPendingJobs());
 	}
 
 	/**
-	 * @param string $job_id
-	 * @return RedirectResponse
-	 * @Route("/espeak/job/delete/{job_id}/", name="espeak.delete", csrf=true)
+	 * @param Request $request
+	 * @return JsonResponse
+	 * @Route("/espeak/job/delete/", name="espeak.delete", methods="POST")
 	 */
-	public function deleteJobJob($job_id) {
+	public function deleteJobJob(Request $request) {
+		$job_id = $request->request->get('job_id');
+
 		$this->_espeak->deleteJob($job_id);
 
-		return new RedirectResponse('/espeak/');
+		return new JsonResponse(true);
 	}
 }

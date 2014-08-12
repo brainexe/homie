@@ -11,6 +11,7 @@ use Raspberry\Sensors\SensorBuilder;
 use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorValuesGateway;
 use Raspberry\Sensors\SensorVO;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -46,6 +47,10 @@ class SensorsController extends AbstractController {
 
 	/**
 	 * @Inject({"@SensorGateway", "@SensorValuesGateway", "@Chart", "@SensorBuilder"})
+	 * @param SensorGateway $sensor_gateway
+	 * @param SensorValuesGateway $sensor_values_gateway
+	 * @param Chart $chart
+	 * @param SensorBuilder $sensor_builder
 	 */
 	public function __construct(SensorGateway $sensor_gateway, SensorValuesGateway $sensor_values_gateway, Chart $chart, SensorBuilder $sensor_builder) {
 		$this->_sensor_gateway = $sensor_gateway;
@@ -76,17 +81,25 @@ class SensorsController extends AbstractController {
 	 * @param Request $request
 	 * @param string $active_sensor_ids
 	 * @return string
-	 * @Route("/sensors/{active_sensor_ids}")
+	 * @Route("/sensors/load/{active_sensor_ids}")
 	 */
 	public function indexSensor(Request $request, $active_sensor_ids) {
+		$session = $request->getSession();
+
+		if (empty($active_sensor_ids)) {
+			$active_sensor_ids = $session->get(self::SESSION_LAST_VIEW) ?: '0';
+		}
+
+		if (empty($active_sensor_ids)) {
+			$active_sensor_ids = $this->_sensor_gateway->getSensors();
+		}
+
 		$from = $request->query->get('from');
 		if ($from === null) {
 			$from = Chart::DEFAULT_TIME;
 		} else {
 			$from = (int)$from;
 		}
-
-		$session = $request->getSession();
 
 		$session->set(self::SESSION_LAST_VIEW, $active_sensor_ids);
 		$session->set(self::SESSION_LAST_TIMESPAN, $from);
@@ -116,8 +129,7 @@ class SensorsController extends AbstractController {
 		}
 
 		$json = $this->_chart->formatJsonData($sensors, $sensor_values);
-
-		return $this->renderToResponse('sensors.html.twig', [
+		return new JsonResponse([
 			'sensors' => $sensors,
 			'active_sensor_ids' => $active_sensor_ids ? : $available_sensor_ids,
 			'json' => $json,
@@ -135,7 +147,7 @@ class SensorsController extends AbstractController {
 
 	/**
 	 * @param Request $request
-	 * @return RedirectResponse
+	 * @return JsonResponse
 	 * @Route("/sensors/add/", name="sensors.add", methods="POST", csrf=true)
 	 */
 	public function addSensor(Request $request) {
@@ -156,15 +168,15 @@ class SensorsController extends AbstractController {
 		$sensor_vo->interval = $interval;
 		$sensor_vo->node = $node;
 
-		$sensor_id = $this->_sensor_gateway->addSensor($sensor_vo);
+		$this->_sensor_gateway->addSensor($sensor_vo);
 
-		return new RedirectResponse(sprintf('/sensors/%d', $sensor_id));
+		return new JsonResponse($sensor_vo);
 	}
 
 	/**
 	 * @param Request $request
 	 * @param integer $sensor_id
-	 * @return RedirectResponse
+	 * @return JsonResponse
 	 * @Route("/sensors/espeak/{sensor_id}/", name="sensor.espeak", csrf=true)
 	 */
 	public function espeak(Request $request, $sensor_id) {
@@ -177,20 +189,38 @@ class SensorsController extends AbstractController {
 		$event = new EspeakEvent($espeak_vo);
 		$this->dispatchInBackground($event);
 
-		return new RedirectResponse(sprintf('/sensors/%s', $sensor_id));
+		return new JsonResponse(true);
 	}
 
 	/**
 	 * @Route("/sensors/slim/{sensor_id}/", name="sensor.slim")
 	 * @param Request $request
 	 * @param integer $sensor_id
-	 * @return string
+	 * @return JsonResponse
 	 */
 	public function slim(Request $request, $sensor_id) {
 		$sensor = $this->_sensor_gateway->getSensor($sensor_id);
 		$sensor_obj = $this->_sensor_builder->build($sensor['type']);
 
-		return $this->renderToResponse('sensor_slim.html.twig', [
+		return new JsonResponse([
+			'sensor' => $sensor,
+			'sensor_value_formatted' => $sensor_obj->getEspeakText($sensor['last_value']),
+			'sensor_obj' => $sensor_obj,
+			'refresh_interval' => 60
+		]);
+	}
+
+	/**
+	 * @Route("/sensors/value/", name="sensor.value")
+	 * @param Request $request
+	 * @return JsonResponse
+	 */
+	public function getValue(Request $request) {
+		$sensor_id = $request->query->getInt('sensor_id');
+		$sensor = $this->_sensor_gateway->getSensor($sensor_id);
+		$sensor_obj = $this->_sensor_builder->build($sensor['type']);
+
+		return new JsonResponse([
 			'sensor' => $sensor,
 			'sensor_value_formatted' => $sensor_obj->getEspeakText($sensor['last_value']),
 			'sensor_obj' => $sensor_obj,

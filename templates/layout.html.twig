@@ -1,6 +1,7 @@
 {% extends "layout_simple.html.twig" %}
 
 {% block full_content %}
+	{% verbatim %}
 	<header class="header">
 		<a href="/" class="logo">
 			Raspberry
@@ -13,195 +14,145 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</a>
+
 			<div class="navbar-right">
-				{% if isLoggedIn() %}
-					<ul class="nav navbar-nav">
+				<ul ng-if="isLoggedIn()" class="nav navbar-nav">
+					<!-- Notifications: style can be found in dropdown.less -->
+					<li class="dropdown notifications-menu">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<i class="fa fa-warning"></i>
+							<span class="label label-warning">10</span>
+						</a>
+						<ul class="dropdown-menu">
+							<li class="header">You have 10 notifications</li>
+							<li>
+								<!-- inner menu: contains the actual data -->
+								<ul class="menu">
+									<li>
+										<a href="#">
+											<i class="ion ion-ios7-people info"></i> 5 new members joined today
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li class="footer"><a href="#">View all</a></li>
+						</ul>
+					</li>
 
-						<!-- Notifications: style can be found in dropdown.less -->
-						<li class="dropdown notifications-menu">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<i class="fa fa-warning"></i>
-								<span class="label label-warning">10</span>
-							</a>
-							<ul class="dropdown-menu">
-								<li class="header">You have 10 notifications</li>
-								<li>
-									<!-- inner menu: contains the actual data -->
-									<ul class="menu">
-										<li>
-											<a href="#">
-												<i class="ion ion-ios7-people info"></i> 5 new members joined today
-											</a>
-										</li>
-										<li>
-											<a href="#">
-												<i class="ion ion-ios7-person danger"></i> You changed your username
-											</a>
-										</li>
-									</ul>
-								</li>
-								<li class="footer"><a href="#">View all</a></li>
-							</ul>
-						</li>
+					<!-- User Account: style can be found in dropdown.less -->
+					<li class="dropdown user user-menu">
+						<a href="#/user/"  class="dropdown-toggle" data-toggle="dropdown">
+							<i class="glyphicon glyphicon-user"></i>
+							<span>{{ current_user.username }} <i class="caret"></i></span>
+						</a>
+						<ul class="dropdown-menu">
+							<!-- User image -->
+							<li class="user-header bg-light-blue">
+								<img src="/AdminLTE-master/img/avatar5.png" class="img-circle" alt="User Image"/>
 
-						<!-- User Account: style can be found in dropdown.less -->
-						<li class="dropdown user user-menu">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<i class="glyphicon glyphicon-user"></i>
-								<span>{{ getCurrentUser().username }} <i class="caret"></i></span>
-							</a>
-							<ul class="dropdown-menu">
-								<!-- User image -->
-								<li class="user-header bg-light-blue">
-									<img src="/AdminLTE-master/img/avatar5.png" class="img-circle" alt="User Image"/>
-
-									<p>
-										{{ getCurrentUser().username }}
-									</p>
-								</li>
-								<!-- Menu Footer-->
-								<li class="user-footer">
-									<div class="pull-left">
-										<a href="#" class="btn btn-default btn-flat">Profile</a>
-									</div>
-									<div class="pull-right">
-										<a href="/logout/" class="btn btn-default btn-flat">Sign out</a>
-									</div>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				{% endif %}
+								<p>
+									{{ current_user.username }}
+								</p>
+							</li>
+							<!-- Menu Footer-->
+							<li class="user-footer">
+								<div class="pull-left">
+									<a href="#" class="btn btn-default btn-flat">Profile</a>
+								</div>
+								<div class="pull-right">
+									<a href="#/logout" class="btn btn-default btn-flat">Sign out</a>
+								</div>
+							</li>
+						</ul>
+					</li>
+				</ul>
 			</div>
 		</nav>
 	</header>
+
 	<div id="wrapper" class="row-offcanvas row-offcanvas-left">
-		<!-- Left side column. contains the logo and sidebar -->
 		<aside class="left-side sidebar-offcanvas">
-			<!-- sidebar: style can be found in sidebar.less -->
 			<section class="sidebar">
-				<!-- Sidebar user panel -->
-				{% if isLoggedIn() %}
-					<div class="user-panel">
-						<div class="pull-left image">
-							<img src="/AdminLTE-master/img/avatar5.png" class="img-circle" alt="User Image"/>
-						</div>
-						<div class="pull-left info">
-							<p>Hello, {{ getCurrentUser().username }}</p>
-						</div>
+				<div class="user-panel">
+					<div ng-if="isLoggedIn()" class="pull-left image">
+						<img src="/AdminLTE-master/img/avatar5.png" class="img-circle" alt="User Image"/>
 					</div>
-				{% endif %}
-				<!-- search form -->
-				<form action="#" method="get" class="sidebar-form">
-					<div class="input-group">
-						<input type="text" name="q" class="form-control" placeholder="Search..."/>
-								<span class="input-group-btn">
-									<button type='submit' name='seach' id='search-btn' class="btn btn-flat">
-										<i class="fa fa-search"></i></button>
-								</span>
+					<div ng-if="isLoggedIn()" class="pull-left info">
+						<p>Hello, {{ current_user.username }}</p>
 					</div>
-				</form>
-				<!-- /.search form -->
-				<!-- sidebar menu: : style can be found in sidebar.less -->
-				<ul class="sidebar-menu">
-					{% if isLoggedIn() %}
+					<form action="#" method="get" class="sidebar-form">
+						<div class="input-group">
+							<input type="text" name="q" class="form-control" placeholder="Search..."/>
+							<span class="input-group-btn">
+								<button type="submit" name="seach" id="search-btn" class="btn btn-flat">
+									<i class="fa fa-search"></i>
+								</button>
+							</span>
+						</div>
+					</form>
+					<ul ng-if="isLoggedIn()" class="sidebar-menu">
 						<li>
-							<a href="{% url "index" %}">
-								<i class="fa fa-th"></i>
-								{% trans "Dashboard" %}</a>
+							<a href="/#dashboard">
+								<i class="fa fa-th"></i>Dashboard
+							</a>
 						</li>
 						<li>
-							<a href="{% url "sensor.index" %}">
+							<a href="#/sensor">
 								<i class="fa fa-dashboard"></i>
-								{% trans "Sensors" %}
+								Sensors
 							</a>
 						</li>
-						<li><a href="{% url "gpio.index" %}">GPIO</a></li>
-						<li><a href="{% url "radio.index" %}">{% trans "Radios" %}</a></li>
+						<li><a href="#/gpio">GPIO</a></li>
+						<li><a href="#/radio">Radios</a></li>
 						<li>
-							<a href="{% url "espeak.index" %}">
-								<i class="fa fa-bullhorn"></i>
-								{% trans "Speak" %}
+							<a href="#/espeak">
+								<i class="fa fa-bullhorn"></i>Speak
 							</a>
 						</li>
 						<li>
-							<a href="{% url "webcam.index" %}">
+							<a href="#/webcam">
 								<i class="fa fa-camera"></i>
 								Webcam
 							</a>
 						</li>
 						<li>
-							<a href="{% url "status.index" %}">
-								<i class="fa fa-bullhorn"></i>
-								Status
+							<a href="#/status">
+								<i class="fa fa-bullhorn"></i>Status
 							</a>
 						</li>
 						<li>
-							<a href="{% url "blog.index" %}">
-								Blog
-							</a>
+							<a href="#/blog">Blog</a>
 						</li>
 						<li>
-							<a href="{% url "egg_timer.index" %}">
-								Egg Timer
-							</a>
+							<a href="#/egg_timer">Egg Timer</a>
 						</li>
 						<li>
-							<a href="{% url "todo.index" %}">
-								Todo List
-							</a>
+							<a href="#/todo">Todo List</a>
 						</li>
-						{#<li>#}
-							{#<a href="{% url "scrabble.index" %}">#}
-								{#Scrabble#}
-							{#</a>#}
-						{#</li>#}
-						<li><a href="/logout/">Logout</a></li>
-
-						<li class="treeview">
-							<a href="#">
-								<i class="fa fa-flag"></i> <span>Lang</span>
-								<i class="fa fa-angle-left pull-right"></i>
-							</a>
-							<ul class="treeview-menu">
-								<li><a href="?locale=en_EN">EN</a></li>
-								<li><a href="?locale=de_DE">DE</a></li>
-							</ul>
-						</li>
-
-					{% else %}
+						<li><a href="#/user">User Settings</a></li>
+					</ul>
+					<ul ng-if="!isLoggedIn()" class="sidebar-menu">
 						<li class="active">
-							<a href="/login/">Login</a>
-							<a href="/register/">Register</a>
+							<a href="#/login">Login</a>
+							<a href="#/register">Register</a>
 						</li>
-					{% endif %}
-				</ul>
+					</ul>
+				</div>
 			</section>
-			<!-- /.sidebar -->
 		</aside>
 
-		<!-- Right side column. Contains the navbar and content of the page -->
 		<aside class="right-side">
-			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				{% for type, flashs in getFlashBag() %}
-					{% for flash in flashs %}
-						<div class="alert alert-{{ type }} alert-dismissable" data-dismiss="alert">
-							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-							{{ flash }}
-						</div>
-					{% endfor %}
-				{% endfor %}
+				<div ng-repeat="flash in flash_bag" class="alert alert-{{ flash.type }} alert-dismissable" data-dismiss="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					{{ flash.message }}
+				</div>
 			</section>
-
-			<!-- Main content -->
 			<section class="content">
-				{% block content %}{% endblock %}
+				<ng-view></ng-view>
 			</section>
-			<!-- /.content -->
 		</aside>
-		<!-- /.right-side -->
 	</div>
-	<!-- ./wrapper -->
+	{% endverbatim %}
 
 {% endblock %}

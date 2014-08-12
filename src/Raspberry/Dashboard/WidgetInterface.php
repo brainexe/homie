@@ -10,11 +10,14 @@ interface WidgetInterface {
 	public function getId();
 
 	/**
-	 * @return string
+	 * @param array $payload
+	 * @return mixed
 	 */
-	public function renderWidget();
-
 	public function create(array $payload);
 
+	/**
+	 * @param array $payload
+	 * @return mixed
+	 */
 	public function validate(array $payload);
 }

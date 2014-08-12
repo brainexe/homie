@@ -2,11 +2,7 @@
 
 namespace Raspberry\Dashboard;
 
-use Matze\Core\Traits\TwigTrait;
-
 abstract class AbstractWidget implements WidgetInterface {
-
-	use TwigTrait;
 
 	/**
 	 * {@inheritdoc}

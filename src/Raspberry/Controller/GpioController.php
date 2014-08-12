@@ -4,6 +4,7 @@ namespace Raspberry\Controller;
 
 use Matze\Core\Controller\AbstractController;
 use Raspberry\Gpio\GpioManager;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -19,6 +20,7 @@ class GpioController extends AbstractController {
 
 	/**
 	 * @Inject("@GpioManager")
+	 * @param GpioManager $service_gpio_manager
 	 */
 	public function __construct(GpioManager $service_gpio_manager) {
 		$this->_service_gpio_manager = $service_gpio_manager;
@@ -26,12 +28,12 @@ class GpioController extends AbstractController {
 
 	/**
 	 * @Route("/gpio/", name="gpio.index");
-	 * @return string
+	 * @return JsonResponse
 	 */
 	public function index() {
 		$pins = $this->_service_gpio_manager->getPins();
 
-		return $this->renderToResponse('gpio.html.twig', [
+		return new JsonResponse([
 			'pins' => $pins->getAll()
 		]);
 	}
@@ -42,12 +44,12 @@ class GpioController extends AbstractController {
 	 * @param string $status
 	 * @param integer $value
 	 * @return RedirectResponse
-	 * @Route("/gpio/set/{id}/{status}/{value}/", name="gpio.set", csrf=true)
+	 * @Route("/gpio/set/{id}/{status}/{value}/", name="gpio.set", methods="POST")
 	 */
 	public function setStatus(Request $request, $id, $status, $value) {
-		$this->_service_gpio_manager->setPin($id, $status, $value);
+		$pin = $this->_service_gpio_manager->setPin($id, $status, $value);
 
-		return new RedirectResponse('/gpio/');
+		return new JsonResponse($pin);
 	}
 
 }

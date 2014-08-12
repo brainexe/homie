@@ -4,6 +4,7 @@ namespace Raspberry\Controller;
 
 use Matze\Core\Controller\AbstractController;
 use Raspberry\EggTimer\EggTimer;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -19,26 +20,27 @@ class EggTimerController extends AbstractController {
 
 	/**
 	 * @Inject({"@EggTimer"})
+	 * @param EggTimer $egg_timer
 	 */
 	public function __construct(EggTimer $egg_timer) {
 		$this->_egg_timer = $egg_timer;
 	}
 
 	/**
-	 * @return string
+	 * @return JsonResponse
 	 * @Route("/egg_timer/", name="egg_timer.index")
 	 */
 	public function index() {
 		$current_jobs = $this->_egg_timer->getJobs();
 
-		return $this->renderToResponse('egg_timer.html.twig', [
+		return new JsonResponse([
 			'jobs' => $current_jobs
 		]);
 	}
 
 	/**
 	 * @param Request $request
-	 * @return RedirectResponse
+	 * @return JsonResponse
 	 * @Route("/egg_timer/add/", name="egg_timer.add", methods="POST")
 	 */
 	public function add(Request $request) {
@@ -47,17 +49,19 @@ class EggTimerController extends AbstractController {
 
 		$this->_egg_timer->addNewJob($time, $text);
 
-		return new RedirectResponse('/egg_timer/');
+		$current_jobs = $this->_egg_timer->getJobs();
+		return new JsonResponse($current_jobs);
 	}
 
 	/**
 	 * @param string $job_id
-	 * @return RedirectResponse
-	 * @Route("/egg_timer/delete/{job_id}/", name="egg_timer.delete", csrf=true)
+	 * @return JsonResponse
+	 * @Route("/egg_timer/delete/{job_id}/", name="egg_timer.delete", methods="POST")
 	 */
-	public function deleteEggTimer($job_id) {
+	public function deleteEggTimer(Request $request, $job_id) {
 		$this->_egg_timer->deleteJob($job_id);
 
-		return new RedirectResponse('/egg_timer/');
+		$current_jobs = $this->_egg_timer->getJobs();
+		return new JsonResponse($current_jobs);
 	}
 }

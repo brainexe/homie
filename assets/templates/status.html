@@ -1,0 +1,33 @@
+<table class="table table-striped table-bordered table-hover">
+	<tbody>
+		<tr ng-repeat="(name, stat) in stats">
+			<th>{{ name }}</th>
+			<td>{{ stat }}</td>
+		</tr>
+	</tbody>
+</table>
+
+<table ng-if="jobs|notEmpty" class="table table-striped table-bordered table-hover">
+	<thead>
+		<tr>
+			<th>Event-ID</th>
+			<th>Date</th>
+			<th>Delete</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="job in jobs">
+			<th>
+				<span title="{{ job.event }}" class="tip">{{ job.event_id }}</span>
+				<hr />
+			</th>
+			<th>{{ job.timestamp|timeAgo }}</th>
+			<td><a ng-click="deleteEvent(job.event_id)" class="glyphicon glyphicon-remove"></a></td>
+		</tr>
+	</tbody>
+</table>
+
+<h2>Self update</h2>
+
+<a class="btn btn-primary" ng-click="startUpdate()" href="#">Start self update in background</a><br />
+<textarea style="width:800px; height: 300px" ng-if="textarea" ng-model="textarea" readonly="readonly"></textarea>

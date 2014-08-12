@@ -1,0 +1,41 @@
+<h2>Dashboard</h2>
+<div class="span-9">
+	<div class="row">
+		<div ng-repeat="row in dashboard" class="col-md-6">
+			<div ng-repeat="widget in row">
+				<widget widget="widget"></widget>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="panel panel-primary">
+	<div class="panel-heading panel-toggle" onclick="togglePanel(this)">Add Widget</div>
+	<div class="panel-body hidden">
+		<form ng-submit="addWidget()" class="navbar-forms navbar-lefts">
+			<div class="row">
+				<div class="col-lg-5">
+					<div class="input-group">
+						<span class='input-group-addon'>Type</span>
+						<select ng-options="type in widgets" name="type" class="form-control"></select>
+					</div>
+				</div>
+				<div class="col-lg-5">
+					<div class="input-group">
+						<span class="input-group-addon">Payload</span>
+						<input type="text" name="payload" class="form-control" placeholder="{'sensor_id':1}"/>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-10">
+					<div class="input-group">
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="submit">Add</button>
+						</span>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

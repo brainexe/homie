@@ -20,6 +20,7 @@ class Dashboard {
 
 	/**
 	 * @Inject("@WidgetFactory")
+	 * @param WidgetFactory $widget_factory
 	 */
 	public function __construct(WidgetFactory $widget_factory) {
 		$this->_widget_factory = $widget_factory;
@@ -27,7 +28,7 @@ class Dashboard {
 
 	/**
 	 * @param integer $user_id
-	 * @return WidgetInterface[]
+	 * @return array[][]
 	 */
 	public function getDashboard($user_id) {
 		$dashboard = [];
@@ -35,12 +36,7 @@ class Dashboard {
 		$widgets_raw = $this->getRedis()->hGetAll($this->_getKey($user_id));
 
 		foreach ($widgets_raw as $i => $widget_raw) {
-			$widget_raw = json_decode($widget_raw, true);
-
-			$widget = clone($this->_widget_factory->getWidget($widget_raw['type']));
-			$widget->create($widget_raw);
-
-			$dashboard[$i % 2][] = $widget;
+			$dashboard[$i % 2][] = json_decode($widget_raw, true);
 		}
 
 		return $dashboard;

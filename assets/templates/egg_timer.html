@@ -1,0 +1,34 @@
+<form ng-submit="addTimer()" class="form-horizontal">
+	<div class="form-group">
+		<label for="eggTimerTextInput" class="col-sm-2 control-label">Text</label>
+		<div class="col-sm-10">
+			<input ng-model="text" type="text" class="form-control input-lg" id="eggTimerTextInput" placeholder="Text">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="eggTimerTimeInput" class="col-sm-2 control-label">Delay</label>
+		<div class="col-sm-10">
+			<input ng-model="time" type="text" class="form-control input-sm" id="eggTimerTimeInput" placeholder="15m">
+			<span class="help-block">e.g. 10s, 30m, 1h</span>
+		</div>
+	</div>
+	<button type="submit" class="btn btn-primary btn-lg">Submit</button>
+</form>
+
+<table ng-if="jobs|notEmpty" class="table table-bordered table-striped table-hover">
+	<thead>
+		<tr>
+			<th>Time</th>
+			<th>Text</th>
+			<th>Delete</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<tr ng-repeat="(job_id, job) in jobs">
+			<td>{{ job.timestamp|timeAgo }}</td>
+			<td>{{ job.event.espeak || "--" }}</td>
+			<td><a ng-click="deleteTimer(job_id)" class="glyphicon glyphicon-remove"></a></td>
+		</tr>
+	</tbody>
+</table>

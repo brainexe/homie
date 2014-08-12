@@ -2,6 +2,8 @@
 
 namespace Raspberry\Gpio;
 
+use InvalidArgumentException;
+
 class PinsCollection {
 	/**
 	 * @var Pin[]

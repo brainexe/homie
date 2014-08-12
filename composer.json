@@ -26,7 +26,7 @@
 		"matze/trigger": "dev-master"
 	},
 
-	"require-dev": {
+	"require-dev *deprecated*": {
 		"behat/mink": "1.4.*@stable",
 		"behat/mink-goutte-driver": "*"
 	},

@@ -1,0 +1,105 @@
+<nav ng-if="sensors" class="navbar navbar-default" role="navigation">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li ng-repeat="sensor in sensors" ng-class="{'active':isSensorActive(sensor.id)}">
+					<a class="tip" data-placement="bottom" title="Latest: {{ sensor.last_value }}"
+					   ng-click="sensorView(sensor.id)">
+						{{ sensor.name }}
+					</a>
+				</li>
+			</ul>
+
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="#" onclick="return false" data-toggle="modal" data-target="#modalAddSensor">Add Sensor</a>
+				</li>
+				<li class="dropdown">
+					<a href="#" onclick="return false" class="dropdown-toggle" data-toggle="dropdown">Timespan <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li ng-repeat="(interval, label) in from_intervals" ng_class="{active:interval == current_from}">
+							<a ng-click="sensorView(null, interval)">
+								{{ label }}
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div id="chart_container">
+	<div id="y_axis"></div>
+	<br>
+
+	<div id="chart"></div>
+	<br>
+
+	<div id="legend"></div>
+</div>
+
+<div class="modal fade" id="modalAddSensor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+	 aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Add Sensor</h4>
+			</div>
+			<div class="modal-body">
+				<form action="/sensors/add/" method="POST" class="navbar-forms navbar-lefts">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="input-group">
+								<span class='input-group-addon'>Name</span>
+								<input type="text" name="name" class="form-control" placeholder="Name"/>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="input-group">
+								<span class='input-group-addon'>Description</span>
+								<input type="text" name="description" class="form-control" placeholder="Description"/>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="input-group">
+								<span class='input-group-addon'>Type</span>
+								<select name="type" class="form-control">
+									<option ng-options="type, sensor for (type, sensor) in available_sensors" selected="selected"></option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="input-group">
+								<span class='input-group-addon'>Interval</span>
+								<input type="number" min="1" name="interval" class="form-control" value="10"/>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="input-group">
+								<span class='input-group-addon'>Pin</span>
+								<input type="text" name="pin" class="form-control" placeholder="Pin"/>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Add</button>
+			</div>
+		</div>
+	</div>
+</div>

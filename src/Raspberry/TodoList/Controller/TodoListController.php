@@ -25,7 +25,7 @@ class TodoListController extends AbstractController {
 	 */
 	private $_database_user_provider;
 	/**
-	 * @var \Raspberry\TodoList\ShoppingList
+	 * @var ShoppingList
 	 */
 	private $_shopping_list;
 
@@ -41,10 +41,10 @@ class TodoListController extends AbstractController {
 	/**
 	 * @param Request $request
 	 * @Route("/todo/", name="todo.index")
-	 * @return string
+	 * @return JsonResponse
 	 */
 	public function index(Request $request) {
-		return $this->renderToResponse('todo/index.html.twig', [
+		return new JsonResponse([
 			'list' => $this->_todo_list->getList(),
 			'shopping_list' => $this->_shopping_list->getShoppingListItems(),
 			'user_names' => array_flip($this->_database_user_provider->getAllUserNames())

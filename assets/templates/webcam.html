@@ -1,0 +1,11 @@
+<div ng-show="shots" class="container">
+	<div class="row">
+		<div ng-repeat="shot in shots" class="col-xs-4">
+			<img src="{{ shot.web_path }}" class="img-thumbnail thumbnail"/>
+			<a href="/webcam/delete/{{ shot.getId }}/" title="Delete" ng-click="removeShot()" class="tip glyphicon glyphicon-remove">&nbsp;</a>
+		</div>
+
+	</div>
+</div>
+
+<a class="btn btn-primary" ng-click="takeShot()">Take Photo</a>

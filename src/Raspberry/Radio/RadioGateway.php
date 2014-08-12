@@ -83,6 +83,8 @@ class RadioGateway {
 
 		$pipeline->exec();
 
+		$radio_vo->id = $new_radio_id;
+
 		return $new_radio_id;
 	}
 
