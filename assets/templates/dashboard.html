@@ -3,7 +3,12 @@
 	<div class="row">
 		<div ng-repeat="row in dashboard" class="col-md-6">
 			<div ng-repeat="widget in row">
-				<widget widget="widget"></widget>
+				<div class="panel panel-default" ng-controller="WidgetController">
+					<div class="panel-heading panel-toggle" onclick="togglePanel(this)">{{ title }}</div>
+					<div class="panel-body">
+						{{ content }}
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
