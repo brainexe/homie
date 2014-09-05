@@ -1,0 +1,28 @@
+<div class="modal-content">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h4 class="modal-title">Add Widget</h4>
+	</div>
+	<div class="modal-body navbar-forms navbar-lefts">
+		<div class="row">
+			<div class="col-lg-5">
+				<div class="input-group">
+					<span class="input-group-addon">Type</span>
+					<select ng-options="widget as widget for widget in widgets" ng-model="type" class="form-control"></select>
+				</div>
+			</div>
+			<div class="col-lg-5">
+				<div class="input-group">
+					<span class="input-group-addon">Payload</span>
+					<input type="text" ng-model="payload" class="form-control" placeholder="{'sensor_id':1}"/>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" ng-click="close()" class="btn btn-default" data-dismiss="modal">Close</button>
+		<button type="button" ng-click="addWidget()" class="btn btn-primary">Add</button>
+	</div>
+</div>
+
+

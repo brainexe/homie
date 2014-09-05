@@ -11,8 +11,17 @@
 		<tr ng-repeat="radio in radios">
 			<td>
 				<div title="Code: {{ radio.code }} Pin: {{ radio.pin }} ID: {{ radio.id }}" class="tip">
-					{{ radio.name }}
-					<small ng-if="radio.description">({{ radio.description }})</small>
+					<div ng-if="radio.edit">
+						<input type="text" ng-value="radio.name"/>
+						<input type="text" ng-value="radio.description"/>
+						<span class="glyphicon glyphicon-save" ng-click="saveRadio(radio)"></span>
+						<span class="glyphicon glyphicon-remove" ng-click="radio.edit=false"></span>
+					</div>
+					<div ng-if="!radio.edit">
+						{{ radio.name }}
+						<small ng-if="radio.description">({{ radio.description }})</small>
+						<span class="glyphicon glyphicon-pencil" ng-click="radio.edit=true"></span>
+					</div>
 				</div>
 			</td>
 			<td><a ng-click="setStatus(radio, 1)" class="btn btn-success">Enable</a></td>

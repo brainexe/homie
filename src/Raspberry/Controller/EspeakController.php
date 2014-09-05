@@ -9,7 +9,6 @@ use Raspberry\Espeak\Espeak;
 use Raspberry\Espeak\EspeakEvent;
 use Raspberry\Espeak\EspeakVO;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -58,7 +57,7 @@ class EspeakController extends AbstractController {
 	 * @Route("/espeak/speak/", methods="POST")
 	 */
 	public function speak(Request $request) {
-		$speaker = $request->request->get('speaker');
+		$speaker = $request->request->get('speaker') ?: null;
 		$text = $request->request->get('text');
 		$volume = $request->request->getInt('volume');
 		$speed = $request->request->getInt('speed');

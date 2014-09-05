@@ -62,12 +62,13 @@ class RadioController extends AbstractController {
 	public function setStatus(Request $request, $radio_id, $status) {
 		$radio_vo = $this->_service_radios->getRadio($radio_id);
 
-		$this->_addFlash($request, self::ALERT_SUCCESS, _('Set Radio'));
-
 		$event = new RadioChangeEvent($radio_vo, $status);
 		$this->dispatchInBackground($event);
 
-		return new JsonResponse(true);
+		$response = new JsonResponse(true);
+		$this->_addFlash($response, self::ALERT_SUCCESS, _('Set Radio'));
+
+		return $response;
 	}
 
 	/**
@@ -109,6 +110,19 @@ class RadioController extends AbstractController {
 	/**
 	 * @param Request $request
 	 * @return JsonResponse
+	 * @Route("/radio/edit/", name="radio.edit", methods="POST")
+	 */
+	public function editRadio(Request $request) {
+		$radio_id = $request->request->getInt('radio_id');
+
+		// TODO
+
+		return new JsonResponse(true);
+	}
+
+	/**
+	 * @param Request $request
+	 * @return JsonResponse
 	 * @Route("/radio/job/add/", name="radiojob.add", methods="POST")
 	 */
 	public function addRadioJob(Request $request) {
@@ -120,9 +134,10 @@ class RadioController extends AbstractController {
 
 		$this->_radio_job->addRadioJob($radio_vo, $time_string, $status);
 
-		$this->_addFlash($request, self::ALERT_SUCCESS, _('The job was sored successfully'));
+		$response = new JsonResponse(true);
+		$this->_addFlash($response, self::ALERT_SUCCESS, _('The job was sored successfully'));
 
-		return new JsonResponse($this->_radio_job->getJobs());
+		return $response;
 	}
 
 	/**

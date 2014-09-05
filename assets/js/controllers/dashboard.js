@@ -9,7 +9,7 @@ App.Widgets = {
 	},
 
 	sensor: {
-		interval: 30000,
+		interval: 60 * 5 * 1000,
 		render: function ($scope, widget) {
 			$scope.content = widget.sensor_id + Math.random();
 			$.get('/sensors/value/', {sensor_id: widget.sensor_id}, function(sensor_data) {
@@ -18,18 +18,62 @@ App.Widgets = {
 				$scope.$apply();
 			});
 		}
-	},
+	}
 };
 
-App.ng.controller('DashboardController', ['$scope', function ($scope) {
+App.ng.controller('NewWidgetController', ['$scope', '$modalInstance', function ($scope, $modalInstance) {
+	$scope.addWidget = function() {
+		var payload = {
+			type: $scope.type,
+			payload: $scope.payload
+		};
+
+		$.post('/dashboard/add/', payload, function(data) {
+			$scope.dashboard = data;
+			$scope.$apply();
+		});
+		$modalInstance.close();
+	};
+
+	$scope.close = function() {
+		$modalInstance.close();
+	}
+}]);
+
+App.ng.controller('DashboardController', ['$scope', '$modal', function ($scope, $modal) {
 	$.get('/dashboard/', function(data) {
 		$scope.dashboard = data.dashboard;
+		$scope.widgets = data.widgets;
 		$scope.$apply();
 	});
 
-	$scope.addWidget = function() {
-		//TODO
+	$scope.openModal = function() {
+		var modalInstance = $modal.open({
+			templateUrl: '/templates/widgets/new_widget.html',
+			controller: 'NewWidgetController',
+			resolve: {
+				widgets: function() {
+					return $scope.widgets;
+				}
+			}
+		});
 	};
+
+	/**
+	 * @param {Number} widget_id
+	 */
+	$scope.deleteWidget = function(widget_id) {
+		var payload = {
+			widget_id: widget_id
+		};
+
+		$.post('/dashboard/delete/', payload, function(data) {
+			$scope.dashboard = data;
+			$scope.$apply();
+		});
+
+		return false;
+	}
 }]);
 
 App.ng.controller('WidgetController', ['$scope', function ($scope) {

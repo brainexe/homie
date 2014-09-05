@@ -28,6 +28,7 @@ class Radios {
 
 	/**
 	 * @Inject("@RadioGateway")
+	 * @param RadioGateway $radio_gateway
 	 */
 	public function __construct(RadioGateway $radio_gateway) {
 		$this->_radio_gateway = $radio_gateway;

@@ -8,6 +8,7 @@
 	border-radius: 10px;
 	padding-bottom: 15px;
 }
+
 .shopping-entry {
 	border-radius: 5px;
 	background-color: #fff;
@@ -26,6 +27,7 @@
 	border-radius: 10px;
 	border: 1px darkgray solid;
 	padding-bottom: 15px;
+	overflow-y: auto;
 }
 
 .task-list input, .task-list textarea {
@@ -60,7 +62,7 @@
 	font-style: italic;
 }
 
-.todo-task > .task-deadline{
+.todo-task > .task-deadline {
 	font-size: small;
 	font-style: italic;
 }
@@ -69,12 +71,11 @@
 	font-size: smaller;
 }
 
-#completed .todo-task {
+.task-list .completed .todo-task {
 	text-decoration: line-through;
 }
 
 #delete-div{
-	display: none;
 	background-color: #fff;
 	border: 3px dotted #000;
 	border-radius: 5px;

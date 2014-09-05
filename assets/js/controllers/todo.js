@@ -1,16 +1,15 @@
 
-// TODO eta
 // TODO stroke
-// TODO delete
+// todo prio
 App.ng.controller('TodoController', ['$scope', function($scope) {
 	$scope.todos = [];
 	$scope.shopping_list = [];
 	$scope.user_names = [];
 
 	$scope.stati = {
-		"pending" : {id:'pending', name: "Pending", tasks: []},
-		"progress" : {id:'progress', name: "Progress", tasks: []},
-		"completed" : {id:'completed', name: "Completed", tasks: []}
+		"pending" : {id:'pending', name: "Pending", tasks: [], prio:1},
+		"progress" : {id:'progress', name: "Progress", tasks: [], prio:2},
+		"completed" : {id:'completed', name: "Completed", tasks: [], prio:3}
 	};
 
 	$.get('/todo/', function(data) {
@@ -81,9 +80,17 @@ App.ng.controller('TodoController', ['$scope', function($scope) {
 		array.splice(index, 1);
 	};
 
-	$scope.onDrop = function(status, event, data, tasks){
-		// TODO skip if no change
+	$scope.onDelete = function(data){
+		$.post('/todo/delete/', {'id':data.id});
+	};
+
+	$scope.onDrop = function(status, event, data, tasks) {
 		tasks.push(data);
+
+		if (status == data.status) {
+			return;
+		}
+
 		data.status = status;
 		$.post('/todo/edit/', {
 			id: data.id,
@@ -92,42 +99,5 @@ App.ng.controller('TodoController', ['$scope', function($scope) {
 			}
 		});
 	};
+	//TODO add shopping list entry is gone?
 }]);
-
-//$(".datetimepicker").datetimepicker({
-//	showMinute: false
-//});
-//
-//return;
-//
-//// Adding drop function to each category of task
-//$.each(stati, function (index, value) {
-//	$(value).droppable({
-//		drop: function (event, ui) {
-//
-//			// Hiding Delete Area
-//			$("#" + options.deleteDiv).hide();
-//		}
-//	});
-//});
-//
-//// Adding drop function to delete div
-//$("#" + options.deleteDiv).droppable({
-//	drop: function(event, ui) {
-//		var element = ui.helper,
-//			css_id = element.attr("id"),
-//			id = css_id.replace(options.taskId, ""),
-//			object = todos[id];
-//
-//		// Removing old element
-//		removeElement(object);
-//
-//		$.post('/todo/delete/', {'id':id});
-//
-//		delete todos[id];
-//
-//		// Hiding Delete Area
-//		$("#" + options.deleteDiv).hide();
-//	}
-//});
-//};

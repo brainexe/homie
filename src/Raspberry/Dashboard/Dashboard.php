@@ -2,6 +2,7 @@
 
 namespace Raspberry\Dashboard;
 
+use Matze\Core\Traits\IdGeneratorTrait;
 use Matze\Core\Traits\RedisTrait;
 
 /**
@@ -10,6 +11,7 @@ use Matze\Core\Traits\RedisTrait;
 class Dashboard {
 
 	use RedisTrait;
+	use IdGeneratorTrait;
 
 	const REDIS_DASHBOARD = 'dashboard:%s';
 
@@ -28,26 +30,21 @@ class Dashboard {
 
 	/**
 	 * @param integer $user_id
-	 * @return array[][]
+	 * @return array[]
 	 */
 	public function getDashboard($user_id) {
 		$dashboard = [];
 
 		$widgets_raw = $this->getRedis()->hGetAll($this->_getKey($user_id));
 
-		foreach ($widgets_raw as $i => $widget_raw) {
-			$dashboard[$i % 2][] = json_decode($widget_raw, true);
+		foreach ($widgets_raw as $id => $widget_raw) {
+			$widget = json_decode($widget_raw, true);
+			$widget['id'] = $id;
+			$widget['open'] = true;
+			$dashboard[] = $widget;
 		}
 
 		return $dashboard;
-	}
-
-	/**
-	 * @param integer $user_id
-	 * @return string
-	 */
-	private function _getKey($user_id) {
-		return sprintf(self::REDIS_DASHBOARD, $user_id);
 	}
 
 	/**
@@ -68,8 +65,24 @@ class Dashboard {
 
 		$payload['type'] = $type;
 
-		$new_id = mt_rand(1000, 1000000);
+		$new_id = $this->generateRandomNumericId();
 		$this->getRedis()->HSET($this->_getKey($user_id), $new_id, json_encode($payload));
 	}
 
+	/**
+	 * @param integer $user_id
+	 * @param integer $widget_id
+	 */
+	public function deleteWidget($user_id, $widget_id) {
+		$this->getRedis()->HDEL($this->_getKey($user_id), $widget_id);
+
+	}
+
+	/**
+	 * @param integer $user_id
+	 * @return string
+	 */
+	private function _getKey($user_id) {
+		return sprintf(self::REDIS_DASHBOARD, $user_id);
+	}
 } 

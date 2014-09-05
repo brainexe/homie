@@ -48,7 +48,6 @@
 	<tbody>
 		<tr ng-repeat="(timestamp, post) in posts">
 
-			<td>{{message.timestamp|timeAgo}}</td>
 			<td>
 				<span ng-if="post.mood" class="blog_mood blog_mood_{{ post.mood }}">{{ post.mood }}</span>
 			</td>

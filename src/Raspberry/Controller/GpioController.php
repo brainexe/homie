@@ -5,7 +5,6 @@ namespace Raspberry\Controller;
 use Matze\Core\Controller\AbstractController;
 use Raspberry\Gpio\GpioManager;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -43,7 +42,7 @@ class GpioController extends AbstractController {
 	 * @param integer $id
 	 * @param string $status
 	 * @param integer $value
-	 * @return RedirectResponse
+	 * @return JsonResponse
 	 * @Route("/gpio/set/{id}/{status}/{value}/", name="gpio.set", methods="POST")
 	 */
 	public function setStatus(Request $request, $id, $status, $value) {

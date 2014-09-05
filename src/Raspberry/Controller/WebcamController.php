@@ -8,6 +8,7 @@ use Matze\Core\Traits\IdGeneratorTrait;
 use Raspberry\Webcam\Webcam;
 use Raspberry\Webcam\WebcamEvent;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Controller
@@ -50,16 +51,21 @@ class WebcamController extends AbstractController {
 		$event = new WebcamEvent($name, WebcamEvent::TAKE_PHOTO);
 		$this->dispatchInBackground($event);
 
-		return new JsonResponse(true);
+		$response = new JsonResponse(true);
+
+		$this->_addFlash($response, self::ALERT_INFO, 'Cheese...');
+
+		return $response;
 	}
 
 	/**
-	 * @Route("/webcam/delete/{shot_id}/", name="webcam.delete", csrf=true)
+	 * @Route("/webcam/delete/", name="webcam.delete", csrf=true)
 	 * @param Request $request
-	 * @param string $shot_id
 	 * @return JsonResponse
 	 */
-	public function delete(Request $request, $shot_id) {
+	public function delete(Request $request) {
+		$shot_id = $request->request->get('shot_id');
+
 		$this->_service_webcam->delete($shot_id);
 
 		return new JsonResponse(true);

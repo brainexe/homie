@@ -3,15 +3,13 @@
 <head>
 	<title ng-bind="title">{% block title %}Raspberry{% endblock %}</title>
 	<meta charset="utf-8">
-	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
 
-	<link href="{{ asset_url("common.css") }}" rel="stylesheet">
-	<script src="{{ asset_url("vendor.js") }}"></script>
-	<script src="{{ asset_url("common.js") }}"></script>
+	<link href="{% asset_url "common.css" %}" rel="stylesheet">
+	<script src="{% asset_url "vendor.js" %}"></script>
+	<script src="{% asset_url "common.js" %}"></script>
 	<script type="text/javascript">
-		App.debug = '{% config 'debug' %}';
-		App.Layout.init({{ current_user|json }});
-		App.connectToSocketServer('{% config 'socket.url' %}');
+		init('{% config 'debug' %}',{{ current_user|json }},'{% config 'socket.url' %}');
 	</script>
 	{% block meta %}{% endblock %}
 </head>

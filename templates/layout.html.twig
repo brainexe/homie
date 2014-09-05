@@ -19,10 +19,7 @@
 				<ul ng-if="isLoggedIn()" class="nav navbar-nav">
 					<!-- Notifications: style can be found in dropdown.less -->
 					<li class="dropdown notifications-menu">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<i class="fa fa-warning"></i>
-							<span class="label label-warning">10</span>
-						</a>
+						<!--						<a href="#" class="dropdown-toggle" data-toggle="dropdown">						<i class="glyphicon glyphicon-warning-sign"></i>							<span class="label label-warning">10</span>					</a>-->
 						<ul class="dropdown-menu">
 							<li class="header">You have 10 notifications</li>
 							<li>
@@ -41,15 +38,14 @@
 
 					<!-- User Account: style can be found in dropdown.less -->
 					<li class="dropdown user user-menu">
-						<a href="#/user/"  class="dropdown-toggle" data-toggle="dropdown">
+						<a href="#/user/" class="dropdown-toggle" data-toggle="dropdown">
 							<i class="glyphicon glyphicon-user"></i>
 							<span>{{ current_user.username }} <i class="caret"></i></span>
 						</a>
 						<ul class="dropdown-menu">
 							<!-- User image -->
 							<li class="user-header bg-light-blue">
-								<img src="/AdminLTE-master/img/avatar5.png" class="img-circle" alt="User Image"/>
-
+								<div class="profile_avatar img-circle"></div>
 								<p>
 									{{ current_user.username }}
 								</p>
@@ -57,7 +53,7 @@
 							<!-- Menu Footer-->
 							<li class="user-footer">
 								<div class="pull-left">
-									<a href="#" class="btn btn-default btn-flat">Profile</a>
+									<a href="#/user" class="btn btn-default btn-flat">Profile</a>
 								</div>
 								<div class="pull-right">
 									<a href="#/logout" class="btn btn-default btn-flat">Sign out</a>
@@ -75,7 +71,7 @@
 			<section class="sidebar">
 				<div class="user-panel">
 					<div ng-if="isLoggedIn()" class="pull-left image">
-						<img src="/AdminLTE-master/img/avatar5.png" class="img-circle" alt="User Image"/>
+						<div class="user_avatar img-circle"></div>
 					</div>
 					<div ng-if="isLoggedIn()" class="pull-left info">
 						<p>Hello, {{ current_user.username }}</p>
@@ -85,56 +81,17 @@
 							<input type="text" name="q" class="form-control" placeholder="Search..."/>
 							<span class="input-group-btn">
 								<button type="submit" name="seach" id="search-btn" class="btn btn-flat">
-									<i class="fa fa-search"></i>
+									<i class="glyphicon glyphicon-search"></i>
 								</button>
 							</span>
 						</div>
 					</form>
-					<ul ng-if="isLoggedIn()" class="sidebar-menu">
-						<li>
-							<a href="/#dashboard">
-								<i class="fa fa-th"></i>Dashboard
+					<ul class="sidebar-menu" ng-controller="MenuController">
+						<li ng-repeat="item in menu">
+							<a href="/#{{ item.url }}">
+								<i class="glyphicon glyphicon-{{ item.icon }}"></i>
+								{{ item.name }}
 							</a>
-						</li>
-						<li>
-							<a href="#/sensor">
-								<i class="fa fa-dashboard"></i>
-								Sensors
-							</a>
-						</li>
-						<li><a href="#/gpio">GPIO</a></li>
-						<li><a href="#/radio">Radios</a></li>
-						<li>
-							<a href="#/espeak">
-								<i class="fa fa-bullhorn"></i>Speak
-							</a>
-						</li>
-						<li>
-							<a href="#/webcam">
-								<i class="fa fa-camera"></i>
-								Webcam
-							</a>
-						</li>
-						<li>
-							<a href="#/status">
-								<i class="fa fa-bullhorn"></i>Status
-							</a>
-						</li>
-						<li>
-							<a href="#/blog">Blog</a>
-						</li>
-						<li>
-							<a href="#/egg_timer">Egg Timer</a>
-						</li>
-						<li>
-							<a href="#/todo">Todo List</a>
-						</li>
-						<li><a href="#/user">User Settings</a></li>
-					</ul>
-					<ul ng-if="!isLoggedIn()" class="sidebar-menu">
-						<li class="active">
-							<a href="#/login">Login</a>
-							<a href="#/register">Register</a>
 						</li>
 					</ul>
 				</div>
@@ -143,8 +100,8 @@
 
 		<aside class="right-side">
 			<section class="content-header">
-				<div ng-repeat="flash in flash_bag" class="alert alert-{{ flash.type }} alert-dismissable" data-dismiss="alert">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<div ng-repeat="flash in flash_bag" class="alert alert-{{ flash.type }} alert-dismissable">
+					<button type="button" class="close" ng-click="removeFlash($index)">&times;</button>
 					{{ flash.message }}
 				</div>
 			</section>

@@ -1,24 +1,25 @@
-// TODO replace by bootstrap/jquery
+"use strict";
+
+/**
+ * @deprecated
+ * @todo
+ * @param element
+ */
 function togglePanel(element) {
 	element.nextElementSibling.classList.toggle('hidden');
 }
 
-$.fn.prettyDate = function (interval) {
-	interval = interval || 10;
+/**
+ * @param {String} filename
+ * @returns {String}
+ */
+function asset(filename) {
+	return filename;
+}
 
-	return this.each(function () {
-		var el = $(this);
-		var timestamp = el.data('timestamp');
-
-		var func = function () {
-			el.text(moment.utc(timestamp, 'X').fromNow());
-		};
-
-		func();
-		setInterval(func, interval * 1000);
-	});
-};
-
+/**
+ * @returns String {string}
+ */
 String.prototype.format = function () {
 	var args = arguments;
 	return this.replace(/{(\d+)}/g, function (match, number) {
@@ -30,12 +31,19 @@ String.prototype.format = function () {
 };
 
 var App = {
-	debug: false,
 	ng: angular.module('raspberry', [
 		'ngDragDrop',
+		'ui.bootstrap',
 		'yaru22.angular-timeago',
 		'ngRoute'
 	]),
+
+	init: function (debug, user_vo, socket_server) {
+		App.Layout.init(debug, user_vo);
+		if (socket_server) {
+			App.connectToSocketServer(socket_server);
+		}
+	},
 
 	/**
 	 * @param {String} socket_url
@@ -49,8 +57,8 @@ var App = {
 
 			App.Layout.$scope.$broadcast(event_name, event);
 
-			if (this.debug) {
-				console.log("socket server:", event.event_name, event)
+			if (App.Layout.debug) {
+				console.log("socket server: " + event.event_name, event)
 			}
 		};
 	},
@@ -60,7 +68,6 @@ var App = {
 	 */
 	showNotification: function (content) {
 		if (!("Notification" in window)) {
-			return;
 		} else if (Notification.permission === "granted") {
 			// If it's okay let's create a notification
 			var notification = new Notification(content);
@@ -85,8 +92,37 @@ var App = {
 };
 
 App.Layout = {
+	debug: null,
 	$scope: null,
-	init: function (current_user) {
+
+	controllers: [
+		// menu
+		{controller:'DashboardController', name: 'Dashboard', url: 'dashboard', icon:'th-large', templateUrl: asset('/templates/dashboard.html')},
+		{controller:'SensorController', name: 'Sensors', url: 'sensor', icon:'dashboard', templateUrl: asset('/templates/sensor.html')},
+		{controller:'GpioController', name: 'GPIO', url: 'gpio', icon:'flash', templateUrl: asset('/templates/gpio.html')},
+		{controller:'RadioController', name: 'Home Control', url: 'radio', icon:'home', templateUrl: asset('/templates/radio.html')},
+		{controller:'SpeakController', name: 'Speak', url: 'speak', icon:'home', templateUrl: asset('/templates/espeak.html')},
+		{controller:'WebcamController', name: 'Webcam', url: 'webcam', icon:'bullhorn', templateUrl: asset('/templates/webcam.html')},
+		{controller:'StatusController', name: 'Status', url: 'status', icon:'stats', templateUrl: asset('/templates/status.html')},
+		{controller:'BlogController', name: 'Blog', url: 'blog', icon:'paperclip', templateUrl: asset('/templates/blog.html')},
+		{controller:'EggTimerController', name: 'Egg Timer', url: 'egg_timer', icon:'time', templateUrl: asset('/templates/egg_timer.html')},
+		{controller:'TodoController', name: 'ToDo List', url: 'todo', icon:'list', templateUrl: asset('/templates/todo.html')},
+		{controller:'UserController', name: 'User Settings', url: 'user', icon:'user', templateUrl: asset('/templates/user/user.html')},
+
+		// private
+		{controller:'LoginController', name: 'Login', url: 'login', icon: 'user', is_public: true, templateUrl: asset('/templates/user/login.html')},
+		{controller:'RegisterController', name: 'Register', url: 'register', icon: 'user', is_public: true, templateUrl: asset('/templates/user/register.html')},
+
+		// hidden controllers
+		{url: 'logout', templateUrl: "/templates/mood.html", controller: "LogoutController"},
+		{url: 'user/change_password', templateUrl: "/templates/user/change_password.html", controller: "ChangePasswordController"},
+		{url: 'user/otp', templateUrl: "/templates/user/otp.html", controller: "OtpController"},
+		{url: 'templates/index.html', templateUrl: "/", controller: "IndexController"}
+	],
+
+	init: function (debug, current_user) {
+		App.Layout.debug = debug;
+
 		App.ng.controller('LayoutController', ['$scope', function ($scope) {
 			App.Layout.$scope = $scope;
 
@@ -100,20 +136,34 @@ App.Layout = {
 				return $scope.current_user && $scope.current_user.id > 0;
 			};
 
+
 			/**
 			 * @param {String} type
 			 * @param {String} message
 			 */
 			$scope.addFlash = function (message, type) {
 				type = type || 'success';
-				$scope.flash_bag.push({
+
+				var item = {
 					type: type,
 					message: message
-				});
+				};
+
+				$scope.flash_bag.push(item);
+
+				window.setTimeout(function () {
+					var index = $scope.flash_bag.indexOf(item);
+
+					if (index > -1) {
+						$scope.flash_bag.splice(index, 1);
+						$scope.$apply();
+					}
+				}, 5000);
+
+				$scope.$apply();
 			};
 
 			$scope.$on('sensor.value', function (event) {
-				console.log(event);
 				var text = '{0}: {1}'.format(event.sensor_vo.name, event.value_formatted);
 				App.showNotification(text);
 			});
@@ -121,77 +171,35 @@ App.Layout = {
 			$scope.$on('espeak.speak', function (event) {
 				App.showNotification(event.espeak.text);
 			});
+
+			$scope.$on('$routeChangeSuccess', function (event, current, previous) {
+				if (current.$$route.name) {
+					App.Layout.changeTitle(current.$$route.name);
+				}
+			});
 		}]);
 
 		App.ng.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-			$routeProvider.when("/gpio", {
-				templateUrl: "/templates/gpio.html",
-				controller: "GpioController"
-			}).when("/espeak", {
-				templateUrl: "/templates/espeak.html",
-				controller: "EspeakController"
-			}).when("/egg_timer", {
-				templateUrl: "/templates/egg_timer.html",
-				controller: "EggTimerController"
-			}).when("/radio", {
-				templateUrl: "/templates/radio.html",
-				controller: "RadioController"
-			}).when("/status", {
-				templateUrl: "/templates/status.html",
-				controller: "StatusController"
-			}).when("/sensor", {
-				templateUrl: "/templates/sensor.html",
-				controller: "SensorController"
-			}).when("/todo", {
-				templateUrl: "/templates/todo.html",
-				controller: "TodoController"
-			}).when("/webcam", {
-				templateUrl: "/templates/webcam.html",
-				controller: "WebcamController"
-			}).when("/login", {
-				templateUrl: "/templates/user/login.html",
-				controller: "LoginController"
-			}).when("/register", {
-				templateUrl: "/templates/user/register.html",
-				controller: "RegisterController"
-			}).when("/blog", {
-				templateUrl: "/templates/blog.html",
-				controller: "BlogController"
-			}).when("/mood", {
-				templateUrl: "/templates/mood.html",
-				controller: "MoodController"
-			}).when("/logout", {
-				templateUrl: "/templates/mood.html",
-				controller: "LogoutController"
-			}).when("/dashboard", {
-				templateUrl: "/templates/dashboard.html",
-				controller: "DashboardController"
-			}).when("/user/change_password", {
-				templateUrl: "/templates/user/change_password.html",
-				controller: "ChangePasswordController"
-			}).when("/user/", {
-				templateUrl: "/templates/user/user.html",
-				controller: "UserController"
-			}).when("/user/otp", {
-				templateUrl: "/templates/user/otp.html",
-				controller: "OtpController"
-			}).otherwise({
-				templateUrl: "/templates/index.html",
-				controller: "IndexController"
-			});
+			for (var i in App.Layout.controllers) {
+				var metadata = App.Layout.controllers[i];
+				$routeProvider.when('/' + metadata.url, metadata);
+			}
 		}]);
 	},
 
 	/**
 	 * @param {String} title
+	 * @todo fix
 	 */
-	changeTitle: function(title) {
-		App.$scope.title = title;
+	changeTitle: function (title) {
+		document.title = title;
+		//App.$scope.title = title;
 	}
 };
 
-App.ng.filter('notEmpty', function() {
-	return function(input) {
+//TODO use more arrays in templates
+App.ng.filter('notEmpty', function () {
+	return function (input) {
 		if (!input) {
 			return false;
 		}
@@ -201,25 +209,22 @@ App.ng.filter('notEmpty', function() {
 
 require.config({
 	paths: {
+		'mood': asset('mood.js').replace('.js', ''),
+		'sensor': asset('sensor.js').replace('.js', '')
 	}
 });
 
-$(document).ajaxError(function (event, request) {
-	var json;
-	if (request.responseText && (json = JSON.parse(request.responseText))) {
-		console.log(arguments);
-		if (json.error) {
-			alert(json.error);
-			App.Layout.$scope.addFlash(json.error, 'warning');
-		}
+$(document).ajaxComplete(function (event, request) {
+	var flash = request.getResponseHeader('X-Flash');
+	if (flash) {
+		flash = JSON.parse(flash);
+		App.Layout.$scope.addFlash(flash[1], flash[0]);
 	}
 });
 
-$(function() {
-	"use strict";
-
+$(function () {
 	//Enable sidebar toggle
-	document.getElementById('offcanvas').onclick = function(e) {
+	document.getElementById('offcanvas').onclick = function (e) {
 		e.preventDefault();
 
 		//If window is small enough, enable sidebar push menu
@@ -252,11 +257,15 @@ $(function() {
 		var content = $(wrapper).height();
 		$(".left-side, html, body").css("min-height", Math.min(height, content) + "px");
 	}
+
 	//Fire upon load
 	_fix();
 	//Fire when wrapper is resized
-	window.onresize = function() {
+	window.onresize = function () {
 		_fix();
 	};
 });
 
+window['init'] = function (debug, user_vo, socket_server) {
+	App.init(debug, user_vo, socket_server);
+};

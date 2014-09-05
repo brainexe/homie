@@ -7,6 +7,11 @@ class WebcamVO {
 	/**
 	 * @var string
 	 */
+	public $id;
+
+	/**
+	 * @var string
+	 */
 	public $file_path;
 
 	/**

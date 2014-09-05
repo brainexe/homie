@@ -5,7 +5,6 @@ namespace Raspberry\Controller;
 use Matze\Core\Controller\AbstractController;
 use Raspberry\EggTimer\EggTimer;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -54,6 +53,7 @@ class EggTimerController extends AbstractController {
 	}
 
 	/**
+	 * @param Request $request
 	 * @param string $job_id
 	 * @return JsonResponse
 	 * @Route("/egg_timer/delete/{job_id}/", name="egg_timer.delete", methods="POST")

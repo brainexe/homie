@@ -9,21 +9,21 @@
 		</tr>
 	</thead>
 	<tbody ng-repeat="pin in gpios">
-	<tr>
-		<td>{{ pin.id }}</td>
-		<td>
-			{{ pin.name }} <span ng-if="pin.description">({{ pin.description }})</span>
-		</td>
-		<td>
-			<a ng-click="changeValue(pin)" class="btn btn-{{ pin.value ? 'success' : 'danger'}}">
-				{{ pin.value ? 'OFF' : 'ON' }}
-			</a>
-		</td>
-		<td>
-			<a ng-click="changeDirection(pin)" class="btn btn-{{ pin.direction ? 'success' : 'info'}}">
-				{{ pin.direction ? "OUT" : "IN"}}
-			</a>
-		</td>
-	</tr>
+		<tr>
+			<td>{{ pin.id }}</td>
+			<td>
+				{{ pin.name }} <span ng-if="pin.description">({{ pin.description }})</span>
+			</td>
+			<td>
+				<a ng-click="changeValue($index)" class="btn btn-{{ pin.value ? 'success' : 'danger'}}">
+					{{ pin.value ? 'OFF' : 'ON' }}
+				</a>
+			</td>
+			<td>
+				<a ng-click="changeDirection($index)" class="btn btn-{{ pin.direction ? 'success' : 'info'}}">
+					{{ pin.direction ? "OUT" : "IN"}}
+				</a>
+			</td>
+		</tr>
 	</tbody>
 </table>

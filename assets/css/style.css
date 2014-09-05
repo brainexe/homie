@@ -49,3 +49,18 @@
 	border-bottom-right-radius: 0;
 	border-bottom-left-radius: 0;
 }
+
+.user_avatar {
+	background-image: url("../images/avatar5.png");
+	background-size: contain;
+	height: 54px;
+	width: 54px;
+}
+.profile_avatar {
+	background-image: url("../images/avatar5.png");
+	background-size: contain;
+	z-index: 5;
+	height: 90px;
+	width: 90px;
+	margin: auto;
+}

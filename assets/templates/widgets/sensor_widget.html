@@ -1,4 +1,4 @@
 {{ temperature }} ({{ sensor.last_value_timestamp|timeAgo }})
 
-<a href="/sensor/{{ sensor.id }}/reload/" class="glyphicon glyphicon-repeat"></a>
+<a ng-click="reload()" class="glyphicon glyphicon-repeat"></a>
 

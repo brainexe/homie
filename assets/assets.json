@@ -1,0 +1,50 @@
+{
+	"ImageProcessor": [],
+
+	"TemplateProcessor": [],
+
+	"JsProcessor": [
+		{
+			"name": "sensor.js",
+			"files": [
+				"js\/vendor\/d3.min.js",
+				"js\/vendor\/d3.layout.min.js",
+				"js\/vendor\/rickshaw.min.js"
+			]
+		},
+		{
+			"name": "mood.js",
+			"files": [
+				"js\/vendor\/createjs.min.js",
+				"js\/controllers\/mood\/.*"
+			]
+		},
+		{
+			"name": "vendor.js",
+			"files": [
+				"js\/vendor\/jquery-2.1.0.min.js",
+				"js\/vendor\/sockjs-0.3.min.js",
+				"js\/vendor\/angular.min.js",
+				"js\/vendor\/angular-route.min.js",
+				"js\/vendor\/.*.js"
+			]
+		},
+		{
+			"name": "common.js",
+			"files": [
+				"js\/app.js",
+				"js\/util\/.*",
+				"js\/controllers\/.*"
+			]
+		}
+	],
+
+	"CssProcessor": [
+		{
+			"name": "common.css",
+			"files": [
+				"css\/.*.css"
+			]
+		}
+	]
+}

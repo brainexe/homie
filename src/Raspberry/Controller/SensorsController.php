@@ -63,6 +63,7 @@ class SensorsController extends AbstractController {
 	 * @param Request $request
 	 * @return RedirectResponse
 	 * @Route("/sensors/", name="sensor.index")
+	 * @todo remove
 	 */
 	public function index(Request $request) {
 		$session = $request->getSession();
@@ -70,11 +71,7 @@ class SensorsController extends AbstractController {
 		$last_page = $session->get(self::SESSION_LAST_VIEW) ?: '0';
 		$last_page_timespan = $session->get(self::SESSION_LAST_TIMESPAN);
 
-		if (null === $last_page_timespan) {
-			$last_page_timespan = Chart::DEFAULT_TIME;
-		}
-
-		return new RedirectResponse(sprintf('/sensors/%s?from=%s', $last_page, $last_page_timespan));
+		return $this->indexSensor($request, $last_page);
 	}
 
 	/**

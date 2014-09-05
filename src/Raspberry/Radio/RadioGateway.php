@@ -89,6 +89,17 @@ class RadioGateway {
 	}
 
 	/**
+	 * @param RadioVO $radio_vo
+	 */
+	public function editRadio(RadioVO $radio_vo) {
+		$key = $this->_getRadioKey($radio_vo->id);
+
+		$redis = $this->getRedis();
+
+		$redis->hMset($key, (array)$radio_vo);
+	}
+
+	/**
 	 * @param integer $radio_id
 	 */
 	public function deleteRadio($radio_id) {
