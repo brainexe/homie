@@ -19,8 +19,13 @@ class IndexController extends AbstractController {
 	 * @Route("/", name="index")
 	 */
 	public function index(Request $request) {
-		return $this->renderToResponse('layout.html.twig', [
+		$response = $this->renderToResponse('layout.html.twig', [
 			'current_user' => $request->attributes->get('user')
 		]);
+
+		// todo
+		// $response->headers->set('Access-Control-Allow-Origin', '*');
+
+		return $response;
 	}
 }

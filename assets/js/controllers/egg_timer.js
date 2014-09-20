@@ -24,9 +24,7 @@ App.ng.controller('EggTimerController', ['$scope', function($scope) {
 	 */
 	$scope.deleteTimer = function(job_id) {
 		job_id = job_id.split(':')[1];
-		console.log(job_id);
 		$.post('/egg_timer/delete/{0}/'.format(job_id), function(new_jobs) {
-			console.log(new_jobs);
 			$scope.jobs = new_jobs;
 			$scope.$apply();
 		});

@@ -163,7 +163,7 @@ App.Layout = {
 				$scope.$apply();
 			};
 
-			$scope.$on('sensor.value', function (event) {
+			$scope.$on('sensor.value', function (event_name, event) {
 				var text = '{0}: {1}'.format(event.sensor_vo.name, event.value_formatted);
 				App.showNotification(text);
 			});

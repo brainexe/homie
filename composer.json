@@ -23,7 +23,8 @@
 
 	"require": {
 		"matze/core": "dev-master",
-		"matze/trigger": "dev-master"
+		"matze/assets": "dev-master",
+		"matze/totp": "dev-master"
 	},
 
 	"suggest": {

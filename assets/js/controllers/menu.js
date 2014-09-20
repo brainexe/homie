@@ -1,7 +1,6 @@
 
 App.ng.controller('MenuController', ['$scope', '$route', function ($scope, $routeProvider) {
 	$scope.$parent.$watch('current_user', function(value){
-		console.log(value);
 		var is_logged_in = $scope.$parent.isLoggedIn();
 
 		$scope.menu = App.Layout.controllers.filter(function(item) {

@@ -1,6 +1,7 @@
 <?php
 
 namespace Raspberry\Blog;
+
 use Matze\Core\Traits\RedisTrait;
 
 /**
