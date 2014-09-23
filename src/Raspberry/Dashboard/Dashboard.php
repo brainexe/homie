@@ -2,8 +2,8 @@
 
 namespace Raspberry\Dashboard;
 
-use Matze\Core\Traits\IdGeneratorTrait;
-use Matze\Core\Traits\RedisTrait;
+use BrainExe\Core\Traits\IdGeneratorTrait;
+use BrainExe\Core\Traits\RedisTrait;
 
 /**
  * @Service(public=false)

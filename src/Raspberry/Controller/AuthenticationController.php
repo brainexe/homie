@@ -2,7 +2,7 @@
 
 namespace Raspberry\Controller;
 
-use Matze\Core\Authentication\Controller\AbstractAuthenticationController;
+use BrainExe\Core\Authentication\Controller\AbstractAuthenticationController;
 
 /**
  * @Controller

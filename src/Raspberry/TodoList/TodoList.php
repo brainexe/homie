@@ -2,9 +2,9 @@
 
 namespace Raspberry\TodoList;
 
-use Matze\Core\Authentication\UserVO;
-use Matze\Core\Traits\EventDispatcherTrait;
-use Matze\Core\Traits\IdGeneratorTrait;
+use BrainExe\Core\Authentication\UserVO;
+use BrainExe\Core\Traits\EventDispatcherTrait;
+use BrainExe\Core\Traits\IdGeneratorTrait;
 use Raspberry\TodoList\VO\TodoItemVO;
 
 /**

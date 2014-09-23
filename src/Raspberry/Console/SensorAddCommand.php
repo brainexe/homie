@@ -35,6 +35,8 @@ class SensorAddCommand extends Command {
 
 	/**
 	 * @Inject({"@SensorGateway", "@SensorBuilder"})
+	 * @param SensorGateway $sensor_gateway
+	 * @param SensorBuilder $sensor_builder
 	 */
 	public function __construct(SensorGateway $sensor_gateway, SensorBuilder $sensor_builder) {
 		$this->_sensor_gateway = $sensor_gateway;

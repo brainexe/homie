@@ -2,7 +2,7 @@
 
 namespace Raspberry\Radio\VO;
 
-use Matze\Core\Util\AbstractVO;
+use BrainExe\Core\Util\AbstractVO;
 
 class RadioVO extends AbstractVO {
 

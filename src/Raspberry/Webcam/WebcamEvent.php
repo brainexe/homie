@@ -2,8 +2,8 @@
 
 namespace Raspberry\Webcam;
 
-use Matze\Core\EventDispatcher\AbstractEvent;
-use Matze\Core\EventDispatcher\PushViaWebsocketInterface;
+use BrainExe\Core\EventDispatcher\AbstractEvent;
+use BrainExe\Core\EventDispatcher\PushViaWebsocketInterface;
 
 class WebcamEvent extends AbstractEvent implements PushViaWebsocketInterface {
 

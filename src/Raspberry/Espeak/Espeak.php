@@ -2,8 +2,8 @@
 
 namespace Raspberry\Espeak;
 
-use Matze\Core\MessageQueue\MessageQueueGateway;
-use Matze\Core\MessageQueue\MessageQueueJob;
+use BrainExe\Core\MessageQueue\MessageQueueGateway;
+use BrainExe\Core\MessageQueue\MessageQueueJob;
 use Raspberry\Client\ClientInterface;
 
 /**

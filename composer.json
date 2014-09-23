@@ -1,5 +1,5 @@
 {
-	"name": "matze/raspberry",
+	"name": "brainexe/raspberry",
 	"description": "Raspberry",
 	"minimum-stability": "dev",
 	"prefer-stable": true,
@@ -22,14 +22,9 @@
 	],
 
 	"require": {
-		"matze/core": "dev-master",
-		"matze/assets": "dev-master",
-		"matze/totp": "dev-master"
-	},
-
-	"suggest": {
-		"behat/mink": "1.4.*@stable",
-		"behat/mink-goutte-driver": "*"
+		"brainexe/core": "dev-master",
+		"brainexe/assets": "dev-master",
+		"brainexe/totp": "dev-master"
 	},
 
 	"config": {

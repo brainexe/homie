@@ -2,7 +2,7 @@
 
 namespace Raspberry\Webcam;
 
-use Matze\Core\EventDispatcher\AbstractEventListener;
+use BrainExe\Core\EventDispatcher\AbstractEventListener;
 
 /**
  * @EventListener

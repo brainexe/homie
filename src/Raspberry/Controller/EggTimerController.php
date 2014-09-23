@@ -2,7 +2,7 @@
 
 namespace Raspberry\Controller;
 
-use Matze\Core\Controller\AbstractController;
+use BrainExe\Core\Controller\AbstractController;
 use Raspberry\EggTimer\EggTimer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

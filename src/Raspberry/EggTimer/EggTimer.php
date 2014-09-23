@@ -2,11 +2,11 @@
 
 namespace Raspberry\EggTimer;
 
-use Matze\Core\Application\UserException;
-use Matze\Core\MessageQueue\MessageQueueGateway;
-use Matze\Core\MessageQueue\MessageQueueJob;
-use Matze\Core\Traits\EventDispatcherTrait;
-use Matze\Core\Util\TimeParser;
+use BrainExe\Core\Application\UserException;
+use BrainExe\Core\MessageQueue\MessageQueueGateway;
+use BrainExe\Core\MessageQueue\MessageQueueJob;
+use BrainExe\Core\Traits\EventDispatcherTrait;
+use BrainExe\Core\Util\TimeParser;
 use Raspberry\Espeak\EspeakVO;
 
 /**

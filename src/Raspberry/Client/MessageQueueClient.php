@@ -2,8 +2,8 @@
 
 namespace Raspberry\Client;
 
-use Matze\Core\Traits\EventDispatcherTrait;
-use Matze\Core\Traits\RedisTrait;
+use BrainExe\Core\Traits\EventDispatcherTrait;
+use BrainExe\Core\Traits\RedisTrait;
 
 /**
  * @Service("MessageQueueClient.Local", public=false)

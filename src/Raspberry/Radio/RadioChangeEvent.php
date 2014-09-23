@@ -2,7 +2,7 @@
 
 namespace Raspberry\Radio;
 
-use Matze\Core\EventDispatcher\AbstractEvent;
+use BrainExe\Core\EventDispatcher\AbstractEvent;
 use Raspberry\Radio\VO\RadioVO;
 
 class RadioChangeEvent extends AbstractEvent {

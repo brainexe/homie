@@ -2,8 +2,8 @@
 
 namespace Raspberry\Console;
 
-use Matze\Core\EventDispatcher\EventDispatcher;
-use Matze\Core\Traits\LoggerTrait;
+use BrainExe\Core\EventDispatcher\EventDispatcher;
+use BrainExe\Core\Traits\LoggerTrait;
 use Raspberry\Sensors\SensorBuilder;
 use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorValueEvent;
@@ -62,6 +62,12 @@ class SensorCronCommand extends Command {
 
 	/**
 	 * @Inject({"@SensorGateway", "@SensorValuesGateway", "@SensorBuilder", "@SensorVOBuilder", "@EventDispatcher", "%node.id%"})
+	 * @param SensorGateway $sensor_gateway
+	 * @param SensorValuesGateway $sensor_values_gateway
+	 * @param SensorBuilder $sensor_builder
+	 * @param SensorVOBuilder $sensor_vo_builder
+	 * @param EventDispatcher $event_dispatcher
+	 * @param integer $node_id
 	 */
 	public function __construct(SensorGateway $sensor_gateway, SensorValuesGateway $sensor_values_gateway, SensorBuilder $sensor_builder, SensorVOBuilder $sensor_vo_builder, EventDispatcher $event_dispatcher, $node_id) {
 		$this->_sensor_builder = $sensor_builder;

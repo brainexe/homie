@@ -2,7 +2,7 @@
 
 namespace Raspberry\Gpio;
 
-use Matze\Core\Traits\RedisTrait;
+use BrainExe\Core\Traits\RedisTrait;
 
 /**
  * @codeCoverageIgnore

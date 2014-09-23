@@ -2,8 +2,8 @@
 
 namespace Raspberry\TodoList;
 
-use Matze\Core\EventDispatcher\AbstractEventListener;
-use Matze\Core\Traits\EventDispatcherTrait;
+use BrainExe\Core\EventDispatcher\AbstractEventListener;
+use BrainExe\Core\Traits\EventDispatcherTrait;
 use Raspberry\Espeak\EspeakEvent;
 use Raspberry\Espeak\EspeakVO;
 

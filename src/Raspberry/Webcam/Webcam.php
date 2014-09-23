@@ -2,7 +2,7 @@
 
 namespace Raspberry\Webcam;
 
-use Matze\Core\Traits\EventDispatcherTrait;
+use BrainExe\Core\Traits\EventDispatcherTrait;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;

@@ -2,9 +2,9 @@
 
 namespace Raspberry\Controller;
 
-use Matze\Core\Controller\AbstractController;
-use Matze\Core\Traits\EventDispatcherTrait;
-use Matze\Core\Traits\IdGeneratorTrait;
+use BrainExe\Core\Controller\AbstractController;
+use BrainExe\Core\Traits\EventDispatcherTrait;
+use BrainExe\Core\Traits\IdGeneratorTrait;
 use Raspberry\Webcam\Webcam;
 use Raspberry\Webcam\WebcamEvent;
 use Symfony\Component\HttpFoundation\JsonResponse;

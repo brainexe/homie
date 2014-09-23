@@ -2,7 +2,7 @@
 
 namespace Raspberry\Espeak;
 
-use Matze\Core\EventDispatcher\AbstractEventListener;
+use BrainExe\Core\EventDispatcher\AbstractEventListener;
 
 /**
  * @EventListener

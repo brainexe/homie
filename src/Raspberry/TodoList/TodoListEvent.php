@@ -2,8 +2,8 @@
 
 namespace Raspberry\TodoList;
 
-use Matze\Core\EventDispatcher\AbstractEvent;
-use Matze\Core\EventDispatcher\PushViaWebsocketInterface;
+use BrainExe\Core\EventDispatcher\AbstractEvent;
+use BrainExe\Core\EventDispatcher\PushViaWebsocketInterface;
 use Raspberry\TodoList\VO\TodoItemVO;
 
 class TodoListEvent extends AbstractEvent implements PushViaWebsocketInterface {

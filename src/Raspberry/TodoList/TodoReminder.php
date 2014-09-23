@@ -2,7 +2,7 @@
 
 namespace Raspberry\TodoList;
 
-use Matze\Core\Traits\EventDispatcherTrait;
+use BrainExe\Core\Traits\EventDispatcherTrait;
 use Raspberry\Espeak\EspeakEvent;
 use Raspberry\Espeak\EspeakVO;
 use Raspberry\TodoList\VO\TodoItemVO;

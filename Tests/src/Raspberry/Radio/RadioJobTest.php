@@ -2,15 +2,14 @@
 
 namespace Raspberry\Tests\Radio;
 
-use Matze\Core\EventDispatcher\BackgroundEvent;
-use Matze\Core\EventDispatcher\DelayedEvent;
-use Matze\Core\MessageQueue\MessageQueueGateway;
-use Matze\Core\Util\TimeParser;
+use BrainExe\Core\EventDispatcher\DelayedEvent;
+use BrainExe\Core\EventDispatcher\EventDispatcher;
+use BrainExe\MessageQueue\MessageQueueGateway;
+use BrainExe\Core\Util\TimeParser;
 use PHPUnit_Framework_MockObject_MockObject;
 use Raspberry\Radio\RadioChangeEvent;
 use Raspberry\Radio\RadioJob;
 use Raspberry\Radio\VO\RadioVO;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class RadioJobTest extends \PHPUnit_Framework_TestCase {
 
@@ -35,9 +34,9 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase {
 	private $_mock_dispatcher;
 
 	public function setUp() {
-		$this->_mock_time_parser = $this->getMock('Matze\Core\Util\TimeParser');
-		$this->_mock_message_queue_gateway = $this->getMock('Matze\Core\MessageQueue\MessageQueueGateway', [], [], '', false);
-		$this->_mock_dispatcher = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcher');
+		$this->_mock_time_parser = $this->getMock(TimeParser::class);
+		$this->_mock_message_queue_gateway = $this->getMock(MessageQueueGateway::class, [], [], '', false);
+		$this->_mock_dispatcher = $this->getMock(EventDispatcher::class);
 
 		$this->_subject = new RadioJob($this->_mock_message_queue_gateway, $this->_mock_time_parser);
 		$this->_subject->setEventDispatcher($this->_mock_dispatcher);
@@ -72,11 +71,10 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase {
 			->will($this->returnValue($timestamp));
 
 		$event = new RadioChangeEvent($radio_vo, $status);
-		$background_event = new DelayedEvent($event, $timestamp);
 		$this->_mock_dispatcher
 			->expects($this->once())
-			->method('dispatch')
-			->with(DelayedEvent::DELAYED, $background_event);
+			->method('dispatchInBackground')
+			->with($event, $timestamp);
 
 		$this->_subject->addRadioJob($radio_vo, $time_string, $status);
 	}

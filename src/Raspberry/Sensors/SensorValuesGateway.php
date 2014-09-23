@@ -2,7 +2,7 @@
 
 namespace Raspberry\Sensors;
 
-use Matze\Core\Traits\RedisTrait;
+use BrainExe\Core\Traits\RedisTrait;
 use Redis;
 
 /**

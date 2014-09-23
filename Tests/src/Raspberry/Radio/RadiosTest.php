@@ -2,12 +2,14 @@
 
 namespace Raspberry\Tests\Radio;
 
+use BrainExe\Core\Application\UserException;
 use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_TestCase;
 use Raspberry\Radio\RadioGateway;
 use Raspberry\Radio\Radios;
 use Raspberry\Radio\VO\RadioVO;
 
-class RadiosTest extends \PHPUnit_Framework_TestCase {
+class RadiosTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @var Radios
@@ -20,17 +22,20 @@ class RadiosTest extends \PHPUnit_Framework_TestCase {
 	private $_mock_radio_gateway;
 
 	public function setUp() {
-		$this->_mock_radio_gateway = $this->getMock('Raspberry\Radio\RadioGateway');
+		$this->_mock_radio_gateway = $this->getMock(RadioGateway::class);
 
 		$this->_subject = new Radios($this->_mock_radio_gateway);
 	}
 
 	/**
 	 * @dataProvider providerPins
+	 * @param string $input_pin
+	 * @param strig $expected_pin
+	 * @throws UserException
 	 */
 	public function testGetRadioPin($input_pin, $expected_pin) {
 		if (false === $expected_pin) {
-			$this->setExpectedException('Matze\Core\Application\UserException');
+			$this->setExpectedException(UserException::class);
 		}
 		$actual_pin = $this->_subject->getRadioPin($input_pin);
 

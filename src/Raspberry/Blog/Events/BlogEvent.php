@@ -2,8 +2,8 @@
 
 namespace Raspberry\Blog\Events;
 
-use Matze\Core\Authentication\UserVO;
-use Matze\Core\EventDispatcher\AbstractEvent;
+use BrainExe\Core\Authentication\UserVO;
+use BrainExe\Core\EventDispatcher\AbstractEvent;
 use Raspberry\Blog\BlogPostVO;
 
 class BlogEvent extends AbstractEvent {

@@ -2,7 +2,7 @@
 
 namespace Raspberry\Radio;
 
-use Matze\Core\Application\UserException;
+use BrainExe\Core\Application\UserException;
 use Raspberry\Radio\VO\RadioVO;
 
 /**

@@ -2,7 +2,7 @@
 
 namespace Raspberry\Dashboard\Widgets;
 
-use Matze\Core\Application\UserException;
+use BrainExe\Core\Application\UserException;
 use Raspberry\Dashboard\AbstractWidget;
 use Raspberry\Sensors\SensorBuilder;
 use Raspberry\Sensors\SensorGateway;

@@ -2,8 +2,8 @@
 
 namespace Raspberry\Controller;
 
-use Matze\Core\Controller\AbstractController;
-use Matze\Core\Traits\TwigTrait;
+use BrainExe\Core\Controller\AbstractController;
+use BrainExe\Core\Traits\TwigTrait;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -27,5 +27,12 @@ class IndexController extends AbstractController {
 		// $response->headers->set('Access-Control-Allow-Origin', '*');
 
 		return $response;
+	}
+
+	/**
+	 * @Value("debug")
+	 */
+	public function setTest($dsd) {
+
 	}
 }

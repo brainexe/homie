@@ -2,8 +2,8 @@
 
 namespace Raspberry\Espeak;
 
-use Matze\Core\EventDispatcher\AbstractEvent;
-use Matze\Core\EventDispatcher\PushViaWebsocketInterface;
+use BrainExe\Core\EventDispatcher\AbstractEvent;
+use BrainExe\Core\EventDispatcher\PushViaWebsocketInterface;
 
 class EspeakEvent extends AbstractEvent implements PushViaWebsocketInterface {
 

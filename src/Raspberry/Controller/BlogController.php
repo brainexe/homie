@@ -2,10 +2,10 @@
 
 namespace Raspberry\Controller;
 
-use Matze\Core\Application\UserException;
-use Matze\Core\Authentication\DatabaseUserProvider;
-use Matze\Core\Authentication\UserVO;
-use Matze\Core\Controller\AbstractController;
+use BrainExe\Core\Application\UserException;
+use BrainExe\Core\Authentication\DatabaseUserProvider;
+use BrainExe\Core\Authentication\UserVO;
+use BrainExe\Core\Controller\AbstractController;
 use Raspberry\Blog\Blog;
 use Raspberry\Blog\BlogPostVO;
 use Symfony\Component\HttpFoundation\JsonResponse;

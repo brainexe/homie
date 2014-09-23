@@ -1,6 +1,6 @@
 <?php
 
-use Matze\Core\Core;
+use BrainExe\Core\Core;
 
 include __DIR__ . '/../src/bootstrap.php';
 

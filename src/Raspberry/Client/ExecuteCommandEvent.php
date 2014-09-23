@@ -2,7 +2,7 @@
 
 namespace Raspberry\Client;
 
-use Matze\Core\EventDispatcher\AbstractEvent;
+use BrainExe\Core\EventDispatcher\AbstractEvent;
 
 class ExecuteCommandEvent extends AbstractEvent {
 

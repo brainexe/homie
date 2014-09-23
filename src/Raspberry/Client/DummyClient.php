@@ -2,7 +2,7 @@
 
 namespace Raspberry\Client;
 
-use Matze\Core\Traits\LoggerTrait;
+use BrainExe\Core\Traits\LoggerTrait;
 
 /**
  * @Service("RaspberryClient.Dummy", public=false)

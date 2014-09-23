@@ -38,6 +38,9 @@ class CleanCronCommand extends Command {
 
 	/**
 	 * @Inject({"@SensorValuesGateway", "@SensorGateway", "%delete_sensor_values%"})
+	 * @param SensorValuesGateway $sensor_values_gateway
+	 * @param SensorGateway $sensor_gateway
+	 * @param integer[] $delete_sensor_values
 	 */
 	public function __construct(SensorValuesGateway $sensor_values_gateway, SensorGateway $sensor_gateway, $delete_sensor_values) {
 		$this->_sensor_values_gateway = $sensor_values_gateway;

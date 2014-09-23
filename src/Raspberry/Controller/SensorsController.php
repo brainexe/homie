@@ -2,8 +2,8 @@
 
 namespace Raspberry\Controller;
 
-use Matze\Core\Controller\AbstractController;
-use Matze\Core\Traits\EventDispatcherTrait;
+use BrainExe\Core\Controller\AbstractController;
+use BrainExe\Core\Traits\EventDispatcherTrait;
 use Raspberry\Espeak\EspeakEvent;
 use Raspberry\Espeak\EspeakVO;
 use Raspberry\Sensors\Chart;

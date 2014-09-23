@@ -2,9 +2,9 @@
 
 namespace Raspberry\Notification;
 
-use Matze\Core\MessageQueue\MessageQueueGateway;
-use Matze\Core\Notification\NotificationCollectorInterface;
-use Matze\Core\Traits\RedisTrait;
+use BrainExe\Core\MessageQueue\MessageQueueGateway;
+use BrainExe\Core\Notification\NotificationCollectorInterface;
+use BrainExe\Core\Traits\RedisTrait;
 
 /**
  * @Service(public=false)

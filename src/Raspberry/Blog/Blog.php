@@ -1,8 +1,9 @@
 <?php
 
 namespace Raspberry\Blog;
-use Matze\Core\Authentication\UserVO;
-use Matze\Core\Traits\EventDispatcherTrait;
+
+use BrainExe\Core\Authentication\UserVO;
+use BrainExe\Core\Traits\EventDispatcherTrait;
 use Raspberry\Blog\Events\BlogEvent;
 
 /**

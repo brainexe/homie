@@ -2,7 +2,7 @@
 
 namespace Raspberry\EggTimer;
 
-use Matze\Core\EventDispatcher\AbstractEvent;
+use BrainExe\Core\EventDispatcher\AbstractEvent;
 use Raspberry\Espeak\EspeakVO;
 
 class EggTimerEvent extends AbstractEvent {

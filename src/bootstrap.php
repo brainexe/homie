@@ -1,6 +1,6 @@
 <?php
 
-use Matze\Core\Core;
+use BrainExe\Core\Core;
 
 define('ROOT', realpath(__DIR__ . '/..').'/');
 

@@ -2,10 +2,10 @@
 
 namespace Raspberry\Controller;
 
-use Matze\Core\Application\SelfUpdate\SelfUpdateEvent;
-use Matze\Core\Controller\AbstractController;
-use Matze\Core\MessageQueue\MessageQueueGateway;
-use Matze\Core\Traits\EventDispatcherTrait;
+use BrainExe\Core\Application\SelfUpdate\SelfUpdateEvent;
+use BrainExe\Core\Controller\AbstractController;
+use BrainExe\Core\MessageQueue\MessageQueueGateway;
+use BrainExe\Core\Traits\EventDispatcherTrait;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 

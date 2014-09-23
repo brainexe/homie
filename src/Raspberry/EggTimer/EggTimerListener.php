@@ -2,8 +2,8 @@
 
 namespace Raspberry\Espeak;
 
-use Matze\Core\EventDispatcher\AbstractEventListener;
-use Matze\Core\EventDispatcher\EventDispatcher;
+use BrainExe\Core\EventDispatcher\AbstractEventListener;
+use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Raspberry\EggTimer\EggTimer;
 use Raspberry\EggTimer\EggTimerEvent;
 use Raspberry\Media\Sound;

@@ -2,7 +2,7 @@
 
 namespace Raspberry\Blog;
 
-use Matze\Core\Traits\RedisTrait;
+use BrainExe\Core\Traits\RedisTrait;
 
 /**
  * @Service(public=false)

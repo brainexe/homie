@@ -2,9 +2,9 @@
 
 namespace Raspberry\Controller;
 
-use Matze\Core\Controller\AbstractController;
-use Matze\Core\Traits\EventDispatcherTrait;
-use Matze\Core\Util\TimeParser;
+use BrainExe\Core\Controller\AbstractController;
+use BrainExe\Core\Traits\EventDispatcherTrait;
+use BrainExe\Core\Util\TimeParser;
 use Raspberry\Espeak\Espeak;
 use Raspberry\Espeak\EspeakEvent;
 use Raspberry\Espeak\EspeakVO;

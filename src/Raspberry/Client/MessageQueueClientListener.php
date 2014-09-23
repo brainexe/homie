@@ -2,7 +2,8 @@
 
 namespace Raspberry\Client;
 
-use Matze\Core\EventDispatcher\AbstractEventListener;
+use BrainExe\Core\EventDispatcher\AbstractEventListener;
+use Redis;
 
 /**
  * @EventListener
@@ -28,7 +29,7 @@ class MessageQueueClientListener extends AbstractEventListener {
 		$output = $local_client->executeWithReturn($event->command);
 
 		if ($event->return_needed) {
-			/** @var \Redis $redis */
+			/** @var Redis $redis */
 			$redis = $this->getService('redis');
 			$redis->lPush(MessageQueueClient::RETURN_CHANNEL, $output);
 		}

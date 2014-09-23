@@ -2,7 +2,7 @@
 
 namespace Raspberry\TodoList\VO;
 
-use Matze\Core\Util\AbstractVO;
+use BrainExe\Core\Util\AbstractVO;
 
 class TodoItemVO extends AbstractVO {
 

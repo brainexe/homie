@@ -2,7 +2,7 @@
 
 namespace Raspberry\TodoList;
 
-use Matze\Core\Traits\RedisTrait;
+use BrainExe\Core\Traits\RedisTrait;
 use Raspberry\TodoList\VO\TodoItemVO;
 use Redis;
 

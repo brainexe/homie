@@ -2,8 +2,8 @@
 
 namespace Raspberry\Sensors;
 
-use Matze\Core\EventDispatcher\AbstractEvent;
-use Matze\Core\EventDispatcher\PushViaWebsocketInterface;
+use BrainExe\Core\EventDispatcher\AbstractEvent;
+use BrainExe\Core\EventDispatcher\PushViaWebsocketInterface;
 use Raspberry\Sensors\Sensors\SensorInterface;
 
 class SensorValueEvent extends AbstractEvent implements PushViaWebsocketInterface {
