@@ -6,7 +6,7 @@ use Raspberry\Client\ClientInterface;
 use RuntimeException;
 
 /**
- * @Service(public=false)
+ * @Service(public=true)
  */
 class GpioManager {
 

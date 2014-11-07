@@ -4,8 +4,9 @@ namespace Raspberry\Controller;
 
 use BrainExe\Core\Application\SelfUpdate\SelfUpdateEvent;
 use BrainExe\Core\Controller\AbstractController;
-use BrainExe\Core\MessageQueue\MessageQueueGateway;
+use BrainExe\MessageQueue\MessageQueueGateway;
 use BrainExe\Core\Traits\EventDispatcherTrait;
+
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 

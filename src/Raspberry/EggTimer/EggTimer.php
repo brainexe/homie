@@ -3,8 +3,8 @@
 namespace Raspberry\EggTimer;
 
 use BrainExe\Core\Application\UserException;
-use BrainExe\Core\MessageQueue\MessageQueueGateway;
-use BrainExe\Core\MessageQueue\MessageQueueJob;
+use BrainExe\MessageQueue\MessageQueueGateway;
+use BrainExe\MessageQueue\MessageQueueJob;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Util\TimeParser;
 use Raspberry\Espeak\EspeakVO;
