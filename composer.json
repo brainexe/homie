@@ -1,8 +1,6 @@
 {
 	"name": "brainexe/raspberry",
 	"description": "Raspberry",
-	"minimum-stability": "dev",
-	"prefer-stable": true,
 	"authors": [
 		{
 			"name": "Matze",
@@ -22,9 +20,13 @@
 	],
 
 	"require": {
-		"brainexe/core": "dev-master",
-		"brainexe/assets": "dev-master",
-		"brainexe/totp": "dev-master"
+		"brainexe/core": "1.*",
+		"brainexe/assets": "1.*",
+		"brainexe/totp": "1.*"
+	},
+
+	"require-dev": {
+	  "phpunit/phpunit": "4.3.*"
 	},
 
 	"config": {
