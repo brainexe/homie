@@ -30,7 +30,7 @@ class RadiosTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @dataProvider providerPins
 	 * @param string $input_pin
-	 * @param strig $expected_pin
+	 * @param string $expected_pin
 	 * @throws UserException
 	 */
 	public function testGetRadioPin($input_pin, $expected_pin) {

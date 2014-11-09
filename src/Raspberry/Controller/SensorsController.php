@@ -2,7 +2,8 @@
 
 namespace Raspberry\Controller;
 
-use BrainExe\Core\Controller\AbstractController;
+
+use BrainExe\Core\Controller\ControllerInterface;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Raspberry\Espeak\EspeakEvent;
 use Raspberry\Espeak\EspeakVO;
@@ -18,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * @Controller
  */
-class SensorsController extends AbstractController {
+class SensorsController implements ControllerInterface {
 
 	use EventDispatcherTrait;
 

@@ -9,7 +9,7 @@ use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Process\Process;
 
 /**
- * @Service
+ * @Service(public=false)
  */
 class Webcam {
 	const ROOT = 'web/static/webcam/';

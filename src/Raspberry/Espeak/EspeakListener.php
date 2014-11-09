@@ -2,12 +2,25 @@
 
 namespace Raspberry\Espeak;
 
-use BrainExe\Core\EventDispatcher\AbstractEventListener;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * @EventListener
  */
-class EspeakListener extends AbstractEventListener {
+class EspeakListener implements EventSubscriberInterface {
+
+	/**
+	 * @var Espeak
+	 */
+	private $_espeak;
+
+	/**
+	 * @inject("@espeak")
+	 * @param Espeak $espeak
+	 */
+	public function __construct(Espeak $espeak) {
+		$this->_espeak = $espeak;
+	}
 
 	/**
 	 * {@inheritdoc}
@@ -24,8 +37,6 @@ class EspeakListener extends AbstractEventListener {
 	public function handleEspeakEvent(EspeakEvent $event) {
 		$espeak_vo = $event->espeak;
 
-		/** @var Espeak $espeak */
-		$espeak = $this->getService('Espeak');
-		$espeak->speak($espeak_vo->text, $espeak_vo->volume, $espeak_vo->speed, $espeak_vo->speaker);
+		$this->_espeak->speak($espeak_vo->text, $espeak_vo->volume, $espeak_vo->speed, $espeak_vo->speaker);
 	}
 }

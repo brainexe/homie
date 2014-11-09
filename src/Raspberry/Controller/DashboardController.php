@@ -2,7 +2,7 @@
 
 namespace Raspberry\Controller;
 
-use BrainExe\Core\Controller\AbstractController;
+use BrainExe\Core\Controller\ControllerInterface;
 use Raspberry\Dashboard\Dashboard;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * @Controller
  */
-class DashboardController extends AbstractController {
+class DashboardController implements ControllerInterface {
 
 	/**
 	 * @var Dashboard

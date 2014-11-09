@@ -2,15 +2,15 @@
 
 namespace Raspberry\TodoList;
 
-use BrainExe\Core\EventDispatcher\AbstractEventListener;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Raspberry\Espeak\EspeakEvent;
 use Raspberry\Espeak\EspeakVO;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * @EventListener
  */
-class TodoListener extends AbstractEventListener {
+class TodoListener implements EventSubscriberInterface {
 
 	use EventDispatcherTrait;
 

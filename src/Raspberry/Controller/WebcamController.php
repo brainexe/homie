@@ -2,7 +2,8 @@
 
 namespace Raspberry\Controller;
 
-use BrainExe\Core\Controller\AbstractController;
+use BrainExe\Core\Controller\ControllerInterface;
+use BrainExe\Core\Traits\AddFlashTrait;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Traits\IdGeneratorTrait;
 use Raspberry\Webcam\Webcam;
@@ -13,8 +14,9 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * @Controller
  */
-class WebcamController extends AbstractController {
+class WebcamController implements ControllerInterface {
 
+	use AddFlashTrait;
 	use EventDispatcherTrait;
 	use IdGeneratorTrait;
 

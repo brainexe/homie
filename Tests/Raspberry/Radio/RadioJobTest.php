@@ -36,7 +36,7 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase {
 	public function setUp() {
 		$this->_mock_time_parser = $this->getMock(TimeParser::class);
 		$this->_mock_message_queue_gateway = $this->getMock(MessageQueueGateway::class, [], [], '', false);
-		$this->_mock_dispatcher = $this->getMock(EventDispatcher::class);
+		$this->_mock_dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
 		$this->_subject = new RadioJob($this->_mock_message_queue_gateway, $this->_mock_time_parser);
 		$this->_subject->setEventDispatcher($this->_mock_dispatcher);

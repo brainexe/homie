@@ -6,7 +6,7 @@ use Raspberry\Client\ClientInterface;
 use RuntimeException;
 
 /**
- * @Service(public=true)
+ * @Service(public=false)
  */
 class GpioManager {
 
@@ -43,7 +43,6 @@ class GpioManager {
 	public function getPins() {
 		$descriptions = $this->_pin_gateway->getPinDescriptions();
 		try {
-			throw new RuntimeException;
 			$this->_loadPins();
 		} catch (RuntimeException $e) {
 			$this->_pins = new PinsCollection();

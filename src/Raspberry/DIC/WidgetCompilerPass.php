@@ -15,6 +15,9 @@ class WidgetCompilerPass implements CompilerPassInterface {
 
 	const TAG = 'widget';
 
+	/**
+	 * @{@inheritdoc}
+	 */
 	public function process(ContainerBuilder $container) {
 		/** @var Definition $definition */
 		$definition = $container->getDefinition('WidgetFactory');

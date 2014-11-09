@@ -2,7 +2,8 @@
 
 namespace Raspberry\Controller;
 
-use BrainExe\Core\Controller\AbstractController;
+use BrainExe\Core\Controller\ControllerInterface;
+use BrainExe\Core\Traits\AddFlashTrait;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Raspberry\Radio\RadioChangeEvent;
 use Raspberry\Radio\RadioJob;
@@ -14,8 +15,9 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * @Controller
  */
-class RadioController extends AbstractController {
+class RadioController implements ControllerInterface {
 
+	use AddFlashTrait;
 	use EventDispatcherTrait;
 
 	/**

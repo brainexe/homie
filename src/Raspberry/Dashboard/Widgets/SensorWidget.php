@@ -4,9 +4,6 @@ namespace Raspberry\Dashboard\Widgets;
 
 use BrainExe\Core\Application\UserException;
 use Raspberry\Dashboard\AbstractWidget;
-use Raspberry\Sensors\SensorBuilder;
-use Raspberry\Sensors\SensorGateway;
-use Raspberry\Sensors\Sensors\SensorInterface;
 
 /**
  * @Service(public=false, tags={{"name" = "widget"}})

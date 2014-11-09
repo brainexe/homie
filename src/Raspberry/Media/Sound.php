@@ -4,7 +4,7 @@ namespace Raspberry\Media;
 use Symfony\Component\Process\Process;
 
 /**
- * @Service
+ * @Service(public=false)
  */
 class Sound {
 

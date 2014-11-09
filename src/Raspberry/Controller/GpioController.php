@@ -2,7 +2,8 @@
 
 namespace Raspberry\Controller;
 
-use BrainExe\Core\Controller\AbstractController;
+
+use BrainExe\Core\Controller\ControllerInterface;
 use Raspberry\Gpio\GpioManager;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * @Controller
  */
-class GpioController extends AbstractController {
+class GpioController implements ControllerInterface {
 
 	/**
 	 * @var GpioManager;

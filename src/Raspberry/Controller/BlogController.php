@@ -5,7 +5,7 @@ namespace Raspberry\Controller;
 use BrainExe\Core\Application\UserException;
 use BrainExe\Core\Authentication\DatabaseUserProvider;
 use BrainExe\Core\Authentication\UserVO;
-use BrainExe\Core\Controller\AbstractController;
+use BrainExe\Core\Controller\ControllerInterface;
 use Raspberry\Blog\Blog;
 use Raspberry\Blog\BlogPostVO;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * @Controller
  */
-class BlogController extends AbstractController {
+class BlogController implements ControllerInterface {
 
 	/**
 	 * @var Blog

@@ -2,13 +2,28 @@
 
 namespace Raspberry\Client;
 
-use BrainExe\Core\EventDispatcher\AbstractEventListener;
-use Redis;
+use BrainExe\Core\Traits\RedisTrait;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * @EventListener
  */
-class MessageQueueClientListener extends AbstractEventListener {
+class MessageQueueClientListener implements EventSubscriberInterface {
+
+	use RedisTrait;
+
+	/**
+	 * @var LocalClient
+	 */
+	private $_client;
+
+	/**
+	 * @inject("@RaspberryClient.Local")
+	 * @param LocalClient $client
+	 */
+	public function __construct(LocalClient $client) {
+		$this->_client = $client;
+	}
 
 	/**
 	 * {@inheritdoc}
@@ -23,15 +38,10 @@ class MessageQueueClientListener extends AbstractEventListener {
 	 * @param ExecuteCommandEvent $event
 	 */
 	public function handleExecuteEvent(ExecuteCommandEvent $event) {
-		/** @var LocalClient $local_client */
-		$local_client = $this->getService('RaspberryClient.Local');
-
-		$output = $local_client->executeWithReturn($event->command);
+		$output = $this->_client->executeWithReturn($event->command);
 
 		if ($event->return_needed) {
-			/** @var Redis $redis */
-			$redis = $this->getService('redis');
-			$redis->lPush(MessageQueueClient::RETURN_CHANNEL, $output);
+			$this->getRedis()->lPush(MessageQueueClient::RETURN_CHANNEL, $output);
 		}
 	}
 }

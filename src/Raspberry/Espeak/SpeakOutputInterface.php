@@ -5,7 +5,7 @@ namespace Raspberry\Espeak;
 interface SpeakOutputInterface {
 
 	/**
-	 * @return array
+	 * @return string[]
 	 */
 	public function getSpeakers();
 

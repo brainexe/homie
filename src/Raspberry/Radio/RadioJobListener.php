@@ -2,12 +2,25 @@
 
 namespace Raspberry\Radio;
 
-use BrainExe\Core\EventDispatcher\AbstractEventListener;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * @EventListener
  */
-class RadioJobListener extends AbstractEventListener {
+class RadioJobListener implements EventSubscriberInterface {
+
+	/**
+	 * @var RadioController
+	 */
+	private $_radioController;
+
+	/**
+	 * @param RadioController $radioController
+	 * @inject("@RadioController")
+	 */
+	public function __construct(RadioController $radioController) {
+		$this->_radioController = $radioController;
+	}
 
 	/**
 	 * {@inheritdoc}
@@ -22,9 +35,6 @@ class RadioJobListener extends AbstractEventListener {
 	 * @param RadioChangeEvent $event
 	 */
 	public function handleChangeEvent(RadioChangeEvent $event) {
-		/** @var RadioController $radio_controller */
-		$radio_controller = $this->getService('RadioController');
-
-		$radio_controller->setStatus($event->radio_vo->code, $event->radio_vo->pin, $event->status);
+		$this->_radioController->setStatus($event->radio_vo->code, $event->radio_vo->pin, $event->status);
 	}
 }

@@ -2,12 +2,25 @@
 
 namespace Raspberry\Webcam;
 
-use BrainExe\Core\EventDispatcher\AbstractEventListener;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * @EventListener
  */
-class WebcamListener extends AbstractEventListener {
+class WebcamListener implements EventSubscriberInterface {
+
+	/**
+	 * @var Webcam
+	 */
+	private $_webcam;
+
+	/**
+	 * @inject("@Webcam")
+	 * @param Webcam $webcam
+	 */
+	public function __construct(Webcam $webcam) {
+		$this->_webcam = $webcam;
+	}
 
 	/**
 	 * {@inheritdoc}
@@ -22,8 +35,6 @@ class WebcamListener extends AbstractEventListener {
 	 * @param WebcamEvent $event
 	 */
 	public function handleWebcamEvent(WebcamEvent $event) {
-		/** @var Webcam $webcam */
-		$webcam = $this->getService('Webcam');
-		$webcam->takePhoto($event->name);
+		$this->_webcam->takePhoto($event->name);
 	}
 }

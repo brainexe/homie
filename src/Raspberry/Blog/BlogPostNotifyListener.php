@@ -2,16 +2,16 @@
 
 namespace Raspberry\Blog;
 
-use BrainExe\Core\EventDispatcher\AbstractEventListener;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Raspberry\Blog\Events\BlogEvent;
 use Raspberry\Espeak\EspeakEvent;
 use Raspberry\Espeak\EspeakVO;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * @EventListener
  */
-class BlogPostNotifyListener extends AbstractEventListener {
+class BlogPostNotifyListener implements EventSubscriberInterface {
 
 	const NOTIFY_TIME = '19:55';
 

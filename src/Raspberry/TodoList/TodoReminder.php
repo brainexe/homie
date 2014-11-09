@@ -8,7 +8,7 @@ use Raspberry\Espeak\EspeakVO;
 use Raspberry\TodoList\VO\TodoItemVO;
 
 /**
- * @Service
+ * @Service(public=false)
  */
 class TodoReminder {
 
@@ -21,6 +21,7 @@ class TodoReminder {
 
 	/**
 	 * @Inject({"@TodoList"})
+	 * @param TodoList $todo_list
 	 */
 	public function __construct(TodoList $todo_list) {
 		$this->_todo_list = $todo_list;

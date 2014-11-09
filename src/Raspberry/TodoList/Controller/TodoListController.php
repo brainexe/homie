@@ -3,7 +3,7 @@
 namespace Raspberry\TodoList\Controller;
 
 use BrainExe\Core\Authentication\DatabaseUserProvider;
-use BrainExe\Core\Controller\AbstractController;
+use BrainExe\Core\Controller\ControllerInterface;
 use Raspberry\TodoList\ShoppingList;
 use Raspberry\TodoList\TodoList;
 use Raspberry\TodoList\VO\TodoItemVO;
@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * @Controller
  */
-class TodoListController extends AbstractController {
+class TodoListController implements ControllerInterface {
 
 	/**
 	 * @var TodoList
@@ -24,6 +24,7 @@ class TodoListController extends AbstractController {
 	 * @var DatabaseUserProvider
 	 */
 	private $_database_user_provider;
+
 	/**
 	 * @var ShoppingList
 	 */
@@ -31,6 +32,9 @@ class TodoListController extends AbstractController {
 
 	/**
 	 * @Inject({"@TodoList", "@DatabaseUserProvider", "@ShoppingList"})
+	 * @param TodoList $todo_list
+	 * @param DatabaseUserProvider $database_user_provider
+	 * @param ShoppingList $shopping_list
 	 */
 	public function __construct(TodoList $todo_list, DatabaseUserProvider $database_user_provider, ShoppingList $shopping_list) {
 		$this->_todo_list = $todo_list;
@@ -73,7 +77,7 @@ class TodoListController extends AbstractController {
 		$item_vo->description = $request->request->get('description');
 		$item_vo->deadline = strtotime($request->request->get('deadline'));
 
-		$user = $this->_getCurrentUser($request);
+		$user = $request->attributes->get('user');
 
 		$this->_todo_list->addItem($user, $item_vo);
 

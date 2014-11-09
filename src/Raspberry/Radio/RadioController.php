@@ -5,7 +5,7 @@ namespace Raspberry\Radio;
 use Raspberry\Client\ClientInterface;
 
 /**
- * @Service
+ * @Service(public=false)
  */
 class RadioController {
 	const BASE_COMMAND = 'sudo /opt/rcswitch-pi/send';

@@ -2,14 +2,17 @@
 
 namespace Raspberry\Espeak;
 
+use BrainExe\Core\Traits\TimeTrait;
 use BrainExe\MessageQueue\MessageQueueGateway;
 use BrainExe\MessageQueue\MessageQueueJob;
 use Raspberry\Client\ClientInterface;
 
 /**
- * @Service
+ * @Service(public=false)
  */
 class Espeak implements SpeakOutputInterface {
+
+	use TimeTrait;
 
 	const DEFAULT_SPEAKER = 'de+m1';
 
@@ -25,6 +28,8 @@ class Espeak implements SpeakOutputInterface {
 
 	/**
 	 * @Inject({"@MessageQueueGateway", "@RaspberryClient"})
+	 * @param MessageQueueGateway $message_queue_gateway
+	 * @param ClientInterface $client
 	 */
 	public function __construct(MessageQueueGateway $message_queue_gateway, ClientInterface $client) {
 		$this->_raspberry_client = $client;
@@ -42,7 +47,9 @@ class Espeak implements SpeakOutputInterface {
 	 * @return MessageQueueJob[]
 	 */
 	public function getPendingJobs() {
-		return $this->_message_queue_gateway->getEventsByType(EspeakEvent::SPEAK, time());
+		$now = $this->now();
+
+		return $this->_message_queue_gateway->getEventsByType(EspeakEvent::SPEAK, $now);
 	}
 
 	/**

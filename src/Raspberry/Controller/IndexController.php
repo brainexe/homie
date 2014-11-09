@@ -2,14 +2,16 @@
 
 namespace Raspberry\Controller;
 
-use BrainExe\Core\Controller\AbstractController;
+
+use BrainExe\Core\Controller\ControllerInterface;
 use BrainExe\Core\Traits\TwigTrait;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Controller
  */
-class IndexController extends AbstractController {
+class IndexController implements ControllerInterface {
 
 	use TwigTrait;
 
