@@ -31,6 +31,8 @@ class GpioManager {
 
 	/**
 	 * @Inject({"@PinGateway", "@RaspberryClient"})
+	 * @param PinGateway $pin_gateway
+	 * @param ClientInterface $local_client
 	 */
 	public function __construct(PinGateway $pin_gateway, ClientInterface $local_client) {
 		$this->_pin_gateway = $pin_gateway;
@@ -42,6 +44,7 @@ class GpioManager {
 	 */
 	public function getPins() {
 		$descriptions = $this->_pin_gateway->getPinDescriptions();
+
 		try {
 			$this->_loadPins();
 		} catch (RuntimeException $e) {

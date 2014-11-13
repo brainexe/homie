@@ -4,7 +4,11 @@ namespace Tests\Raspberry\Espeak\EggTimerListener;
 
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
+use Raspberry\EggTimer\EggTimer;
+use Raspberry\EggTimer\EggTimerEvent;
 use Raspberry\Espeak\EggTimerListener;
+use Raspberry\Espeak\EspeakEvent;
+use Raspberry\Espeak\EspeakVO;
 use Raspberry\Media\Sound;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 
@@ -28,10 +32,7 @@ class EggTimerListenerTest extends PHPUnit_Framework_TestCase {
 	 */
 	private $_mockEventDispatcher;
 
-
 	public function setUp() {
-		parent::setUp();
-
 		$this->_mockSound = $this->getMock(Sound::class, [], [], '', false);
 		$this->_mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
@@ -44,8 +45,33 @@ class EggTimerListenerTest extends PHPUnit_Framework_TestCase {
 		$this->assertInternalType('array', $actual_result);
 	}
 
-	public function testHandleEggTimerEvent() {
-		$this->markTestIncomplete('This is only a dummy implementation');
+	public function testHandleEggTimerEventWithoutEspeak() {
+		$event = new EggTimerEvent();
+
+		$this->_mockSound
+			->expects($this->once())
+			->method('playSound')
+			->with(ROOT . EggTimer::EGG_TIMER_RING_SOUND);
+
+		$this->_subject->handleEggTimerEvent($event);
+	}
+
+	public function testHandleEggTimerEventWithEspeak() {
+		$text = 'text';
+		$espeak = new EspeakVO($text);
+		$event = new EggTimerEvent($espeak);
+
+		$espeak_event = new EspeakEvent($espeak);
+
+		$this->_mockEventDispatcher
+			->expects($this->once())
+			->method('dispatchEvent')
+			->with($espeak_event);
+
+		$this->_mockSound
+			->expects($this->once())
+			->method('playSound')
+			->with(ROOT . EggTimer::EGG_TIMER_RING_SOUND);
 
 		$this->_subject->handleEggTimerEvent($event);
 	}

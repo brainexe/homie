@@ -8,7 +8,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * @Service(public=false, tags={{"name" = "sensor"}})
  */
-class TemperatureDS18 extends AbstractTemperatureSensor {
+class TemperatureDS18 implements SensorInterface {
+
+	use TemperatureSensorTrait;
 
 	const TYPE = 'temp_ds18';
 
@@ -51,6 +53,9 @@ class TemperatureDS18 extends AbstractTemperatureSensor {
 		return $temperature;
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function isSupported(OutputInterface $output) {
 		$bus_system = '/sys/bus/w1/devices';
 

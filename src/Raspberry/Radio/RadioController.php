@@ -17,6 +17,7 @@ class RadioController {
 
 	/**
 	 * @Inject("@RaspberryClient")
+	 * @param ClientInterface $local_client
 	 */
 	public function __construct(ClientInterface $local_client) {
 		$this->_local_client = $local_client;

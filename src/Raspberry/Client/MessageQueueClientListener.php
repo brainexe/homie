@@ -13,15 +13,15 @@ class MessageQueueClientListener implements EventSubscriberInterface {
 	use RedisTrait;
 
 	/**
-	 * @var LocalClient
+	 * @var ClientInterface
 	 */
 	private $_client;
 
 	/**
 	 * @inject("@RaspberryClient.Local")
-	 * @param LocalClient $client
+	 * @param ClientInterface $client
 	 */
-	public function __construct(LocalClient $client) {
+	public function __construct(ClientInterface $client) {
 		$this->_client = $client;
 	}
 

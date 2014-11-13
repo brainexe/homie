@@ -4,11 +4,27 @@ namespace Raspberry\Client;
 
 use RuntimeException;
 use Symfony\Component\Process\Process;
+use Symfony\Component\Process\ProcessBuilder;
 
 /**
  * @Service("RaspberryClient.Local", public=false)
  */
 class LocalClient implements ClientInterface {
+
+	const TIMEOUT = 3600;
+
+	/**
+	 * @var ProcessBuilder
+	 */
+	private $processBuilder;
+
+	/**
+	 * @inject("@ProcessBuilder")
+	 * @param ProcessBuilder $processBuilder
+	 */
+	public function __construct(ProcessBuilder $processBuilder) {
+		$this->processBuilder = $processBuilder;
+	}
 
 	/**
 	 * {@inheritdoc}
@@ -21,8 +37,11 @@ class LocalClient implements ClientInterface {
 	 * {@inheritdoc}
 	 */
 	public function executeWithReturn($command) {
-		$process = new Process($command);
-		$process->setTimeout(3600);
+		$process = $this->processBuilder
+			->setArguments([$command])
+			->setTimeout(self::TIMEOUT)
+			->getProcess();
+
 		$process->run();
 
 		if (!$process->isSuccessful()) {

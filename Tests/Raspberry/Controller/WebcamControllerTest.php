@@ -5,6 +5,8 @@ namespace Tests\Raspberry\Controller\WebcamController;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
 use Raspberry\Controller\WebcamController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Raspberry\Webcam\Webcam;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Core\Util\IdGenerator;
@@ -34,10 +36,7 @@ class WebcamControllerTest extends PHPUnit_Framework_TestCase {
 	 */
 	private $_mockIdGenerator;
 
-
 	public function setUp() {
-		parent::setUp();
-
 		$this->_mockWebcam = $this->getMock(Webcam::class, [], [], '', false);
 		$this->_mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 		$this->_mockIdGenerator = $this->getMock(IdGenerator::class, [], [], '', false);
@@ -48,21 +47,45 @@ class WebcamControllerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testIndex() {
-		$this->markTestIncomplete('This is only a dummy implementation');
+		$photos = [];
+
+		$this->_mockWebcam
+			->expects($this->once())
+			->method('getPhotos')
+			->will($this->returnValue($photos));
+
+		$expected_result = new JsonResponse([
+			'shots' => $photos
+		]);
 
 		$actual_result = $this->_subject->index();
+
+		$this->assertEquals($expected_result, $actual_result);
 	}
 
 	public function testTakePhoto() {
 		$this->markTestIncomplete('This is only a dummy implementation');
 
+
 		$this->_subject->takePhoto();
 	}
 
 	public function testDelete() {
-		$this->markTestIncomplete('This is only a dummy implementation');
+		$photo_id = 12;
+
+		$request = new Request();
+		$request->request->set('shot_id', $photo_id);
+
+		$this->_mockWebcam
+			->expects($this->once())
+			->method('delete')
+			->with($photo_id);
+
+		$expected_result = new JsonResponse(true);
 
 		$actual_result = $this->_subject->delete($request);
+
+		$this->assertEquals($expected_result, $actual_result);
 	}
 
 }

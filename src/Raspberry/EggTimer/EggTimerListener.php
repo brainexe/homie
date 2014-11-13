@@ -15,7 +15,6 @@ class EggTimerListener implements EventSubscriberInterface {
 
 	use EventDispatcherTrait;
 
-
 	/**
 	 * @var Sound
 	 */
@@ -42,7 +41,6 @@ class EggTimerListener implements EventSubscriberInterface {
 	 * @param EggTimerEvent $event
 	 */
 	public function handleEggTimerEvent(EggTimerEvent $event) {
-
 		if ($event->espeak) {
 			$new_event = new EspeakEvent($event->espeak);
 

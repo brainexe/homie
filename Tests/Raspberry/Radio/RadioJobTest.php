@@ -79,4 +79,16 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase {
 		$this->_subject->addRadioJob($radio_vo, $time_string, $status);
 	}
 
+	public function testDeleteJob() {
+		$job_id = 19;
+
+		$this->_mock_message_queue_gateway
+			->expects($this->once())
+			->method('deleteEvent')
+			->with($job_id, RadioChangeEvent::CHANGE_RADIO);
+
+		$this->_subject->deleteJob($job_id);
+
+	}
+
 } 

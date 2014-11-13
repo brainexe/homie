@@ -4,8 +4,12 @@ namespace Tests\Raspberry\TodoList\TodoListener;
 
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
+use Raspberry\Espeak\EspeakEvent;
+use Raspberry\Espeak\EspeakVO;
 use Raspberry\TodoList\TodoListener;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
+use Raspberry\TodoList\TodoListEvent;
+use Raspberry\TodoList\VO\TodoItemVO;
 
 /**
  * @Covers Raspberry\TodoList\TodoListener
@@ -37,8 +41,29 @@ class TodoListenerTest extends PHPUnit_Framework_TestCase {
 		$this->assertInternalType('array', $actual_result);
 	}
 
-	public function testHandleAddEvent() {
-		$this->markTestIncomplete('This is only a dummy implementation');
+	public function testHandleAddEventWithOutDeadline() {
+		$item_vo = new TodoItemVO();
+		$item_vo->deadline = 0;
+
+		$event = new TodoListEvent($item_vo, TodoListEvent::ADD);
+
+		$this->_mockEventDispatcher
+			->expects($this->never())
+			->method('dispatchInBackground');
+
+		$this->_subject->handleAddEvent($event);
+	}
+
+	public function testHandleAddEventWithDeadline() {
+		$item_vo = new TodoItemVO();
+		$item_vo->deadline = $deadline = 10;
+
+		$event = new TodoListEvent($item_vo, TodoListEvent::ADD);
+
+		$this->_mockEventDispatcher
+			->expects($this->once())
+			->method('dispatchInBackground')
+			->with($this->anything(), $deadline);
 
 		$this->_subject->handleAddEvent($event);
 	}

@@ -15,7 +15,7 @@ class SensorCompilerPass implements CompilerPassInterface {
 	const TAG = 'sensor';
 
 	/**
-	 * @{@inheritdoc}
+	 * {@inheritdoc}
 	 */
 	public function process(ContainerBuilder $container) {
 		$definition = $container->getDefinition('SensorBuilder');

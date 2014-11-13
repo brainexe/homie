@@ -36,14 +36,11 @@ class TodoListControllerTest extends PHPUnit_Framework_TestCase {
 
 
 	public function setUp() {
-		parent::setUp();
-
 		$this->_mockTodoList = $this->getMock(TodoList::class, [], [], '', false);
 		$this->_mockDatabaseUserProvider = $this->getMock(DatabaseUserProvider::class, [], [], '', false);
 		$this->_mockShoppingList = $this->getMock(ShoppingList::class, [], [], '', false);
 
 		$this->_subject = new TodoListController($this->_mockTodoList, $this->_mockDatabaseUserProvider, $this->_mockShoppingList);
-
 	}
 
 	public function testIndex() {
@@ -55,7 +52,15 @@ class TodoListControllerTest extends PHPUnit_Framework_TestCase {
 	public function testFetchList() {
 		$this->markTestIncomplete('This is only a dummy implementation');
 
-		$actual_result = $this->_subject->fetchList($request);
+		$list = [];
+
+		$this->_mockTodoList
+			->expects($this->once())
+			->method('getList')
+			->will($this->returnValue($list));
+
+		$actual_result = $this->_subject->fetchList();
+		$this->assertEquals($list, $actual_result);
 	}
 
 	public function testAddItem() {

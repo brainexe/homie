@@ -14,6 +14,7 @@ class ShoppingList {
 
 	/**
 	 * @Inject("@ShoppingListGateway")
+	 * @param ShoppingListGateway $shopping_list_gateway
 	 */
 	public function __construct(ShoppingListGateway $shopping_list_gateway) {
 		$this->_shopping_list_gateway = $shopping_list_gateway;

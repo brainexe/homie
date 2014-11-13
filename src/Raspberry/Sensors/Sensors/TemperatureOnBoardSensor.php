@@ -8,10 +8,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * @Service(public=false, tags={{"name" = "sensor"}})
  */
-class TemperatureOnBoardSensor extends AbstractTemperatureSensor {
+class TemperatureOnBoardSensor implements SensorInterface {
 
 	const PATH = '/sys/class/thermal/thermal_zone0/temp';
 	const TYPE = 'temperature_onboard';
+
+	use TemperatureSensorTrait;
 
 	/**
 	 * {@inheritdoc}

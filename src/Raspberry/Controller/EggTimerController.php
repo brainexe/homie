@@ -63,6 +63,7 @@ class EggTimerController implements ControllerInterface {
 		$this->_egg_timer->deleteJob($job_id);
 
 		$current_jobs = $this->_egg_timer->getJobs();
+
 		return new JsonResponse($current_jobs);
 	}
 }

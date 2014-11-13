@@ -79,7 +79,7 @@ class EspeakController implements ControllerInterface {
 	 * @return JsonResponse
 	 * @Route("/espeak/job/delete/", name="espeak.delete", methods="POST")
 	 */
-	public function deleteJobJob(Request $request) {
+	public function deleteJob(Request $request) {
 		$job_id = $request->request->get('job_id');
 
 		$this->_espeak->deleteJob($job_id);

@@ -6,6 +6,7 @@ use BrainExe\Core\Application\UserException;
 use BrainExe\Core\Authentication\DatabaseUserProvider;
 use BrainExe\Core\Authentication\UserVO;
 use BrainExe\Core\Controller\ControllerInterface;
+use BrainExe\Core\Traits\TimeTrait;
 use Raspberry\Blog\Blog;
 use Raspberry\Blog\BlogPostVO;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -16,10 +17,13 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class BlogController implements ControllerInterface {
 
+	use TimeTrait;
+
 	/**
 	 * @var Blog
 	 */
 	private $_blog;
+
 	/**
 	 * @var DatabaseUserProvider
 	 */
@@ -105,7 +109,7 @@ class BlogController implements ControllerInterface {
 		$this->_blog->addPost($user, $blog_post_vo);
 
 		return new JsonResponse([
-			 time(), $blog_post_vo
+			 $this->now(), $blog_post_vo
 		]);
 	}
 

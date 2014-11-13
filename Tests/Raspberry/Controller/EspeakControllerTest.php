@@ -5,6 +5,8 @@ namespace Tests\Raspberry\Controller\EspeakController;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
 use Raspberry\Controller\EspeakController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Raspberry\Espeak\Espeak;
 use BrainExe\Core\Util\TimeParser;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
@@ -34,10 +36,7 @@ class EspeakControllerTest extends PHPUnit_Framework_TestCase {
 	 */
 	private $_mockEventDispatcher;
 
-
 	public function setUp() {
-		parent::setUp();
-
 		$this->_mockEspeak = $this->getMock(Espeak::class, [], [], '', false);
 		$this->_mockTimeParser = $this->getMock(TimeParser::class, [], [], '', false);
 		$this->_mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
@@ -47,21 +46,50 @@ class EspeakControllerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testIndex() {
-		$this->markTestIncomplete('This is only a dummy implementation');
+		$speakers = ['speakers'];
+		$jobs = ['jobs'];
+
+		$this->_mockEspeak
+			->expects($this->once())
+			->method('getSpeakers')
+			->will($this->returnValue($speakers));
+
+		$this->_mockEspeak
+			->expects($this->once())
+			->method('getPendingJobs')
+			->will($this->returnValue($jobs));
+
+		$expected_result = new JsonResponse([
+			'speakers' => $speakers,
+			'jobs' => $jobs
+		]);
 
 		$actual_result = $this->_subject->index();
+		$this->assertEquals($expected_result, $actual_result);
 	}
 
 	public function testSpeak() {
 		$this->markTestIncomplete('This is only a dummy implementation');
 
+		$request = new Request();
 		$actual_result = $this->_subject->speak($request);
 	}
 
 	public function testDeleteJobJob() {
-		$this->markTestIncomplete('This is only a dummy implementation');
+		$job_id = 10;
+		$request = new Request();
+		$request->request->set('job_id', $job_id);
 
-		$actual_result = $this->_subject->deleteJobJob($request);
+		$this->_mockEspeak
+			->expects($this->once())
+			->method('deleteJob')
+			->will($this->returnValue($job_id));
+
+
+		$actual_result = $this->_subject->deleteJob($request);
+
+		$expected_result = new JsonResponse(true);
+		$this->assertEquals($expected_result, $actual_result);
 	}
 
 }

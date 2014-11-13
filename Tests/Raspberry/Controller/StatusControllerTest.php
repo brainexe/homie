@@ -7,6 +7,8 @@ use PHPUnit_Framework_MockObject_MockObject;
 use Raspberry\Controller\StatusController;
 use BrainExe\MessageQueue\MessageQueueGateway;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Covers Raspberry\Controller\StatusController
@@ -30,8 +32,6 @@ class StatusControllerTest extends PHPUnit_Framework_TestCase {
 
 
 	public function setUp() {
-		parent::setUp();
-
 		$this->_mockMessageQueueGateway = $this->getMock(MessageQueueGateway::class, [], [], '', false);
 		$this->_mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
@@ -46,9 +46,20 @@ class StatusControllerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testDeleteJob() {
-		$this->markTestIncomplete('This is only a dummy implementation');
+		$job_id = 10;
+		$request = new Request();
+		$request->request->set('job_id', $job_id);
+
+		$this->_mockMessageQueueGateway
+			->expects($this->once())
+			->method('deleteEvent')
+			->will($this->returnValue($job_id));
+
 
 		$actual_result = $this->_subject->deleteJob($request);
+
+		$expected_result = new JsonResponse(true);
+		$this->assertEquals($expected_result, $actual_result);
 	}
 
 	public function testStartSelfUpdate() {

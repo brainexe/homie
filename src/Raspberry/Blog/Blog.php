@@ -4,6 +4,7 @@ namespace Raspberry\Blog;
 
 use BrainExe\Core\Authentication\UserVO;
 use BrainExe\Core\Traits\EventDispatcherTrait;
+use BrainExe\Core\Traits\TimeTrait;
 use Raspberry\Blog\Events\BlogEvent;
 
 /**
@@ -12,6 +13,7 @@ use Raspberry\Blog\Events\BlogEvent;
 class Blog {
 
 	use EventDispatcherTrait;
+	use TimeTrait;
 
 	/**
 	 * @var BlogGateway
@@ -20,6 +22,7 @@ class Blog {
 
 	/**
 	 * @Inject("@BlogGateway")
+	 * @param BlogGateway $blog_gateway
 	 */
 	public function __construct(BlogGateway $blog_gateway) {
 		$this->_blog_gateway = $blog_gateway;
@@ -44,7 +47,7 @@ class Blog {
 			$post_vo->mood = null;
 		}
 
-		$this->_blog_gateway->addPost($user->id, time(), $post_vo);
+		$this->_blog_gateway->addPost($user->id, $this->now(), $post_vo);
 
 		$event = new BlogEvent($user, $post_vo);
 		$this->dispatchInBackground($event);

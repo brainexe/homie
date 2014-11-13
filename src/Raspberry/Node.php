@@ -14,6 +14,7 @@ class Node {
 
 	/**
 	 * @Value("%node.id%")
+	 * @param $node_id
 	 */
 	public function __construct($node_id) {
 		$this->_node_id = $node_id;

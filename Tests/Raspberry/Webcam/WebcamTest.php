@@ -5,6 +5,9 @@ namespace Tests\Raspberry\Webcam\Webcam;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
 use Raspberry\Webcam\Webcam;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Process\ProcessBuilder;
+use Symfony\Component\Finder\Finder;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 
 /**
@@ -18,17 +21,32 @@ class WebcamTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
+	 * @var Filesystem|PHPUnit_Framework_MockObject_MockObject
+	 */
+	private $_mockFilesystem;
+
+	/**
+	 * @var ProcessBuilder|PHPUnit_Framework_MockObject_MockObject
+	 */
+	private $_mockProcessBuilder;
+
+	/**
+	 * @var Finder|PHPUnit_Framework_MockObject_MockObject
+	 */
+	private $_mockFinder;
+
+	/**
 	 * @var EventDispatcher|PHPUnit_Framework_MockObject_MockObject
 	 */
 	private $_mockEventDispatcher;
 
-
 	public function setUp() {
-		parent::setUp();
-
+		$this->_mockFilesystem = $this->getMock(Filesystem::class, [], [], '', false);
+		$this->_mockProcessBuilder = $this->getMock(ProcessBuilder::class, [], [], '', false);
+		$this->_mockFinder = $this->getMock(Finder::class, [], [], '', false);
 		$this->_mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-		$this->_subject = new Webcam();
+		$this->_subject = new Webcam($this->_mockFilesystem, $this->_mockProcessBuilder, $this->_mockFinder);
 		$this->_subject->setEventDispatcher($this->_mockEventDispatcher);
 	}
 
@@ -45,7 +63,12 @@ class WebcamTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testDelete() {
-		$this->markTestIncomplete('This is only a dummy implementation');
+		$id = 'id';
+
+		$this->_mockFilesystem
+			->expects($this->once())
+			->method('remove')
+			->with(ROOT . Webcam::ROOT . 'id.jpg');
 
 		$this->_subject->delete($id);
 	}

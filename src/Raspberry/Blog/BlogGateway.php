@@ -8,6 +8,7 @@ use BrainExe\Core\Traits\RedisTrait;
  * @Service(public=false)
  */
 class BlogGateway {
+
 	const REDIS_POSTS_KEY = 'blog:%d';
 	const REDIS_SUBSCRIBERS = 'blog:subscribers:%d';
 
@@ -74,6 +75,7 @@ class BlogGateway {
 	 */
 	public function addPost($user_id, $timestamp, BlogPostVO $post_vo) {
 		$key = $this->_getPostKey($user_id);
+
 		$this->getRedis()->zAdd($key, $timestamp, serialize($post_vo));
 	}
 

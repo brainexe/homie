@@ -5,6 +5,7 @@ namespace Raspberry\TodoList;
 use BrainExe\Core\Authentication\UserVO;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Traits\IdGeneratorTrait;
+use BrainExe\Core\Traits\TimeTrait;
 use Raspberry\TodoList\VO\TodoItemVO;
 
 /**
@@ -14,15 +15,16 @@ class TodoList {
 
 	use EventDispatcherTrait;
 	use IdGeneratorTrait;
+	use TimeTrait;
 
 	/**
 	 * @var TodoListGateway
 	 */
 	private $_todo_list_gateway;
 
-
 	/**
 	 * @Inject({"@TodoListGateway"})
+	 * @param TodoListGateway $todo_list_gateway
 	 */
 	public function __construct(TodoListGateway $todo_list_gateway) {
 		$this->_todo_list_gateway = $todo_list_gateway;
@@ -37,9 +39,9 @@ class TodoList {
 		$item_vo->id = $this->generateRandomNumericId();
 		$item_vo->user_id = $user->id;
 		$item_vo->user_name = $user->username;
-		$item_vo->created_at = $item_vo->last_change = time();
+		$item_vo->created_at = $item_vo->last_change = $this->now();
 		$item_vo->status = TodoItemVO::STATUS_PENDING;
-		if ($item_vo->deadline < time()) {
+		if ($item_vo->deadline < $this->now()) {
 			$item_vo->deadline = 0;
 		}
 

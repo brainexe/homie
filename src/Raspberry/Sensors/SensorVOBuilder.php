@@ -11,8 +11,8 @@ class SensorVOBuilder {
 	 * @param array $data
 	 * @return SensorVO
 	 */
-	public function buildSensorVOFromArray(array $data) {
-		return $this->buildSensorVO($data['id'], $data['name'], $data['description'], $data['interval'], $data['name'], $data['pin'], $data['type'], $data['last_value'], $data['last_value_timestamp']);
+	public function buildFromArray(array $data) {
+		return $this->build($data['id'], $data['name'], $data['description'], $data['interval'], $data['node'], $data['pin'], $data['type'], $data['last_value'], $data['last_value_timestamp']);
 	}
 
 	/**
@@ -27,7 +27,7 @@ class SensorVOBuilder {
 	 * @param int $last_value_timestamp
 	 * @return SensorVO
 	 */
-	public function buildSensorVO($id, $name, $description, $interval, $node, $pin, $type, $last_value, $last_value_timestamp) {
+	public function build($id, $name, $description, $interval, $node, $pin, $type, $last_value, $last_value_timestamp) {
 		$sensor = new SensorVO();
 
 		$sensor->id = $id;

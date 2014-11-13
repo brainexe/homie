@@ -2,7 +2,7 @@
 
 namespace Raspberry\Sensors\Sensors;
 
-abstract class AbstractTemperatureSensor implements SensorInterface {
+trait TemperatureSensorTrait {
 
 	/**
 	 * {@inheritdoc}
@@ -18,4 +18,4 @@ abstract class AbstractTemperatureSensor implements SensorInterface {
 		return str_replace('.', ',', sprintf('%0.1f Degree', $value));
 	}
 
-} 
+}

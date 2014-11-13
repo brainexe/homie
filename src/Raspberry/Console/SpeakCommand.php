@@ -34,9 +34,7 @@ class SpeakCommand extends Command {
 		$espeak_vo = new EspeakVO($text);
 
 		$event = new EspeakEvent($espeak_vo);
-
 		$this->dispatchEvent($event);
-
 	}
 
 } 

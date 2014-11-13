@@ -3,6 +3,7 @@
 namespace Raspberry\EggTimer;
 
 use BrainExe\Core\Application\UserException;
+use BrainExe\Core\Traits\TimeTrait;
 use BrainExe\MessageQueue\MessageQueueGateway;
 use BrainExe\MessageQueue\MessageQueueJob;
 use BrainExe\Core\Traits\EventDispatcherTrait;
@@ -16,6 +17,7 @@ class EggTimer {
 
 	const EGG_TIMER_RING_SOUND = 'assets/sounds/egg_timer.mp3';
 
+	use TimeTrait;
 	use EventDispatcherTrait;
 
 	/**
@@ -67,6 +69,6 @@ class EggTimer {
 	 * @return MessageQueueJob[]
 	 */
 	public function getJobs() {
-		return $this->_message_queue_gateway->getEventsByType(EggTimerEvent::DONE, time());
+		return $this->_message_queue_gateway->getEventsByType(EggTimerEvent::DONE, $this->now());
 	}
 } 

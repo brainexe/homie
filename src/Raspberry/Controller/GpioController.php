@@ -2,7 +2,6 @@
 
 namespace Raspberry\Controller;
 
-
 use BrainExe\Core\Controller\ControllerInterface;
 use Raspberry\Gpio\GpioManager;
 use Symfony\Component\HttpFoundation\JsonResponse;

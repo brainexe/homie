@@ -3,6 +3,7 @@
 namespace Raspberry\Blog;
 
 use BrainExe\Core\Traits\EventDispatcherTrait;
+use BrainExe\Core\Traits\TimeTrait;
 use Raspberry\Blog\Events\BlogEvent;
 use Raspberry\Espeak\EspeakEvent;
 use Raspberry\Espeak\EspeakVO;
@@ -15,6 +16,7 @@ class BlogPostNotifyListener implements EventSubscriberInterface {
 
 	const NOTIFY_TIME = '19:55';
 
+	use TimeTrait;
 	use EventDispatcherTrait;
 
 	/**
@@ -22,33 +24,33 @@ class BlogPostNotifyListener implements EventSubscriberInterface {
 	 */
 	public static function getSubscribedEvents() {
 		return [
-			BlogEvent::POST=> 'handlePostEvent'
+			BlogEvent::POST => 'handlePostEvent'
 		];
 	}
 
 	/**
-	 * @param BlogEvent $speak_event
+	 * @param BlogEvent $event
 	 */
-	public function handlePostEvent(BlogEvent $speak_event) {
-		$post = $speak_event->post;
+	public function handlePostEvent(BlogEvent $event) {
+		$post = $event->post;
 
-		$hour = date('G');
-		$minute = (int)date('i');
-		$text = sprintf('%s hat um %d Uhr %d geschrieben: %s.', $speak_event->user_vo->username, $hour, $minute, $post->text);
+		$hour = $this->getTime()->date('G');
+		$minute = (int)$this->getTime()->date('i');
+		$text = sprintf('%s hat um %d Uhr %d geschrieben: %s.', $event->user_vo->username, $hour, $minute, $post->text);
 
 		if ($post->mood) {
 			$text .= sprintf(' Stimmung: %d von %d', $post->mood, BlogPostVO::MAX_MOOD);
 		}
 
 		$espeak = new EspeakVO($text);
-		$speak_event = new EspeakEvent($espeak);
+		$event = new EspeakEvent($espeak);
 
 		// speak NOW and today at next defined time
-		$this->dispatchInBackground($speak_event);
+		$this->dispatchInBackground($event);
 
-		$time = strtotime(self::NOTIFY_TIME);
-		if ($time > time()) {
-			$this->dispatchInBackground($speak_event, $time);
+		$time = $this->getTime()->strtotime(self::NOTIFY_TIME);
+		if ($time > $this->now()) {
+			$this->dispatchInBackground($event, $time);
 		}
 
 	}

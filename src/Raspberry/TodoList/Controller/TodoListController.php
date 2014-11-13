@@ -56,11 +56,10 @@ class TodoListController implements ControllerInterface {
 	}
 
 	/**
-	 * @param Request $request
 	 * @Route("/todo/list/", name="todo.list")
 	 * @return JsonResponse
 	 */
-	public function fetchList(Request $request) {
+	public function fetchList() {
 		$list = $this->_todo_list->getList();
 
 		return new JsonResponse($list);

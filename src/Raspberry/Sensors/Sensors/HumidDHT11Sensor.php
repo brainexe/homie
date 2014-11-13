@@ -38,7 +38,7 @@ class HumidDHT11Sensor extends AbstractDHT11Sensor {
 	 * @return string
 	 */
 	public function formatValue($value) {
-		return sprintf('%s%%', $value);
+		return sprintf('%d%%', $value);
 	}
 
 	/**

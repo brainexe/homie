@@ -7,34 +7,64 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Process\Process;
+use Symfony\Component\Process\ProcessBuilder;
 
 /**
  * @Service(public=false)
  */
 class Webcam {
+
 	const ROOT = 'web/static/webcam/';
 	const EXTENSION = 'jpg';
+	const TIMEOUT = 10000;
+	const EXECUTABLE = 'fswebcam';
 
 	use EventDispatcherTrait;
+
+	/**
+	 * @var Filesystem
+	 */
+	private $_fileSystem;
+
+	/**
+	 * @var ProcessBuilder
+	 */
+	private $_processBuilder;
+
+	/**
+	 * @var Finder
+	 */
+	private $_finder;
+
+	/**
+	 * @inject({"@Filesystem", "@ProcessBuilder", "@Finder"})
+	 * @param Filesystem $filesystem
+	 * @param ProcessBuilder $processBuilder
+	 * @param Finder $finder
+	 */
+	public function __construct(Filesystem $filesystem, ProcessBuilder $processBuilder, Finder $finder) {
+		$this->_fileSystem = $filesystem;
+		$this->_processBuilder = $processBuilder;
+		$this->_finder = $finder;
+	}
 
 	/**
 	 * @return WebcamVO[]
 	 */
 	public function getPhotos() {
 		$directory = ROOT . self::ROOT;
-		if (!is_dir($directory)) {
-			mkdir($directory, 0777, true);
+		if (!$this->_fileSystem->exists($directory)) {
+			$this->_fileSystem->mkdir($directory, 0777);
 		}
 
-		$finder = new Finder();
-		$finder
+		$this->_finder
 			->files()
 			->in($directory)
 			->name('*.jpg')
 			->sortByName();
 
 		$webcam_vos = [];
-		foreach ($finder as $file) {
+		foreach ($this->_finder as $file) {
 			/** @var SplFileInfo $file */
 			$webcam_vo = $webcam_vos[] = new WebcamVO();
 			$webcam_vo->file_path = $file->getPath();
@@ -52,10 +82,12 @@ class Webcam {
 	 */
 	public function takePhoto($name) {
 		$path = $this->getFilename($name);
-		$command = sprintf('fswebcam -d /dev/video0 %s', $path);
 
-		$process = new Process($command);
-		$process->setTimeout(10000);
+		$process = $this->_processBuilder
+			->setArguments([self::EXECUTABLE, '-d', '/dev/video0', $path])
+			->setTimeout(self::TIMEOUT)
+			->getProcess();
+
 		$process->run();
 
 		$event = new WebcamEvent($name, WebcamEvent::TOOK_PHOTO);
@@ -68,8 +100,7 @@ class Webcam {
 	public function delete($id) {
 		$filename = $this->getFilename($id);
 
-		$filesystem = new Filesystem();
-		$filesystem->remove($filename);
+		$this->_fileSystem->remove($filename);
 	}
 
 	/**

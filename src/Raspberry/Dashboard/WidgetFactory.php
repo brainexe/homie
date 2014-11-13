@@ -28,7 +28,7 @@ class WidgetFactory {
 	 */
 	public function getWidget($id) {
 		if (empty($this->_widgets[$id])) {
-			throw new InvalidArgumentException(sprintf('Invalid widget: %s'), $id);
+			throw new InvalidArgumentException(sprintf('Invalid widget: %s', $id));
 		}
 
 		return $this->_widgets[$id];

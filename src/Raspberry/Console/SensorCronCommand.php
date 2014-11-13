@@ -4,6 +4,7 @@ namespace Raspberry\Console;
 
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Core\Traits\LoggerTrait;
+use BrainExe\Core\Traits\TimeTrait;
 use Raspberry\Sensors\SensorBuilder;
 use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorValueEvent;
@@ -20,6 +21,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class SensorCronCommand extends Command {
 
 	use LoggerTrait;
+	use TimeTrait;
 
 	/**
 	 * @var SensorGateway
@@ -84,11 +86,11 @@ class SensorCronCommand extends Command {
 	 * {@inheritdoc}
 	 */
 	protected function execute(InputInterface $input, OutputInterface $output) {
-		$now = time();
+		$now = $this->now();
 		$sensors = $this->_sensor_gateway->getSensors($this->_node_id);
 
 		foreach ($sensors as $sensor_data) {
-			$sensor_vo = $this->_sensor_vo_builder->buildSensorVOFromArray($sensor_data);
+			$sensor_vo = $this->_sensor_vo_builder->buildFromArray($sensor_data);
 
 			$interval = $sensor_vo->interval ?: 1;
 
