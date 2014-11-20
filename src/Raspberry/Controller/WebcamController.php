@@ -34,15 +34,15 @@ class WebcamController implements ControllerInterface {
 	}
 
 	/**
-	 * @return JsonResponse
+	 * @return array
 	 * @Route("/webcam/", name="webcam.index")
 	 */
 	public function index() {
 		$shots = $this->_webcam->getPhotos();
 
-		return new JsonResponse([
+		return [
 			'shots' => $shots
-		]);
+		];
 	}
 
 	/**
@@ -64,13 +64,13 @@ class WebcamController implements ControllerInterface {
 	/**
 	 * @Route("/webcam/delete/", name="webcam.delete", csrf=true)
 	 * @param Request $request
-	 * @return JsonResponse
+	 * @return boolean
 	 */
 	public function delete(Request $request) {
 		$shot_id = $request->request->get('shot_id');
 
 		$this->_webcam->delete($shot_id);
 
-		return new JsonResponse(true);
+		return true;
 	}
 }

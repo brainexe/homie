@@ -3,14 +3,10 @@
 namespace Tests\Raspberry\Dashboard\Dashboard;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
-use Raspberry\Dashboard\AbstractWidget;
-use Raspberry\Dashboard\Dashboard;
+
 use Raspberry\Dashboard\WidgetFactory;
 use Raspberry\Dashboard\WidgetInterface;
 use Raspberry\Dashboard\Widgets\TimeWidget;
-use Redis;
-use BrainExe\Core\Util\IdGenerator;
 
 /**
  * @Covers Raspberry\Dashboard\Dashboard

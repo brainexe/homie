@@ -2,14 +2,15 @@
 
 namespace Tests\Raspberry\Controller\BlogController;
 
-use BrainExe\Core\Application\UserException;
+use BrainExe\Core\Authentication\UserVO;
+use BrainExe\Core\Util\Time;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
 use Raspberry\Blog\BlogPostVO;
 use Raspberry\Controller\BlogController;
 use Raspberry\Blog\Blog;
 use BrainExe\Core\Authentication\DatabaseUserProvider;
-use Symfony\Component\HttpFoundation\JsonResponse;
+
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -32,17 +33,52 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase {
 	 */
 	private $_mockDatabaseUserProvider;
 
+	/**
+	 * @var Time|PHPUnit_Framework_MockObject_MockObject
+	 */
+	private $_mockTime;
+
 	public function setUp() {
 		$this->_mockBlog = $this->getMock(Blog::class, [], [], '', false);
 		$this->_mockDatabaseUserProvider = $this->getMock(DatabaseUserProvider::class, [], [], '', false);
+		$this->_mockTime = $this->getMock(Time::class, [], [], '', false);
 
 		$this->_subject = new BlogController($this->_mockBlog, $this->_mockDatabaseUserProvider);
+		$this->_subject->setTime($this->_mockTime);
 	}
 
 	public function testIndex() {
-		$this->markTestIncomplete('This is only a dummy implementation');
+		$request = new Request();
+		$user_id = 42;
+
+		$request->attributes->set('user_id', $user_id);
+
+		$posts = [];
+		$user_names = [
+			'Hans Peter' => $user_id
+		];
+
+		$this->_mockBlog
+			->expects($this->once())
+			->method('getPosts')
+			->with($user_id)
+			->will($this->returnValue($posts));
+
+		$this->_mockDatabaseUserProvider
+			->expects($this->once())
+			->method('getAllUserNames')
+			->will($this->returnValue($user_names));
 
 		$actual_result = $this->_subject->index($request);
+
+		$expected_result = [
+			'posts' => $posts,
+			'users' => $user_names,
+			'active_user_id' => $user_id,
+			'current_user_id' => $user_id,
+		];
+
+		$this->assertEquals($expected_result, $actual_result);
 	}
 
 	public function testGetMood() {
@@ -60,11 +96,12 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase {
 			->with($user_id)
 			->will($this->returnValue($recent_post));
 
-		$expected_result = new JsonResponse([
+		$actual_result = $this->_subject->getMood($request);
+
+		$expected_result = [
 			'mood' => $mood * 10,
 			'thought' => $text,
-		]);
-		$actual_result = $this->_subject->getMood($request);
+		];
 
 		$this->assertEquals($expected_result, $actual_result);
 	}
@@ -93,12 +130,12 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase {
 
 		$actual_result = $this->_subject->blogForUser($request, $user_id);
 
-		$expected_result = new JsonResponse([
+		$expected_result = [
 			'posts' => $posts,
 			'users' => $user_names,
 			'active_user_id' => $user_id,
 			'current_user_id' => $user_id,
-		]);
+		];
 
 		$this->assertEquals($expected_result, $actual_result);
 	}
@@ -129,13 +166,47 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase {
 			->method('getAllUserNames')
 			->will($this->returnValue($user_names));
 
-		$this->_subject->blogForUser($request, $user_id);
+		$actual_result = $this->_subject->blogForUser($request, $user_id);
+
+		$i = $todo;
 	}
 
 	public function testAddPost() {
-		$this->markTestIncomplete('This is only a dummy implementation');
+		$request = new Request();
+		$user_id = 42;
+		$now = 1000;
+		$mood = 8;
+		$text = 'text';
+
+		$user_vo = new UserVO();
+		$user_vo->id = $user_id;
+
+		$request->attributes->set('user', $user_vo);
+		$request->request->set('mood', $mood);
+		$request->request->set('text', $text);
+
+		$post_vo = new BlogPostVO();
+		$post_vo->mood = $mood;
+		$post_vo->text = $text;
+
+		$this->_mockBlog
+			->expects($this->once())
+			->method('addPost')
+			->with($user_vo, $post_vo)
+			->will($this->returnValue($post_vo));
+
+		$this->_mockTime
+			->expects($this->once())
+			->method('now')
+			->will($this->returnValue($now));
 
 		$actual_result = $this->_subject->addPost($request);
+
+		$expected_result = [
+			$now, $post_vo
+		];
+
+		$this->assertEquals($expected_result, $actual_result);
 	}
 
 	public function testDeletePost() {
@@ -152,7 +223,7 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase {
 
 		$actual_result = $this->_subject->deletePost($request, $timestamp);
 
-		$expected_response = new JsonResponse(true);
+		$expected_response = true;
 		$this->assertEquals($expected_response, $actual_result);
 	}
 

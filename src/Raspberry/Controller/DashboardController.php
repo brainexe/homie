@@ -4,7 +4,7 @@ namespace Raspberry\Controller;
 
 use BrainExe\Core\Controller\ControllerInterface;
 use Raspberry\Dashboard\Dashboard;
-use Symfony\Component\HttpFoundation\JsonResponse;
+
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -27,28 +27,28 @@ class DashboardController implements ControllerInterface {
 
 	/**
 	 * @param Request $request
-	 * @return JsonResponse
+	 * @return array
 	 * @Route("/dashboard/", name="dashboard.index")
 	 */
 	public function index(Request $request) {
 		$user_id = $this->_getUserId($request);
 
 		$dashboard = $this->_dashboard->getDashboard($user_id);
-		$widgets = $this->_dashboard->getAvailableWidgets();
+		$widgets   = $this->_dashboard->getAvailableWidgets();
 
-		return new JsonResponse([
+		return [
 			'dashboard' => $dashboard,
 			'widgets' => $widgets
-		]);
+		];
 	}
 
 	/**
 	 * @param Request $request
-	 * @return JsonResponse
+	 * @return array
 	 * @Route("/dashboard/add/", methods="POST")
 	 */
 	public function addWidget(Request $request) {
-		$type = $request->request->get('type');
+		$type    = $request->request->get('type');
 		$payload = (array)json_decode($request->request->get('payload'), true);
 		$user_id = $this->_getUserId($request);
 
@@ -56,23 +56,23 @@ class DashboardController implements ControllerInterface {
 
 		$dashboard = $this->_dashboard->getDashboard($user_id);
 
-		return new JsonResponse($dashboard);
+		return $dashboard;
 	}
 
 	/**
 	 * @param Request $request
-	 * @return JsonResponse
+	 * @return array
 	 * @Route("/dashboard/delete/", methods="POST")
 	 */
 	public function deleteWidget(Request $request) {
 		$widget_id = $request->request->getInt('widget_id');
-		$user_id = $this->_getUserId($request);
+		$user_id   = $this->_getUserId($request);
 
 		$this->_dashboard->deleteWidget($user_id, $widget_id);
 
 		$dashboard = $this->_dashboard->getDashboard($user_id);
 
-		return new JsonResponse($dashboard);
+		return $dashboard;
 	}
 
 	/**

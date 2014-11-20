@@ -8,7 +8,6 @@ use BrainExe\Core\Controller\ControllerInterface;
 use BrainExe\MessageQueue\MessageQueueGateway;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -35,24 +34,24 @@ class StatusController implements ControllerInterface {
 	 * @Route("/status/", name="status.index")
 	 */
 	public function index() {
-		return new JsonResponse([
+		return [
 			'jobs' => $this->_message_queue_gateway->getEventsByType(),
 			'stats' => [
 				'Queue Len' => $this->_message_queue_gateway->countJobs()
 			],
-		]);
+		];
 	}
 
 	/**
 	 * @Route("/status/event/delete/", methods="POST")
 	 * @param Request $request
-	 * @return JsonResponse
+	 * @return boolean
 	 */
 	public function deleteJob(Request $request) {
 		$job_id = $request->request->get('job_id');
 		$this->_message_queue_gateway->deleteEvent($job_id);
 
-		return new JsonResponse(true);
+		return true;
 	}
 
 	/**
@@ -63,6 +62,6 @@ class StatusController implements ControllerInterface {
 
 		$this->dispatchInBackground($event);
 
-		return new JsonResponse(true);
+		return true;
 	}
 }

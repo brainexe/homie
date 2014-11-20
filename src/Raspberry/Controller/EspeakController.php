@@ -2,14 +2,14 @@
 
 namespace Raspberry\Controller;
 
-
 use BrainExe\Core\Controller\ControllerInterface;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Util\TimeParser;
+use BrainExe\MessageQueue\MessageQueueJob;
 use Raspberry\Espeak\Espeak;
 use Raspberry\Espeak\EspeakEvent;
 use Raspberry\Espeak\EspeakVO;
-use Symfony\Component\HttpFoundation\JsonResponse;
+
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -35,48 +35,51 @@ class EspeakController implements ControllerInterface {
 	 * @param TimeParser $time_parser
 	 */
 	public function __construct(Espeak $espeak, TimeParser $time_parser) {
-		$this->_espeak = $espeak;
+		$this->_espeak      = $espeak;
 		$this->_time_parser = $time_parser;
 	}
 
 	/**
-	 * @return JsonResponse
+	 * @return array
 	 * @Route("/espeak/", name="espeak.index")
 	 */
 	public function index() {
 		$speakers = $this->_espeak->getSpeakers();
+		$jobs     = $this->_espeak->getPendingJobs();
 
-		return new JsonResponse([
+		return [
 			'speakers' => $speakers,
-			'jobs' => $this->_espeak->getPendingJobs()
-		]);
+			'jobs' => $jobs
+		];
 	}
 
 	/**
 	 * @param Request $request
-	 * @return JsonResponse
+	 * @return MessageQueueJob[]
 	 * @Route("/espeak/speak/", methods="POST")
 	 */
 	public function speak(Request $request) {
-		$speaker = $request->request->get('speaker') ?: null;
-		$text = $request->request->get('text');
-		$volume = $request->request->getInt('volume');
-		$speed = $request->request->getInt('speed');
+		$speaker   = $request->request->get('speaker') ?: null;
+		$text      = $request->request->get('text');
+		$volume    = $request->request->getInt('volume');
+		$speed     = $request->request->getInt('speed');
 		$delay_raw = $request->request->get('delay');
 
 		$timestamp = $this->_time_parser->parseString($delay_raw);
 
 		$espeak_vo = new EspeakVO($text, $volume, $speed, $speaker);
-		$event = new EspeakEvent($espeak_vo);
+		$event     = new EspeakEvent($espeak_vo);
 
 		$this->dispatchInBackground($event, $timestamp);
 
-		return new JsonResponse($this->_espeak->getPendingJobs());
+		$pending_jobs = $this->_espeak->getPendingJobs();
+
+		return $pending_jobs;
 	}
 
 	/**
 	 * @param Request $request
-	 * @return JsonResponse
+	 * @return boolean
 	 * @Route("/espeak/job/delete/", name="espeak.delete", methods="POST")
 	 */
 	public function deleteJob(Request $request) {
@@ -84,6 +87,6 @@ class EspeakController implements ControllerInterface {
 
 		$this->_espeak->deleteJob($job_id);
 
-		return new JsonResponse(true);
+		return true;
 	}
 }

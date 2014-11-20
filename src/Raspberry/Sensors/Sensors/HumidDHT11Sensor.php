@@ -22,9 +22,6 @@ class HumidDHT11Sensor extends AbstractDHT11Sensor {
 	 */
 	public function getValue($pin) {
 		$output = $this->getContent($pin);
-		if (!$output) {
-			return null;
-		}
 
 		if (!preg_match('/Hum = (\d+) %/', $output, $matches)) {
 			return null;

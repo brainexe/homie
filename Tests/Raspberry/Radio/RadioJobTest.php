@@ -2,7 +2,7 @@
 
 namespace Raspberry\Tests\Radio;
 
-use BrainExe\Core\EventDispatcher\DelayedEvent;
+
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\MessageQueue\MessageQueueGateway;
 use BrainExe\Core\Util\TimeParser;

@@ -3,6 +3,7 @@
 namespace Raspberry\TodoList;
 
 use BrainExe\Core\Traits\RedisTrait;
+use BrainExe\Core\Traits\TimeTrait;
 use Raspberry\TodoList\VO\TodoItemVO;
 use Redis;
 
@@ -12,6 +13,7 @@ use Redis;
 class TodoListGateway {
 
 	use RedisTrait;
+	use TimeTrait;
 
 	const TODO_KEY = 'todo:%d';
 	const TODO_IDS = 'todo_ids';
@@ -48,7 +50,7 @@ class TodoListGateway {
 	 * @return array
 	 */
 	public function getRawItem($item_id) {
-		return 	$this->getRedis()->HGETALL($this->_getRedisKey($item_id));
+		return $this->getRedis()->HGETALL($this->_getRedisKey($item_id));
 	}
 
 	/**
@@ -58,7 +60,7 @@ class TodoListGateway {
 	public function editItem($item_id, array $changes) {
 		$key = $this->_getRedisKey($item_id);
 
-		$changes['last_change'] = time();
+		$changes['last_change'] = $this->now();
 
 		$this->getRedis()->hMSet($key, $changes);
 	}

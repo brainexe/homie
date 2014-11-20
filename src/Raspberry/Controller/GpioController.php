@@ -4,7 +4,8 @@ namespace Raspberry\Controller;
 
 use BrainExe\Core\Controller\ControllerInterface;
 use Raspberry\Gpio\GpioManager;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Raspberry\Gpio\Pin;
+
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -15,26 +16,26 @@ class GpioController implements ControllerInterface {
 	/**
 	 * @var GpioManager;
 	 */
-	private $_service_gpio_manager;
+	private $_gpioManager;
 
 	/**
 	 * @Inject("@GpioManager")
 	 * @param GpioManager $service_gpio_manager
 	 */
 	public function __construct(GpioManager $service_gpio_manager) {
-		$this->_service_gpio_manager = $service_gpio_manager;
+		$this->_gpioManager = $service_gpio_manager;
 	}
 
 	/**
 	 * @Route("/gpio/", name="gpio.index");
-	 * @return JsonResponse
+	 * @return array
 	 */
 	public function index() {
-		$pins = $this->_service_gpio_manager->getPins();
+		$pins = $this->_gpioManager->getPins();
 
-		return new JsonResponse([
+		return [
 			'pins' => $pins->getAll()
-		]);
+		];
 	}
 
 	/**
@@ -42,13 +43,13 @@ class GpioController implements ControllerInterface {
 	 * @param integer $id
 	 * @param string $status
 	 * @param integer $value
-	 * @return JsonResponse
+	 * @return Pin
 	 * @Route("/gpio/set/{id}/{status}/{value}/", name="gpio.set", methods="POST")
 	 */
 	public function setStatus(Request $request, $id, $status, $value) {
-		$pin = $this->_service_gpio_manager->setPin($id, $status, $value);
+		$pin = $this->_gpioManager->setPin($id, $status, $value);
 
-		return new JsonResponse($pin);
+		return $pin;
 	}
 
 }

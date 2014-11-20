@@ -28,21 +28,19 @@ class TodoReminder {
 	}
 
 	public function sendNotification() {
-		$todos = $this->_todo_list->getList();
-
-		$issues_per_state = [];
-		foreach ($todos as $todo) {
-			if (TodoItemVO::STATUS_COMPLETED === $todo->status)	{
-				continue;
-			}
-
-			$issues_per_state[$todo->status][] = $todo;
-		}
+		$issues_per_state = $this->_getGroupedIssues();
 
 		if (empty($issues_per_state)) {
 			return;
 		}
 
+		$this->_sendNotification($issues_per_state);
+	}
+
+	/**
+	 * @param $issues_per_state
+	 */
+	private function _sendNotification($issues_per_state) {
 		$text = _('Erinnerung');
 		$text .= ': ';
 
@@ -57,9 +55,27 @@ class TodoReminder {
 		}
 
 		$espeak_vo = new EspeakVO($text);
-		$event = new EspeakEvent($espeak_vo);
+		$event     = new EspeakEvent($espeak_vo);
 
 		$this->dispatchInBackground($event);
+	}
+
+	/**
+	 * @return array[]
+	 */
+	private function _getGroupedIssues() {
+		$todos = $this->_todo_list->getList();
+
+		$issues_per_state = [];
+		foreach ($todos as $todo) {
+			if (TodoItemVO::STATUS_COMPLETED === $todo->status) {
+				continue;
+			}
+
+			$issues_per_state[$todo->status][] = $todo;
+		}
+
+		return $issues_per_state;
 	}
 
 	/**
@@ -69,14 +85,11 @@ class TodoReminder {
 	 */
 	private function _getStateName($count, $state) {
 		switch ($state) {
-			case TodoItemVO::STATUS_PENDING:
-				return sprintf(ngettext('%d offene Aufgabe', '%d offene Aufgaben', $count), $count);
 			case TodoItemVO::STATUS_PROGRESS:
 				return sprintf(ngettext('%d Aufgabe in Arbeit', '%d offene Aufgaben in Arbeit', $count), $count);
+			case TodoItemVO::STATUS_PENDING:
 			default:
-				return '';
-		}
+				return sprintf(ngettext('%d offene Aufgabe', '%d offene Aufgaben', $count), $count);
+			}
 	}
-
-
 }

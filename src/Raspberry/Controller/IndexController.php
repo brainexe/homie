@@ -31,10 +31,4 @@ class IndexController implements ControllerInterface {
 		return $response;
 	}
 
-	/**
-	 * @Value("debug")
-	 */
-	public function setTest($dsd) {
-
-	}
 }

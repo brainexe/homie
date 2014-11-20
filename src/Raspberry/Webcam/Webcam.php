@@ -6,7 +6,6 @@ use BrainExe\Core\Traits\EventDispatcherTrait;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
-use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
 /**
@@ -66,12 +65,15 @@ class Webcam {
 		$webcam_vos = [];
 		foreach ($this->_finder as $file) {
 			/** @var SplFileInfo $file */
+			$file_path = $file->getPath();
+			$relative_path_name = $file->getRelativePathname();
+
 			$webcam_vo = $webcam_vos[] = new WebcamVO();
-			$webcam_vo->file_path = $file->getPath();
-			$webcam_vo->id = basename($file->getRelativePathname());
-			$webcam_vo->name = $file->getRelativePathname();
+			$webcam_vo->file_path = $file_path;
+			$webcam_vo->name = $relative_path_name;
+			$webcam_vo->id = $file->getBasename();
 			$webcam_vo->web_path = sprintf('%s%s', substr(self::ROOT, 4), $webcam_vo->name);
-			$webcam_vo->timestamp = filectime($file->getPath());
+			$webcam_vo->timestamp = $file->getCTime();
 		}
 
 		return $webcam_vos;

@@ -2,12 +2,13 @@
 
 namespace Tests\Raspberry\Controller\StatusController;
 
+use BrainExe\Core\Application\SelfUpdate\SelfUpdateEvent;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
 use Raspberry\Controller\StatusController;
 use BrainExe\MessageQueue\MessageQueueGateway;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
-use Symfony\Component\HttpFoundation\JsonResponse;
+
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -33,16 +34,36 @@ class StatusControllerTest extends PHPUnit_Framework_TestCase {
 
 	public function setUp() {
 		$this->_mockMessageQueueGateway = $this->getMock(MessageQueueGateway::class, [], [], '', false);
-		$this->_mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+		$this->_mockEventDispatcher     = $this->getMock(EventDispatcher::class, [], [], '', false);
 
 		$this->_subject = new StatusController($this->_mockMessageQueueGateway);
 		$this->_subject->setEventDispatcher($this->_mockEventDispatcher);
 	}
 
 	public function testIndex() {
-		$this->markTestIncomplete('This is only a dummy implementation');
+		$eventsByType     = ['events'];
+		$messageQueueJobs = 10;
 
-		$this->_subject->index();
+		$this->_mockMessageQueueGateway
+			->expects($this->once())
+			->method('getEventsByType')
+			->will($this->returnValue($eventsByType));
+
+		$this->_mockMessageQueueGateway
+			->expects($this->once())
+			->method('countJobs')
+			->will($this->returnValue($messageQueueJobs));
+
+		$actual_result = $this->_subject->index();
+
+		$expected_result = [
+			'jobs' => $eventsByType,
+			'stats' => [
+				'Queue Len' => $messageQueueJobs
+			],
+		];
+
+		$this->assertEquals($expected_result, $actual_result);
 	}
 
 	public function testDeleteJob() {
@@ -58,14 +79,20 @@ class StatusControllerTest extends PHPUnit_Framework_TestCase {
 
 		$actual_result = $this->_subject->deleteJob($request);
 
-		$expected_result = new JsonResponse(true);
-		$this->assertEquals($expected_result, $actual_result);
+		$this->assertTrue($actual_result);
 	}
 
 	public function testStartSelfUpdate() {
-		$this->markTestIncomplete('This is only a dummy implementation');
+		$event = new SelfUpdateEvent(SelfUpdateEvent::TRIGGER);
 
-		$this->_subject->startSelfUpdate();
+		$this->_mockEventDispatcher
+			->expects($this->once())
+			->method('dispatchInBackground')
+			->with($event);
+
+		$actual_result = $this->_subject->startSelfUpdate();
+
+		$this->assertTrue($actual_result);
 	}
 
 }

@@ -4,8 +4,11 @@ namespace Tests\Raspberry\Controller\EspeakController;
 
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
+
 use Raspberry\Controller\EspeakController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Raspberry\Espeak\EspeakEvent;
+use Raspberry\Espeak\EspeakVO;
+
 use Symfony\Component\HttpFoundation\Request;
 use Raspberry\Espeak\Espeak;
 use BrainExe\Core\Util\TimeParser;
@@ -59,20 +62,56 @@ class EspeakControllerTest extends PHPUnit_Framework_TestCase {
 			->method('getPendingJobs')
 			->will($this->returnValue($jobs));
 
-		$expected_result = new JsonResponse([
+		$actual_result = $this->_subject->index();
+
+		$expected_result = [
 			'speakers' => $speakers,
 			'jobs' => $jobs
-		]);
+		];
 
-		$actual_result = $this->_subject->index();
 		$this->assertEquals($expected_result, $actual_result);
 	}
 
 	public function testSpeak() {
-		$this->markTestIncomplete('This is only a dummy implementation');
-
 		$request = new Request();
+
+		$speaker = 'speaker';
+        $text = 'text';
+        $volume = 120;
+        $speed = 80;
+        $delay_raw = 'delay_row';
+		$timestamp = 10;
+
+		$request->request->set('speaker', $speaker);
+        $request->request->set('text', $text);
+        $request->request->set('volume', $volume);
+        $request->request->set('speed', $speed);
+        $request->request->set('delay', $delay_raw);
+
+		$this->_mockTimeParser
+			->expects($this->once())
+			->method('parseString')
+			->with($delay_raw)
+			->will($this->returnValue($timestamp));
+
+        $espeak_vo = new EspeakVO($text, $volume, $speed, $speaker);
+        $event = new EspeakEvent($espeak_vo);
+
+		$this->_mockEventDispatcher
+			->expects($this->once())
+			->method('dispatchInBackground')
+			->with($event, $timestamp);
+
+		$pending_jobs = ['pending_jobs'];
+
+		$this->_mockEspeak
+			->expects($this->once())
+			->method('getPendingJobs')
+			->will($this->returnValue($pending_jobs));
+
 		$actual_result = $this->_subject->speak($request);
+
+		$this->assertEquals($pending_jobs, $actual_result);
 	}
 
 	public function testDeleteJobJob() {
@@ -88,8 +127,7 @@ class EspeakControllerTest extends PHPUnit_Framework_TestCase {
 
 		$actual_result = $this->_subject->deleteJob($request);
 
-		$expected_result = new JsonResponse(true);
-		$this->assertEquals($expected_result, $actual_result);
+		$this->assertTrue($actual_result);
 	}
 
 }

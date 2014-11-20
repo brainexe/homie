@@ -17,62 +17,46 @@ class GpioManager {
 	/**
 	 * @var ClientInterface
 	 */
-	private $_local_client;
+	private $_localClient;
 
 	/**
 	 * @var PinGateway
 	 */
-	private $_pin_gateway;
+	private $_pinGateway;
 
 	/**
-	 * @var PinsCollection
+	 * @var PinLoader
 	 */
-	private $_pins = null;
+	private $_pinLoader;
 
 	/**
-	 * @Inject({"@PinGateway", "@RaspberryClient"})
+	 * @Inject({"@PinGateway", "@RaspberryClient", "@PinLoader"})
 	 * @param PinGateway $pin_gateway
 	 * @param ClientInterface $local_client
+	 * @param PinLoader $pinLoader
 	 */
-	public function __construct(PinGateway $pin_gateway, ClientInterface $local_client) {
-		$this->_pin_gateway = $pin_gateway;
-		$this->_local_client = $local_client;
+	public function __construct(PinGateway $pin_gateway, ClientInterface $local_client, PinLoader $pinLoader) {
+		$this->_pinGateway  = $pin_gateway;
+		$this->_localClient = $local_client;
+		$this->_pinLoader   = $pinLoader;
 	}
 
 	/**
 	 * @return PinsCollection
 	 */
 	public function getPins() {
-		$descriptions = $this->_pin_gateway->getPinDescriptions();
+		$descriptions = $this->_pinGateway->getPinDescriptions();
 
-		try {
-			$this->_loadPins();
-		} catch (RuntimeException $e) {
-			$this->_pins = new PinsCollection();
+		$pins = $this->_pinLoader->loadPins();
 
-			$pin = new Pin();
-			$pin->setID(2);
-			$pin->setName('GPIO 2');
-			$pin->setDirection('OUT');
-			$pin->setValue(true);
-			$this->_pins->add($pin);
-
-			$pin = new Pin();
-			$pin->setName('GPIO 3');
-			$pin->setID(3);
-			$pin->setDirection('IN');
-			$pin->setValue(false);
-			$this->_pins->add($pin);
-		}
-
-		foreach ($this->_pins as $pin) {
+		foreach ($pins->getAll() as $pin) {
 			/** @var Pin $pin */
 			if (!empty($descriptions[$pin->getId()])) {
 				$pin->setDescription($descriptions[$pin->getId()]);
 			}
 		}
 
-		return $this->_pins;
+		return $pins;
 	}
 
 	/**
@@ -82,9 +66,7 @@ class GpioManager {
 	 * @return Pin
 	 */
 	public function setPin($id, $status, $value) {
-		$this->_loadPins();
-
-		$pin = $this->_pins->get($id);
+		$pin = $this->_pinLoader->loadPin($id);
 
 		$pin->setDirection($status ? 'out' : 'in');
 		$pin->setValue($value ? Pin::VALUE_HIGH : Pin::VALUE_LOW);
@@ -100,37 +82,8 @@ class GpioManager {
 	private function _updatePin(Pin $pin) {
 		$pinValue = Pin::VALUE_HIGH == $pin->getValue() ? 1 : 0;
 
-		$this->_local_client->execute(sprintf(self::GPIO_COMMAND_DIRECTION, $pin->getID(), $pin->getDirection()));
-		$this->_local_client->execute(sprintf(self::GPIO_COMMAND_VALUE, $pin->getID(), $pinValue));
-	}
-
-	/**
-	 * @return PinsCollection
-	 */
-	private function _loadPins() {
-		if (null !== $this->_pins) {
-			return $this->_pins;
-		}
-
-		$results = $this->_local_client->executeWithReturn(self::GPIO_COMMAND_READALL);
-		$results = explode("\n", $results);
-		$results = array_slice($results, 3, -2);
-
-		$this->_pins = new PinsCollection();
-		foreach ($results as $r) {
-			$matches = explode('|', $r);
-			$matches = array_map('trim', $matches);
-
-			$pin = new Pin();
-			$pin->setID($matches[1]);
-			$pin->setName($matches[4]);
-			$pin->setDirection($matches[5]);
-			$pin->setValue((int)('High' == $matches[6]));
-
-			$this->_pins->add($pin);
-		}
-
-		return $this->_pins;
+		$this->_localClient->execute(sprintf(self::GPIO_COMMAND_DIRECTION, $pin->getID(), $pin->getDirection()));
+		$this->_localClient->execute(sprintf(self::GPIO_COMMAND_VALUE, $pin->getID(), $pinValue));
 	}
 
 }

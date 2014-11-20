@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\Node;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+
 use Raspberry\Node;
 
 /**

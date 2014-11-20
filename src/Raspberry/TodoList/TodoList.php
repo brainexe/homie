@@ -36,12 +36,14 @@ class TodoList {
 	 * @return TodoItemVO
 	 */
 	public function addItem(UserVO $user, TodoItemVO $item_vo) {
+		$now = $this->now();
+
 		$item_vo->id = $this->generateRandomNumericId();
 		$item_vo->user_id = $user->id;
 		$item_vo->user_name = $user->username;
-		$item_vo->created_at = $item_vo->last_change = $this->now();
+		$item_vo->created_at = $item_vo->last_change = $now;
 		$item_vo->status = TodoItemVO::STATUS_PENDING;
-		if ($item_vo->deadline < $this->now()) {
+		if ($item_vo->deadline < $now) {
 			$item_vo->deadline = 0;
 		}
 

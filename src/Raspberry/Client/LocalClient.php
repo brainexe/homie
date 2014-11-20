@@ -3,7 +3,6 @@
 namespace Raspberry\Client;
 
 use RuntimeException;
-use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
 /**

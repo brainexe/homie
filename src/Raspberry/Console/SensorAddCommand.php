@@ -2,6 +2,7 @@
 
 namespace Raspberry\Console;
 
+use Exception;
 use Raspberry\Sensors\SensorBuilder;
 use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorVO;
@@ -52,12 +53,13 @@ class SensorAddCommand extends Command {
 		/** @var DialogHelper $dialog */
 		$dialog = $this->getHelperSet()->get('dialog');
 
-		$sensor_types = array_keys($this->_sensor_builder->getSensors());
+		$sensors      = $this->_sensor_builder->getSensors();
+		$sensor_types = array_keys($sensors);
 
 		$sensor_type_idx = $dialog->select($output, "Sensor type?\n", $sensor_types);
-		$type = $sensor_types[$sensor_type_idx];
+		$type   = $sensor_types[$sensor_type_idx];
+		$sensor = $sensors[$type];
 
-		$sensor = $this->_sensor_builder->build($type);
 		if (!$sensor->isSupported($output)) {
 			$output->writeln('<error>Sensor is not supported</error>');
 			$this->_askForTermination($dialog, $output);
@@ -94,11 +96,11 @@ class SensorAddCommand extends Command {
 	/**
 	 * @param DialogHelper $dialog
 	 * @param OutputInterface $output
+	 * @throws Exception
 	 */
 	private function _askForTermination(DialogHelper $dialog, OutputInterface $output) {
 		if ($dialog->askConfirmation($output, 'Abort adding this sensor? (y/n)')) {
-			exit(1);
+			throw new Exception('Terminated');
 		}
 	}
-
-} 
+}

@@ -4,8 +4,9 @@ namespace Raspberry\Controller;
 
 
 use BrainExe\Core\Controller\ControllerInterface;
+use BrainExe\MessageQueue\MessageQueueJob;
 use Raspberry\EggTimer\EggTimer;
-use Symfony\Component\HttpFoundation\JsonResponse;
+
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -27,20 +28,20 @@ class EggTimerController implements ControllerInterface {
 	}
 
 	/**
-	 * @return JsonResponse
+	 * @return array
 	 * @Route("/egg_timer/", name="egg_timer.index")
 	 */
 	public function index() {
 		$current_jobs = $this->_egg_timer->getJobs();
 
-		return new JsonResponse([
+		return [
 			'jobs' => $current_jobs
-		]);
+		];
 	}
 
 	/**
 	 * @param Request $request
-	 * @return JsonResponse
+	 * @return MessageQueueJob[]
 	 * @Route("/egg_timer/add/", name="egg_timer.add", methods="POST")
 	 */
 	public function add(Request $request) {
@@ -50,13 +51,14 @@ class EggTimerController implements ControllerInterface {
 		$this->_egg_timer->addNewJob($time, $text);
 
 		$current_jobs = $this->_egg_timer->getJobs();
-		return new JsonResponse($current_jobs);
+
+		return $current_jobs;
 	}
 
 	/**
 	 * @param Request $request
 	 * @param string $job_id
-	 * @return JsonResponse
+	 * @return MessageQueueJob[]
 	 * @Route("/egg_timer/delete/{job_id}/", name="egg_timer.delete", methods="POST")
 	 */
 	public function deleteEggTimer(Request $request, $job_id) {
@@ -64,6 +66,6 @@ class EggTimerController implements ControllerInterface {
 
 		$current_jobs = $this->_egg_timer->getJobs();
 
-		return new JsonResponse($current_jobs);
+		return $current_jobs;
 	}
 }

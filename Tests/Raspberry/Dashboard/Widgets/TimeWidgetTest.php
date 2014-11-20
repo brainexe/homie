@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\Dashboard\Widgets\TimeWidget;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+
 use Raspberry\Dashboard\Widgets\TimeWidget;
 
 class TimeWidgetTest extends PHPUnit_Framework_TestCase {

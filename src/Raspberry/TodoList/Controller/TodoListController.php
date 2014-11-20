@@ -43,15 +43,18 @@ class TodoListController implements ControllerInterface {
 	}
 
 	/**
-	 * @param Request $request
 	 * @Route("/todo/", name="todo.index")
 	 * @return JsonResponse
 	 */
-	public function index(Request $request) {
+	public function index() {
+		$list = $this->_todo_list->getList();
+		$shopping_list = $this->_shopping_list->getShoppingListItems();
+		$user_names = $this->_database_user_provider->getAllUserNames();
+
 		return new JsonResponse([
-			'list' => $this->_todo_list->getList(),
-			'shopping_list' => $this->_shopping_list->getShoppingListItems(),
-			'user_names' => array_flip($this->_database_user_provider->getAllUserNames())
+			'list' => $list,
+			'shopping_list' => $shopping_list,
+			'user_names' => array_flip($user_names)
 		]);
 	}
 
@@ -116,8 +119,8 @@ class TodoListController implements ControllerInterface {
 	 */
 	public function setItemStatus(Request $request) {
 		$item_id = $request->request->getInt('id');
-
 		$changes = $request->request->get('changes');
+
 		$item_vo = $this->_todo_list->editItem($item_id, $changes);
 
 		return new JsonResponse($item_vo);

@@ -3,10 +3,10 @@
 namespace Raspberry\Sensors;
 
 use BrainExe\Core\Traits\RedisTrait;
+use BrainExe\Core\Traits\TimeTrait;
 use Redis;
 
 /**
- * @codeCoverageIgnore
  * @Service(public=false)
  */
 class SensorValuesGateway {
@@ -14,6 +14,7 @@ class SensorValuesGateway {
 	const REDIS_SENSOR_VALUES = 'sensor_values:%d';
 
 	use RedisTrait;
+	use TimeTrait;
 
 	/**
 	 * @param integer $sensor_id
@@ -22,7 +23,7 @@ class SensorValuesGateway {
 	public function addValue($sensor_id, $value) {
 		$redis = $this->getRedis()->multi(Redis::PIPELINE);
 
-		$now = time();
+		$now = $this->now();
 
 		$key = $this->_getKey($sensor_id);
 		$redis->ZADD($key, $now, $now.'-'.$value);
@@ -41,7 +42,7 @@ class SensorValuesGateway {
 	 * @return array[]
 	 */
 	public function getSensorValues($sensor_id, $from) {
-		$now = time();
+		$now = $this->now();
 
 		if ($from) {
 			$from = $now - $from;
@@ -70,7 +71,7 @@ class SensorValuesGateway {
 
 		$redis = $this->getRedis();
 
-		$until_timestamp = time() - $days * 86000;
+		$until_timestamp = $this->now() - $days * 86400;
 		$key = $this->_getKey($sensor_id);
 		$old_sensor_values = $redis->ZRANGEBYSCORE($key, 0, $until_timestamp);
 

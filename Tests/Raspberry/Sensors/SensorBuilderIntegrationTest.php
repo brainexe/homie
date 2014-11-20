@@ -9,12 +9,9 @@ use Symfony\Component\Console\Output\NullOutput;
 
 class SensorBuilderIntegrationTest extends \PHPUnit_Framework_TestCase {
 
-	public function setUp() {
-		$this->markTestIncomplete();
-	}
-
 	public function testSensorType() {
 		global $dic;
+
 		/** @var SensorBuilder $sensor_builder */
 		$sensor_builder = $dic->get('SensorBuilder');
 
@@ -34,6 +31,7 @@ class SensorBuilderIntegrationTest extends \PHPUnit_Framework_TestCase {
 
 	/**
 	 * @dataProvider providerSensors
+	 * @param SensorInterface $sensor
 	 */
 	public function testGetValue(SensorInterface $sensor) {
 		$output = new NullOutput();
@@ -49,6 +47,7 @@ class SensorBuilderIntegrationTest extends \PHPUnit_Framework_TestCase {
 
 	/**
 	 * @dataProvider providerSensors
+	 * @param SensorInterface $sensor
 	 */
 	public function testFormatValue(SensorInterface $sensor) {
 		$this->assertInternalType('string', $sensor->formatValue(1.1));

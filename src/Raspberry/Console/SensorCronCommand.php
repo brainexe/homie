@@ -105,14 +105,18 @@ class SensorCronCommand extends Command {
 				}
 
 				$formatted_sensor_value = $sensor->formatValue($current_sensor_value);
-				$event = new SensorValueEvent($sensor_vo, $sensor, $current_sensor_value, $formatted_sensor_value, $now);
+				$event = new SensorValueEvent(
+					$sensor_vo,
+					$sensor,
+					$current_sensor_value,
+					$formatted_sensor_value,
+					$now
+				);
 				$this->_event_dispatcher->dispatchEvent($event);
 
 				$this->_sensor_values_gateway->addValue($sensor_vo->id, $current_sensor_value);
 
 				$output->writeln(sprintf('<info>Sensor value: #%d %s (%s): %s</info>', $sensor_vo->id, $sensor_vo->type, $sensor_vo->name, $formatted_sensor_value));
-
-				usleep(500000);
 			}
 		}
 	}

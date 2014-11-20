@@ -6,7 +6,7 @@ use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
 use Raspberry\Controller\EggTimerController;
 use Raspberry\EggTimer\EggTimer;
-use Symfony\Component\HttpFoundation\JsonResponse;
+
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -25,8 +25,6 @@ class EggTimerControllerTest extends PHPUnit_Framework_TestCase {
 	private $_mockEggTimer;
 
 	public function setUp() {
-		parent::setUp();
-
 		$this->_mockEggTimer = $this->getMock(EggTimer::class, [], [], '', false);
 
 		$this->_subject = new EggTimerController($this->_mockEggTimer);
@@ -42,17 +40,35 @@ class EggTimerControllerTest extends PHPUnit_Framework_TestCase {
 
 		$actual_result = $this->_subject->index();
 
-		$expected = new JsonResponse([
+		$expected = [
 			'jobs' => $jobs
-		]);
+		];
 
 		$this->assertEquals($expected, $actual_result);
 	}
 
 	public function testAdd() {
-		$this->markTestIncomplete('This is only a dummy implementation');
+		$time = 'time';
+		$text = 'text';
+
+		$request = new Request();
+		$request->request->set('text', $text);
+		$request->request->set('time', $time);
+
+		$this->_mockEggTimer
+			->expects($this->once())
+			->method('addNewJob')
+			->with($time, $text);
+
+		$jobs = ['jobs'];
+		$this->_mockEggTimer
+			->expects($this->once())
+			->method('getJobs')
+			->will($this->returnValue($jobs));
 
 		$actual_result = $this->_subject->add($request);
+
+		$this->assertEquals($jobs, $actual_result);
 	}
 
 	public function testDeleteEggTimer() {
@@ -73,9 +89,7 @@ class EggTimerControllerTest extends PHPUnit_Framework_TestCase {
 
 		$actual_result = $this->_subject->deleteEggTimer($request, $job_id);
 
-		$expected = new JsonResponse($jobs);
-
-		$this->assertEquals($expected, $actual_result);
+		$this->assertEquals($jobs, $actual_result);
 	}
 
 }

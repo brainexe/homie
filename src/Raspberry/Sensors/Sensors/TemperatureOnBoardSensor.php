@@ -2,8 +2,8 @@
 
 namespace Raspberry\Sensors\Sensors;
 
-
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * @Service(public=false, tags={{"name" = "sensor"}})
@@ -14,6 +14,19 @@ class TemperatureOnBoardSensor implements SensorInterface {
 	const TYPE = 'temperature_onboard';
 
 	use TemperatureSensorTrait;
+
+	/**
+	 * @var Filesystem
+	 */
+	private $_fileSystem;
+
+	/**
+	 * @inject("@FileSystem")
+	 * @param Filesystem $filesystem
+	 */
+	public function __construct(Filesystem $filesystem) {
+		$this->_fileSystem = $filesystem;
+	}
 
 	/**
 	 * {@inheritdoc}
@@ -30,8 +43,11 @@ class TemperatureOnBoardSensor implements SensorInterface {
 		return $temp / 1000;
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function isSupported(OutputInterface $output) {
-		if (!is_file(self::PATH)) {
+		if (!$this->_fileSystem->exists(self::PATH)) {
 			$output->writeln(sprintf('<error>%s: Thermal zone file does not exist: %s</error>', self::getSensorType(), self::PATH));
 			return false;
 		}

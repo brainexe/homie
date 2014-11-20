@@ -23,16 +23,24 @@ class PinGatewayTest extends PHPUnit_Framework_TestCase {
 	private $_mockRedis;
 
 	public function setUp() {
-
 		$this->_mockRedis = $this->getMock(Redis::class, [], [], '', false);
+
 		$this->_subject = new PinGateway();
 		$this->_subject->setRedis($this->_mockRedis);
 	}
 
 	public function testGetPinDescriptions() {
-		$this->markTestIncomplete('This is only a dummy implementation');
+		$descriptions = ['descriptions'];
+
+		$this->_mockRedis
+			->expects($this->once())
+			->method('hGetAll')
+			->with(PinGateway::REDIS_PINS)
+			->will($this->returnValue($descriptions));
 
 		$actual_result = $this->_subject->getPinDescriptions();
+
+		$this->assertEquals($descriptions, $actual_result);
 	}
 
 }

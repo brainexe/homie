@@ -30,30 +30,77 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase {
 	private $_mockIdGenerator;
 
 	public function setUp() {
-
 		$this->_mockRedis = $this->getMock(Redis::class, [], [], '', false);
 		$this->_mockIdGenerator = $this->getMock(IdGenerator::class, [], [], '', false);
+
 		$this->_subject = new RadioGateway();
 		$this->_subject->setRedis($this->_mockRedis);
 		$this->_subject->setIdGenerator($this->_mockIdGenerator);
 	}
 
 	public function testGetRadios() {
-		$this->markTestIncomplete('This is only a dummy implementation');
+		$radio_ids = [
+			$radio_id = 1
+		];
+
+		$result = ['result'];
+
+		$this->_mockRedis
+			->expects($this->once())
+			->method('SMEMBERS')
+			->with(RadioGateway::REDIS_RADIO_IDS)
+			->will($this->returnValue($radio_ids));
+
+		$this->_mockRedis
+			->expects($this->once())
+			->method('multi')
+			->will($this->returnValue($this->_mockRedis));
+
+		$this->_mockRedis
+			->expects($this->once())
+			->method('HGETALL')
+			->with("radios:$radio_id");
+
+		$this->_mockRedis
+			->expects($this->once())
+			->method('exec')
+			->will($this->returnValue($result));
 
 		$actual_result = $this->_subject->getRadios();
+
+		$this->assertEquals($result, $actual_result);
 	}
 
 	public function testGetRadio() {
-		$this->markTestIncomplete('This is only a dummy implementation');
+		$radio_id = 10;
+
+		$radio = ['radio'];
+
+		$this->_mockRedis
+			->expects($this->once())
+			->method('HGETALL')
+			->with("radios:$radio_id")
+			->will($this->returnValue($radio));
 
 		$actual_result = $this->_subject->getRadio($radio_id);
+
+		$this->assertEquals($radio, $actual_result);
 	}
 
 	public function testGetRadioIds() {
-		$this->markTestIncomplete('This is only a dummy implementation');
+		$radio_ids = [
+			$radio_id = 1
+		];
+
+		$this->_mockRedis
+			->expects($this->once())
+			->method('SMEMBERS')
+			->with(RadioGateway::REDIS_RADIO_IDS)
+			->will($this->returnValue($radio_ids));
 
 		$actual_result = $this->_subject->getRadioIds();
+
+		$this->assertEquals($radio_ids, $actual_result);
 	}
 
 	public function testAddRadio() {
@@ -104,13 +151,35 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testEditRadio() {
-		$this->markTestIncomplete('This is only a dummy implementation');
+		$radio_vo = new RadioVO();
+		$radio_vo->id = $radio_id = 10;
+
+		$this->_mockRedis
+			->expects($this->once())
+			->method('hMset')
+			->with("radios:$radio_id", [
+				'id' => $radio_id,
+				'code' => null,
+				'pin' => null,
+				'name' => null,
+				'description' => null,
+			]);
 
 		$this->_subject->editRadio($radio_vo);
 	}
 
 	public function testDeleteRadio() {
-		$this->markTestIncomplete('This is only a dummy implementation');
+		$radio_id = 10;
+
+		$this->_mockRedis
+			->expects($this->once())
+			->method('SREM')
+			->with(RadioGateway::REDIS_RADIO_IDS, $radio_id);
+
+		$this->_mockRedis
+			->expects($this->once())
+			->method('DEL')
+			->with("radios:$radio_id");
 
 		$this->_subject->deleteRadio($radio_id);
 	}

@@ -5,7 +5,6 @@ namespace Raspberry\Gpio;
 use BrainExe\Core\Traits\RedisTrait;
 
 /**
- * @codeCoverageIgnore
  * @Service(public=false)
  */
 class PinGateway {

@@ -4,8 +4,7 @@ namespace Tests\Raspberry\TodoList\TodoListener;
 
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
-use Raspberry\Espeak\EspeakEvent;
-use Raspberry\Espeak\EspeakVO;
+
 use Raspberry\TodoList\TodoListener;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Raspberry\TodoList\TodoListEvent;

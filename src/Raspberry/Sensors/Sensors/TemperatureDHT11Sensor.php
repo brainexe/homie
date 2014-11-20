@@ -25,10 +25,6 @@ class TemperatureDHT11Sensor extends AbstractDHT11Sensor {
 	public function getValue($pin) {
 		$output = $this->getContent($pin);
 
-		if (!$output) {
-			return null;
-		}
-
 		if (!preg_match('/Temp = (\d+) /', $output, $matches)) {
 			return null;
 		}

@@ -6,7 +6,6 @@ use BrainExe\Core\Traits\RedisTrait;
 use Redis;
 
 /**
- * @codeCoverageIgnore
  * @Service(public=false)
  */
 class SensorGateway {

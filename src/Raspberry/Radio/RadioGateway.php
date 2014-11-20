@@ -8,7 +8,6 @@ use Raspberry\Radio\VO\RadioVO;
 use Redis;
 
 /**
- * @codeCoverageIgnore
  * @Service(public=false)
  */
 class RadioGateway {

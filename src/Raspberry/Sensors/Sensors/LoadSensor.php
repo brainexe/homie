@@ -40,6 +40,10 @@ class LoadSensor implements SensorInterface {
 		return sprintf('%1.2f', $value);
 	}
 
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function isSupported(OutputInterface $output) {
 		return true;
 	}

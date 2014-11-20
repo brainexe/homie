@@ -18,14 +18,14 @@ class SensorCompilerPass implements CompilerPassInterface {
 	 * {@inheritdoc}
 	 */
 	public function process(ContainerBuilder $container) {
-		$definition = $container->getDefinition('SensorBuilder');
-
+		$sensor_builder = $container->getDefinition('SensorBuilder');
 		$taggedServices = $container->findTaggedServiceIds(self::TAG);
+
 		foreach ($taggedServices as $id => $attributes) {
 			/** @var SensorInterface $service */
 			$service = $container->get($id);
 
-			$definition->addMethodCall('addSensor', [$service->getSensorType(), new Reference($id)]);
+			$sensor_builder->addMethodCall('addSensor', [$service->getSensorType(), new Reference($id)]);
 		}
 	}
 

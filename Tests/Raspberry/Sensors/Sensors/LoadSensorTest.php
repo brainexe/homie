@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\Sensors\Sensors\LoadSensor;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+
 use Raspberry\Sensors\Sensors\LoadSensor;
 use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 

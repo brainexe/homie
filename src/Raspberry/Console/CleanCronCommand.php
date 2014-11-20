@@ -46,6 +46,7 @@ class CleanCronCommand extends Command {
 		$this->_sensor_values_gateway = $sensor_values_gateway;
 		$this->_value_delete_sensor_values = $delete_sensor_values;
 		$this->_sensor_gateway = $sensor_gateway;
+
 		parent::__construct();
 	}
 
@@ -70,8 +71,13 @@ class CleanCronCommand extends Command {
 		$deleted_rows = 0;
 
 		foreach ($this->_value_delete_sensor_values as $delete) {
-			$deleted_rows += $this->_sensor_values_gateway->deleteOldValues($sensor_id, $delete['days'], $delete['percentage']);
+			$deleted_rows += $this->_sensor_values_gateway->deleteOldValues(
+				$sensor_id,
+				$delete['days'],
+				$delete['percentage']
+			);
 		}
+
 		$output->writeln(sprintf('<info>sensor #%d, deleted %d rows</info>', $sensor_id, $deleted_rows));
 	}
 

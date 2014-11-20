@@ -10,7 +10,7 @@ use BrainExe\Core\Util\TimeParser;
 use BrainExe\Core\Util\Time;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Raspberry\EggTimer\EggTimerEvent;
-use Raspberry\Espeak\EspeakEvent;
+
 use Raspberry\Espeak\EspeakVO;
 
 class EggTimerTest extends PHPUnit_Framework_TestCase {
