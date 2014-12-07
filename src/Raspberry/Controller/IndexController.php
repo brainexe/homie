@@ -19,6 +19,7 @@ class IndexController implements ControllerInterface {
 	 * @param Request $request
 	 * @return Response
 	 * @Route("/", name="index")
+	 * @Guest
 	 */
 	public function index(Request $request) {
 		$response = $this->renderToResponse('layout.html.twig', [

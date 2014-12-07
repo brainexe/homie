@@ -2,8 +2,8 @@
 
 namespace Raspberry\Sensors\Sensors;
 
+use BrainExe\Core\Util\FileSystem;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * @Service(public=false, tags={{"name" = "sensor"}})
@@ -47,7 +47,7 @@ class TemperatureDS18 implements SensorInterface {
 			return null;
 		}
 
-		$content = file_get_contents($path);
+		$content = $this->_fileSystem->fileGetContents($path);
 
 		if (strpos($content, 'YES') === false) {
 			// invalid response :(

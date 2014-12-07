@@ -2,11 +2,11 @@
 
 namespace Tests\Raspberry\Sensors\Sensors\TemperatureDS18;
 
+use BrainExe\Core\Util\FileSystem;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
 use Raspberry\Sensors\Sensors\TemperatureDS18;
 use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
-use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * @Covers Raspberry\Sensors\Sensors\TemperatureDS18
@@ -51,9 +51,12 @@ class TemperatureDS18Test extends PHPUnit_Framework_TestCase {
 		$this->assertNull($actual_result);
 	}
 
-	public function testGetValue() {
-		$this->markTestIncomplete('This is only a dummy implementation');
-
+	/**
+	 * @param string $content
+	 * @param string|null $expected_result
+	 * @dataProvider provideContent
+	 */
+	public function testGetValue($content, $expected_result) {
 		$pin = 12;
 
 		$file = sprintf(TemperatureDS18::PIN_FILE, $pin);
@@ -64,9 +67,15 @@ class TemperatureDS18Test extends PHPUnit_Framework_TestCase {
 			->with($file)
 			->will($this->returnValue(true));
 
+		$this->_mockFileSystem
+			->expects($this->once())
+			->method('fileGetContents')
+			->with($file)
+			->will($this->returnValue($content));
+
 		$actual_result = $this->_subject->getValue($pin);
 
-		$this->assertNull($actual_result);
+		$this->assertEquals($expected_result, $actual_result);
 	}
 
 	/**
@@ -120,6 +129,9 @@ class TemperatureDS18Test extends PHPUnit_Framework_TestCase {
 		$this->assertFalse($actual_result);
 	}
 
+	/**
+	 * @return array[]
+	 */
 	public function provideFormatValues() {
 		return [
 			[100, '100.00°'],
@@ -130,6 +142,9 @@ class TemperatureDS18Test extends PHPUnit_Framework_TestCase {
 		];
 	}
 
+	/**
+	 * @return array[]
+	 */
 	public function provideEspeakText() {
 		return [
 			[100, '100,0 Degree'],
@@ -140,4 +155,19 @@ class TemperatureDS18Test extends PHPUnit_Framework_TestCase {
 		];
 	}
 
+	/**
+	 * @return array[]
+	 */
+	public function provideContent() {
+		return [
+			['', null],
+			['invalid', null],
+			['YES foo', null],
+			['YES t=0', null],
+			['YES t=85000', null],
+			['YES t=70000', 70]
+			,
+			['YES t=70001', 70.001],
+		];
+	}
 }

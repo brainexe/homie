@@ -36,15 +36,19 @@ class LoadSensorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testFormatValue() {
-		$this->markTestIncomplete('This is only a dummy implementation');
+		$value = 1211.1112;
 
-		$this->_subject->formatValue($value);
+		$actual_result = $this->_subject->formatValue($value);
+
+		$this->assertEquals('1211.1', $actual_result);
 	}
 
 	public function testGetEspeakText() {
-		$this->markTestIncomplete('This is only a dummy implementation');
+		$value = 1211.1112;
 
-		$this->_subject->getEspeakText($value);
+		$actual_result = $this->_subject->getEspeakText($value);
+
+		$this->assertEquals('1211.1', $actual_result);
 	}
 
 	public function testIsSupported() {

@@ -20,6 +20,6 @@
     </parameters>
 
 	<services>
-		<service id="RaspberryClient" alias="RaspberryClient.Local"/>
+		<service id="RaspberryClient" alias="RaspberryClient.Local" public="false"/>
 	</services>
 </container>

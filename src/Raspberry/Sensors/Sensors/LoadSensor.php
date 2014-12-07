@@ -37,7 +37,7 @@ class LoadSensor implements SensorInterface {
 	 * {@inheritdoc}
 	 */
 	public function getEspeakText($value) {
-		return sprintf('%1.2f', $value);
+		return sprintf('%1.1f', $value);
 	}
 
 

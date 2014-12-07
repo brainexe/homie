@@ -3,7 +3,6 @@
 namespace Raspberry\Gpio;
 
 use Raspberry\Client\ClientInterface;
-use RuntimeException;
 
 /**
  * @Service(public=false)

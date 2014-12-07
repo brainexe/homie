@@ -1,59 +1,59 @@
 <?php
 
-namespace Tests\Raspberry\Espeak\EggTimerListener;
+namespace Tests\Raspberry\EggTimer\EggTimerListener;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\EggTimer\EggTimer;
 use Raspberry\EggTimer\EggTimerEvent;
-use Raspberry\Espeak\EggTimerListener;
+use Raspberry\EggTimer\EggTimerListener;
 use Raspberry\Espeak\EspeakEvent;
 use Raspberry\Espeak\EspeakVO;
 use Raspberry\Media\Sound;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 
 /**
- * @Covers Raspberry\Espeak\EggTimerListener
+ * @Covers Raspberry\EggTimer\EggTimerListener
  */
 class EggTimerListenerTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @var EggTimerListener
 	 */
-	private $_subject;
+	private $subject;
 
 	/**
-	 * @var Sound|PHPUnit_Framework_MockObject_MockObject
+	 * @var Sound|MockObject
 	 */
-	private $_mockSound;
+	private $mockSound;
 
 	/**
-	 * @var EventDispatcher|PHPUnit_Framework_MockObject_MockObject
+	 * @var EventDispatcher|MockObject
 	 */
-	private $_mockEventDispatcher;
+	private $mockEventDispatcher;
 
 	public function setUp() {
-		$this->_mockSound = $this->getMock(Sound::class, [], [], '', false);
-		$this->_mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+		$this->mockSound = $this->getMock(Sound::class, [], [], '', false);
+		$this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-		$this->_subject = new EggTimerListener($this->_mockSound);
-		$this->_subject->setEventDispatcher($this->_mockEventDispatcher);
+		$this->subject = new EggTimerListener($this->mockSound);
+		$this->subject->setEventDispatcher($this->mockEventDispatcher);
 	}
 
 	public function testGetSubscribedEvents() {
-		$actual_result = $this->_subject->getSubscribedEvents();
+		$actual_result = $this->subject->getSubscribedEvents();
 		$this->assertInternalType('array', $actual_result);
 	}
 
 	public function testHandleEggTimerEventWithoutEspeak() {
 		$event = new EggTimerEvent();
 
-		$this->_mockSound
+		$this->mockSound
 			->expects($this->once())
 			->method('playSound')
 			->with(ROOT . EggTimer::EGG_TIMER_RING_SOUND);
 
-		$this->_subject->handleEggTimerEvent($event);
+		$this->subject->handleEggTimerEvent($event);
 	}
 
 	public function testHandleEggTimerEventWithEspeak() {
@@ -63,17 +63,17 @@ class EggTimerListenerTest extends PHPUnit_Framework_TestCase {
 
 		$espeak_event = new EspeakEvent($espeak);
 
-		$this->_mockEventDispatcher
+		$this->mockEventDispatcher
 			->expects($this->once())
 			->method('dispatchEvent')
 			->with($espeak_event);
 
-		$this->_mockSound
+		$this->mockSound
 			->expects($this->once())
 			->method('playSound')
 			->with(ROOT . EggTimer::EGG_TIMER_RING_SOUND);
 
-		$this->_subject->handleEggTimerEvent($event);
+		$this->subject->handleEggTimerEvent($event);
 	}
 
 }

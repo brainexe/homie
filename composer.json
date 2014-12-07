@@ -19,10 +19,11 @@
 		}
 	],
 
+"minimum-stability":"dev",
 	"require": {
-		"brainexe/core": "1.*",
-		"brainexe/assets": "1.*",
-		"brainexe/totp": "1.*"
+		"brainexe/core": "*",
+		"brainexe/assets": "dev-master",
+		"brainexe/totp": "dev-master"
 	},
 
 	"require-dev": {

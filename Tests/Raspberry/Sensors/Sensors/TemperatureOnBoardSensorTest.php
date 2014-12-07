@@ -2,11 +2,11 @@
 
 namespace Tests\Raspberry\Sensors\Sensors\TemperatureOnBoardSensor;
 
+use BrainExe\Core\Util\FileSystem;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
 use Raspberry\Sensors\Sensors\TemperatureOnBoardSensor;
 use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
-use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * @Covers Raspberry\Sensors\Sensors\TemperatureOnBoardSensor
@@ -36,9 +36,18 @@ class TemperatureOnBoardSensorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetValue() {
-		$this->markTestIncomplete('This is only a dummy implementation');
+		$value = 12200;
+		$pin   = 2;
 
-		$this->_subject->getValue($pin);
+		$this->_mockFileSystem
+			->expects($this->once())
+			->method('fileGetContents')
+			->with(TemperatureOnBoardSensor::PATH)
+			->will($this->returnValue($value));
+
+		$actual_result = $this->_subject->getValue($pin);
+
+		$this->assertEquals(12.2, $actual_result);
 	}
 
 	public function testIsSupported() {

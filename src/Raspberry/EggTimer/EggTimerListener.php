@@ -1,10 +1,9 @@
 <?php
 
-namespace Raspberry\Espeak;
+namespace Raspberry\EggTimer;
 
 use BrainExe\Core\Traits\EventDispatcherTrait;
-use Raspberry\EggTimer\EggTimer;
-use Raspberry\EggTimer\EggTimerEvent;
+use Raspberry\Espeak\EspeakEvent;
 use Raspberry\Media\Sound;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

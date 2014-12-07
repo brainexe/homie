@@ -3,14 +3,13 @@
 namespace Tests\Raspberry\EggTimer\EggTimer;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\EggTimer\EggTimer;
 use BrainExe\MessageQueue\MessageQueueGateway;
 use BrainExe\Core\Util\TimeParser;
 use BrainExe\Core\Util\Time;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Raspberry\EggTimer\EggTimerEvent;
-
 use Raspberry\Espeak\EspeakVO;
 
 class EggTimerTest extends PHPUnit_Framework_TestCase {
@@ -21,22 +20,22 @@ class EggTimerTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var MessageQueueGateway|PHPUnit_Framework_MockObject_MockObject
+	 * @var MessageQueueGateway|MockObject
 	 */
 	private $_mockMessageQueueGateway;
 
 	/**
-	 * @var TimeParser|PHPUnit_Framework_MockObject_MockObject
+	 * @var TimeParser|MockObject
 	 */
 	private $_mockTimeParser;
 
 	/**
-	 * @var Time|PHPUnit_Framework_MockObject_MockObject
+	 * @var Time|MockObject
 	 */
 	private $_mockTime;
 
 	/**
-	 * @var EventDispatcher|PHPUnit_Framework_MockObject_MockObject
+	 * @var EventDispatcher|MockObject
 	 */
 	private $_mockEventDispatcher;
 
@@ -45,6 +44,7 @@ class EggTimerTest extends PHPUnit_Framework_TestCase {
 		$this->_mockTimeParser = $this->getMock(TimeParser::class, [], [], '', false);
 		$this->_mockTime = $this->getMock(Time::class, [], [], '', false);
 		$this->_mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+
 		$this->_subject = new EggTimer($this->_mockMessageQueueGateway, $this->_mockTimeParser);
 		$this->_subject->setTime($this->_mockTime);
 		$this->_subject->setEventDispatcher($this->_mockEventDispatcher);
