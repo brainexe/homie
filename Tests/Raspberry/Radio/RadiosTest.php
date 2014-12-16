@@ -129,6 +129,24 @@ class RadiosTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * @expectedException \InvalidArgumentException
+	 * @expectedExceptionMessage Invalid radio: 4
+	 */
+	public function testGetInvalidRadio() {
+		$radio_id = 4;
+
+		$radio = [];
+
+		$this->_mock_radio_gateway
+			->expects($this->once())
+			->method('getRadio')
+			->with($radio_id)
+			->will($this->returnValue($radio));
+
+		$this->_subject->getRadio($radio_id);
+	}
+
+	/**
 	 * @return array[]
 	 */
 	public static function providerPins() {
@@ -144,4 +162,4 @@ class RadiosTest extends PHPUnit_Framework_TestCase {
 			['G', false],
 		];
 	}
-} 
+}

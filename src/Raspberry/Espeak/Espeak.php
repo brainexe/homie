@@ -19,12 +19,12 @@ class Espeak implements SpeakOutputInterface {
 	/**
 	 * @var ClientInterface
 	 */
-	private $_raspberry_client;
+	private $client;
 
 	/**
 	 * @var MessageQueueGateway
 	 */
-	private $_message_queue_gateway;
+	private $gateway;
 
 	/**
 	 * @Inject({"@MessageQueueGateway", "@RaspberryClient"})
@@ -32,8 +32,8 @@ class Espeak implements SpeakOutputInterface {
 	 * @param ClientInterface $client
 	 */
 	public function __construct(MessageQueueGateway $message_queue_gateway, ClientInterface $client) {
-		$this->_raspberry_client = $client;
-		$this->_message_queue_gateway = $message_queue_gateway;
+		$this->client  = $client;
+		$this->gateway = $message_queue_gateway;
 	}
 
 	/**
@@ -49,7 +49,7 @@ class Espeak implements SpeakOutputInterface {
 	public function getPendingJobs() {
 		$now = $this->now();
 
-		return $this->_message_queue_gateway->getEventsByType(EspeakEvent::SPEAK, $now);
+		return $this->gateway->getEventsByType(EspeakEvent::SPEAK, $now);
 	}
 
 	/**
@@ -65,13 +65,13 @@ class Espeak implements SpeakOutputInterface {
 
 		$command = sprintf('espeak "%s" -s %d -a %d  -v%ss --stdout | aplay', $text, $speed, $volume, $speaker);
 
-		$this->_raspberry_client->execute($command);
+		$this->client->execute($command);
 	}
 
 	/**
 	 * @param string $job_id
 	 */
 	public function deleteJob($job_id) {
-		$this->_message_queue_gateway->deleteEvent($job_id, EspeakEvent::SPEAK);
+		$this->gateway->deleteEvent($job_id, EspeakEvent::SPEAK);
 	}
-} 
+}

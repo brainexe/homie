@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\Client\LocalClient;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Client\LocalClient;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
@@ -15,19 +15,19 @@ use RuntimeException;
 class LocalClientTest extends PHPUnit_Framework_TestCase {
 
 	/**
-	 * @var ProcessBuilder|PHPUnit_Framework_MockObject_MockObject
+	 * @var ProcessBuilder|MockObject
 	 */
-	private $_mockProcessBuilder;
+	private $mockProcessBuilder;
 
 	/**
 	 * @var LocalClient
 	 */
-	private $_subject;
+	private $subject;
 
 	public function setUp() {
-		$this->_mockProcessBuilder = $this->getMock(ProcessBuilder::class, [], [], '', false);
+		$this->mockProcessBuilder = $this->getMock(ProcessBuilder::class, [], [], '', false);
 
-		$this->_subject = new LocalClient($this->_mockProcessBuilder);
+		$this->subject = new LocalClient($this->mockProcessBuilder);
 	}
 
 	/**
@@ -39,22 +39,26 @@ class LocalClientTest extends PHPUnit_Framework_TestCase {
 
 		$process = $this->getMock(Process::class, [], [], '', false);
 
-		$this->_mockProcessBuilder
+		$this->mockProcessBuilder
 			->expects($this->once())
-			->method('setArguments')
-			->with([$command])
-			->will($this->returnValue($this->_mockProcessBuilder));
+			->method('add')
+			->willReturnSelf();
 
-		$this->_mockProcessBuilder
+		$this->mockProcessBuilder
 			->expects($this->once())
 			->method('setTimeout')
 			->with(LocalClient::TIMEOUT)
-			->will($this->returnValue($this->_mockProcessBuilder));
+			->willReturnSelf();
 
-		$this->_mockProcessBuilder
+		$this->mockProcessBuilder
 			->expects($this->once())
 			->method('getProcess')
 			->will($this->returnValue($process));
+
+		$process
+			->expects($this->once())
+			->method('setCommandLine')
+			->with($command);
 
 		$process
 			->expects($this->once())
@@ -70,7 +74,7 @@ class LocalClientTest extends PHPUnit_Framework_TestCase {
 			->method('getErrorOutput')
 			->will($this->returnValue('error'));
 
-		$this->_subject->executeWithReturn($command);
+		$this->subject->executeWithReturn($command);
 	}
 
 	public function testExecuteWithReturn() {
@@ -78,22 +82,26 @@ class LocalClientTest extends PHPUnit_Framework_TestCase {
 		$output  = 'output';
 		$process = $this->getMock(Process::class, [], [], '', false);
 
-		$this->_mockProcessBuilder
+		$this->mockProcessBuilder
 			->expects($this->once())
-			->method('setArguments')
-			->with([$command])
-			->will($this->returnValue($this->_mockProcessBuilder));
+			->method('add')
+			->willReturnSelf();
 
-		$this->_mockProcessBuilder
+		$this->mockProcessBuilder
 			->expects($this->once())
 			->method('setTimeout')
 			->with(LocalClient::TIMEOUT)
-			->will($this->returnValue($this->_mockProcessBuilder));
+			->willReturnSelf();
 
-		$this->_mockProcessBuilder
+		$this->mockProcessBuilder
 			->expects($this->once())
 			->method('getProcess')
 			->will($this->returnValue($process));
+
+		$process
+			->expects($this->once())
+			->method('setCommandLine')
+			->with($command);
 
 		$process
 			->expects($this->once())
@@ -109,7 +117,7 @@ class LocalClientTest extends PHPUnit_Framework_TestCase {
 			->method('getOutput')
 			->will($this->returnValue($output));
 
-		$actual_result = $this->_subject->executeWithReturn($command);
+		$actual_result = $this->subject->executeWithReturn($command);
 		$this->assertEquals($output, $actual_result);
 	}
 
@@ -118,19 +126,18 @@ class LocalClientTest extends PHPUnit_Framework_TestCase {
 		$output  = 'output';
 		$process = $this->getMock(Process::class, [], [], '', false);
 
-		$this->_mockProcessBuilder
+		$this->mockProcessBuilder
 			->expects($this->once())
-			->method('setArguments')
-			->with([$command])
-			->will($this->returnValue($this->_mockProcessBuilder));
+			->method('add')
+			->willReturnSelf();
 
-		$this->_mockProcessBuilder
+		$this->mockProcessBuilder
 			->expects($this->once())
 			->method('setTimeout')
 			->with(LocalClient::TIMEOUT)
-			->will($this->returnValue($this->_mockProcessBuilder));
+			->willReturnSelf();
 
-		$this->_mockProcessBuilder
+		$this->mockProcessBuilder
 			->expects($this->once())
 			->method('getProcess')
 			->will($this->returnValue($process));
@@ -149,7 +156,7 @@ class LocalClientTest extends PHPUnit_Framework_TestCase {
 			->method('getOutput')
 			->will($this->returnValue($output));
 
-		$this->_subject->execute($command);
+		$this->subject->execute($command);
 	}
 
 }

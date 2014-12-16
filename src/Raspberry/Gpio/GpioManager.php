@@ -67,7 +67,7 @@ class GpioManager {
 	public function setPin($id, $status, $value) {
 		$pin = $this->_pinLoader->loadPin($id);
 
-		$pin->setDirection($status ? 'out' : 'in');
+		$pin->setDirection($status ? Pin::DIRECTION_OUT : Pin::DIRECTION_IN);
 		$pin->setValue($value ? Pin::VALUE_HIGH : Pin::VALUE_LOW);
 
 		$this->_updatePin($pin);

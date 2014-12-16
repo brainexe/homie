@@ -11,10 +11,10 @@ class Pin implements JsonSerializable {
 	 */
 	protected $_description;
 
-	const DIRECTION_IN = 'in';
+	const DIRECTION_IN  = 'in';
 	const DIRECTION_OUT = 'out';
 
-	const VALUE_LOW = 'LOW';
+	const VALUE_LOW  = 'LOW';
 	const VALUE_HIGH = 'HIGH';
 
 	/**
@@ -38,13 +38,6 @@ class Pin implements JsonSerializable {
 	 * @var boolean
 	 */
 	protected $_value;
-
-	/**
-	 * @return Pin
-	 */
-	public function __construct() {
-		return $this->getName() ? : $this->getId();
-	}
 
 	/**
 	 * Get ID value.
@@ -160,4 +153,4 @@ class Pin implements JsonSerializable {
 			'direction' => $this->_direction == 'OUT' ? 1 : 0,
 		];
 	}
-} 
+}

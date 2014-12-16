@@ -23,7 +23,8 @@
 	"require": {
 		"brainexe/core": "*",
 		"brainexe/assets": "dev-master",
-		"brainexe/totp": "dev-master"
+		"brainexe/totp": "dev-master",
+		"brainexe/input-control": "dev-master"
 	},
 
 	"require-dev": {

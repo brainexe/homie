@@ -37,10 +37,11 @@ class LocalClient implements ClientInterface {
 	 */
 	public function executeWithReturn($command) {
 		$process = $this->processBuilder
-			->setArguments([$command])
+			->add('')
 			->setTimeout(self::TIMEOUT)
 			->getProcess();
 
+		$process->setCommandLine($command);
 		$process->run();
 
 		if (!$process->isSuccessful()) {

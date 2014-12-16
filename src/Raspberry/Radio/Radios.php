@@ -3,6 +3,7 @@
 namespace Raspberry\Radio;
 
 use BrainExe\Core\Application\UserException;
+use InvalidArgumentException;
 use Raspberry\Radio\VO\RadioVO;
 
 /**
@@ -63,6 +64,10 @@ class Radios {
 	 */
 	public function getRadio($radio_id) {
 		$raw = $this->_radio_gateway->getRadio($radio_id);
+
+		if (empty($raw)) {
+			throw new InvalidArgumentException(sprintf('Invalid radio: %d', $radio_id));
+		}
 
 		return $this->_buildRadioVO($raw);
 	}
