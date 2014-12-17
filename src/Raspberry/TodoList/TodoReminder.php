@@ -17,14 +17,14 @@ class TodoReminder {
 	/**
 	 * @var TodoList
 	 */
-	private $_todo_list;
+	private $todoList;
 
 	/**
 	 * @Inject({"@TodoList"})
 	 * @param TodoList $todo_list
 	 */
 	public function __construct(TodoList $todo_list) {
-		$this->_todo_list = $todo_list;
+		$this->todoList = $todo_list;
 	}
 
 	public function sendNotification() {
@@ -64,7 +64,7 @@ class TodoReminder {
 	 * @return array[]
 	 */
 	private function _getGroupedIssues() {
-		$todos = $this->_todo_list->getList();
+		$todos = $this->todoList->getList();
 
 		$issues_per_state = [];
 		foreach ($todos as $todo) {

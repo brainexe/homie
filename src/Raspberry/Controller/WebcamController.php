@@ -23,14 +23,14 @@ class WebcamController implements ControllerInterface {
 	/**
 	 * @var Webcam
 	 */
-	private $_webcam;
+	private $webcam;
 
 	/**
 	 * @Inject("@Webcam")
 	 * @param Webcam $webcam
 	 */
 	public function __construct(Webcam $webcam) {
-		$this->_webcam = $webcam;
+		$this->webcam = $webcam;
 	}
 
 	/**
@@ -38,7 +38,7 @@ class WebcamController implements ControllerInterface {
 	 * @Route("/webcam/", name="webcam.index")
 	 */
 	public function index() {
-		$shots = $this->_webcam->getPhotos();
+		$shots = $this->webcam->getPhotos();
 
 		return [
 			'shots' => $shots
@@ -69,7 +69,7 @@ class WebcamController implements ControllerInterface {
 	public function delete(Request $request) {
 		$shot_id = $request->request->get('shot_id');
 
-		$this->_webcam->delete($shot_id);
+		$this->webcam->delete($shot_id);
 
 		return true;
 	}

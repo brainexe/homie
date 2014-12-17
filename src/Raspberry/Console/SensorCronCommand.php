@@ -26,32 +26,32 @@ class SensorCronCommand extends Command {
 	/**
 	 * @var SensorGateway
 	 */
-	private $_sensor_gateway;
+	private $sensorGateway;
 
 	/**
 	 * @var SensorValuesGateway
 	 */
-	private $_sensor_values_gateway;
+	private $gateway;
 
 	/**
 	 * @var SensorBuilder
 	 */
-	private $_sensor_builder;
+	private $builder;
 
 	/**
 	 * @var integer
 	 */
-	private $_node_id;
+	private $nodeId;
 
 	/**
 	 * @var SensorVOBuilder
 	 */
-	private $_sensor_vo_builder;
+	private $sensorVoBuilder;
 
 	/**
 	 * @var EventDispatcher
 	 */
-	private $_event_dispatcher;
+	private $dispatcher;
 
 	/**
 	 * {@inheritdoc}
@@ -72,12 +72,12 @@ class SensorCronCommand extends Command {
 	 * @param integer $node_id
 	 */
 	public function __construct(SensorGateway $sensor_gateway, SensorValuesGateway $sensor_values_gateway, SensorBuilder $sensor_builder, SensorVOBuilder $sensor_vo_builder, EventDispatcher $event_dispatcher, $node_id) {
-		$this->_sensor_builder = $sensor_builder;
-		$this->_sensor_gateway = $sensor_gateway;
-		$this->_sensor_values_gateway = $sensor_values_gateway;
-		$this->_sensor_vo_builder = $sensor_vo_builder;
-		$this->_event_dispatcher = $event_dispatcher;
-		$this->_node_id = $node_id;
+		$this->builder = $sensor_builder;
+		$this->sensorGateway = $sensor_gateway;
+		$this->gateway = $sensor_values_gateway;
+		$this->sensorVoBuilder = $sensor_vo_builder;
+		$this->dispatcher = $event_dispatcher;
+		$this->nodeId = $node_id;
 
 		parent::__construct();
 	}
@@ -87,17 +87,17 @@ class SensorCronCommand extends Command {
 	 */
 	protected function execute(InputInterface $input, OutputInterface $output) {
 		$now = $this->now();
-		$sensors = $this->_sensor_gateway->getSensors($this->_node_id);
+		$sensors = $this->sensorGateway->getSensors($this->nodeId);
 
 		foreach ($sensors as $sensor_data) {
-			$sensor_vo = $this->_sensor_vo_builder->buildFromArray($sensor_data);
+			$sensor_vo = $this->sensorVoBuilder->buildFromArray($sensor_data);
 
 			$interval = $sensor_vo->interval ?: 1;
 
 			$last_run_timestamp = $sensor_vo->last_value_timestamp;
 			$delta = $now - $last_run_timestamp;
 			if ($delta > $interval * 60 || $input->getOption('force')) {
-				$sensor = $this->_sensor_builder->build($sensor_vo->type);
+				$sensor = $this->builder->build($sensor_vo->type);
 				$current_sensor_value = $sensor->getValue($sensor_vo->pin);
 				if ($current_sensor_value === null) {
 					$output->writeln(sprintf('<error>Invalid sensor value: #%d %s (%s)</error>', $sensor_vo->id, $sensor_vo->type, $sensor_vo->name));
@@ -112,13 +112,13 @@ class SensorCronCommand extends Command {
 					$formatted_sensor_value,
 					$now
 				);
-				$this->_event_dispatcher->dispatchEvent($event);
+				$this->dispatcher->dispatchEvent($event);
 
-				$this->_sensor_values_gateway->addValue($sensor_vo->id, $current_sensor_value);
+				$this->gateway->addValue($sensor_vo->id, $current_sensor_value);
 
 				$output->writeln(sprintf('<info>Sensor value: #%d %s (%s): %s</info>', $sensor_vo->id, $sensor_vo->type, $sensor_vo->name, $formatted_sensor_value));
 			}
 		}
 	}
 
-} 
+}

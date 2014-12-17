@@ -23,12 +23,12 @@ class RadioController implements ControllerInterface {
 	/**
 	 * @var Radios;
 	 */
-	private $_radios;
+	private $radios;
 
 	/**
 	 * @var RadioJob
 	 */
-	private $_radio_job;
+	private $radioJob;
 
 	/**
 	 * @Inject({"@Radios", "@RadioJob"})
@@ -36,8 +36,8 @@ class RadioController implements ControllerInterface {
 	 * @param RadioJob $radio_job
 	 */
 	public function __construct(Radios $radios, RadioJob $radio_job) {
-		$this->_radios    = $radios;
-		$this->_radio_job = $radio_job;
+		$this->radios    = $radios;
+		$this->radioJob = $radio_job;
 	}
 
 	/**
@@ -45,8 +45,8 @@ class RadioController implements ControllerInterface {
 	 * @Route("/radio/", name="radio.index")
 	 */
 	public function index() {
-		$radios_formatted = $this->_radios->getRadios();
-		$jobs = $this->_radio_job->getJobs();
+		$radios_formatted = $this->radios->getRadios();
+		$jobs = $this->radioJob->getJobs();
 
 		return [
 			'radios'     => $radios_formatted,
@@ -63,7 +63,7 @@ class RadioController implements ControllerInterface {
 	 * @Route("/radio/status/{radio_id}/{status}/", name="radio.set_status", methods="POST")
 	 */
 	public function setStatus(Request $request, $radio_id, $status) {
-		$radio_vo = $this->_radios->getRadio($radio_id);
+		$radio_vo = $this->radios->getRadio($radio_id);
 
 		$event = new RadioChangeEvent($radio_vo, $status);
 		$this->dispatchInBackground($event);
@@ -85,7 +85,7 @@ class RadioController implements ControllerInterface {
 		$code        = $request->request->get('code');
 		$pin_raw     = $request->request->get('pin');
 
-		$pin = $this->_radios->getRadioPin($pin_raw);
+		$pin = $this->radios->getRadioPin($pin_raw);
 
 		$radio_vo = new RadioVO();
 		$radio_vo->name        = $name;
@@ -93,7 +93,7 @@ class RadioController implements ControllerInterface {
 		$radio_vo->code        = $code;
 		$radio_vo->pin         = $pin;
 
-		$this->_radios->addRadio($radio_vo);
+		$this->radios->addRadio($radio_vo);
 
 		return $radio_vo;
 	}
@@ -105,7 +105,7 @@ class RadioController implements ControllerInterface {
 	 * @Route("/radio/delete/{radio_id}/", name="radio.delete", methods="POST")
 	 */
 	public function deleteRadio(Request $request, $radio_id) {
-		$this->_radios->deleteRadio($radio_id);
+		$this->radios->deleteRadio($radio_id);
 
 		return true;
 	}
@@ -133,9 +133,9 @@ class RadioController implements ControllerInterface {
 		$status      = $request->request->getInt('status');
 		$time_string = $request->request->get('time');
 
-		$radio_vo = $this->_radios->getRadio($radio_id);
+		$radio_vo = $this->radios->getRadio($radio_id);
 
-		$this->_radio_job->addRadioJob($radio_vo, $time_string, $status);
+		$this->radioJob->addRadioJob($radio_vo, $time_string, $status);
 
 		$response = new JsonResponse(true);
 		$this->_addFlash($response, self::ALERT_SUCCESS, _('The job was sored successfully'));
@@ -150,7 +150,7 @@ class RadioController implements ControllerInterface {
 	 * @Route("/radio/job/delete/{job_id}/", methods="POST")
 	 */
 	public function deleteRadioJob(Request $request, $job_id) {
-		$this->_radio_job->deleteJob($job_id);
+		$this->radioJob->deleteJob($job_id);
 
 		return true;
 	}

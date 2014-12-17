@@ -2,9 +2,9 @@
 
 namespace Raspberry\Sensors;
 
+use BrainExe\Core\Redis\Redis;
 use BrainExe\Core\Traits\RedisTrait;
 use BrainExe\Core\Traits\TimeTrait;
-use Redis;
 
 /**
  * @Service(public=false)

@@ -10,34 +10,34 @@ class Node {
 	/**
 	 * @var integer
 	 */
-	private $_node_id;
+	private $id;
 
 	/**
 	 * @Value("%node.id%")
 	 * @param $node_id
 	 */
 	public function __construct($node_id) {
-		$this->_node_id = $node_id;
+		$this->id = $node_id;
 	}
 
 	/**
 	 * @return integer
 	 */
 	public function getNodeId() {
-		return $this->_node_id;
+		return $this->id;
 	}
 
 	/**
 	 * @return boolean
 	 */
 	public function isMaster() {
-		return $this->_node_id == 0;
+		return $this->id == 0;
 	}
 
 	/**
 	 * @return boolean
 	 */
 	public function isSlave() {
-		return $this->_node_id > 0;
+		return $this->id > 0;
 	}
 }

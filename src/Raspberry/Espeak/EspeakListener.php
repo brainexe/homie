@@ -12,14 +12,14 @@ class EspeakListener implements EventSubscriberInterface {
 	/**
 	 * @var Espeak
 	 */
-	private $_espeak;
+	private $espeak;
 
 	/**
 	 * @inject("@espeak")
 	 * @param Espeak $espeak
 	 */
 	public function __construct(Espeak $espeak) {
-		$this->_espeak = $espeak;
+		$this->espeak = $espeak;
 	}
 
 	/**
@@ -37,6 +37,6 @@ class EspeakListener implements EventSubscriberInterface {
 	public function handleEspeakEvent(EspeakEvent $event) {
 		$espeak_vo = $event->espeak;
 
-		$this->_espeak->speak($espeak_vo->text, $espeak_vo->volume, $espeak_vo->speed, $espeak_vo->speaker);
+		$this->espeak->speak($espeak_vo->text, $espeak_vo->volume, $espeak_vo->speed, $espeak_vo->speaker);
 	}
 }

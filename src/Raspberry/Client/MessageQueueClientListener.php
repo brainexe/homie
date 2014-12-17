@@ -15,14 +15,14 @@ class MessageQueueClientListener implements EventSubscriberInterface {
 	/**
 	 * @var ClientInterface
 	 */
-	private $_client;
+	private $client;
 
 	/**
 	 * @inject("@RaspberryClient.Local")
 	 * @param ClientInterface $client
 	 */
 	public function __construct(ClientInterface $client) {
-		$this->_client = $client;
+		$this->client = $client;
 	}
 
 	/**
@@ -38,7 +38,7 @@ class MessageQueueClientListener implements EventSubscriberInterface {
 	 * @param ExecuteCommandEvent $event
 	 */
 	public function handleExecuteEvent(ExecuteCommandEvent $event) {
-		$output = $this->_client->executeWithReturn($event->command);
+		$output = $this->client->executeWithReturn($event->command);
 
 		if ($event->return_needed) {
 			$this->getRedis()->lPush(MessageQueueClient::RETURN_CHANNEL, $output);

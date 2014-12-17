@@ -18,17 +18,17 @@ class TodoListController implements ControllerInterface {
 	/**
 	 * @var TodoList
 	 */
-	private $_todo_list;
+	private $list;
 
 	/**
 	 * @var DatabaseUserProvider
 	 */
-	private $_database_user_provider;
+	private $userProvider;
 
 	/**
 	 * @var ShoppingList
 	 */
-	private $_shopping_list;
+	private $shoppingList;
 
 	/**
 	 * @Inject({"@TodoList", "@DatabaseUserProvider", "@ShoppingList"})
@@ -37,9 +37,9 @@ class TodoListController implements ControllerInterface {
 	 * @param ShoppingList $shopping_list
 	 */
 	public function __construct(TodoList $todo_list, DatabaseUserProvider $database_user_provider, ShoppingList $shopping_list) {
-		$this->_todo_list = $todo_list;
-		$this->_database_user_provider = $database_user_provider;
-		$this->_shopping_list = $shopping_list;
+		$this->list = $todo_list;
+		$this->userProvider = $database_user_provider;
+		$this->shoppingList = $shopping_list;
 	}
 
 	/**
@@ -47,9 +47,9 @@ class TodoListController implements ControllerInterface {
 	 * @return JsonResponse
 	 */
 	public function index() {
-		$list = $this->_todo_list->getList();
-		$shopping_list = $this->_shopping_list->getShoppingListItems();
-		$user_names = $this->_database_user_provider->getAllUserNames();
+		$list = $this->list->getList();
+		$shopping_list = $this->shoppingList->getShoppingListItems();
+		$user_names = $this->userProvider->getAllUserNames();
 
 		return new JsonResponse([
 			'list' => $list,
@@ -63,7 +63,7 @@ class TodoListController implements ControllerInterface {
 	 * @return JsonResponse
 	 */
 	public function fetchList() {
-		$list = $this->_todo_list->getList();
+		$list = $this->list->getList();
 
 		return new JsonResponse($list);
 	}
@@ -81,7 +81,7 @@ class TodoListController implements ControllerInterface {
 
 		$user = $request->attributes->get('user');
 
-		$this->_todo_list->addItem($user, $item_vo);
+		$this->list->addItem($user, $item_vo);
 
 		return new JsonResponse($item_vo);
 	}
@@ -94,7 +94,7 @@ class TodoListController implements ControllerInterface {
 	public function addShoppingListItem(Request $request) {
 		$name = $request->request->get('name');
 
-		$this->_shopping_list->addShoppingListItem($name);
+		$this->shoppingList->addShoppingListItem($name);
 
 		return new JsonResponse(true);
 	}
@@ -107,7 +107,7 @@ class TodoListController implements ControllerInterface {
 	public function removeShoppingListItem(Request $request) {
 		$name = $request->request->get('name');
 
-		$this->_shopping_list->removeShoppingListItem($name);
+		$this->shoppingList->removeShoppingListItem($name);
 
 		return new JsonResponse(true);
 	}
@@ -121,7 +121,7 @@ class TodoListController implements ControllerInterface {
 		$item_id = $request->request->getInt('id');
 		$changes = $request->request->get('changes');
 
-		$item_vo = $this->_todo_list->editItem($item_id, $changes);
+		$item_vo = $this->list->editItem($item_id, $changes);
 
 		return new JsonResponse($item_vo);
 	}
@@ -135,9 +135,9 @@ class TodoListController implements ControllerInterface {
 		$item_id = $request->request->getInt('id');
 		$user_id = $request->request->getInt('user_id');
 
-		$user = $this->_database_user_provider->loadUserById($user_id);
+		$user = $this->userProvider->loadUserById($user_id);
 
-		$item_vo = $this->_todo_list->editItem($item_id, [
+		$item_vo = $this->list->editItem($item_id, [
 			'user_id' => $user_id,
 			'user_name' => $user->username,
 		]);
@@ -152,8 +152,8 @@ class TodoListController implements ControllerInterface {
 	public function deleteItem(Request $request) {
 		$item_id = $request->request->getInt('id');
 
-		$this->_todo_list->deleteItem($item_id);
+		$this->list->deleteItem($item_id);
 
 		return new JsonResponse(true);
 	}
-} 
+}

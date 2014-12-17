@@ -6,7 +6,7 @@ use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
 use Raspberry\Client\ExecuteCommandEvent;
 use Raspberry\Client\MessageQueueClient;
-use Redis;
+use BrainExe\Core\Redis\Redis;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 
 /**

@@ -13,12 +13,12 @@ abstract class AbstractDHT11Sensor implements SensorInterface {
 	/**
 	 * @var ProcessBuilder
 	 */
-	private $_processBuilder;
+	private $processBuilder;
 
 	/**
 	 * @var Filesystem
 	 */
-	private $_filesystem;
+	private $filesystem;
 
 	/**
 	 * @Inject({"@ProcessBuilder", "@FileSystem"})
@@ -26,8 +26,8 @@ abstract class AbstractDHT11Sensor implements SensorInterface {
 	 * @param Filesystem $filesystem
 	 */
 	public function __construct(ProcessBuilder $processBuilder, Filesystem $filesystem) {
-		$this->_processBuilder = $processBuilder;
-		$this->_filesystem = $filesystem;
+		$this->processBuilder = $processBuilder;
+		$this->filesystem = $filesystem;
 	}
 
 	/**
@@ -37,7 +37,7 @@ abstract class AbstractDHT11Sensor implements SensorInterface {
 	protected function getContent($pin) {
 		$command = sprintf('sudo %s 11 %d', self::ADA_SCRIPT, $pin);
 
-		$process = $this->_processBuilder
+		$process = $this->processBuilder
 			->setArguments([$command])
 			->getProcess();
 
@@ -54,7 +54,7 @@ abstract class AbstractDHT11Sensor implements SensorInterface {
 	 * {@inheritdoc}
 	 */
 	public function isSupported(OutputInterface $output) {
-		if (!$this->_filesystem->exists(self::ADA_SCRIPT)) {
+		if (!$this->filesystem->exists(self::ADA_SCRIPT)) {
 			$output->writeln(sprintf('<error>%s: ada script not exists: %s</error>', $this->getSensorType(), self::ADA_SCRIPT));
 			return false;
 		}
@@ -62,4 +62,4 @@ abstract class AbstractDHT11Sensor implements SensorInterface {
 		return true;
 	}
 
-} 
+}

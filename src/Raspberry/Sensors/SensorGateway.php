@@ -2,8 +2,8 @@
 
 namespace Raspberry\Sensors;
 
+use BrainExe\Core\Redis\Redis;
 use BrainExe\Core\Traits\RedisTrait;
-use Redis;
 
 /**
  * @Service(public=false)
@@ -21,6 +21,7 @@ class SensorGateway {
 	public function getSensors() {
 		$sensor_ids = $this->getSensorIds();
 
+		/** @var Redis $redis */
 		$redis = $this->getRedis()->multi(Redis::PIPELINE);
 		foreach ($sensor_ids as $sensor_id) {
 			$redis->HGETALL($this->_getKey($sensor_id));
@@ -108,4 +109,4 @@ class SensorGateway {
 	private function _getKey($sensor_id) {
 		return self::REDIS_SENSOR_PREFIX . $sensor_id;
 	}
-} 
+}

@@ -22,12 +22,12 @@ class BlogController implements ControllerInterface {
 	/**
 	 * @var Blog
 	 */
-	private $_blog;
+	private $blog;
 
 	/**
 	 * @var DatabaseUserProvider
 	 */
-	private $_database_user_provider;
+	private $userProvider;
 
 	/**
 	 * @Inject({"@Blog", "@DatabaseUserProvider"})
@@ -35,8 +35,8 @@ class BlogController implements ControllerInterface {
 	 * @param DatabaseUserProvider $database_user_provider
 	 */
 	public function __construct(Blog $blog, DatabaseUserProvider $database_user_provider) {
-		$this->_blog                   = $blog;
-		$this->_database_user_provider = $database_user_provider;
+		$this->blog                   = $blog;
+		$this->userProvider = $database_user_provider;
 	}
 
 	/**
@@ -58,7 +58,7 @@ class BlogController implements ControllerInterface {
 	public function getMood(Request $request) {
 		$user_id = $request->attributes->get('user_id');
 
-		$recent_post = $this->_blog->getRecentPost($user_id);
+		$recent_post = $this->blog->getRecentPost($user_id);
 
 		return [
 			'mood' => $recent_post->mood * 10,
@@ -75,8 +75,8 @@ class BlogController implements ControllerInterface {
 	 */
 	public function blogForUser(Request $request, $user_id) {
 		$current_user_id = $request->attributes->get('user_id');
-		$posts           = $this->_blog->getPosts($user_id);
-		$users           = $this->_database_user_provider->getAllUserNames();
+		$posts           = $this->blog->getPosts($user_id);
+		$users           = $this->userProvider->getAllUserNames();
 
 		if (!in_array($user_id, $users)) {
 			throw new UserException(sprintf('User not found: %s', $user_id));
@@ -106,7 +106,7 @@ class BlogController implements ControllerInterface {
 		$blog_post_vo->text = $text;
 		$blog_post_vo->mood = $mood;
 
-		$this->_blog->addPost($user, $blog_post_vo);
+		$this->blog->addPost($user, $blog_post_vo);
 
 		return [
 			$this->now(),
@@ -123,7 +123,7 @@ class BlogController implements ControllerInterface {
 	public function deletePost(Request $request, $timestamp) {
 		$user_id = $request->attributes->get('user_id');
 
-		$this->_blog->deletePost($user_id, $timestamp);
+		$this->blog->deletePost($user_id, $timestamp);
 
 		return true;
 	}

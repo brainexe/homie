@@ -8,7 +8,7 @@ use Raspberry\Client\ExecuteCommandEvent;
 use Raspberry\Client\MessageQueueClient;
 use Raspberry\Client\MessageQueueClientListener;
 use Raspberry\Client\LocalClient;
-use Redis;
+use BrainExe\Core\Redis\Redis;
 
 class MessageQueueClientListenerTest extends PHPUnit_Framework_TestCase {
 

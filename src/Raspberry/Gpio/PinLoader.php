@@ -12,19 +12,19 @@ class PinLoader {
 	/**
 	 * @var ClientInterface
 	 */
-	private $_local_client;
+	private $client;
 
 	/**
 	 * @var PinsCollection
 	 */
-	private $_pins = null;
+	private $pins = null;
 
 	/**
 	 * @Inject("@RaspberryClient")
 	 * @param ClientInterface $local_client
 	 */
 	public function __construct(ClientInterface $local_client) {
-		$this->_local_client = $local_client;
+		$this->client = $local_client;
 	}
 
 	/**
@@ -41,15 +41,15 @@ class PinLoader {
 	 * @return PinsCollection
 	 */
 	public function loadPins(){
-		if (null !== $this->_pins) {
-			return $this->_pins;
+		if (null !== $this->pins) {
+			return $this->pins;
 		}
 
-		$results = $this->_local_client->executeWithReturn(GpioManager::GPIO_COMMAND_READALL);
+		$results = $this->client->executeWithReturn(GpioManager::GPIO_COMMAND_READALL);
 		$results = explode("\n", $results);
 		$results = array_slice($results, 3, -2);
 
-		$this->_pins = new PinsCollection();
+		$this->pins = new PinsCollection();
 		foreach ($results as $r) {
 			$matches = explode('|', $r);
 			$matches = array_map('trim', $matches);
@@ -60,10 +60,10 @@ class PinLoader {
 			$pin->setDirection($matches[5]);
 			$pin->setValue((int)('High' === $matches[6]));
 
-			$this->_pins->add($pin);
+			$this->pins->add($pin);
 		}
 
-		return $this->_pins;
+		return $this->pins;
 	}
 
 }

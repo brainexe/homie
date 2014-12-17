@@ -2,10 +2,10 @@
 
 namespace Raspberry\Radio;
 
+use BrainExe\Core\Redis\Redis;
 use BrainExe\Core\Traits\IdGeneratorTrait;
 use BrainExe\Core\Traits\RedisTrait;
 use Raspberry\Radio\VO\RadioVO;
-use Redis;
 
 /**
  * @Service(public=false)
@@ -24,6 +24,7 @@ class RadioGateway {
 	public function getRadios() {
 		$radio_ids = $this->getRadioIds();
 
+		/** @var Redis $pipeline */
 		$pipeline = $this->getRedis()->multi(Redis::PIPELINE);
 
 		foreach ($radio_ids as $radio_id) {

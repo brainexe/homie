@@ -2,10 +2,11 @@
 
 namespace Tests\Raspberry\Gpio\PinGateway;
 
+use BrainExe\Core\Redis\Redis;
+use BrainExe\Core\Redis\RedisInterface;
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Gpio\PinGateway;
-use Redis;
 
 /**
  * @Covers Raspberry\Gpio\PinGateway
@@ -18,7 +19,7 @@ class PinGatewayTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var Redis|PHPUnit_Framework_MockObject_MockObject
+	 * @var RedisInterface|MockObject
 	 */
 	private $_mockRedis;
 

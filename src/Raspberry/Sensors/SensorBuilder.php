@@ -14,13 +14,13 @@ class SensorBuilder {
 	/**
 	 * @var SensorInterface[]
 	 */
-	private $_sensors;
+	private $sensors;
 
 	/**
 	 * @return SensorInterface[]
 	 */
 	public function getSensors() {
-		return $this->_sensors;
+		return $this->sensors;
 	}
 
 	/**
@@ -28,7 +28,7 @@ class SensorBuilder {
 	 * @param SensorInterface $sensor
 	 */
 	public function addSensor($type, SensorInterface $sensor) {
-		$this->_sensors[$type] = $sensor;
+		$this->sensors[$type] = $sensor;
 	}
 
 	/**
@@ -37,8 +37,8 @@ class SensorBuilder {
 	 * @return SensorInterface
 	 */
 	public function build($sensor_type) {
-		if (!empty($this->_sensors[$sensor_type])) {
-			return $this->_sensors[$sensor_type];
+		if (!empty($this->sensors[$sensor_type])) {
+			return $this->sensors[$sensor_type];
 		}
 
 		throw new InvalidArgumentException(sprintf('Invalid sensor type: %s', $sensor_type));

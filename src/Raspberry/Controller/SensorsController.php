@@ -27,22 +27,22 @@ class SensorsController implements ControllerInterface {
 	/**
 	 * @var SensorGateway
 	 */
-	private $_sensor_gateway;
+	private $gateway;
 
 	/**
 	 * @var SensorValuesGateway
 	 */
-	private $_sensor_values_gateway;
+	private $valuesGteway;
 
 	/**
 	 * @var SensorBuilder;
 	 */
-	private $_sensor_builder;
+	private $builder;
 
 	/**
 	 * @var Chart
 	 */
-	private $_chart;
+	private $chart;
 
 	/**
 	 * @Inject({"@SensorGateway", "@SensorValuesGateway", "@Chart", "@SensorBuilder"})
@@ -52,10 +52,10 @@ class SensorsController implements ControllerInterface {
 	 * @param SensorBuilder $sensor_builder
 	 */
 	public function __construct(SensorGateway $sensor_gateway, SensorValuesGateway $sensor_values_gateway, Chart $chart, SensorBuilder $sensor_builder) {
-		$this->_sensor_gateway        = $sensor_gateway;
-		$this->_sensor_values_gateway = $sensor_values_gateway;
-		$this->_chart                 = $chart;
-		$this->_sensor_builder        = $sensor_builder;
+		$this->gateway        = $sensor_gateway;
+		$this->valuesGteway = $sensor_values_gateway;
+		$this->chart                 = $chart;
+		$this->builder        = $sensor_builder;
 	}
 
 	/**
@@ -71,7 +71,7 @@ class SensorsController implements ControllerInterface {
 			$active_sensor_ids = $session->get(self::SESSION_LAST_VIEW) ?: '0';
 		}
 
-		$available_sensor_ids = $this->_sensor_gateway->getSensorIds();
+		$available_sensor_ids = $this->gateway->getSensorIds();
 		if (empty($active_sensor_ids)) {
 			$active_sensor_ids = implode(':', $available_sensor_ids);
 		}
@@ -90,8 +90,8 @@ class SensorsController implements ControllerInterface {
 
 		$sensor_values        = [];
 
-		$sensors_raw     = $this->_sensor_gateway->getSensors();
-		$sensor_objects = $this->_sensor_builder->getSensors();
+		$sensors_raw     = $this->gateway->getSensors();
+		$sensor_objects = $this->builder->getSensors();
 
 		foreach ($sensors_raw as &$sensor) {
 			$sensor_id = $sensor['id'];
@@ -107,10 +107,10 @@ class SensorsController implements ControllerInterface {
 			if ($active_sensor_ids && !in_array($sensor_id, $active_sensor_ids)) {
 				continue;
 			}
-			$sensor_values[$sensor_id] = $this->_sensor_values_gateway->getSensorValues($sensor_id, $from);
+			$sensor_values[$sensor_id] = $this->valuesGteway->getSensorValues($sensor_id, $from);
 		}
 
-		$json = $this->_chart->formatJsonData($sensors_raw, $sensor_values);
+		$json = $this->chart->formatJsonData($sensors_raw, $sensor_values);
 
 		return [
 			'sensors' => $sensors_raw,
@@ -150,7 +150,7 @@ class SensorsController implements ControllerInterface {
 		$sensor_vo->interval    = $interval;
 		$sensor_vo->node        = $node;
 
-		$this->_sensor_gateway->addSensor($sensor_vo);
+		$this->gateway->addSensor($sensor_vo);
 
 		return $sensor_vo;
 	}
@@ -162,8 +162,8 @@ class SensorsController implements ControllerInterface {
 	 * @Route("/sensors/espeak/{sensor_id}/", name="sensor.espeak", csrf=true)
 	 */
 	public function espeak(Request $request, $sensor_id) {
-		$sensor     = $this->_sensor_gateway->getSensor($sensor_id);
-		$sensor_obj = $this->_sensor_builder->build($sensor['type']);
+		$sensor     = $this->gateway->getSensor($sensor_id);
+		$sensor_obj = $this->builder->build($sensor['type']);
 
 		$text = $sensor_obj->getEspeakText($sensor['last_value']);
 
@@ -181,8 +181,8 @@ class SensorsController implements ControllerInterface {
 	 * @return array
 	 */
 	public function slim(Request $request, $sensor_id) {
-		$sensor     = $this->_sensor_gateway->getSensor($sensor_id);
-		$sensor_obj = $this->_sensor_builder->build($sensor['type']);
+		$sensor     = $this->gateway->getSensor($sensor_id);
+		$sensor_obj = $this->builder->build($sensor['type']);
 		$formatted_value = $sensor_obj->getEspeakText($sensor['last_value']);
 
 		return [
@@ -201,8 +201,8 @@ class SensorsController implements ControllerInterface {
 	public function getValue(Request $request) {
 		$sensor_id       = $request->query->getInt('sensor_id');
 
-		$sensor          = $this->_sensor_gateway->getSensor($sensor_id);
-		$sensor_obj      = $this->_sensor_builder->build($sensor['type']);
+		$sensor          = $this->gateway->getSensor($sensor_id);
+		$sensor_obj      = $this->builder->build($sensor['type']);
 		$formatted_value = $sensor_obj->getEspeakText($sensor['last_value']);
 
 		return [

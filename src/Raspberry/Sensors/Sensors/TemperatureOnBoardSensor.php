@@ -18,14 +18,14 @@ class TemperatureOnBoardSensor implements SensorInterface {
 	/**
 	 * @var Filesystem
 	 */
-	private $_fileSystem;
+	private $fileSystem;
 
 	/**
 	 * @inject("@FileSystem")
 	 * @param Filesystem $filesystem
 	 */
 	public function __construct(Filesystem $filesystem) {
-		$this->_fileSystem = $filesystem;
+		$this->fileSystem = $filesystem;
 	}
 
 	/**
@@ -39,7 +39,7 @@ class TemperatureOnBoardSensor implements SensorInterface {
 	 * {@inheritdoc}
 	 */
 	public function getValue($pin) {
-		$content = $this->_fileSystem->fileGetContents(self::PATH);
+		$content = $this->fileSystem->fileGetContents(self::PATH);
 
 		return $content / 1000;
 	}
@@ -48,7 +48,7 @@ class TemperatureOnBoardSensor implements SensorInterface {
 	 * {@inheritdoc}
 	 */
 	public function isSupported(OutputInterface $output) {
-		if (!$this->_fileSystem->exists(self::PATH)) {
+		if (!$this->fileSystem->exists(self::PATH)) {
 			$output->writeln(sprintf('<error>%s: Thermal zone file does not exist: %s</error>', self::getSensorType(), self::PATH));
 			return false;
 		}

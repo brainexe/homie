@@ -14,24 +14,24 @@ class Sound {
 	/**
 	 * @var ProcessBuilder
 	 */
-	private $_processBuilder;
+	private $processBuilder;
 
 	/**
 	 * @inject("@ProcessBuilder")
 	 * @param ProcessBuilder $processBuilder
 	 */
 	public function __construct(ProcessBuilder $processBuilder) {
-		$this->_processBuilder = $processBuilder;
+		$this->processBuilder = $processBuilder;
 	}
 
 	/**
 	 * @param string $file
 	 */
 	public function playSound($file) {
-		$process = $this->_processBuilder
+		$process = $this->processBuilder
 			->setArguments([self::COMMAND, $file])
 			->getProcess();
 
 		$process->run();
 	}
-} 
+}

@@ -23,17 +23,17 @@ class Webcam {
 	/**
 	 * @var Filesystem
 	 */
-	private $_fileSystem;
+	private $fileSystem;
 
 	/**
 	 * @var ProcessBuilder
 	 */
-	private $_processBuilder;
+	private $processBuilder;
 
 	/**
 	 * @var Finder
 	 */
-	private $_finder;
+	private $finder;
 
 	/**
 	 * @inject({"@Filesystem", "@ProcessBuilder", "@Finder"})
@@ -42,9 +42,9 @@ class Webcam {
 	 * @param Finder $finder
 	 */
 	public function __construct(Filesystem $filesystem, ProcessBuilder $processBuilder, Finder $finder) {
-		$this->_fileSystem = $filesystem;
-		$this->_processBuilder = $processBuilder;
-		$this->_finder = $finder;
+		$this->fileSystem = $filesystem;
+		$this->processBuilder = $processBuilder;
+		$this->finder = $finder;
 	}
 
 	/**
@@ -52,18 +52,18 @@ class Webcam {
 	 */
 	public function getPhotos() {
 		$directory = ROOT . self::ROOT;
-		if (!$this->_fileSystem->exists($directory)) {
-			$this->_fileSystem->mkdir($directory, 0777);
+		if (!$this->fileSystem->exists($directory)) {
+			$this->fileSystem->mkdir($directory, 0777);
 		}
 
-		$this->_finder
+		$this->finder
 			->files()
 			->in($directory)
 			->name('*.jpg')
 			->sortByName();
 
 		$webcam_vos = [];
-		foreach ($this->_finder as $file) {
+		foreach ($this->finder as $file) {
 			/** @var SplFileInfo $file */
 			$file_path = $file->getPath();
 			$relative_path_name = $file->getRelativePathname();
@@ -85,7 +85,7 @@ class Webcam {
 	public function takePhoto($name) {
 		$path = $this->getFilename($name);
 
-		$process = $this->_processBuilder
+		$process = $this->processBuilder
 			->setArguments([self::EXECUTABLE, '-d', '/dev/video0', $path])
 			->setTimeout(self::TIMEOUT)
 			->getProcess();
@@ -102,7 +102,7 @@ class Webcam {
 	public function delete($id) {
 		$filename = $this->getFilename($id);
 
-		$this->_fileSystem->remove($filename);
+		$this->fileSystem->remove($filename);
 	}
 
 	/**

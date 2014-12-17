@@ -22,12 +22,12 @@ class EspeakController implements ControllerInterface {
 	/**
 	 * @var Espeak
 	 */
-	private $_espeak;
+	private $espeak;
 
 	/**
 	 * @var TimeParser
 	 */
-	private $_time_parser;
+	private $timeParser;
 
 	/**
 	 * @Inject({"@Espeak", "@TimeParser"})
@@ -35,8 +35,8 @@ class EspeakController implements ControllerInterface {
 	 * @param TimeParser $time_parser
 	 */
 	public function __construct(Espeak $espeak, TimeParser $time_parser) {
-		$this->_espeak      = $espeak;
-		$this->_time_parser = $time_parser;
+		$this->espeak      = $espeak;
+		$this->timeParser = $time_parser;
 	}
 
 	/**
@@ -44,8 +44,8 @@ class EspeakController implements ControllerInterface {
 	 * @Route("/espeak/", name="espeak.index")
 	 */
 	public function index() {
-		$speakers = $this->_espeak->getSpeakers();
-		$jobs     = $this->_espeak->getPendingJobs();
+		$speakers = $this->espeak->getSpeakers();
+		$jobs     = $this->espeak->getPendingJobs();
 
 		return [
 			'speakers' => $speakers,
@@ -65,14 +65,14 @@ class EspeakController implements ControllerInterface {
 		$speed     = $request->request->getInt('speed');
 		$delay_raw = $request->request->get('delay');
 
-		$timestamp = $this->_time_parser->parseString($delay_raw);
+		$timestamp = $this->timeParser->parseString($delay_raw);
 
 		$espeak_vo = new EspeakVO($text, $volume, $speed, $speaker);
 		$event     = new EspeakEvent($espeak_vo);
 
 		$this->dispatchInBackground($event, $timestamp);
 
-		$pending_jobs = $this->_espeak->getPendingJobs();
+		$pending_jobs = $this->espeak->getPendingJobs();
 
 		return $pending_jobs;
 	}
@@ -85,7 +85,7 @@ class EspeakController implements ControllerInterface {
 	public function deleteJob(Request $request) {
 		$job_id = $request->request->get('job_id');
 
-		$this->_espeak->deleteJob($job_id);
+		$this->espeak->deleteJob($job_id);
 
 		return true;
 	}

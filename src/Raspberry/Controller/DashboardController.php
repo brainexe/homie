@@ -15,14 +15,14 @@ class DashboardController implements ControllerInterface {
 	/**
 	 * @var Dashboard
 	 */
-	private $_dashboard;
+	private $dashboard;
 
 	/**
 	 * @Inject("@Dashboard")
 	 * @param Dashboard $dashboard
 	 */
 	public function __construct(Dashboard $dashboard) {
-		$this->_dashboard = $dashboard;
+		$this->dashboard = $dashboard;
 	}
 
 	/**
@@ -33,8 +33,8 @@ class DashboardController implements ControllerInterface {
 	public function index(Request $request) {
 		$user_id = $this->_getUserId($request);
 
-		$dashboard = $this->_dashboard->getDashboard($user_id);
-		$widgets   = $this->_dashboard->getAvailableWidgets();
+		$dashboard = $this->dashboard->getDashboard($user_id);
+		$widgets   = $this->dashboard->getAvailableWidgets();
 
 		return [
 			'dashboard' => $dashboard,
@@ -52,9 +52,9 @@ class DashboardController implements ControllerInterface {
 		$payload = (array)json_decode($request->request->get('payload'), true);
 		$user_id = $this->_getUserId($request);
 
-		$this->_dashboard->addWidget($user_id, $type, $payload);
+		$this->dashboard->addWidget($user_id, $type, $payload);
 
-		$dashboard = $this->_dashboard->getDashboard($user_id);
+		$dashboard = $this->dashboard->getDashboard($user_id);
 
 		return $dashboard;
 	}
@@ -68,9 +68,9 @@ class DashboardController implements ControllerInterface {
 		$widget_id = $request->request->getInt('widget_id');
 		$user_id   = $this->_getUserId($request);
 
-		$this->_dashboard->deleteWidget($user_id, $widget_id);
+		$this->dashboard->deleteWidget($user_id, $widget_id);
 
-		$dashboard = $this->_dashboard->getDashboard($user_id);
+		$dashboard = $this->dashboard->getDashboard($user_id);
 
 		return $dashboard;
 	}

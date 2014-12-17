@@ -20,12 +20,12 @@ class SensorAddCommand extends Command {
 	/**
 	 * @var SensorGateway
 	 */
-	private $_sensor_gateway;
+	private $gateway;
 
 	/**
 	 * @var SensorBuilder
 	 */
-	private $_sensor_builder;
+	private $builder;
 
 	/**
 	 * {@inheritdoc}
@@ -40,8 +40,8 @@ class SensorAddCommand extends Command {
 	 * @param SensorBuilder $sensor_builder
 	 */
 	public function __construct(SensorGateway $sensor_gateway, SensorBuilder $sensor_builder) {
-		$this->_sensor_gateway = $sensor_gateway;
-		$this->_sensor_builder = $sensor_builder;
+		$this->gateway = $sensor_gateway;
+		$this->builder = $sensor_builder;
 
 		parent::__construct();
 	}
@@ -53,7 +53,7 @@ class SensorAddCommand extends Command {
 		/** @var DialogHelper $dialog */
 		$dialog = $this->getHelperSet()->get('dialog');
 
-		$sensors      = $this->_sensor_builder->getSensors();
+		$sensors      = $this->builder->getSensors();
 		$sensor_types = array_keys($sensors);
 
 		$sensor_type_idx = $dialog->select($output, "Sensor type?\n", $sensor_types);
@@ -90,7 +90,7 @@ class SensorAddCommand extends Command {
 		$sensor_vo->interval = $interval;
 		$sensor_vo->node = $node;
 
-		$this->_sensor_gateway->addSensor($sensor_vo);
+		$this->gateway->addSensor($sensor_vo);
 	}
 
 	/**

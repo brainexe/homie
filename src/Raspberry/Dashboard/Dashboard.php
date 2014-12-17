@@ -18,14 +18,14 @@ class Dashboard {
 	/**
 	 * @var WidgetFactory
 	 */
-	private $_widget_factory;
+	private $widgetFactory;
 
 	/**
 	 * @Inject("@WidgetFactory")
 	 * @param WidgetFactory $widget_factory
 	 */
 	public function __construct(WidgetFactory $widget_factory) {
-		$this->_widget_factory = $widget_factory;
+		$this->widgetFactory = $widget_factory;
 	}
 
 	/**
@@ -51,7 +51,7 @@ class Dashboard {
 	 * @return string[]
 	 */
 	public function getAvailableWidgets() {
-		return $this->_widget_factory->getAvailableWidgets();
+		return $this->widgetFactory->getAvailableWidgets();
 	}
 
 	/**
@@ -60,7 +60,7 @@ class Dashboard {
 	 * @param array $payload
 	 */
 	public function addWidget($user_id, $type, $payload) {
-		$widget = $this->_widget_factory->getWidget($type);
+		$widget = $this->widgetFactory->getWidget($type);
 		$widget->validate($payload);
 
 		$payload['type'] = $type;
@@ -85,4 +85,4 @@ class Dashboard {
 	private function _getKey($user_id) {
 		return sprintf(self::REDIS_DASHBOARD, $user_id);
 	}
-} 
+}

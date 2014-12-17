@@ -12,14 +12,14 @@ class RadioJobListener implements EventSubscriberInterface {
 	/**
 	 * @var RadioController
 	 */
-	private $_radioController;
+	private $radioController;
 
 	/**
 	 * @param RadioController $radioController
 	 * @inject("@RadioController")
 	 */
 	public function __construct(RadioController $radioController) {
-		$this->_radioController = $radioController;
+		$this->radioController = $radioController;
 	}
 
 	/**
@@ -35,6 +35,6 @@ class RadioJobListener implements EventSubscriberInterface {
 	 * @param RadioChangeEvent $event
 	 */
 	public function handleChangeEvent(RadioChangeEvent $event) {
-		$this->_radioController->setStatus($event->radio_vo->code, $event->radio_vo->pin, $event->status);
+		$this->radioController->setStatus($event->radio_vo->code, $event->radio_vo->pin, $event->status);
 	}
 }

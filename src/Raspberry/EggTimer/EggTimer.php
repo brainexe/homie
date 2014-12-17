@@ -23,11 +23,12 @@ class EggTimer {
 	/**
 	 * @var MessageQueueGateway
 	 */
-	private $_message_queue_gateway;
+	private $messageQueueGateway;
+
 	/**
 	 * @var TimeParser
 	 */
-	private $_time_parser;
+	private $timeParser;
 
 	/**
 	 * @Inject({"@MessageQueueGateway", "@TimeParser"})
@@ -35,8 +36,8 @@ class EggTimer {
 	 * @param TimeParser $time_parser
 	 */
 	public function __construct(MessageQueueGateway $message_queue_gateway, TimeParser $time_parser) {
-		$this->_message_queue_gateway = $message_queue_gateway;
-		$this->_time_parser = $time_parser;
+		$this->messageQueueGateway = $message_queue_gateway;
+		$this->timeParser = $time_parser;
 	}
 
 	/**
@@ -53,7 +54,7 @@ class EggTimer {
 
 		$event = new EggTimerEvent($espeak_vo);
 
-		$timestamp = $this->_time_parser->parseString($time);
+		$timestamp = $this->timeParser->parseString($time);
 
 		$this->dispatchInBackground($event, $timestamp);
 	}
@@ -62,13 +63,13 @@ class EggTimer {
 	 * @param string $job_id
 	 */
 	public function deleteJob($job_id) {
-		$this->_message_queue_gateway->deleteEvent($job_id, EggTimerEvent::DONE);
+		$this->messageQueueGateway->deleteEvent($job_id, EggTimerEvent::DONE);
 	}
 
 	/**
 	 * @return MessageQueueJob[]
 	 */
 	public function getJobs() {
-		return $this->_message_queue_gateway->getEventsByType(EggTimerEvent::DONE, $this->now());
+		return $this->messageQueueGateway->getEventsByType(EggTimerEvent::DONE, $this->now());
 	}
-} 
+}

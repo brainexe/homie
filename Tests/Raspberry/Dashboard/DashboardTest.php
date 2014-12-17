@@ -7,8 +7,7 @@ use PHPUnit_Framework_MockObject_MockObject;
 use Raspberry\Dashboard\AbstractWidget;
 use Raspberry\Dashboard\Dashboard;
 use Raspberry\Dashboard\WidgetFactory;
-
-use Redis;
+use BrainExe\Core\Redis\Redis;
 use BrainExe\Core\Util\IdGenerator;
 
 /**

@@ -11,14 +11,14 @@ class WidgetFactory {
 	/**
 	 * @var WidgetInterface[]
 	 */
-	private $_widgets;
+	private $widgets;
 
 	/**
 	 * @param string $widget_id
 	 * @param WidgetInterface $widget
 	 */
 	public function addWidget($widget_id, WidgetInterface $widget) {
-		$this->_widgets[$widget_id] = $widget;
+		$this->widgets[$widget_id] = $widget;
 	}
 
 	/**
@@ -27,18 +27,18 @@ class WidgetFactory {
 	 * @throws InvalidArgumentException
 	 */
 	public function getWidget($id) {
-		if (empty($this->_widgets[$id])) {
+		if (empty($this->widgets[$id])) {
 			throw new InvalidArgumentException(sprintf('Invalid widget: %s', $id));
 		}
 
-		return $this->_widgets[$id];
+		return $this->widgets[$id];
 	}
 
 	/**
 	 * @return string[]
 	 */
 	public function getAvailableWidgets() {
-		return array_keys($this->_widgets);
+		return array_keys($this->widgets);
 	}
 
-} 
+}

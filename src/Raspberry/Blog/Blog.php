@@ -18,14 +18,14 @@ class Blog {
 	/**
 	 * @var BlogGateway
 	 */
-	private $_blog_gateway;
+	private $blog_gateway;
 
 	/**
 	 * @Inject("@BlogGateway")
 	 * @param BlogGateway $blog_gateway
 	 */
 	public function __construct(BlogGateway $blog_gateway) {
-		$this->_blog_gateway = $blog_gateway;
+		$this->blog_gateway = $blog_gateway;
 	}
 
 	/**
@@ -35,7 +35,7 @@ class Blog {
 	 * @return BlogPostVO[]
 	 */
 	public function getPosts($user_id, $from = '0', $to = '+inf') {
-		return $this->_blog_gateway->getPosts($user_id, $from, $to);
+		return $this->blog_gateway->getPosts($user_id, $from, $to);
 	}
 
 	/**
@@ -47,7 +47,7 @@ class Blog {
 			$post_vo->mood = null;
 		}
 
-		$this->_blog_gateway->addPost($user->id, $this->now(), $post_vo);
+		$this->blog_gateway->addPost($user->id, $this->now(), $post_vo);
 
 		$event = new BlogEvent($user, $post_vo);
 		$this->dispatchInBackground($event);
@@ -58,7 +58,7 @@ class Blog {
 	 * @param integer $timestamp
 	 */
 	public function deletePost($user_id, $timestamp) {
-		$this->_blog_gateway->deletePost($user_id, $timestamp);
+		$this->blog_gateway->deletePost($user_id, $timestamp);
 	}
 
 	/**
@@ -66,7 +66,7 @@ class Blog {
 	 * @param integer $target_id
 	 */
 	public function addSubscriber($user_id, $target_id) {
-		$this->_blog_gateway->addSubscriber($user_id, $target_id);
+		$this->blog_gateway->addSubscriber($user_id, $target_id);
 	}
 
 	/**
@@ -74,7 +74,7 @@ class Blog {
 	 * @return null|BlogPostVO
 	 */
 	public function getRecentPost($user_id) {
-		return $this->_blog_gateway->getRecentPost($user_id);
+		return $this->blog_gateway->getRecentPost($user_id);
 	}
 
-} 
+}

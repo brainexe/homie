@@ -19,14 +19,14 @@ class TemperatureDS18 implements SensorInterface {
 	/**
 	 * @var Filesystem
 	 */
-	private $_fileSystem;
+	private $fileSystem;
 
 	/**
 	 * @inject("@FileSystem")
 	 * @param Filesystem $filesystem
 	 */
 	public function __construct(Filesystem $filesystem) {
-		$this->_fileSystem = $filesystem;
+		$this->fileSystem = $filesystem;
 	}
 
 	/**
@@ -43,11 +43,11 @@ class TemperatureDS18 implements SensorInterface {
 	public function getValue($pin) {
 		$path = sprintf(self::PIN_FILE, $pin);
 
-		if (!$this->_fileSystem->exists($path)) {
+		if (!$this->fileSystem->exists($path)) {
 			return null;
 		}
 
-		$content = $this->_fileSystem->fileGetContents($path);
+		$content = $this->fileSystem->fileGetContents($path);
 
 		if (strpos($content, 'YES') === false) {
 			// invalid response :(
@@ -75,7 +75,7 @@ class TemperatureDS18 implements SensorInterface {
 	public function isSupported(OutputInterface $output) {
 		$bus_system = '/sys/bus/w1/devices';
 
-		if (!$this->_fileSystem->exists($bus_system)) {
+		if (!$this->fileSystem->exists($bus_system)) {
 			$output->writeln(sprintf('<error>%s: w1 bus not exists: %s</error>', self::getSensorType(), $bus_system));
 			return false;
 		}

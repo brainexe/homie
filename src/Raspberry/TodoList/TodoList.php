@@ -20,14 +20,14 @@ class TodoList {
 	/**
 	 * @var TodoListGateway
 	 */
-	private $_todo_list_gateway;
+	private $gateway;
 
 	/**
 	 * @Inject({"@TodoListGateway"})
 	 * @param TodoListGateway $todo_list_gateway
 	 */
 	public function __construct(TodoListGateway $todo_list_gateway) {
-		$this->_todo_list_gateway = $todo_list_gateway;
+		$this->gateway = $todo_list_gateway;
 	}
 
 	/**
@@ -47,7 +47,7 @@ class TodoList {
 			$item_vo->deadline = 0;
 		}
 
-		$this->_todo_list_gateway->addItem($item_vo);
+		$this->gateway->addItem($item_vo);
 
 		$event = new TodoListEvent($item_vo, TodoListEvent::ADD);
 		$this->dispatchEvent($event);
@@ -60,7 +60,7 @@ class TodoList {
 	 */
 	public function getList() {
 		$list = [];
-		$raw_list = $this->_todo_list_gateway->getList();
+		$raw_list = $this->gateway->getList();
 
 		foreach ($raw_list as $item) {
 			$item_vo = new TodoItemVO();
@@ -76,7 +76,7 @@ class TodoList {
 	 * @return null|TodoItemVO
 	 */
 	public function getItem($item_id) {
-		$raw_item = $this->_todo_list_gateway->getRawItem($item_id);
+		$raw_item = $this->gateway->getRawItem($item_id);
 
 		if (empty($raw_item)) {
 			return null;
@@ -94,7 +94,7 @@ class TodoList {
 	 * @return TodoItemVO
 	 */
 	public function editItem($item_id, array $changes) {
-		$this->_todo_list_gateway->editItem($item_id, $changes);
+		$this->gateway->editItem($item_id, $changes);
 
 		$item_vo = $this->getItem($item_id);
 
@@ -110,9 +110,9 @@ class TodoList {
 	public function deleteItem($item_id) {
 		$item_vo = $this->getItem($item_id);
 
-		$this->_todo_list_gateway->deleteItem($item_id);
+		$this->gateway->deleteItem($item_id);
 
 		$event = new TodoListEvent($item_vo, TodoListEvent::REMOVE);
 		$this->dispatchEvent($event);
 	}
-} 
+}

@@ -6,7 +6,7 @@ use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
 use Raspberry\Blog\BlogGateway;
 use Raspberry\Blog\BlogPostVO;
-use Redis;
+use BrainExe\Core\Redis\Redis;
 
 /**
  * @Covers Raspberry\Blog\BlogGateway

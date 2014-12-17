@@ -15,14 +15,14 @@ class SendTodoReminderCommand extends AbstractCommand {
 	/**
 	 * @var TodoReminder
 	 */
-	private $_todoReminder;
+	private $todoReminder;
 
 	/**
 	 * @inject("@TodoReminder")
 	 * @param TodoReminder $todoReminder
 	 */
 	public function __construct(TodoReminder $todoReminder) {
-		$this->_todoReminder = $todoReminder;
+		$this->todoReminder = $todoReminder;
 		parent::__construct();
 	}
 
@@ -39,6 +39,6 @@ class SendTodoReminderCommand extends AbstractCommand {
 	 * {@inheritdoc}
 	 */
 	protected function doExecute(InputInterface $input, OutputInterface $output) {
-		$this->_todoReminder->sendNotification();
+		$this->todoReminder->sendNotification();
 	}
-} 
+}

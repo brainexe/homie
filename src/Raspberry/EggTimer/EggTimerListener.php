@@ -17,14 +17,14 @@ class EggTimerListener implements EventSubscriberInterface {
 	/**
 	 * @var Sound
 	 */
-	private $_sound;
+	private $sound;
 
 	/**
 	 * @inject("@Sound")
 	 * @param Sound $sound
 	 */
 	public function __construct(Sound $sound) {
-		$this->_sound = $sound;
+		$this->sound = $sound;
 	}
 
 	/**
@@ -46,6 +46,6 @@ class EggTimerListener implements EventSubscriberInterface {
 			$this->dispatchEvent($new_event);
 		}
 
-		$this->_sound->playSound(ROOT . EggTimer::EGG_TIMER_RING_SOUND);
+		$this->sound->playSound(ROOT . EggTimer::EGG_TIMER_RING_SOUND);
 	}
 }

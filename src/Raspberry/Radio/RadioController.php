@@ -13,14 +13,14 @@ class RadioController {
 	/**
 	 * @var ClientInterface
 	 */
-	private $_local_client;
+	private $client;
 
 	/**
 	 * @Inject("@RaspberryClient")
 	 * @param ClientInterface $local_client
 	 */
 	public function __construct(ClientInterface $local_client) {
-		$this->_local_client = $local_client;
+		$this->client = $local_client;
 	}
 
 	/**
@@ -30,6 +30,6 @@ class RadioController {
 	 */
 	public function setStatus($code, $number, $status) {
 		$command = sprintf('%s %s %d %d', self::BASE_COMMAND, $code, $number, (int)$status);
-		$this->_local_client->execute($command);
+		$this->client->execute($command);
 	}
-} 
+}

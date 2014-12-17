@@ -16,17 +16,17 @@ class GpioManager {
 	/**
 	 * @var ClientInterface
 	 */
-	private $_localClient;
+	private $client;
 
 	/**
 	 * @var PinGateway
 	 */
-	private $_pinGateway;
+	private $gateway;
 
 	/**
 	 * @var PinLoader
 	 */
-	private $_pinLoader;
+	private $loader;
 
 	/**
 	 * @Inject({"@PinGateway", "@RaspberryClient", "@PinLoader"})
@@ -35,18 +35,18 @@ class GpioManager {
 	 * @param PinLoader $pinLoader
 	 */
 	public function __construct(PinGateway $pin_gateway, ClientInterface $local_client, PinLoader $pinLoader) {
-		$this->_pinGateway  = $pin_gateway;
-		$this->_localClient = $local_client;
-		$this->_pinLoader   = $pinLoader;
+		$this->gateway  = $pin_gateway;
+		$this->client = $local_client;
+		$this->loader   = $pinLoader;
 	}
 
 	/**
 	 * @return PinsCollection
 	 */
 	public function getPins() {
-		$descriptions = $this->_pinGateway->getPinDescriptions();
+		$descriptions = $this->gateway->getPinDescriptions();
 
-		$pins = $this->_pinLoader->loadPins();
+		$pins = $this->loader->loadPins();
 
 		foreach ($pins->getAll() as $pin) {
 			/** @var Pin $pin */
@@ -65,12 +65,12 @@ class GpioManager {
 	 * @return Pin
 	 */
 	public function setPin($id, $status, $value) {
-		$pin = $this->_pinLoader->loadPin($id);
+		$pin = $this->loader->loadPin($id);
 
 		$pin->setDirection($status ? Pin::DIRECTION_OUT : Pin::DIRECTION_IN);
 		$pin->setValue($value ? Pin::VALUE_HIGH : Pin::VALUE_LOW);
 
-		$this->_updatePin($pin);
+		$this->updatePin($pin);
 
 		return $pin;
 	}
@@ -78,11 +78,11 @@ class GpioManager {
 	/**
 	 * @param Pin $pin Pin
 	 */
-	private function _updatePin(Pin $pin) {
+	private function updatePin(Pin $pin) {
 		$pinValue = Pin::VALUE_HIGH == $pin->getValue() ? 1 : 0;
 
-		$this->_localClient->execute(sprintf(self::GPIO_COMMAND_DIRECTION, $pin->getID(), $pin->getDirection()));
-		$this->_localClient->execute(sprintf(self::GPIO_COMMAND_VALUE, $pin->getID(), $pinValue));
+		$this->client->execute(sprintf(self::GPIO_COMMAND_DIRECTION, $pin->getID(), $pin->getDirection()));
+		$this->client->execute(sprintf(self::GPIO_COMMAND_VALUE, $pin->getID(), $pinValue));
 	}
 
 }

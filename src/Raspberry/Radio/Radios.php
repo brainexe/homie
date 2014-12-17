@@ -25,14 +25,14 @@ class Radios {
 	/**
 	 * @var RadioGateway
 	 */
-	private $_radio_gateway;
+	private $gateway;
 
 	/**
 	 * @Inject("@RadioGateway")
 	 * @param RadioGateway $radio_gateway
 	 */
 	public function __construct(RadioGateway $radio_gateway) {
-		$this->_radio_gateway = $radio_gateway;
+		$this->gateway = $radio_gateway;
 	}
 
 	/**
@@ -63,7 +63,7 @@ class Radios {
 	 * @return RadioVO
 	 */
 	public function getRadio($radio_id) {
-		$raw = $this->_radio_gateway->getRadio($radio_id);
+		$raw = $this->gateway->getRadio($radio_id);
 
 		if (empty($raw)) {
 			throw new InvalidArgumentException(sprintf('Invalid radio: %d', $radio_id));
@@ -77,7 +77,7 @@ class Radios {
 	 */
 	public function getRadios() {
 		$radios = [];
-		$radios_raw = $this->_radio_gateway->getRadios();
+		$radios_raw = $this->gateway->getRadios();
 
 		foreach ($radios_raw as $radio) {
 			$radios[$radio['id']] = $this->_buildRadioVO($radio);
@@ -91,14 +91,14 @@ class Radios {
 	 * @return integer $radio_id
 	 */
 	public function addRadio(RadioVO $radio_vo) {
-		return $this->_radio_gateway->addRadio($radio_vo);
+		return $this->gateway->addRadio($radio_vo);
 	}
 
 	/**
 	 * @param integer $radio_id
 	 */
 	public function deleteRadio($radio_id) {
-		$this->_radio_gateway->deleteRadio($radio_id);
+		$this->gateway->deleteRadio($radio_id);
 	}
 
 	/**

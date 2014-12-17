@@ -12,14 +12,14 @@ class WebcamListener implements EventSubscriberInterface {
 	/**
 	 * @var Webcam
 	 */
-	private $_webcam;
+	private $webcam;
 
 	/**
 	 * @inject("@Webcam")
 	 * @param Webcam $webcam
 	 */
 	public function __construct(Webcam $webcam) {
-		$this->_webcam = $webcam;
+		$this->webcam = $webcam;
 	}
 
 	/**
@@ -35,6 +35,6 @@ class WebcamListener implements EventSubscriberInterface {
 	 * @param WebcamEvent $event
 	 */
 	public function handleWebcamEvent(WebcamEvent $event) {
-		$this->_webcam->takePhoto($event->name);
+		$this->webcam->takePhoto($event->name);
 	}
 }

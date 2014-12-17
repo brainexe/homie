@@ -2,10 +2,10 @@
 
 namespace Raspberry\TodoList;
 
+use BrainExe\Core\Redis\Redis;
 use BrainExe\Core\Traits\RedisTrait;
 use BrainExe\Core\Traits\TimeTrait;
 use Raspberry\TodoList\VO\TodoItemVO;
-use Redis;
 
 /**
  * @Service(public=false)
@@ -26,7 +26,7 @@ class TodoListGateway {
 
 		$todo_raw = (array)$item_vo;
 
-		$redis->HMSET($this->_getRedisKey($item_vo->id), $todo_raw);
+		$redis->HMSET($this->getRedisKey($item_vo->id), $todo_raw);
 
 		$redis->sAdd(self::TODO_IDS, $item_vo->id);
 	}
@@ -39,7 +39,7 @@ class TodoListGateway {
 
 		$redis = $this->getRedis()->multi(Redis::PIPELINE);
 		foreach ($item_ids as $item_id) {
-			$redis->HGETALL($this->_getRedisKey($item_id));
+			$redis->HGETALL($this->getRedisKey($item_id));
 		}
 
 		return $redis->exec();
@@ -50,7 +50,7 @@ class TodoListGateway {
 	 * @return array
 	 */
 	public function getRawItem($item_id) {
-		return $this->getRedis()->HGETALL($this->_getRedisKey($item_id));
+		return $this->getRedis()->HGETALL($this->getRedisKey($item_id));
 	}
 
 	/**
@@ -58,7 +58,7 @@ class TodoListGateway {
 	 * @param array $changes
 	 */
 	public function editItem($item_id, array $changes) {
-		$key = $this->_getRedisKey($item_id);
+		$key = $this->getRedisKey($item_id);
 
 		$changes['last_change'] = $this->now();
 
@@ -69,7 +69,7 @@ class TodoListGateway {
 	 * @param integer $item_id
 	 */
 	public function deleteItem($item_id) {
-		$key = $this->_getRedisKey($item_id);
+		$key = $this->getRedisKey($item_id);
 
 		$this->getRedis()->del($key);
 		$this->getRedis()->sRem(self::TODO_IDS, $item_id);
@@ -79,7 +79,7 @@ class TodoListGateway {
 	 * @param integer $item_id
 	 * @return string
 	 */
-	private function _getRedisKey($item_id) {
+	private function getRedisKey($item_id) {
 		return sprintf(self::TODO_KEY, $item_id);
 	}
 
