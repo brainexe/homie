@@ -2,12 +2,19 @@
 
 namespace Raspberry\Dashboard;
 
+use Raspberry\Dashboard\Widgets\WidgetMetadataVo;
+
 interface WidgetInterface {
 
 	/**
 	 * @return string
 	 */
 	public function getId();
+
+	/**
+	 * @return WidgetMetadataVo
+	 */
+	public function getMetadata();
 
 	/**
 	 * @param array $payload

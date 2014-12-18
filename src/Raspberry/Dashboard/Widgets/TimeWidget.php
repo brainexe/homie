@@ -17,4 +17,14 @@ class TimeWidget extends AbstractWidget {
 	public function getId() {
 		return self::TYPE;
 	}
+
+	/**
+	 * @return WidgetMetadataVo
+	 */
+	public function getMetadata() {
+		return new WidgetMetadataVo(
+			_('Time')
+		);
+	}
+
 }

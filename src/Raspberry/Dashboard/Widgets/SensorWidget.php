@@ -29,4 +29,16 @@ class SensorWidget extends AbstractWidget {
 			throw new UserException("No sensor_id passed");
 		}
 	}
+
+	/**
+	 * @return WidgetMetadataVo
+	 */
+	public function getMetadata() {
+		return new WidgetMetadataVo(
+			_('Sensor'),
+			[
+				'sensor_id' => _('Sensor ID')
+			]
+		);
+	}
 }

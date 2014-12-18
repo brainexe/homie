@@ -39,7 +39,7 @@ class Dashboard {
 
 		foreach ($widgets_raw as $id => $widget_raw) {
 			$widget = json_decode($widget_raw, true);
-			$widget['id'] = $id;
+			$widget['id']   = $id;
 			$widget['open'] = true;
 			$dashboard[] = $widget;
 		}

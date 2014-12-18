@@ -8,12 +8,15 @@
 			<div class="col-lg-5">
 				<div class="input-group">
 					<span class="input-group-addon">Type</span>
-					<select ng-options="widget as widget for widget in widgets" ng-model="type" class="form-control"></select>
+					<select
+							ng-options="id as widget.name for (id, widget) in widgets"
+							ng-model="widget" class="form-control"></select>
 				</div>
 			</div>
 			<div class="col-lg-5">
 				<div class="input-group">
 					<span class="input-group-addon">Payload</span>
+					{{widget.name}}
 					<input type="text" ng-model="payload" class="form-control" placeholder="{'sensor_id':1}"/>
 				</div>
 			</div>

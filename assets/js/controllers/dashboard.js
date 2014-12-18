@@ -21,7 +21,9 @@ App.Widgets = {
 	}
 };
 
-App.ng.controller('NewWidgetController', ['$scope', '$modalInstance', function ($scope, $modalInstance) {
+App.ng.controller('NewWidgetController', ['$scope', '$modalInstance', 'widgets', function ($scope, $modalInstance, widgets) {
+	$scope.widgets = widgets;
+
 	$scope.addWidget = function() {
 		var payload = {
 			type: $scope.type,
@@ -43,13 +45,13 @@ App.ng.controller('NewWidgetController', ['$scope', '$modalInstance', function (
 App.ng.controller('DashboardController', ['$scope', '$modal', function ($scope, $modal) {
 	$.get('/dashboard/', function(data) {
 		$scope.dashboard = data.dashboard;
-		$scope.widgets = data.widgets;
+		$scope.widgets   = data.widgets;
 		$scope.$apply();
 	});
 
 	$scope.openModal = function() {
 		var modalInstance = $modal.open({
-			templateUrl: '/templates/widgets/new_widget.html',
+			templateUrl: asset('/templates/widgets/new_widget.html'),
 			controller: 'NewWidgetController',
 			resolve: {
 				widgets: function() {

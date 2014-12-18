@@ -16,11 +16,11 @@ class WidgetFactoryTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @var WidgetFactory
 	 */
-	private $_subject;
+	private $subject;
 
 	public function setUp() {
-		$this->_subject = new WidgetFactory();
-		$this->_subject->addWidget('widget', new TimeWidget());
+		$this->subject = new WidgetFactory();
+		$this->subject->addWidget('widget', new TimeWidget());
 	}
 
 	/**
@@ -28,17 +28,19 @@ class WidgetFactoryTest extends PHPUnit_Framework_TestCase {
 	 * @expectedExceptionMessage Invalid widget: invalid
 	 */
 	public function testGetInvalidWidget() {
-		$this->_subject->getWidget('invalid');
+		$this->subject->getWidget('invalid');
 	}
 
 	public function testGetValidWidget() {
-		$actual_result = $this->_subject->getWidget('widget');
-		$this->assertTrue($actual_result instanceof WidgetInterface);
+		$actualResult = $this->subject->getWidget('widget');
+
+		$this->assertTrue($actualResult instanceof WidgetInterface);
 	}
 
 	public function testGetWidgetTypes() {
-		$actual_result = $this->_subject->getAvailableWidgets();
-		$this->assertEquals(['widget'], $actual_result);
+		$actualResult = $this->subject->getAvailableWidgets();
+
+		$this->assertEquals(['widget' => new TimeWidget()], $actualResult);
 	}
 
 }

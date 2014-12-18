@@ -2,7 +2,9 @@
 
 namespace Raspberry\Dashboard;
 
-abstract class AbstractWidget implements WidgetInterface {
+use JsonSerializable;
+
+abstract class AbstractWidget implements WidgetInterface, JsonSerializable {
 
 	/**
 	 * {@inheritdoc}
@@ -17,4 +19,11 @@ abstract class AbstractWidget implements WidgetInterface {
 		return true;
 	}
 
-} 
+	/**
+	 * @return array
+	 */
+	public function jsonSerialize() {
+		return $this->getMetadata();
+	}
+
+}

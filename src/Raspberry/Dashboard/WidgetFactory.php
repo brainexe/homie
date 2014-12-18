@@ -38,7 +38,7 @@ class WidgetFactory {
 	 * @return string[]
 	 */
 	public function getAvailableWidgets() {
-		return array_keys($this->widgets);
+		return $this->widgets;
 	}
 
 }
