@@ -6,7 +6,7 @@ namespace Raspberry\Tests\Radio;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\MessageQueue\MessageQueueGateway;
 use BrainExe\Core\Util\TimeParser;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Radio\RadioChangeEvent;
 use Raspberry\Radio\RadioJob;
 use Raspberry\Radio\VO\RadioVO;
@@ -19,17 +19,17 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var TimeParser|PHPUnit_Framework_MockObject_MockObject
+	 * @var TimeParser|MockObject
 	 */
 	private $_mock_time_parser;
 
 	/**
-	 * @var MessageQueueGateway|PHPUnit_Framework_MockObject_MockObject
+	 * @var MessageQueueGateway|MockObject
 	 */
 	private $_mock_message_queue_gateway;
 
 	/**
-	 * @var EventDispatcher|PHPUnit_Framework_MockObject_MockObject
+	 * @var EventDispatcher|MockObject
 	 */
 	private $_mock_dispatcher;
 
@@ -91,4 +91,4 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase {
 
 	}
 
-} 
+}

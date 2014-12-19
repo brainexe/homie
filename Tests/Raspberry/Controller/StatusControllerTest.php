@@ -4,7 +4,7 @@ namespace Tests\Raspberry\Controller\StatusController;
 
 use BrainExe\Core\Application\SelfUpdate\SelfUpdateEvent;
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Controller\StatusController;
 use BrainExe\MessageQueue\MessageQueueGateway;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
@@ -22,12 +22,12 @@ class StatusControllerTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var MessageQueueGateway|PHPUnit_Framework_MockObject_MockObject
+	 * @var MessageQueueGateway|MockObject
 	 */
 	private $_mockMessageQueueGateway;
 
 	/**
-	 * @var EventDispatcher|PHPUnit_Framework_MockObject_MockObject
+	 * @var EventDispatcher|MockObject
 	 */
 	private $_mockEventDispatcher;
 

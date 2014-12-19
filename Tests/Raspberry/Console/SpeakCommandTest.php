@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\Console\SpeakCommand;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Console\SpeakCommand;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Raspberry\Espeak\EspeakEvent;
@@ -22,7 +22,7 @@ class SpeakCommandTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var EventDispatcher|PHPUnit_Framework_MockObject_MockObject
+	 * @var EventDispatcher|MockObject
 	 */
 	private $_mockEventDispatcher;
 

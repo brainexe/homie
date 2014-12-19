@@ -4,7 +4,7 @@ namespace Tests\Raspberry\Controller\IndexController;
 
 use BrainExe\Core\Authentication\UserVO;
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
 use Raspberry\Controller\IndexController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,7 +22,7 @@ class IndexControllerTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var TwigEnvironment|PHPUnit_Framework_MockObject_MockObject
+	 * @var TwigEnvironment|MockObject
 	 */
 	private $_mockTwigEnvironment;
 

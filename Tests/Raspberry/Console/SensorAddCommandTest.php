@@ -2,7 +2,7 @@
 
 namespace Tests\Raspberry\Console\SensorAddCommand;
 
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Console\SensorAddCommand;
 use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorBuilder;
@@ -25,12 +25,12 @@ class SensorAddCommandTest extends \PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var SensorGateway|PHPUnit_Framework_MockObject_MockObject
+	 * @var SensorGateway|MockObject
 	 */
 	private $_mockSensorGateway;
 
 	/**
-	 * @var SensorBuilder|PHPUnit_Framework_MockObject_MockObject
+	 * @var SensorBuilder|MockObject
 	 */
 	private $_mockSensorBuilder;
 
@@ -62,11 +62,11 @@ class SensorAddCommandTest extends \PHPUnit_Framework_TestCase {
 			->method('getSensors')
 			->will($this->returnValue($sensors));
 
-		/** @var HelperSet|PHPUnit_Framework_MockObject_MockObject $helper_set */
+		/** @var HelperSet|MockObject $helper_set */
 		$helper_set = $this->getMock(HelperSet::class);
 		$this->_subject->setHelperSet($helper_set);
 
-		/** @var DialogHelper|PHPUnit_Framework_MockObject_MockObject $helper_set */
+		/** @var DialogHelper|MockObject $helper_set */
 		$dialog = $this->getMock(DialogHelper::class);
 
 		$helper_set
@@ -115,11 +115,11 @@ class SensorAddCommandTest extends \PHPUnit_Framework_TestCase {
 			->method('getSensors')
 			->will($this->returnValue($sensors));
 
-		/** @var HelperSet|PHPUnit_Framework_MockObject_MockObject $helper_set */
+		/** @var HelperSet|MockObject $helper_set */
 		$helper_set = $this->getMock(HelperSet::class);
 		$this->_subject->setHelperSet($helper_set);
 
-		/** @var DialogHelper|PHPUnit_Framework_MockObject_MockObject $helper_set */
+		/** @var DialogHelper|MockObject $helper_set */
 		$dialog = $this->getMock(DialogHelper::class);
 
 		$name        = 'name';
@@ -235,11 +235,11 @@ class SensorAddCommandTest extends \PHPUnit_Framework_TestCase {
 			->method('getSensors')
 			->will($this->returnValue($sensors));
 
-		/** @var HelperSet|PHPUnit_Framework_MockObject_MockObject $helper_set */
+		/** @var HelperSet|MockObject $helper_set */
 		$helper_set = $this->getMock(HelperSet::class);
 		$this->_subject->setHelperSet($helper_set);
 
-		/** @var DialogHelper|PHPUnit_Framework_MockObject_MockObject $helper_set */
+		/** @var DialogHelper|MockObject $helper_set */
 		$dialog = $this->getMock(DialogHelper::class);
 
 		$name        = 'name';

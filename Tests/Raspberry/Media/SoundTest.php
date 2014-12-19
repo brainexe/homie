@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\Media\Sound;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Media\Sound;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
@@ -19,7 +19,7 @@ class SoundTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var ProcessBuilder|PHPUnit_Framework_MockObject_MockObject
+	 * @var ProcessBuilder|MockObject
 	 */
 	private $_mockProcessBuilder;
 

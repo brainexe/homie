@@ -4,7 +4,7 @@ namespace Tests\Raspberry\Controller\RadioController;
 
 use BrainExe\Core\Controller\ControllerInterface;
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Controller\RadioController;
 use Raspberry\Radio\RadioChangeEvent;
 use Raspberry\Radio\VO\RadioVO;
@@ -25,17 +25,17 @@ class RadioControllerTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var Radios|PHPUnit_Framework_MockObject_MockObject
+	 * @var Radios|MockObject
 	 */
 	private $_mockRadios;
 
 	/**
-	 * @var RadioJob|PHPUnit_Framework_MockObject_MockObject
+	 * @var RadioJob|MockObject
 	 */
 	private $_mockRadioJob;
 
 	/**
-	 * @var EventDispatcher|PHPUnit_Framework_MockObject_MockObject
+	 * @var EventDispatcher|MockObject
 	 */
 	private $_mockEventDispatcher;
 

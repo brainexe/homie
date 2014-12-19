@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\TodoList\TodoList;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\TodoList\TodoList;
 use BrainExe\Core\Authentication\UserVO;
 use Raspberry\TodoList\TodoListEvent;
@@ -21,22 +21,22 @@ class TodoListTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var TodoListGateway|PHPUnit_Framework_MockObject_MockObject
+	 * @var TodoListGateway|MockObject
 	 */
 	private $_mockTodoListGateway;
 
 	/**
-	 * @var EventDispatcher|PHPUnit_Framework_MockObject_MockObject
+	 * @var EventDispatcher|MockObject
 	 */
 	private $_mockEventDispatcher;
 
 	/**
-	 * @var IdGenerator|PHPUnit_Framework_MockObject_MockObject
+	 * @var IdGenerator|MockObject
 	 */
 	private $_mockIdGenerator;
 
 	/**
-	 * @var Time|PHPUnit_Framework_MockObject_MockObject
+	 * @var Time|MockObject
 	 */
 	private $_mockTime;
 

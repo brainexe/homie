@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\Gpio\PinLoader;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Gpio\GpioManager;
 use Raspberry\Gpio\Pin;
 use Raspberry\Gpio\PinLoader;
@@ -21,7 +21,7 @@ class PinLoaderTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var LocalClient|PHPUnit_Framework_MockObject_MockObject
+	 * @var LocalClient|MockObject
 	 */
 	private $_mockLocalClient;
 

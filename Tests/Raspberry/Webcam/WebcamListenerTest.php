@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\Webcam\WebcamListener;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Webcam\WebcamEvent;
 use Raspberry\Webcam\WebcamListener;
 use Raspberry\Webcam\Webcam;
@@ -19,7 +19,7 @@ class WebcamListenerTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var Webcam|PHPUnit_Framework_MockObject_MockObject
+	 * @var Webcam|MockObject
 	 */
 	private $_mockWebcam;
 

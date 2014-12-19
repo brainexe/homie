@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\Console\SensorCronCommand;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Console\SensorCronCommand;
 use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\Sensors\SensorInterface;
@@ -29,37 +29,37 @@ class SensorCronCommandTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var SensorGateway|PHPUnit_Framework_MockObject_MockObject
+	 * @var SensorGateway|MockObject
 	 */
 	private $_mockSensorGateway;
 
 	/**
-	 * @var SensorValuesGateway|PHPUnit_Framework_MockObject_MockObject
+	 * @var SensorValuesGateway|MockObject
 	 */
 	private $_mockSensorValuesGateway;
 
 	/**
-	 * @var SensorBuilder|PHPUnit_Framework_MockObject_MockObject
+	 * @var SensorBuilder|MockObject
 	 */
 	private $_mockSensorBuilder;
 
 	/**
-	 * @var SensorVOBuilder|PHPUnit_Framework_MockObject_MockObject
+	 * @var SensorVOBuilder|MockObject
 	 */
 	private $_mockSensorVOBuilder;
 
 	/**
-	 * @var EventDispatcher|PHPUnit_Framework_MockObject_MockObject
+	 * @var EventDispatcher|MockObject
 	 */
 	private $_mockEventDispatcher;
 
 	/**
-	 * @var Logger|PHPUnit_Framework_MockObject_MockObject
+	 * @var Logger|MockObject
 	 */
 	private $_mockLogger;
 
 	/**
-	 * @var Time|PHPUnit_Framework_MockObject_MockObject
+	 * @var Time|MockObject
 	 */
 	private $_mockTime;
 
@@ -154,7 +154,7 @@ class SensorCronCommandTest extends PHPUnit_Framework_TestCase {
 		$current_sensor_value = 1000;
 		$formatted_sensor_value = "1000 grad";
 
-		/** @var SensorInterface|PHPUnit_Framework_MockObject_MockObject $sensor_object */
+		/** @var SensorInterface|MockObject $sensor_object */
 		$sensor_object = $this->getMockForAbstractClass(SensorInterface::class);
 		$this->_mockTime
 			->expects($this->once())

@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\DIC\SensorCompilerPass;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\DIC\SensorCompilerPass;
 use Raspberry\Sensors\Sensors\SensorInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

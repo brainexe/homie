@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\Blog\BlogGateway;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Blog\BlogGateway;
 use Raspberry\Blog\BlogPostVO;
 use BrainExe\Core\Redis\Redis;
@@ -19,7 +19,7 @@ class BlogGatewayTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var Redis|PHPUnit_Framework_MockObject_MockObject
+	 * @var Redis|MockObject
 	 */
 	private $_mockRedis;
 

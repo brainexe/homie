@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\Sensors\Sensors\HumidDHT11Sensor;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Sensors\Sensors\AbstractDHT11Sensor;
 use Raspberry\Sensors\Sensors\HumidDHT11Sensor;
 use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
@@ -22,12 +22,12 @@ class HumidDHT11SensorTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var ProcessBuilder|PHPUnit_Framework_MockObject_MockObject
+	 * @var ProcessBuilder|MockObject
 	 */
 	private $_mockProcessBuilder;
 
 	/**
-	 * @var Filesystem|PHPUnit_Framework_MockObject_MockObject
+	 * @var Filesystem|MockObject
 	 */
 	private $_mockFileSystem;
 

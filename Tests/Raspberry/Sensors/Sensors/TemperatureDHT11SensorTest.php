@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\Sensors\Sensors\TemperatureDHT11Sensor;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Sensors\Sensors\TemperatureDHT11Sensor;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
@@ -17,12 +17,12 @@ class TemperatureDHT11SensorTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var ProcessBuilder|PHPUnit_Framework_MockObject_MockObject
+	 * @var ProcessBuilder|MockObject
 	 */
 	private $_mockProcessBuilder;
 
 	/**
-	 * @var Filesystem|PHPUnit_Framework_MockObject_MockObject
+	 * @var Filesystem|MockObject
 	 */
 	private $_mockFileSystem;
 

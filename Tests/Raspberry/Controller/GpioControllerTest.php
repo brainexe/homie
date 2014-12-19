@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\Controller\GpioController;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
 use Raspberry\Controller\GpioController;
 use Raspberry\Gpio\Pin;
@@ -23,7 +23,7 @@ class GpioControllerTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var GpioManager|PHPUnit_Framework_MockObject_MockObject
+	 * @var GpioManager|MockObject
 	 */
 	private $_mockGpioManager;
 

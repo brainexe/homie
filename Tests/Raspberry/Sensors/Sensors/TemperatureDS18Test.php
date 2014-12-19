@@ -4,7 +4,7 @@ namespace Tests\Raspberry\Sensors\Sensors\TemperatureDS18;
 
 use BrainExe\Core\Util\FileSystem;
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Sensors\Sensors\TemperatureDS18;
 use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 
@@ -19,7 +19,7 @@ class TemperatureDS18Test extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var FileSystem|PHPUnit_Framework_MockObject_MockObject
+	 * @var FileSystem|MockObject
 	 */
 	private $_mockFileSystem;
 

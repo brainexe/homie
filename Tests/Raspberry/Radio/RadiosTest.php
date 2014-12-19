@@ -3,7 +3,7 @@
 namespace Raspberry\Tests\Radio;
 
 use BrainExe\Core\Application\UserException;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase;
 use Raspberry\Radio\RadioGateway;
 use Raspberry\Radio\Radios;
@@ -17,7 +17,7 @@ class RadiosTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var RadioGateway|PHPUnit_Framework_MockObject_MockObject
+	 * @var RadioGateway|MockObject
 	 */
 	private $_mock_radio_gateway;
 

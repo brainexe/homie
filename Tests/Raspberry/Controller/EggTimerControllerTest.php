@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\Controller\EggTimerController;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Controller\EggTimerController;
 use Raspberry\EggTimer\EggTimer;
 
@@ -20,7 +20,7 @@ class EggTimerControllerTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var EggTimer|PHPUnit_Framework_MockObject_MockObject
+	 * @var EggTimer|MockObject
 	 */
 	private $_mockEggTimer;
 

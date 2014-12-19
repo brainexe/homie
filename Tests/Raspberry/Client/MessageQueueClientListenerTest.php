@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\Client\MessageQueueClientListener;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Client\ExecuteCommandEvent;
 use Raspberry\Client\MessageQueueClient;
 use Raspberry\Client\MessageQueueClientListener;
@@ -18,12 +18,12 @@ class MessageQueueClientListenerTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var LocalClient|PHPUnit_Framework_MockObject_MockObject
+	 * @var LocalClient|MockObject
 	 */
 	private $_mockLocalClient;
 
 	/**
-	 * @var Redis|PHPUnit_Framework_MockObject_MockObject
+	 * @var Redis|MockObject
 	 */
 	private $_mockRedis;
 

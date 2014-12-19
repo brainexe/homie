@@ -4,7 +4,7 @@ namespace Tests\Raspberry\Webcam\Webcam;
 
 use ArrayIterator;
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Webcam\Webcam;
 use Raspberry\Webcam\WebcamEvent;
 use Raspberry\Webcam\WebcamVO;
@@ -24,22 +24,22 @@ class WebcamTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var Filesystem|PHPUnit_Framework_MockObject_MockObject
+	 * @var Filesystem|MockObject
 	 */
 	private $_mockFilesystem;
 
 	/**
-	 * @var ProcessBuilder|PHPUnit_Framework_MockObject_MockObject
+	 * @var ProcessBuilder|MockObject
 	 */
 	private $_mockProcessBuilder;
 
 	/**
-	 * @var Finder|PHPUnit_Framework_MockObject_MockObject
+	 * @var Finder|MockObject
 	 */
 	private $_mockFinder;
 
 	/**
-	 * @var EventDispatcher|PHPUnit_Framework_MockObject_MockObject
+	 * @var EventDispatcher|MockObject
 	 */
 	private $_mockEventDispatcher;
 

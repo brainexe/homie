@@ -5,7 +5,7 @@ namespace Tests\Raspberry\Blog\BlogPostNotifyListener;
 use BrainExe\Core\Authentication\UserVO;
 use BrainExe\Core\Util\Time;
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Blog\BlogPostNotifyListener;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Raspberry\Blog\BlogPostVO;
@@ -21,12 +21,12 @@ class BlogPostNotifyListenerTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var EventDispatcher|PHPUnit_Framework_MockObject_MockObject
+	 * @var EventDispatcher|MockObject
 	 */
 	private $_mockEventDispatcher;
 
 	/**
-	 * @var Time|PHPUnit_Framework_MockObject_MockObject
+	 * @var Time|MockObject
 	 */
 	private $_mockTime;
 

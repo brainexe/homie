@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\TodoList\Command\SendTodoReminderCommand;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\TodoList\Command\SendTodoReminderCommand;
 use Raspberry\TodoList\TodoReminder;
 use Symfony\Component\Console\Application;
@@ -20,7 +20,7 @@ class SendTodoReminderCommandTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var TodoReminder|PHPUnit_Framework_MockObject_MockObject
+	 * @var TodoReminder|MockObject
 	 */
 	private $_mockTodoReminder;
 

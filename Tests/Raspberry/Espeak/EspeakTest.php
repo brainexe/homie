@@ -4,7 +4,7 @@ namespace Tests\Raspberry\Espeak\Espeak;
 
 use BrainExe\Core\Util\Time;
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Espeak\Espeak;
 use BrainExe\MessageQueue\MessageQueueGateway;
 use Raspberry\Client\LocalClient;
@@ -21,17 +21,17 @@ class EspeakTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var MessageQueueGateway|PHPUnit_Framework_MockObject_MockObject
+	 * @var MessageQueueGateway|MockObject
 	 */
 	private $_mockMessageQueueGateway;
 
 	/**
-	 * @var LocalClient|PHPUnit_Framework_MockObject_MockObject
+	 * @var LocalClient|MockObject
 	 */
 	private $_mockLocalClient;
 
 	/**
-	 * @var Time|PHPUnit_Framework_MockObject_MockObject
+	 * @var Time|MockObject
 	 */
 	private $_mockTime;
 

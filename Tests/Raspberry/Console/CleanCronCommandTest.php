@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\Console\CleanCronCommand;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Console\CleanCronCommand;
 use Raspberry\Sensors\SensorValuesGateway;
 use Raspberry\Sensors\SensorGateway;
@@ -21,12 +21,12 @@ class CleanCronCommandTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var SensorValuesGateway|PHPUnit_Framework_MockObject_MockObject
+	 * @var SensorValuesGateway|MockObject
 	 */
 	private $_mockSensorValuesGateway;
 
 	/**
-	 * @var SensorGateway|PHPUnit_Framework_MockObject_MockObject
+	 * @var SensorGateway|MockObject
 	 */
 	private $_mockSensorGateway;
 

@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\Gpio\GpioManager;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Gpio\GpioManager;
 use Raspberry\Gpio\Pin;
 use Raspberry\Gpio\PinGateway;
@@ -20,17 +20,17 @@ class GpioManagerTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var PinGateway|PHPUnit_Framework_MockObject_MockObject
+	 * @var PinGateway|MockObject
 	 */
 	private $_mockPinGateway;
 
 	/**
-	 * @var LocalClient|PHPUnit_Framework_MockObject_MockObject
+	 * @var LocalClient|MockObject
 	 */
 	private $_mockLocalClient;
 
 	/**
-	 * @var PinLoader|PHPUnit_Framework_MockObject_MockObject
+	 * @var PinLoader|MockObject
 	 */
 	private $_mockPinLoader;
 

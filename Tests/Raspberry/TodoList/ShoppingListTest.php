@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\TodoList\ShoppingList;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\TodoList\ShoppingList;
 use Raspberry\TodoList\ShoppingListGateway;
 
@@ -18,7 +18,7 @@ class ShoppingListTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var ShoppingListGateway|PHPUnit_Framework_MockObject_MockObject
+	 * @var ShoppingListGateway|MockObject
 	 */
 	private $_mockShoppingListGateway;
 

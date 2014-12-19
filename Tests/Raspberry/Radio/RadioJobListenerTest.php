@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\Radio\RadioJobListener;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Radio\RadioChangeEvent;
 use Raspberry\Radio\RadioJobListener;
 use Raspberry\Radio\RadioController;
@@ -17,7 +17,7 @@ class RadioJobListenerTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var RadioController|PHPUnit_Framework_MockObject_MockObject
+	 * @var RadioController|MockObject
 	 */
 	private $_mockRadioController;
 

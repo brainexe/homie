@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\Controller\SensorsController;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Controller\SensorsController;
 use Raspberry\Espeak\EspeakEvent;
 use Raspberry\Espeak\EspeakVO;
@@ -30,27 +30,27 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var SensorGateway|PHPUnit_Framework_MockObject_MockObject
+	 * @var SensorGateway|MockObject
 	 */
 	private $_mockSensorGateway;
 
 	/**
-	 * @var SensorValuesGateway|PHPUnit_Framework_MockObject_MockObject
+	 * @var SensorValuesGateway|MockObject
 	 */
 	private $_mockSensorValuesGateway;
 
 	/**
-	 * @var Chart|PHPUnit_Framework_MockObject_MockObject
+	 * @var Chart|MockObject
 	 */
 	private $_mockChart;
 
 	/**
-	 * @var SensorBuilder|PHPUnit_Framework_MockObject_MockObject
+	 * @var SensorBuilder|MockObject
 	 */
 	private $_mockSensorBuilder;
 
 	/**
-	 * @var EventDispatcher|PHPUnit_Framework_MockObject_MockObject
+	 * @var EventDispatcher|MockObject
 	 */
 	private $_mockEventDispatcher;
 

@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\Client\MessageQueueClient;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Client\ExecuteCommandEvent;
 use Raspberry\Client\MessageQueueClient;
 use BrainExe\Core\Redis\Redis;
@@ -20,12 +20,12 @@ class MessageQueueClientTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var Redis|PHPUnit_Framework_MockObject_MockObject
+	 * @var Redis|MockObject
 	 */
 	private $_mockRedis;
 
 	/**
-	 * @var EventDispatcher|PHPUnit_Framework_MockObject_MockObject
+	 * @var EventDispatcher|MockObject
 	 */
 	private $_mockEventDispatcher;
 

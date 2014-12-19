@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\Radio\RadioController;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Radio\RadioController;
 use Raspberry\Client\LocalClient;
 
@@ -18,7 +18,7 @@ class RadioControllerTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var LocalClient|PHPUnit_Framework_MockObject_MockObject
+	 * @var LocalClient|MockObject
 	 */
 	private $_mockLocalClient;
 

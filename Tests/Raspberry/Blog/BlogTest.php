@@ -4,7 +4,7 @@ namespace Tests\Raspberry\Blog\Blog;
 
 use BrainExe\Core\Authentication\UserVO;
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Blog\Blog;
 use Raspberry\Blog\BlogGateway;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
@@ -23,17 +23,17 @@ class BlogTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var BlogGateway|PHPUnit_Framework_MockObject_MockObject
+	 * @var BlogGateway|MockObject
 	 */
 	private $_mockBlogGateway;
 
 	/**
-	 * @var EventDispatcher|PHPUnit_Framework_MockObject_MockObject
+	 * @var EventDispatcher|MockObject
 	 */
 	private $_mockEventDispatcher;
 
 	/**
-	 * @var Time|PHPUnit_Framework_MockObject_MockObject
+	 * @var Time|MockObject
 	 */
 	private $_mockTime;
 

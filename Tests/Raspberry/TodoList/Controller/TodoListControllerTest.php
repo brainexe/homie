@@ -4,7 +4,7 @@ namespace Tests\Raspberry\TodoList\Controller\TodoListController;
 
 use BrainExe\Core\Authentication\UserVO;
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\TodoList\Controller\TodoListController;
 use Raspberry\TodoList\TodoList;
 use BrainExe\Core\Authentication\DatabaseUserProvider;
@@ -24,17 +24,17 @@ class TodoListControllerTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var TodoList|PHPUnit_Framework_MockObject_MockObject
+	 * @var TodoList|MockObject
 	 */
 	private $_mockTodoList;
 
 	/**
-	 * @var DatabaseUserProvider|PHPUnit_Framework_MockObject_MockObject
+	 * @var DatabaseUserProvider|MockObject
 	 */
 	private $_mockDatabaseUserProvider;
 
 	/**
-	 * @var ShoppingList|PHPUnit_Framework_MockObject_MockObject
+	 * @var ShoppingList|MockObject
 	 */
 	private $_mockShoppingList;
 

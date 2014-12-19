@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\Controller\EspeakController;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
 use Raspberry\Controller\EspeakController;
 use Raspberry\Espeak\EspeakEvent;
@@ -25,17 +25,17 @@ class EspeakControllerTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var Espeak|PHPUnit_Framework_MockObject_MockObject
+	 * @var Espeak|MockObject
 	 */
 	private $_mockEspeak;
 
 	/**
-	 * @var TimeParser|PHPUnit_Framework_MockObject_MockObject
+	 * @var TimeParser|MockObject
 	 */
 	private $_mockTimeParser;
 
 	/**
-	 * @var EventDispatcher|PHPUnit_Framework_MockObject_MockObject
+	 * @var EventDispatcher|MockObject
 	 */
 	private $_mockEventDispatcher;
 

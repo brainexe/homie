@@ -5,7 +5,7 @@ namespace Tests\Raspberry\Controller\BlogController;
 use BrainExe\Core\Authentication\UserVO;
 use BrainExe\Core\Util\Time;
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Blog\BlogPostVO;
 use Raspberry\Controller\BlogController;
 use Raspberry\Blog\Blog;
@@ -21,30 +21,30 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @var BlogController
 	 */
-	private $_subject;
+	private $subject;
 
 	/**
-	 * @var Blog|PHPUnit_Framework_MockObject_MockObject
+	 * @var Blog|MockObject
 	 */
-	private $_mockBlog;
+	private $mockBlog;
 
 	/**
-	 * @var DatabaseUserProvider|PHPUnit_Framework_MockObject_MockObject
+	 * @var DatabaseUserProvider|MockObject
 	 */
-	private $_mockDatabaseUserProvider;
+	private $mockDatabaseUserProvider;
 
 	/**
-	 * @var Time|PHPUnit_Framework_MockObject_MockObject
+	 * @var Time|MockObject
 	 */
-	private $_mockTime;
+	private $mockTime;
 
 	public function setUp() {
-		$this->_mockBlog = $this->getMock(Blog::class, [], [], '', false);
-		$this->_mockDatabaseUserProvider = $this->getMock(DatabaseUserProvider::class, [], [], '', false);
-		$this->_mockTime = $this->getMock(Time::class, [], [], '', false);
+		$this->mockBlog = $this->getMock(Blog::class, [], [], '', false);
+		$this->mockDatabaseUserProvider = $this->getMock(DatabaseUserProvider::class, [], [], '', false);
+		$this->mockTime = $this->getMock(Time::class, [], [], '', false);
 
-		$this->_subject = new BlogController($this->_mockBlog, $this->_mockDatabaseUserProvider);
-		$this->_subject->setTime($this->_mockTime);
+		$this->subject = new BlogController($this->mockBlog, $this->mockDatabaseUserProvider);
+		$this->subject->setTime($this->mockTime);
 	}
 
 	public function testIndex() {
@@ -58,18 +58,18 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase {
 			'Hans Peter' => $user_id
 		];
 
-		$this->_mockBlog
+		$this->mockBlog
 			->expects($this->once())
 			->method('getPosts')
 			->with($user_id)
 			->will($this->returnValue($posts));
 
-		$this->_mockDatabaseUserProvider
+		$this->mockDatabaseUserProvider
 			->expects($this->once())
 			->method('getAllUserNames')
 			->will($this->returnValue($user_names));
 
-		$actual_result = $this->_subject->index($request);
+		$actual_result = $this->subject->index($request);
 
 		$expected_result = [
 			'posts' => $posts,
@@ -90,13 +90,13 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase {
 
 		$request->attributes->set('user_id', $user_id);
 
-		$this->_mockBlog
+		$this->mockBlog
 			->expects($this->once())
 			->method('getRecentPost')
 			->with($user_id)
 			->will($this->returnValue($recent_post));
 
-		$actual_result = $this->_subject->getMood($request);
+		$actual_result = $this->subject->getMood($request);
 
 		$expected_result = [
 			'mood' => $mood * 10,
@@ -117,18 +117,18 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase {
 			'Hans Peter' => $user_id
 		];
 
-		$this->_mockBlog
+		$this->mockBlog
 			->expects($this->once())
 			->method('getPosts')
 			->with($user_id)
 			->will($this->returnValue($posts));
 
-		$this->_mockDatabaseUserProvider
+		$this->mockDatabaseUserProvider
 			->expects($this->once())
 			->method('getAllUserNames')
 			->will($this->returnValue($user_names));
 
-		$actual_result = $this->_subject->blogForUser($request, $user_id);
+		$actual_result = $this->subject->blogForUser($request, $user_id);
 
 		$expected_result = [
 			'posts' => $posts,
@@ -155,18 +155,18 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase {
 			'Hans Peter' => 100
 		];
 
-		$this->_mockBlog
+		$this->mockBlog
 			->expects($this->once())
 			->method('getPosts')
 			->with($user_id)
 			->will($this->returnValue($posts));
 
-		$this->_mockDatabaseUserProvider
+		$this->mockDatabaseUserProvider
 			->expects($this->once())
 			->method('getAllUserNames')
 			->will($this->returnValue($user_names));
 
-		$actual_result = $this->_subject->blogForUser($request, $user_id);
+		$actual_result = $this->subject->blogForUser($request, $user_id);
 
 		$i = $todo;
 	}
@@ -189,18 +189,18 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase {
 		$post_vo->mood = $mood;
 		$post_vo->text = $text;
 
-		$this->_mockBlog
+		$this->mockBlog
 			->expects($this->once())
 			->method('addPost')
 			->with($user_vo, $post_vo)
 			->will($this->returnValue($post_vo));
 
-		$this->_mockTime
+		$this->mockTime
 			->expects($this->once())
 			->method('now')
 			->will($this->returnValue($now));
 
-		$actual_result = $this->_subject->addPost($request);
+		$actual_result = $this->subject->addPost($request);
 
 		$expected_result = [
 			$now, $post_vo
@@ -216,12 +216,12 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase {
 		$request = new Request();
 		$request->attributes->set('user_id', $user_id);
 
-		$this->_mockBlog
+		$this->mockBlog
 			->expects($this->once())
 			->method('deletePost')
 			->with($user_id, $timestamp);
 
-		$actual_result = $this->_subject->deletePost($request, $timestamp);
+		$actual_result = $this->subject->deletePost($request, $timestamp);
 
 		$expected_response = true;
 		$this->assertEquals($expected_response, $actual_result);

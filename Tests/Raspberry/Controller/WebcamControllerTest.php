@@ -4,7 +4,7 @@ namespace Tests\Raspberry\Controller\WebcamController;
 
 use BrainExe\Core\Controller\ControllerInterface;
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Controller\WebcamController;
 use Raspberry\Webcam\WebcamEvent;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -24,17 +24,17 @@ class WebcamControllerTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var Webcam|PHPUnit_Framework_MockObject_MockObject
+	 * @var Webcam|MockObject
 	 */
 	private $_mockWebcam;
 
 	/**
-	 * @var EventDispatcher|PHPUnit_Framework_MockObject_MockObject
+	 * @var EventDispatcher|MockObject
 	 */
 	private $_mockEventDispatcher;
 
 	/**
-	 * @var IdGenerator|PHPUnit_Framework_MockObject_MockObject
+	 * @var IdGenerator|MockObject
 	 */
 	private $_mockIdGenerator;
 

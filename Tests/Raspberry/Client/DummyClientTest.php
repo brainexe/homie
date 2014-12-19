@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\Client\DummyClient;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Client\DummyClient;
 use Monolog\Logger;
 
@@ -18,7 +18,7 @@ class DummyClientTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var Logger|PHPUnit_Framework_MockObject_MockObject
+	 * @var Logger|MockObject
 	 */
 	private $_mockLogger;
 

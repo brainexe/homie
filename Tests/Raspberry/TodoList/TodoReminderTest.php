@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\TodoList\TodoReminder;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\TodoList\TodoReminder;
 use Raspberry\TodoList\TodoList;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
@@ -20,12 +20,12 @@ class TodoReminderTest extends PHPUnit_Framework_TestCase {
 	private $_subject;
 
 	/**
-	 * @var TodoList|PHPUnit_Framework_MockObject_MockObject
+	 * @var TodoList|MockObject
 	 */
 	private $_mockTodoList;
 
 	/**
-	 * @var EventDispatcher|PHPUnit_Framework_MockObject_MockObject
+	 * @var EventDispatcher|MockObject
 	 */
 	private $_mockEventDispatcher;
 
