@@ -18,29 +18,29 @@ class BlogPostNotifyListenerTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @var BlogPostNotifyListener
 	 */
-	private $_subject;
+	private $subject;
 
 	/**
 	 * @var EventDispatcher|MockObject
 	 */
-	private $_mockEventDispatcher;
+	private $mockEventDispatcher;
 
 	/**
 	 * @var Time|MockObject
 	 */
-	private $_mockTime;
+	private $mockTime;
 
 	public function setUp() {
-		$this->_mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
-		$this->_mockTime = $this->getMock(Time::class, [], [], '', false);
+		$this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+		$this->mockTime = $this->getMock(Time::class, [], [], '', false);
 
-		$this->_subject = new BlogPostNotifyListener();
-		$this->_subject->setEventDispatcher($this->_mockEventDispatcher);
-		$this->_subject->setTime($this->_mockTime);
+		$this->subject = new BlogPostNotifyListener();
+		$this->subject->setEventDispatcher($this->mockEventDispatcher);
+		$this->subject->setTime($this->mockTime);
 	}
 
 	public function testGetSubscribedEvents() {
-		$actual_result = $this->_subject->getSubscribedEvents();
+		$actual_result = $this->subject->getSubscribedEvents();
 		$this->assertInternalType('array', $actual_result);
 	}
 
@@ -54,13 +54,13 @@ class BlogPostNotifyListenerTest extends PHPUnit_Framework_TestCase {
 		$hour = 12;
 		$minute = 50;
 
-		$this->_mockTime
+		$this->mockTime
 			->expects($this->at(0))
 			->method('date')
 			->with('G')
 			->will($this->returnValue($hour));
 
-		$this->_mockTime
+		$this->mockTime
 			->expects($this->at(1))
 			->method('date')
 			->with('i')
@@ -69,7 +69,7 @@ class BlogPostNotifyListenerTest extends PHPUnit_Framework_TestCase {
 		$espeak = new EspeakVO($this->anything());
 		$espeak_event = new EspeakEvent($espeak);
 
-		$this->_mockEventDispatcher
+		$this->mockEventDispatcher
 			->expects($this->at(0))
 			->method('dispatchInBackground')
 			->with($this->isInstanceOf(EspeakEvent::class), 0);
@@ -77,23 +77,23 @@ class BlogPostNotifyListenerTest extends PHPUnit_Framework_TestCase {
 		$now = 1000;
 		$notify_time = 1001;
 
-		$this->_mockTime
+		$this->mockTime
 			->expects($this->once())
 			->method('now')
 			->will($this->returnValue($now));
 
-		$this->_mockTime
+		$this->mockTime
 			->expects($this->once())
 			->method('strtotime')
 			->with(BlogPostNotifyListener::NOTIFY_TIME)
 			->will($this->returnValue($notify_time));
 
-		$this->_mockEventDispatcher
+		$this->mockEventDispatcher
 			->expects($this->at(1))
 			->method('dispatchInBackground')
 			->with($this->isInstanceOf(EspeakEvent::class), $notify_time);
 
-		$this->_subject->handlePostEvent($event);
+		$this->subject->handlePostEvent($event);
 	}
 
 }

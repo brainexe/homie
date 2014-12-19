@@ -18,17 +18,17 @@ class PinLoaderTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @var PinLoader
 	 */
-	private $_subject;
+	private $subject;
 
 	/**
 	 * @var LocalClient|MockObject
 	 */
-	private $_mockLocalClient;
+	private $mockLocalClient;
 
 	public function setUp() {
-		$this->_mockLocalClient = $this->getMock(LocalClient::class, [], [], '', false);
+		$this->mockLocalClient = $this->getMock(LocalClient::class, [], [], '', false);
 
-		$this->_subject = new PinLoader($this->_mockLocalClient);
+		$this->subject = new PinLoader($this->mockLocalClient);
 	}
 
 	public function testGetPins() {
@@ -44,13 +44,13 @@ class PinLoaderTest extends PHPUnit_Framework_TestCase {
 |      $id   |  17  |  11  | $name | $direction   | $value   |
 +----------+------+------+--------+------+-------+\n";
 
-		$this->_mockLocalClient
+		$this->mockLocalClient
 			->expects($this->once())
 			->method('executeWithReturn')
 			->with(GpioManager::GPIO_COMMAND_READALL)
 			->will($this->returnValue($gpio_result));
 
-		$actual_result = $this->_subject->loadPins();
+		$actual_result = $this->subject->loadPins();
 
 		$expected_pin = new Pin();
 		$expected_pin->setID($id);
@@ -65,9 +65,9 @@ class PinLoaderTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($direction, $expected_pin->getDirection());
 		$this->assertEquals(0, $expected_pin->getValue());
 
-		$actual_result = $this->_subject->loadPins();
+		$actual_result = $this->subject->loadPins();
 		$this->assertEquals($expected_pin_collection, $actual_result);
 
-		$this->assertEquals($expected_pin, $this->_subject->loadPin($id));
+		$this->assertEquals($expected_pin, $this->subject->loadPin($id));
 	}
 }

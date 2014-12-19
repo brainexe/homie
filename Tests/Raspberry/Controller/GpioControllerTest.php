@@ -20,17 +20,17 @@ class GpioControllerTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @var GpioController
 	 */
-	private $_subject;
+	private $subject;
 
 	/**
 	 * @var GpioManager|MockObject
 	 */
-	private $_mockGpioManager;
+	private $mockGpioManager;
 
 	public function setUp() {
-		$this->_mockGpioManager = $this->getMock(GpioManager::class, [], [], '', false);
+		$this->mockGpioManager = $this->getMock(GpioManager::class, [], [], '', false);
 
-		$this->_subject = new GpioController($this->_mockGpioManager);
+		$this->subject = new GpioController($this->mockGpioManager);
 	}
 
 	public function testIndex() {
@@ -38,12 +38,12 @@ class GpioControllerTest extends PHPUnit_Framework_TestCase {
 		$pins = new PinsCollection();
 		$pins->add($pin);
 
-		$this->_mockGpioManager
+		$this->mockGpioManager
 			->expects($this->once())
 			->method('getPins')
 			->will($this->returnValue($pins));
 
-		$actual_result = $this->_subject->index();
+		$actual_result = $this->subject->index();
 
 		$expected_result = [
 			'pins' => $pins->getAll()
@@ -60,13 +60,13 @@ class GpioControllerTest extends PHPUnit_Framework_TestCase {
 
 		$pin = new Pin();
 
-		$this->_mockGpioManager
+		$this->mockGpioManager
 			->expects($this->once())
 			->method('setPin')
 			->with($id, $status, $value)
 			->will($this->returnValue($pin));
 
-		$actual_result = $this->_subject->setStatus($request, $id, $status, $value);
+		$actual_result = $this->subject->setStatus($request, $id, $status, $value);
 
 		$this->assertEquals($pin, $actual_result);
 	}

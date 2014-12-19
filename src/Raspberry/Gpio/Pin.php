@@ -6,11 +6,6 @@ use JsonSerializable;
 
 class Pin implements JsonSerializable {
 
-	/**
-	 * @var string
-	 */
-	protected $_description;
-
 	const DIRECTION_IN  = 'in';
 	const DIRECTION_OUT = 'out';
 
@@ -22,22 +17,27 @@ class Pin implements JsonSerializable {
 	 *
 	 * @var integer
 	 */
-	private $_id;
+	private $id;
 
 	/**
 	 * @var string
 	 */
-	private $_name;
+	private $description;
 
 	/**
 	 * @var string
 	 */
-	private $_direction;
+	private $name;
+
+	/**
+	 * @var string
+	 */
+	private $direction;
 
 	/**
 	 * @var boolean
 	 */
-	protected $_value;
+	protected $value;
 
 	/**
 	 * Get ID value.
@@ -45,7 +45,7 @@ class Pin implements JsonSerializable {
 	 * @return integer
 	 */
 	public function getID() {
-		return $this->_id;
+		return $this->id;
 	}
 
 	/**
@@ -56,7 +56,7 @@ class Pin implements JsonSerializable {
 	 * @return Pin
 	 */
 	public function setID($id) {
-		$this->_id = $id;
+		$this->id = $id;
 
 		return $this;
 	}
@@ -67,7 +67,7 @@ class Pin implements JsonSerializable {
 	 * @return string
 	 */
 	public function getName() {
-		return $this->_name;
+		return $this->name;
 	}
 
 	/**
@@ -78,7 +78,7 @@ class Pin implements JsonSerializable {
 	 * @return Pin
 	 */
 	public function setName($name) {
-		$this->_name = $name;
+		$this->name = $name;
 
 		return $this;
 	}
@@ -89,7 +89,7 @@ class Pin implements JsonSerializable {
 	 * @return string
 	 */
 	public function getDirection() {
-		return $this->_direction;
+		return $this->direction;
 	}
 
 	/**
@@ -100,7 +100,7 @@ class Pin implements JsonSerializable {
 	 * @return Pin
 	 */
 	public function setDirection($direction) {
-		$this->_direction = $direction;
+		$this->direction = $direction;
 
 		return $this;
 	}
@@ -111,7 +111,7 @@ class Pin implements JsonSerializable {
 	 * @return boolean
 	 */
 	public function getValue() {
-		return $this->_value;
+		return $this->value;
 	}
 
 	/**
@@ -122,7 +122,7 @@ class Pin implements JsonSerializable {
 	 * @return Pin
 	 */
 	public function setValue($value) {
-		$this->_value = $value;
+		$this->value = $value;
 
 		return $this;
 	}
@@ -131,14 +131,14 @@ class Pin implements JsonSerializable {
 	 * @return string
 	 */
 	public function getDescription() {
-		return $this->_description;
+		return $this->description;
 	}
 
 	/**
 	 * @param string $description
 	 */
 	public function setDescription($description) {
-		$this->_description = $description;
+		$this->description = $description;
 	}
 
 	/**
@@ -146,11 +146,11 @@ class Pin implements JsonSerializable {
 	 */
 	public function jsonSerialize() {
 		return [
-			'id' => $this->_id,
-			'value' => $this->_value,
-			'name' => $this->_name,
-			'description' => $this->_description,
-			'direction' => $this->_direction == 'OUT' ? 1 : 0,
+			'id' => $this->id,
+			'value' => $this->value,
+			'name' => $this->name,
+			'description' => $this->description,
+			'direction' => $this->direction == 'OUT' ? 1 : 0,
 		];
 	}
 }

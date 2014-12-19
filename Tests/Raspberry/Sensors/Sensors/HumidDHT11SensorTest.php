@@ -19,27 +19,27 @@ class HumidDHT11SensorTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @var HumidDHT11Sensor
 	 */
-	private $_subject;
+	private $subject;
 
 	/**
 	 * @var ProcessBuilder|MockObject
 	 */
-	private $_mockProcessBuilder;
+	private $mockProcessBuilder;
 
 	/**
 	 * @var Filesystem|MockObject
 	 */
-	private $_mockFileSystem;
+	private $mockFileSystem;
 
 	public function setUp() {
-		$this->_mockProcessBuilder = $this->getMock(ProcessBuilder::class, [], [], '', false);
-		$this->_mockFileSystem = $this->getMock(Filesystem::class, [], [], '', false);
+		$this->mockProcessBuilder = $this->getMock(ProcessBuilder::class, [], [], '', false);
+		$this->mockFileSystem = $this->getMock(Filesystem::class, [], [], '', false);
 
-		$this->_subject = new HumidDHT11Sensor($this->_mockProcessBuilder, $this->_mockFileSystem);
+		$this->subject = new HumidDHT11Sensor($this->mockProcessBuilder, $this->mockFileSystem);
 	}
 
 	public function testGetSensorType() {
-		$actual_result = $this->_subject->getSensorType();
+		$actual_result = $this->subject->getSensorType();
 
 		$this->assertEquals(HumidDHT11Sensor::TYPE, $actual_result);
 	}
@@ -49,12 +49,12 @@ class HumidDHT11SensorTest extends PHPUnit_Framework_TestCase {
 
 		$process = $this->getMock(Process::class, [], [], '', false);
 
-		$this->_mockProcessBuilder
+		$this->mockProcessBuilder
 			->expects($this->once())
 			->method('setArguments')
-			->will($this->returnValue($this->_mockProcessBuilder));
+			->will($this->returnValue($this->mockProcessBuilder));
 
-		$this->_mockProcessBuilder
+		$this->mockProcessBuilder
 			->expects($this->once())
 			->method('getProcess')
 			->will($this->returnValue($process));
@@ -66,7 +66,7 @@ class HumidDHT11SensorTest extends PHPUnit_Framework_TestCase {
 			->method('isSuccessful')
 			->will($this->returnValue(false));
 
-		$actual_result = $this->_subject->getValue($pin);
+		$actual_result = $this->subject->getValue($pin);
 
 		$this->assertNull($actual_result);
 	}
@@ -79,12 +79,12 @@ class HumidDHT11SensorTest extends PHPUnit_Framework_TestCase {
 
 		$process = $this->getMock(Process::class, [], [], '', false);
 
-		$this->_mockProcessBuilder
+		$this->mockProcessBuilder
 			->expects($this->once())
 			->method('setArguments')
-			->will($this->returnValue($this->_mockProcessBuilder));
+			->will($this->returnValue($this->mockProcessBuilder));
 
-		$this->_mockProcessBuilder
+		$this->mockProcessBuilder
 			->expects($this->once())
 			->method('getProcess')
 			->will($this->returnValue($process));
@@ -100,7 +100,7 @@ class HumidDHT11SensorTest extends PHPUnit_Framework_TestCase {
 			->method('getOutput')
 			->will($this->returnValue($output));
 
-		$actual_result = $this->_subject->getValue($pin);
+		$actual_result = $this->subject->getValue($pin);
 
 		$this->assertEquals($humid, $actual_result);
 	}
@@ -111,7 +111,7 @@ class HumidDHT11SensorTest extends PHPUnit_Framework_TestCase {
 	 * @dataProvider provideFormatValues
 	 */
 	public function testFormatValue($given, $expected_result) {
-		$actual_result = $this->_subject->formatValue($given);
+		$actual_result = $this->subject->formatValue($given);
 
 		$this->assertEquals($expected_result, $actual_result);
 	}
@@ -121,7 +121,7 @@ class HumidDHT11SensorTest extends PHPUnit_Framework_TestCase {
 	 * @dataProvider provideEspeakText
 	 */
 	public function testGetEspeakText($given, $expected_result) {
-		$actual_result = $this->_subject->getEspeakText($given);
+		$actual_result = $this->subject->getEspeakText($given);
 
 		$this->assertEquals($expected_result, $actual_result);
 	}
@@ -129,14 +129,14 @@ class HumidDHT11SensorTest extends PHPUnit_Framework_TestCase {
 	public function testIsSupported() {
 		$file = sprintf(AbstractDHT11Sensor::ADA_SCRIPT);
 
-		$this->_mockFileSystem
+		$this->mockFileSystem
 			->expects($this->once())
 			->method('exists')
 			->with($file)
 			->will($this->returnValue(true));
 
 		$output = new DummyOutput();
-		$actual_result = $this->_subject->isSupported($output);
+		$actual_result = $this->subject->isSupported($output);
 
 		$this->assertTrue($actual_result);
 	}
@@ -144,14 +144,14 @@ class HumidDHT11SensorTest extends PHPUnit_Framework_TestCase {
 	public function testIsSupportedWhenNotSupported() {
 		$file = sprintf(AbstractDHT11Sensor::ADA_SCRIPT);
 
-		$this->_mockFileSystem
+		$this->mockFileSystem
 			->expects($this->once())
 			->method('exists')
 			->with($file)
 			->will($this->returnValue(false));
 
 		$output = new DummyOutput();
-		$actual_result = $this->_subject->isSupported($output);
+		$actual_result = $this->subject->isSupported($output);
 
 		$this->assertFalse($actual_result);
 	}

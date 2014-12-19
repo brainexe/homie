@@ -17,29 +17,29 @@ class GpioManagerTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @var GpioManager
 	 */
-	private $_subject;
+	private $subject;
 
 	/**
 	 * @var PinGateway|MockObject
 	 */
-	private $_mockPinGateway;
+	private $mockPinGateway;
 
 	/**
 	 * @var LocalClient|MockObject
 	 */
-	private $_mockLocalClient;
+	private $mockLocalClient;
 
 	/**
 	 * @var PinLoader|MockObject
 	 */
-	private $_mockPinLoader;
+	private $mockPinLoader;
 
 	public function setUp() {
-		$this->_mockPinGateway = $this->getMock(PinGateway::class, [], [], '', false);
-		$this->_mockLocalClient = $this->getMock(LocalClient::class, [], [], '', false);
-		$this->_mockPinLoader = $this->getMock(PinLoader::class, [], [], '', false);
+		$this->mockPinGateway = $this->getMock(PinGateway::class, [], [], '', false);
+		$this->mockLocalClient = $this->getMock(LocalClient::class, [], [], '', false);
+		$this->mockPinLoader = $this->getMock(PinLoader::class, [], [], '', false);
 
-		$this->_subject = new GpioManager($this->_mockPinGateway, $this->_mockLocalClient, $this->_mockPinLoader);
+		$this->subject = new GpioManager($this->mockPinGateway, $this->mockLocalClient, $this->mockPinLoader);
 	}
 
 	public function testGetPins() {
@@ -55,17 +55,17 @@ class GpioManagerTest extends PHPUnit_Framework_TestCase {
 		$pin_collection = new PinsCollection();
 		$pin_collection->add($pin);
 
-		$this->_mockPinLoader
+		$this->mockPinLoader
 			->expects($this->once())
 			->method('loadPins')
 			->will($this->returnValue($pin_collection));
 
-		$this->_mockPinGateway
+		$this->mockPinGateway
 			->expects($this->once())
 			->method('getPinDescriptions')
 			->will($this->returnValue($descriptions));
 
-		$actual_result = $this->_subject->getPins();
+		$actual_result = $this->subject->getPins();
 
 		$this->assertEquals($pin_collection, $actual_result);
 		$this->assertEquals($description, $pin->getDescription());
@@ -79,23 +79,23 @@ class GpioManagerTest extends PHPUnit_Framework_TestCase {
 		$pin = new Pin();
 		$pin->setID($id);
 
-		$this->_mockPinLoader
+		$this->mockPinLoader
 			->expects($this->once())
 			->method('loadPin')
 			->with($id)
 			->will($this->returnValue($pin));
 
-		$this->_mockLocalClient
+		$this->mockLocalClient
 			->expects($this->at(0))
 			->method('execute')
 			->with(sprintf(GpioManager::GPIO_COMMAND_DIRECTION, $id, 'out'));
 
-		$this->_mockLocalClient
+		$this->mockLocalClient
 			->expects($this->at(1))
 			->method('execute')
 			->with(sprintf(GpioManager::GPIO_COMMAND_VALUE, $id, 1));
 
-		$actual_result = $this->_subject->setPin($id, $status, $value);
+		$actual_result = $this->subject->setPin($id, $status, $value);
 
 		$this->assertEquals($pin, $actual_result);
 	}
