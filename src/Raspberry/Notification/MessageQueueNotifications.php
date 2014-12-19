@@ -9,28 +9,30 @@ use BrainExe\Core\Traits\RedisTrait;
 /**
  * @Service(public=false)
  */
-class MessageQueueNotifications implements NotificationCollectorInterface {
+class MessageQueueNotifications implements NotificationCollectorInterface
+{
 
-	use RedisTrait;
+    use RedisTrait;
 
-	/**
-	 * @var MessageQueueGateway
-	 */
-	private $messageQueueGateway;
+    /**
+     * @var MessageQueueGateway
+     */
+    private $messageQueueGateway;
 
-	/**
-	 * @Inject("@MessageQueueGateway")
-	 * @param MessageQueueGateway $message_queue_gateway
-	 */
-	public function setMessageQueueGateway(MessageQueueGateway $message_queue_gateway) {
-		$this->messageQueueGateway = $message_queue_gateway;
-	}
+    /**
+     * @Inject("@MessageQueueGateway")
+     * @param MessageQueueGateway $message_queue_gateway
+     */
+    public function setMessageQueueGateway(MessageQueueGateway $message_queue_gateway)
+    {
+        $this->messageQueueGateway = $message_queue_gateway;
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getNotification() {
-		return $this->messageQueueGateway->countJobs(); //TODO in future
-	}
-
+    /**
+     * {@inheritdoc}
+     */
+    public function getNotification()
+    {
+        return $this->messageQueueGateway->countJobs(); //TODO in future
+    }
 }

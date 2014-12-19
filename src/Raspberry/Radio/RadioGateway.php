@@ -10,102 +10,110 @@ use Raspberry\Radio\VO\RadioVO;
 /**
  * @Service(public=false)
  */
-class RadioGateway {
+class RadioGateway
+{
 
-	use RedisTrait;
-	use IdGeneratorTrait;
+    use RedisTrait;
+    use IdGeneratorTrait;
 
-	const REDIS_RADIO = 'radios:%d';
-	const REDIS_RADIO_IDS = 'radio_ids';
+    const REDIS_RADIO = 'radios:%d';
+    const REDIS_RADIO_IDS = 'radio_ids';
 
-	/**
-	 * @return array[]
-	 */
-	public function getRadios() {
-		$radio_ids = $this->getRadioIds();
+    /**
+     * @return array[]
+     */
+    public function getRadios()
+    {
+        $radio_ids = $this->getRadioIds();
 
-		/** @var Redis $pipeline */
-		$pipeline = $this->getRedis()->multi(Redis::PIPELINE);
+        /** @var Redis $pipeline */
+        $pipeline = $this->getRedis()->multi(Redis::PIPELINE);
 
-		foreach ($radio_ids as $radio_id) {
-			$pipeline->HGETALL(self::_getRadioKey($radio_id));
-		}
+        foreach ($radio_ids as $radio_id) {
+            $pipeline->HGETALL(self::getRadioKey($radio_id));
+        }
 
-		return $pipeline->exec();
-	}
+        return $pipeline->exec();
+    }
 
-	/**
-	 * @param integer $radio_id
-	 * @return array
-	 */
-	public function getRadio($radio_id) {
-		return $this->getRedis()->HGETALL($this->_getRadioKey($radio_id));
-	}
+    /**
+     * @param integer $radio_id
+     * @return array
+     */
+    public function getRadio($radio_id)
+    {
+        return $this->getRedis()->HGETALL($this->getRadioKey($radio_id));
+    }
 
-	/**
-	 * @return integer[]
-	 */
-	public function getRadioIds() {
-		$radio_ids = $this->getRedis()->SMEMBERS(self::REDIS_RADIO_IDS);
+    /**
+     * @return integer[]
+     */
+    public function getRadioIds()
+    {
+        $radio_ids = $this->getRedis()->SMEMBERS(self::REDIS_RADIO_IDS);
 
-		sort($radio_ids);
+        sort($radio_ids);
 
-		return $radio_ids;
-	}
+        return $radio_ids;
+    }
 
-	/**
-	 * @param integer $radio_id
-	 * @return string
-	 */
-	private function _getRadioKey($radio_id) {
-		return sprintf(self::REDIS_RADIO, $radio_id);
-	}
+    /**
+     * @param RadioVO $radio_vo
+     * @return integer $radio_id
+     */
+    public function addRadio(RadioVO $radio_vo)
+    {
+        $new_radio_id = $this->generateRandomId();
 
-	/**
-	 * @param RadioVO $radio_vo
-	 * @return integer $radio_id
-	 */
-	public function addRadio(RadioVO $radio_vo) {
-		$new_radio_id = $this->generateRandomId();
+        $pipeline = $this->getRedis()->multi(Redis::PIPELINE);
 
-		$pipeline = $this->getRedis()->multi(Redis::PIPELINE);
+        $key = $this->getRadioKey($new_radio_id);
+        $pipeline->HMSET($key, [
+        'id' => $new_radio_id,
+        'name' => $radio_vo->name,
+        'description' => $radio_vo->description,
+        'pin' => $radio_vo->pin,
+        'code' => $radio_vo->code,
+        ]);
 
-		$key = $this->_getRadioKey($new_radio_id);
-		$pipeline->HMSET($key, [
-			'id' => $new_radio_id,
-			'name' => $radio_vo->name,
-			'description' => $radio_vo->description,
-			'pin' => $radio_vo->pin,
-			'code' => $radio_vo->code,
-		]);
+        $this->getRedis()->SADD(self::REDIS_RADIO_IDS, $new_radio_id);
 
-		$this->getRedis()->SADD(self::REDIS_RADIO_IDS, $new_radio_id);
+        $pipeline->exec();
 
-		$pipeline->exec();
+        $radio_vo->id = $new_radio_id;
 
-		$radio_vo->id = $new_radio_id;
+        return $new_radio_id;
+    }
 
-		return $new_radio_id;
-	}
+    /**
+     * @param RadioVO $radio_vo
+     */
+    public function editRadio(RadioVO $radio_vo)
+    {
+        $key = $this->getRadioKey($radio_vo->id);
 
-	/**
-	 * @param RadioVO $radio_vo
-	 */
-	public function editRadio(RadioVO $radio_vo) {
-		$key = $this->_getRadioKey($radio_vo->id);
+        $redis = $this->getRedis();
 
-		$redis = $this->getRedis();
+        $redis->hMset($key, (array)$radio_vo);
+    }
 
-		$redis->hMset($key, (array)$radio_vo);
-	}
+    /**
+     * @param integer $radio_id
+     */
+    public function deleteRadio($radio_id)
+    {
+        $redis = $this->getRedis();
 
-	/**
-	 * @param integer $radio_id
-	 */
-	public function deleteRadio($radio_id) {
-		$redis = $this->getRedis();
+        $redis->SREM(self::REDIS_RADIO_IDS, $radio_id);
+        $redis->DEL(self::getRadioKey($radio_id));
+    }
 
-		$redis->SREM(self::REDIS_RADIO_IDS, $radio_id);
-		$redis->DEL(self::_getRadioKey($radio_id));
-	}
+    /**
+     * @param integer $radio_id
+     * @return string
+     */
+    private function getRadioKey($radio_id)
+    {
+        return sprintf(self::REDIS_RADIO, $radio_id);
+    }
 }

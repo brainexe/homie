@@ -11,44 +11,46 @@ use Symfony\Component\Process\ProcessBuilder;
 /**
  * @Covers Raspberry\Media\Sound
  */
-class SoundTest extends PHPUnit_Framework_TestCase {
+class SoundTest extends PHPUnit_Framework_TestCase
+{
 
-	/**
-	 * @var Sound
-	 */
-	private $_subject;
+    /**
+     * @var Sound
+     */
+    private $_subject;
 
-	/**
-	 * @var ProcessBuilder|MockObject
-	 */
-	private $_mockProcessBuilder;
+    /**
+     * @var ProcessBuilder|MockObject
+     */
+    private $_mockProcessBuilder;
 
-	public function setUp() {
-		$this->_mockProcessBuilder = $this->getMock(ProcessBuilder::class, [], [], '', false);
-		$this->_subject = new Sound($this->_mockProcessBuilder);
-	}
+    public function setUp()
+    {
+        $this->_mockProcessBuilder = $this->getMock(ProcessBuilder::class, [], [], '', false);
+        $this->_subject = new Sound($this->_mockProcessBuilder);
+    }
 
-	public function testPlaySound() {
-		$file = 'file';
+    public function testPlaySound()
+    {
+        $file = 'file';
 
-		$process = $this->getMock(Process::class, [], [], '', false);
+        $process = $this->getMock(Process::class, [], [], '', false);
 
-		$this->_mockProcessBuilder
-			->expects($this->once())
-			->method('setArguments')
-			->with([Sound::COMMAND, $file])
-			->will($this->returnValue($this->_mockProcessBuilder));
+        $this->_mockProcessBuilder
+        ->expects($this->once())
+        ->method('setArguments')
+        ->with([Sound::COMMAND, $file])
+        ->will($this->returnValue($this->_mockProcessBuilder));
 
-		$this->_mockProcessBuilder
-			->expects($this->once())
-			->method('getProcess')
-			->will($this->returnValue($process));
+        $this->_mockProcessBuilder
+        ->expects($this->once())
+        ->method('getProcess')
+        ->will($this->returnValue($process));
 
-		$process
-			->expects($this->once())
-			->method('run');
+        $process
+        ->expects($this->once())
+        ->method('run');
 
-		$this->_subject->playSound($file);
-	}
-
+        $this->_subject->playSound($file);
+    }
 }

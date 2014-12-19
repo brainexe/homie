@@ -14,55 +14,58 @@ use Raspberry\Radio\VO\RadioVO;
 /**
  * @Covers Raspberry\Radio\InputControl
  */
-class InputControlTest extends TestCase {
+class InputControlTest extends TestCase
+{
 
-	/**
-	 * @var InputControl
-	 */
-	private $subject;
+    /**
+     * @var InputControl
+     */
+    private $subject;
 
-	/**
-	 * @var Radios|MockObject
-	 */
-	private $mockRadios;
+    /**
+     * @var Radios|MockObject
+     */
+    private $mockRadios;
 
-	/**
-	 * @var EventDispatcher|MockObject
-	 */
-	private $mockEventDispatcher;
+    /**
+     * @var EventDispatcher|MockObject
+     */
+    private $mockEventDispatcher;
 
-	public function setUp() {
-		$this->mockRadios          = $this->getMock(Radios::class, [], [], '', false);
-		$this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+    public function setUp()
+    {
+        $this->mockRadios          = $this->getMock(Radios::class, [], [], '', false);
+        $this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-		$this->subject = new InputControl($this->mockRadios);
-		$this->subject->setEventDispatcher($this->mockEventDispatcher);
-	}
-	public function testGetSubscribedEvents() {
-		$actualResult = $this->subject->getSubscribedEvents();
+        $this->subject = new InputControl($this->mockRadios);
+        $this->subject->setEventDispatcher($this->mockEventDispatcher);
+    }
+    public function testGetSubscribedEvents()
+    {
+        $actualResult = $this->subject->getSubscribedEvents();
 
-		$this->assertInternalType('array', $actualResult);
-	}
+        $this->assertInternalType('array', $actualResult);
+    }
 
-	public function testSay() {
-		$radioId    = 5;
-		$inputEvent = new Event();
-		$inputEvent->matches = ['on', $radioId];
+    public function testSay()
+    {
+        $radioId    = 5;
+        $inputEvent = new Event();
+        $inputEvent->matches = ['on', $radioId];
 
-		$radioVo = new RadioVO();
-		$event   = new RadioChangeEvent($radioVo, true);
+        $radioVo = new RadioVO();
+        $event   = new RadioChangeEvent($radioVo, true);
 
-		$this->mockRadios
-			->expects($this->once())
-			->method('getRadio')
-			->with($radioId)
-			->willReturn($radioVo);
-		$this->mockEventDispatcher
-			->expects($this->once())
-			->method('dispatchEvent')
-			->with($event);
+        $this->mockRadios
+        ->expects($this->once())
+        ->method('getRadio')
+        ->with($radioId)
+        ->willReturn($radioVo);
+        $this->mockEventDispatcher
+        ->expects($this->once())
+        ->method('dispatchEvent')
+        ->with($event);
 
-		$this->subject->setRadio($inputEvent);
-	}
-
+        $this->subject->setRadio($inputEvent);
+    }
 }

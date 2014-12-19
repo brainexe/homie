@@ -4,153 +4,165 @@ namespace Raspberry\Gpio;
 
 use JsonSerializable;
 
-class Pin implements JsonSerializable {
+class Pin implements JsonSerializable
+{
 
-	const DIRECTION_IN  = 'in';
-	const DIRECTION_OUT = 'out';
+    const DIRECTION_IN  = 'in';
+    const DIRECTION_OUT = 'out';
 
-	const VALUE_LOW  = 'LOW';
-	const VALUE_HIGH = 'HIGH';
+    const VALUE_LOW  = 'LOW';
+    const VALUE_HIGH = 'HIGH';
 
-	/**
-	 * wiringPi ID.
-	 *
-	 * @var integer
-	 */
-	private $id;
+    /**
+     * wiringPi ID.
+     *
+     * @var integer
+     */
+    private $id;
 
-	/**
-	 * @var string
-	 */
-	private $description;
+    /**
+     * @var string
+     */
+    private $description;
 
-	/**
-	 * @var string
-	 */
-	private $name;
+    /**
+     * @var string
+     */
+    private $name;
 
-	/**
-	 * @var string
-	 */
-	private $direction;
+    /**
+     * @var string
+     */
+    private $direction;
 
-	/**
-	 * @var boolean
-	 */
-	protected $value;
+    /**
+     * @var boolean
+     */
+    protected $value;
 
-	/**
-	 * Get ID value.
-	 *
-	 * @return integer
-	 */
-	public function getID() {
-		return $this->id;
-	}
+    /**
+     * Get ID value.
+     *
+     * @return integer
+     */
+    public function getID()
+    {
+        return $this->id;
+    }
 
-	/**
-	 * Set ID value.
-	 *
-	 * @param integer $id ID
-	 *
-	 * @return Pin
-	 */
-	public function setID($id) {
-		$this->id = $id;
+    /**
+     * Set ID value.
+     *
+     * @param integer $id ID
+     *
+     * @return Pin
+     */
+    public function setID($id)
+    {
+        $this->id = $id;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Get Name value.
-	 *
-	 * @return string
-	 */
-	public function getName() {
-		return $this->name;
-	}
+    /**
+     * Get Name value.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
-	/**
-	 * Set Name value.
-	 *
-	 * @param string $name Name
-	 *
-	 * @return Pin
-	 */
-	public function setName($name) {
-		$this->name = $name;
+    /**
+     * Set Name value.
+     *
+     * @param string $name Name
+     *
+     * @return Pin
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Get Direction value.
-	 *
-	 * @return string
-	 */
-	public function getDirection() {
-		return $this->direction;
-	}
+    /**
+     * Get Direction value.
+     *
+     * @return string
+     */
+    public function getDirection()
+    {
+        return $this->direction;
+    }
 
-	/**
-	 * Set Direction value.
-	 *
-	 * @param string $direction Direction
-	 *
-	 * @return Pin
-	 */
-	public function setDirection($direction) {
-		$this->direction = $direction;
+    /**
+     * Set Direction value.
+     *
+     * @param string $direction Direction
+     *
+     * @return Pin
+     */
+    public function setDirection($direction)
+    {
+        $this->direction = $direction;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Get Value value.
-	 *
-	 * @return boolean
-	 */
-	public function getValue() {
-		return $this->value;
-	}
+    /**
+     * Get Value value.
+     *
+     * @return boolean
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
 
-	/**
-	 * Set Value value.
-	 *
-	 * @param boolean $value Value
-	 *
-	 * @return Pin
-	 */
-	public function setValue($value) {
-		$this->value = $value;
+    /**
+     * Set Value value.
+     *
+     * @param boolean $value Value
+     *
+     * @return Pin
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getDescription() {
-		return $this->description;
-	}
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
 
-	/**
-	 * @param string $description
-	 */
-	public function setDescription($description) {
-		$this->description = $description;
-	}
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function jsonSerialize() {
-		return [
-			'id' => $this->id,
-			'value' => $this->value,
-			'name' => $this->name,
-			'description' => $this->description,
-			'direction' => $this->direction == 'OUT' ? 1 : 0,
-		];
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize()
+    {
+        return [
+        'id' => $this->id,
+        'value' => $this->value,
+        'name' => $this->name,
+        'description' => $this->description,
+        'direction' => $this->direction == 'OUT' ? 1 : 0,
+        ];
+    }
 }

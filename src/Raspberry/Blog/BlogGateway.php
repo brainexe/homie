@@ -7,102 +7,110 @@ use BrainExe\Core\Traits\RedisTrait;
 /**
  * @Service(public=false)
  */
-class BlogGateway {
+class BlogGateway
+{
 
-	const REDIS_POSTS_KEY = 'blog:%d';
-	const REDIS_SUBSCRIBERS = 'blog:subscribers:%d';
+    const REDIS_POSTS_KEY = 'blog:%d';
+    const REDIS_SUBSCRIBERS = 'blog:subscribers:%d';
 
-	use RedisTrait;
+    use RedisTrait;
 
-	/**
-	 * @param integer $user_id
-	 * @param string $from
-	 * @param string $to
-	 * @return BlogPostVO[]
-	 */
-	public function getPosts($user_id, $from = '0', $to = '+inf') {
-		$key = $this->_getPostKey($user_id);
+    /**
+     * @param integer $user_id
+     * @param string $from
+     * @param string $to
+     * @return BlogPostVO[]
+     */
+    public function getPosts($user_id, $from = '0', $to = '+inf')
+    {
+        $key = $this->getPostKey($user_id);
 
-		$posts = [];
-		$posts_raw = $this->getRedis()->zRangeByScore($key, $from, $to, ['withscores' => true]);
+        $posts = [];
+        $posts_raw = $this->getRedis()->zRangeByScore($key, $from, $to, ['withscores' => true]);
 
-		foreach ($posts_raw as $serialized => $timestamp) {
-			$posts[$timestamp] = unserialize($serialized);
-		}
+        foreach ($posts_raw as $serialized => $timestamp) {
+            $posts[$timestamp] = unserialize($serialized);
+        }
 
-		return $posts;
-	}
+        return $posts;
+    }
 
-	/**
-	 * @param integer $user_id
-	 * @return BlogPostVO|null
-	 */
-	public function getRecentPost($user_id) {
-		$key = $this->_getPostKey($user_id);
+    /**
+     * @param integer $user_id
+     * @return BlogPostVO|null
+     */
+    public function getRecentPost($user_id)
+    {
+        $key = $this->getPostKey($user_id);
 
-		$posts_raw = $this->getRedis()->zRevRangeByScore($key, '+inf', '0', ['limit' => [0, 1]]);
+        $posts_raw = $this->getRedis()->zRevRangeByScore($key, '+inf', '0', ['limit' => [0, 1]]);
 
-		if (empty($posts_raw)) {
-			return null;
-		}
+        if (empty($posts_raw)) {
+            return null;
+        }
 
-		return unserialize($posts_raw[0]);
-	}
+        return unserialize($posts_raw[0]);
+    }
 
-	/**
-	 * @param integer $user_id
-	 * @param integer $target_id
-	 */
-	public function addSubscriber($user_id, $target_id) {
-		$key = $this->_getSubscriberKey($target_id);
-		$this->getRedis()->sAdd($key, $user_id);
-	}
+    /**
+     * @param integer $user_id
+     * @param integer $target_id
+     */
+    public function addSubscriber($user_id, $target_id)
+    {
+        $key = $this->getSubscriberKey($target_id);
+        $this->getRedis()->sAdd($key, $user_id);
+    }
 
-	/**
-	 * @param integer $target_id
-	 * @return integer[]
-	 */
-	public function getSubscriber($target_id) {
-		$key = $this->_getSubscriberKey($target_id);
+    /**
+     * @param integer $target_id
+     * @return integer[]
+     */
+    public function getSubscriber($target_id)
+    {
+        $key = $this->getSubscriberKey($target_id);
 
-		return $this->getRedis()->sMembers($key);
-	}
+        return $this->getRedis()->sMembers($key);
+    }
 
-	/**
-	 * @param integer $user_id
-	 * @param integer $timestamp
-	 * @param BlogPostVO $post_vo
-	 */
-	public function addPost($user_id, $timestamp, BlogPostVO $post_vo) {
-		$key = $this->_getPostKey($user_id);
+    /**
+     * @param integer $user_id
+     * @param integer $timestamp
+     * @param BlogPostVO $post_vo
+     */
+    public function addPost($user_id, $timestamp, BlogPostVO $post_vo)
+    {
+        $key = $this->getPostKey($user_id);
 
-		$this->getRedis()->zAdd($key, $timestamp, serialize($post_vo));
-	}
+        $this->getRedis()->zAdd($key, $timestamp, serialize($post_vo));
+    }
 
-	/**
-	 * @param integer $user_id
-	 * @param integer $timestamp
-	 */
-	public function deletePost($user_id, $timestamp) {
-		$key = $this->_getPostKey($user_id);
+    /**
+     * @param integer $user_id
+     * @param integer $timestamp
+     */
+    public function deletePost($user_id, $timestamp)
+    {
+        $key = $this->getPostKey($user_id);
 
-		$this->getRedis()->zDeleteRangeByScore($key, $timestamp, $timestamp);
-	}
+        $this->getRedis()->zDeleteRangeByScore($key, $timestamp, $timestamp);
+    }
 
-	/**
-	 * @param integer $user_id
-	 * @return string
-	 */
-	private function _getSubscriberKey($user_id) {
-		return sprintf(self::REDIS_SUBSCRIBERS, $user_id);
-	}
+    /**
+     * @param integer $user_id
+     * @return string
+     */
+    private function getSubscriberKey($user_id)
+    {
+        return sprintf(self::REDIS_SUBSCRIBERS, $user_id);
+    }
 
-	/**
-	 * @param integer $user_id
-	 * @return string
-	 */
-	private function _getPostKey($user_id) {
-		return sprintf(self::REDIS_POSTS_KEY, $user_id);
-	}
-
-} 
+    /**
+     * @param integer $user_id
+     * @return string
+     */
+    private function getPostKey($user_id)
+    {
+        return sprintf(self::REDIS_POSTS_KEY, $user_id);
+    }
+}

@@ -2,18 +2,19 @@
 
 namespace Raspberry\Blog;
 
-class BlogPostVO {
+class BlogPostVO
+{
 
-	const MIN_MOOD = 1;
-	const MAX_MOOD = 10;
+    const MIN_MOOD = 1;
+    const MAX_MOOD = 10;
 
-	/**
-	 * @var string
-	 */
-	public $text;
+    /**
+     * @var string
+     */
+    public $text;
 
-	/**
-	 * @var integer 1-10
-	 */
-	public $mood;
+    /**
+     * @var integer 1-10
+     */
+    public $mood;
 }

@@ -7,18 +7,19 @@ use BrainExe\Core\Traits\RedisTrait;
 /**
  * @Service(public=false)
  */
-class PinGateway {
-	const REDIS_PINS = 'pins';
+class PinGateway
+{
+    const REDIS_PINS = 'pins';
 
-	use RedisTrait;
+    use RedisTrait;
 
-	/**
-	 * @return array[]
-	 */
-	public function getPinDescriptions() {
-		$redis = $this->getRedis();
+    /**
+     * @return array[]
+     */
+    public function getPinDescriptions()
+    {
+        $redis = $this->getRedis();
 
-		return $redis->hGetAll(self::REDIS_PINS);
-	}
-
-} 
+        return $redis->hGetAll(self::REDIS_PINS);
+    }
+}

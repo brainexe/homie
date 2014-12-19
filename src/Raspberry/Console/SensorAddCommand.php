@@ -15,92 +15,98 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * @Command
  */
-class SensorAddCommand extends Command {
+class SensorAddCommand extends Command
+{
 
-	/**
-	 * @var SensorGateway
-	 */
-	private $gateway;
+    /**
+     * @var SensorGateway
+     */
+    private $gateway;
 
-	/**
-	 * @var SensorBuilder
-	 */
-	private $builder;
+    /**
+     * @var SensorBuilder
+     */
+    private $builder;
 
-	/**
-	 * {@inheritdoc}
-	 */
-	protected function configure() {
-		$this->setName('sensor:add')->setDescription('Add a new Sensor');
-	}
+    /**
+     * {@inheritdoc}
+     */
+    protected function configure()
+    {
+        $this->setName('sensor:add')->setDescription('Add a new Sensor');
+    }
 
-	/**
-	 * @Inject({"@SensorGateway", "@SensorBuilder"})
-	 * @param SensorGateway $sensor_gateway
-	 * @param SensorBuilder $sensor_builder
-	 */
-	public function __construct(SensorGateway $sensor_gateway, SensorBuilder $sensor_builder) {
-		$this->gateway = $sensor_gateway;
-		$this->builder = $sensor_builder;
+    /**
+     * @Inject({"@SensorGateway", "@SensorBuilder"})
+     * @param SensorGateway $gateway
+     * @param SensorBuilder $_builder
+     */
+    public function __construct(SensorGateway $gateway, SensorBuilder $_builder)
+    {
+        $this->gateway = $gateway;
+        $this->builder = $_builder;
 
-		parent::__construct();
-	}
+        parent::__construct();
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	protected function execute(InputInterface $input, OutputInterface $output) {
-		/** @var DialogHelper $dialog */
-		$dialog = $this->getHelperSet()->get('dialog');
+    /**
+     * {@inheritdoc}
+     */
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        /** @var DialogHelper $dialog */
+        $dialog = $this->getHelperSet()->get('dialog');
 
-		$sensors      = $this->builder->getSensors();
-		$sensor_types = array_keys($sensors);
+        $sensors      = $this->builder->getSensors();
+        $sensor_types = array_keys($sensors);
 
-		$sensor_type_idx = $dialog->select($output, "Sensor type?\n", $sensor_types);
-		$type   = $sensor_types[$sensor_type_idx];
-		$sensor = $sensors[$type];
+        $sensor_type_idx = $dialog->select($output, "Sensor type?\n", $sensor_types);
+        $type   = $sensor_types[$sensor_type_idx];
+        $sensor = $sensors[$type];
 
-		if (!$sensor->isSupported($output)) {
-			$output->writeln('<error>Sensor is not supported</error>');
-			$this->_askForTermination($dialog, $output);
-		} else {
-			$output->writeln('<info>Sensor is supported</info>');
-		}
+        if (!$sensor->isSupported($output)) {
+            $output->writeln('<error>Sensor is not supported</error>');
+            $this->askForTermination($dialog, $output);
+        } else {
+            $output->writeln('<info>Sensor is supported</info>');
+        }
 
-		$name = $dialog->ask($output, "Sensor name\n");
-		$description = $dialog->ask($output, "Description (optional)\n");
-		$pin = $dialog->ask($output, "Pin (optional)\n");
-		$interval = (int)$dialog->ask($output, "Interval in minutes\n") ?: 1;
-		$node = (int)$dialog->ask($output, "Node\n");
+        $name = $dialog->ask($output, "Sensor name\n");
+        $description = $dialog->ask($output, "Description (optional)\n");
+        $pin = $dialog->ask($output, "Pin (optional)\n");
+        $interval = (int)$dialog->ask($output, "Interval in minutes\n") ?: 1;
+        $node = (int)$dialog->ask($output, "Node\n");
 
-		// get test value
-		$test_value = $sensor->getValue($pin);
-		if ($test_value !== null) {
-			$output->writeln(sprintf('<info>Sensor value: %s</info>', $sensor->formatValue($test_value)));
-		} else {
-			$output->writeln('<error>Sensor returned invalid data.</error>');
-			$this->_askForTermination($dialog, $output);
-		}
+     // get test value
+        $test_value = $sensor->getValue($pin);
+        if ($test_value !== null) {
+            $output->writeln(sprintf('<info>Sensor value: %s</info>', $sensor->formatValue($test_value)));
+        } else {
+            $output->writeln('<error>Sensor returned invalid data.</error>');
+            $this->askForTermination($dialog, $output);
+        }
 
-		$sensor_vo = new SensorVO();
-		$sensor_vo->name = $name;
-		$sensor_vo->type = $type;
-		$sensor_vo->description = $description;
-		$sensor_vo->pin = $pin;
-		$sensor_vo->interval = $interval;
-		$sensor_vo->node = $node;
+        $sensor_vo = new SensorVO();
+        $sensor_vo->name = $name;
+        $sensor_vo->type = $type;
+        $sensor_vo->description = $description;
+        $sensor_vo->pin = $pin;
+        $sensor_vo->interval = $interval;
+        $sensor_vo->node = $node;
 
-		$this->gateway->addSensor($sensor_vo);
-	}
+        $this->gateway->addSensor($sensor_vo);
+    }
 
-	/**
-	 * @param DialogHelper $dialog
-	 * @param OutputInterface $output
-	 * @throws Exception
-	 */
-	private function _askForTermination(DialogHelper $dialog, OutputInterface $output) {
-		if ($dialog->askConfirmation($output, 'Abort adding this sensor? (y/n)')) {
-			throw new Exception('Terminated');
-		}
-	}
+    /**
+     * @param DialogHelper $dialog
+     * @param OutputInterface $output
+     * @throws Exception
+     * @todo using deprecated Class
+     */
+    private function askForTermination(DialogHelper $dialog, OutputInterface $output)
+    {
+        if ($dialog->askConfirmation($output, 'Abort adding this sensor? (y/n)')) {
+            throw new Exception('Terminated');
+        }
+    }
 }

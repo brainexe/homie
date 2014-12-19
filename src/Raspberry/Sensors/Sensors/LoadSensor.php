@@ -2,50 +2,54 @@
 
 namespace Raspberry\Sensors\Sensors;
 
-
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @Service(public=false, tags={{"name" = "sensor"}})
  */
-class LoadSensor implements SensorInterface {
+class LoadSensor implements SensorInterface
+{
 
-	const TYPE = 'load';
+    const TYPE = 'load';
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getSensorType() {
-		return self::TYPE;
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getSensorType()
+    {
+        return self::TYPE;
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getValue($pin) {
-		return sys_getloadavg()[0];
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getValue($pin)
+    {
+        return sys_getloadavg()[0];
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function formatValue($value) {
-		return sprintf('%0.1f', $value);
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function formatValue($value)
+    {
+        return sprintf('%0.1f', $value);
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getEspeakText($value) {
-		return sprintf('%1.1f', $value);
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getEspeakText($value)
+    {
+        return sprintf('%1.1f', $value);
+    }
 
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function isSupported(OutputInterface $output) {
-		return true;
-	}
-
+    /**
+     * {@inheritdoc}
+     */
+    public function isSupported(OutputInterface $output)
+    {
+        return true;
+    }
 }

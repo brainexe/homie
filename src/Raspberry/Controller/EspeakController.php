@@ -15,78 +15,83 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * @Controller
  */
-class EspeakController implements ControllerInterface {
+class EspeakController implements ControllerInterface
+{
 
-	use EventDispatcherTrait;
+    use EventDispatcherTrait;
 
-	/**
-	 * @var Espeak
-	 */
-	private $espeak;
+    /**
+     * @var Espeak
+     */
+    private $espeak;
 
-	/**
-	 * @var TimeParser
-	 */
-	private $timeParser;
+    /**
+     * @var TimeParser
+     */
+    private $timeParser;
 
-	/**
-	 * @Inject({"@Espeak", "@TimeParser"})
-	 * @param Espeak $espeak
-	 * @param TimeParser $time_parser
-	 */
-	public function __construct(Espeak $espeak, TimeParser $time_parser) {
-		$this->espeak      = $espeak;
-		$this->timeParser = $time_parser;
-	}
+    /**
+     * @Inject({"@Espeak", "@TimeParser"})
+     * @param Espeak $espeak
+     * @param TimeParser $time_parser
+     */
+    public function __construct(Espeak $espeak, TimeParser $time_parser)
+    {
+        $this->espeak      = $espeak;
+        $this->timeParser = $time_parser;
+    }
 
-	/**
-	 * @return array
-	 * @Route("/espeak/", name="espeak.index")
-	 */
-	public function index() {
-		$speakers = $this->espeak->getSpeakers();
-		$jobs     = $this->espeak->getPendingJobs();
+    /**
+     * @return array
+     * @Route("/espeak/", name="espeak.index")
+     */
+    public function index()
+    {
+        $speakers = $this->espeak->getSpeakers();
+        $jobs     = $this->espeak->getPendingJobs();
 
-		return [
-			'speakers' => $speakers,
-			'jobs' => $jobs
-		];
-	}
+        return [
+        'speakers' => $speakers,
+        'jobs' => $jobs
+        ];
+    }
 
-	/**
-	 * @param Request $request
-	 * @return MessageQueueJob[]
-	 * @Route("/espeak/speak/", methods="POST")
-	 */
-	public function speak(Request $request) {
-		$speaker   = $request->request->get('speaker') ?: null;
-		$text      = $request->request->get('text');
-		$volume    = $request->request->getInt('volume');
-		$speed     = $request->request->getInt('speed');
-		$delay_raw = $request->request->get('delay');
+    /**
+     * @param Request $request
+     * @return MessageQueueJob[]
+     * @Route("/espeak/speak/", methods="POST")
+     */
+    public function speak(Request $request)
+    {
+        $speaker   = $request->request->get('speaker') ?: null;
+        $text      = $request->request->get('text');
+        $volume    = $request->request->getInt('volume');
+        $speed     = $request->request->getInt('speed');
+        $delay_raw = $request->request->get('delay');
 
-		$timestamp = $this->timeParser->parseString($delay_raw);
+        $timestamp = $this->timeParser->parseString($delay_raw);
 
-		$espeak_vo = new EspeakVO($text, $volume, $speed, $speaker);
-		$event     = new EspeakEvent($espeak_vo);
+        $espeak_vo = new EspeakVO($text, $volume, $speed, $speaker);
+        $event     = new EspeakEvent($espeak_vo);
 
-		$this->dispatchInBackground($event, $timestamp);
+        $this->dispatchInBackground($event, $timestamp);
 
-		$pending_jobs = $this->espeak->getPendingJobs();
+        $pending_jobs = $this->espeak->getPendingJobs();
 
-		return $pending_jobs;
-	}
+        return $pending_jobs;
+    }
 
-	/**
-	 * @param Request $request
-	 * @return boolean
-	 * @Route("/espeak/job/delete/", name="espeak.delete", methods="POST")
-	 */
-	public function deleteJob(Request $request) {
-		$job_id = $request->request->get('job_id');
+    /**
+     * @param Request $request
+     * @return boolean
+     * @Route("/espeak/job/delete/", name="espeak.delete", methods="POST")
+     */
+    public function deleteJob(Request $request)
+    {
+        $job_id = $request->request->get('job_id');
 
-		$this->espeak->deleteJob($job_id);
+        $this->espeak->deleteJob($job_id);
 
-		return true;
-	}
+        return true;
+    }
 }

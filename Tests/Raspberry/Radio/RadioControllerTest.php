@@ -10,34 +10,36 @@ use Raspberry\Client\LocalClient;
 /**
  * @Covers Raspberry\Radio\RadioController
  */
-class RadioControllerTest extends PHPUnit_Framework_TestCase {
+class RadioControllerTest extends PHPUnit_Framework_TestCase
+{
 
-	/**
-	 * @var RadioController
-	 */
-	private $_subject;
+    /**
+     * @var RadioController
+     */
+    private $_subject;
 
-	/**
-	 * @var LocalClient|MockObject
-	 */
-	private $_mockLocalClient;
+    /**
+     * @var LocalClient|MockObject
+     */
+    private $_mockLocalClient;
 
-	public function setUp() {
-		$this->_mockLocalClient = $this->getMock(LocalClient::class, [], [], '', false);
-		$this->_subject = new RadioController($this->_mockLocalClient);
-	}
+    public function setUp()
+    {
+        $this->_mockLocalClient = $this->getMock(LocalClient::class, [], [], '', false);
+        $this->_subject = new RadioController($this->_mockLocalClient);
+    }
 
-	public function testSetStatus() {
-		$code = 0;
-		$number = 1;
-		$status = 1;
+    public function testSetStatus()
+    {
+        $code = 0;
+        $number = 1;
+        $status = 1;
 
-		$this->_mockLocalClient
-			->expects($this->once())
-			->method('execute')
-			->with($this->anything());
+        $this->_mockLocalClient
+        ->expects($this->once())
+        ->method('execute')
+        ->with($this->anything());
 
-		$this->_subject->setStatus($code, $number, $status);
-	}
-
+        $this->_subject->setStatus($code, $number, $status);
+    }
 }

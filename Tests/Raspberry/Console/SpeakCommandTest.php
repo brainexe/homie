@@ -14,40 +14,43 @@ use Symfony\Component\Console\Tester\CommandTester;
 /**
  * @Covers Raspberry\Console\SpeakCommand
  */
-class SpeakCommandTest extends PHPUnit_Framework_TestCase {
+class SpeakCommandTest extends PHPUnit_Framework_TestCase
+{
 
-	/**
-	 * @var SpeakCommand
-	 */
-	private $_subject;
+    /**
+     * @var SpeakCommand
+     */
+    private $_subject;
 
-	/**
-	 * @var EventDispatcher|MockObject
-	 */
-	private $_mockEventDispatcher;
+    /**
+     * @var EventDispatcher|MockObject
+     */
+    private $_mockEventDispatcher;
 
-	public function setUp() {
-		$this->_mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
-		$this->_subject = new SpeakCommand();
-		$this->_subject->setEventDispatcher($this->_mockEventDispatcher);
-	}
+    public function setUp()
+    {
+        $this->_mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->_subject = new SpeakCommand();
+        $this->_subject->setEventDispatcher($this->_mockEventDispatcher);
+    }
 
-	public function testExecute() {
-		$text = 'nice text';
+    public function testExecute()
+    {
+        $text = 'nice text';
 
-		$application = new Application();
-		$application->add($this->_subject);
+        $application = new Application();
+        $application->add($this->_subject);
 
-		$commandTester = new CommandTester($this->_subject);
+        $commandTester = new CommandTester($this->_subject);
 
-		$espeak_vo = new EspeakVO($text);
-		$event = new EspeakEvent($espeak_vo);
+        $espeak_vo = new EspeakVO($text);
+        $event = new EspeakEvent($espeak_vo);
 
-		$this->_mockEventDispatcher
-			->expects($this->once())
-			->method('dispatchEvent')
-			->with($event);
+        $this->_mockEventDispatcher
+        ->expects($this->once())
+        ->method('dispatchEvent')
+        ->with($event);
 
-		$commandTester->execute(['text' => $text]);
-	}
+        $commandTester->execute(['text' => $text]);
+    }
 }

@@ -10,42 +10,46 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * @EventListener
  */
-class EggTimerListener implements EventSubscriberInterface {
+class EggTimerListener implements EventSubscriberInterface
+{
 
-	use EventDispatcherTrait;
+    use EventDispatcherTrait;
 
-	/**
-	 * @var Sound
-	 */
-	private $sound;
+    /**
+     * @var Sound
+     */
+    private $sound;
 
-	/**
-	 * @inject("@Sound")
-	 * @param Sound $sound
-	 */
-	public function __construct(Sound $sound) {
-		$this->sound = $sound;
-	}
+    /**
+     * @inject("@Sound")
+     * @param Sound $sound
+     */
+    public function __construct(Sound $sound)
+    {
+        $this->sound = $sound;
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public static function getSubscribedEvents() {
-		return [
-			EggTimerEvent::DONE => 'handleEggTimerEvent'
-		];
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public static function getSubscribedEvents()
+    {
+        return [
+        EggTimerEvent::DONE => 'handleEggTimerEvent'
+        ];
+    }
 
-	/**
-	 * @param EggTimerEvent $event
-	 */
-	public function handleEggTimerEvent(EggTimerEvent $event) {
-		if ($event->espeak) {
-			$new_event = new EspeakEvent($event->espeak);
+    /**
+     * @param EggTimerEvent $event
+     */
+    public function handleEggTimerEvent(EggTimerEvent $event)
+    {
+        if ($event->espeak) {
+            $new_event = new EspeakEvent($event->espeak);
 
-			$this->dispatchEvent($new_event);
-		}
+            $this->dispatchEvent($new_event);
+        }
 
-		$this->sound->playSound(ROOT . EggTimer::EGG_TIMER_RING_SOUND);
-	}
+        $this->sound->playSound(ROOT . EggTimer::EGG_TIMER_RING_SOUND);
+    }
 }

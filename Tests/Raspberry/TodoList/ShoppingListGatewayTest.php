@@ -10,58 +10,62 @@ use Raspberry\TodoList\ShoppingListGateway;
 /**
  * @Covers Raspberry\TodoList\ShoppingListGateway
  */
-class ShoppingListGatewayTest extends PHPUnit_Framework_TestCase {
+class ShoppingListGatewayTest extends PHPUnit_Framework_TestCase
+{
 
-	/**
-	 * @var ShoppingListGateway
-	 */
-	private $subject;
+    /**
+     * @var ShoppingListGateway
+     */
+    private $subject;
 
-	/**
-	 * @var Redis|MockObject
-	 */
-	private $mockRedis;
+    /**
+     * @var Redis|MockObject
+     */
+    private $mockRedis;
 
-	public function setUp() {
-		$this->mockRedis = $this->getMock(Redis::class, [], [], '', false);
-		$this->subject = new ShoppingListGateway();
-		$this->subject->setRedis($this->mockRedis);
-	}
+    public function setUp()
+    {
+        $this->mockRedis = $this->getMock(Redis::class, [], [], '', false);
+        $this->subject = new ShoppingListGateway();
+        $this->subject->setRedis($this->mockRedis);
+    }
 
-	public function testGetShoppingListItems() {
-		$items = [];
+    public function testGetShoppingListItems()
+    {
+        $items = [];
 
-		$this->mockRedis
-			->expects($this->once())
-			->method('sMembers')
-			->with(ShoppingListGateway::REDIS_KEY)
-			->will($this->returnValue($items));
+        $this->mockRedis
+        ->expects($this->once())
+        ->method('sMembers')
+        ->with(ShoppingListGateway::REDIS_KEY)
+        ->will($this->returnValue($items));
 
-		$actual_result = $this->subject->getShoppingListItems();
+        $actual_result = $this->subject->getShoppingListItems();
 
-		$this->assertEquals($items, $actual_result);
-	}
+        $this->assertEquals($items, $actual_result);
+    }
 
-	public function testAddShoppingListItem() {
-		$name = 'name';
+    public function testAddShoppingListItem()
+    {
+        $name = 'name';
 
-		$this->mockRedis
-			->expects($this->once())
-			->method('sAdd')
-			->with(ShoppingListGateway::REDIS_KEY, $name);
+        $this->mockRedis
+        ->expects($this->once())
+        ->method('sAdd')
+        ->with(ShoppingListGateway::REDIS_KEY, $name);
 
-		$this->subject->addShoppingListItem($name);
-	}
+        $this->subject->addShoppingListItem($name);
+    }
 
-	public function testRemoveShoppingListItem() {
-		$name = 'name';
+    public function testRemoveShoppingListItem()
+    {
+        $name = 'name';
 
-		$this->mockRedis
-			->expects($this->once())
-			->method('sRem')
-			->with(ShoppingListGateway::REDIS_KEY, $name);
+        $this->mockRedis
+        ->expects($this->once())
+        ->method('sRem')
+        ->with(ShoppingListGateway::REDIS_KEY, $name);
 
-		$this->subject->removeShoppingListItem($name);
-	}
-
+        $this->subject->removeShoppingListItem($name);
+    }
 }

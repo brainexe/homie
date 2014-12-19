@@ -9,91 +9,95 @@ use BrainExe\Core\Traits\TimeTrait;
 /**
  * @Service(public=false)
  */
-class SensorValuesGateway {
+class SensorValuesGateway
+{
 
-	const REDIS_SENSOR_VALUES = 'sensor_values:%d';
+    const REDIS_SENSOR_VALUES = 'sensor_values:%d';
 
-	use RedisTrait;
-	use TimeTrait;
+    use RedisTrait;
+    use TimeTrait;
 
-	/**
-	 * @param integer $sensor_id
-	 * @param double $value
-	 */
-	public function addValue($sensor_id, $value) {
-		$redis = $this->getRedis()->multi(Redis::PIPELINE);
+    /**
+     * @param integer $sensor_id
+     * @param double $value
+     */
+    public function addValue($sensor_id, $value)
+    {
+        $redis = $this->getRedis()->multi(Redis::PIPELINE);
 
-		$now = $this->now();
+        $now = $this->now();
 
-		$key = $this->_getKey($sensor_id);
-		$redis->ZADD($key, $now, $now.'-'.$value);
+        $key = $this->getKey($sensor_id);
+        $redis->ZADD($key, $now, $now.'-'.$value);
 
-		$redis->HMSET(SensorGateway::REDIS_SENSOR_PREFIX . $sensor_id, [
-			'last_value' => $value,
-			'last_value_timestamp' => $now
-		]);
+        $redis->HMSET(SensorGateway::REDIS_SENSOR_PREFIX . $sensor_id, [
+        'last_value' => $value,
+        'last_value_timestamp' => $now
+        ]);
 
-		$redis->exec();
-	}
+        $redis->exec();
+    }
 
-	/**
-	 * @param integer $sensor_id
-	 * @param integer $from
-	 * @return array[]
-	 */
-	public function getSensorValues($sensor_id, $from) {
-		$now = $this->now();
+    /**
+     * @param integer $sensor_id
+     * @param integer $from
+     * @return array[]
+     */
+    public function getSensorValues($sensor_id, $from)
+    {
+        $now = $this->now();
 
-		if ($from) {
-			$from = $now - $from;
-		}
+        if ($from) {
+            $from = $now - $from;
+        }
 
-		$key = $this->_getKey($sensor_id);
-		$redis_result = $this->getRedis()->ZRANGEBYSCORE($key, $from, $now);
-		$result = [];
+        $key = $this->getKey($sensor_id);
+        $redis_result = $this->getRedis()->ZRANGEBYSCORE($key, $from, $now);
+        $result = [];
 
-		foreach ($redis_result as $part) {
-			list($timestamp, $value) = explode('-', $part);
-			$result[$timestamp] = $value;
-		}
+        foreach ($redis_result as $part) {
+            list($timestamp, $value) = explode('-', $part);
+            $result[$timestamp] = $value;
+        }
 
-		return $result;
-	}
+        return $result;
+    }
 
-	/**
-	 * @param integer $sensor_id
-	 * @param integer $days
-	 * @param integer $deleted_percent
-	 * @return integer $deleted_rows
-	 */
-	public function deleteOldValues($sensor_id, $days, $deleted_percent) {
-		$deleted = 0;
+    /**
+     * @param integer $sensor_id
+     * @param integer $days
+     * @param integer $deleted_percent
+     * @return integer $deleted_rows
+     */
+    public function deleteOldValues($sensor_id, $days, $deleted_percent)
+    {
+        $deleted = 0;
 
-		$redis = $this->getRedis();
+        $redis = $this->getRedis();
 
-		$until_timestamp = $this->now() - $days * 86400;
-		$key = $this->_getKey($sensor_id);
-		$old_sensor_values = $redis->ZRANGEBYSCORE($key, 0, $until_timestamp);
+        $until_timestamp = $this->now() - $days * 86400;
+        $key = $this->getKey($sensor_id);
+        $old_sensor_values = $redis->ZRANGEBYSCORE($key, 0, $until_timestamp);
 
-		foreach ($old_sensor_values as $result) {
-			$crc_32 = crc32(md5($result));
+        foreach ($old_sensor_values as $result) {
+            $crc_32 = crc32(md5($result));
 
-			if ($crc_32 % 100 < $deleted_percent) {
-				$redis->ZREM($key, $result);
+            if ($crc_32 % 100 < $deleted_percent) {
+                $redis->ZREM($key, $result);
 
-				$deleted += 1;
-			}
-		}
+                $deleted += 1;
+            }
+        }
 
-		return $deleted;
-	}
+        return $deleted;
+    }
 
-	/**
-	 * @param integer $sensor_id
-	 * @return string
-	 */
-	private function _getKey($sensor_id) {
-		return sprintf(self::REDIS_SENSOR_VALUES, $sensor_id);
-	}
-
+    /**
+     * @param integer $sensor_id
+     * @return string
+     */
+    private function getKey($sensor_id)
+    {
+        return sprintf(self::REDIS_SENSOR_VALUES, $sensor_id);
+    }
 }

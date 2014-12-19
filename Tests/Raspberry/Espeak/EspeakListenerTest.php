@@ -12,39 +12,42 @@ use Raspberry\Espeak\EspeakVO;
 /**
  * @Covers Raspberry\Espeak\EspeakListener
  */
-class EspeakListenerTest extends PHPUnit_Framework_TestCase {
+class EspeakListenerTest extends PHPUnit_Framework_TestCase
+{
 
-	/**
-	 * @var EspeakListener
-	 */
-	private $subject;
+    /**
+     * @var EspeakListener
+     */
+    private $subject;
 
-	/**
-	 * @var Espeak|MockObject
-	 */
-	private $mockEspeak;
+    /**
+     * @var Espeak|MockObject
+     */
+    private $mockEspeak;
 
-	public function setUp() {
-		$this->mockEspeak = $this->getMock(Espeak::class, [], [], '', false);
+    public function setUp()
+    {
+        $this->mockEspeak = $this->getMock(Espeak::class, [], [], '', false);
 
-		$this->subject = new EspeakListener($this->mockEspeak);
-	}
+        $this->subject = new EspeakListener($this->mockEspeak);
+    }
 
-	public function testGetSubscribedEvents() {
-		$actual_result = $this->subject->getSubscribedEvents();
-		$this->assertInternalType('array', $actual_result);
-	}
+    public function testGetSubscribedEvents()
+    {
+        $actual_result = $this->subject->getSubscribedEvents();
+        $this->assertInternalType('array', $actual_result);
+    }
 
-	public function testHandleEspeakEvent() {
-		$espeak_vo = new EspeakVO("text");
-		$event = new EspeakEvent($espeak_vo);
+    public function testHandleEspeakEvent()
+    {
+        $espeak_vo = new EspeakVO("text");
+        $event = new EspeakEvent($espeak_vo);
 
-		$this->mockEspeak
-			->expects($this->once())
-			->method('speak')
-			->with($espeak_vo->text, $espeak_vo->volume, $espeak_vo->speed, $espeak_vo->speaker);
+        $this->mockEspeak
+        ->expects($this->once())
+        ->method('speak')
+        ->with($espeak_vo->text, $espeak_vo->volume, $espeak_vo->speed, $espeak_vo->speaker);
 
-		$this->subject->handleEspeakEvent($event);
-	}
-
+        $this->subject->handleEspeakEvent($event);
+    }
 }

@@ -10,23 +10,24 @@ use Symfony\Component\DependencyInjection\Reference;
 /**
  * @CompilerPass
  */
-class SensorCompilerPass implements CompilerPassInterface {
+class SensorCompilerPass implements CompilerPassInterface
+{
 
-	const TAG = 'sensor';
+    const TAG = 'sensor';
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function process(ContainerBuilder $container) {
-		$sensor_builder = $container->getDefinition('SensorBuilder');
-		$taggedServices = $container->findTaggedServiceIds(self::TAG);
+    /**
+     * {@inheritdoc}
+     */
+    public function process(ContainerBuilder $container)
+    {
+        $sensor_builder = $container->getDefinition('SensorBuilder');
+        $taggedServices = $container->findTaggedServiceIds(self::TAG);
 
-		foreach ($taggedServices as $id => $attributes) {
-			/** @var SensorInterface $service */
-			$service = $container->get($id);
+        foreach ($taggedServices as $id => $attributes) {
+            /** @var SensorInterface $service */
+            $service = $container->get($id);
 
-			$sensor_builder->addMethodCall('addSensor', [$service->getSensorType(), new Reference($id)]);
-		}
-	}
-
+            $sensor_builder->addMethodCall('addSensor', [$service->getSensorType(), new Reference($id)]);
+        }
+    }
 }

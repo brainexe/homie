@@ -10,68 +10,74 @@ use Raspberry\Client\ClientInterface;
 /**
  * @Service(public=false)
  */
-class Espeak implements SpeakOutputInterface {
+class Espeak implements SpeakOutputInterface
+{
 
-	use TimeTrait;
+    use TimeTrait;
 
-	const DEFAULT_SPEAKER = 'de+m1';
+    const DEFAULT_SPEAKER = 'de+m1';
 
-	/**
-	 * @var ClientInterface
-	 */
-	private $client;
+    /**
+     * @var ClientInterface
+     */
+    private $client;
 
-	/**
-	 * @var MessageQueueGateway
-	 */
-	private $gateway;
+    /**
+     * @var MessageQueueGateway
+     */
+    private $gateway;
 
-	/**
-	 * @Inject({"@MessageQueueGateway", "@RaspberryClient"})
-	 * @param MessageQueueGateway $message_queue_gateway
-	 * @param ClientInterface $client
-	 */
-	public function __construct(MessageQueueGateway $message_queue_gateway, ClientInterface $client) {
-		$this->client  = $client;
-		$this->gateway = $message_queue_gateway;
-	}
+    /**
+     * @Inject({"@MessageQueueGateway", "@RaspberryClient"})
+     * @param MessageQueueGateway $message_queue_gateway
+     * @param ClientInterface $client
+     */
+    public function __construct(MessageQueueGateway $message_queue_gateway, ClientInterface $client)
+    {
+        $this->client  = $client;
+        $this->gateway = $message_queue_gateway;
+    }
 
-	/**
-	 * @return array
-	 */
-	public function getSpeakers() {
-		return ['de+m1' => 'DE Male', 'de+f1' => 'DE Female', 'en' => 'EN', 'fr' => 'FR'];
-	}
+    /**
+     * @return array
+     */
+    public function getSpeakers()
+    {
+        return ['de+m1' => 'DE Male', 'de+f1' => 'DE Female', 'en' => 'EN', 'fr' => 'FR'];
+    }
 
-	/**
-	 * @return MessageQueueJob[]
-	 */
-	public function getPendingJobs() {
-		$now = $this->now();
+    /**
+     * @return MessageQueueJob[]
+     */
+    public function getPendingJobs()
+    {
+        $now = $this->now();
 
-		return $this->gateway->getEventsByType(EspeakEvent::SPEAK, $now);
-	}
+        return $this->gateway->getEventsByType(EspeakEvent::SPEAK, $now);
+    }
 
-	/**
-	 * @param string $text
-	 * @param integer $volume
-	 * @param integer $speed
-	 * @param string $speaker
-	 */
-	public function speak($text, $volume = 100, $speed = 100, $speaker = self::DEFAULT_SPEAKER) {
-		if (empty($text)) {
-			return;
-		}
+    /**
+     * @param string $text
+     * @param integer $volume
+     * @param integer $speed
+     * @param string $speaker
+     */
+    public function speak($text, $volume = 100, $speed = 100, $speaker = self::DEFAULT_SPEAKER)
+    {
+        if (empty($text)) {
+            return;
+        }
 
-		$command = sprintf('espeak "%s" -s %d -a %d  -v%ss --stdout | aplay', $text, $speed, $volume, $speaker);
+        $command = sprintf('espeak "%s" -s %d -a %d  -v%ss --stdout | aplay', $text, $speed, $volume, $speaker);
 
-		$this->client->execute($command);
-	}
+        $this->client->execute($command);
+    }
 
-	/**
-	 * @param string $job_id
-	 */
-	public function deleteJob($job_id) {
-		$this->gateway->deleteEvent($job_id, EspeakEvent::SPEAK);
-	}
+    /**
+     * @param string $job_id
+     */
+    public function deleteJob($job_id)
+    {
+        $this->gateway->deleteEvent($job_id, EspeakEvent::SPEAK);
+    }
 }

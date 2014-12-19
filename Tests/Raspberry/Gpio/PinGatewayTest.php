@@ -11,37 +11,39 @@ use Raspberry\Gpio\PinGateway;
 /**
  * @Covers Raspberry\Gpio\PinGateway
  */
-class PinGatewayTest extends PHPUnit_Framework_TestCase {
+class PinGatewayTest extends PHPUnit_Framework_TestCase
+{
 
-	/**
-	 * @var PinGateway
-	 */
-	private $subject;
+    /**
+     * @var PinGateway
+     */
+    private $subject;
 
-	/**
-	 * @var RedisInterface|MockObject
-	 */
-	private $mockRedis;
+    /**
+     * @var RedisInterface|MockObject
+     */
+    private $mockRedis;
 
-	public function setUp() {
-		$this->mockRedis = $this->getMock(Redis::class, [], [], '', false);
+    public function setUp()
+    {
+        $this->mockRedis = $this->getMock(Redis::class, [], [], '', false);
 
-		$this->subject = new PinGateway();
-		$this->subject->setRedis($this->mockRedis);
-	}
+        $this->subject = new PinGateway();
+        $this->subject->setRedis($this->mockRedis);
+    }
 
-	public function testGetPinDescriptions() {
-		$descriptions = ['descriptions'];
+    public function testGetPinDescriptions()
+    {
+        $descriptions = ['descriptions'];
 
-		$this->mockRedis
-			->expects($this->once())
-			->method('hGetAll')
-			->with(PinGateway::REDIS_PINS)
-			->will($this->returnValue($descriptions));
+        $this->mockRedis
+        ->expects($this->once())
+        ->method('hGetAll')
+        ->with(PinGateway::REDIS_PINS)
+        ->will($this->returnValue($descriptions));
 
-		$actual_result = $this->subject->getPinDescriptions();
+        $actual_result = $this->subject->getPinDescriptions();
 
-		$this->assertEquals($descriptions, $actual_result);
-	}
-
+        $this->assertEquals($descriptions, $actual_result);
+    }
 }

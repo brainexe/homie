@@ -13,43 +13,46 @@ use Raspberry\Espeak\InputControl;
 /**
  * @Covers Raspberry\Espeak\InputControl
  */
-class InputControlTest extends TestCase {
+class InputControlTest extends TestCase
+{
 
-	/**
-	 * @var InputControl
-	 */
-	private $subject;
+    /**
+     * @var InputControl
+     */
+    private $subject;
 
-	/**
-	 * @var EventDispatcher|MockObject
-	 */
-	private $mockEventDispatcher;
+    /**
+     * @var EventDispatcher|MockObject
+     */
+    private $mockEventDispatcher;
 
-	public function setUp() {
-		$this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+    public function setUp()
+    {
+        $this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-		$this->subject = new InputControl();
-		$this->subject->setEventDispatcher($this->mockEventDispatcher);
-	}
+        $this->subject = new InputControl();
+        $this->subject->setEventDispatcher($this->mockEventDispatcher);
+    }
 
-	public function testGetSubscribedEvents() {
-		$actualResult = $this->subject->getSubscribedEvents();
+    public function testGetSubscribedEvents()
+    {
+        $actualResult = $this->subject->getSubscribedEvents();
 
-		$this->assertInternalType('array', $actualResult);
-	}
+        $this->assertInternalType('array', $actualResult);
+    }
 
-	public function testSay() {
-		$input_event = new Event();
-		$input_event->match = 'text';
+    public function testSay()
+    {
+        $input_event = new Event();
+        $input_event->match = 'text';
 
-		$event = new EspeakEvent(new EspeakVO('text'));
+        $event = new EspeakEvent(new EspeakVO('text'));
 
-		$this->mockEventDispatcher
-			->expects($this->once())
-			->method('dispatchEvent')
-			->with($event);
+        $this->mockEventDispatcher
+        ->expects($this->once())
+        ->method('dispatchEvent')
+        ->with($event);
 
-		$this->subject->say($input_event);
-	}
-
+        $this->subject->say($input_event);
+    }
 }

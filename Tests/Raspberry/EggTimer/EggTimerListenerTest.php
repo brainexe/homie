@@ -15,65 +15,69 @@ use BrainExe\Core\EventDispatcher\EventDispatcher;
 /**
  * @Covers Raspberry\EggTimer\EggTimerListener
  */
-class EggTimerListenerTest extends PHPUnit_Framework_TestCase {
+class EggTimerListenerTest extends PHPUnit_Framework_TestCase
+{
 
-	/**
-	 * @var EggTimerListener
-	 */
-	private $subject;
+    /**
+     * @var EggTimerListener
+     */
+    private $subject;
 
-	/**
-	 * @var Sound|MockObject
-	 */
-	private $mockSound;
+    /**
+     * @var Sound|MockObject
+     */
+    private $mockSound;
 
-	/**
-	 * @var EventDispatcher|MockObject
-	 */
-	private $mockEventDispatcher;
+    /**
+     * @var EventDispatcher|MockObject
+     */
+    private $mockEventDispatcher;
 
-	public function setUp() {
-		$this->mockSound = $this->getMock(Sound::class, [], [], '', false);
-		$this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+    public function setUp()
+    {
+        $this->mockSound = $this->getMock(Sound::class, [], [], '', false);
+        $this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-		$this->subject = new EggTimerListener($this->mockSound);
-		$this->subject->setEventDispatcher($this->mockEventDispatcher);
-	}
+        $this->subject = new EggTimerListener($this->mockSound);
+        $this->subject->setEventDispatcher($this->mockEventDispatcher);
+    }
 
-	public function testGetSubscribedEvents() {
-		$actual_result = $this->subject->getSubscribedEvents();
-		$this->assertInternalType('array', $actual_result);
-	}
+    public function testGetSubscribedEvents()
+    {
+        $actual_result = $this->subject->getSubscribedEvents();
+        $this->assertInternalType('array', $actual_result);
+    }
 
-	public function testHandleEggTimerEventWithoutEspeak() {
-		$event = new EggTimerEvent();
+    public function testHandleEggTimerEventWithoutEspeak()
+    {
+        $event = new EggTimerEvent();
 
-		$this->mockSound
-			->expects($this->once())
-			->method('playSound')
-			->with(ROOT . EggTimer::EGG_TIMER_RING_SOUND);
+        $this->mockSound
+        ->expects($this->once())
+        ->method('playSound')
+        ->with(ROOT . EggTimer::EGG_TIMER_RING_SOUND);
 
-		$this->subject->handleEggTimerEvent($event);
-	}
+        $this->subject->handleEggTimerEvent($event);
+    }
 
-	public function testHandleEggTimerEventWithEspeak() {
-		$text = 'text';
-		$espeak = new EspeakVO($text);
-		$event = new EggTimerEvent($espeak);
+    public function testHandleEggTimerEventWithEspeak()
+    {
+        $text = 'text';
+        $espeak = new EspeakVO($text);
+        $event = new EggTimerEvent($espeak);
 
-		$espeak_event = new EspeakEvent($espeak);
+        $espeak_event = new EspeakEvent($espeak);
 
-		$this->mockEventDispatcher
-			->expects($this->once())
-			->method('dispatchEvent')
-			->with($espeak_event);
+        $this->mockEventDispatcher
+        ->expects($this->once())
+        ->method('dispatchEvent')
+        ->with($espeak_event);
 
-		$this->mockSound
-			->expects($this->once())
-			->method('playSound')
-			->with(ROOT . EggTimer::EGG_TIMER_RING_SOUND);
+        $this->mockSound
+        ->expects($this->once())
+        ->method('playSound')
+        ->with(ROOT . EggTimer::EGG_TIMER_RING_SOUND);
 
-		$this->subject->handleEggTimerEvent($event);
-	}
-
+        $this->subject->handleEggTimerEvent($event);
+    }
 }

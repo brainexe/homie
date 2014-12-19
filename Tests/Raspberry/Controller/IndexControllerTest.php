@@ -14,45 +14,47 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * @Covers Raspberry\Controller\IndexController
  */
-class IndexControllerTest extends PHPUnit_Framework_TestCase {
+class IndexControllerTest extends PHPUnit_Framework_TestCase
+{
 
-	/**
-	 * @var IndexController
-	 */
-	private $_subject;
+    /**
+     * @var IndexController
+     */
+    private $_subject;
 
-	/**
-	 * @var TwigEnvironment|MockObject
-	 */
-	private $_mockTwigEnvironment;
+    /**
+     * @var TwigEnvironment|MockObject
+     */
+    private $_mockTwigEnvironment;
 
-	public function setUp() {
-		$this->_mockTwigEnvironment = $this->getMock(TwigEnvironment::class, [], [], '', false);
+    public function setUp()
+    {
+        $this->_mockTwigEnvironment = $this->getMock(TwigEnvironment::class, [], [], '', false);
 
-		$this->_subject = new IndexController();
-		$this->_subject->setTwig($this->_mockTwigEnvironment);
-	}
+        $this->_subject = new IndexController();
+        $this->_subject->setTwig($this->_mockTwigEnvironment);
+    }
 
-	public function testIndex() {
-		$user = new UserVO();
-		$text = 'text';
+    public function testIndex()
+    {
+        $user = new UserVO();
+        $text = 'text';
 
-		$request = new Request();
-		$request->attributes->set('user', $user);
+        $request = new Request();
+        $request->attributes->set('user', $user);
 
-		$this->_mockTwigEnvironment
-			->expects($this->once())
-			->method('render')
-			->with('layout.html.twig', [
-				'current_user' => $user
-			])
-			->will($this->returnValue($text));
+        $this->_mockTwigEnvironment
+        ->expects($this->once())
+        ->method('render')
+        ->with('layout.html.twig', [
+        'current_user' => $user
+        ])
+        ->will($this->returnValue($text));
 
-		$actual_result = $this->_subject->index($request);
+        $actual_result = $this->_subject->index($request);
 
-		$expected_result = new Response($text);
+        $expected_result = new Response($text);
 
-		$this->assertEquals($expected_result, $actual_result);
-	}
-
+        $this->assertEquals($expected_result, $actual_result);
+    }
 }

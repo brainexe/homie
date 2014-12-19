@@ -4,54 +4,55 @@ namespace Raspberry\TodoList\VO;
 
 use BrainExe\Core\Util\AbstractVO;
 
-class TodoItemVO extends AbstractVO {
+class TodoItemVO extends AbstractVO
+{
 
-	const STATUS_PENDING = 'pending';
-	const STATUS_PROGRESS = 'progress';
-	const STATUS_COMPLETED = 'completed';
+    const STATUS_PENDING = 'pending';
+    const STATUS_PROGRESS = 'progress';
+    const STATUS_COMPLETED = 'completed';
 
-	/**
-	 * @var integer
-	 */
-	public $id;
+    /**
+     * @var integer
+     */
+    public $id;
 
-	/**
-	 * @var string
-	 */
-	public $name;
+    /**
+     * @var string
+     */
+    public $name;
 
-	/**
-	 * @var int
-	 */
-	public $user_id;
+    /**
+     * @var int
+     */
+    public $user_id;
 
-	/**
-	 * @var int
-	 */
-	public $user_name;
+    /**
+     * @var int
+     */
+    public $user_name;
 
-	/**
-	 * @var string
-	 */
-	public $description;
+    /**
+     * @var string
+     */
+    public $description;
 
-	/**
-	 * @var string self::STATUS_*
-	 */
-	public $status;
+    /**
+     * @var string self::STATUS_*
+     */
+    public $status;
 
-	/**
-	 * @var int
-	 */
-	public $deadline;
+    /**
+     * @var int
+     */
+    public $deadline;
 
-	/**
-	 * @var integer
-	 */
-	public $created_at;
+    /**
+     * @var integer
+     */
+    public $created_at;
 
-	/**
-	 * @var integer
-	 */
-	public $last_change;
+    /**
+     * @var integer
+     */
+    public $last_change;
 }
