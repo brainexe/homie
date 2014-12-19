@@ -20,18 +20,18 @@ class SpeakCommandTest extends PHPUnit_Framework_TestCase
     /**
      * @var SpeakCommand
      */
-    private $_subject;
+    private $subject;
 
     /**
      * @var EventDispatcher|MockObject
      */
-    private $_mockEventDispatcher;
+    private $mockEventDispatcher;
 
     public function setUp()
     {
-        $this->_mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
-        $this->_subject = new SpeakCommand();
-        $this->_subject->setEventDispatcher($this->_mockEventDispatcher);
+        $this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->subject = new SpeakCommand();
+        $this->subject->setEventDispatcher($this->mockEventDispatcher);
     }
 
     public function testExecute()
@@ -39,14 +39,14 @@ class SpeakCommandTest extends PHPUnit_Framework_TestCase
         $text = 'nice text';
 
         $application = new Application();
-        $application->add($this->_subject);
+        $application->add($this->subject);
 
-        $commandTester = new CommandTester($this->_subject);
+        $commandTester = new CommandTester($this->subject);
 
         $espeak_vo = new EspeakVO($text);
         $event = new EspeakEvent($espeak_vo);
 
-        $this->_mockEventDispatcher
+        $this->mockEventDispatcher
         ->expects($this->once())
         ->method('dispatchEvent')
         ->with($event);

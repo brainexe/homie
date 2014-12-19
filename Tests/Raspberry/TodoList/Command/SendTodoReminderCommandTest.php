@@ -18,28 +18,28 @@ class SendTodoReminderCommandTest extends PHPUnit_Framework_TestCase
     /**
      * @var SendTodoReminderCommand
      */
-    private $_subject;
+    private $subject;
 
     /**
      * @var TodoReminder|MockObject
      */
-    private $_mockTodoReminder;
+    private $mockTodoReminder;
 
     public function setUp()
     {
-        $this->_mockTodoReminder = $this->getMock(TodoReminder::class, [], [], '', false);
-        $this->_subject = new SendTodoReminderCommand($this->_mockTodoReminder);
+        $this->mockTodoReminder = $this->getMock(TodoReminder::class, [], [], '', false);
+        $this->subject = new SendTodoReminderCommand($this->mockTodoReminder);
     }
 
     public function testExecute()
     {
         $application = new Application();
-        $application->add($this->_subject);
+        $application->add($this->subject);
 
         $command = $application->find('todo:reminder');
         $commandTester = new CommandTester($command);
 
-        $this->_mockTodoReminder
+        $this->mockTodoReminder
         ->expects($this->once())
         ->method('sendNotification');
 

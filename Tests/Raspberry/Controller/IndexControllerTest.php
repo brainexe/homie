@@ -20,19 +20,19 @@ class IndexControllerTest extends PHPUnit_Framework_TestCase
     /**
      * @var IndexController
      */
-    private $_subject;
+    private $subject;
 
     /**
      * @var TwigEnvironment|MockObject
      */
-    private $_mockTwigEnvironment;
+    private $mockTwigEnvironment;
 
     public function setUp()
     {
-        $this->_mockTwigEnvironment = $this->getMock(TwigEnvironment::class, [], [], '', false);
+        $this->mockTwigEnvironment = $this->getMock(TwigEnvironment::class, [], [], '', false);
 
-        $this->_subject = new IndexController();
-        $this->_subject->setTwig($this->_mockTwigEnvironment);
+        $this->subject = new IndexController();
+        $this->subject->setTwig($this->mockTwigEnvironment);
     }
 
     public function testIndex()
@@ -43,7 +43,7 @@ class IndexControllerTest extends PHPUnit_Framework_TestCase
         $request = new Request();
         $request->attributes->set('user', $user);
 
-        $this->_mockTwigEnvironment
+        $this->mockTwigEnvironment
         ->expects($this->once())
         ->method('render')
         ->with('layout.html.twig', [
@@ -51,7 +51,7 @@ class IndexControllerTest extends PHPUnit_Framework_TestCase
         ])
         ->will($this->returnValue($text));
 
-        $actual_result = $this->_subject->index($request);
+        $actual_result = $this->subject->index($request);
 
         $expected_result = new Response($text);
 

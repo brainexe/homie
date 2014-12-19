@@ -79,7 +79,14 @@ class SensorCronCommandTest extends PHPUnit_Framework_TestCase
         $this->mockLogger = $this->getMock(Logger::class, [], [], '', false);
         $this->mockTime = $this->getMock(Time::class, [], [], '', false);
 
-        $this->subject = new SensorCronCommand($this->mockSensorGateway, $this->mockSensorValuesGateway, $this->mockSensorBuilder, $this->mockSensorVOBuilder, $this->mockEventDispatcher, $this->nodeId);
+        $this->subject = new SensorCronCommand(
+            $this->mockSensorGateway,
+            $this->mockSensorValuesGateway,
+            $this->mockSensorBuilder,
+            $this->mockSensorVOBuilder,
+            $this->mockEventDispatcher,
+            $this->nodeId
+        );
         $this->subject->setLogger($this->mockLogger);
         $this->subject->setTime($this->mockTime);
     }

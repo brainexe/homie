@@ -23,24 +23,24 @@ class SensorAddCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @var SensorAddCommand
      */
-    private $_subject;
+    private $subject;
 
     /**
      * @var SensorGateway|MockObject
      */
-    private $_mockSensorGateway;
+    private $mockSensorGateway;
 
     /**
      * @var SensorBuilder|MockObject
      */
-    private $_mockSensorBuilder;
+    private $mockSensorBuilder;
 
     public function setUp()
     {
-        $this->_mockSensorGateway = $this->getMock(SensorGateway::class, [], [], '', false);
-        $this->_mockSensorBuilder = $this->getMock(SensorBuilder::class, [], [], '', false);
+        $this->mockSensorGateway = $this->getMock(SensorGateway::class, [], [], '', false);
+        $this->mockSensorBuilder = $this->getMock(SensorBuilder::class, [], [], '', false);
 
-        $this->_subject = new SensorAddCommand($this->_mockSensorGateway, $this->_mockSensorBuilder);
+        $this->subject = new SensorAddCommand($this->mockSensorGateway, $this->mockSensorBuilder);
     }
 
     /**
@@ -49,8 +49,8 @@ class SensorAddCommandTest extends \PHPUnit_Framework_TestCase
     public function testExecuteWhenSensorNotSupportedAndAbort()
     {
         $application = new Application();
-        $application->add($this->_subject);
-        $command_tester = new CommandTester($this->_subject);
+        $application->add($this->subject);
+        $command_tester = new CommandTester($this->subject);
 
         $sensor_1 = $this->getMock(SensorInterface::class);
         $sensor_2 = $this->getMock(SensorInterface::class);
@@ -60,14 +60,14 @@ class SensorAddCommandTest extends \PHPUnit_Framework_TestCase
         $sensor_type_2 = 'type_2' => $sensor_2,
         ];
 
-        $this->_mockSensorBuilder
+        $this->mockSensorBuilder
         ->expects($this->once())
         ->method('getSensors')
         ->will($this->returnValue($sensors));
 
         /** @var HelperSet|MockObject $helper_set */
         $helper_set = $this->getMock(HelperSet::class);
-        $this->_subject->setHelperSet($helper_set);
+        $this->subject->setHelperSet($helper_set);
 
         /** @var DialogHelper|MockObject $helper_set */
         $dialog = $this->getMock(DialogHelper::class);
@@ -103,8 +103,8 @@ class SensorAddCommandTest extends \PHPUnit_Framework_TestCase
     public function testExecuteWhenSensorNotSupported()
     {
         $application = new Application();
-        $application->add($this->_subject);
-        $command_tester = new CommandTester($this->_subject);
+        $application->add($this->subject);
+        $command_tester = new CommandTester($this->subject);
 
         $sensor_1 = $this->getMock(SensorInterface::class);
         $sensor_2 = $this->getMock(SensorInterface::class);
@@ -114,14 +114,14 @@ class SensorAddCommandTest extends \PHPUnit_Framework_TestCase
         $sensor_type_2 = 'type_2' => $sensor_2,
         ];
 
-        $this->_mockSensorBuilder
+        $this->mockSensorBuilder
         ->expects($this->once())
         ->method('getSensors')
         ->will($this->returnValue($sensors));
 
         /** @var HelperSet|MockObject $helper_set */
         $helper_set = $this->getMock(HelperSet::class);
-        $this->_subject->setHelperSet($helper_set);
+        $this->subject->setHelperSet($helper_set);
 
         /** @var DialogHelper|MockObject $helper_set */
         $dialog = $this->getMock(DialogHelper::class);
@@ -209,7 +209,7 @@ class SensorAddCommandTest extends \PHPUnit_Framework_TestCase
         $expected_sensor_vo->interval = $interval;
         $expected_sensor_vo->node = $node;
 
-        $this->_mockSensorGateway
+        $this->mockSensorGateway
         ->expects($this->once())
         ->method('addSensor')
         ->with($expected_sensor_vo);
@@ -224,8 +224,8 @@ class SensorAddCommandTest extends \PHPUnit_Framework_TestCase
     public function testExecute()
     {
         $application = new Application();
-        $application->add($this->_subject);
-        $command_tester = new CommandTester($this->_subject);
+        $application->add($this->subject);
+        $command_tester = new CommandTester($this->subject);
 
         $sensor_1 = $this->getMock(SensorInterface::class);
         $sensor_2 = $this->getMock(SensorInterface::class);
@@ -235,14 +235,14 @@ class SensorAddCommandTest extends \PHPUnit_Framework_TestCase
         $sensor_type_2 = 'type_2' => $sensor_2,
         ];
 
-        $this->_mockSensorBuilder
+        $this->mockSensorBuilder
         ->expects($this->once())
         ->method('getSensors')
         ->will($this->returnValue($sensors));
 
         /** @var HelperSet|MockObject $helper_set */
         $helper_set = $this->getMock(HelperSet::class);
-        $this->_subject->setHelperSet($helper_set);
+        $this->subject->setHelperSet($helper_set);
 
         /** @var DialogHelper|MockObject $helper_set */
         $dialog = $this->getMock(DialogHelper::class);
@@ -317,7 +317,7 @@ class SensorAddCommandTest extends \PHPUnit_Framework_TestCase
         $expected_sensor_vo->interval = $interval;
         $expected_sensor_vo->node = $node;
 
-        $this->_mockSensorGateway
+        $this->mockSensorGateway
         ->expects($this->once())
         ->method('addSensor')
         ->with($expected_sensor_vo);

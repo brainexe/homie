@@ -19,39 +19,39 @@ class TodoListTest extends PHPUnit_Framework_TestCase
     /**
      * @var TodoList
      */
-    private $_subject;
+    private $subject;
 
     /**
      * @var TodoListGateway|MockObject
      */
-    private $_mockTodoListGateway;
+    private $mockTodoListGateway;
 
     /**
      * @var EventDispatcher|MockObject
      */
-    private $_mockEventDispatcher;
+    private $mockEventDispatcher;
 
     /**
      * @var IdGenerator|MockObject
      */
-    private $_mockIdGenerator;
+    private $mockIdGenerator;
 
     /**
      * @var Time|MockObject
      */
-    private $_mockTime;
+    private $mockTime;
 
     public function setUp()
     {
-        $this->_mockTodoListGateway = $this->getMock(TodoListGateway::class, [], [], '', false);
-        $this->_mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
-        $this->_mockIdGenerator = $this->getMock(IdGenerator::class, [], [], '', false);
-        $this->_mockTime = $this->getMock(Time::class, [], [], '', false);
+        $this->mockTodoListGateway = $this->getMock(TodoListGateway::class, [], [], '', false);
+        $this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->mockIdGenerator = $this->getMock(IdGenerator::class, [], [], '', false);
+        $this->mockTime = $this->getMock(Time::class, [], [], '', false);
 
-        $this->_subject = new TodoList($this->_mockTodoListGateway);
-        $this->_subject->setEventDispatcher($this->_mockEventDispatcher);
-        $this->_subject->setIdGenerator($this->_mockIdGenerator);
-        $this->_subject->setTime($this->_mockTime);
+        $this->subject = new TodoList($this->mockTodoListGateway);
+        $this->subject->setEventDispatcher($this->mockEventDispatcher);
+        $this->subject->setIdGenerator($this->mockIdGenerator);
+        $this->subject->setTime($this->mockTime);
     }
 
     public function testAddItem()
@@ -59,12 +59,12 @@ class TodoListTest extends PHPUnit_Framework_TestCase
         $id = 11880;
         $now = 1000;
 
-        $this->_mockTime
+        $this->mockTime
         ->expects($this->once())
         ->method('now')
         ->will($this->returnValue($now));
 
-        $this->_mockIdGenerator
+        $this->mockIdGenerator
         ->expects($this->once())
         ->method('generateRandomNumericId')
         ->will($this->returnValue($id));
@@ -84,18 +84,18 @@ class TodoListTest extends PHPUnit_Framework_TestCase
         $expected_item_vo->status = TodoItemVO::STATUS_PENDING;
         $expected_item_vo->deadline = 0;
 
-        $this->_mockTodoListGateway
+        $this->mockTodoListGateway
         ->expects($this->once())
         ->method('addItem')
         ->with($item_vo);
 
         $event = new TodoListEvent($expected_item_vo, TodoListEvent::ADD);
-        $this->_mockEventDispatcher
+        $this->mockEventDispatcher
         ->expects($this->once())
         ->method('dispatchEvent')
         ->with($event);
 
-        $actual_result = $this->_subject->addItem($user, $item_vo);
+        $actual_result = $this->subject->addItem($user, $item_vo);
         $this->assertEquals($expected_item_vo, $actual_result);
     }
 
@@ -107,12 +107,12 @@ class TodoListTest extends PHPUnit_Framework_TestCase
         ]
         ];
 
-        $this->_mockTodoListGateway
+        $this->mockTodoListGateway
         ->expects($this->once())
         ->method('getList')
         ->will($this->returnValue($raw_list));
 
-        $actual_result = $this->_subject->getList();
+        $actual_result = $this->subject->getList();
 
         $expected_vo = new TodoItemVO();
         $expected_vo->id = $id;
@@ -127,13 +127,13 @@ class TodoListTest extends PHPUnit_Framework_TestCase
 
         $raw_item = [];
 
-        $this->_mockTodoListGateway
+        $this->mockTodoListGateway
         ->expects($this->once())
         ->method('getRawItem')
         ->with($item_id)
         ->will($this->returnValue($raw_item));
 
-        $actual_result = $this->_subject->getItem($item_id);
+        $actual_result = $this->subject->getItem($item_id);
 
         $this->assertNull($actual_result);
     }
@@ -154,13 +154,13 @@ class TodoListTest extends PHPUnit_Framework_TestCase
         'last_change' => $last_change = 'last_change',
         ];
 
-        $this->_mockTodoListGateway
+        $this->mockTodoListGateway
         ->expects($this->once())
         ->method('getRawItem')
         ->with($item_id)
         ->will($this->returnValue($raw_item));
 
-        $actual_result = $this->_subject->getItem($item_id);
+        $actual_result = $this->subject->getItem($item_id);
 
         $expected_item = new TodoItemVO();
         $expected_item->id = $id;
@@ -188,24 +188,24 @@ class TodoListTest extends PHPUnit_Framework_TestCase
         $item_vo = new TodoItemVO();
         $item_vo->id = $item_id;
 
-        $this->_mockTodoListGateway
+        $this->mockTodoListGateway
         ->expects($this->once())
         ->method('editItem')
         ->with($item_id, $changes);
 
-        $this->_mockTodoListGateway
+        $this->mockTodoListGateway
         ->expects($this->once())
         ->method('getRawItem')
         ->with($item_id)
         ->will($this->returnValue($item_raw));
 
         $event = new TodoListEvent($item_vo, TodoListEvent::EDIT);
-        $this->_mockEventDispatcher
+        $this->mockEventDispatcher
         ->expects($this->once())
         ->method('dispatchEvent')
         ->with($event);
 
-        $actual_result = $this->_subject->editItem($item_id, $changes);
+        $actual_result = $this->subject->editItem($item_id, $changes);
 
         $this->assertEquals($item_vo, $actual_result);
     }
@@ -221,23 +221,23 @@ class TodoListTest extends PHPUnit_Framework_TestCase
         $item_vo = new TodoItemVO();
         $item_vo->id = $item_id;
 
-        $this->_mockTodoListGateway
+        $this->mockTodoListGateway
         ->expects($this->once())
         ->method('deleteItem')
         ->with($item_id);
 
-        $this->_mockTodoListGateway
+        $this->mockTodoListGateway
         ->expects($this->once())
         ->method('getRawItem')
         ->with($item_id)
         ->will($this->returnValue($item_raw));
 
         $event = new TodoListEvent($item_vo, TodoListEvent::REMOVE);
-        $this->_mockEventDispatcher
+        $this->mockEventDispatcher
         ->expects($this->once())
         ->method('dispatchEvent')
         ->with($event);
 
-        $this->_subject->deleteItem($item_id);
+        $this->subject->deleteItem($item_id);
     }
 }

@@ -16,29 +16,29 @@ class ShoppingListTest extends PHPUnit_Framework_TestCase
     /**
      * @var ShoppingList
      */
-    private $_subject;
+    private $subject;
 
     /**
      * @var ShoppingListGateway|MockObject
      */
-    private $_mockShoppingListGateway;
+    private $mockShoppingListGateway;
 
     public function setUp()
     {
-        $this->_mockShoppingListGateway = $this->getMock(ShoppingListGateway::class, [], [], '', false);
-        $this->_subject = new ShoppingList($this->_mockShoppingListGateway);
+        $this->mockShoppingListGateway = $this->getMock(ShoppingListGateway::class, [], [], '', false);
+        $this->subject = new ShoppingList($this->mockShoppingListGateway);
     }
 
     public function testGetShoppingListItems()
     {
         $list = [];
 
-        $this->_mockShoppingListGateway
+        $this->mockShoppingListGateway
         ->expects($this->once())
         ->method('getShoppingListItems')
         ->will($this->returnValue($list));
 
-        $actual_result = $this->_subject->getShoppingListItems();
+        $actual_result = $this->subject->getShoppingListItems();
         $this->assertEquals($list, $actual_result);
     }
 
@@ -46,23 +46,23 @@ class ShoppingListTest extends PHPUnit_Framework_TestCase
     {
         $name = 'name';
 
-        $this->_mockShoppingListGateway
+        $this->mockShoppingListGateway
         ->expects($this->once())
         ->method('addShoppingListItem')
         ->with($name);
 
-        $this->_subject->addShoppingListItem($name);
+        $this->subject->addShoppingListItem($name);
     }
 
     public function testRemoveShoppingListItem()
     {
         $name = 'name';
 
-        $this->_mockShoppingListGateway
+        $this->mockShoppingListGateway
         ->expects($this->once())
         ->method('removeShoppingListItem')
         ->with($name);
 
-        $this->_subject->removeShoppingListItem($name);
+        $this->subject->removeShoppingListItem($name);
     }
 }

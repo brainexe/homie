@@ -15,11 +15,11 @@ class SensorVOBuilderTest extends PHPUnit_Framework_TestCase
     /**
      * @var SensorVOBuilder
      */
-    private $_subject;
+    private $subject;
 
     public function setUp()
     {
-        $this->_subject = new SensorVOBuilder();
+        $this->subject = new SensorVOBuilder();
     }
 
     public function testBuildSensorVOFromArray()
@@ -36,7 +36,7 @@ class SensorVOBuilderTest extends PHPUnit_Framework_TestCase
         'last_value_timestamp' => $last_value_timestamp = 'last_value_timestamp'
         ];
 
-        $actual_result = $this->_subject->buildFromArray($array);
+        $actual_result = $this->subject->buildFromArray($array);
 
         $expected_result = new SensorVO();
 

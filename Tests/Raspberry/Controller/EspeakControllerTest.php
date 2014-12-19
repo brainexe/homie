@@ -23,31 +23,31 @@ class EspeakControllerTest extends PHPUnit_Framework_TestCase
     /**
      * @var EspeakController
      */
-    private $_subject;
+    private $subject;
 
     /**
      * @var Espeak|MockObject
      */
-    private $_mockEspeak;
+    private $mockEspeak;
 
     /**
      * @var TimeParser|MockObject
      */
-    private $_mockTimeParser;
+    private $mockTimeParser;
 
     /**
      * @var EventDispatcher|MockObject
      */
-    private $_mockEventDispatcher;
+    private $mockEventDispatcher;
 
     public function setUp()
     {
-        $this->_mockEspeak = $this->getMock(Espeak::class, [], [], '', false);
-        $this->_mockTimeParser = $this->getMock(TimeParser::class, [], [], '', false);
-        $this->_mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->mockEspeak = $this->getMock(Espeak::class, [], [], '', false);
+        $this->mockTimeParser = $this->getMock(TimeParser::class, [], [], '', false);
+        $this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-        $this->_subject = new EspeakController($this->_mockEspeak, $this->_mockTimeParser);
-        $this->_subject->setEventDispatcher($this->_mockEventDispatcher);
+        $this->subject = new EspeakController($this->mockEspeak, $this->mockTimeParser);
+        $this->subject->setEventDispatcher($this->mockEventDispatcher);
     }
 
     public function testIndex()
@@ -55,17 +55,17 @@ class EspeakControllerTest extends PHPUnit_Framework_TestCase
         $speakers = ['speakers'];
         $jobs = ['jobs'];
 
-        $this->_mockEspeak
+        $this->mockEspeak
         ->expects($this->once())
         ->method('getSpeakers')
         ->will($this->returnValue($speakers));
 
-        $this->_mockEspeak
+        $this->mockEspeak
         ->expects($this->once())
         ->method('getPendingJobs')
         ->will($this->returnValue($jobs));
 
-        $actual_result = $this->_subject->index();
+        $actual_result = $this->subject->index();
 
         $expected_result = [
         'speakers' => $speakers,
@@ -92,7 +92,7 @@ class EspeakControllerTest extends PHPUnit_Framework_TestCase
         $request->request->set('speed', $speed);
         $request->request->set('delay', $delay_raw);
 
-        $this->_mockTimeParser
+        $this->mockTimeParser
         ->expects($this->once())
         ->method('parseString')
         ->with($delay_raw)
@@ -101,19 +101,19 @@ class EspeakControllerTest extends PHPUnit_Framework_TestCase
         $espeak_vo = new EspeakVO($text, $volume, $speed, $speaker);
         $event = new EspeakEvent($espeak_vo);
 
-        $this->_mockEventDispatcher
+        $this->mockEventDispatcher
         ->expects($this->once())
         ->method('dispatchInBackground')
         ->with($event, $timestamp);
 
         $pending_jobs = ['pending_jobs'];
 
-        $this->_mockEspeak
+        $this->mockEspeak
         ->expects($this->once())
         ->method('getPendingJobs')
         ->will($this->returnValue($pending_jobs));
 
-        $actual_result = $this->_subject->speak($request);
+        $actual_result = $this->subject->speak($request);
 
         $this->assertEquals($pending_jobs, $actual_result);
     }
@@ -124,13 +124,13 @@ class EspeakControllerTest extends PHPUnit_Framework_TestCase
         $request = new Request();
         $request->request->set('job_id', $job_id);
 
-        $this->_mockEspeak
+        $this->mockEspeak
         ->expects($this->once())
         ->method('deleteJob')
         ->will($this->returnValue($job_id));
 
 
-        $actual_result = $this->_subject->deleteJob($request);
+        $actual_result = $this->subject->deleteJob($request);
 
         $this->assertTrue($actual_result);
     }

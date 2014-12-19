@@ -15,35 +15,35 @@ class NodeTest extends PHPUnit_Framework_TestCase
     /**
      * @var Node
      */
-    private $_subject;
+    private $subject;
 
     /**
      * @var integer
      */
-    private $_node_id;
+    private $node_id;
 
     public function setUp()
     {
-        $this->_node_id = 5;
+        $this->node_id = 5;
 
-        $this->_subject = new Node($this->_node_id);
+        $this->subject = new Node($this->node_id);
     }
 
     public function testGetNodeId()
     {
-        $actual_result = $this->_subject->getNodeId();
-        $this->assertEquals($this->_node_id, $actual_result);
+        $actual_result = $this->subject->getNodeId();
+        $this->assertEquals($this->node_id, $actual_result);
     }
 
     public function testIsMaster()
     {
-        $actual_result = $this->_subject->isMaster();
+        $actual_result = $this->subject->isMaster();
         $this->assertFalse($actual_result);
     }
 
     public function testIsSlave()
     {
-        $actual_result = $this->_subject->isSlave();
+        $actual_result = $this->subject->isSlave();
         $this->assertTrue($actual_result);
     }
 }

@@ -15,23 +15,23 @@ class RadioJobListenerTest extends PHPUnit_Framework_TestCase
     /**
      * @var RadioJobListener
      */
-    private $_subject;
+    private $subject;
 
     /**
      * @var RadioController|MockObject
      */
-    private $_mockRadioController;
+    private $mockRadioController;
 
     public function setUp()
     {
-        $this->_mockRadioController = $this->getMock(RadioController::class, [], [], '', false);
+        $this->mockRadioController = $this->getMock(RadioController::class, [], [], '', false);
 
-        $this->_subject = new RadioJobListener($this->_mockRadioController);
+        $this->subject = new RadioJobListener($this->mockRadioController);
     }
 
     public function testGetSubscribedEvents()
     {
-        $actual_result = $this->_subject->getSubscribedEvents();
+        $actual_result = $this->subject->getSubscribedEvents();
         $this->assertInternalType('array', $actual_result);
     }
 
@@ -44,11 +44,11 @@ class RadioJobListenerTest extends PHPUnit_Framework_TestCase
         $event = new RadioChangeEvent($radio_vo, RadioChangeEvent::CHANGE_RADIO);
         $event->status = $status = 'status';
 
-        $this->_mockRadioController
+        $this->mockRadioController
         ->expects($this->once())
         ->method('setStatus')
         ->with($code, $pin, $status);
 
-        $this->_subject->handleChangeEvent($event);
+        $this->subject->handleChangeEvent($event);
     }
 }

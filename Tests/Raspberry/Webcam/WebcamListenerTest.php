@@ -17,25 +17,25 @@ class WebcamListenerTest extends PHPUnit_Framework_TestCase
     /**
      * @var WebcamListener
      */
-    private $_subject;
+    private $subject;
 
     /**
      * @var Webcam|MockObject
      */
-    private $_mockWebcam;
+    private $mockWebcam;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->_mockWebcam = $this->getMock(Webcam::class, [], [], '', false);
+        $this->mockWebcam = $this->getMock(Webcam::class, [], [], '', false);
 
-        $this->_subject = new WebcamListener($this->_mockWebcam);
+        $this->subject = new WebcamListener($this->mockWebcam);
     }
 
     public function testGetSubscribedEvents()
     {
-        $actual_result = $this->_subject->getSubscribedEvents();
+        $actual_result = $this->subject->getSubscribedEvents();
         $this->assertInternalType('array', $actual_result);
     }
 
@@ -44,11 +44,11 @@ class WebcamListenerTest extends PHPUnit_Framework_TestCase
         $name = 'shoot 123';
         $event = new WebcamEvent($name, WebcamEvent::TAKE_PHOTO);
 
-        $this->_mockWebcam
+        $this->mockWebcam
         ->expects($this->once())
         ->method('takePhoto')
         ->with($name);
 
-        $this->_subject->handleWebcamEvent($event);
+        $this->subject->handleWebcamEvent($event);
     }
 }

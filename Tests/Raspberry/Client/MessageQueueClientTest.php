@@ -18,25 +18,25 @@ class MessageQueueClientTest extends PHPUnit_Framework_TestCase
     /**
      * @var MessageQueueClient
      */
-    private $_subject;
+    private $subject;
 
     /**
      * @var Redis|MockObject
      */
-    private $_mockRedis;
+    private $mockRedis;
 
     /**
      * @var EventDispatcher|MockObject
      */
-    private $_mockEventDispatcher;
+    private $mockEventDispatcher;
 
     public function setUp()
     {
-        $this->_mockRedis = $this->getMock(Redis::class, [], [], '', false);
-        $this->_mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
-        $this->_subject = new MessageQueueClient();
-        $this->_subject->setRedis($this->_mockRedis);
-        $this->_subject->setEventDispatcher($this->_mockEventDispatcher);
+        $this->mockRedis = $this->getMock(Redis::class, [], [], '', false);
+        $this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->subject = new MessageQueueClient();
+        $this->subject->setRedis($this->mockRedis);
+        $this->subject->setEventDispatcher($this->mockEventDispatcher);
     }
 
     public function testExecute()
@@ -45,12 +45,12 @@ class MessageQueueClientTest extends PHPUnit_Framework_TestCase
 
         $event = new ExecuteCommandEvent($command, false);
 
-        $this->_mockEventDispatcher
+        $this->mockEventDispatcher
         ->expects($this->once())
         ->method('dispatchInBackground')
         ->with($event, 0);
 
-        $this->_subject->execute($command);
+        $this->subject->execute($command);
     }
 
     public function testExecuteWithReturn()
@@ -59,16 +59,16 @@ class MessageQueueClientTest extends PHPUnit_Framework_TestCase
 
         $event = new ExecuteCommandEvent($command, true);
 
-        $this->_mockEventDispatcher
+        $this->mockEventDispatcher
         ->expects($this->once())
         ->method('dispatchInBackground')
         ->with($event);
 
-        $this->_mockRedis
+        $this->mockRedis
         ->expects($this->once())
         ->method('brPop')
         ->with(MessageQueueClient::RETURN_CHANNEL, 5);
 
-        $this->_subject->executeWithReturn($command);
+        $this->subject->executeWithReturn($command);
     }
 }

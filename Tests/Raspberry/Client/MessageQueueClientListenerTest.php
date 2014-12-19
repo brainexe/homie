@@ -16,30 +16,30 @@ class MessageQueueClientListenerTest extends PHPUnit_Framework_TestCase
     /**
      * @var MessageQueueClientListener
      */
-    private $_subject;
+    private $subject;
 
     /**
      * @var LocalClient|MockObject
      */
-    private $_mockLocalClient;
+    private $mockLocalClient;
 
     /**
      * @var Redis|MockObject
      */
-    private $_mockRedis;
+    private $mockRedis;
 
     public function setUp()
     {
-        $this->_mockLocalClient = $this->getMock(LocalClient::class, [], [], '', false);
-        $this->_mockRedis = $this->getMock(Redis::class, [], [], '', false);
+        $this->mockLocalClient = $this->getMock(LocalClient::class, [], [], '', false);
+        $this->mockRedis = $this->getMock(Redis::class, [], [], '', false);
 
-        $this->_subject = new MessageQueueClientListener($this->_mockLocalClient);
-        $this->_subject->setRedis($this->_mockRedis);
+        $this->subject = new MessageQueueClientListener($this->mockLocalClient);
+        $this->subject->setRedis($this->mockRedis);
     }
 
     public function testGetSubscribedEvents()
     {
-        $actual_result = $this->_subject->getSubscribedEvents();
+        $actual_result = $this->subject->getSubscribedEvents();
         $this->assertInternalType('array', $actual_result);
     }
 
@@ -51,17 +51,17 @@ class MessageQueueClientListenerTest extends PHPUnit_Framework_TestCase
 
         $output = 'output';
 
-        $this->_mockRedis
+        $this->mockRedis
         ->expects($this->once())
         ->method('lPush')
         ->with(MessageQueueClient::RETURN_CHANNEL, $output);
 
-        $this->_mockLocalClient
+        $this->mockLocalClient
         ->expects($this->once())
         ->method('executeWithReturn')
         ->with($command)
         ->will($this->returnValue($output));
 
-        $this->_subject->handleExecuteEvent($event);
+        $this->subject->handleExecuteEvent($event);
     }
 }

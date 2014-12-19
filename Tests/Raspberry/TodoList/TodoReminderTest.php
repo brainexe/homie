@@ -18,25 +18,25 @@ class TodoReminderTest extends PHPUnit_Framework_TestCase
     /**
      * @var TodoReminder
      */
-    private $_subject;
+    private $subject;
 
     /**
      * @var TodoList|MockObject
      */
-    private $_mockTodoList;
+    private $mockTodoList;
 
     /**
      * @var EventDispatcher|MockObject
      */
-    private $_mockEventDispatcher;
+    private $mockEventDispatcher;
 
     public function setUp()
     {
-        $this->_mockTodoList = $this->getMock(TodoList::class, [], [], '', false);
-        $this->_mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->mockTodoList = $this->getMock(TodoList::class, [], [], '', false);
+        $this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-        $this->_subject = new TodoReminder($this->_mockTodoList);
-        $this->_subject->setEventDispatcher($this->_mockEventDispatcher);
+        $this->subject = new TodoReminder($this->mockTodoList);
+        $this->subject->setEventDispatcher($this->mockEventDispatcher);
     }
 
     public function testSendNotificationShouldDoNothingWhenClosed()
@@ -46,16 +46,16 @@ class TodoReminderTest extends PHPUnit_Framework_TestCase
         $todo = $todos[] = new TodoItemVO();
         $todo->status = TodoItemVO::STATUS_COMPLETED;
 
-        $this->_mockTodoList
+        $this->mockTodoList
         ->expects($this->once())
         ->method('getList')
         ->will($this->returnValue($todos));
 
-        $this->_mockEventDispatcher
+        $this->mockEventDispatcher
         ->expects($this->never())
         ->method('dispatchInBackground');
 
-        $this->_subject->sendNotification();
+        $this->subject->sendNotification();
     }
 
     public function testSendNotification()
@@ -71,16 +71,16 @@ class TodoReminderTest extends PHPUnit_Framework_TestCase
         $todo_unknown = $todos[] = new TodoItemVO();
         $todo_unknown->status = 'unknown';
 
-        $this->_mockTodoList
+        $this->mockTodoList
         ->expects($this->once())
         ->method('getList')
         ->will($this->returnValue($todos));
 
-        $this->_mockEventDispatcher
+        $this->mockEventDispatcher
         ->expects($this->once())
         ->method('dispatchInBackground');
       //TODO check for exact event
 
-        $this->_subject->sendNotification();
+        $this->subject->sendNotification();
     }
 }

@@ -22,34 +22,34 @@ class TodoListControllerTest extends PHPUnit_Framework_TestCase
     /**
      * @var TodoListController
      */
-    private $_subject;
+    private $subject;
 
     /**
      * @var TodoList|MockObject
      */
-    private $_mockTodoList;
+    private $mockTodoList;
 
     /**
      * @var DatabaseUserProvider|MockObject
      */
-    private $_mockDatabaseUserProvider;
+    private $mockDatabaseUserProvider;
 
     /**
      * @var ShoppingList|MockObject
      */
-    private $_mockShoppingList;
+    private $mockShoppingList;
 
 
     public function setUp()
     {
-        $this->_mockTodoList             = $this->getMock(TodoList::class, [], [], '', false);
-        $this->_mockDatabaseUserProvider = $this->getMock(DatabaseUserProvider::class, [], [], '', false);
-        $this->_mockShoppingList         = $this->getMock(ShoppingList::class, [], [], '', false);
+        $this->mockTodoList             = $this->getMock(TodoList::class, [], [], '', false);
+        $this->mockDatabaseUserProvider = $this->getMock(DatabaseUserProvider::class, [], [], '', false);
+        $this->mockShoppingList         = $this->getMock(ShoppingList::class, [], [], '', false);
 
-        $this->_subject = new TodoListController(
-            $this->_mockTodoList,
-            $this->_mockDatabaseUserProvider,
-            $this->_mockShoppingList
+        $this->subject = new TodoListController(
+            $this->mockTodoList,
+            $this->mockDatabaseUserProvider,
+            $this->mockShoppingList
         );
     }
 
@@ -59,14 +59,29 @@ class TodoListControllerTest extends PHPUnit_Framework_TestCase
         $shopping_list = 'shopping_list';
         $user_names    = [$user_id = 'user_id' => $user_name = 'user_nam'];
 
-        $this->_mockTodoList->expects($this->once())->method('getList')->will($this->returnValue($list));
+        $this->mockTodoList
+            ->expects($this->once())
+            ->method('getList')
+            ->willReturn($list);
 
-        $this->_mockShoppingList->expects($this->once())->method('getShoppingListItems')->will($this->returnValue($shopping_list));
+        $this->mockShoppingList
+            ->expects($this->once())
+            ->method('getShoppingListItems')
+            ->willReturn($shopping_list);
 
-        $this->_mockDatabaseUserProvider->expects($this->once())->method('getAllUserNames')->will($this->returnValue($user_names));
+        $this->mockDatabaseUserProvider
+            ->expects($this->once())
+            ->method('getAllUserNames')
+            ->willReturn($user_names);
 
-        $actual_result   = $this->_subject->index();
-        $expected_result = new JsonResponse(['list' => $list, 'shopping_list' => $shopping_list, 'user_names' => [$user_name => $user_id]]);
+        $actual_result   = $this->subject->index();
+        $expected_result = new JsonResponse(
+            [
+                'list' => $list,
+                'shopping_list' => $shopping_list,
+                'user_names' => [$user_name => $user_id]
+            ]
+        );
 
         $this->assertEquals($expected_result, $actual_result);
     }
@@ -75,9 +90,9 @@ class TodoListControllerTest extends PHPUnit_Framework_TestCase
     {
         $list = [];
 
-        $this->_mockTodoList->expects($this->once())->method('getList')->will($this->returnValue($list));
+        $this->mockTodoList->expects($this->once())->method('getList')->will($this->returnValue($list));
 
-        $actual_result = $this->_subject->fetchList();
+        $actual_result = $this->subject->fetchList();
 
         $expected_result = new JsonResponse($list);
         $this->assertEquals($expected_result, $actual_result);
@@ -97,9 +112,9 @@ class TodoListControllerTest extends PHPUnit_Framework_TestCase
         $item_vo->deadline    = strtotime($deadline_str); // todo TimeTrait
         $item_vo->description = $description;
 
-        $this->_mockTodoList->expects($this->once())->method('addItem')->with($user, $item_vo);
+        $this->mockTodoList->expects($this->once())->method('addItem')->with($user, $item_vo);
 
-        $actual_result = $this->_subject->addItem($request);
+        $actual_result = $this->subject->addItem($request);
 
         $expected_result = new JsonResponse($item_vo);
         $this->assertEquals($expected_result, $actual_result);
@@ -112,9 +127,9 @@ class TodoListControllerTest extends PHPUnit_Framework_TestCase
         $request = new Request();
         $request->request->set('name', $name);
 
-        $this->_mockShoppingList->expects($this->once())->method('addShoppingListItem')->with($name);
+        $this->mockShoppingList->expects($this->once())->method('addShoppingListItem')->with($name);
 
-        $actual_result = $this->_subject->addShoppingListItem($request);
+        $actual_result = $this->subject->addShoppingListItem($request);
 
         $expected_result = new JsonResponse(true);
         $this->assertEquals($expected_result, $actual_result);
@@ -127,9 +142,9 @@ class TodoListControllerTest extends PHPUnit_Framework_TestCase
         $request = new Request();
         $request->request->set('name', $name);
 
-        $this->_mockShoppingList->expects($this->once())->method('removeShoppingListItem')->with($name);
+        $this->mockShoppingList->expects($this->once())->method('removeShoppingListItem')->with($name);
 
-        $actual_result = $this->_subject->removeShoppingListItem($request);
+        $actual_result = $this->subject->removeShoppingListItem($request);
 
         $expected_result = new JsonResponse(true);
         $this->assertEquals($expected_result, $actual_result);
@@ -146,13 +161,13 @@ class TodoListControllerTest extends PHPUnit_Framework_TestCase
 
         $item_vo = new TodoItemVO();
 
-        $this->_mockTodoList
+        $this->mockTodoList
         ->expects($this->once())
         ->method('editItem')
         ->with($item_id, $changes)
         ->will($this->returnValue($item_vo));
 
-        $actual_result = $this->_subject->setItemStatus($request);
+        $actual_result = $this->subject->setItemStatus($request);
 
         $expected_result = new JsonResponse($item_vo);
         $this->assertEquals($expected_result, $actual_result);
@@ -176,19 +191,19 @@ class TodoListControllerTest extends PHPUnit_Framework_TestCase
         'user_name' => $user_name
         ];
 
-        $this->_mockDatabaseUserProvider
+        $this->mockDatabaseUserProvider
         ->expects($this->once())
         ->method('loadUserById')
         ->with($user_id)
         ->will($this->returnValue($user_vo));
 
-        $this->_mockTodoList
+        $this->mockTodoList
         ->expects($this->once())
         ->method('editItem')
         ->with($item_id, $changes)
         ->will($this->returnValue($item_vo));
 
-        $actual_result = $this->_subject->setAssignee($request);
+        $actual_result = $this->subject->setAssignee($request);
 
         $expected_result = new JsonResponse($item_vo);
         $this->assertEquals($expected_result, $actual_result);
@@ -202,12 +217,12 @@ class TodoListControllerTest extends PHPUnit_Framework_TestCase
         $request = new Request();
         $request->request->set('id', $item_id);
 
-        $this->_mockTodoList
+        $this->mockTodoList
         ->expects($this->once())
         ->method('deleteItem')
         ->with($item_id);
 
-        $actual_result = $this->_subject->deleteItem($request);
+        $actual_result = $this->subject->deleteItem($request);
 
         $expected_result = new JsonResponse(true);
         $this->assertEquals($expected_result, $actual_result);

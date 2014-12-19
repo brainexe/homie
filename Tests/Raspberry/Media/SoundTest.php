@@ -17,17 +17,17 @@ class SoundTest extends PHPUnit_Framework_TestCase
     /**
      * @var Sound
      */
-    private $_subject;
+    private $subject;
 
     /**
      * @var ProcessBuilder|MockObject
      */
-    private $_mockProcessBuilder;
+    private $mockProcessBuilder;
 
     public function setUp()
     {
-        $this->_mockProcessBuilder = $this->getMock(ProcessBuilder::class, [], [], '', false);
-        $this->_subject = new Sound($this->_mockProcessBuilder);
+        $this->mockProcessBuilder = $this->getMock(ProcessBuilder::class, [], [], '', false);
+        $this->subject = new Sound($this->mockProcessBuilder);
     }
 
     public function testPlaySound()
@@ -36,13 +36,13 @@ class SoundTest extends PHPUnit_Framework_TestCase
 
         $process = $this->getMock(Process::class, [], [], '', false);
 
-        $this->_mockProcessBuilder
+        $this->mockProcessBuilder
         ->expects($this->once())
         ->method('setArguments')
         ->with([Sound::COMMAND, $file])
-        ->will($this->returnValue($this->_mockProcessBuilder));
+        ->will($this->returnValue($this->mockProcessBuilder));
 
-        $this->_mockProcessBuilder
+        $this->mockProcessBuilder
         ->expects($this->once())
         ->method('getProcess')
         ->will($this->returnValue($process));
@@ -51,6 +51,6 @@ class SoundTest extends PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('run');
 
-        $this->_subject->playSound($file);
+        $this->subject->playSound($file);
     }
 }

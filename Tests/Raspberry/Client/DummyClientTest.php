@@ -16,43 +16,43 @@ class DummyClientTest extends PHPUnit_Framework_TestCase
     /**
      * @var DummyClient
      */
-    private $_subject;
+    private $subject;
 
     /**
      * @var Logger|MockObject
      */
-    private $_mockLogger;
+    private $mockLogger;
 
     public function setUp()
     {
-        $this->_mockLogger = $this->getMock(Logger::class, [], [], '', false);
+        $this->mockLogger = $this->getMock(Logger::class, [], [], '', false);
 
-        $this->_subject = new DummyClient();
-        $this->_subject->setLogger($this->_mockLogger);
+        $this->subject = new DummyClient();
+        $this->subject->setLogger($this->mockLogger);
     }
 
     public function testExecute()
     {
         $command = 'test';
 
-        $this->_mockLogger
+        $this->mockLogger
         ->expects($this->once())
         ->method('log')
         ->with('info', $command);
 
-        $this->_subject->execute($command);
+        $this->subject->execute($command);
     }
 
     public function testExecuteWithReturn()
     {
         $command = 'test';
 
-        $this->_mockLogger
+        $this->mockLogger
         ->expects($this->once())
         ->method('log')
         ->with('info', $command);
 
-        $actual_result = $this->_subject->executeWithReturn($command);
+        $actual_result = $this->subject->executeWithReturn($command);
 
         $this->assertEquals('', $actual_result);
     }

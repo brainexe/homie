@@ -19,27 +19,27 @@ class TodoListenerTest extends PHPUnit_Framework_TestCase
     /**
      * @var TodoListener
      */
-    private $_subject;
+    private $subject;
 
     /**
      * @var EventDispatcher|MockObject
      */
-    private $_mockEventDispatcher;
+    private $mockEventDispatcher;
 
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->_mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-        $this->_subject = new TodoListener();
-        $this->_subject->setEventDispatcher($this->_mockEventDispatcher);
+        $this->subject = new TodoListener();
+        $this->subject->setEventDispatcher($this->mockEventDispatcher);
     }
 
     public function testGetSubscribedEvents()
     {
-        $actual_result = $this->_subject->getSubscribedEvents();
+        $actual_result = $this->subject->getSubscribedEvents();
         $this->assertInternalType('array', $actual_result);
     }
 
@@ -50,11 +50,11 @@ class TodoListenerTest extends PHPUnit_Framework_TestCase
 
         $event = new TodoListEvent($item_vo, TodoListEvent::ADD);
 
-        $this->_mockEventDispatcher
+        $this->mockEventDispatcher
         ->expects($this->never())
         ->method('dispatchInBackground');
 
-        $this->_subject->handleAddEvent($event);
+        $this->subject->handleAddEvent($event);
     }
 
     public function testHandleAddEventWithDeadline()
@@ -64,11 +64,11 @@ class TodoListenerTest extends PHPUnit_Framework_TestCase
 
         $event = new TodoListEvent($item_vo, TodoListEvent::ADD);
 
-        $this->_mockEventDispatcher
+        $this->mockEventDispatcher
         ->expects($this->once())
         ->method('dispatchInBackground')
         ->with($this->anything(), $deadline);
 
-        $this->_subject->handleAddEvent($event);
+        $this->subject->handleAddEvent($event);
     }
 }

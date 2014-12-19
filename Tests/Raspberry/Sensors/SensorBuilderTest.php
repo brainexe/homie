@@ -12,12 +12,12 @@ class SensorBuilderTest extends \PHPUnit_Framework_TestCase
     /**
      * @var SensorBuilder
      */
-    private $_subject;
+    private $subject;
 
 
     public function setUp()
     {
-        $this->_subject = new SensorBuilder();
+        $this->subject = new SensorBuilder();
     }
 
     public function testGetSensors()
@@ -26,8 +26,8 @@ class SensorBuilderTest extends \PHPUnit_Framework_TestCase
         $sensor_mock = $this->getMock(SensorInterface::class);
         $sensor_type = 'sensor_123';
 
-        $this->_subject->addSensor($sensor_type, $sensor_mock);
-        $actual_result = $this->_subject->getSensors();
+        $this->subject->addSensor($sensor_type, $sensor_mock);
+        $actual_result = $this->subject->getSensors();
 
         $this->assertEquals([$sensor_type => $sensor_mock], $actual_result);
     }
@@ -40,7 +40,7 @@ class SensorBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $sensor_type = 'sensor_123';
 
-        $this->_subject->build($sensor_type);
+        $this->subject->build($sensor_type);
     }
 
     public function testBuildValid()
@@ -49,9 +49,9 @@ class SensorBuilderTest extends \PHPUnit_Framework_TestCase
         $sensor_mock = $this->getMock('Raspberry\Sensors\Sensors\SensorInterface');
         $sensor_type = 'sensor_123';
 
-        $this->_subject->addSensor($sensor_type, $sensor_mock);
+        $this->subject->addSensor($sensor_type, $sensor_mock);
 
-        $actual_result = $this->_subject->build($sensor_type);
+        $actual_result = $this->subject->build($sensor_type);
 
         $this->assertEquals($sensor_mock, $actual_result);
     }

@@ -16,16 +16,16 @@ class LoadSensorTest extends PHPUnit_Framework_TestCase
     /**
      * @var LoadSensor
      */
-    private $_subject;
+    private $subject;
 
     public function setUp()
     {
-        $this->_subject = new LoadSensor();
+        $this->subject = new LoadSensor();
     }
 
     public function testGetSensorType()
     {
-        $actual_result = $this->_subject->getSensorType();
+        $actual_result = $this->subject->getSensorType();
 
         $this->assertEquals(LoadSensor::TYPE, $actual_result);
     }
@@ -34,7 +34,7 @@ class LoadSensorTest extends PHPUnit_Framework_TestCase
     {
         $pin = 1;
 
-        $actual_result = $this->_subject->getValue($pin);
+        $actual_result = $this->subject->getValue($pin);
 
         $this->assertTrue(is_numeric($actual_result));
     }
@@ -43,7 +43,7 @@ class LoadSensorTest extends PHPUnit_Framework_TestCase
     {
         $value = 1211.1112;
 
-        $actual_result = $this->_subject->formatValue($value);
+        $actual_result = $this->subject->formatValue($value);
 
         $this->assertEquals('1211.1', $actual_result);
     }
@@ -52,7 +52,7 @@ class LoadSensorTest extends PHPUnit_Framework_TestCase
     {
         $value = 1211.1112;
 
-        $actual_result = $this->_subject->getEspeakText($value);
+        $actual_result = $this->subject->getEspeakText($value);
 
         $this->assertEquals('1211.1', $actual_result);
     }
@@ -61,7 +61,7 @@ class LoadSensorTest extends PHPUnit_Framework_TestCase
     {
         $output = new DummyOutput();
 
-        $actual_result = $this->_subject->isSupported($output);
+        $actual_result = $this->subject->isSupported($output);
 
         $this->assertTrue($actual_result);
     }

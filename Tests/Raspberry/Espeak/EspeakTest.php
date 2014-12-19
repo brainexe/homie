@@ -19,38 +19,38 @@ class EspeakTest extends PHPUnit_Framework_TestCase
     /**
      * @var Espeak
      */
-    private $_subject;
+    private $subject;
 
     /**
      * @var MessageQueueGateway|MockObject
      */
-    private $_mockMessageQueueGateway;
+    private $mockMessageQueueGateway;
 
     /**
      * @var LocalClient|MockObject
      */
-    private $_mockLocalClient;
+    private $mockLocalClient;
 
     /**
      * @var Time|MockObject
      */
-    private $_mockTime;
+    private $mockTime;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->_mockMessageQueueGateway = $this->getMock(MessageQueueGateway::class, [], [], '', false);
-        $this->_mockLocalClient = $this->getMock(LocalClient::class, [], [], '', false);
-        $this->_mockTime = $this->getMock(Time::class, [], [], '', false);
+        $this->mockMessageQueueGateway = $this->getMock(MessageQueueGateway::class, [], [], '', false);
+        $this->mockLocalClient = $this->getMock(LocalClient::class, [], [], '', false);
+        $this->mockTime = $this->getMock(Time::class, [], [], '', false);
 
-        $this->_subject = new Espeak($this->_mockMessageQueueGateway, $this->_mockLocalClient);
-        $this->_subject->setTime($this->_mockTime);
+        $this->subject = new Espeak($this->mockMessageQueueGateway, $this->mockLocalClient);
+        $this->subject->setTime($this->mockTime);
     }
 
     public function testGetSpeakers()
     {
-        $actual_result = $this->_subject->getSpeakers();
+        $actual_result = $this->subject->getSpeakers();
         $this->assertInternalType('array', $actual_result);
     }
 
@@ -59,18 +59,18 @@ class EspeakTest extends PHPUnit_Framework_TestCase
         $now = 1000;
         $pending_jobs = [];
 
-        $this->_mockTime
+        $this->mockTime
         ->expects($this->once())
         ->method('now')
         ->will($this->returnValue($now));
 
-        $this->_mockMessageQueueGateway
+        $this->mockMessageQueueGateway
         ->expects($this->once())
         ->method('getEventsByType')
         ->with(EspeakEvent::SPEAK, $now)
         ->will($this->returnValue($pending_jobs));
 
-        $actual_result = $this->_subject->getPendingJobs();
+        $actual_result = $this->subject->getPendingJobs();
 
         $this->assertEquals($pending_jobs, $actual_result);
     }
@@ -82,11 +82,11 @@ class EspeakTest extends PHPUnit_Framework_TestCase
         $speed = 105;
         $speaker = 'de';
 
-        $this->_mockLocalClient
+        $this->mockLocalClient
         ->expects($this->never())
         ->method('execute');
 
-        $this->_subject->speak($text, $volume, $speed, $speaker);
+        $this->subject->speak($text, $volume, $speed, $speaker);
     }
     public function testSpeak()
     {
@@ -95,22 +95,22 @@ class EspeakTest extends PHPUnit_Framework_TestCase
         $speed = 105;
         $speaker = 'de';
 
-        $this->_mockLocalClient
+        $this->mockLocalClient
         ->expects($this->once())
         ->method('execute');
 
-        $this->_subject->speak($text, $volume, $speed, $speaker);
+        $this->subject->speak($text, $volume, $speed, $speaker);
     }
 
     public function testDeleteJob()
     {
         $job_id = 12;
 
-        $this->_mockMessageQueueGateway
+        $this->mockMessageQueueGateway
         ->expects($this->once())
         ->method('deleteEvent')
         ->with($job_id, EspeakEvent::SPEAK);
 
-        $this->_subject->deleteJob($job_id);
+        $this->subject->deleteJob($job_id);
     }
 }

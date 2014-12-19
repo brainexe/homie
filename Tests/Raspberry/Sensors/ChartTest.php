@@ -10,11 +10,11 @@ class ChartTest extends \PHPUnit_Framework_TestCase
     /**
      * @var Chart
      */
-    private $_subject;
+    private $subject;
 
     public function setUp()
     {
-        $this->_subject = new Chart();
+        $this->subject = new Chart();
     }
 
     public function testFormatJsonData()
@@ -37,7 +37,7 @@ class ChartTest extends \PHPUnit_Framework_TestCase
         ]
         ];
 
-        $actual_result = $this->_subject->formatJsonData($sensors, $sensor_values);
+        $actual_result = $this->subject->formatJsonData($sensors, $sensor_values);
 
         $expected_result = [
         [

@@ -16,44 +16,44 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase
     /**
      * @var RadioJob
      */
-    private $_subject;
+    private $subject;
 
     /**
      * @var TimeParser|MockObject
      */
-    private $_mock_time_parser;
+    private $mock_time_parser;
 
     /**
      * @var MessageQueueGateway|MockObject
      */
-    private $_mock_message_queue_gateway;
+    private $mock_message_queue_gateway;
 
     /**
      * @var EventDispatcher|MockObject
      */
-    private $_mock_dispatcher;
+    private $mock_dispatcher;
 
     public function setUp()
     {
-        $this->_mock_time_parser = $this->getMock(TimeParser::class);
-        $this->_mock_message_queue_gateway = $this->getMock(MessageQueueGateway::class, [], [], '', false);
-        $this->_mock_dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->mock_time_parser = $this->getMock(TimeParser::class);
+        $this->mock_message_queue_gateway = $this->getMock(MessageQueueGateway::class, [], [], '', false);
+        $this->mock_dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-        $this->_subject = new RadioJob($this->_mock_message_queue_gateway, $this->_mock_time_parser);
-        $this->_subject->setEventDispatcher($this->_mock_dispatcher);
+        $this->subject = new RadioJob($this->mock_message_queue_gateway, $this->mock_time_parser);
+        $this->subject->setEventDispatcher($this->mock_dispatcher);
     }
 
     public function testGetJobs()
     {
         $jobs = [];
 
-        $this->_mock_message_queue_gateway
+        $this->mock_message_queue_gateway
         ->expects($this->once())
         ->method('getEventsByType')
         ->with(RadioChangeEvent::CHANGE_RADIO)
         ->will($this->returnValue($jobs));
 
-        $actual_result = $this->_subject->getJobs();
+        $actual_result = $this->subject->getJobs();
 
         $this->assertEquals($jobs, $actual_result);
     }
@@ -67,31 +67,31 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase
         $radio_vo = new RadioVO();
         $radio_vo->id = 1;
 
-        $this->_mock_time_parser
+        $this->mock_time_parser
         ->expects($this->once())
         ->method('parseString')
         ->with($time_string)
         ->will($this->returnValue($timestamp));
 
         $event = new RadioChangeEvent($radio_vo, $status);
-        $this->_mock_dispatcher
+        $this->mock_dispatcher
         ->expects($this->once())
         ->method('dispatchInBackground')
         ->with($event, $timestamp);
 
-        $this->_subject->addRadioJob($radio_vo, $time_string, $status);
+        $this->subject->addRadioJob($radio_vo, $time_string, $status);
     }
 
     public function testDeleteJob()
     {
         $job_id = 19;
 
-        $this->_mock_message_queue_gateway
+        $this->mock_message_queue_gateway
         ->expects($this->once())
         ->method('deleteEvent')
         ->with($job_id, RadioChangeEvent::CHANGE_RADIO);
 
-        $this->_subject->deleteJob($job_id);
+        $this->subject->deleteJob($job_id);
 
     }
 }

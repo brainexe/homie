@@ -17,38 +17,38 @@ class MessageQueueNotificationsTest extends PHPUnit_Framework_TestCase
     /**
      * @var MessageQueueNotifications
      */
-    private $_subject;
+    private $subject;
 
     /**
      * @var MessageQueueGateway|MockObject
      */
-    private $_mockMessageQueueGateway;
+    private $mockMessageQueueGateway;
 
     /**
      * @var Redis|MockObject
      */
-    private $_mockRedis;
+    private $mockRedis;
 
     public function setUp()
     {
-        $this->_mockMessageQueueGateway = $this->getMock(MessageQueueGateway::class, [], [], '', false);
-        $this->_mockRedis = $this->getMock(Redis::class, [], [], '', false);
+        $this->mockMessageQueueGateway = $this->getMock(MessageQueueGateway::class, [], [], '', false);
+        $this->mockRedis = $this->getMock(Redis::class, [], [], '', false);
 
-        $this->_subject = new MessageQueueNotifications();
-        $this->_subject->setMessageQueueGateway($this->_mockMessageQueueGateway);
-        $this->_subject->setRedis($this->_mockRedis);
+        $this->subject = new MessageQueueNotifications();
+        $this->subject->setMessageQueueGateway($this->mockMessageQueueGateway);
+        $this->subject->setRedis($this->mockRedis);
     }
 
     public function testGetNotification()
     {
         $count = 10;
 
-        $this->_mockMessageQueueGateway
+        $this->mockMessageQueueGateway
         ->expects($this->once())
         ->method('countJobs')
         ->will($this->returnValue($count));
 
-        $actual_result = $this->_subject->getNotification();
+        $actual_result = $this->subject->getNotification();
 
         $this->assertEquals($count, $actual_result);
     }

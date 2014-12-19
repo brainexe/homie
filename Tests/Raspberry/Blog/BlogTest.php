@@ -36,17 +36,17 @@ class BlogTest extends PHPUnit_Framework_TestCase
     /**
      * @var Time|MockObject
      */
-    private $_mockTime;
+    private $mockTime;
 
     public function setUp()
     {
         $this->mockBlogGateway = $this->getMock(BlogGateway::class, [], [], '', false);
         $this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
-        $this->_mockTime = $this->getMock(Time::class, [], [], '', false);
+        $this->mockTime = $this->getMock(Time::class, [], [], '', false);
 
         $this->subject = new Blog($this->mockBlogGateway);
         $this->subject->setEventDispatcher($this->mockEventDispatcher);
-        $this->subject->setTime($this->_mockTime);
+        $this->subject->setTime($this->mockTime);
     }
 
     public function testGetPosts()
@@ -83,7 +83,7 @@ class BlogTest extends PHPUnit_Framework_TestCase
         $expected_post = clone $post_vo;
         $expected_post->mood = null;
 
-        $this->_mockTime
+        $this->mockTime
         ->expects($this->once())
         ->method('now')
         ->will($this->returnValue($now));

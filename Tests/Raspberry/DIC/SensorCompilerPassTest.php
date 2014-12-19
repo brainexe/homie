@@ -19,17 +19,17 @@ class SensorCompilerPassTest extends PHPUnit_Framework_TestCase
     /**
      * @var SensorCompilerPass
      */
-    private $_subject;
+    private $subject;
 
     /**
      * @var PHPUnit_Framework_MockObject_MockObject|ContainerBuilder
      */
-    private $_mock_container;
+    private $mock_container;
 
     public function setUp()
     {
-        $this->_subject = new SensorCompilerPass();
-        $this->_mock_container = $this->getMock(ContainerBuilder::class);
+        $this->subject = new SensorCompilerPass();
+        $this->mock_container = $this->getMock(ContainerBuilder::class);
     }
 
     /**
@@ -43,13 +43,13 @@ class SensorCompilerPassTest extends PHPUnit_Framework_TestCase
 
         $sensor = $this->getMock(SensorInterface::class);
 
-        $this->_mock_container
+        $this->mock_container
         ->expects($this->at(0))
         ->method('getDefinition')
         ->with('SensorBuilder')
         ->will($this->returnValue($sensor_builder));
 
-        $this->_mock_container
+        $this->mock_container
         ->expects($this->at(1))
         ->method('findTaggedServiceIds')
         ->with(SensorCompilerPass::TAG)
@@ -57,7 +57,7 @@ class SensorCompilerPassTest extends PHPUnit_Framework_TestCase
         $sensor_id => $sensor_definition
         ]));
 
-        $this->_mock_container
+        $this->mock_container
         ->expects($this->at(2))
         ->method('get')
         ->with($sensor_id)
@@ -72,6 +72,6 @@ class SensorCompilerPassTest extends PHPUnit_Framework_TestCase
         ->method('addMethodCall')
         ->with('addSensor', [$sensor_id, new Reference($sensor_id)]);
 
-        $this->_subject->process($this->_mock_container);
+        $this->subject->process($this->mock_container);
     }
 }

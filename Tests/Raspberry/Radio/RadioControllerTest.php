@@ -16,17 +16,17 @@ class RadioControllerTest extends PHPUnit_Framework_TestCase
     /**
      * @var RadioController
      */
-    private $_subject;
+    private $subject;
 
     /**
      * @var LocalClient|MockObject
      */
-    private $_mockLocalClient;
+    private $mockLocalClient;
 
     public function setUp()
     {
-        $this->_mockLocalClient = $this->getMock(LocalClient::class, [], [], '', false);
-        $this->_subject = new RadioController($this->_mockLocalClient);
+        $this->mockLocalClient = $this->getMock(LocalClient::class, [], [], '', false);
+        $this->subject = new RadioController($this->mockLocalClient);
     }
 
     public function testSetStatus()
@@ -35,11 +35,11 @@ class RadioControllerTest extends PHPUnit_Framework_TestCase
         $number = 1;
         $status = 1;
 
-        $this->_mockLocalClient
+        $this->mockLocalClient
         ->expects($this->once())
         ->method('execute')
         ->with($this->anything());
 
-        $this->_subject->setStatus($code, $number, $status);
+        $this->subject->setStatus($code, $number, $status);
     }
 }
