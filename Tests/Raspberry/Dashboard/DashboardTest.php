@@ -3,12 +3,11 @@
 namespace Tests\Raspberry\Dashboard\Dashboard;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Dashboard\AbstractWidget;
 use Raspberry\Dashboard\Dashboard;
+use Raspberry\Dashboard\DashboardGateway;
 use Raspberry\Dashboard\WidgetFactory;
-use BrainExe\Core\Redis\Redis;
-use BrainExe\Core\Util\IdGenerator;
 
 /**
  * @Covers Raspberry\Dashboard\Dashboard
@@ -18,66 +17,48 @@ class DashboardTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @var Dashboard
 	 */
-	private $_subject;
+	private $subject;
 
 	/**
-	 * @var WidgetFactory|PHPUnit_Framework_MockObject_MockObject
+	 * @var WidgetFactory|MockObject
 	 */
-	private $_mockWidgetFactory;
+	private $mockWidgetFactory;
 
 	/**
-	 * @var Redis|PHPUnit_Framework_MockObject_MockObject
+	 * @var DashboardGateway|MockObject
 	 */
-	private $_mockRedis;
-
-	/**
-	 * @var IdGenerator|PHPUnit_Framework_MockObject_MockObject
-	 */
-	private $_mockIdGenerator;
+	private $mockGateway;
 
 	public function setUp() {
+		$this->mockWidgetFactory = $this->getMock(WidgetFactory::class, [], [], '', false);
+		$this->mockGateway       = $this->getMock(DashboardGateway::class, [], [], '', false);
 
-		$this->_mockWidgetFactory = $this->getMock(WidgetFactory::class, [], [], '', false);
-		$this->_mockRedis = $this->getMock(Redis::class, [], [], '', false);
-		$this->_mockIdGenerator = $this->getMock(IdGenerator::class, [], [], '', false);
-		$this->_subject = new Dashboard($this->_mockWidgetFactory);
-		$this->_subject->setRedis($this->_mockRedis);
-		$this->_subject->setIdGenerator($this->_mockIdGenerator);
+		$this->subject = new Dashboard($this->mockGateway, $this->mockWidgetFactory);
 	}
 
 	public function testGetDashboard() {
-		$user_id = 42;
+		$dashboard = [];
+		$userId    = 10;
 
-		$payload = ['payload'];
-		$widgets_raw = [
-			$widget_id = 10 => json_encode($payload)
-		];
-
-		$this->_mockRedis
+		$this->mockGateway
 			->expects($this->once())
-			->method('hGetAll')
-			->with("dashboard:$user_id")
-			->will($this->returnValue($widgets_raw));
+			->method('getDashboard')
+			->willReturn($dashboard);
 
-		$actual_result = $this->_subject->getDashboard($user_id);
+		$actualResult = $this->subject->getDashboard($userId);
 
-		$expected_widget = $payload;
-		$expected_widget['id'] = $widget_id;
-		$expected_widget['open'] = true;
-
-
-		$this->assertEquals([$expected_widget], $actual_result);
+		$this->assertEquals($dashboard, $actualResult);
 	}
 
 	public function testGetAvailableWidgets() {
 		$widgets = [];
 
-		$this->_mockWidgetFactory
+		$this->mockWidgetFactory
 			->expects($this->once())
 			->method('getAvailableWidgets')
 			->will($this->returnValue($widgets));
 
-		$actual_result = $this->_subject->getAvailableWidgets();
+		$actual_result = $this->subject->getAvailableWidgets();
 
 		$this->assertEquals($widgets, $actual_result);
 	}
@@ -90,42 +71,35 @@ class DashboardTest extends PHPUnit_Framework_TestCase {
 
 		$widget = $this->getMock(AbstractWidget::class);
 
-		$this->_mockWidgetFactory
+		$this->mockWidgetFactory
 			->expects($this->once())
 			->method('getWidget')
 			->with($type)
-			->will($this->returnValue($widget));
+			->willReturn($widget);
 
 		$widget
 			->expects($this->once())
 			->method('validate')
 			->with($payload);
 
-
-		$new_id = 11880;
-		$this->_mockIdGenerator
+		$this->mockGateway
 			->expects($this->once())
-			->method('generateRandomNumericId')
-			->will($this->returnValue($new_id));
+			->method('addWidget')
+			->with($user_id, $payload);
 
-		$this->_mockRedis
-			->expects($this->once())
-			->method('HSET')
-			->with("dashboard:$user_id", $new_id, json_encode($payload));
-
-		$this->_subject->addWidget($user_id, $type, $payload);
+		$this->subject->addWidget($user_id, $type, $payload);
 	}
 
 	public function testDeleteWidget() {
 		$widget_id = 1;
-		$user_id = 42;
+		$user_id   = 42;
 
-		$this->_mockRedis
+		$this->mockGateway
 			->expects($this->once())
-			->method('HDEL')
-			->with("dashboard:$user_id", $widget_id);
+			->method('deleteWidget')
+			->with($user_id, $widget_id);
 
-		$this->_subject->deleteWidget($user_id, $widget_id);
+		$this->subject->deleteWidget($user_id, $widget_id);
 	}
 
 }

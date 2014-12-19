@@ -9,22 +9,20 @@
 				<div class="input-group">
 					<span class="input-group-addon">Type</span>
 					<select
-							ng-options="id as widget.name for (id, widget) in widgets"
+							ng-options="widget as widget.name for widget in widgets"
 							ng-model="widget" class="form-control"></select>
 				</div>
 			</div>
 			<div class="col-lg-5">
 				<div class="input-group">
-					<span class="input-group-addon">Payload</span>
-					{{widget.name}}
-					<input type="text" ng-model="payload" class="form-control" placeholder="{'sensor_id':1}"/>
+					<input ng-repeat="(type, parameter_name) in widget.parameters" type="text" ng-model="payload[type]" class="form-control" placeholder="{{parameter_name}}"/>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="modal-footer">
 		<button type="button" ng-click="close()" class="btn btn-default" data-dismiss="modal">Close</button>
-		<button type="button" ng-click="addWidget()" class="btn btn-primary">Add</button>
+		<button type="button" ng-click="addWidget(widget)" class="btn btn-primary">Add</button>
 	</div>
 </div>
 

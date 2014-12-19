@@ -3,7 +3,7 @@
 namespace Tests\Raspberry\Controller\DashboardController;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Controller\DashboardController;
 use Symfony\Component\HttpFoundation\Request;
 use Raspberry\Dashboard\Dashboard;
@@ -16,16 +16,16 @@ class DashboardControllerTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @var DashboardController
 	 */
-	private $_subject;
+	private $subject;
 
 	/**
-	 * @var Dashboard|PHPUnit_Framework_MockObject_MockObject
+	 * @var Dashboard|MockObject
 	 */
-	private $_mockDashboard;
+	private $mockDashboard;
 
 	public function setUp() {
-		$this->_mockDashboard = $this->getMock(Dashboard::class, [], [], '', false);
-		$this->_subject = new DashboardController($this->_mockDashboard);
+		$this->mockDashboard = $this->getMock(Dashboard::class, [], [], '', false);
+		$this->subject = new DashboardController($this->mockDashboard);
 	}
 
 	public function testIndex() {
@@ -34,24 +34,23 @@ class DashboardControllerTest extends PHPUnit_Framework_TestCase {
 		$dashboard = ['dashboard'];
 		$widgets   = ['widgets'];
 
-		$this->_mockDashboard
+		$this->mockDashboard
 			->expects($this->once())
 			->method('getDashboard')
 			->with($user_id)
 			->will($this->returnValue($dashboard));
 
-		$this->_mockDashboard
+		$this->mockDashboard
 			->expects($this->once())
 			->method('getAvailableWidgets')
 			->will($this->returnValue($widgets));
 
 		$request = new Request();
-		$actual_result = $this->_subject->index($request);
-
+		$actual_result = $this->subject->index($request);
 
 		$expected_result = [
 			'dashboard' => $dashboard,
-			'widgets' => $widgets
+			'widgets'   => $widgets
 		];
 
 		$this->assertEquals($expected_result, $actual_result);
@@ -61,25 +60,25 @@ class DashboardControllerTest extends PHPUnit_Framework_TestCase {
 		$type = 'type';
 		$user_id   = 0;
 
-		$payload = ['payload'];
+		$payload   = ['payload'];
 		$dashboard = ['dashboard'];
 
 		$request = new Request();
 		$request->request->set('type', $type);
-		$request->request->set('payload', json_encode($payload));
+		$request->request->set('payload', $payload);
 
-		$this->_mockDashboard
+		$this->mockDashboard
 			->expects($this->once())
 			->method('addWidget')
 			->with($user_id, $type, $payload);
 
-		$this->_mockDashboard
+		$this->mockDashboard
 			->expects($this->once())
 			->method('getDashboard')
 			->with($user_id)
 			->will($this->returnValue($dashboard));
 
-		$actual_result = $this->_subject->addWidget($request);
+		$actual_result = $this->subject->addWidget($request);
 
 		$this->assertEquals($dashboard, $actual_result);
 	}
@@ -93,19 +92,19 @@ class DashboardControllerTest extends PHPUnit_Framework_TestCase {
 		$request = new Request();
 		$request->request->set('widget_id', $widget_id);
 
-		$this->_mockDashboard
+		$this->mockDashboard
 			->expects($this->once())
 			->method('deleteWidget')
 			->with($user_id, $widget_id)
 			->will($this->returnValue($dashboard));
 
-		$this->_mockDashboard
+		$this->mockDashboard
 			->expects($this->once())
 			->method('getDashboard')
 			->with($user_id)
 			->will($this->returnValue($dashboard));
 
-		$actual_result = $this->_subject->deleteWidget($request);
+		$actual_result = $this->subject->deleteWidget($request);
 
 		$expected_result = $dashboard;
 		$this->assertEquals($expected_result, $actual_result);

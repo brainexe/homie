@@ -23,6 +23,7 @@ class TimeWidget extends AbstractWidget {
 	 */
 	public function getMetadata() {
 		return new WidgetMetadataVo(
+			$this->getId(),
 			_('Time')
 		);
 	}

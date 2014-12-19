@@ -31,7 +31,7 @@ class DashboardController implements ControllerInterface {
 	 * @Route("/dashboard/", name="dashboard.index")
 	 */
 	public function index(Request $request) {
-		$user_id = $this->_getUserId($request);
+		$user_id = $this->getUserId($request);
 
 		$dashboard = $this->dashboard->getDashboard($user_id);
 		$widgets   = $this->dashboard->getAvailableWidgets();
@@ -49,14 +49,12 @@ class DashboardController implements ControllerInterface {
 	 */
 	public function addWidget(Request $request) {
 		$type    = $request->request->get('type');
-		$payload = (array)json_decode($request->request->get('payload'), true);
-		$user_id = $this->_getUserId($request);
+		$payload = $request->request->get('payload');
+		$user_id = $this->getUserId($request);
 
 		$this->dashboard->addWidget($user_id, $type, $payload);
 
-		$dashboard = $this->dashboard->getDashboard($user_id);
-
-		return $dashboard;
+		return $this->dashboard->getDashboard($user_id);
 	}
 
 	/**
@@ -66,7 +64,7 @@ class DashboardController implements ControllerInterface {
 	 */
 	public function deleteWidget(Request $request) {
 		$widget_id = $request->request->getInt('widget_id');
-		$user_id   = $this->_getUserId($request);
+		$user_id   = $this->getUserId($request);
 
 		$this->dashboard->deleteWidget($user_id, $widget_id);
 
@@ -79,8 +77,8 @@ class DashboardController implements ControllerInterface {
 	 * @param Request $request
 	 * @return integer
 	 */
-	private function _getUserId(Request $request) {
-		return 0; //TODO
+	private function getUserId(Request $request) {
+		return $request->attributes->get('user_id');
 	}
 
 }

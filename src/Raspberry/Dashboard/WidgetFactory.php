@@ -14,11 +14,10 @@ class WidgetFactory {
 	private $widgets;
 
 	/**
-	 * @param string $widget_id
 	 * @param WidgetInterface $widget
 	 */
-	public function addWidget($widget_id, WidgetInterface $widget) {
-		$this->widgets[$widget_id] = $widget;
+	public function addWidget(WidgetInterface $widget) {
+		$this->widgets[$widget->getId()] = $widget;
 	}
 
 	/**
@@ -35,10 +34,10 @@ class WidgetFactory {
 	}
 
 	/**
-	 * @return string[]
+	 * @return WidgetInterface[]
 	 */
 	public function getAvailableWidgets() {
-		return $this->widgets;
+		return array_values($this->widgets);
 	}
 
 }

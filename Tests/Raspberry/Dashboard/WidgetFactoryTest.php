@@ -20,7 +20,7 @@ class WidgetFactoryTest extends PHPUnit_Framework_TestCase {
 
 	public function setUp() {
 		$this->subject = new WidgetFactory();
-		$this->subject->addWidget('widget', new TimeWidget());
+		$this->subject->addWidget(new TimeWidget());
 	}
 
 	/**
@@ -32,7 +32,7 @@ class WidgetFactoryTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetValidWidget() {
-		$actualResult = $this->subject->getWidget('widget');
+		$actualResult = $this->subject->getWidget(TimeWidget::TYPE);
 
 		$this->assertTrue($actualResult instanceof WidgetInterface);
 	}
@@ -40,7 +40,7 @@ class WidgetFactoryTest extends PHPUnit_Framework_TestCase {
 	public function testGetWidgetTypes() {
 		$actualResult = $this->subject->getAvailableWidgets();
 
-		$this->assertEquals(['widget' => new TimeWidget()], $actualResult);
+		$this->assertEquals([new TimeWidget()], $actualResult);
 	}
 
 }

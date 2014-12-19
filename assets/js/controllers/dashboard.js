@@ -23,10 +23,11 @@ App.Widgets = {
 
 App.ng.controller('NewWidgetController', ['$scope', '$modalInstance', 'widgets', function ($scope, $modalInstance, widgets) {
 	$scope.widgets = widgets;
+	$scope.payload = {};
 
-	$scope.addWidget = function() {
+	$scope.addWidget = function(widget) {
 		var payload = {
-			type: $scope.type,
+			type: widget.id,
 			payload: $scope.payload
 		};
 

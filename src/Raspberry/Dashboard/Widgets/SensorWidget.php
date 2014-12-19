@@ -35,6 +35,7 @@ class SensorWidget extends AbstractWidget {
 	 */
 	public function getMetadata() {
 		return new WidgetMetadataVo(
+			$this->getId(),
 			_('Sensor'),
 			[
 				'sensor_id' => _('Sensor ID')

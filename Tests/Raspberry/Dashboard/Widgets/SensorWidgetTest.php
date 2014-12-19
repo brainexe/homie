@@ -4,23 +4,21 @@ namespace Tests\Raspberry\Dashboard\Widgets\SensorWidget;
 
 use PHPUnit_Framework_TestCase;
 use Raspberry\Dashboard\Widgets\SensorWidget;
+use Raspberry\Dashboard\Widgets\WidgetMetadataVo;
 
-/**
- * @Covers Raspberry\Dashboard\Widgets\SensorWidget
- */
 class SensorWidgetTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @var SensorWidget
 	 */
-	private $_subject;
+	private $subject;
 
 	public function setUp() {
-		$this->_subject = new SensorWidget();
+		$this->subject = new SensorWidget();
 	}
 
 	public function testGetId() {
-		$actual_result = $this->_subject->getId();
+		$actual_result = $this->subject->getId();
 		$this->assertEquals(SensorWidget::TYPE, $actual_result);
 	}
 
@@ -31,7 +29,7 @@ class SensorWidgetTest extends PHPUnit_Framework_TestCase {
 	public function testCreateWithoutSensorId() {
 		$payload = [];
 
-		$this->_subject->create($payload);
+		$this->subject->create($payload);
 	}
 
 	public function testCreate() {
@@ -39,7 +37,20 @@ class SensorWidgetTest extends PHPUnit_Framework_TestCase {
 			'sensor_id' => 1
 		];
 
-		$this->_subject->create($payload);
+		$this->subject->create($payload);
+	}
+
+	public function testSerialize() {
+		$actualResult = $this->subject->getMetadata();
+
+		$this->assertInstanceOf(WidgetMetadataVO::class, $actualResult);
+	}
+
+	public function testJsonEncode() {
+		$actualResult = json_encode($this->subject);
+
+		$expectedResult = '{"name":"Sensor","parameters":{"sensor_id":"Sensor ID"},"id":"sensor"}';
+		$this->assertEquals($expectedResult, $actualResult);
 	}
 
 }
