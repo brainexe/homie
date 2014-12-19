@@ -60,26 +60,26 @@ class Webcam
         }
 
         $this->finder
-        ->files()
-        ->in($directory)
-        ->name('*.jpg')
-        ->sortByName();
+            ->files()
+            ->in($directory)
+            ->name('*.jpg')
+            ->sortByName();
 
-        $webcam_vos = [];
+        $vos = [];
         foreach ($this->finder as $file) {
             /** @var SplFileInfo $file */
-            $file_path = $file->getPath();
-            $relative_path_name = $file->getRelativePathname();
+            $filePath = $file->getPath();
+            $relativePathName = $file->getRelativePathname();
 
-            $webcam_vo = $webcam_vos[] = new WebcamVO();
-            $webcam_vo->file_path = $file_path;
-            $webcam_vo->name = $relative_path_name;
-            $webcam_vo->id = $file->getBasename();
-            $webcam_vo->web_path = sprintf('%s%s', substr(self::ROOT, 4), $webcam_vo->name);
-            $webcam_vo->timestamp = $file->getCTime();
+            $webcamVo = $vos[] = new WebcamVO();
+            $webcamVo->file_path = $filePath;
+            $webcamVo->name = $relativePathName;
+            $webcamVo->id = $file->getBasename();
+            $webcamVo->web_path = sprintf('%s%s', substr(self::ROOT, 4), $webcamVo->name);
+            $webcamVo->timestamp = $file->getCTime();
         }
 
-        return $webcam_vos;
+        return $vos;
     }
 
     /**
@@ -101,21 +101,21 @@ class Webcam
     }
 
     /**
-     * @param string $id
+     * @param string $shotId
      */
-    public function delete($id)
+    public function delete($shotId)
     {
-        $filename = $this->getFilename($id);
+        $filename = $this->getFilename($shotId);
 
         $this->fileSystem->remove($filename);
     }
 
     /**
-     * @param string $id
+     * @param string $shotId
      * @return string
      */
-    public function getFilename($id)
+    public function getFilename($shotId)
     {
-        return sprintf('%s%s%s.%s', ROOT, self::ROOT, $id, self::EXTENSION);
+        return sprintf('%s%s%s.%s', ROOT, self::ROOT, $shotId, self::EXTENSION);
     }
 }

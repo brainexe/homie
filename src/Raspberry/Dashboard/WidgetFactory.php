@@ -24,17 +24,17 @@ class WidgetFactory
     }
 
     /**
-     * @param string $id
+     * @param string $widgetId
      * @return WidgetInterface
      * @throws InvalidArgumentException
      */
-    public function getWidget($id)
+    public function getWidget($widgetId)
     {
-        if (empty($this->widgets[$id])) {
-            throw new InvalidArgumentException(sprintf('Invalid widget: %s', $id));
+        if (empty($this->widgets[$widgetId])) {
+            throw new InvalidArgumentException(sprintf('Invalid widget: %s', $widgetId));
         }
 
-        return $this->widgets[$id];
+        return $this->widgets[$widgetId];
     }
 
     /**

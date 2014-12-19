@@ -18,7 +18,7 @@ class Pin implements JsonSerializable
      *
      * @var integer
      */
-    private $id;
+    private $sensorId;
 
     /**
      * @var string
@@ -47,19 +47,19 @@ class Pin implements JsonSerializable
      */
     public function getID()
     {
-        return $this->id;
+        return $this->sensorId;
     }
 
     /**
      * Set ID value.
      *
-     * @param integer $id ID
+     * @param integer $pinId ID
      *
      * @return Pin
      */
-    public function setID($id)
+    public function setID($pinId)
     {
-        $this->id = $id;
+        $this->sensorId = $pinId;
 
         return $this;
     }
@@ -158,7 +158,7 @@ class Pin implements JsonSerializable
     public function jsonSerialize()
     {
         return [
-        'id' => $this->id,
+        'id' => $this->sensorId,
         'value' => $this->value,
         'name' => $this->name,
         'description' => $this->description,

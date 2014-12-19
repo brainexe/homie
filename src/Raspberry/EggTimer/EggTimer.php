@@ -33,13 +33,13 @@ class EggTimer
 
     /**
      * @Inject({"@MessageQueueGateway", "@TimeParser"})
-     * @param MessageQueueGateway $message_queue_gateway
-     * @param TimeParser $time_parser
+     * @param MessageQueueGateway $messageQueueGateway
+     * @param TimeParser $timeParser
      */
-    public function __construct(MessageQueueGateway $message_queue_gateway, TimeParser $time_parser)
+    public function __construct(MessageQueueGateway $messageQueueGateway, TimeParser $timeParser)
     {
-        $this->messageQueueGateway = $message_queue_gateway;
-        $this->timeParser = $time_parser;
+        $this->messageQueueGateway = $messageQueueGateway;
+        $this->timeParser = $timeParser;
     }
 
     /**
@@ -63,11 +63,11 @@ class EggTimer
     }
 
     /**
-     * @param string $job_id
+     * @param string $jobId
      */
-    public function deleteJob($job_id)
+    public function deleteJob($jobId)
     {
-        $this->messageQueueGateway->deleteEvent($job_id, EggTimerEvent::DONE);
+        $this->messageQueueGateway->deleteEvent($jobId, EggTimerEvent::DONE);
     }
 
     /**

@@ -11,15 +11,15 @@ class Node
     /**
      * @var integer
      */
-    private $id;
+    private $nodeId;
 
     /**
      * @Value("%node.id%")
-     * @param $node_id
+     * @param $nodeId
      */
-    public function __construct($node_id)
+    public function __construct($nodeId)
     {
-        $this->id = $node_id;
+        $this->nodeId = $nodeId;
     }
 
     /**
@@ -27,7 +27,7 @@ class Node
      */
     public function getNodeId()
     {
-        return $this->id;
+        return $this->nodeId;
     }
 
     /**
@@ -35,7 +35,7 @@ class Node
      */
     public function isMaster()
     {
-        return $this->id == 0;
+        return $this->nodeId == 0;
     }
 
     /**
@@ -43,6 +43,6 @@ class Node
      */
     public function isSlave()
     {
-        return $this->id > 0;
+        return $this->nodeId > 0;
     }
 }

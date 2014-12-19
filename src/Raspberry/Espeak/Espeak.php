@@ -29,13 +29,13 @@ class Espeak implements SpeakOutputInterface
 
     /**
      * @Inject({"@MessageQueueGateway", "@RaspberryClient"})
-     * @param MessageQueueGateway $message_queue_gateway
+     * @param MessageQueueGateway $messageQueueGateway
      * @param ClientInterface $client
      */
-    public function __construct(MessageQueueGateway $message_queue_gateway, ClientInterface $client)
+    public function __construct(MessageQueueGateway $messageQueueGateway, ClientInterface $client)
     {
         $this->client  = $client;
-        $this->gateway = $message_queue_gateway;
+        $this->gateway = $messageQueueGateway;
     }
 
     /**
@@ -74,10 +74,10 @@ class Espeak implements SpeakOutputInterface
     }
 
     /**
-     * @param string $job_id
+     * @param string $jobId
      */
-    public function deleteJob($job_id)
+    public function deleteJob($jobId)
     {
-        $this->gateway->deleteEvent($job_id, EspeakEvent::SPEAK);
+        $this->gateway->deleteEvent($jobId, EspeakEvent::SPEAK);
     }
 }

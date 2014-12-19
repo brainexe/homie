@@ -33,12 +33,12 @@ class BlogController implements ControllerInterface
     /**
      * @Inject({"@Blog", "@DatabaseUserProvider"})
      * @param Blog $blog
-     * @param DatabaseUserProvider $database_user_provider
+     * @param DatabaseUserProvider $userProvider
      */
-    public function __construct(Blog $blog, DatabaseUserProvider $database_user_provider)
+    public function __construct(Blog $blog, DatabaseUserProvider $userProvider)
     {
         $this->blog                   = $blog;
-        $this->userProvider = $database_user_provider;
+        $this->userProvider = $userProvider;
     }
 
     /**
@@ -48,9 +48,9 @@ class BlogController implements ControllerInterface
      */
     public function index(Request $request)
     {
-        $user_id = $request->attributes->get('user_id');
+        $userId = $request->attributes->get('user_id');
 
-        return $this->blogForUser($request, $user_id);
+        return $this->blogForUser($request, $userId);
     }
 
     /**
@@ -60,38 +60,38 @@ class BlogController implements ControllerInterface
      */
     public function getMood(Request $request)
     {
-        $user_id = $request->attributes->get('user_id');
+        $user = $request->attributes->get('user_id');
 
-        $recent_post = $this->blog->getRecentPost($user_id);
+        $recentPost = $this->blog->getRecentPost($user);
 
         return [
-        'mood' => $recent_post->mood * 10,
-        'thought' => $recent_post->text,
+        'mood' => $recentPost->mood * 10,
+        'thought' => $recentPost->text,
         ];
     }
 
     /**
      * @param Request $request
-     * @param integer $user_id
+     * @param integer $userId
      * @throws UserException
      * @return array
      * @Route("/blog/{user_id}/", name="blog.user", methods="GET")
      */
-    public function blogForUser(Request $request, $user_id)
+    public function blogForUser(Request $request, $userId)
     {
-        $current_user_id = $request->attributes->get('user_id');
-        $posts           = $this->blog->getPosts($user_id);
+        $currentUserId = $request->attributes->get('user_id');
+        $posts           = $this->blog->getPosts($userId);
         $users           = $this->userProvider->getAllUserNames();
 
-        if (!in_array($user_id, $users)) {
-            throw new UserException(sprintf('User not found: %s', $user_id));
+        if (!in_array($userId, $users)) {
+            throw new UserException(sprintf('User not found: %s', $userId));
         }
 
         return [
         'posts' => $posts,
         'users' => $users,
-        'active_user_id' => $user_id,
-        'current_user_id' => $current_user_id,
+        'active_user_id' => $userId,
+        'current_user_id' => $currentUserId,
         ];
     }
 
@@ -108,15 +108,15 @@ class BlogController implements ControllerInterface
         /** @var UserVO $user */
         $user = $request->attributes->get('user');
 
-        $blog_post_vo       = new BlogPostVO();
-        $blog_post_vo->text = $text;
-        $blog_post_vo->mood = $mood;
+        $post       = new BlogPostVO();
+        $post->text = $text;
+        $post->mood = $mood;
 
-        $this->blog->addPost($user, $blog_post_vo);
+        $this->blog->addPost($user, $post);
 
         return [
-        $this->now(),
-        $blog_post_vo
+            $this->now(),
+            $post
         ];
     }
 
@@ -128,9 +128,9 @@ class BlogController implements ControllerInterface
      */
     public function deletePost(Request $request, $timestamp)
     {
-        $user_id = $request->attributes->get('user_id');
+        $user = $request->attributes->get('user_id');
 
-        $this->blog->deletePost($user_id, $timestamp);
+        $this->blog->deletePost($user, $timestamp);
 
         return true;
     }

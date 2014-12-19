@@ -28,13 +28,13 @@ class RadioJob
 
     /**
      * @Inject({"@MessageQueueGateway", "@TimeParser"})
-     * @param MessageQueueGateway $message_queue_gateway
-     * @param TimeParser $time_parser
+     * @param MessageQueueGateway $messageQueueGateway
+     * @param TimeParser $timeParser
      */
-    public function __construct(MessageQueueGateway $message_queue_gateway, TimeParser $time_parser)
+    public function __construct(MessageQueueGateway $messageQueueGateway, TimeParser $timeParser)
     {
-        $this->messageQueueGateway = $message_queue_gateway;
-        $this->timeParser = $time_parser;
+        $this->messageQueueGateway = $messageQueueGateway;
+        $this->timeParser = $timeParser;
     }
 
     /**
@@ -46,23 +46,23 @@ class RadioJob
     }
 
     /**
-     * @param RadioVO $radio_vo
-     * @param string $time_string
+     * @param RadioVO $radio
+     * @param string $timeString
      * @param boolean $status
      */
-    public function addRadioJob(RadioVO $radio_vo, $time_string, $status)
+    public function addRadioJob(RadioVO $radio, $timeString, $status)
     {
-        $timestamp = $this->timeParser->parseString($time_string);
+        $timestamp = $this->timeParser->parseString($timeString);
 
-        $event = new RadioChangeEvent($radio_vo, $status);
+        $event = new RadioChangeEvent($radio, $status);
         $this->dispatchInBackground($event, $timestamp);
     }
 
     /**
-     * @param string $job_id
+     * @param string $jobId
      */
-    public function deleteJob($job_id)
+    public function deleteJob($jobId)
     {
-        $this->messageQueueGateway->deleteEvent($job_id, RadioChangeEvent::CHANGE_RADIO);
+        $this->messageQueueGateway->deleteEvent($jobId, RadioChangeEvent::CHANGE_RADIO);
     }
 }

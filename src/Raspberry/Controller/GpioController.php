@@ -21,11 +21,11 @@ class GpioController implements ControllerInterface
 
     /**
      * @Inject("@GpioManager")
-     * @param GpioManager $service_gpio_manager
+     * @param GpioManager $manager
      */
-    public function __construct(GpioManager $service_gpio_manager)
+    public function __construct(GpioManager $manager)
     {
-        $this->manager = $service_gpio_manager;
+        $this->manager = $manager;
     }
 
     /**
@@ -43,15 +43,15 @@ class GpioController implements ControllerInterface
 
     /**
      * @param Request $request
-     * @param integer $id
+     * @param integer $sensorId
      * @param string $status
      * @param integer $value
      * @return Pin
      * @Route("/gpio/set/{id}/{status}/{value}/", name="gpio.set", methods="POST")
      */
-    public function setStatus(Request $request, $id, $status, $value)
+    public function setStatus(Request $request, $sensorId, $status, $value)
     {
-        $pin = $this->manager->setPin($id, $status, $value);
+        $pin = $this->manager->setPin($sensorId, $status, $value);
 
         return $pin;
     }

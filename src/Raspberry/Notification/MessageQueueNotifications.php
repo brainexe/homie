@@ -21,11 +21,11 @@ class MessageQueueNotifications implements NotificationCollectorInterface
 
     /**
      * @Inject("@MessageQueueGateway")
-     * @param MessageQueueGateway $message_queue_gateway
+     * @param MessageQueueGateway $messageQueueGateway
      */
-    public function setMessageQueueGateway(MessageQueueGateway $message_queue_gateway)
+    public function setMessageQueueGateway(MessageQueueGateway $messageQueueGateway)
     {
-        $this->messageQueueGateway = $message_queue_gateway;
+        $this->messageQueueGateway = $messageQueueGateway;
     }
 
     /**

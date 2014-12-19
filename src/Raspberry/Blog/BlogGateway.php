@@ -16,17 +16,17 @@ class BlogGateway
     use RedisTrait;
 
     /**
-     * @param integer $user_id
-     * @param string $from
-     * @param string $to
+     * @param integer $userId
+     * @param string $fromTime
+     * @param string $toTime
      * @return BlogPostVO[]
      */
-    public function getPosts($user_id, $from = '0', $to = '+inf')
+    public function getPosts($userId, $fromTime = '0', $toTime = '+inf')
     {
-        $key = $this->getPostKey($user_id);
+        $key = $this->getPostKey($userId);
 
         $posts = [];
-        $posts_raw = $this->getRedis()->zRangeByScore($key, $from, $to, ['withscores' => true]);
+        $posts_raw = $this->getRedis()->zRangeByScore($key, $fromTime, $toTime, ['withscores' => true]);
 
         foreach ($posts_raw as $serialized => $timestamp) {
             $posts[$timestamp] = unserialize($serialized);
@@ -36,53 +36,53 @@ class BlogGateway
     }
 
     /**
-     * @param integer $user_id
+     * @param integer $userId
      * @return BlogPostVO|null
      */
-    public function getRecentPost($user_id)
+    public function getRecentPost($userId)
     {
-        $key = $this->getPostKey($user_id);
+        $key = $this->getPostKey($userId);
 
-        $posts_raw = $this->getRedis()->zRevRangeByScore($key, '+inf', '0', ['limit' => [0, 1]]);
+        $raw = $this->getRedis()->zRevRangeByScore($key, '+inf', '0', ['limit' => [0, 1]]);
 
-        if (empty($posts_raw)) {
+        if (empty($raw)) {
             return null;
         }
 
-        return unserialize($posts_raw[0]);
+        return unserialize($raw[0]);
     }
 
     /**
-     * @param integer $user_id
-     * @param integer $target_id
+     * @param integer $userId
+     * @param integer $targetId
      */
-    public function addSubscriber($user_id, $target_id)
+    public function addSubscriber($userId, $targetId)
     {
-        $key = $this->getSubscriberKey($target_id);
-        $this->getRedis()->sAdd($key, $user_id);
+        $key = $this->getSubscriberKey($targetId);
+        $this->getRedis()->sAdd($key, $userId);
     }
 
     /**
-     * @param integer $target_id
+     * @param integer $targetId
      * @return integer[]
      */
-    public function getSubscriber($target_id)
+    public function getSubscriber($targetId)
     {
-        $key = $this->getSubscriberKey($target_id);
+        $key = $this->getSubscriberKey($targetId);
 
         return $this->getRedis()->sMembers($key);
     }
 
     /**
-     * @param integer $user_id
+     * @param integer $userId
      * @param integer $timestamp
-     * @param BlogPostVO $post_vo
+     * @param BlogPostVO $postVo
      */
-    public function addPost($user_id, $timestamp, BlogPostVO $post_vo)
+    public function addPost($userId, $timestamp, BlogPostVO $postVo)
     {
-        $key = $this->getPostKey($user_id);
+        $key = $this->getPostKey($userId);
 
-        $this->getRedis()->zAdd($key, $timestamp, serialize($post_vo));
+        $this->getRedis()->zAdd($key, $timestamp, serialize($postVo));
     }
 
     /**
@@ -97,20 +97,20 @@ class BlogGateway
     }
 
     /**
-     * @param integer $user_id
+     * @param integer $userId
      * @return string
      */
-    private function getSubscriberKey($user_id)
+    private function getSubscriberKey($userId)
     {
-        return sprintf(self::REDIS_SUBSCRIBERS, $user_id);
+        return sprintf(self::REDIS_SUBSCRIBERS, $userId);
     }
 
     /**
-     * @param integer $user_id
+     * @param integer $userId
      * @return string
      */
-    private function getPostKey($user_id)
+    private function getPostKey($userId)
     {
-        return sprintf(self::REDIS_POSTS_KEY, $user_id);
+        return sprintf(self::REDIS_POSTS_KEY, $userId);
     }
 }

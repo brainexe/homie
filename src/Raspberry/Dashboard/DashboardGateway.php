@@ -17,17 +17,17 @@ class DashboardGateway
     const REDIS_DASHBOARD = 'dashboard:%s';
 
     /**
-     * @param integer $user_id
+     * @param integer $userId
      * @return array[]
      */
-    public function getDashboard($user_id)
+    public function getDashboard($userId)
     {
         $dashboard = [];
 
-        $widgets_raw = $this->getRedis()->hGetAll($this->getKey($user_id));
+        $widgetsRaw = $this->getRedis()->hGetAll($this->getKey($userId));
 
-        foreach ($widgets_raw as $id => $widget_raw) {
-            $widget = json_decode($widget_raw, true);
+        foreach ($widgetsRaw as $id => $widgetRaw) {
+            $widget = json_decode($widgetRaw, true);
             $widget['id']   = $id;
             $widget['open'] = true;
             $dashboard[] = $widget;
@@ -37,31 +37,31 @@ class DashboardGateway
     }
 
     /**
-     * @param integer $user_id
+     * @param integer $userId
      * @param array $payload
      */
-    public function addWidget($user_id, array $payload)
+    public function addWidget($userId, array $payload)
     {
-        $new_id = $this->generateRandomNumericId();
-        $this->getRedis()->HSET($this->getKey($user_id), $new_id, json_encode($payload));
+        $newId = $this->generateRandomNumericId();
+        $this->getRedis()->HSET($this->getKey($userId), $newId, json_encode($payload));
     }
 
     /**
-     * @param integer $user_id
-     * @param integer $widget_id
+     * @param integer $userId
+     * @param integer $widgetId
      */
-    public function deleteWidget($user_id, $widget_id)
+    public function deleteWidget($userId, $widgetId)
     {
-        $this->getRedis()->HDEL($this->getKey($user_id), $widget_id);
+        $this->getRedis()->HDEL($this->getKey($userId), $widgetId);
 
     }
 
     /**
-     * @param integer $user_id
+     * @param integer $userId
      * @return string
      */
-    private function getKey($user_id)
+    private function getKey($userId)
     {
-        return sprintf(self::REDIS_DASHBOARD, $user_id);
+        return sprintf(self::REDIS_DASHBOARD, $userId);
     }
 }

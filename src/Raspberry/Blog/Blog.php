@@ -19,68 +19,68 @@ class Blog
     /**
      * @var BlogGateway
      */
-    private $blog_gateway;
+    private $gateway;
 
     /**
      * @Inject("@BlogGateway")
-     * @param BlogGateway $blog_gateway
+     * @param BlogGateway $gateway
      */
-    public function __construct(BlogGateway $blog_gateway)
+    public function __construct(BlogGateway $gateway)
     {
-        $this->blog_gateway = $blog_gateway;
+        $this->gateway = $gateway;
     }
 
     /**
-     * @param integer $user_id
-     * @param string $from
-     * @param string $to
+     * @param integer $userId
+     * @param string $fromTime
+     * @param string $toTime
      * @return BlogPostVO[]
      */
-    public function getPosts($user_id, $from = '0', $to = '+inf')
+    public function getPosts($userId, $fromTime = '0', $toTime = '+inf')
     {
-        return $this->blog_gateway->getPosts($user_id, $from, $to);
+        return $this->gateway->getPosts($userId, $fromTime, $toTime);
     }
 
     /**
      * @param UserVO $user
-     * @param BlogPostVO $post_vo
+     * @param BlogPostVO $post
      */
-    public function addPost(UserVO $user, BlogPostVO $post_vo)
+    public function addPost(UserVO $user, BlogPostVO $post)
     {
-        if ($post_vo->mood < BlogPostVO::MIN_MOOD || $post_vo->mood > BlogPostVO::MAX_MOOD) {
-            $post_vo->mood = null;
+        if ($post->mood < BlogPostVO::MIN_MOOD || $post->mood > BlogPostVO::MAX_MOOD) {
+            $post->mood = null;
         }
 
-        $this->blog_gateway->addPost($user->id, $this->now(), $post_vo);
+        $this->gateway->addPost($user->id, $this->now(), $post);
 
-        $event = new BlogEvent($user, $post_vo);
+        $event = new BlogEvent($user, $post);
         $this->dispatchInBackground($event);
     }
 
     /**
-     * @param integer $user_id
+     * @param integer $userId
      * @param integer $timestamp
      */
-    public function deletePost($user_id, $timestamp)
+    public function deletePost($userId, $timestamp)
     {
-        $this->blog_gateway->deletePost($user_id, $timestamp);
+        $this->gateway->deletePost($userId, $timestamp);
     }
 
     /**
-     * @param integer $user_id
-     * @param integer $target_id
+     * @param integer $userId
+     * @param integer $targetId
      */
-    public function addSubscriber($user_id, $target_id)
+    public function addSubscriber($userId, $targetId)
     {
-        $this->blog_gateway->addSubscriber($user_id, $target_id);
+        $this->gateway->addSubscriber($userId, $targetId);
     }
 
     /**
-     * @param integer $user_id
+     * @param integer $userId
      * @return null|BlogPostVO
      */
-    public function getRecentPost($user_id)
+    public function getRecentPost($userId)
     {
-        return $this->blog_gateway->getRecentPost($user_id);
+        return $this->gateway->getRecentPost($userId);
     }
 }

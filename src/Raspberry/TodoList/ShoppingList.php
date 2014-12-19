@@ -15,11 +15,11 @@ class ShoppingList
 
     /**
      * @Inject("@ShoppingListGateway")
-     * @param ShoppingListGateway $shopping_list_gateway
+     * @param ShoppingListGateway $gateway
      */
-    public function __construct(ShoppingListGateway $shopping_list_gateway)
+    public function __construct(ShoppingListGateway $gateway)
     {
-        $this->gateway = $shopping_list_gateway;
+        $this->gateway = $gateway;
     }
 
     /**
