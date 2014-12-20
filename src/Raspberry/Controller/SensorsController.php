@@ -66,21 +66,21 @@ class SensorsController implements ControllerInterface
 
     /**
      * @param Request $request
-     * @param string $active_sensor_ids
+     * @param string $activeSensorIds
      * @return string
      * @Route("/sensors/load/{active_sensor_ids}")
      */
-    public function indexSensor(Request $request, $active_sensor_ids)
+    public function indexSensor(Request $request, $activeSensorIds)
     {
         $session = $request->getSession();
 
-        if (empty($active_sensor_ids)) {
-            $active_sensor_ids = $session->get(self::SESSION_LAST_VIEW) ?: '0';
+        if (empty($activeSensorIds)) {
+            $activeSensorIds = $session->get(self::SESSION_LAST_VIEW) ?: '0';
         }
 
         $available_sensor_ids = $this->gateway->getSensorIds();
-        if (empty($active_sensor_ids)) {
-            $active_sensor_ids = implode(':', $available_sensor_ids);
+        if (empty($activeSensorIds)) {
+            $activeSensorIds = implode(':', $available_sensor_ids);
         }
 
         $from = $request->query->get('from');
@@ -90,48 +90,48 @@ class SensorsController implements ControllerInterface
             $from = (int)$from;
         }
 
-        $session->set(self::SESSION_LAST_VIEW, $active_sensor_ids);
+        $session->set(self::SESSION_LAST_VIEW, $activeSensorIds);
         $session->set(self::SESSION_LAST_TIMESPAN, $from);
 
-        $active_sensor_ids = array_map('intval', explode(':', $active_sensor_ids));
+        $activeSensorIds = array_map('intval', explode(':', $activeSensorIds));
 
-        $sensor_values        = [];
+        $sensorValues        = [];
 
-        $sensors_raw     = $this->gateway->getSensors();
-        $sensor_objects = $this->builder->getSensors();
+        $sensorsRaw     = $this->gateway->getSensors();
+        $sensorObjects = $this->builder->getSensors();
 
-        foreach ($sensors_raw as &$sensor) {
+        foreach ($sensorsRaw as &$sensor) {
             $sensor_id = $sensor['id'];
 
             if (!empty($sensor['last_value'])) {
-                $sensor_obj           = $sensor_objects[$sensor['type']];
+                $sensor_obj           = $sensorObjects[$sensor['type']];
                 $sensor['espeak']     = (bool)$sensor_obj->getEspeakText($sensor['last_value']);
                 $sensor['last_value'] = $sensor_obj->formatValue($sensor['last_value']);
             } else {
                 $sensor['espeak'] = false;
             }
 
-            if ($active_sensor_ids && !in_array($sensor_id, $active_sensor_ids)) {
+            if ($activeSensorIds && !in_array($sensor_id, $activeSensorIds)) {
                 continue;
             }
-            $sensor_values[$sensor_id] = $this->valuesGteway->getSensorValues($sensor_id, $from);
+            $sensorValues[$sensor_id] = $this->valuesGteway->getSensorValues($sensor_id, $from);
         }
 
-        $json = $this->chart->formatJsonData($sensors_raw, $sensor_values);
+        $json = $this->chart->formatJsonData($sensorsRaw, $sensorValues);
 
         return [
-        'sensors' => $sensors_raw,
-        'active_sensor_ids' => $active_sensor_ids,
-        'json' => $json,
-        'current_from' => $from,
-        'available_sensors' => $sensor_objects,
-        'from_intervals' => [
-        0 => 'All',
-        3600 => 'Last Hour',
-        86400 => 'Last Day',
-        86400 * 7 => 'Last Week',
-        86400 * 30 => 'Last Month'
-        ]
+            'sensors' => $sensorsRaw,
+            'active_sensor_ids' => $activeSensorIds,
+            'json' => $json,
+            'current_from' => $from,
+            'available_sensors' => $sensorObjects,
+            'from_intervals' => [
+            0 => 'All',
+            3600 => 'Last Hour',
+            86400 => 'Last Day',
+            86400 * 7 => 'Last Week',
+            86400 * 30 => 'Last Month'
+            ]
         ];
     }
 
@@ -142,42 +142,42 @@ class SensorsController implements ControllerInterface
      */
     public function addSensor(Request $request)
     {
-        $sensor_type = $request->request->get('type');
+        $sensorType = $request->request->get('type');
         $name        = $request->request->get('name');
         $description = $request->request->get('description');
         $pin         = $request->request->get('pin');
         $interval    = $request->request->getInt('interval');
         $node        = $request->request->getInt('node');
 
-     // TODO sensor vo builder
-        $sensor_vo              = new SensorVO();
-        $sensor_vo->name        = $name;
-        $sensor_vo->type        = $sensor_type;
-        $sensor_vo->description = $description;
-        $sensor_vo->pin         = $pin;
-        $sensor_vo->interval    = $interval;
-        $sensor_vo->node        = $node;
+        // TODO sensor vo builder
+        $sensorVo              = new SensorVO();
+        $sensorVo->name        = $name;
+        $sensorVo->type        = $sensorType;
+        $sensorVo->description = $description;
+        $sensorVo->pin         = $pin;
+        $sensorVo->interval    = $interval;
+        $sensorVo->node        = $node;
 
-        $this->gateway->addSensor($sensor_vo);
+        $this->gateway->addSensor($sensorVo);
 
-        return $sensor_vo;
+        return $sensorVo;
     }
 
     /**
      * @param Request $request
-     * @param integer $sensor_id
+     * @param integer $sensorId
      * @return boolean
      * @Route("/sensors/espeak/{sensor_id}/", name="sensor.espeak", csrf=true)
      */
-    public function espeak(Request $request, $sensor_id)
+    public function espeak(Request $request, $sensorId)
     {
-        $sensor     = $this->gateway->getSensor($sensor_id);
-        $sensor_obj = $this->builder->build($sensor['type']);
+        $sensor     = $this->gateway->getSensor($sensorId);
+        $sensorObj = $this->builder->build($sensor['type']);
 
-        $text = $sensor_obj->getEspeakText($sensor['last_value']);
+        $text = $sensorObj->getEspeakText($sensor['last_value']);
 
-        $espeak_vo = new EspeakVO($text);
-        $event     = new EspeakEvent($espeak_vo);
+        $espeakVo = new EspeakVO($text);
+        $event     = new EspeakEvent($espeakVo);
         $this->dispatchInBackground($event);
 
         return true;

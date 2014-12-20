@@ -44,7 +44,7 @@ class WebcamController implements ControllerInterface
         $shots = $this->webcam->getPhotos();
 
         return [
-        'shots' => $shots
+            'shots' => $shots
         ];
     }
 
@@ -60,7 +60,7 @@ class WebcamController implements ControllerInterface
 
         $response = new JsonResponse(true);
 
-        $this->_addFlash($response, self::ALERT_INFO, 'Cheese...');
+        $this->addFlash($response, self::ALERT_INFO, 'Cheese...');
 
         return $response;
     }
@@ -72,9 +72,9 @@ class WebcamController implements ControllerInterface
      */
     public function delete(Request $request)
     {
-        $shot_id = $request->request->get('shot_id');
+        $shotId = $request->request->get('shot_id');
 
-        $this->webcam->delete($shot_id);
+        $this->webcam->delete($shotId);
 
         return true;
     }

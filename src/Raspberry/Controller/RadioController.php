@@ -73,7 +73,7 @@ class RadioController implements ControllerInterface
         $this->dispatchInBackground($event);
 
         $response = new JsonResponse(true);
-        $this->_addFlash($response, self::ALERT_SUCCESS, _('Set Radio'));
+        $this->addFlash($response, self::ALERT_SUCCESS, _('Set Radio'));
 
         return $response;
     }
@@ -88,9 +88,9 @@ class RadioController implements ControllerInterface
         $name        = $request->request->get('name');
         $description = $request->request->get('description');
         $code        = $request->request->get('code');
-        $pin_raw     = $request->request->get('pin');
+        $pinRaw      = $request->request->get('pin');
 
-        $pin = $this->radios->getRadioPin($pin_raw);
+        $pin = $this->radios->getRadioPin($pinRaw);
 
         $radio_vo = new RadioVO();
         $radio_vo->name        = $name;
@@ -146,7 +146,7 @@ class RadioController implements ControllerInterface
         $this->radioJob->addRadioJob($radio_vo, $time_string, $status);
 
         $response = new JsonResponse(true);
-        $this->_addFlash($response, self::ALERT_SUCCESS, _('The job was sored successfully'));
+        $this->addFlash($response, self::ALERT_SUCCESS, _('The job was sored successfully'));
 
         return $response;
     }
