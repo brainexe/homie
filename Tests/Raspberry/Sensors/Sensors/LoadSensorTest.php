@@ -25,44 +25,44 @@ class LoadSensorTest extends PHPUnit_Framework_TestCase
 
     public function testGetSensorType()
     {
-        $actual_result = $this->subject->getSensorType();
+        $actualResult = $this->subject->getSensorType();
 
-        $this->assertEquals(LoadSensor::TYPE, $actual_result);
+        $this->assertEquals(LoadSensor::TYPE, $actualResult);
     }
 
     public function testGetValue()
     {
         $pin = 1;
 
-        $actual_result = $this->subject->getValue($pin);
+        $actualResult = $this->subject->getValue($pin);
 
-        $this->assertTrue(is_numeric($actual_result));
+        $this->assertTrue(is_numeric($actualResult));
     }
 
     public function testFormatValue()
     {
         $value = 1211.1112;
 
-        $actual_result = $this->subject->formatValue($value);
+        $actualResult = $this->subject->formatValue($value);
 
-        $this->assertEquals('1211.1', $actual_result);
+        $this->assertEquals('1211.1', $actualResult);
     }
 
     public function testGetEspeakText()
     {
         $value = 1211.1112;
 
-        $actual_result = $this->subject->getEspeakText($value);
+        $actualResult = $this->subject->getEspeakText($value);
 
-        $this->assertEquals('1211.1', $actual_result);
+        $this->assertEquals('1211.1', $actualResult);
     }
 
     public function testIsSupported()
     {
         $output = new DummyOutput();
 
-        $actual_result = $this->subject->isSupported($output);
+        $actualResult = $this->subject->isSupported($output);
 
-        $this->assertTrue($actual_result);
+        $this->assertTrue($actualResult);
     }
 }

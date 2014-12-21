@@ -26,9 +26,9 @@ class BlogGateway
         $key = $this->getPostKey($userId);
 
         $posts = [];
-        $posts_raw = $this->getRedis()->zRangeByScore($key, $fromTime, $toTime, ['withscores' => true]);
+        $postsRaw = $this->getRedis()->zRangeByScore($key, $fromTime, $toTime, ['withscores' => true]);
 
-        foreach ($posts_raw as $serialized => $timestamp) {
+        foreach ($postsRaw as $serialized => $timestamp) {
             $posts[$timestamp] = unserialize($serialized);
         }
 
@@ -86,12 +86,12 @@ class BlogGateway
     }
 
     /**
-     * @param integer $user_id
+     * @param integer $userId
      * @param integer $timestamp
      */
-    public function deletePost($user_id, $timestamp)
+    public function deletePost($userId, $timestamp)
     {
-        $key = $this->getPostKey($user_id);
+        $key = $this->getPostKey($userId);
 
         $this->getRedis()->zDeleteRangeByScore($key, $timestamp, $timestamp);
     }

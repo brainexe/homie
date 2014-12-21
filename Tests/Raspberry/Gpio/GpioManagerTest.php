@@ -68,9 +68,9 @@ class GpioManagerTest extends PHPUnit_Framework_TestCase
         ->method('getPinDescriptions')
         ->will($this->returnValue($descriptions));
 
-        $actual_result = $this->subject->getPins();
+        $actualResult = $this->subject->getPins();
 
-        $this->assertEquals($pin_collection, $actual_result);
+        $this->assertEquals($pin_collection, $actualResult);
         $this->assertEquals($description, $pin->getDescription());
     }
 
@@ -99,8 +99,8 @@ class GpioManagerTest extends PHPUnit_Framework_TestCase
         ->method('execute')
         ->with(sprintf(GpioManager::GPIO_COMMAND_VALUE, $id, 1));
 
-        $actual_result = $this->subject->setPin($id, $status, $value);
+        $actualResult = $this->subject->setPin($id, $status, $value);
 
-        $this->assertEquals($pin, $actual_result);
+        $this->assertEquals($pin, $actualResult);
     }
 }

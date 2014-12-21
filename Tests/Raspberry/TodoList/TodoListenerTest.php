@@ -39,16 +39,16 @@ class TodoListenerTest extends PHPUnit_Framework_TestCase
 
     public function testGetSubscribedEvents()
     {
-        $actual_result = $this->subject->getSubscribedEvents();
-        $this->assertInternalType('array', $actual_result);
+        $actualResult = $this->subject->getSubscribedEvents();
+        $this->assertInternalType('array', $actualResult);
     }
 
     public function testHandleAddEventWithOutDeadline()
     {
-        $item_vo = new TodoItemVO();
-        $item_vo->deadline = 0;
+        $itemVo = new TodoItemVO();
+        $itemVo->deadline = 0;
 
-        $event = new TodoListEvent($item_vo, TodoListEvent::ADD);
+        $event = new TodoListEvent($itemVo, TodoListEvent::ADD);
 
         $this->mockEventDispatcher
         ->expects($this->never())
@@ -59,10 +59,10 @@ class TodoListenerTest extends PHPUnit_Framework_TestCase
 
     public function testHandleAddEventWithDeadline()
     {
-        $item_vo = new TodoItemVO();
-        $item_vo->deadline = $deadline = 10;
+        $itemVo = new TodoItemVO();
+        $itemVo->deadline = $deadline = 10;
 
-        $event = new TodoListEvent($item_vo, TodoListEvent::ADD);
+        $event = new TodoListEvent($itemVo, TodoListEvent::ADD);
 
         $this->mockEventDispatcher
         ->expects($this->once())

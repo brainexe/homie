@@ -59,13 +59,13 @@ class WebcamControllerTest extends PHPUnit_Framework_TestCase
         ->method('getPhotos')
         ->will($this->returnValue($photos));
 
-        $actual_result = $this->subject->index();
+        $actualResult = $this->subject->index();
 
-        $expected_result = [
+        $expectedResult = [
         'shots' => $photos
         ];
 
-        $this->assertEquals($expected_result, $actual_result);
+        $this->assertEquals($expectedResult, $actualResult);
     }
 
     public function testTakePhoto()
@@ -84,13 +84,13 @@ class WebcamControllerTest extends PHPUnit_Framework_TestCase
         ->method('dispatchInBackground')
         ->with($event);
 
-        $actual_result = $this->subject->takePhoto();
+        $actualResult = $this->subject->takePhoto();
 
-        $expected_result = new JsonResponse(true);
+        $expectedResult = new JsonResponse(true);
      // todo this->anything()
-        $expected_result->headers->set('X-Flash', json_encode([ControllerInterface::ALERT_INFO, 'Cheese...']));
+        $expectedResult->headers->set('X-Flash', json_encode([ControllerInterface::ALERT_INFO, 'Cheese...']));
 
-        $this->assertEquals($expected_result, $actual_result);
+        $this->assertEquals($expectedResult, $actualResult);
     }
 
     public function testDelete()
@@ -106,8 +106,8 @@ class WebcamControllerTest extends PHPUnit_Framework_TestCase
         ->with($photo_id);
 
 
-        $actual_result = $this->subject->delete($request);
+        $actualResult = $this->subject->delete($request);
 
-        $this->assertTrue($actual_result);
+        $this->assertTrue($actualResult);
     }
 }

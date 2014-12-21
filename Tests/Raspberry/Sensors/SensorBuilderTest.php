@@ -27,9 +27,9 @@ class SensorBuilderTest extends \PHPUnit_Framework_TestCase
         $sensor_type = 'sensor_123';
 
         $this->subject->addSensor($sensor_type, $sensor_mock);
-        $actual_result = $this->subject->getSensors();
+        $actualResult = $this->subject->getSensors();
 
-        $this->assertEquals([$sensor_type => $sensor_mock], $actual_result);
+        $this->assertEquals([$sensor_type => $sensor_mock], $actualResult);
     }
 
     /**
@@ -51,8 +51,8 @@ class SensorBuilderTest extends \PHPUnit_Framework_TestCase
 
         $this->subject->addSensor($sensor_type, $sensor_mock);
 
-        $actual_result = $this->subject->build($sensor_type);
+        $actualResult = $this->subject->build($sensor_type);
 
-        $this->assertEquals($sensor_mock, $actual_result);
+        $this->assertEquals($sensor_mock, $actualResult);
     }
 }

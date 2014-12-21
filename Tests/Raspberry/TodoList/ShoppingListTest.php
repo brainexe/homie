@@ -38,8 +38,8 @@ class ShoppingListTest extends PHPUnit_Framework_TestCase
         ->method('getShoppingListItems')
         ->will($this->returnValue($list));
 
-        $actual_result = $this->subject->getShoppingListItems();
-        $this->assertEquals($list, $actual_result);
+        $actualResult = $this->subject->getShoppingListItems();
+        $this->assertEquals($list, $actualResult);
     }
 
     public function testAddShoppingListItem()

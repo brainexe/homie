@@ -18,32 +18,31 @@ class SensorValuesGateway
     use TimeTrait;
 
     /**
-     * @param integer $sensor_id
+     * @param integer $sensorId
      * @param double $value
      */
-    public function addValue($sensor_id, $value)
+    public function addValue($sensorId, $value)
     {
         $redis = $this->getRedis()->multi(Redis::PIPELINE);
+        $now   = $this->now();
+        $key   = $this->getKey($sensorId);
 
-        $now = $this->now();
-
-        $key = $this->getKey($sensor_id);
         $redis->ZADD($key, $now, $now.'-'.$value);
 
-        $redis->HMSET(SensorGateway::REDIS_SENSOR_PREFIX . $sensor_id, [
-        'last_value' => $value,
-        'last_value_timestamp' => $now
+        $redis->HMSET(SensorGateway::REDIS_SENSOR_PREFIX . $sensorId, [
+            'last_value' => $value,
+            'last_value_timestamp' => $now
         ]);
 
         $redis->exec();
     }
 
     /**
-     * @param integer $sensor_id
+     * @param integer $sensorId
      * @param integer $from
      * @return array[]
      */
-    public function getSensorValues($sensor_id, $from)
+    public function getSensorValues($sensorId, $from)
     {
         $now = $this->now();
 
@@ -51,11 +50,11 @@ class SensorValuesGateway
             $from = $now - $from;
         }
 
-        $key = $this->getKey($sensor_id);
-        $redis_result = $this->getRedis()->ZRANGEBYSCORE($key, $from, $now);
-        $result = [];
+        $key         = $this->getKey($sensorId);
+        $redisResult = $this->getRedis()->ZRANGEBYSCORE($key, $from, $now);
+        $result      = [];
 
-        foreach ($redis_result as $part) {
+        foreach ($redisResult as $part) {
             list($timestamp, $value) = explode('-', $part);
             $result[$timestamp] = $value;
         }
@@ -64,25 +63,25 @@ class SensorValuesGateway
     }
 
     /**
-     * @param integer $sensor_id
+     * @param integer $sensorId
      * @param integer $days
-     * @param integer $deleted_percent
+     * @param integer $deletedPercent
      * @return integer $deleted_rows
      */
-    public function deleteOldValues($sensor_id, $days, $deleted_percent)
+    public function deleteOldValues($sensorId, $days, $deletedPercent)
     {
         $deleted = 0;
 
         $redis = $this->getRedis();
 
-        $until_timestamp = $this->now() - $days * 86400;
-        $key = $this->getKey($sensor_id);
-        $old_sensor_values = $redis->ZRANGEBYSCORE($key, 0, $until_timestamp);
+        $untilTimestamp = $this->now() - $days * 86400;
+        $key            = $this->getKey($sensorId);
+        $oldValues      = $redis->ZRANGEBYSCORE($key, 0, $untilTimestamp);
 
-        foreach ($old_sensor_values as $result) {
-            $crc_32 = crc32(md5($result));
+        foreach ($oldValues as $result) {
+            $crc32 = crc32(md5($result));
 
-            if ($crc_32 % 100 < $deleted_percent) {
+            if ($crc32 % 100 < $deletedPercent) {
                 $redis->ZREM($key, $result);
 
                 $deleted += 1;
@@ -93,11 +92,11 @@ class SensorValuesGateway
     }
 
     /**
-     * @param integer $sensor_id
+     * @param integer $sensorId
      * @return string
      */
-    private function getKey($sensor_id)
+    private function getKey($sensorId)
     {
-        return sprintf(self::REDIS_SENSOR_VALUES, $sensor_id);
+        return sprintf(self::REDIS_SENSOR_VALUES, $sensorId);
     }
 }

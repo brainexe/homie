@@ -14,7 +14,7 @@ class TodoItemVO extends AbstractVO
     /**
      * @var integer
      */
-    public $id;
+    public $todoId;
 
     /**
      * @var string
@@ -24,12 +24,12 @@ class TodoItemVO extends AbstractVO
     /**
      * @var int
      */
-    public $user_id;
+    public $userId;
 
     /**
      * @var int
      */
-    public $user_name;
+    public $userName;
 
     /**
      * @var string
@@ -49,10 +49,10 @@ class TodoItemVO extends AbstractVO
     /**
      * @var integer
      */
-    public $created_at;
+    public $createdAt;
 
     /**
      * @var integer
      */
-    public $last_change;
+    public $lastChange;
 }

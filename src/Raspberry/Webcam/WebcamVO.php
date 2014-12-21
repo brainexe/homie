@@ -8,17 +8,17 @@ class WebcamVO
     /**
      * @var string
      */
-    public $id;
+    public $webcamId;
 
     /**
      * @var string
      */
-    public $file_path;
+    public $filePath;
 
     /**
      * @var string
      */
-    public $web_path;
+    public $webPath;
 
     /**
      * @varstring
@@ -33,7 +33,7 @@ class WebcamVO
     /**
      * @return string
      */
-    public function getId()
+    public function getWebcamId()
     {
         return basename($this->name, '.' . Webcam::EXTENSION);
     }

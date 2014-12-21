@@ -104,7 +104,7 @@ class SensorCronCommandTest extends PHPUnit_Framework_TestCase
         ];
 
         $sensor = new SensorVO();
-        $sensor->id = 10;
+        $sensor->sensorId = 10;
         $sensor->type = $type = 'type';
         $sensor->pin = $pin = 12;
         $sensor->name = $name = 'name';
@@ -157,7 +157,7 @@ class SensorCronCommandTest extends PHPUnit_Framework_TestCase
         ];
 
         $sensor = new SensorVO();
-        $sensor->id = 10;
+        $sensor->sensorId = 10;
         $sensor->type = $type = 'type';
         $sensor->pin = $pin = 12;
         $sensor->name = $name = 'name';

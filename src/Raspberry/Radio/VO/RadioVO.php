@@ -10,7 +10,7 @@ class RadioVO extends AbstractVO
     /**
      * @var integer
      */
-    public $id;
+    public $radioId;
 
     /**
      * @var string

@@ -21,11 +21,11 @@ class EggTimerController implements ControllerInterface
 
     /**
      * @Inject({"@EggTimer"})
-     * @param EggTimer $egg_timer
+     * @param EggTimer $timer
      */
-    public function __construct(EggTimer $egg_timer)
+    public function __construct(EggTimer $timer)
     {
-        $this->timer = $egg_timer;
+        $this->timer = $timer;
     }
 
     /**
@@ -34,10 +34,10 @@ class EggTimerController implements ControllerInterface
      */
     public function index()
     {
-        $current_jobs = $this->timer->getJobs();
+        $currentJobs = $this->timer->getJobs();
 
         return [
-        'jobs' => $current_jobs
+            'jobs' => $currentJobs
         ];
     }
 
@@ -53,23 +53,23 @@ class EggTimerController implements ControllerInterface
 
         $this->timer->addNewJob($time, $text);
 
-        $current_jobs = $this->timer->getJobs();
+        $currentJobs = $this->timer->getJobs();
 
-        return $current_jobs;
+        return $currentJobs;
     }
 
     /**
      * @param Request $request
-     * @param string $job_id
+     * @param string $jobId
      * @return MessageQueueJob[]
      * @Route("/egg_timer/delete/{job_id}/", name="egg_timer.delete", methods="POST")
      */
-    public function deleteEggTimer(Request $request, $job_id)
+    public function deleteEggTimer(Request $request, $jobId)
     {
-        $this->timer->deleteJob($job_id);
+        $this->timer->deleteJob($jobId);
 
-        $current_jobs = $this->timer->getJobs();
+        $currentJobs = $this->timer->getJobs();
 
-        return $current_jobs;
+        return $currentJobs;
     }
 }

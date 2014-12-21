@@ -33,12 +33,12 @@ class EspeakController implements ControllerInterface
     /**
      * @Inject({"@Espeak", "@TimeParser"})
      * @param Espeak $espeak
-     * @param TimeParser $time_parser
+     * @param TimeParser $timeParser
      */
-    public function __construct(Espeak $espeak, TimeParser $time_parser)
+    public function __construct(Espeak $espeak, TimeParser $timeParser)
     {
         $this->espeak      = $espeak;
-        $this->timeParser = $time_parser;
+        $this->timeParser  = $timeParser;
     }
 
     /**
@@ -51,8 +51,8 @@ class EspeakController implements ControllerInterface
         $jobs     = $this->espeak->getPendingJobs();
 
         return [
-        'speakers' => $speakers,
-        'jobs' => $jobs
+            'speakers' => $speakers,
+            'jobs' => $jobs
         ];
     }
 
@@ -67,18 +67,18 @@ class EspeakController implements ControllerInterface
         $text      = $request->request->get('text');
         $volume    = $request->request->getInt('volume');
         $speed     = $request->request->getInt('speed');
-        $delay_raw = $request->request->get('delay');
+        $delayRaw  = $request->request->get('delay');
 
-        $timestamp = $this->timeParser->parseString($delay_raw);
+        $timestamp = $this->timeParser->parseString($delayRaw);
 
-        $espeak_vo = new EspeakVO($text, $volume, $speed, $speaker);
-        $event     = new EspeakEvent($espeak_vo);
+        $espeakVo  = new EspeakVO($text, $volume, $speed, $speaker);
+        $event     = new EspeakEvent($espeakVo);
 
         $this->dispatchInBackground($event, $timestamp);
 
-        $pending_jobs = $this->espeak->getPendingJobs();
+        $pendingJobs = $this->espeak->getPendingJobs();
 
-        return $pending_jobs;
+        return $pendingJobs;
     }
 
     /**
@@ -88,9 +88,9 @@ class EspeakController implements ControllerInterface
      */
     public function deleteJob(Request $request)
     {
-        $job_id = $request->request->get('job_id');
+        $jobId = $request->request->get('job_id');
 
-        $this->espeak->deleteJob($job_id);
+        $this->espeak->deleteJob($jobId);
 
         return true;
     }

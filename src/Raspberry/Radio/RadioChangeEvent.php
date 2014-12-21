@@ -13,7 +13,7 @@ class RadioChangeEvent extends AbstractEvent
     /**
      * @var RadioVO
      */
-    public $radio_vo;
+    public $radioVo;
 
     /**
      * @var boolean
@@ -23,16 +23,16 @@ class RadioChangeEvent extends AbstractEvent
     /**
      * @var boolean
      */
-    public $is_job;
+    public $isJob;
 
     /**
-     * @param RadioVO $radio_vo
+     * @param RadioVO $radioVo
      * @param boolean $status
      */
-    public function __construct(RadioVO $radio_vo, $status)
+    public function __construct(RadioVO $radioVo, $status)
     {
         $this->event_name = self::CHANGE_RADIO;
-        $this->radio_vo = $radio_vo;
-        $this->status = $status;
+        $this->radio_vo   = $radioVo;
+        $this->status     = $status;
     }
 }

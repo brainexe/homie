@@ -65,15 +65,15 @@ class RadioControllerTest extends PHPUnit_Framework_TestCase
             ->method('getJobs')
             ->will($this->returnValue($jobs));
 
-        $actual_result = $this->subject->index();
+        $actualResult = $this->subject->index();
 
-        $expected_result = [
+        $expectedResult = [
             'radios' => $radios_formatted,
             'radio_jobs' => $jobs,
-            'pins' => Radios::$radio_pins,
+            'pins' => Radios::$radioPins,
         ];
 
-        $this->assertEquals($expected_result, $actual_result);
+        $this->assertEquals($expectedResult, $actualResult);
     }
 
     public function testSetStatus()
@@ -95,12 +95,12 @@ class RadioControllerTest extends PHPUnit_Framework_TestCase
             ->method('dispatchInBackground')
             ->with($event);
 
-        $actual_result = $this->subject->setStatus($request, $radio_id, $status);
+        $actualResult = $this->subject->setStatus($request, $radio_id, $status);
 
-        $expected_result = new JsonResponse(true);
-        $expected_result->headers->set('X-Flash', json_encode([ControllerInterface::ALERT_SUCCESS, _('Set Radio')]));
+        $expectedResult = new JsonResponse(true);
+        $expectedResult->headers->set('X-Flash', json_encode([ControllerInterface::ALERT_SUCCESS, _('Set Radio')]));
 
-        $this->assertEquals($expected_result, $actual_result);
+        $this->assertEquals($expectedResult, $actualResult);
     }
 
     public function testAddRadio()
@@ -134,9 +134,9 @@ class RadioControllerTest extends PHPUnit_Framework_TestCase
         ->with($pin_raw)
         ->will($this->returnValue($pin));
 
-        $actual_result = $this->subject->addRadio($request);
+        $actualResult = $this->subject->addRadio($request);
 
-        $this->assertEquals($radio_vo, $actual_result);
+        $this->assertEquals($radio_vo, $actualResult);
     }
 
     public function testDeleteRadio()
@@ -149,9 +149,9 @@ class RadioControllerTest extends PHPUnit_Framework_TestCase
         ->method('deleteRadio')
         ->with($radio_id);
 
-        $actual_result = $this->subject->deleteRadio($request, $radio_id);
+        $actualResult = $this->subject->deleteRadio($request, $radio_id);
 
-        $this->assertTrue($actual_result);
+        $this->assertTrue($actualResult);
     }
 
     public function testEditRadio()
@@ -161,9 +161,9 @@ class RadioControllerTest extends PHPUnit_Framework_TestCase
         $request = new Request();
         $request->request->set('radio_id', $radio_id);
 
-        $actual_result = $this->subject->editRadio($request);
+        $actualResult = $this->subject->editRadio($request);
 
-        $this->assertTrue($actual_result);
+        $this->assertTrue($actualResult);
     }
 
     public function testAddRadioJob()
@@ -190,14 +190,14 @@ class RadioControllerTest extends PHPUnit_Framework_TestCase
             ->method('addRadioJob')
             ->with($radio_vo, $time_string, $status);
 
-        $actual_result = $this->subject->addRadioJob($request);
+        $actualResult = $this->subject->addRadioJob($request);
 
-        $expected_result = new JsonResponse(true);
-        $expected_result->headers->set(
+        $expectedResult = new JsonResponse(true);
+        $expectedResult->headers->set(
             'X-Flash',
             json_encode([ControllerInterface::ALERT_SUCCESS, _('The job was sored successfully')])
         );
-        $this->assertEquals($expected_result, $actual_result);
+        $this->assertEquals($expectedResult, $actualResult);
     }
 
     public function testDeleteRadioJob()
@@ -210,8 +210,8 @@ class RadioControllerTest extends PHPUnit_Framework_TestCase
             ->method('deleteJob')
             ->with($radio_id);
 
-        $actual_result = $this->subject->deleteRadioJob($request, $radio_id);
+        $actualResult = $this->subject->deleteRadioJob($request, $radio_id);
 
-        $this->assertTrue($actual_result);
+        $this->assertTrue($actualResult);
     }
 }

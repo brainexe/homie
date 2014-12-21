@@ -43,13 +43,13 @@ class InputControl implements EventSubscriberInterface
      */
     public function setRadio(Event $event)
     {
-        list ($status, $radio_id) = $event->matches;
+        list ($status, $radioId) = $event->matches;
 
         $status = $status === 'on';
 
-        $radio_vo = $this->radios->getRadio($radio_id);
+        $radioVo = $this->radios->getRadio($radioId);
 
-        $event = new RadioChangeEvent($radio_vo, $status);
+        $event = new RadioChangeEvent($radioVo, $status);
         $this->dispatchEvent($event);
     }
 }

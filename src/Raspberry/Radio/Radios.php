@@ -15,12 +15,12 @@ class Radios
     /**
      * @var array
      */
-    public static $radio_pins = [
-    'A' => 1,
-    'B' => 2,
-    'C' => 3,
-    'D' => 4,
-    'E' => 5,
+    public static $radioPins = [
+        'A' => 1,
+        'B' => 2,
+        'C' => 3,
+        'D' => 4,
+        'E' => 5,
     ];
 
     /**
@@ -30,11 +30,11 @@ class Radios
 
     /**
      * @Inject("@RadioGateway")
-     * @param RadioGateway $radio_gateway
+     * @param RadioGateway $gateway
      */
-    public function __construct(RadioGateway $radio_gateway)
+    public function __construct(RadioGateway $gateway)
     {
-        $this->gateway = $radio_gateway;
+        $this->gateway = $gateway;
     }
 
     /**
@@ -45,8 +45,8 @@ class Radios
     public function getRadioPin($pin)
     {
         if (is_numeric($pin)) {
-            $pin = (int)$pin;
-            $flipped = array_flip(self::$radio_pins);
+            $pin     = (int)$pin;
+            $flipped = array_flip(self::$radioPins);
             if (!isset($flipped[$pin])) {
                 throw new UserException(sprintf("Invalid pin: %s", $pin));
             }
@@ -54,23 +54,23 @@ class Radios
         }
 
         $pin = strtoupper($pin);
-        if (empty(self::$radio_pins[$pin])) {
+        if (empty(self::$radioPins[$pin])) {
             throw new UserException(sprintf("Invalid pin: %s", $pin));
         }
 
-        return self::$radio_pins[$pin];
+        return self::$radioPins[$pin];
     }
 
     /**
-     * @param integer $radio_id
+     * @param integer $radioId
      * @return RadioVO
      */
-    public function getRadio($radio_id)
+    public function getRadio($radioId)
     {
-        $raw = $this->gateway->getRadio($radio_id);
+        $raw = $this->gateway->getRadio($radioId);
 
         if (empty($raw)) {
-            throw new InvalidArgumentException(sprintf('Invalid radio: %d', $radio_id));
+            throw new InvalidArgumentException(sprintf('Invalid radio: %d', $radioId));
         }
 
         return $this->buildRadioVO($raw);
@@ -82,9 +82,9 @@ class Radios
     public function getRadios()
     {
         $radios = [];
-        $radios_raw = $this->gateway->getRadios();
+        $radiosRaw = $this->gateway->getRadios();
 
-        foreach ($radios_raw as $radio) {
+        foreach ($radiosRaw as $radio) {
             $radios[$radio['id']] = $this->buildRadioVO($radio);
         }
 
@@ -92,20 +92,20 @@ class Radios
     }
 
     /**
-     * @param RadioVO $radio_vo
-     * @return integer $radio_id
+     * @param RadioVO $radioVo
+     * @return integer $radioId
      */
-    public function addRadio(RadioVO $radio_vo)
+    public function addRadio(RadioVO $radioVo)
     {
-        return $this->gateway->addRadio($radio_vo);
+        return $this->gateway->addRadio($radioVo);
     }
 
     /**
-     * @param integer $radio_id
+     * @param integer $radioId
      */
-    public function deleteRadio($radio_id)
+    public function deleteRadio($radioId)
     {
-        $this->gateway->deleteRadio($radio_id);
+        $this->gateway->deleteRadio($radioId);
     }
 
     /**
@@ -114,13 +114,13 @@ class Radios
      */
     private function buildRadioVO(array $raw)
     {
-        $radio_vo = new RadioVO();
-        $radio_vo->id = $raw['id'];
-        $radio_vo->name = $raw['name'];
-        $radio_vo->description = $raw['description'];
-        $radio_vo->code = $raw['code'];
-        $radio_vo->pin = $raw['pin'];
+        $radioVo = new RadioVO();
+        $radioVo->radioId = $raw['id'];
+        $radioVo->name = $raw['name'];
+        $radioVo->description = $raw['description'];
+        $radioVo->code = $raw['code'];
+        $radioVo->pin = $raw['pin'];
 
-        return $radio_vo;
+        return $radioVo;
     }
 }

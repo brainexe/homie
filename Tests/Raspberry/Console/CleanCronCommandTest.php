@@ -64,26 +64,26 @@ class CleanCronCommandTest extends PHPUnit_Framework_TestCase
 
         $commandTester = new CommandTester($this->subject);
 
-        $sensor_ids = [
-        $sensor_id = 10
+        $sensorIds = [
+            $sensorId = 10
         ];
 
         $this->mockSensorGateway
-        ->expects($this->once())
-        ->method('getSensorIds')
-        ->will($this->returnValue($sensor_ids));
+            ->expects($this->once())
+            ->method('getSensorIds')
+            ->will($this->returnValue($sensorIds));
 
         $this->mockSensorValuesGateway
-        ->expects($this->at(0))
-        ->method('deleteOldValues')
-        ->with($sensor_id, 7, 10)
-        ->will($this->returnValue(5));
+            ->expects($this->at(0))
+            ->method('deleteOldValues')
+            ->with($sensorId, 7, 10)
+            ->will($this->returnValue(5));
 
         $this->mockSensorValuesGateway
-        ->expects($this->at(1))
-        ->method('deleteOldValues')
-        ->with($sensor_id, 10, 80)
-        ->will($this->returnValue(8));
+            ->expects($this->at(1))
+            ->method('deleteOldValues')
+            ->with($sensorId, 10, 80)
+            ->will($this->returnValue(8));
 
         $commandTester->execute([]);
 

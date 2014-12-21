@@ -65,8 +65,8 @@ class TemperatureDS18 implements SensorInterface
 
         $temperature = $matches[1] / 1000;
 
-        $invalid_temperatures = [0.0, 85.0];
-        if (in_array($temperature, $invalid_temperatures)) {
+        $invalidTemperatures = [0.0, 85.0];
+        if (in_array($temperature, $invalidTemperatures)) {
             return null;
         }
 
@@ -78,10 +78,10 @@ class TemperatureDS18 implements SensorInterface
      */
     public function isSupported(OutputInterface $output)
     {
-        $bus_system = '/sys/bus/w1/devices';
+        $busSystem = '/sys/bus/w1/devices';
 
-        if (!$this->fileSystem->exists($bus_system)) {
-            $output->writeln(sprintf('<error>%s: w1 bus not exists: %s</error>', self::getSensorType(), $bus_system));
+        if (!$this->fileSystem->exists($busSystem)) {
+            $output->writeln(sprintf('<error>%s: w1 bus not exists: %s</error>', self::getSensorType(), $busSystem));
             return false;
         }
 

@@ -20,7 +20,7 @@ class InputControl implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-        '/^(say|speak) (.*)$/' => 'say'
+            '/^(say|speak) (.*)$/' => 'say'
         ];
     }
 

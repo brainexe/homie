@@ -50,14 +50,14 @@ class TodoListController implements ControllerInterface
      */
     public function index()
     {
-        $list = $this->todo->getList();
-        $shopping_list = $this->shoppingList->getShoppingListItems();
-        $user_names = $this->userProvider->getAllUserNames();
+        $list         = $this->todo->getList();
+        $shoppingList = $this->shoppingList->getShoppingListItems();
+        $userNames    = $this->userProvider->getAllUserNames();
 
         return new JsonResponse([
-        'list' => $list,
-        'shopping_list' => $shopping_list,
-        'user_names' => array_flip($user_names)
+            'list' => $list,
+            'shopping_list' => $shoppingList,
+            'user_names' => array_flip($userNames)
         ]);
     }
 
@@ -79,16 +79,16 @@ class TodoListController implements ControllerInterface
      */
     public function addItem(Request $request)
     {
-        $item_vo = new TodoItemVO();
-        $item_vo->name = $request->request->get('name');
-        $item_vo->description = $request->request->get('description');
-        $item_vo->deadline = strtotime($request->request->get('deadline'));
+        $itemVo = new TodoItemVO();
+        $itemVo->name = $request->request->get('name');
+        $itemVo->description = $request->request->get('description');
+        $itemVo->deadline = strtotime($request->request->get('deadline'));
 
         $user = $request->attributes->get('user');
 
-        $this->todo->addItem($user, $item_vo);
+        $this->todo->addItem($user, $itemVo);
 
-        return new JsonResponse($item_vo);
+        return new JsonResponse($itemVo);
     }
 
     /**
@@ -126,12 +126,12 @@ class TodoListController implements ControllerInterface
      */
     public function setItemStatus(Request $request)
     {
-        $item_id = $request->request->getInt('id');
+        $itemId = $request->request->getInt('id');
         $changes = $request->request->get('changes');
 
-        $item_vo = $this->todo->editItem($item_id, $changes);
+        $itemVo = $this->todo->editItem($itemId, $changes);
 
-        return new JsonResponse($item_vo);
+        return new JsonResponse($itemVo);
     }
 
     /**
@@ -141,16 +141,16 @@ class TodoListController implements ControllerInterface
      */
     public function setAssignee(Request $request)
     {
-        $item_id = $request->request->getInt('id');
-        $user_id = $request->request->getInt('user_id');
+        $itemId = $request->request->getInt('id');
+        $userId = $request->request->getInt('user_id');
 
-        $user = $this->userProvider->loadUserById($user_id);
+        $user = $this->userProvider->loadUserById($userId);
 
-        $item_vo = $this->todo->editItem($item_id, [
-        'user_id' => $user_id,
+        $itemVo = $this->todo->editItem($itemId, [
+        'user_id' => $userId,
         'user_name' => $user->username,
         ]);
-        return new JsonResponse($item_vo);
+        return new JsonResponse($itemVo);
     }
 
     /**
@@ -160,9 +160,9 @@ class TodoListController implements ControllerInterface
      */
     public function deleteItem(Request $request)
     {
-        $item_id = $request->request->getInt('id');
+        $itemId = $request->request->getInt('id');
 
-        $this->todo->deleteItem($item_id);
+        $this->todo->deleteItem($itemId);
 
         return new JsonResponse(true);
     }

@@ -60,16 +60,16 @@ class RadiosTest extends PHPUnit_Framework_TestCase
         ->method('getRadios')
         ->will($this->returnValue([$radio]));
 
-        $actual_result = $this->subject->getRadios();
+        $actualResult = $this->subject->getRadios();
 
         $expected = new RadioVO();
-        $expected->id = $radio['id'];
+        $expected->radioId = $radio['id'];
         $expected->name = $radio['name'];
         $expected->description = $radio['description'];
         $expected->pin = $radio['pin'];
         $expected->code = $radio['code'];
 
-        $this->assertEquals([$radio['id'] => $expected], $actual_result);
+        $this->assertEquals([$radio['id'] => $expected], $actualResult);
     }
 
     public function testAddRadio()
@@ -88,9 +88,9 @@ class RadiosTest extends PHPUnit_Framework_TestCase
         ->with($radio_vo)
         ->will($this->returnValue($radio_id));
 
-        $actual_result = $this->subject->addRadio($radio_vo);
+        $actualResult = $this->subject->addRadio($radio_vo);
 
-        $this->assertEquals($radio_id, $actual_result);
+        $this->assertEquals($radio_id, $actualResult);
     }
 
     public function testDeleteRadio()
@@ -126,7 +126,7 @@ class RadiosTest extends PHPUnit_Framework_TestCase
         $result = $this->subject->getRadio($radio_id);
 
         $radio_vo = new RadioVO();
-        $radio_vo->id = $radio_id;
+        $radio_vo->radioId = $radio_id;
         $radio_vo->name = $radio['name'];
         $radio_vo->description = $radio['description'];
         $radio_vo->code = $radio['code'];

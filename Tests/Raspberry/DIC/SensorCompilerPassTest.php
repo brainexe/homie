@@ -39,7 +39,7 @@ class SensorCompilerPassTest extends PHPUnit_Framework_TestCase
     {
         $sensor_builder = $this->getMock(Definition::class);
         $sensor_definition = $this->getMock(Definition::class);
-        $sensor_id = 'sensor_1';
+        $sensorId = 'sensor_1';
 
         $sensor = $this->getMock(SensorInterface::class);
 
@@ -54,23 +54,23 @@ class SensorCompilerPassTest extends PHPUnit_Framework_TestCase
         ->method('findTaggedServiceIds')
         ->with(SensorCompilerPass::TAG)
         ->will($this->returnValue([
-        $sensor_id => $sensor_definition
+        $sensorId => $sensor_definition
         ]));
 
         $this->mock_container
         ->expects($this->at(2))
         ->method('get')
-        ->with($sensor_id)
+        ->with($sensorId)
         ->will($this->returnValue($sensor));
 
         $sensor->expects($this->once())
          ->method('getSensorType')
-         ->will($this->returnValue($sensor_id));
+         ->will($this->returnValue($sensorId));
 
         $sensor_builder
         ->expects($this->once())
         ->method('addMethodCall')
-        ->with('addSensor', [$sensor_id, new Reference($sensor_id)]);
+        ->with('addSensor', [$sensorId, new Reference($sensorId)]);
 
         $this->subject->process($this->mock_container);
     }

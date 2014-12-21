@@ -24,8 +24,8 @@ class WidgetCompilerPass implements CompilerPassInterface
         $definition = $container->getDefinition('WidgetFactory');
 
         $taggedServices = $container->findTaggedServiceIds(self::TAG);
-        foreach ($taggedServices as $id => $attributes) {
-            $definition->addMethodCall('addWidget', [new Reference($id)]);
+        foreach (array_keys($taggedServices) as $serviceId) {
+            $definition->addMethodCall('addWidget', [new Reference($serviceId)]);
         }
     }
 }

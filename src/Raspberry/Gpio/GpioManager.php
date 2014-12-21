@@ -31,15 +31,15 @@ class GpioManager
 
     /**
      * @Inject({"@PinGateway", "@RaspberryClient", "@PinLoader"})
-     * @param PinGateway $pin_gateway
-     * @param ClientInterface $local_client
-     * @param PinLoader $pinLoader
+     * @param PinGateway $gateway
+     * @param ClientInterface $client
+     * @param PinLoader $loader
      */
-    public function __construct(PinGateway $pin_gateway, ClientInterface $local_client, PinLoader $pinLoader)
+    public function __construct(PinGateway $gateway, ClientInterface $client, PinLoader $loader)
     {
-        $this->gateway  = $pin_gateway;
-        $this->client = $local_client;
-        $this->loader   = $pinLoader;
+        $this->gateway = $gateway;
+        $this->client  = $client;
+        $this->loader  = $loader;
     }
 
     /**
@@ -62,14 +62,14 @@ class GpioManager
     }
 
     /**
-     * @param integer $id
+     * @param integer $pinId
      * @param string $status
      * @param boolean $value
      * @return Pin
      */
-    public function setPin($id, $status, $value)
+    public function setPin($pinId, $status, $value)
     {
-        $pin = $this->loader->loadPin($id);
+        $pin = $this->loader->loadPin($pinId);
 
         $pin->setDirection($status ? Pin::DIRECTION_OUT : Pin::DIRECTION_IN);
         $pin->setValue($value ? Pin::VALUE_HIGH : Pin::VALUE_LOW);

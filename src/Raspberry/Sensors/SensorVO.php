@@ -8,7 +8,7 @@ class SensorVO
     /**
      * @var int
      */
-    public $id;
+    public $sensorId;
 
     /**
      * @var string
@@ -43,10 +43,10 @@ class SensorVO
     /**
      * @var int - unix timestamp
      */
-    public $last_value_timestamp;
+    public $lastValueTimestamp;
 
     /**
      * @var float
      */
-    public $last_value;
+    public $lastValue;
 }

@@ -40,9 +40,9 @@ class ShoppingListGatewayTest extends PHPUnit_Framework_TestCase
         ->with(ShoppingListGateway::REDIS_KEY)
         ->will($this->returnValue($items));
 
-        $actual_result = $this->subject->getShoppingListItems();
+        $actualResult = $this->subject->getShoppingListItems();
 
-        $this->assertEquals($items, $actual_result);
+        $this->assertEquals($items, $actualResult);
     }
 
     public function testAddShoppingListItem()

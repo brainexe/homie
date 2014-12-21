@@ -62,14 +62,14 @@ class DashboardTest extends PHPUnit_Framework_TestCase
         ->method('getAvailableWidgets')
         ->will($this->returnValue($widgets));
 
-        $actual_result = $this->subject->getAvailableWidgets();
+        $actualResult = $this->subject->getAvailableWidgets();
 
-        $this->assertEquals($widgets, $actual_result);
+        $this->assertEquals($widgets, $actualResult);
     }
 
     public function testAddWidget()
     {
-        $user_id = 42;
+        $userId = 42;
         $type = 'type';
         $payload = [];
         $payload['type'] = $type;
@@ -90,21 +90,21 @@ class DashboardTest extends PHPUnit_Framework_TestCase
         $this->mockGateway
         ->expects($this->once())
         ->method('addWidget')
-        ->with($user_id, $payload);
+        ->with($userId, $payload);
 
-        $this->subject->addWidget($user_id, $type, $payload);
+        $this->subject->addWidget($userId, $type, $payload);
     }
 
     public function testDeleteWidget()
     {
         $widget_id = 1;
-        $user_id   = 42;
+        $userId   = 42;
 
         $this->mockGateway
         ->expects($this->once())
         ->method('deleteWidget')
-        ->with($user_id, $widget_id);
+        ->with($userId, $widget_id);
 
-        $this->subject->deleteWidget($user_id, $widget_id);
+        $this->subject->deleteWidget($userId, $widget_id);
     }
 }

@@ -42,7 +42,7 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
 
     public function testAddValue()
     {
-        $sensor_id = 10;
+        $sensorId = 10;
         $value     = 100;
         $now       = 10000;
 
@@ -54,12 +54,12 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
         $this->mockRedis
         ->expects($this->once())
         ->method('ZADD')
-        ->with("sensor_values:$sensor_id", $now, "$now-$value");
+        ->with("sensor_values:$sensorId", $now, "$now-$value");
 
         $this->mockRedis
         ->expects($this->once())
         ->method('HMSET')
-        ->with(SensorGateway::REDIS_SENSOR_PREFIX . $sensor_id, [
+        ->with(SensorGateway::REDIS_SENSOR_PREFIX . $sensorId, [
         'last_value' => $value,
         'last_value_timestamp' => $now
         ]);
@@ -73,12 +73,12 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
         ->method('now')
         ->will($this->returnValue($now));
 
-        $this->subject->addValue($sensor_id, $value);
+        $this->subject->addValue($sensorId, $value);
     }
 
     public function testGetSensorValues()
     {
-        $sensor_id = 10;
+        $sensorId = 10;
         $from = 300;
         $now = 1000;
 
@@ -94,22 +94,22 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
         $this->mockRedis
         ->expects($this->once())
         ->method('ZRANGEBYSCORE')
-        ->with("sensor_values:$sensor_id", 700, $now)
+        ->with("sensor_values:$sensorId", 700, $now)
         ->will($this->returnValue($redis_result));
 
-        $actual_result = $this->subject->getSensorValues($sensor_id, $from);
+        $actualResult = $this->subject->getSensorValues($sensorId, $from);
 
-        $expected_result = [
+        $expectedResult = [
         701 => 100,
         702 => 101,
         ];
 
-        $this->assertEquals($expected_result, $actual_result);
+        $this->assertEquals($expectedResult, $actualResult);
     }
 
     public function testDeleteOldValues()
     {
-        $sensor_id = 10;
+        $sensorId = 10;
         $days = 1;
         $now = 86410;
         $deleted_percent = 80;
@@ -127,22 +127,22 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
         $this->mockRedis
         ->expects($this->at(0))
         ->method('ZRANGEBYSCORE')
-        ->with("sensor_values:$sensor_id", 0, 10)
+        ->with("sensor_values:$sensorId", 0, 10)
         ->will($this->returnValue($old_values));
 
         $this->mockRedis
         ->expects($this->at(1))
         ->method('ZREM')
-        ->with("sensor_values:$sensor_id", "701-100");
+        ->with("sensor_values:$sensorId", "701-100");
 
         $this->mockRedis
         ->expects($this->at(2))
         ->method('ZREM')
-        ->with("sensor_values:$sensor_id", "702-101");
+        ->with("sensor_values:$sensorId", "702-101");
 
-        $actual_result = $this->subject->deleteOldValues($sensor_id, $days, $deleted_percent);
+        $actualResult = $this->subject->deleteOldValues($sensorId, $days, $deleted_percent);
 
-        $this->assertEquals(2, $actual_result);
+        $this->assertEquals(2, $actualResult);
 
     }
 }

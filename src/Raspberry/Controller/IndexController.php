@@ -24,11 +24,8 @@ class IndexController implements ControllerInterface
     public function index(Request $request)
     {
         $response = $this->renderToResponse('layout.html.twig', [
-        'current_user' => $request->attributes->get('user')
+            'current_user' => $request->attributes->get('user')
         ]);
-
-     // todo
-     // $response->headers->set('Access-Control-Allow-Origin', '*');
 
         return $response;
     }

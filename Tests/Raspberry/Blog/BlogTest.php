@@ -51,7 +51,7 @@ class BlogTest extends PHPUnit_Framework_TestCase
 
     public function testGetPosts()
     {
-        $user_id = 42;
+        $userId = 42;
         $from = 10;
         $to = 20;
 
@@ -60,12 +60,12 @@ class BlogTest extends PHPUnit_Framework_TestCase
         $this->mockBlogGateway
         ->expects($this->once())
         ->method('getPosts')
-        ->with($user_id, $from, $to)
+        ->with($userId, $from, $to)
         ->will($this->returnValue($posts));
 
-        $actual_result = $this->subject->getPosts($user_id, $from, $to);
+        $actualResult = $this->subject->getPosts($userId, $from, $to);
 
-        $this->assertEquals($posts, $actual_result);
+        $this->assertEquals($posts, $actualResult);
     }
 
     /**
@@ -75,12 +75,12 @@ class BlogTest extends PHPUnit_Framework_TestCase
     {
         $now = 1000;
 
-        $post_vo = new BlogPostVO();
-        $post_vo->mood = -1;
+        $postVo = new BlogPostVO();
+        $postVo->mood = -1;
         $user = new UserVO();
-        $user->id = $user_id = 42;
+        $user->id = $userId = 42;
 
-        $expected_post = clone $post_vo;
+        $expected_post = clone $postVo;
         $expected_post->mood = null;
 
         $this->mockTime
@@ -91,7 +91,7 @@ class BlogTest extends PHPUnit_Framework_TestCase
         $this->mockBlogGateway
         ->expects($this->once())
         ->method('addPost')
-        ->with($user_id, $now, $post_vo);
+        ->with($userId, $now, $postVo);
 
         $event = new BlogEvent($user, $expected_post);
         $this->mockEventDispatcher
@@ -99,49 +99,49 @@ class BlogTest extends PHPUnit_Framework_TestCase
         ->method('dispatchInBackground')
         ->with($event);
 
-        $this->subject->addPost($user, $post_vo);
+        $this->subject->addPost($user, $postVo);
     }
 
     public function testDeletePost()
     {
-        $user_id = 42;
+        $userId = 42;
         $timestamp = 1000;
 
         $this->mockBlogGateway
         ->expects($this->once())
         ->method('deletePost')
-        ->with($user_id, $timestamp);
+        ->with($userId, $timestamp);
 
-        $this->subject->deletePost($user_id, $timestamp);
+        $this->subject->deletePost($userId, $timestamp);
     }
 
     public function testAddSubscriber()
     {
-        $user_id = 42;
+        $userId = 42;
         $target_id = 24;
 
         $this->mockBlogGateway
         ->expects($this->once())
         ->method('addSubscriber')
-        ->with($user_id, $target_id);
+        ->with($userId, $target_id);
 
-        $this->subject->addSubscriber($user_id, $target_id);
+        $this->subject->addSubscriber($userId, $target_id);
     }
 
     public function testGetRecentPost()
     {
-        $user_id = 42;
+        $userId = 42;
 
-        $post_vo = new BlogPostVO();
+        $postVo = new BlogPostVO();
 
         $this->mockBlogGateway
         ->expects($this->once())
         ->method('getRecentPost')
-        ->with($user_id)
-        ->will($this->returnValue($post_vo));
+        ->with($userId)
+        ->will($this->returnValue($postVo));
 
-        $actual_result = $this->subject->getRecentPost($user_id);
+        $actualResult = $this->subject->getRecentPost($userId);
 
-        $this->assertEquals($post_vo, $actual_result);
+        $this->assertEquals($postVo, $actualResult);
     }
 }

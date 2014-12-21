@@ -41,13 +41,13 @@ class EggTimerControllerTest extends PHPUnit_Framework_TestCase
         ->method('getJobs')
         ->will($this->returnValue($jobs));
 
-        $actual_result = $this->subject->index();
+        $actualResult = $this->subject->index();
 
         $expected = [
         'jobs' => $jobs
         ];
 
-        $this->assertEquals($expected, $actual_result);
+        $this->assertEquals($expected, $actualResult);
     }
 
     public function testAdd()
@@ -70,30 +70,30 @@ class EggTimerControllerTest extends PHPUnit_Framework_TestCase
         ->method('getJobs')
         ->will($this->returnValue($jobs));
 
-        $actual_result = $this->subject->add($request);
+        $actualResult = $this->subject->add($request);
 
-        $this->assertEquals($jobs, $actual_result);
+        $this->assertEquals($jobs, $actualResult);
     }
 
     public function testDeleteEggTimer()
     {
         $request = new Request();
-        $job_id = 10;
+        $jobId = 10;
 
         $jobs = [];
 
         $this->mockEggTimer
         ->expects($this->once())
         ->method('deleteJob')
-        ->with($job_id);
+        ->with($jobId);
 
         $this->mockEggTimer
         ->expects($this->once())
         ->method('getJobs')
         ->will($this->returnValue($jobs));
 
-        $actual_result = $this->subject->deleteEggTimer($request, $job_id);
+        $actualResult = $this->subject->deleteEggTimer($request, $jobId);
 
-        $this->assertEquals($jobs, $actual_result);
+        $this->assertEquals($jobs, $actualResult);
     }
 }

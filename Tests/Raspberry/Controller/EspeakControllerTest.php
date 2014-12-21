@@ -65,14 +65,14 @@ class EspeakControllerTest extends PHPUnit_Framework_TestCase
         ->method('getPendingJobs')
         ->will($this->returnValue($jobs));
 
-        $actual_result = $this->subject->index();
+        $actualResult = $this->subject->index();
 
-        $expected_result = [
+        $expectedResult = [
         'speakers' => $speakers,
         'jobs' => $jobs
         ];
 
-        $this->assertEquals($expected_result, $actual_result);
+        $this->assertEquals($expectedResult, $actualResult);
     }
 
     public function testSpeak()
@@ -113,25 +113,25 @@ class EspeakControllerTest extends PHPUnit_Framework_TestCase
         ->method('getPendingJobs')
         ->will($this->returnValue($pending_jobs));
 
-        $actual_result = $this->subject->speak($request);
+        $actualResult = $this->subject->speak($request);
 
-        $this->assertEquals($pending_jobs, $actual_result);
+        $this->assertEquals($pending_jobs, $actualResult);
     }
 
     public function testDeleteJobJob()
     {
-        $job_id = 10;
+        $jobId = 10;
         $request = new Request();
-        $request->request->set('job_id', $job_id);
+        $request->request->set('job_id', $jobId);
 
         $this->mockEspeak
         ->expects($this->once())
         ->method('deleteJob')
-        ->will($this->returnValue($job_id));
+        ->will($this->returnValue($jobId));
 
 
-        $actual_result = $this->subject->deleteJob($request);
+        $actualResult = $this->subject->deleteJob($request);
 
-        $this->assertTrue($actual_result);
+        $this->assertTrue($actualResult);
     }
 }

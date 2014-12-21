@@ -33,13 +33,13 @@ class PinsCollectionTest extends PHPUnit_Framework_TestCase
         $pin_collection = new PinsCollection();
         $pin_collection->add($pin);
 
-        $actual_result = $pin_collection->get($pinId);
+        $actualResult = $pin_collection->get($pinId);
         $json_result = $pin->jsonSerialize();
 
-        $this->assertEquals($pin, $actual_result);
+        $this->assertEquals($pin, $actualResult);
         $this->assertInternalType('array', $json_result);
         $this->assertEquals($pinId, $json_result['id']);
-        $this->assertEquals($pinName, $actual_result->getName());
+        $this->assertEquals($pinName, $actualResult->getName());
         $this->assertEquals($pinName, $json_result['name']);
     }
 }

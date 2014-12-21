@@ -20,17 +20,17 @@ class TodoListGateway
     const TODO_IDS = 'todo_ids';
 
     /**
-     * @param TodoItemVO $item_vo
+     * @param TodoItemVO $itemVo
      */
-    public function addItem(TodoItemVO $item_vo)
+    public function addItem(TodoItemVO $itemVo)
     {
         $redis = $this->getRedis();
 
-        $todo_raw = (array)$item_vo;
+        $raw = (array)$itemVo;
 
-        $redis->HMSET($this->getRedisKey($item_vo->id), $todo_raw);
+        $redis->HMSET($this->getRedisKey($itemVo->todoId), $raw);
 
-        $redis->sAdd(self::TODO_IDS, $item_vo->id);
+        $redis->sAdd(self::TODO_IDS, $itemVo->todoId);
     }
 
     /**
@@ -38,55 +38,55 @@ class TodoListGateway
      */
     public function getList()
     {
-        $item_ids = $this->getRedis()->sMembers(self::TODO_IDS);
+        $itemIds = $this->getRedis()->sMembers(self::TODO_IDS);
 
         $redis = $this->getRedis()->multi(Redis::PIPELINE);
-        foreach ($item_ids as $item_id) {
-            $redis->HGETALL($this->getRedisKey($item_id));
+        foreach ($itemIds as $itemId) {
+            $redis->HGETALL($this->getRedisKey($itemId));
         }
 
         return $redis->exec();
     }
 
     /**
-     * @param integer $item_id
+     * @param integer $itemId
      * @return array
      */
-    public function getRawItem($item_id)
+    public function getRawItem($itemId)
     {
-        return $this->getRedis()->HGETALL($this->getRedisKey($item_id));
+        return $this->getRedis()->HGETALL($this->getRedisKey($itemId));
     }
 
     /**
-     * @param int $item_id
+     * @param int $itemId
      * @param array $changes
      */
-    public function editItem($item_id, array $changes)
+    public function editItem($itemId, array $changes)
     {
-        $key = $this->getRedisKey($item_id);
+        $key = $this->getRedisKey($itemId);
 
-        $changes['last_change'] = $this->now();
+        $changes['lastChange'] = $this->now();
 
         $this->getRedis()->hMSet($key, $changes);
     }
 
     /**
-     * @param integer $item_id
+     * @param integer $itemId
      */
-    public function deleteItem($item_id)
+    public function deleteItem($itemId)
     {
-        $key = $this->getRedisKey($item_id);
+        $key = $this->getRedisKey($itemId);
 
         $this->getRedis()->del($key);
-        $this->getRedis()->sRem(self::TODO_IDS, $item_id);
+        $this->getRedis()->sRem(self::TODO_IDS, $itemId);
     }
 
     /**
-     * @param integer $item_id
+     * @param integer $itemId
      * @return string
      */
-    private function getRedisKey($item_id)
+    private function getRedisKey($itemId)
     {
-        return sprintf(self::TODO_KEY, $item_id);
+        return sprintf(self::TODO_KEY, $itemId);
     }
 }

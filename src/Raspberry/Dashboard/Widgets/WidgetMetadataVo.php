@@ -18,17 +18,17 @@ class WidgetMetadataVo
     /**
      * @var string
      */
-    public $id;
+    public $widgetId;
 
     /**
-     * @param string $id
+     * @param string $widgetId
      * @param string $name
      * @param string[] $parameters
      */
-    public function __construct($id, $name, array $parameters = [])
+    public function __construct($widgetId, $name, array $parameters = [])
     {
+        $this->widgetId         = $widgetId;
         $this->name       = $name;
         $this->parameters = $parameters;
-        $this->id         = $id;
     }
 }

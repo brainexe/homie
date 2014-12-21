@@ -15,15 +15,15 @@ class TodoListEvent extends AbstractEvent implements PushViaWebsocketInterface
     /**
      * @var TodoItemVO
      */
-    public $item_vo;
+    public $itemVo;
 
     /**
-     * @param TodoItemVO $item_vo
-     * @param string$event_name
+     * @param TodoItemVO $itemVo
+     * @param string$eventName
      */
-    public function __construct(TodoItemVO $item_vo, $event_name)
+    public function __construct(TodoItemVO $itemVo, $eventName)
     {
-        parent::__construct($event_name);
-        $this->item_vo = $item_vo;
+        parent::__construct($eventName);
+        $this->item_vo = $itemVo;
     }
 }

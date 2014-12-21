@@ -18,16 +18,16 @@ class BlogEvent extends AbstractEvent
     /**
      * @var UserVO
      */
-    public $user_vo;
+    public $userVo;
 
     /**
-     * @param UserVO $user_vo
+     * @param UserVO $userVo
      * @param BlogPostVO $post
      */
-    public function __construct(UserVO $user_vo, BlogPostVO $post)
+    public function __construct(UserVO $userVo, BlogPostVO $post)
     {
         $this->event_name = self::POST;
-        $this->post = $post;
-        $this->user_vo = $user_vo;
+        $this->post       = $post;
+        $this->userVo     = $userVo;
     }
 }

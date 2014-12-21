@@ -72,10 +72,10 @@ class Webcam
             $relativePathName = $file->getRelativePathname();
 
             $webcamVo = $vos[] = new WebcamVO();
-            $webcamVo->file_path = $filePath;
+            $webcamVo->filePath = $filePath;
             $webcamVo->name = $relativePathName;
-            $webcamVo->id = $file->getBasename();
-            $webcamVo->web_path = sprintf('%s%s', substr(self::ROOT, 4), $webcamVo->name);
+            $webcamVo->webcamId = $file->getBasename();
+            $webcamVo->webPath = sprintf('%s%s', substr(self::ROOT, 4), $webcamVo->name);
             $webcamVo->timestamp = $file->getCTime();
         }
 

@@ -50,8 +50,8 @@ class EspeakTest extends PHPUnit_Framework_TestCase
 
     public function testGetSpeakers()
     {
-        $actual_result = $this->subject->getSpeakers();
-        $this->assertInternalType('array', $actual_result);
+        $actualResult = $this->subject->getSpeakers();
+        $this->assertInternalType('array', $actualResult);
     }
 
     public function testGetPendingJobs()
@@ -70,9 +70,9 @@ class EspeakTest extends PHPUnit_Framework_TestCase
         ->with(EspeakEvent::SPEAK, $now)
         ->will($this->returnValue($pending_jobs));
 
-        $actual_result = $this->subject->getPendingJobs();
+        $actualResult = $this->subject->getPendingJobs();
 
-        $this->assertEquals($pending_jobs, $actual_result);
+        $this->assertEquals($pending_jobs, $actualResult);
     }
 
     public function testSpeakWithEmptyText()
@@ -104,13 +104,13 @@ class EspeakTest extends PHPUnit_Framework_TestCase
 
     public function testDeleteJob()
     {
-        $job_id = 12;
+        $jobId = 12;
 
         $this->mockMessageQueueGateway
         ->expects($this->once())
         ->method('deleteEvent')
-        ->with($job_id, EspeakEvent::SPEAK);
+        ->with($jobId, EspeakEvent::SPEAK);
 
-        $this->subject->deleteJob($job_id);
+        $this->subject->deleteJob($jobId);
     }
 }

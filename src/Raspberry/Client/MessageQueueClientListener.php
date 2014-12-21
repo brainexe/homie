@@ -44,7 +44,7 @@ class MessageQueueClientListener implements EventSubscriberInterface
     {
         $output = $this->client->executeWithReturn($event->command);
 
-        if ($event->return_needed) {
+        if ($event->returnNeeded) {
             $this->getRedis()->lPush(MessageQueueClient::RETURN_CHANNEL, $output);
         }
     }

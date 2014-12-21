@@ -21,8 +21,8 @@ class SensorWidgetTest extends PHPUnit_Framework_TestCase
 
     public function testGetId()
     {
-        $actual_result = $this->subject->getId();
-        $this->assertEquals(SensorWidget::TYPE, $actual_result);
+        $actualResult = $this->subject->getId();
+        $this->assertEquals(SensorWidget::TYPE, $actualResult);
     }
 
     /**
@@ -39,7 +39,7 @@ class SensorWidgetTest extends PHPUnit_Framework_TestCase
     public function testCreate()
     {
         $payload = [
-        'sensor_id' => 1
+            'sensor_id' => 1
         ];
 
         $this->subject->create($payload);
@@ -56,7 +56,7 @@ class SensorWidgetTest extends PHPUnit_Framework_TestCase
     {
         $actualResult = json_encode($this->subject);
 
-        $expectedResult = '{"name":"Sensor","parameters":{"sensor_id":"Sensor ID"},"id":"sensor"}';
+        $expectedResult = '{"name":"Sensor","parameters":{"sensor_id":"Sensor ID"},"widgetId":"sensor"}';
         $this->assertEquals($expectedResult, $actualResult);
     }
 }

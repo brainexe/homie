@@ -39,7 +39,7 @@ class BlogPostNotifyListener implements EventSubscriberInterface
 
         $hour = $this->getTime()->date('G');
         $minute = (int)$this->getTime()->date('i');
-        $text = sprintf('%s hat um %d Uhr %d geschrieben: %s.', $event->user_vo->username, $hour, $minute, $post->text);
+        $text = sprintf('%s hat um %d Uhr %d geschrieben: %s.', $event->userVo->username, $hour, $minute, $post->text);
 
         if ($post->mood) {
             $text .= sprintf(' Stimmung: %d von %d', $post->mood, BlogPostVO::MAX_MOOD);

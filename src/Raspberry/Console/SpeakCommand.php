@@ -24,8 +24,8 @@ class SpeakCommand extends Command
     protected function configure()
     {
         $this->setName('speak')
-        ->setDescription('Speak via espeak')
-        ->addArgument('text');
+            ->setDescription('Speak via espeak')
+            ->addArgument('text');
     }
 
     /**
@@ -33,10 +33,10 @@ class SpeakCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $text = $input->getArgument('text');
-        $espeak_vo = new EspeakVO($text);
+        $text     = $input->getArgument('text');
+        $espeakVo = new EspeakVO($text);
+        $event    = new EspeakEvent($espeakVo);
 
-        $event = new EspeakEvent($espeak_vo);
         $this->dispatchEvent($event);
     }
 }

@@ -53,7 +53,7 @@ class PinLoaderTest extends PHPUnit_Framework_TestCase
         ->with(GpioManager::GPIO_COMMAND_READALL)
         ->will($this->returnValue($gpio_result));
 
-        $actual_result = $this->subject->loadPins();
+        $actualResult = $this->subject->loadPins();
 
         $expected_pin = new Pin();
         $expected_pin->setID($id);
@@ -64,12 +64,12 @@ class PinLoaderTest extends PHPUnit_Framework_TestCase
         $expected_pin_collection = new PinsCollection();
         $expected_pin_collection->add($expected_pin);
 
-        $this->assertEquals($expected_pin_collection, $actual_result);
+        $this->assertEquals($expected_pin_collection, $actualResult);
         $this->assertEquals($direction, $expected_pin->getDirection());
         $this->assertEquals(0, $expected_pin->getValue());
 
-        $actual_result = $this->subject->loadPins();
-        $this->assertEquals($expected_pin_collection, $actual_result);
+        $actualResult = $this->subject->loadPins();
+        $this->assertEquals($expected_pin_collection, $actualResult);
 
         $this->assertEquals($expected_pin, $this->subject->loadPin($id));
     }

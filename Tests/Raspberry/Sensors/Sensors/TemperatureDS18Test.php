@@ -33,9 +33,9 @@ class TemperatureDS18Test extends PHPUnit_Framework_TestCase
 
     public function testGetSensorType()
     {
-        $actual_result = $this->subject->getSensorType();
+        $actualResult = $this->subject->getSensorType();
 
-        $this->assertEquals(TemperatureDS18::TYPE, $actual_result);
+        $this->assertEquals(TemperatureDS18::TYPE, $actualResult);
     }
 
     public function testGetValueWhenNotSupported()
@@ -50,17 +50,17 @@ class TemperatureDS18Test extends PHPUnit_Framework_TestCase
         ->with($file)
         ->will($this->returnValue(false));
 
-        $actual_result = $this->subject->getValue($pin);
+        $actualResult = $this->subject->getValue($pin);
 
-        $this->assertNull($actual_result);
+        $this->assertNull($actualResult);
     }
 
     /**
      * @param string $content
-     * @param string|null $expected_result
+     * @param string|null $expectedResult
      * @dataProvider provideContent
      */
-    public function testGetValue($content, $expected_result)
+    public function testGetValue($content, $expectedResult)
     {
         $pin = 12;
 
@@ -78,32 +78,32 @@ class TemperatureDS18Test extends PHPUnit_Framework_TestCase
         ->with($file)
         ->will($this->returnValue($content));
 
-        $actual_result = $this->subject->getValue($pin);
+        $actualResult = $this->subject->getValue($pin);
 
-        $this->assertEquals($expected_result, $actual_result);
+        $this->assertEquals($expectedResult, $actualResult);
     }
 
     /**
      * @param float $given
-     * @param string $expected_result
+     * @param string $expectedResult
      * @dataProvider provideFormatValues
      */
-    public function testFormatValue($given, $expected_result)
+    public function testFormatValue($given, $expectedResult)
     {
-        $actual_result = $this->subject->formatValue($given);
+        $actualResult = $this->subject->formatValue($given);
 
-        $this->assertEquals($expected_result, $actual_result);
+        $this->assertEquals($expectedResult, $actualResult);
     }
     /**
      * @param float $given
-     * @param string $expected_result
+     * @param string $expectedResult
      * @dataProvider provideEspeakText
      */
-    public function testGetEspeakText($given, $expected_result)
+    public function testGetEspeakText($given, $expectedResult)
     {
-        $actual_result = $this->subject->getEspeakText($given);
+        $actualResult = $this->subject->getEspeakText($given);
 
-        $this->assertEquals($expected_result, $actual_result);
+        $this->assertEquals($expectedResult, $actualResult);
     }
 
     public function testIsSupported()
@@ -117,9 +117,9 @@ class TemperatureDS18Test extends PHPUnit_Framework_TestCase
         ->will($this->returnValue(true));
 
         $output = new DummyOutput();
-        $actual_result = $this->subject->isSupported($output);
+        $actualResult = $this->subject->isSupported($output);
 
-        $this->assertTrue($actual_result);
+        $this->assertTrue($actualResult);
     }
 
     public function testIsSupportedWhenNotSupported()
@@ -133,9 +133,9 @@ class TemperatureDS18Test extends PHPUnit_Framework_TestCase
         ->will($this->returnValue(false));
 
         $output = new DummyOutput();
-        $actual_result = $this->subject->isSupported($output);
+        $actualResult = $this->subject->isSupported($output);
 
-        $this->assertFalse($actual_result);
+        $this->assertFalse($actualResult);
     }
 
     /**

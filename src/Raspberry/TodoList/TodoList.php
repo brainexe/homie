@@ -25,37 +25,37 @@ class TodoList
 
     /**
      * @Inject({"@TodoListGateway"})
-     * @param TodoListGateway $todo_list_gateway
+     * @param TodoListGateway $gateway
      */
-    public function __construct(TodoListGateway $todo_list_gateway)
+    public function __construct(TodoListGateway $gateway)
     {
-        $this->gateway = $todo_list_gateway;
+        $this->gateway = $gateway;
     }
 
     /**
      * @param UserVO $user
-     * @param TodoItemVO $item_vo
+     * @param TodoItemVO $itemVo
      * @return TodoItemVO
      */
-    public function addItem(UserVO $user, TodoItemVO $item_vo)
+    public function addItem(UserVO $user, TodoItemVO $itemVo)
     {
         $now = $this->now();
 
-        $item_vo->id = $this->generateRandomNumericId();
-        $item_vo->user_id = $user->id;
-        $item_vo->user_name = $user->username;
-        $item_vo->created_at = $item_vo->last_change = $now;
-        $item_vo->status = TodoItemVO::STATUS_PENDING;
-        if ($item_vo->deadline < $now) {
-            $item_vo->deadline = 0;
+        $itemVo->todoId    = $this->generateRandomNumericId();
+        $itemVo->userId    = $user->id;
+        $itemVo->userName  = $user->username;
+        $itemVo->createdAt = $itemVo->lastChange = $now;
+        $itemVo->status    = TodoItemVO::STATUS_PENDING;
+        if ($itemVo->deadline < $now) {
+            $itemVo->deadline = 0;
         }
 
-        $this->gateway->addItem($item_vo);
+        $this->gateway->addItem($itemVo);
 
-        $event = new TodoListEvent($item_vo, TodoListEvent::ADD);
+        $event = new TodoListEvent($itemVo, TodoListEvent::ADD);
         $this->dispatchEvent($event);
 
-        return $item_vo;
+        return $itemVo;
     }
 
     /**
@@ -64,62 +64,70 @@ class TodoList
     public function getList()
     {
         $list = [];
-        $raw_list = $this->gateway->getList();
+        $rawList = $this->gateway->getList();
 
-        foreach ($raw_list as $item) {
-            $item_vo = new TodoItemVO();
-            $item_vo->fillValues($item);
-            $list[$item['id']] = $item_vo;
+        foreach ($rawList as $item) {
+            $itemVo = new TodoItemVO();
+            $itemVo->fillValues($item);
+            $list[$item['todoId']] = $itemVo;
         }
 
         return $list;
     }
 
     /**
-     * @param integer $item_id
+     * @param integer $itemId
      * @return null|TodoItemVO
      */
-    public function getItem($item_id)
+    public function getItem($itemId)
     {
-        $raw_item = $this->gateway->getRawItem($item_id);
+        $raw = $this->gateway->getRawItem($itemId);
 
-        if (empty($raw_item)) {
+        if (empty($raw)) {
             return null;
         }
 
-        $item_vo = new TodoItemVO();
-        $item_vo->fillValues($raw_item);
+        $itemVo = new TodoItemVO();
+        $itemVo->todoId      = $raw['todoId'];
+        $itemVo->name        = $raw['name'];
+        $itemVo->userId      = $raw['userId'];
+        $itemVo->userName    = $raw['userName'];
+        $itemVo->description = $raw['description'];
+        $itemVo->status      = $raw['status'];
+        $itemVo->deadline    = $raw['deadline'];
+        $itemVo->createdAt   = $raw['createdAt'];
+        $itemVo->lastChange  = $raw['lastChange'];
 
-        return $item_vo;
+        return $itemVo;
     }
 
     /**
-     * @param int $item_id
+     * @param int $itemId
      * @param array $changes
      * @return TodoItemVO
      */
-    public function editItem($item_id, array $changes)
+    public function editItem($itemId, array $changes)
     {
-        $this->gateway->editItem($item_id, $changes);
+        $this->gateway->editItem($itemId, $changes);
 
-        $item_vo = $this->getItem($item_id);
+        $itemVo = $this->getItem($itemId);
 
-        $event = new TodoListEvent($item_vo, TodoListEvent::EDIT);
+        $event = new TodoListEvent($itemVo, TodoListEvent::EDIT);
         $this->dispatchEvent($event);
 
-        return $item_vo;
+        return $itemVo;
     }
 
     /**
-     * @param int $item_id
+     * @param int $itemId
      */
-    public function deleteItem($item_id)
+    public function deleteItem($itemId)
     {
-        $item_vo = $this->getItem($item_id);
+        $itemVo = $this->getItem($itemId);
 
-        $this->gateway->deleteItem($item_id);
+        $this->gateway->deleteItem($itemId);
 
-        $event = new TodoListEvent($item_vo, TodoListEvent::REMOVE);
+        $event = new TodoListEvent($itemVo, TodoListEvent::REMOVE);
         $this->dispatchEvent($event);
     }
 }

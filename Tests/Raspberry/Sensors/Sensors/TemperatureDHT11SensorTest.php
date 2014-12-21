@@ -37,9 +37,9 @@ class TemperatureDHT11SensorTest extends PHPUnit_Framework_TestCase
 
     public function testGetSensorType()
     {
-        $actual_result = $this->subject->getSensorType();
+        $actualResult = $this->subject->getSensorType();
 
-        $this->assertEquals(TemperatureDHT11Sensor::TYPE, $actual_result);
+        $this->assertEquals(TemperatureDHT11Sensor::TYPE, $actualResult);
     }
     public function testGetValueWitInvalidOutput()
     {
@@ -64,9 +64,9 @@ class TemperatureDHT11SensorTest extends PHPUnit_Framework_TestCase
         ->method('isSuccessful')
         ->will($this->returnValue(false));
 
-        $actual_result = $this->subject->getValue($pin);
+        $actualResult = $this->subject->getValue($pin);
 
-        $this->assertNull($actual_result);
+        $this->assertNull($actualResult);
     }
 
     public function testGetValueWitValidOutput()
@@ -99,8 +99,8 @@ class TemperatureDHT11SensorTest extends PHPUnit_Framework_TestCase
         ->method('getOutput')
         ->will($this->returnValue($output));
 
-        $actual_result = $this->subject->getValue($pin);
+        $actualResult = $this->subject->getValue($pin);
 
-        $this->assertEquals($temp, $actual_result);
+        $this->assertEquals($temp, $actualResult);
     }
 }

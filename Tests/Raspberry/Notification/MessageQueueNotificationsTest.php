@@ -48,8 +48,8 @@ class MessageQueueNotificationsTest extends PHPUnit_Framework_TestCase
         ->method('countJobs')
         ->will($this->returnValue($count));
 
-        $actual_result = $this->subject->getNotification();
+        $actualResult = $this->subject->getNotification();
 
-        $this->assertEquals($count, $actual_result);
+        $this->assertEquals($count, $actualResult);
     }
 }

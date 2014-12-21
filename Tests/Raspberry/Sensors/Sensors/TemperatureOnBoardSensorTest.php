@@ -33,9 +33,9 @@ class TemperatureOnBoardSensorTest extends PHPUnit_Framework_TestCase
 
     public function testGetSensorType()
     {
-        $actual_result = $this->subject->getSensorType();
+        $actualResult = $this->subject->getSensorType();
 
-        $this->assertEquals(TemperatureOnBoardSensor::TYPE, $actual_result);
+        $this->assertEquals(TemperatureOnBoardSensor::TYPE, $actualResult);
     }
 
     public function testGetValue()
@@ -49,9 +49,9 @@ class TemperatureOnBoardSensorTest extends PHPUnit_Framework_TestCase
         ->with(TemperatureOnBoardSensor::PATH)
         ->will($this->returnValue($value));
 
-        $actual_result = $this->subject->getValue($pin);
+        $actualResult = $this->subject->getValue($pin);
 
-        $this->assertEquals(12.2, $actual_result);
+        $this->assertEquals(12.2, $actualResult);
     }
 
     public function testIsSupported()
@@ -65,9 +65,9 @@ class TemperatureOnBoardSensorTest extends PHPUnit_Framework_TestCase
         ->will($this->returnValue(true));
 
         $output = new DummyOutput();
-        $actual_result = $this->subject->isSupported($output);
+        $actualResult = $this->subject->isSupported($output);
 
-        $this->assertTrue($actual_result);
+        $this->assertTrue($actualResult);
     }
 
     public function testIsSupportedWhenNotSupported()
@@ -81,8 +81,8 @@ class TemperatureOnBoardSensorTest extends PHPUnit_Framework_TestCase
         ->will($this->returnValue(false));
 
         $output = new DummyOutput();
-        $actual_result = $this->subject->isSupported($output);
+        $actualResult = $this->subject->isSupported($output);
 
-        $this->assertFalse($actual_result);
+        $this->assertFalse($actualResult);
     }
 }

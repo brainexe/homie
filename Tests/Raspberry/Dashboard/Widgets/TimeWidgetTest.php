@@ -22,16 +22,16 @@ class TimeWidgetTest extends PHPUnit_Framework_TestCase
 
     public function testGetId()
     {
-        $actual_result = $this->subject->getId();
-        $this->assertEquals(TimeWidget::TYPE, $actual_result);
+        $actualResult = $this->subject->getId();
+        $this->assertEquals(TimeWidget::TYPE, $actualResult);
     }
 
     public function testValidate()
     {
         $payload = [];
 
-        $actual_result = $this->subject->validate($payload);
-        $this->assertTrue($actual_result);
+        $actualResult = $this->subject->validate($payload);
+        $this->assertTrue($actualResult);
     }
 
     public function testCreate()
@@ -52,7 +52,7 @@ class TimeWidgetTest extends PHPUnit_Framework_TestCase
     {
         $actualResult = json_encode($this->subject);
 
-        $expectedResult = '{"name":"Time","parameters":[],"id":"time"}';
+        $expectedResult = '{"name":"Time","parameters":[],"widgetId":"time"}';
         $this->assertEquals($expectedResult, $actualResult);
     }
 }

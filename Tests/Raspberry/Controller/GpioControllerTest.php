@@ -46,13 +46,13 @@ class GpioControllerTest extends PHPUnit_Framework_TestCase
         ->method('getPins')
         ->will($this->returnValue($pins));
 
-        $actual_result = $this->subject->index();
+        $actualResult = $this->subject->index();
 
-        $expected_result = [
+        $expectedResult = [
         'pins' => $pins->getAll()
         ];
 
-        $this->assertEquals($expected_result, $actual_result);
+        $this->assertEquals($expectedResult, $actualResult);
     }
 
     public function testSetStatus()
@@ -70,8 +70,8 @@ class GpioControllerTest extends PHPUnit_Framework_TestCase
         ->with($id, $status, $value)
         ->will($this->returnValue($pin));
 
-        $actual_result = $this->subject->setStatus($request, $id, $status, $value);
+        $actualResult = $this->subject->setStatus($request, $id, $status, $value);
 
-        $this->assertEquals($pin, $actual_result);
+        $this->assertEquals($pin, $actualResult);
     }
 }

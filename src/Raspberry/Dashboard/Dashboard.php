@@ -30,12 +30,12 @@ class Dashboard
     }
 
     /**
-     * @param integer $user_id
+     * @param integer $userId
      * @return array[]
      */
-    public function getDashboard($user_id)
+    public function getDashboard($userId)
     {
-        return $this->dashboardGateway->getDashboard($user_id);
+        return $this->dashboardGateway->getDashboard($userId);
     }
 
     /**
@@ -47,26 +47,26 @@ class Dashboard
     }
 
     /**
-     * @param integer $user_id
+     * @param integer $userId
      * @param string $type
      * @param array $payload
      */
-    public function addWidget($user_id, $type, array $payload)
+    public function addWidget($userId, $type, array $payload)
     {
         $widget = $this->widgetFactory->getWidget($type);
         $widget->validate($payload);
 
         $payload['type'] = $type;
 
-        $this->dashboardGateway->addWidget($user_id, $payload);
+        $this->dashboardGateway->addWidget($userId, $payload);
     }
 
     /**
-     * @param integer $user_id
-     * @param integer $widget_id
+     * @param integer $userId
+     * @param integer $widgetId
      */
-    public function deleteWidget($user_id, $widget_id)
+    public function deleteWidget($userId, $widgetId)
     {
-        $this->dashboardGateway->deleteWidget($user_id, $widget_id);
+        $this->dashboardGateway->deleteWidget($userId, $widgetId);
     }
 }

@@ -25,11 +25,11 @@ class StatusController implements ControllerInterface
 
     /**
      * @Inject("@MessageQueueGateway")
-     * @param MessageQueueGateway $message_queue_gateway
+     * @param MessageQueueGateway $gateway
      */
-    public function __construct(MessageQueueGateway $message_queue_gateway)
+    public function __construct(MessageQueueGateway $gateway)
     {
-        $this->messageQueueGateway = $message_queue_gateway;
+        $this->messageQueueGateway = $gateway;
     }
 
     /**
@@ -38,10 +38,10 @@ class StatusController implements ControllerInterface
     public function index()
     {
         return [
-        'jobs' => $this->messageQueueGateway->getEventsByType(),
-        'stats' => [
-        'Queue Len' => $this->messageQueueGateway->countJobs()
-        ],
+            'jobs' => $this->messageQueueGateway->getEventsByType(),
+            'stats' => [
+                'Queue Len' => $this->messageQueueGateway->countJobs()
+            ],
         ];
     }
 
@@ -52,8 +52,8 @@ class StatusController implements ControllerInterface
      */
     public function deleteJob(Request $request)
     {
-        $job_id = $request->request->get('job_id');
-        $this->messageQueueGateway->deleteEvent($job_id);
+        $jobId = $request->request->get('job_id');
+        $this->messageQueueGateway->deleteEvent($jobId);
 
         return true;
     }

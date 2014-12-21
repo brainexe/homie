@@ -52,97 +52,97 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase
     public function testIndex()
     {
         $request = new Request();
-        $user_id = 42;
+        $userId = 42;
 
-        $request->attributes->set('user_id', $user_id);
+        $request->attributes->set('user_id', $userId);
 
         $posts = [];
-        $user_names = [
-        'Hans Peter' => $user_id
+        $userNames = [
+            'Hans Peter' => $userId
         ];
 
         $this->mockBlog
-        ->expects($this->once())
-        ->method('getPosts')
-        ->with($user_id)
-        ->will($this->returnValue($posts));
+            ->expects($this->once())
+            ->method('getPosts')
+            ->with($userId)
+            ->will($this->returnValue($posts));
 
         $this->mockDatabaseUserProvider
-        ->expects($this->once())
-        ->method('getAllUserNames')
-        ->will($this->returnValue($user_names));
+            ->expects($this->once())
+            ->method('getAllUserNames')
+            ->will($this->returnValue($userNames));
 
-        $actual_result = $this->subject->index($request);
+        $actualResult = $this->subject->index($request);
 
-        $expected_result = [
-        'posts' => $posts,
-        'users' => $user_names,
-        'active_user_id' => $user_id,
-        'current_user_id' => $user_id,
+        $expectedResult = [
+            'posts' => $posts,
+            'users' => $userNames,
+            'active_user_id' => $userId,
+            'current_user_id' => $userId,
         ];
 
-        $this->assertEquals($expected_result, $actual_result);
+        $this->assertEquals($expectedResult, $actualResult);
     }
 
     public function testGetMood()
     {
         $request = new Request();
-        $user_id = 42;
-        $recent_post = new BlogPostVO();
-        $recent_post->mood = $mood = 3;
-        $recent_post->text = $text = 'text';
+        $userId  = 42;
+        $recentPost = new BlogPostVO();
+        $recentPost->mood = $mood = 3;
+        $recentPost->text = $text = 'text';
 
-        $request->attributes->set('user_id', $user_id);
+        $request->attributes->set('user_id', $userId);
 
         $this->mockBlog
-        ->expects($this->once())
-        ->method('getRecentPost')
-        ->with($user_id)
-        ->will($this->returnValue($recent_post));
+            ->expects($this->once())
+            ->method('getRecentPost')
+            ->with($userId)
+            ->will($this->returnValue($recentPost));
 
-        $actual_result = $this->subject->getMood($request);
+        $actualResult = $this->subject->getMood($request);
 
-        $expected_result = [
-        'mood' => $mood * 10,
-        'thought' => $text,
+        $expectedResult = [
+            'mood' => $mood * 10,
+            'thought' => $text,
         ];
 
-        $this->assertEquals($expected_result, $actual_result);
+        $this->assertEquals($expectedResult, $actualResult);
     }
 
     public function testBlogForUser()
     {
         $request = new Request();
-        $user_id = 42;
+        $userId = 42;
 
-        $request->attributes->set('user_id', $user_id);
+        $request->attributes->set('user_id', $userId);
 
         $posts = [];
-        $user_names = [
-        'Hans Peter' => $user_id
+        $userNames = [
+        'Hans Peter' => $userId
         ];
 
         $this->mockBlog
         ->expects($this->once())
         ->method('getPosts')
-        ->with($user_id)
+        ->with($userId)
         ->will($this->returnValue($posts));
 
         $this->mockDatabaseUserProvider
         ->expects($this->once())
         ->method('getAllUserNames')
-        ->will($this->returnValue($user_names));
+        ->will($this->returnValue($userNames));
 
-        $actual_result = $this->subject->blogForUser($request, $user_id);
+        $actualResult = $this->subject->blogForUser($request, $userId);
 
-        $expected_result = [
+        $expectedResult = [
         'posts' => $posts,
-        'users' => $user_names,
-        'active_user_id' => $user_id,
-        'current_user_id' => $user_id,
+        'users' => $userNames,
+        'active_user_id' => $userId,
+        'current_user_id' => $userId,
         ];
 
-        $this->assertEquals($expected_result, $actual_result);
+        $this->assertEquals($expectedResult, $actualResult);
     }
 
     /**
@@ -152,86 +152,86 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase
     public function testBlogForUserWithUndefinedUser()
     {
         $request = new Request();
-        $user_id = 42;
+        $userId = 42;
 
-        $request->attributes->set('user_id', $user_id);
+        $request->attributes->set('user_id', $userId);
 
         $posts = [];
-        $user_names = [
-        'Hans Peter' => 100
+        $userNames = [
+            'Hans Peter' => 100
         ];
 
         $this->mockBlog
         ->expects($this->once())
         ->method('getPosts')
-        ->with($user_id)
+        ->with($userId)
         ->will($this->returnValue($posts));
 
         $this->mockDatabaseUserProvider
         ->expects($this->once())
         ->method('getAllUserNames')
-        ->will($this->returnValue($user_names));
+        ->will($this->returnValue($userNames));
 
-        $actual_result = $this->subject->blogForUser($request, $user_id);
+        $actualResult = $this->subject->blogForUser($request, $userId);
 
-        $i = $todo;
+        $this->markTestIncomplete();
     }
 
     public function testAddPost()
     {
         $request = new Request();
-        $user_id = 42;
-        $now = 1000;
-        $mood = 8;
-        $text = 'text';
+        $userId  = 42;
+        $now     = 1000;
+        $mood    = 8;
+        $text    = 'text';
 
-        $user_vo = new UserVO();
-        $user_vo->id = $user_id;
+        $userVo = new UserVO();
+        $userVo->id = $userId;
 
-        $request->attributes->set('user', $user_vo);
+        $request->attributes->set('user', $userVo);
         $request->request->set('mood', $mood);
         $request->request->set('text', $text);
 
-        $post_vo = new BlogPostVO();
-        $post_vo->mood = $mood;
-        $post_vo->text = $text;
+        $postVo = new BlogPostVO();
+        $postVo->mood = $mood;
+        $postVo->text = $text;
 
         $this->mockBlog
         ->expects($this->once())
         ->method('addPost')
-        ->with($user_vo, $post_vo)
-        ->will($this->returnValue($post_vo));
+        ->with($userVo, $postVo)
+        ->will($this->returnValue($postVo));
 
         $this->mockTime
         ->expects($this->once())
         ->method('now')
         ->will($this->returnValue($now));
 
-        $actual_result = $this->subject->addPost($request);
+        $actualResult = $this->subject->addPost($request);
 
-        $expected_result = [
-        $now, $post_vo
+        $expectedResult = [
+        $now, $postVo
         ];
 
-        $this->assertEquals($expected_result, $actual_result);
+        $this->assertEquals($expectedResult, $actualResult);
     }
 
     public function testDeletePost()
     {
-        $user_id = 42;
+        $userId = 42;
         $timestamp = 1212;
 
         $request = new Request();
-        $request->attributes->set('user_id', $user_id);
+        $request->attributes->set('user_id', $userId);
 
         $this->mockBlog
         ->expects($this->once())
         ->method('deletePost')
-        ->with($user_id, $timestamp);
+        ->with($userId, $timestamp);
 
-        $actual_result = $this->subject->deletePost($request, $timestamp);
+        $actualResult = $this->subject->deletePost($request, $timestamp);
 
         $expected_response = true;
-        $this->assertEquals($expected_response, $actual_result);
+        $this->assertEquals($expected_response, $actualResult);
     }
 }

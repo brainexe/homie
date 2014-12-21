@@ -81,12 +81,12 @@ class SensorCronCommand extends Command
         EventDispatcher $dispatcher,
         $nodeId
     ) {
-        $this->builder = $builder;
-        $this->sensorGateway = $gateway;
-        $this->gateway = $valuesGateway;
+        $this->builder         = $builder;
+        $this->sensorGateway   = $gateway;
+        $this->gateway         = $valuesGateway;
         $this->sensorVoBuilder = $voBuilder;
-        $this->dispatcher = $dispatcher;
-        $this->nodeId = $nodeId;
+        $this->dispatcher      = $dispatcher;
+        $this->nodeId          = $nodeId;
 
         parent::__construct();
     }
@@ -99,29 +99,29 @@ class SensorCronCommand extends Command
         $now = $this->now();
         $sensors = $this->sensorGateway->getSensors($this->nodeId);
 
-        foreach ($sensors as $sensor_data) {
-            $sensor_vo = $this->sensorVoBuilder->buildFromArray($sensor_data);
+        foreach ($sensors as $sensorData) {
+            $sensorVo = $this->sensorVoBuilder->buildFromArray($sensorData);
 
-            $interval = $sensor_vo->interval ?: 1;
+            $interval = $sensorVo->interval ?: 1;
 
-            $lastRunTimestamp = $sensor_vo->last_value_timestamp;
+            $lastRunTimestamp = $sensorVo->lastValueTimestamp;
             $delta = $now - $lastRunTimestamp;
             if ($delta > $interval * 60 || $input->getOption('force')) {
-                $sensor = $this->builder->build($sensor_vo->type);
-                $currentSensorValue = $sensor->getValue($sensor_vo->pin);
+                $sensor = $this->builder->build($sensorVo->type);
+                $currentSensorValue = $sensor->getValue($sensorVo->pin);
                 if ($currentSensorValue === null) {
                     $output->writeln(sprintf(
                         '<error>Invalid sensor value: #%d %s (%s)</error>',
-                        $sensor_vo->id,
-                        $sensor_vo->type,
-                        $sensor_vo->name
+                        $sensorVo->sensorId,
+                        $sensorVo->type,
+                        $sensorVo->name
                     ));
                     continue;
                 }
 
                 $formattedSensorValue = $sensor->formatValue($currentSensorValue);
                 $event = new SensorValueEvent(
-                    $sensor_vo,
+                    $sensorVo,
                     $sensor,
                     $currentSensorValue,
                     $formattedSensorValue,
@@ -129,14 +129,14 @@ class SensorCronCommand extends Command
                 );
                 $this->dispatcher->dispatchEvent($event);
 
-                $this->gateway->addValue($sensor_vo->id, $currentSensorValue);
+                $this->gateway->addValue($sensorVo->sensorId, $currentSensorValue);
 
                 $output->writeln(
                     sprintf(
                         '<info>Sensor value: #%d %s (%s): %s</info>',
-                        $sensor_vo->id,
-                        $sensor_vo->type,
-                        $sensor_vo->name,
+                        $sensorVo->sensorId,
+                        $sensorVo->type,
+                        $sensorVo->name,
                         $formattedSensorValue
                     )
                 );

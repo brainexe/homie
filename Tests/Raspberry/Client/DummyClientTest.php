@@ -52,8 +52,8 @@ class DummyClientTest extends PHPUnit_Framework_TestCase
         ->method('log')
         ->with('info', $command);
 
-        $actual_result = $this->subject->executeWithReturn($command);
+        $actualResult = $this->subject->executeWithReturn($command);
 
-        $this->assertEquals('', $actual_result);
+        $this->assertEquals('', $actualResult);
     }
 }

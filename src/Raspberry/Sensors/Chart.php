@@ -12,45 +12,45 @@ class Chart
 
     /**
      * @param array[] $sensors
-     * @param array[] $sensor_values
+     * @param array[] $sensorValues
      * @return array
      */
-    public function formatJsonData(array $sensors, array $sensor_values)
+    public function formatJsonData(array $sensors, array $sensorValues)
     {
         $output = [];
 
         foreach ($sensors as $sensor) {
-            $sensor_id = $sensor['id'];
+            $sensorId = $sensor['id'];
 
-            if (empty($sensor_values[$sensor_id])) {
+            if (empty($sensorValues[$sensorId])) {
                 continue;
             }
 
-            $sensor_json = [
-            'sensor_id' => $sensor_id,
-            'color' => $this->getColor($sensor_id),
-            'name' => $sensor['name'],
-            'description' => $sensor['description'],
-            'pin' => $sensor['pin'],
-            'data' => []
+            $sensorJson = [
+                'sensor_id' => $sensorId,
+                'color' => $this->getColor($sensorId),
+                'name' => $sensor['name'],
+                'description' => $sensor['description'],
+                'pin' => $sensor['pin'],
+                'data' => []
             ];
 
-            foreach ($sensor_values[$sensor_id] as $timestamp => $value) {
-                $sensor_json['data'][] = ['x' => (int)$timestamp, 'y' => (double)$value];
+            foreach ($sensorValues[$sensorId] as $timestamp => $value) {
+                $sensorJson['data'][] = ['x' => (int)$timestamp, 'y' => (double)$value];
             }
 
-            $output[] = $sensor_json;
+            $output[] = $sensorJson;
         }
 
         return $output;
     }
 
     /**
-     * @param integer $sensor_id
+     * @param integer $sensorId
      * @return string
      */
-    private function getColor($sensor_id)
+    private function getColor($sensorId)
     {
-        return sprintf('#%s', substr(md5($sensor_id), 0, 6));
+        return sprintf('#%s', substr(md5($sensorId), 0, 6));
     }
 }

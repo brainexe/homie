@@ -57,33 +57,33 @@ class StatusControllerTest extends PHPUnit_Framework_TestCase
         ->method('countJobs')
         ->will($this->returnValue($messageQueueJobs));
 
-        $actual_result = $this->subject->index();
+        $actualResult = $this->subject->index();
 
-        $expected_result = [
+        $expectedResult = [
         'jobs' => $eventsByType,
         'stats' => [
         'Queue Len' => $messageQueueJobs
         ],
         ];
 
-        $this->assertEquals($expected_result, $actual_result);
+        $this->assertEquals($expectedResult, $actualResult);
     }
 
     public function testDeleteJob()
     {
-        $job_id = 10;
+        $jobId = 10;
         $request = new Request();
-        $request->request->set('job_id', $job_id);
+        $request->request->set('job_id', $jobId);
 
         $this->mockMessageQueueGateway
         ->expects($this->once())
         ->method('deleteEvent')
-        ->will($this->returnValue($job_id));
+        ->will($this->returnValue($jobId));
 
 
-        $actual_result = $this->subject->deleteJob($request);
+        $actualResult = $this->subject->deleteJob($request);
 
-        $this->assertTrue($actual_result);
+        $this->assertTrue($actualResult);
     }
 
     public function testStartSelfUpdate()
@@ -95,8 +95,8 @@ class StatusControllerTest extends PHPUnit_Framework_TestCase
         ->method('dispatchInBackground')
         ->with($event);
 
-        $actual_result = $this->subject->startSelfUpdate();
+        $actualResult = $this->subject->startSelfUpdate();
 
-        $this->assertTrue($actual_result);
+        $this->assertTrue($actualResult);
     }
 }

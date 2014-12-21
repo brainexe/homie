@@ -31,19 +31,19 @@ class NodeTest extends PHPUnit_Framework_TestCase
 
     public function testGetNodeId()
     {
-        $actual_result = $this->subject->getNodeId();
-        $this->assertEquals($this->node_id, $actual_result);
+        $actualResult = $this->subject->getNodeId();
+        $this->assertEquals($this->node_id, $actualResult);
     }
 
     public function testIsMaster()
     {
-        $actual_result = $this->subject->isMaster();
-        $this->assertFalse($actual_result);
+        $actualResult = $this->subject->isMaster();
+        $this->assertFalse($actualResult);
     }
 
     public function testIsSlave()
     {
-        $actual_result = $this->subject->isSlave();
-        $this->assertTrue($actual_result);
+        $actualResult = $this->subject->isSlave();
+        $this->assertTrue($actualResult);
     }
 }

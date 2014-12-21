@@ -28,30 +28,39 @@ class SensorVOBuilder
     }
 
     /**
-     * @param int $id
+     * @param int $sensorId
      * @param string $name
      * @param string $description
      * @param int $interval
      * @param int $node
      * @param string $pin
      * @param string $type
-     * @param float $last_value
-     * @param int $last_value_timestamp
+     * @param float $lastValue
+     * @param int $lastValueTimestamp
      * @return SensorVO
      */
-    public function build($id, $name, $description, $interval, $node, $pin, $type, $last_value, $last_value_timestamp)
-    {
+    public function build(
+        $sensorId,
+        $name,
+        $description,
+        $interval,
+        $node,
+        $pin,
+        $type,
+        $lastValue,
+        $lastValueTimestamp
+    ) {
         $sensor = new SensorVO();
 
-        $sensor->id = $id;
+        $sensor->sensorId = $sensorId;
         $sensor->name = $name;
         $sensor->description = $description;
         $sensor->interval = $interval;
         $sensor->node = $node;
         $sensor->pin = $pin;
         $sensor->type = $type;
-        $sensor->last_value = $last_value;
-        $sensor->last_value_timestamp = $last_value_timestamp;
+        $sensor->lastValue = $lastValue;
+        $sensor->lastValueTimestamp = $lastValueTimestamp;
 
         return $sensor;
     }

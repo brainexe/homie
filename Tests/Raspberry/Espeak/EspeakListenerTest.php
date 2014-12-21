@@ -34,8 +34,8 @@ class EspeakListenerTest extends PHPUnit_Framework_TestCase
 
     public function testGetSubscribedEvents()
     {
-        $actual_result = $this->subject->getSubscribedEvents();
-        $this->assertInternalType('array', $actual_result);
+        $actualResult = $this->subject->getSubscribedEvents();
+        $this->assertInternalType('array', $actualResult);
     }
 
     public function testHandleEspeakEvent()

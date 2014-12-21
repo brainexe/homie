@@ -42,9 +42,9 @@ class HumidDHT11SensorTest extends PHPUnit_Framework_TestCase
 
     public function testGetSensorType()
     {
-        $actual_result = $this->subject->getSensorType();
+        $actualResult = $this->subject->getSensorType();
 
-        $this->assertEquals(HumidDHT11Sensor::TYPE, $actual_result);
+        $this->assertEquals(HumidDHT11Sensor::TYPE, $actualResult);
     }
 
     public function testGetValueWitInvalidOutput()
@@ -70,9 +70,9 @@ class HumidDHT11SensorTest extends PHPUnit_Framework_TestCase
         ->method('isSuccessful')
         ->will($this->returnValue(false));
 
-        $actual_result = $this->subject->getValue($pin);
+        $actualResult = $this->subject->getValue($pin);
 
-        $this->assertNull($actual_result);
+        $this->assertNull($actualResult);
     }
 
     public function testGetValueWitValidOutput()
@@ -105,32 +105,32 @@ class HumidDHT11SensorTest extends PHPUnit_Framework_TestCase
         ->method('getOutput')
         ->will($this->returnValue($output));
 
-        $actual_result = $this->subject->getValue($pin);
+        $actualResult = $this->subject->getValue($pin);
 
-        $this->assertEquals($humid, $actual_result);
+        $this->assertEquals($humid, $actualResult);
     }
 
     /**
      * @param float $given
-     * @param string $expected_result
+     * @param string $expectedResult
      * @dataProvider provideFormatValues
      */
-    public function testFormatValue($given, $expected_result)
+    public function testFormatValue($given, $expectedResult)
     {
-        $actual_result = $this->subject->formatValue($given);
+        $actualResult = $this->subject->formatValue($given);
 
-        $this->assertEquals($expected_result, $actual_result);
+        $this->assertEquals($expectedResult, $actualResult);
     }
     /**
      * @param float $given
-     * @param string $expected_result
+     * @param string $expectedResult
      * @dataProvider provideEspeakText
      */
-    public function testGetEspeakText($given, $expected_result)
+    public function testGetEspeakText($given, $expectedResult)
     {
-        $actual_result = $this->subject->getEspeakText($given);
+        $actualResult = $this->subject->getEspeakText($given);
 
-        $this->assertEquals($expected_result, $actual_result);
+        $this->assertEquals($expectedResult, $actualResult);
     }
 
     public function testIsSupported()
@@ -144,9 +144,9 @@ class HumidDHT11SensorTest extends PHPUnit_Framework_TestCase
         ->will($this->returnValue(true));
 
         $output = new DummyOutput();
-        $actual_result = $this->subject->isSupported($output);
+        $actualResult = $this->subject->isSupported($output);
 
-        $this->assertTrue($actual_result);
+        $this->assertTrue($actualResult);
     }
 
     public function testIsSupportedWhenNotSupported()
@@ -160,9 +160,9 @@ class HumidDHT11SensorTest extends PHPUnit_Framework_TestCase
         ->will($this->returnValue(false));
 
         $output = new DummyOutput();
-        $actual_result = $this->subject->isSupported($output);
+        $actualResult = $this->subject->isSupported($output);
 
-        $this->assertFalse($actual_result);
+        $this->assertFalse($actualResult);
     }
 
     public function provideEspeakText()

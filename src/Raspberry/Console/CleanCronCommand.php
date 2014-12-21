@@ -58,10 +58,10 @@ class CleanCronCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $sensor_ids = $this->sensorGateway->getSensorIds();
+        $sensorIds = $this->sensorGateway->getSensorIds();
 
-        foreach ($sensor_ids as $sensor_id) {
-            $this->deleteOldValues($output, $sensor_id);
+        foreach ($sensorIds as $sensorId) {
+            $this->deleteOldValues($output, $sensorId);
         }
 
         $output->writeln('<info>done</info>');
@@ -69,20 +69,20 @@ class CleanCronCommand extends Command
 
     /**
      * @param OutputInterface $output
-     * @param integer $sensor_id
+     * @param integer $sensorId
      */
-    private function deleteOldValues(OutputInterface $output, $sensor_id)
+    private function deleteOldValues(OutputInterface $output, $sensorId)
     {
-        $deleted_rows = 0;
+        $deletedRows = 0;
 
         foreach ($this->valueDeleteSensorValues as $delete) {
-            $deleted_rows += $this->sensorValuesGateway->deleteOldValues(
-                $sensor_id,
+            $deletedRows += $this->sensorValuesGateway->deleteOldValues(
+                $sensorId,
                 $delete['days'],
                 $delete['percentage']
             );
         }
 
-        $output->writeln(sprintf('<info>sensor #%d, deleted %d rows</info>', $sensor_id, $deleted_rows));
+        $output->writeln(sprintf('<info>sensor #%d, deleted %d rows</info>', $sensorId, $deletedRows));
     }
 }

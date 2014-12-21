@@ -42,8 +42,8 @@ class TodoListGatewayTest extends PHPUnit_Framework_TestCase
 
     public function testAddItem()
     {
-        $item_vo = new TodoItemVO();
-        $item_vo->id = $id = 10;
+        $itemVo = new TodoItemVO();
+        $itemVo->todoId = $id = 10;
 
         $this->mockRedis
         ->expects($this->once())
@@ -53,108 +53,110 @@ class TodoListGatewayTest extends PHPUnit_Framework_TestCase
         $this->mockRedis
         ->expects($this->once())
         ->method('sAdd')
-        ->with(TodoListGateway::TODO_IDS, $item_vo->id);
+        ->with(TodoListGateway::TODO_IDS, $itemVo->todoId);
 
-        $this->subject->addItem($item_vo);
+        $this->subject->addItem($itemVo);
     }
 
     public function testGetList()
     {
 
-        $item_raw_1 = [
-        'id' => $item_1_id = 42
+        $itemRaw1 = [
+        'id' => $item1Id = 42
         ];
 
-        $item_raw_2 = [
-        'id' => $item_2_id = 43
+        $itemRaw2 = [
+          'id' => $item2Id = 43
         ];
 
         $this->mockRedis
-        ->expects($this->at(0))
-        ->method('sMembers')
-        ->with("todo_ids")
-        ->will($this->returnValue([$item_1_id, $item_2_id]));
+            ->expects($this->at(0))
+            ->method('sMembers')
+            ->with("todo_ids")
+            ->will($this->returnValue([$item1Id, $item2Id]));
 
         $this->mockRedis
-        ->expects($this->at(1))
-        ->method('multi')
-        ->will($this->returnValue($this->mockRedis));
+            ->expects($this->at(1))
+            ->method('multi')
+            ->will($this->returnValue($this->mockRedis));
 
         $this->mockRedis
-        ->expects($this->at(2))
-        ->method('HGETALL')
-        ->with("todo:$item_1_id")
-        ->will($this->returnValue($item_raw_1));
+            ->expects($this->at(2))
+            ->method('HGETALL')
+            ->with("todo:$item1Id")
+            ->will($this->returnValue($itemRaw1));
 
         $this->mockRedis
-        ->expects($this->at(3))
-        ->method('HGETALL')
-        ->with("todo:$item_2_id")
-        ->will($this->returnValue($item_raw_2));
+            ->expects($this->at(3))
+            ->method('HGETALL')
+            ->with("todo:$item2Id")
+            ->will($this->returnValue($itemRaw2));
 
         $this->mockRedis
-        ->expects($this->at(4))
-        ->method('exec')
-        ->will($this->returnValue([$item_raw_1, $item_raw_2]));
+            ->expects($this->at(4))
+            ->method('exec')
+            ->will($this->returnValue([$itemRaw1, $itemRaw2]));
 
-        $actual_result = $this->subject->getList();
-        $this->assertEquals([$item_raw_1, $item_raw_2], $actual_result);
+        $actualResult = $this->subject->getList();
+        $this->assertEquals([$itemRaw1, $itemRaw2], $actualResult);
     }
 
     public function testGetRawItem()
     {
-        $item_id = 10;
+        $itemId = 10;
 
-        $item_raw = [
-        'id' => $item_id
+        $itemRaw = [
+            'id' => $itemId
         ];
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('HGETALL')
-        ->with("todo:$item_id")
-        ->will($this->returnValue($item_raw));
+            ->expects($this->once())
+            ->method('HGETALL')
+            ->with("todo:$itemId")
+            ->will($this->returnValue($itemRaw));
 
-        $actual_result = $this->subject->getRawItem($item_id);
+        $actualResult = $this->subject->getRawItem($itemId);
 
-        $this->assertEquals($item_raw, $actual_result);
+        $this->assertEquals($itemRaw, $actualResult);
     }
 
     public function testEditItem()
     {
-        $item_id = 10;
+        $itemId = 10;
         $now = 1000;
 
-        $changes = ['name' => 'change'];
+        $changes = [
+            'name' => 'change'
+        ];
 
         $this->mockTime
-        ->expects($this->once())
-        ->method('now')
-        ->will($this->returnValue($now));
+            ->expects($this->once())
+            ->method('now')
+            ->will($this->returnValue($now));
 
-        $changes['last_change'] = $now;
+        $changes['lastChange'] = $now;
         $this->mockRedis
-        ->expects($this->once())
-        ->method('hMSet')
-        ->with("todo:$item_id", $changes);
+            ->expects($this->once())
+            ->method('hMSet')
+            ->with("todo:$itemId", $changes);
 
-        $this->subject->editItem($item_id, $changes);
+        $this->subject->editItem($itemId, $changes);
     }
 
     public function testDeleteItem()
     {
-        $item_id = 10;
+        $itemId = 10;
 
         $this->mockRedis
         ->expects($this->once())
         ->method('del')
-        ->with("todo:$item_id");
+        ->with("todo:$itemId");
 
         $this->mockRedis
         ->expects($this->once())
         ->method('sRem')
-        ->with(TodoListGateway::TODO_IDS, $item_id);
+        ->with(TodoListGateway::TODO_IDS, $itemId);
 
-        $this->subject->deleteItem($item_id);
+        $this->subject->deleteItem($itemId);
     }
 }

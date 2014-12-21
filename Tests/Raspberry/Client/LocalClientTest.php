@@ -121,8 +121,8 @@ class LocalClientTest extends PHPUnit_Framework_TestCase
         ->method('getOutput')
         ->will($this->returnValue($output));
 
-        $actual_result = $this->subject->executeWithReturn($command);
-        $this->assertEquals($output, $actual_result);
+        $actualResult = $this->subject->executeWithReturn($command);
+        $this->assertEquals($output, $actualResult);
     }
 
     public function testExecute()

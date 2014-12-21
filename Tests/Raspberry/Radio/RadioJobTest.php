@@ -53,9 +53,9 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase
         ->with(RadioChangeEvent::CHANGE_RADIO)
         ->will($this->returnValue($jobs));
 
-        $actual_result = $this->subject->getJobs();
+        $actualResult = $this->subject->getJobs();
 
-        $this->assertEquals($jobs, $actual_result);
+        $this->assertEquals($jobs, $actualResult);
     }
 
     public function testAddJob()
@@ -65,7 +65,7 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase
         $status = true;
 
         $radio_vo = new RadioVO();
-        $radio_vo->id = 1;
+        $radio_vo->radioId = 1;
 
         $this->mock_time_parser
         ->expects($this->once())
@@ -84,14 +84,14 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase
 
     public function testDeleteJob()
     {
-        $job_id = 19;
+        $jobId = 19;
 
         $this->mock_message_queue_gateway
         ->expects($this->once())
         ->method('deleteEvent')
-        ->with($job_id, RadioChangeEvent::CHANGE_RADIO);
+        ->with($jobId, RadioChangeEvent::CHANGE_RADIO);
 
-        $this->subject->deleteJob($job_id);
+        $this->subject->deleteJob($jobId);
 
     }
 }

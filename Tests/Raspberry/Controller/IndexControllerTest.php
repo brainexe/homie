@@ -51,10 +51,10 @@ class IndexControllerTest extends PHPUnit_Framework_TestCase
         ])
         ->will($this->returnValue($text));
 
-        $actual_result = $this->subject->index($request);
+        $actualResult = $this->subject->index($request);
 
-        $expected_result = new Response($text);
+        $expectedResult = new Response($text);
 
-        $this->assertEquals($expected_result, $actual_result);
+        $this->assertEquals($expectedResult, $actualResult);
     }
 }

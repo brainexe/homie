@@ -43,26 +43,26 @@ class BlogPostNotifyListenerTest extends PHPUnit_Framework_TestCase
 
     public function testGetSubscribedEvents()
     {
-        $actual_result = $this->subject->getSubscribedEvents();
-        $this->assertInternalType('array', $actual_result);
+        $actualResult = $this->subject->getSubscribedEvents();
+        $this->assertInternalType('array', $actualResult);
     }
 
     public function testHandlePostEvent()
     {
-        $user_vo = new UserVO();
-        $post_vo = new BlogPostVO();
-        $post_vo->mood = $mood = 10;
+        $userVo = new UserVO();
+        $postVo = new BlogPostVO();
+        $postVo->mood = $mood = 10;
 
-        $event = new BlogEvent($user_vo, $post_vo);
+        $event = new BlogEvent($userVo, $postVo);
 
-        $hour = 12;
+        $hour   = 12;
         $minute = 50;
 
         $this->mockTime
-        ->expects($this->at(0))
-        ->method('date')
-        ->with('G')
-        ->will($this->returnValue($hour));
+            ->expects($this->at(0))
+            ->method('date')
+            ->with('G')
+            ->will($this->returnValue($hour));
 
         $this->mockTime
         ->expects($this->at(1))
@@ -71,7 +71,7 @@ class BlogPostNotifyListenerTest extends PHPUnit_Framework_TestCase
         ->will($this->returnValue($minute));
 
         $espeak = new EspeakVO($this->anything());
-        $espeak_event = new EspeakEvent($espeak);
+        $espeakEvent = new EspeakEvent($espeak);
 
         $this->mockEventDispatcher
         ->expects($this->at(0))

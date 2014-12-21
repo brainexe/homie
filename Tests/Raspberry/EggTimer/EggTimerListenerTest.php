@@ -44,8 +44,8 @@ class EggTimerListenerTest extends PHPUnit_Framework_TestCase
 
     public function testGetSubscribedEvents()
     {
-        $actual_result = $this->subject->getSubscribedEvents();
-        $this->assertInternalType('array', $actual_result);
+        $actualResult = $this->subject->getSubscribedEvents();
+        $this->assertInternalType('array', $actualResult);
     }
 
     public function testHandleEggTimerEventWithoutEspeak()
@@ -66,12 +66,12 @@ class EggTimerListenerTest extends PHPUnit_Framework_TestCase
         $espeak = new EspeakVO($text);
         $event = new EggTimerEvent($espeak);
 
-        $espeak_event = new EspeakEvent($espeak);
+        $espeakEvent = new EspeakEvent($espeak);
 
         $this->mockEventDispatcher
         ->expects($this->once())
         ->method('dispatchEvent')
-        ->with($espeak_event);
+        ->with($espeakEvent);
 
         $this->mockSound
         ->expects($this->once())

@@ -16,22 +16,22 @@ class PinsCollection
      */
     public function add(Pin $pin)
     {
-        $pin_id = $pin->getID();
-        $this->pins[$pin_id] = $pin;
+        $pinId = $pin->getID();
+        $this->pins[$pinId] = $pin;
     }
 
     /**
-     * @param integer $id
+     * @param integer $pinId
      * @return Pin
      * @throws InvalidArgumentException
      */
-    public function get($id)
+    public function get($pinId)
     {
-        if (empty($this->pins[$id])) {
-            throw new InvalidArgumentException(sprintf('Pin #%s does not exist', $id));
+        if (empty($this->pins[$pinId])) {
+            throw new InvalidArgumentException(sprintf('Pin #%s does not exist', $pinId));
         }
 
-        return $this->pins[$id];
+        return $this->pins[$pinId];
     }
 
     /**

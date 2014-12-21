@@ -49,146 +49,146 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
         $result = ['result'];
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('SMEMBERS')
-        ->with(RadioGateway::REDIS_RADIO_IDS)
-        ->will($this->returnValue($radio_ids));
+            ->expects($this->once())
+            ->method('SMEMBERS')
+            ->with(RadioGateway::REDIS_RADIO_IDS)
+            ->will($this->returnValue($radio_ids));
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('multi')
-        ->will($this->returnValue($this->mockRedis));
+            ->expects($this->once())
+            ->method('multi')
+            ->will($this->returnValue($this->mockRedis));
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('HGETALL')
-        ->with("radios:$radio_id");
+            ->expects($this->once())
+            ->method('HGETALL')
+            ->with("radios:$radio_id");
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('exec')
-        ->will($this->returnValue($result));
+            ->expects($this->once())
+            ->method('exec')
+            ->will($this->returnValue($result));
 
-        $actual_result = $this->subject->getRadios();
+        $actualResult = $this->subject->getRadios();
 
-        $this->assertEquals($result, $actual_result);
+        $this->assertEquals($result, $actualResult);
     }
 
     public function testGetRadio()
     {
-        $radio_id = 10;
+        $radioId = 10;
 
         $radio = ['radio'];
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('HGETALL')
-        ->with("radios:$radio_id")
-        ->will($this->returnValue($radio));
+            ->expects($this->once())
+            ->method('HGETALL')
+            ->with("radios:$radioId")
+            ->will($this->returnValue($radio));
 
-        $actual_result = $this->subject->getRadio($radio_id);
+        $actualResult = $this->subject->getRadio($radioId);
 
-        $this->assertEquals($radio, $actual_result);
+        $this->assertEquals($radio, $actualResult);
     }
 
     public function testGetRadioIds()
     {
-        $radio_ids = [
-        $radio_id = 1
+        $radioIds = [
+            1
         ];
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('SMEMBERS')
-        ->with(RadioGateway::REDIS_RADIO_IDS)
-        ->will($this->returnValue($radio_ids));
+            ->expects($this->once())
+            ->method('SMEMBERS')
+            ->with(RadioGateway::REDIS_RADIO_IDS)
+            ->will($this->returnValue($radioIds));
 
-        $actual_result = $this->subject->getRadioIds();
+        $actualResult = $this->subject->getRadioIds();
 
-        $this->assertEquals($radio_ids, $actual_result);
+        $this->assertEquals($radioIds, $actualResult);
     }
 
     public function testAddRadio()
     {
-        $id = "11880";
+        $radioId = "11880";
 
-        $radio_vo = new RadioVO();
-        $radio_vo->id = $id;
-        $radio_vo->name = $name = 'name';
-        $radio_vo->description = $description = 'description';
-        $radio_vo->pin = $pin = 'pin';
-        $radio_vo->code = $code = 'code';
+        $radioVo = new RadioVO();
+        $radioVo->radioId     = $radioId;
+        $radioVo->name        = $name = 'name';
+        $radioVo->description = $description = 'description';
+        $radioVo->pin         = $pin = 'pin';
+        $radioVo->code        = $code = 'code';
 
         $this->mockIdGenerator
-        ->expects($this->once())
-        ->method('generateRandomId')
-        ->will($this->returnValue($id));
+            ->expects($this->once())
+            ->method('generateRandomId')
+            ->will($this->returnValue($radioId));
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('multi')
-        ->will($this->returnValue($this->mockRedis));
+            ->expects($this->once())
+            ->method('multi')
+            ->will($this->returnValue($this->mockRedis));
 
-        $key = "radios:$id";
-
-        $this->mockRedis
-        ->expects($this->once())
-        ->method('HMSET')
-        ->with($key, [
-        'id' => $id,
-        'name' => $name,
-        'description' => $description,
-        'pin' => $pin,
-        'code' => $code,
-        ]);
+        $key = "radios:$radioId";
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('SADD')
-        ->with(RadioGateway::REDIS_RADIO_IDS, $id);
+            ->expects($this->once())
+            ->method('HMSET')
+            ->with($key, [
+                'radioId' => $radioId,
+                'name' => $name,
+                'description' => $description,
+                'pin' => $pin,
+                'code' => $code,
+            ]);
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('exec');
+            ->expects($this->once())
+            ->method('SADD')
+            ->with(RadioGateway::REDIS_RADIO_IDS, $radioId);
 
-        $actual_result = $this->subject->addRadio($radio_vo);
+        $this->mockRedis
+            ->expects($this->once())
+            ->method('exec');
 
-        $this->assertEquals($id, $actual_result);
+        $actualResult = $this->subject->addRadio($radioVo);
+
+        $this->assertEquals($radioId, $actualResult);
     }
 
     public function testEditRadio()
     {
-        $radio_vo = new RadioVO();
-        $radio_vo->id = $radio_id = 10;
+        $radioVo = new RadioVO();
+        $radioVo->radioId = $radioId = 10;
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('hMset')
-        ->with("radios:$radio_id", [
-        'id' => $radio_id,
-        'code' => null,
-        'pin' => null,
-        'name' => null,
-        'description' => null,
-        ]);
+            ->expects($this->once())
+            ->method('hMset')
+            ->with("radios:$radioId", [
+                'radioId' => $radioId,
+                'code' => null,
+                'pin' => null,
+                'name' => null,
+                'description' => null,
+            ]);
 
-        $this->subject->editRadio($radio_vo);
+        $this->subject->editRadio($radioVo);
     }
 
     public function testDeleteRadio()
     {
-        $radio_id = 10;
+        $radioId = 10;
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('SREM')
-        ->with(RadioGateway::REDIS_RADIO_IDS, $radio_id);
+            ->expects($this->once())
+            ->method('SREM')
+            ->with(RadioGateway::REDIS_RADIO_IDS, $radioId);
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('DEL')
-        ->with("radios:$radio_id");
+            ->expects($this->once())
+            ->method('DEL')
+            ->with("radios:$radioId");
 
-        $this->subject->deleteRadio($radio_id);
+        $this->subject->deleteRadio($radioId);
     }
 }

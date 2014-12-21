@@ -42,7 +42,7 @@ class DashboardGatewayTest extends TestCase
 
     public function testGetDashboard()
     {
-        $user_id = 42;
+        $userId = 42;
 
         $payload = ['payload'];
         $widgets_raw = [
@@ -52,21 +52,21 @@ class DashboardGatewayTest extends TestCase
         $this->mockRedis
         ->expects($this->once())
         ->method('hGetAll')
-        ->with("dashboard:$user_id")
+        ->with("dashboard:$userId")
         ->will($this->returnValue($widgets_raw));
 
-        $actual_result = $this->subject->getDashboard($user_id);
+        $actualResult = $this->subject->getDashboard($userId);
 
         $expected_widget = $payload;
         $expected_widget['id'] = $widget_id;
         $expected_widget['open'] = true;
 
-        $this->assertEquals([$expected_widget], $actual_result);
+        $this->assertEquals([$expected_widget], $actualResult);
     }
 
     public function testAddWidget()
     {
-        $user_id         = 42;
+        $userId         = 42;
         $type            = 'type';
         $payload         = [];
         $payload['type'] = $type;
@@ -80,21 +80,21 @@ class DashboardGatewayTest extends TestCase
         $this->mockRedis
         ->expects($this->once())
         ->method('HSET')
-        ->with("dashboard:$user_id", $new_id, json_encode($payload));
+        ->with("dashboard:$userId", $new_id, json_encode($payload));
 
-        $this->subject->addWidget($user_id, $payload);
+        $this->subject->addWidget($userId, $payload);
     }
 
     public function testDeleteWidget()
     {
         $widget_id = 1;
-        $user_id = 42;
+        $userId = 42;
 
         $this->mockRedis
         ->expects($this->once())
         ->method('HDEL')
-        ->with("dashboard:$user_id", $widget_id);
+        ->with("dashboard:$userId", $widget_id);
 
-        $this->subject->deleteWidget($user_id, $widget_id);
+        $this->subject->deleteWidget($userId, $widget_id);
     }
 }

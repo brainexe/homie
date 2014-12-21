@@ -22,11 +22,11 @@ class PinLoader
 
     /**
      * @Inject("@RaspberryClient")
-     * @param ClientInterface $local_client
+     * @param ClientInterface $client
      */
-    public function __construct(ClientInterface $local_client)
+    public function __construct(ClientInterface $client)
     {
-        $this->client = $local_client;
+        $this->client = $client;
     }
 
     /**

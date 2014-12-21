@@ -14,7 +14,7 @@ class SensorValueEvent extends AbstractEvent implements PushViaWebsocketInterfac
     /**
      * @var SensorVO
      */
-    public $sensor_vo;
+    public $sensorVo;
 
     /**
      * @var SensorInterface
@@ -34,22 +34,27 @@ class SensorValueEvent extends AbstractEvent implements PushViaWebsocketInterfac
     /**
      * @var string
      */
-    public $value_formatted;
+    public $valueFormatted;
 
     /**
-     * @param SensorVO $sensor_vo
+     * @param SensorVO $sensorVo
      * @param SensorInterface $sensor
      * @param float $value
-     * @param string $value_formatted
+     * @param string $valueFormatted
      * @param integer $timestamp
      */
-    public function __construct(SensorVO $sensor_vo, SensorInterface $sensor, $value, $value_formatted, $timestamp)
-    {
+    public function __construct(
+        SensorVO $sensorVo,
+        SensorInterface $sensor,
+        $value,
+        $valueFormatted,
+        $timestamp
+    ) {
         $this->event_name = self::VALUE;
-        $this->sensor_vo = $sensor_vo;
+        $this->sensorVo = $sensorVo;
         $this->value = $value;
         $this->sensor = $sensor;
-        $this->value_formatted = $value_formatted;
+        $this->valueFormatted = $valueFormatted;
         $this->timestamp = $timestamp;
     }
 }

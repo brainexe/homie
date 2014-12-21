@@ -102,14 +102,14 @@ class EggTimerTest extends PHPUnit_Framework_TestCase
 
     public function testDeleteJob()
     {
-        $job_id = 10;
+        $jobId = 10;
 
         $this->mockMessageQueueGateway
         ->expects($this->once())
         ->method('deleteEvent')
-        ->with($job_id, EggTimerEvent::DONE);
+        ->with($jobId, EggTimerEvent::DONE);
 
-        $this->subject->deleteJob($job_id);
+        $this->subject->deleteJob($jobId);
     }
 
     public function testGetJobs()
@@ -128,8 +128,8 @@ class EggTimerTest extends PHPUnit_Framework_TestCase
         ->with(EggTimerEvent::DONE, $now)
         ->will($this->returnValue($jobs));
 
-        $actual_result = $this->subject->getJobs();
+        $actualResult = $this->subject->getJobs();
 
-        $this->assertEquals($jobs, $actual_result);
+        $this->assertEquals($jobs, $actualResult);
     }
 }

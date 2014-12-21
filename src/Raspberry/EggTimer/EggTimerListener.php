@@ -45,9 +45,9 @@ class EggTimerListener implements EventSubscriberInterface
     public function handleEggTimerEvent(EggTimerEvent $event)
     {
         if ($event->espeak) {
-            $new_event = new EspeakEvent($event->espeak);
+            $newEvent = new EspeakEvent($event->espeak);
 
-            $this->dispatchEvent($new_event);
+            $this->dispatchEvent($newEvent);
         }
 
         $this->sound->playSound(ROOT . EggTimer::EGG_TIMER_RING_SOUND);

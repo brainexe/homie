@@ -42,8 +42,8 @@ class PinGatewayTest extends PHPUnit_Framework_TestCase
         ->with(PinGateway::REDIS_PINS)
         ->will($this->returnValue($descriptions));
 
-        $actual_result = $this->subject->getPinDescriptions();
+        $actualResult = $this->subject->getPinDescriptions();
 
-        $this->assertEquals($descriptions, $actual_result);
+        $this->assertEquals($descriptions, $actualResult);
     }
 }

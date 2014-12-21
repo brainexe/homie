@@ -21,27 +21,27 @@ class SensorGateway
      */
     public function getSensors()
     {
-        $sensor_ids = $this->getSensorIds();
+        $sensorIds = $this->getSensorIds();
 
         /** @var Redis $redis */
         $redis = $this->getRedis()->multi(Redis::PIPELINE);
-        foreach ($sensor_ids as $sensor_id) {
-            $redis->HGETALL($this->getKey($sensor_id));
+        foreach ($sensorIds as $sensorId) {
+            $redis->HGETALL($this->getKey($sensorId));
         }
 
         return $redis->exec();
     }
 
     /**
-     * @param integer $node_id
+     * @param integer $node
      * @return array[]
      */
-    public function getSensorsForNode($node_id)
+    public function getSensorsForNode($node)
     {
         $sensors = $this->getSensors();
 
-        return array_filter($sensors, function($sensor) use ($node_id) {
-            return $sensor['node'] == $node_id;
+        return array_filter($sensors, function($sensor) use ($node) {
+            return $sensor['node'] == $node;
         });
     }
 
@@ -50,71 +50,71 @@ class SensorGateway
      */
     public function getSensorIds()
     {
-        $sensor_ids = $this->getRedis()->sMembers(self::SENSOR_IDS);
+        $sensorIds = $this->getRedis()->sMembers(self::SENSOR_IDS);
 
-        sort($sensor_ids);
+        sort($sensorIds);
 
-        return $sensor_ids;
+        return $sensorIds;
     }
 
     /**
-     * @param SensorVO $sensor_vo
+     * @param SensorVO $sensorVo
      * @return integer
      */
-    public function addSensor(SensorVO $sensor_vo)
+    public function addSensor(SensorVO $sensorVo)
     {
-        $sensor_ids = $this->getSensorIds();
-        $new_sensor_id = end($sensor_ids) + 1;
+        $sensorIds = $this->getSensorIds();
+        $newId = end($sensorIds) + 1;
 
         $redis = $this->getRedis()->multi(Redis::PIPELINE);
 
-        $key = $this->getKey($new_sensor_id);
+        $key = $this->getKey($newId);
 
-        $sensor_data = (array)$sensor_vo;
-        $sensor_data['id'] = $new_sensor_id;
-        $sensor_data['last_value'] = 0;
-        $sensor_data['last_value_timestamp'] = 0;
+        $data = (array)$sensorVo;
+        $data['id'] = $newId;
+        $data['last_value'] = 0;
+        $data['last_value_timestamp'] = 0;
 
-        $redis->HMSET($key, $sensor_data);
+        $redis->HMSET($key, $data);
 
-        $redis->sAdd(self::SENSOR_IDS, $new_sensor_id);
+        $redis->sAdd(self::SENSOR_IDS, $newId);
 
         $redis->exec();
 
-        $sensor_vo->id = $new_sensor_id;
+        $sensorVo->sensorId = $newId;
 
-        return $new_sensor_id;
+        return $newId;
     }
 
     /**
-     * @param integer $sensor_id
+     * @param integer $sensorId
      * @return array
      */
-    public function getSensor($sensor_id)
+    public function getSensor($sensorId)
     {
-        $key = $this->getKey($sensor_id);
+        $key = $this->getKey($sensorId);
 
         return $this->getRedis()->hGetAll($key);
     }
 
     /**
-     * @param integer $sensor_id
+     * @param integer $sensorId
      */
-    public function deleteSensor($sensor_id)
+    public function deleteSensor($sensorId)
     {
         $redis = $this->getRedis();
 
-        $redis->del($this->getKey($sensor_id));
-        $redis->sRem(self::SENSOR_IDS, $sensor_id);
-        $redis->del(sprintf(SensorValuesGateway::REDIS_SENSOR_VALUES, $sensor_id));
+        $redis->del($this->getKey($sensorId));
+        $redis->sRem(self::SENSOR_IDS, $sensorId);
+        $redis->del(sprintf(SensorValuesGateway::REDIS_SENSOR_VALUES, $sensorId));
     }
 
     /**
-     * @param integer $sensor_id
+     * @param integer $sensorId
      * @return string
      */
-    private function getKey($sensor_id)
+    private function getKey($sensorId)
     {
-        return self::REDIS_SENSOR_PREFIX . $sensor_id;
+        return self::REDIS_SENSOR_PREFIX . $sensorId;
     }
 }

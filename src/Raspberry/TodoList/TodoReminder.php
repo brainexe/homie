@@ -22,11 +22,11 @@ class TodoReminder
 
     /**
      * @Inject({"@TodoList"})
-     * @param TodoList $todo_list
+     * @param TodoList $todoList
      */
-    public function __construct(TodoList $todo_list)
+    public function __construct(TodoList $todoList)
     {
-        $this->todoList = $todo_list;
+        $this->todoList = $todoList;
     }
 
     public function sendNotification()
@@ -37,29 +37,29 @@ class TodoReminder
             return;
         }
 
-        $this->dosendNotification($issuesPerState);
+        $this->doSendNotification($issuesPerState);
     }
 
     /**
      * @param $issuesPerState
      */
-    private function dosendNotification($issuesPerState)
+    private function doSendNotification($issuesPerState)
     {
         $text = _('Erinnerung');
         $text .= ': ';
 
-        foreach ($issuesPerState as $state => $issues_per_status) {
-            $text .= $this->getStateName(count($issues_per_status), $state);
+        foreach ($issuesPerState as $state => $issuesPerStatus) {
+            $text .= $this->getStateName(count($issuesPerStatus), $state);
             $text .= ': ';
 
             /** @var TodoItemVO $todo */
-            foreach ($issues_per_status as $todo) {
-                $text .= sprintf('%s: %s. ', $todo->user_name, $todo->name);
+            foreach ($issuesPerStatus as $todo) {
+                $text .= sprintf('%s: %s. ', $todo->userName, $todo->name);
             }
         }
 
-        $espeak_vo = new EspeakVO($text);
-        $event     = new EspeakEvent($espeak_vo);
+        $espeakVo = new EspeakVO($text);
+        $event    = new EspeakEvent($espeakVo);
 
         $this->dispatchInBackground($event);
     }
@@ -71,16 +71,16 @@ class TodoReminder
     {
         $todos = $this->todoList->getList();
 
-        $issues_per_state = [];
+        $issuesPerState = [];
         foreach ($todos as $todo) {
             if (TodoItemVO::STATUS_COMPLETED === $todo->status) {
                 continue;
             }
 
-            $issues_per_state[$todo->status][] = $todo;
+            $issuesPerState[$todo->status][] = $todo;
         }
 
-        return $issues_per_state;
+        return $issuesPerState;
     }
 
     /**

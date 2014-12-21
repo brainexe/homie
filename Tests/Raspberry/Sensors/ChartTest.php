@@ -21,27 +21,27 @@ class ChartTest extends \PHPUnit_Framework_TestCase
     {
         $sensors = [
         [
-        'id' => $sensor_id = 'sensor_id',
+        'id' => $sensorId = 'sensor_id',
         'name' => $sensor_name = 'name',
         'description' => $sensor_description = 'description',
         'pin' => $sensor_pin = 'pin',
         ],
         [
-        'id' => $sensor_id_2 = 'sensor_id_2',
+        'id' => $sensorId_2 = 'sensor_id_2',
         ]
         ];
 
         $sensor_values = [
-        $sensor_id => [
+        $sensorId => [
         $timestamp = 1212 => $sensor_value = 1200
         ]
         ];
 
-        $actual_result = $this->subject->formatJsonData($sensors, $sensor_values);
+        $actualResult = $this->subject->formatJsonData($sensors, $sensor_values);
 
-        $expected_result = [
+        $expectedResult = [
         [
-        'sensor_id' => $sensor_id,
+        'sensor_id' => $sensorId,
         'name' => $sensor_name,
         'description' => $sensor_description,
         'color' => '#d96d86',
@@ -55,6 +55,6 @@ class ChartTest extends \PHPUnit_Framework_TestCase
         ]
         ];
 
-        $this->assertEquals($expected_result, $actual_result);
+        $this->assertEquals($expectedResult, $actualResult);
     }
 }

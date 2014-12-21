@@ -50,12 +50,12 @@ class EggTimer
     public function addNewJob($time, $text)
     {
         if ($text) {
-            $espeak_vo = new EspeakVO($text);
+            $espeakVo = new EspeakVO($text);
         } else {
-            $espeak_vo = null;
+            $espeakVo = null;
         }
 
-        $event = new EggTimerEvent($espeak_vo);
+        $event = new EggTimerEvent($espeakVo);
 
         $timestamp = $this->timeParser->parseString($time);
 

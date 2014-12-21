@@ -88,7 +88,7 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
 
         $sensors_raw = [
         [
-        'id' => $sensor_id = 12,
+        'id' => $sensorId = 12,
         'last_value' => $last_value,
         'type' => $type,
         ]
@@ -103,11 +103,11 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
         ->method('getSensors')
         ->will($this->returnValue($sensors_obj));
 
-        $sensor_ids = [$sensor_id];
+        $sensorIds = [$sensorId];
         $this->mockSensorGateway
         ->expects($this->once())
         ->method('getSensorIds')
-        ->will($this->returnValue($sensor_ids));
+        ->will($this->returnValue($sensorIds));
 
         $this->mockSensorGateway
         ->expects($this->once())
@@ -131,21 +131,21 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
         $this->mockSensorValuesGateway
         ->expects($this->once())
         ->method('getSensorValues')
-        ->with($sensor_id, $from)
+        ->with($sensorId, $from)
         ->will($this->returnValue($sensor_values));
 
         $json = ['json'];
         $this->mockChart
         ->expects($this->once())
         ->method('formatJsonData')
-        ->with($sensors_raw, [$sensor_id => $sensor_values])
+        ->with($sensors_raw, [$sensorId => $sensor_values])
         ->will($this->returnValue($json));
 
-        $actual_result = $this->subject->indexSensor($request, $active_sensor_ids);
+        $actualResult = $this->subject->indexSensor($request, $active_sensor_ids);
 
-        $expected_result = [
+        $expectedResult = [
         'sensors' => $sensors_raw,
-        'active_sensor_ids' => $sensor_ids,
+        'active_sensor_ids' => $sensorIds,
         'json' => $json,
         'current_from' => $from,
         'available_sensors' => $sensors_obj,
@@ -157,7 +157,7 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
         86400 * 30 => 'Last Month'
         ]];
 
-        $this->assertEquals($expected_result, $actual_result);
+        $this->assertEquals($expectedResult, $actualResult);
     }
 
     public function testIndexSensorWithoutFromAndLastValue()
@@ -175,7 +175,7 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
 
         $sensors_raw = [
         [
-        'id' => $sensor_id = 12,
+        'id' => $sensorId = 12,
         'last_value' => $last_value,
         'type' => $type,
         ]
@@ -190,11 +190,11 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
         ->method('getSensors')
         ->will($this->returnValue($sensors_obj));
 
-        $sensor_ids = [$sensor_id];
+        $sensorIds = [$sensorId];
         $this->mockSensorGateway
         ->expects($this->once())
         ->method('getSensorIds')
-        ->will($this->returnValue($sensor_ids));
+        ->will($this->returnValue($sensorIds));
 
         $this->mockSensorGateway
         ->expects($this->once())
@@ -210,9 +210,9 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
         ->with($sensors_raw, [])
         ->will($this->returnValue($json));
 
-        $actual_result = $this->subject->indexSensor($request, "13");
+        $actualResult = $this->subject->indexSensor($request, "13");
 
-        $expected_result = [
+        $expectedResult = [
         'sensors' => $sensors_raw,
         'active_sensor_ids' => [13],
         'json' => $json,
@@ -226,7 +226,7 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
         86400 * 30 => 'Last Month'
         ]];
 
-        $this->assertEquals($expected_result, $actual_result);
+        $this->assertEquals($expectedResult, $actualResult);
     }
 
     public function testAddSensor()
@@ -246,28 +246,28 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
         $request->request->set('interval', $interval);
         $request->request->set('node', $node);
 
-        $sensor_vo = new SensorVO();
-        $sensor_vo->name        = $name;
-        $sensor_vo->type        = $type;
-        $sensor_vo->description = $description;
-        $sensor_vo->pin         = $pin;
-        $sensor_vo->interval    = $interval;
-        $sensor_vo->node        = $node;
+        $sensorVo = new SensorVO();
+        $sensorVo->name        = $name;
+        $sensorVo->type        = $type;
+        $sensorVo->description = $description;
+        $sensorVo->pin         = $pin;
+        $sensorVo->interval    = $interval;
+        $sensorVo->node        = $node;
 
         $this->mockSensorGateway
         ->expects($this->once())
         ->method('addSensor')
-        ->with($sensor_vo);
+        ->with($sensorVo);
 
-        $actual_result = $this->subject->addSensor($request);
+        $actualResult = $this->subject->addSensor($request);
 
-        $this->assertEquals($sensor_vo, $actual_result);
+        $this->assertEquals($sensorVo, $actualResult);
     }
 
     public function testEspeak()
     {
         $request = new Request();
-        $sensor_id = 10;
+        $sensorId = 10;
         $espeak_text = 'last value';
 
         $sensor = [
@@ -278,7 +278,7 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
         $this->mockSensorGateway
         ->expects($this->once())
         ->method('getSensor')
-        ->with($sensor_id)
+        ->with($sensorId)
         ->will($this->returnValue($sensor));
 
         $mock_sensor = $this->getMockForAbstractClass(SensorInterface::class, ['getEspeakText']);
@@ -302,14 +302,14 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
         ->method('dispatchInBackground')
         ->with($event);
 
-        $actual_result = $this->subject->espeak($request, $sensor_id);
+        $actualResult = $this->subject->espeak($request, $sensorId);
 
-        $this->assertTrue($actual_result);
+        $this->assertTrue($actualResult);
     }
 
     public function testSlim()
     {
-        $sensor_id              = 12;
+        $sensorId              = 12;
         $sensor_value_formatted = 100;
         $sensor_value           = '100 grad';
         $type                   = 'sensor type';
@@ -325,7 +325,7 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
         $this->mockSensorGateway
         ->expects($this->once())
         ->method('getSensor')
-        ->with($sensor_id)
+        ->with($sensorId)
         ->will($this->returnValue($sensor_raw));
 
         $this->mockSensorBuilder
@@ -340,7 +340,7 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
         ->with($sensor_value)
         ->will($this->returnValue($sensor_value_formatted));
 
-        $actual_result = $this->subject->slim($request, $sensor_id);
+        $actualResult = $this->subject->slim($request, $sensorId);
 
         $expected_value = [
         'sensor' => $sensor_raw,
@@ -349,18 +349,18 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
         'refresh_interval' => 60
         ];
 
-        $this->assertEquals($expected_value, $actual_result);
+        $this->assertEquals($expected_value, $actualResult);
     }
 
     public function testGetValue()
     {
-        $sensor_id              = 12;
+        $sensorId              = 12;
         $sensor_value_formatted = 100;
         $sensor_value           = '100 grad';
         $type                   = 'sensor type';
 
         $request = new Request();
-        $request->query->set('sensor_id', $sensor_id);
+        $request->query->set('sensor_id', $sensorId);
 
         $sensor_obj = $this->getMock(SensorInterface::class);
         $sensor_raw = [
@@ -371,7 +371,7 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
         $this->mockSensorGateway
         ->expects($this->once())
         ->method('getSensor')
-        ->with($sensor_id)
+        ->with($sensorId)
         ->will($this->returnValue($sensor_raw));
 
         $this->mockSensorBuilder
@@ -386,7 +386,7 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
         ->with($sensor_value)
         ->will($this->returnValue($sensor_value_formatted));
 
-        $actual_result = $this->subject->getValue($request);
+        $actualResult = $this->subject->getValue($request);
 
         $expected_value = [
         'sensor' => $sensor_raw,
@@ -395,6 +395,6 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
         'refresh_interval' => 60
         ];
 
-        $this->assertEquals($expected_value, $actual_result);
+        $this->assertEquals($expected_value, $actualResult);
     }
 }

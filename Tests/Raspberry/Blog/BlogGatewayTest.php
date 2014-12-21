@@ -33,11 +33,11 @@ class BlogGatewayTest extends PHPUnit_Framework_TestCase
 
     public function testGetPosts()
     {
-        $user_id = 42;
+        $userId  = 42;
         $from    = 10;
         $to      = 100;
 
-        $key = "blog:$user_id";
+        $key = "blog:$userId";
 
         $post = new BlogPostVO();
         $posts_raw = [
@@ -45,44 +45,44 @@ class BlogGatewayTest extends PHPUnit_Framework_TestCase
         ];
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('zRangeByScore')
-        ->with($key, $from, $to, ['withscores' => true])
-        ->will($this->returnValue($posts_raw));
+            ->expects($this->once())
+            ->method('zRangeByScore')
+            ->with($key, $from, $to, ['withscores' => true])
+            ->will($this->returnValue($posts_raw));
 
-        $actual_result = $this->subject->getPosts($user_id, $from, $to);
+        $actualResult = $this->subject->getPosts($userId, $from, $to);
 
-        $expected_result = [
-        $timestamp => $post
+        $expectedResult = [
+         $timestamp => $post
         ];
 
-        $this->assertEquals($expected_result, $actual_result);
+        $this->assertEquals($expectedResult, $actualResult);
     }
 
     public function testGetRecentPostWithEmptyResult()
     {
-        $user_id = 0;
+        $userId = 0;
 
-        $key = "blog:$user_id";
+        $key = "blog:$userId";
 
-        $posts_raw = [];
+        $postsRaw = [];
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('zRevRangeByScore')
-        ->with($key, '+inf', '0', ['limit' => [0, 1]])
-        ->will($this->returnValue($posts_raw));
+            ->expects($this->once())
+            ->method('zRevRangeByScore')
+            ->with($key, '+inf', '0', ['limit' => [0, 1]])
+            ->will($this->returnValue($postsRaw));
 
-        $actual_result = $this->subject->getRecentPost($user_id);
+        $actualResult = $this->subject->getRecentPost($userId);
 
-        $this->assertNull($actual_result);
+        $this->assertNull($actualResult);
     }
 
     public function testGetRecentPost()
     {
-        $user_id = 0;
+        $userId = 0;
 
-        $key = "blog:$user_id";
+        $key = "blog:$userId";
 
         $post = new BlogPostVO();
         $posts_raw = [
@@ -95,65 +95,65 @@ class BlogGatewayTest extends PHPUnit_Framework_TestCase
         ->with($key, '+inf', '0', ['limit' => [0, 1]])
         ->will($this->returnValue($posts_raw));
 
-        $actual_result = $this->subject->getRecentPost($user_id);
+        $actualResult = $this->subject->getRecentPost($userId);
 
-        $this->assertEquals($post, $actual_result);
+        $this->assertEquals($post, $actualResult);
     }
 
     public function testAddSubscriber()
     {
-        $user_id = 42;
-        $target_id = 12;
+        $userId = 42;
+        $targetId = 12;
 
         $this->mockRedis
         ->expects($this->once())
         ->method('sAdd')
-        ->with("blog:subscribers:$target_id", $user_id);
+        ->with("blog:subscribers:$targetId", $userId);
 
-        $this->subject->addSubscriber($user_id, $target_id);
+        $this->subject->addSubscriber($userId, $targetId);
     }
 
     public function testGetSubscriber()
     {
-        $target_id = 12;
+        $targetId = 12;
 
         $subscribers = [];
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('sMembers')
-        ->with("blog:subscribers:$target_id")
-        ->will($this->returnValue($subscribers));
+            ->expects($this->once())
+            ->method('sMembers')
+            ->with("blog:subscribers:$targetId")
+            ->will($this->returnValue($subscribers));
 
-        $actual_result = $this->subject->getSubscriber($target_id);
+        $actualResult = $this->subject->getSubscriber($targetId);
 
-        $this->assertEquals($subscribers, $actual_result);
+        $this->assertEquals($subscribers, $actualResult);
     }
 
     public function testAddPost()
     {
-        $user_id = 42;
+        $userId    = 42;
         $timestamp = 100;
-        $post_vo = new BlogPostVO();
+        $postVo    = new BlogPostVO();
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('zAdd')
-        ->with("blog:$user_id", $timestamp, serialize($post_vo));
+            ->expects($this->once())
+            ->method('zAdd')
+            ->with("blog:$userId", $timestamp, serialize($postVo));
 
-        $this->subject->addPost($user_id, $timestamp, $post_vo);
+        $this->subject->addPost($userId, $timestamp, $postVo);
     }
 
     public function testDeletePost()
     {
-        $user_id = 42;
+        $userId = 42;
         $timestamp = 1000;
 
         $this->mockRedis
         ->expects($this->once())
         ->method('zDeleteRangeByScore')
-        ->with("blog:$user_id");
+        ->with("blog:$userId");
 
-        $this->subject->deletePost($user_id, $timestamp);
+        $this->subject->deletePost($userId, $timestamp);
     }
 }
