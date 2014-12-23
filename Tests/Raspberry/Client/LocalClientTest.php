@@ -56,7 +56,7 @@ class LocalClientTest extends PHPUnit_Framework_TestCase
         $this->mockProcessBuilder
         ->expects($this->once())
         ->method('getProcess')
-        ->will($this->returnValue($process));
+        ->willReturn($process);
 
         $process
         ->expects($this->once())
@@ -70,12 +70,12 @@ class LocalClientTest extends PHPUnit_Framework_TestCase
         $process
         ->expects($this->once())
         ->method('isSuccessful')
-        ->will($this->returnValue(false));
+        ->willReturn(false);
 
         $process
         ->expects($this->once())
         ->method('getErrorOutput')
-        ->will($this->returnValue('error'));
+        ->willReturn('error');
 
         $this->subject->executeWithReturn($command);
     }
@@ -100,7 +100,7 @@ class LocalClientTest extends PHPUnit_Framework_TestCase
         $this->mockProcessBuilder
         ->expects($this->once())
         ->method('getProcess')
-        ->will($this->returnValue($process));
+        ->willReturn($process);
 
         $process
         ->expects($this->once())
@@ -114,12 +114,12 @@ class LocalClientTest extends PHPUnit_Framework_TestCase
         $process
         ->expects($this->once())
         ->method('isSuccessful')
-        ->will($this->returnValue(true));
+        ->willReturn(true);
 
         $process
         ->expects($this->once())
         ->method('getOutput')
-        ->will($this->returnValue($output));
+        ->willReturn($output);
 
         $actualResult = $this->subject->executeWithReturn($command);
         $this->assertEquals($output, $actualResult);
@@ -145,7 +145,7 @@ class LocalClientTest extends PHPUnit_Framework_TestCase
         $this->mockProcessBuilder
         ->expects($this->once())
         ->method('getProcess')
-        ->will($this->returnValue($process));
+        ->willReturn($process);
 
         $process
         ->expects($this->once())
@@ -154,12 +154,12 @@ class LocalClientTest extends PHPUnit_Framework_TestCase
         $process
         ->expects($this->once())
         ->method('isSuccessful')
-        ->will($this->returnValue(true));
+        ->willReturn(true);
 
         $process
         ->expects($this->once())
         ->method('getOutput')
-        ->will($this->returnValue($output));
+        ->willReturn($output);
 
         $this->subject->execute($command);
     }

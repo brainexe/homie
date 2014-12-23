@@ -71,19 +71,19 @@ class CleanCronCommandTest extends PHPUnit_Framework_TestCase
         $this->mockSensorGateway
             ->expects($this->once())
             ->method('getSensorIds')
-            ->will($this->returnValue($sensorIds));
+            ->willReturn($sensorIds);
 
         $this->mockSensorValuesGateway
             ->expects($this->at(0))
             ->method('deleteOldValues')
             ->with($sensorId, 7, 10)
-            ->will($this->returnValue(5));
+            ->willReturn(5);
 
         $this->mockSensorValuesGateway
             ->expects($this->at(1))
             ->method('deleteOldValues')
             ->with($sensorId, 10, 80)
-            ->will($this->returnValue(8));
+            ->willReturn(8);
 
         $commandTester->execute([]);
 

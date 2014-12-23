@@ -22,14 +22,14 @@ class SensorCompilerPassTest extends PHPUnit_Framework_TestCase
     private $subject;
 
     /**
-     * @var PHPUnit_Framework_MockObject_MockObject|ContainerBuilder
+     * @var MockObject|ContainerBuilder
      */
-    private $mock_container;
+    private $mockContainer;
 
     public function setUp()
     {
         $this->subject = new SensorCompilerPass();
-        $this->mock_container = $this->getMock(ContainerBuilder::class);
+        $this->mockContainer = $this->getMock(ContainerBuilder::class);
     }
 
     /**
@@ -37,41 +37,40 @@ class SensorCompilerPassTest extends PHPUnit_Framework_TestCase
      */
     public function testProcess()
     {
-        $sensor_builder = $this->getMock(Definition::class);
-        $sensor_definition = $this->getMock(Definition::class);
-        $sensorId = 'sensor_1';
+        $sensorBuilder    = $this->getMock(Definition::class);
+        $sensorDefinition = $this->getMock(Definition::class);
+        $sensor           = $this->getMock(SensorInterface::class);
+        $sensorId         = 'sensor_1';
 
-        $sensor = $this->getMock(SensorInterface::class);
+        $this->mockContainer
+            ->expects($this->at(0))
+            ->method('getDefinition')
+            ->with('SensorBuilder')
+            ->willReturn($sensorBuilder);
 
-        $this->mock_container
-        ->expects($this->at(0))
-        ->method('getDefinition')
-        ->with('SensorBuilder')
-        ->will($this->returnValue($sensor_builder));
+        $this->mockContainer
+            ->expects($this->at(1))
+            ->method('findTaggedServiceIds')
+            ->with(SensorCompilerPass::TAG)
+            ->will($this->returnValue([
+                $sensorId => $sensorDefinition
+            ]));
 
-        $this->mock_container
-        ->expects($this->at(1))
-        ->method('findTaggedServiceIds')
-        ->with(SensorCompilerPass::TAG)
-        ->will($this->returnValue([
-        $sensorId => $sensor_definition
-        ]));
-
-        $this->mock_container
-        ->expects($this->at(2))
-        ->method('get')
-        ->with($sensorId)
-        ->will($this->returnValue($sensor));
+        $this->mockContainer
+            ->expects($this->at(2))
+            ->method('get')
+            ->with($sensorId)
+            ->willReturn($sensor);
 
         $sensor->expects($this->once())
-         ->method('getSensorType')
-         ->will($this->returnValue($sensorId));
+             ->method('getSensorType')
+             ->willReturn($sensorId);
 
-        $sensor_builder
-        ->expects($this->once())
-        ->method('addMethodCall')
-        ->with('addSensor', [$sensorId, new Reference($sensorId)]);
+        $sensorBuilder
+            ->expects($this->once())
+            ->method('addMethodCall')
+            ->with('addSensor', [$sensorId, new Reference($sensorId)]);
 
-        $this->subject->process($this->mock_container);
+        $this->subject->process($this->mockContainer);
     }
 }

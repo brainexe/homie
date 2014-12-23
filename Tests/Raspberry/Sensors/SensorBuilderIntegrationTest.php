@@ -14,20 +14,20 @@ class SensorBuilderIntegrationTest extends \PHPUnit_Framework_TestCase
     {
         global $dic;
 
-        /** @var SensorBuilder $sensor_builder */
-        $sensor_builder = $dic->get('SensorBuilder');
+        /** @var SensorBuilder $builder */
+        $builder = $dic->get('SensorBuilder');
 
-        $sensor_types = [];
-        foreach ($sensor_builder->getSensors() as $sensor) {
-            $sensor_type = $sensor->getSensorType();
-            $this->assertNotEmpty($sensor_type);
-            $this->assertInternalType('string', $sensor_type);
+        $sensorTypes = [];
+        foreach ($builder->getSensors() as $sensor) {
+            $sensorType = $sensor->getSensorType();
+            $this->assertNotEmpty($sensorType);
+            $this->assertInternalType('string', $sensorType);
 
-            if (isset($sensor_types[$sensor_type])) {
+            if (isset($sensorTypes[$sensorType])) {
                 throw new Exception(sprintf('Sensor type %s is duplicated'));
             }
 
-            $sensor_types[$sensor_type] = true;
+            $sensorTypes[$sensorType] = true;
         }
     }
 
@@ -39,10 +39,10 @@ class SensorBuilderIntegrationTest extends \PHPUnit_Framework_TestCase
     {
         $output = new NullOutput();
 
-        $is_supported = $sensor->isSupported($output);
-        $this->assertInternalType('boolean', $is_supported);
+        $isSupported = $sensor->isSupported($output);
+        $this->assertInternalType('boolean', $isSupported);
 
-        if ($is_supported) {
+        if ($isSupported) {
             $value = $sensor->getValue(0);
             $this->assertTrue(is_numeric($value));
         }
@@ -64,10 +64,10 @@ class SensorBuilderIntegrationTest extends \PHPUnit_Framework_TestCase
     public function providerSensors()
     {
         global $dic;
-        $sensor_builder = $dic->get('SensorBuilder');
+        $builder = $dic->get('SensorBuilder');
 
         return array_map(function(SensorInterface $sensor) {
             return [$sensor];
-        }, $sensor_builder->getSensors());
+        }, $builder->getSensors());
     }
 }

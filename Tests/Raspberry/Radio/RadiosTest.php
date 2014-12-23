@@ -20,13 +20,13 @@ class RadiosTest extends PHPUnit_Framework_TestCase
     /**
      * @var RadioGateway|MockObject
      */
-    private $mock_radio_gateway;
+    private $mockRadioGateway;
 
     public function setUp()
     {
-        $this->mock_radio_gateway = $this->getMock(RadioGateway::class);
+        $this->mockRadioGateway = $this->getMock(RadioGateway::class);
 
-        $this->subject = new Radios($this->mock_radio_gateway);
+        $this->subject = new Radios($this->mockRadioGateway);
     }
 
     /**
@@ -55,10 +55,10 @@ class RadiosTest extends PHPUnit_Framework_TestCase
         'code' => 1
         ];
 
-        $this->mock_radio_gateway
+        $this->mockRadioGateway
         ->expects($this->once())
         ->method('getRadios')
-        ->will($this->returnValue([$radio]));
+        ->willReturn([$radio]);
 
         $actualResult = $this->subject->getRadios();
 
@@ -82,11 +82,11 @@ class RadiosTest extends PHPUnit_Framework_TestCase
 
         $radio_id = 12;
 
-        $this->mock_radio_gateway
+        $this->mockRadioGateway
         ->expects($this->once())
         ->method('addRadio')
         ->with($radio_vo)
-        ->will($this->returnValue($radio_id));
+        ->willReturn($radio_id);
 
         $actualResult = $this->subject->addRadio($radio_vo);
 
@@ -97,7 +97,7 @@ class RadiosTest extends PHPUnit_Framework_TestCase
     {
         $radio_id = 12;
 
-        $this->mock_radio_gateway
+        $this->mockRadioGateway
         ->expects($this->once())
         ->method('deleteRadio')
         ->with($radio_id);
@@ -117,11 +117,11 @@ class RadiosTest extends PHPUnit_Framework_TestCase
         'code' => 1
         ];
 
-        $this->mock_radio_gateway
+        $this->mockRadioGateway
         ->expects($this->once())
         ->method('getRadio')
         ->with($radio_id)
-        ->will($this->returnValue($radio));
+        ->willReturn($radio);
 
         $result = $this->subject->getRadio($radio_id);
 
@@ -145,11 +145,11 @@ class RadiosTest extends PHPUnit_Framework_TestCase
 
         $radio = [];
 
-        $this->mock_radio_gateway
+        $this->mockRadioGateway
         ->expects($this->once())
         ->method('getRadio')
         ->with($radio_id)
-        ->will($this->returnValue($radio));
+        ->willReturn($radio);
 
         $this->subject->getRadio($radio_id);
     }

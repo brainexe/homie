@@ -41,7 +41,7 @@ class WidgetCompilerPassTest extends PHPUnit_Framework_TestCase
         ->expects($this->at(0))
         ->method('getDefinition')
         ->with('WidgetFactory')
-        ->will($this->returnValue($widget_factory));
+        ->willReturn($widget_factory);
 
         $this->mockContainer
         ->expects($this->at(1))

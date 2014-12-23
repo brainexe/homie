@@ -40,7 +40,7 @@ class PinGatewayTest extends PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('hGetAll')
         ->with(PinGateway::REDIS_PINS)
-        ->will($this->returnValue($descriptions));
+        ->willReturn($descriptions);
 
         $actualResult = $this->subject->getPinDescriptions();
 

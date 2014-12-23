@@ -90,7 +90,7 @@ class TodoListControllerTest extends PHPUnit_Framework_TestCase
     {
         $list = [];
 
-        $this->mockTodoList->expects($this->once())->method('getList')->will($this->returnValue($list));
+        $this->mockTodoList->expects($this->once())->method('getList')->willReturn($list);
 
         $actualResult = $this->subject->fetchList();
 
@@ -165,7 +165,7 @@ class TodoListControllerTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('editItem')
             ->with($itemId, $changes)
-            ->will($this->returnValue($itemVo));
+            ->willReturn($itemVo);
 
         $actualResult = $this->subject->setItemStatus($request);
 
@@ -195,13 +195,13 @@ class TodoListControllerTest extends PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('loadUserById')
         ->with($userId)
-        ->will($this->returnValue($userVo));
+        ->willReturn($userVo);
 
         $this->mockTodoList
         ->expects($this->once())
         ->method('editItem')
         ->with($itemId, $changes)
-        ->will($this->returnValue($itemVo));
+        ->willReturn($itemVo);
 
         $actualResult = $this->subject->setAssignee($request);
 

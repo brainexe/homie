@@ -48,7 +48,7 @@ class BlogGatewayTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('zRangeByScore')
             ->with($key, $from, $to, ['withscores' => true])
-            ->will($this->returnValue($posts_raw));
+            ->willReturn($posts_raw);
 
         $actualResult = $this->subject->getPosts($userId, $from, $to);
 
@@ -71,7 +71,7 @@ class BlogGatewayTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('zRevRangeByScore')
             ->with($key, '+inf', '0', ['limit' => [0, 1]])
-            ->will($this->returnValue($postsRaw));
+            ->willReturn($postsRaw);
 
         $actualResult = $this->subject->getRecentPost($userId);
 
@@ -93,7 +93,7 @@ class BlogGatewayTest extends PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('zRevRangeByScore')
         ->with($key, '+inf', '0', ['limit' => [0, 1]])
-        ->will($this->returnValue($posts_raw));
+        ->willReturn($posts_raw);
 
         $actualResult = $this->subject->getRecentPost($userId);
 
@@ -123,7 +123,7 @@ class BlogGatewayTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('sMembers')
             ->with("blog:subscribers:$targetId")
-            ->will($this->returnValue($subscribers));
+            ->willReturn($subscribers);
 
         $actualResult = $this->subject->getSubscriber($targetId);
 

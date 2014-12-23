@@ -49,7 +49,7 @@ class RadioController implements ControllerInterface
     public function index()
     {
         $radiosFormatted = $this->radios->getRadios();
-        $jobs = $this->radioJob->getJobs();
+        $jobs            = $this->radioJob->getJobs();
 
         return [
             'radios'     => $radiosFormatted,
@@ -67,6 +67,8 @@ class RadioController implements ControllerInterface
      */
     public function setStatus(Request $request, $radioId, $status)
     {
+        unset($request);
+
         $radioVo = $this->radios->getRadio($radioId);
 
         $event = new RadioChangeEvent($radioVo, $status);
@@ -111,21 +113,9 @@ class RadioController implements ControllerInterface
      */
     public function deleteRadio(Request $request, $radioId)
     {
+        unset($request);
+
         $this->radios->deleteRadio($radioId);
-
-        return true;
-    }
-
-    /**
-     * @param Request $request
-     * @return boolean
-     * @Route("/radio/edit/", name="radio.edit", methods="POST")
-     */
-    public function editRadio(Request $request)
-    {
-        $radioId = $request->request->getInt('radio_id');
-
-     // TODO
 
         return true;
     }
@@ -159,6 +149,8 @@ class RadioController implements ControllerInterface
      */
     public function deleteRadioJob(Request $request, $jobId)
     {
+        unset($request);
+
         $this->radioJob->deleteJob($jobId);
 
         return true;

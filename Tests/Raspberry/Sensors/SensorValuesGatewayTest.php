@@ -49,7 +49,7 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
         $this->mockRedis
         ->expects($this->once())
         ->method('multi')
-        ->will($this->returnValue($this->mockRedis));
+        ->willReturn($this->mockRedis);
 
         $this->mockRedis
         ->expects($this->once())
@@ -71,7 +71,7 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
         $this->mockTime
         ->expects($this->once())
         ->method('now')
-        ->will($this->returnValue($now));
+        ->willReturn($now);
 
         $this->subject->addValue($sensorId, $value);
     }
@@ -85,7 +85,7 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
         $this->mockTime
         ->expects($this->once())
         ->method('now')
-        ->will($this->returnValue($now));
+        ->willReturn($now);
 
         $redis_result = [
         "701-100",
@@ -95,7 +95,7 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('ZRANGEBYSCORE')
         ->with("sensor_values:$sensorId", 700, $now)
-        ->will($this->returnValue($redis_result));
+        ->willReturn($redis_result);
 
         $actualResult = $this->subject->getSensorValues($sensorId, $from);
 
@@ -117,7 +117,7 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
         $this->mockTime
         ->expects($this->once())
         ->method('now')
-        ->will($this->returnValue($now));
+        ->willReturn($now);
 
         $old_values = [
         "701-100",
@@ -128,7 +128,7 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
         ->expects($this->at(0))
         ->method('ZRANGEBYSCORE')
         ->with("sensor_values:$sensorId", 0, 10)
-        ->will($this->returnValue($old_values));
+        ->willReturn($old_values);
 
         $this->mockRedis
         ->expects($this->at(1))

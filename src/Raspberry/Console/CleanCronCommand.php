@@ -35,7 +35,7 @@ class CleanCronCommand extends Command
     protected function configure()
     {
         $this->setName('cron:clean')
-        ->setDescription('Delete old sensor values');
+            ->setDescription('Delete old sensor values');
     }
 
     /**
@@ -46,9 +46,9 @@ class CleanCronCommand extends Command
      */
     public function __construct(SensorValuesGateway $valuesGateway, SensorGateway $gateway, $deleteValues)
     {
-        $this->sensorValuesGateway = $valuesGateway;
+        $this->sensorValuesGateway     = $valuesGateway;
         $this->valueDeleteSensorValues = $deleteValues;
-        $this->sensorGateway = $gateway;
+        $this->sensorGateway           = $gateway;
 
         parent::__construct();
     }

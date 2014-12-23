@@ -51,7 +51,7 @@ class PinLoaderTest extends PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('executeWithReturn')
         ->with(GpioManager::GPIO_COMMAND_READALL)
-        ->will($this->returnValue($gpio_result));
+        ->willReturn($gpio_result);
 
         $actualResult = $this->subject->loadPins();
 
@@ -66,7 +66,7 @@ class PinLoaderTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($expected_pin_collection, $actualResult);
         $this->assertEquals($direction, $expected_pin->getDirection());
-        $this->assertEquals(0, $expected_pin->getValue());
+        $this->assertEquals(0, $expected_pin->isHighValue());
 
         $actualResult = $this->subject->loadPins();
         $this->assertEquals($expected_pin_collection, $actualResult);

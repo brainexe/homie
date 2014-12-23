@@ -68,19 +68,19 @@ class WebcamTest extends PHPUnit_Framework_TestCase
 
         $file->expects($this->once())
         ->method('getPath')
-        ->will($this->returnValue($file_path));
+        ->willReturn($file_path);
 
         $file->expects($this->once())
         ->method('getRelativePathname')
-        ->will($this->returnValue($relative_file_path));
+        ->willReturn($relative_file_path);
 
         $file->expects($this->once())
         ->method('getCTime')
-        ->will($this->returnValue($file_c_time));
+        ->willReturn($file_c_time);
 
         $file->expects($this->once())
         ->method('getBasename')
-        ->will($this->returnValue($file_base_name));
+        ->willReturn($file_base_name);
 
         $expected_webcam_vo = new WebcamVO();
         $expected_webcam_vo->filePath = $file_path;
@@ -93,7 +93,7 @@ class WebcamTest extends PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('exists')
         ->with($directory)
-        ->will($this->returnValue(false));
+        ->willReturn(false);
 
         $this->mockFilesystem
         ->expects($this->once())
@@ -103,29 +103,29 @@ class WebcamTest extends PHPUnit_Framework_TestCase
         $this->mockFinder
         ->expects($this->at(0))
         ->method('files')
-        ->will($this->returnValue($this->mockFinder));
+        ->willReturn($this->mockFinder);
 
         $this->mockFinder
         ->expects($this->at(1))
         ->method('in')
         ->with($directory)
-        ->will($this->returnValue($this->mockFinder));
+        ->willReturn($this->mockFinder);
 
         $this->mockFinder
         ->expects($this->at(2))
         ->method('name')
         ->with('*.jpg')
-        ->will($this->returnValue($this->mockFinder));
+        ->willReturn($this->mockFinder);
 
         $this->mockFinder
         ->expects($this->at(3))
         ->method('sortByName')
-        ->will($this->returnValue($this->mockFinder));
+        ->willReturn($this->mockFinder);
 
         $this->mockFinder
         ->expects($this->at(4))
         ->method('getIterator')
-        ->will($this->returnValue(new ArrayIterator([$file])));
+        ->willReturn(new ArrayIterator([$file]));
 
         $actualResult = $this->subject->getPhotos();
 
@@ -144,18 +144,18 @@ class WebcamTest extends PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('setArguments')
         ->with([Webcam::EXECUTABLE, '-d', '/dev/video0', $path])
-        ->will($this->returnValue($this->mockProcessBuilder));
+        ->willReturn($this->mockProcessBuilder);
 
         $this->mockProcessBuilder
         ->expects($this->once())
         ->method('setTimeout')
         ->with(Webcam::TIMEOUT)
-        ->will($this->returnValue($this->mockProcessBuilder));
+        ->willReturn($this->mockProcessBuilder);
 
         $this->mockProcessBuilder
         ->expects($this->once())
         ->method('getProcess')
-        ->will($this->returnValue($process));
+        ->willReturn($process);
 
 
         $process->expects($this->once())

@@ -61,12 +61,12 @@ class GpioManagerTest extends PHPUnit_Framework_TestCase
         $this->mockPinLoader
         ->expects($this->once())
         ->method('loadPins')
-        ->will($this->returnValue($pin_collection));
+        ->willReturn($pin_collection);
 
         $this->mockPinGateway
         ->expects($this->once())
         ->method('getPinDescriptions')
-        ->will($this->returnValue($descriptions));
+        ->willReturn($descriptions);
 
         $actualResult = $this->subject->getPins();
 
@@ -87,7 +87,7 @@ class GpioManagerTest extends PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('loadPin')
         ->with($id)
-        ->will($this->returnValue($pin));
+        ->willReturn($pin);
 
         $this->mockLocalClient
         ->expects($this->at(0))

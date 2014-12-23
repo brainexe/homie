@@ -52,12 +52,12 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('SMEMBERS')
             ->with(RadioGateway::REDIS_RADIO_IDS)
-            ->will($this->returnValue($radio_ids));
+            ->willReturn($radio_ids);
 
         $this->mockRedis
             ->expects($this->once())
             ->method('multi')
-            ->will($this->returnValue($this->mockRedis));
+            ->willReturn($this->mockRedis);
 
         $this->mockRedis
             ->expects($this->once())
@@ -67,7 +67,7 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
         $this->mockRedis
             ->expects($this->once())
             ->method('exec')
-            ->will($this->returnValue($result));
+            ->willReturn($result);
 
         $actualResult = $this->subject->getRadios();
 
@@ -84,7 +84,7 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('HGETALL')
             ->with("radios:$radioId")
-            ->will($this->returnValue($radio));
+            ->willReturn($radio);
 
         $actualResult = $this->subject->getRadio($radioId);
 
@@ -101,7 +101,7 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('SMEMBERS')
             ->with(RadioGateway::REDIS_RADIO_IDS)
-            ->will($this->returnValue($radioIds));
+            ->willReturn($radioIds);
 
         $actualResult = $this->subject->getRadioIds();
 
@@ -122,12 +122,12 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
         $this->mockIdGenerator
             ->expects($this->once())
             ->method('generateRandomId')
-            ->will($this->returnValue($radioId));
+            ->willReturn($radioId);
 
         $this->mockRedis
             ->expects($this->once())
             ->method('multi')
-            ->will($this->returnValue($this->mockRedis));
+            ->willReturn($this->mockRedis);
 
         $key = "radios:$radioId";
 

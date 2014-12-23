@@ -49,7 +49,7 @@ class IndexControllerTest extends PHPUnit_Framework_TestCase
         ->with('layout.html.twig', [
         'current_user' => $user
         ])
-        ->will($this->returnValue($text));
+        ->willReturn($text);
 
         $actualResult = $this->subject->index($request);
 

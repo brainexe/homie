@@ -51,6 +51,8 @@ class GpioController implements ControllerInterface
      */
     public function setStatus(Request $request, $sensorId, $status, $value)
     {
+        unset($request);
+
         $pin = $this->manager->setPin($sensorId, $status, $value);
 
         return $pin;

@@ -62,13 +62,13 @@ class EspeakTest extends PHPUnit_Framework_TestCase
         $this->mockTime
         ->expects($this->once())
         ->method('now')
-        ->will($this->returnValue($now));
+        ->willReturn($now);
 
         $this->mockMessageQueueGateway
         ->expects($this->once())
         ->method('getEventsByType')
         ->with(EspeakEvent::SPEAK, $now)
-        ->will($this->returnValue($pending_jobs));
+        ->willReturn($pending_jobs);
 
         $actualResult = $this->subject->getPendingJobs();
 

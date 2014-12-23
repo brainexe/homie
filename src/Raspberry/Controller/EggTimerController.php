@@ -66,6 +66,8 @@ class EggTimerController implements ControllerInterface
      */
     public function deleteEggTimer(Request $request, $jobId)
     {
+        unset($request);
+
         $this->timer->deleteJob($jobId);
 
         $currentJobs = $this->timer->getJobs();

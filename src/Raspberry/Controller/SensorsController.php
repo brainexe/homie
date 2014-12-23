@@ -33,7 +33,7 @@ class SensorsController implements ControllerInterface
     /**
      * @var SensorValuesGateway
      */
-    private $valuesGteway;
+    private $valuesGateway;
 
     /**
      * @var SensorBuilder;
@@ -59,7 +59,7 @@ class SensorsController implements ControllerInterface
         SensorBuilder $builder
     ) {
         $this->gateway        = $gateway;
-        $this->valuesGteway = $valuesGateway;
+        $this->valuesGateway = $valuesGateway;
         $this->chart                 = $chart;
         $this->builder        = $builder;
     }
@@ -114,7 +114,7 @@ class SensorsController implements ControllerInterface
             if ($activeSensorIds && !in_array($sensorId, $activeSensorIds)) {
                 continue;
             }
-            $sensorValues[$sensorId] = $this->valuesGteway->getSensorValues($sensorId, $from);
+            $sensorValues[$sensorId] = $this->valuesGateway->getSensorValues($sensorId, $from);
         }
 
         $json = $this->chart->formatJsonData($sensorsRaw, $sensorValues);
@@ -126,11 +126,11 @@ class SensorsController implements ControllerInterface
             'current_from' => $from,
             'available_sensors' => $sensorObjects,
             'from_intervals' => [
-            0 => 'All',
-            3600 => 'Last Hour',
-            86400 => 'Last Day',
-            86400 * 7 => 'Last Week',
-            86400 * 30 => 'Last Month'
+                0 => 'All',
+                3600 => 'Last Hour',
+                86400 => 'Last Day',
+                86400 * 7 => 'Last Week',
+                86400 * 30 => 'Last Month'
             ]
         ];
     }
@@ -171,6 +171,7 @@ class SensorsController implements ControllerInterface
      */
     public function espeak(Request $request, $sensorId)
     {
+        unset($request);
         $sensor     = $this->gateway->getSensor($sensorId);
         $sensorObj  = $this->builder->build($sensor['type']);
 
@@ -191,6 +192,7 @@ class SensorsController implements ControllerInterface
      */
     public function slim(Request $request, $sensorId)
     {
+        unset($request);
         $sensor         = $this->gateway->getSensor($sensorId);
         $sensorObj      = $this->builder->build($sensor['type']);
         $formattedValue = $sensorObj->getEspeakText($sensor['last_value']);

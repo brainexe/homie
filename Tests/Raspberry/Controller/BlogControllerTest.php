@@ -65,12 +65,12 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('getPosts')
             ->with($userId)
-            ->will($this->returnValue($posts));
+            ->willReturn($posts);
 
         $this->mockDatabaseUserProvider
             ->expects($this->once())
             ->method('getAllUserNames')
-            ->will($this->returnValue($userNames));
+            ->willReturn($userNames);
 
         $actualResult = $this->subject->index($request);
 
@@ -98,7 +98,7 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('getRecentPost')
             ->with($userId)
-            ->will($this->returnValue($recentPost));
+            ->willReturn($recentPost);
 
         $actualResult = $this->subject->getMood($request);
 
@@ -126,12 +126,12 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('getPosts')
         ->with($userId)
-        ->will($this->returnValue($posts));
+        ->willReturn($posts);
 
         $this->mockDatabaseUserProvider
         ->expects($this->once())
         ->method('getAllUserNames')
-        ->will($this->returnValue($userNames));
+        ->willReturn($userNames);
 
         $actualResult = $this->subject->blogForUser($request, $userId);
 
@@ -165,12 +165,12 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('getPosts')
         ->with($userId)
-        ->will($this->returnValue($posts));
+        ->willReturn($posts);
 
         $this->mockDatabaseUserProvider
         ->expects($this->once())
         ->method('getAllUserNames')
-        ->will($this->returnValue($userNames));
+        ->willReturn($userNames);
 
         $actualResult = $this->subject->blogForUser($request, $userId);
 
@@ -200,12 +200,12 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('addPost')
         ->with($userVo, $postVo)
-        ->will($this->returnValue($postVo));
+        ->willReturn($postVo);
 
         $this->mockTime
         ->expects($this->once())
         ->method('now')
-        ->will($this->returnValue($now));
+        ->willReturn($now);
 
         $actualResult = $this->subject->addPost($request);
 

@@ -50,19 +50,19 @@ class TemperatureDHT11SensorTest extends PHPUnit_Framework_TestCase
         $this->mockProcessBuilder
         ->expects($this->once())
         ->method('setArguments')
-        ->will($this->returnValue($this->mockProcessBuilder));
+        ->willReturn($this->mockProcessBuilder);
 
         $this->mockProcessBuilder
         ->expects($this->once())
         ->method('getProcess')
-        ->will($this->returnValue($process));
+        ->willReturn($process);
 
         $process->expects($this->once())
         ->method('run');
 
         $process->expects($this->once())
         ->method('isSuccessful')
-        ->will($this->returnValue(false));
+        ->willReturn(false);
 
         $actualResult = $this->subject->getValue($pin);
 
@@ -81,23 +81,23 @@ class TemperatureDHT11SensorTest extends PHPUnit_Framework_TestCase
         $this->mockProcessBuilder
         ->expects($this->once())
         ->method('setArguments')
-        ->will($this->returnValue($this->mockProcessBuilder));
+        ->willReturn($this->mockProcessBuilder);
 
         $this->mockProcessBuilder
         ->expects($this->once())
         ->method('getProcess')
-        ->will($this->returnValue($process));
+        ->willReturn($process);
 
         $process->expects($this->once())
         ->method('run');
 
         $process->expects($this->once())
         ->method('isSuccessful')
-        ->will($this->returnValue(true));
+        ->willReturn(true);
 
         $process->expects($this->once())
         ->method('getOutput')
-        ->will($this->returnValue($output));
+        ->willReturn($output);
 
         $actualResult = $this->subject->getValue($pin);
 

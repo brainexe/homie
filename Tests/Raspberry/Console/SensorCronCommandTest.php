@@ -115,31 +115,31 @@ class SensorCronCommandTest extends PHPUnit_Framework_TestCase
         $this->mockTime
         ->expects($this->once())
         ->method('now')
-        ->will($this->returnValue($now));
+        ->willReturn($now);
 
         $this->mockSensorGateway
         ->expects($this->once())
         ->method('getSensors')
         ->with($this->nodeId)
-        ->will($this->returnValue($sensors));
+        ->willReturn($sensors);
 
         $this->mockSensorVOBuilder
         ->expects($this->once())
         ->method('buildFromArray')
         ->with($sensor_raw)
-        ->will($this->returnValue($sensor));
+        ->willReturn($sensor);
 
         $this->mockSensorBuilder
         ->expects($this->once())
         ->method('build')
         ->with($type)
-        ->will($this->returnValue($sensor_object));
+        ->willReturn($sensor_object);
 
         $sensor_object
         ->expects($this->once())
         ->method('getValue')
         ->with($pin)
-        ->will($this->returnValue($current_sensor_value));
+        ->willReturn($current_sensor_value);
 
         $input = ['--force'];
         $command_tester = new CommandTester($this->subject);
@@ -170,37 +170,37 @@ class SensorCronCommandTest extends PHPUnit_Framework_TestCase
         $this->mockTime
         ->expects($this->once())
         ->method('now')
-        ->will($this->returnValue($now));
+        ->willReturn($now);
 
         $this->mockSensorGateway
         ->expects($this->once())
         ->method('getSensors')
         ->with($this->nodeId)
-        ->will($this->returnValue($sensors));
+        ->willReturn($sensors);
 
         $this->mockSensorVOBuilder
         ->expects($this->once())
         ->method('buildFromArray')
         ->with($sensor_raw)
-        ->will($this->returnValue($sensor));
+        ->willReturn($sensor);
 
         $this->mockSensorBuilder
         ->expects($this->once())
         ->method('build')
         ->with($type)
-        ->will($this->returnValue($sensor_object));
+        ->willReturn($sensor_object);
 
         $sensor_object
         ->expects($this->once())
         ->method('getValue')
         ->with($pin)
-        ->will($this->returnValue($current_sensor_value));
+        ->willReturn($current_sensor_value);
 
         $sensor_object
         ->expects($this->once())
         ->method('formatValue')
         ->with($current_sensor_value)
-        ->will($this->returnValue($formatted_sensor_value));
+        ->willReturn($formatted_sensor_value);
 
         $event = new SensorValueEvent(
             $sensor,

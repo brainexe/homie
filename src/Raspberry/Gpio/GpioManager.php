@@ -84,7 +84,7 @@ class GpioManager
      */
     private function updatePin(Pin $pin)
     {
-        $pinValue = Pin::VALUE_HIGH == $pin->getValue() ? 1 : 0;
+        $pinValue = Pin::VALUE_HIGH == $pin->isHighValue() ? 1 : 0;
 
         $this->client->execute(sprintf(self::GPIO_COMMAND_DIRECTION, $pin->getID(), $pin->getDirection()));
         $this->client->execute(sprintf(self::GPIO_COMMAND_VALUE, $pin->getID(), $pinValue));

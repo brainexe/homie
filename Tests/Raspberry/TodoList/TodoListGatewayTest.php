@@ -73,29 +73,29 @@ class TodoListGatewayTest extends PHPUnit_Framework_TestCase
             ->expects($this->at(0))
             ->method('sMembers')
             ->with("todo_ids")
-            ->will($this->returnValue([$item1Id, $item2Id]));
+            ->willReturn([$item1Id, $item2Id]);
 
         $this->mockRedis
             ->expects($this->at(1))
             ->method('multi')
-            ->will($this->returnValue($this->mockRedis));
+            ->willReturn($this->mockRedis);
 
         $this->mockRedis
             ->expects($this->at(2))
             ->method('HGETALL')
             ->with("todo:$item1Id")
-            ->will($this->returnValue($itemRaw1));
+            ->willReturn($itemRaw1);
 
         $this->mockRedis
             ->expects($this->at(3))
             ->method('HGETALL')
             ->with("todo:$item2Id")
-            ->will($this->returnValue($itemRaw2));
+            ->willReturn($itemRaw2);
 
         $this->mockRedis
             ->expects($this->at(4))
             ->method('exec')
-            ->will($this->returnValue([$itemRaw1, $itemRaw2]));
+            ->willReturn([$itemRaw1, $itemRaw2]);
 
         $actualResult = $this->subject->getList();
         $this->assertEquals([$itemRaw1, $itemRaw2], $actualResult);
@@ -113,7 +113,7 @@ class TodoListGatewayTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('HGETALL')
             ->with("todo:$itemId")
-            ->will($this->returnValue($itemRaw));
+            ->willReturn($itemRaw);
 
         $actualResult = $this->subject->getRawItem($itemId);
 
@@ -132,7 +132,7 @@ class TodoListGatewayTest extends PHPUnit_Framework_TestCase
         $this->mockTime
             ->expects($this->once())
             ->method('now')
-            ->will($this->returnValue($now));
+            ->willReturn($now);
 
         $changes['lastChange'] = $now;
         $this->mockRedis

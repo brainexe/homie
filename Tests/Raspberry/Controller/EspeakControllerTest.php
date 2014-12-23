@@ -58,12 +58,12 @@ class EspeakControllerTest extends PHPUnit_Framework_TestCase
         $this->mockEspeak
         ->expects($this->once())
         ->method('getSpeakers')
-        ->will($this->returnValue($speakers));
+        ->willReturn($speakers);
 
         $this->mockEspeak
         ->expects($this->once())
         ->method('getPendingJobs')
-        ->will($this->returnValue($jobs));
+        ->willReturn($jobs);
 
         $actualResult = $this->subject->index();
 
@@ -77,45 +77,44 @@ class EspeakControllerTest extends PHPUnit_Framework_TestCase
 
     public function testSpeak()
     {
-        $request = new Request();
-
-        $speaker = 'speaker';
-        $text = 'text';
-        $volume = 120;
-        $speed = 80;
-        $delay_raw = 'delay_row';
+        $request   = new Request();
+        $speaker   = 'speaker';
+        $text      = 'text';
+        $volume    = 120;
+        $speed     = 80;
+        $delayRaw  = 'delay_row';
         $timestamp = 10;
 
         $request->request->set('speaker', $speaker);
         $request->request->set('text', $text);
         $request->request->set('volume', $volume);
         $request->request->set('speed', $speed);
-        $request->request->set('delay', $delay_raw);
+        $request->request->set('delay', $delayRaw);
 
         $this->mockTimeParser
-        ->expects($this->once())
-        ->method('parseString')
-        ->with($delay_raw)
-        ->will($this->returnValue($timestamp));
+            ->expects($this->once())
+            ->method('parseString')
+            ->with($delayRaw)
+            ->willReturn($timestamp);
 
-        $espeak_vo = new EspeakVO($text, $volume, $speed, $speaker);
-        $event = new EspeakEvent($espeak_vo);
+        $espeakVo = new EspeakVO($text, $volume, $speed, $speaker);
+        $event = new EspeakEvent($espeakVo);
 
         $this->mockEventDispatcher
-        ->expects($this->once())
-        ->method('dispatchInBackground')
-        ->with($event, $timestamp);
+            ->expects($this->once())
+            ->method('dispatchInBackground')
+            ->with($event, $timestamp);
 
-        $pending_jobs = ['pending_jobs'];
+        $pendingJobs = ['pending_jobs'];
 
         $this->mockEspeak
-        ->expects($this->once())
-        ->method('getPendingJobs')
-        ->will($this->returnValue($pending_jobs));
+            ->expects($this->once())
+            ->method('getPendingJobs')
+            ->willReturn($pendingJobs);
 
         $actualResult = $this->subject->speak($request);
 
-        $this->assertEquals($pending_jobs, $actualResult);
+        $this->assertEquals($pendingJobs, $actualResult);
     }
 
     public function testDeleteJobJob()
@@ -125,9 +124,9 @@ class EspeakControllerTest extends PHPUnit_Framework_TestCase
         $request->request->set('job_id', $jobId);
 
         $this->mockEspeak
-        ->expects($this->once())
-        ->method('deleteJob')
-        ->will($this->returnValue($jobId));
+            ->expects($this->once())
+            ->method('deleteJob')
+            ->willReturn($jobId);
 
 
         $actualResult = $this->subject->deleteJob($request);

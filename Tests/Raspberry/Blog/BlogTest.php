@@ -61,7 +61,7 @@ class BlogTest extends PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('getPosts')
         ->with($userId, $from, $to)
-        ->will($this->returnValue($posts));
+        ->willReturn($posts);
 
         $actualResult = $this->subject->getPosts($userId, $from, $to);
 
@@ -86,7 +86,7 @@ class BlogTest extends PHPUnit_Framework_TestCase
         $this->mockTime
         ->expects($this->once())
         ->method('now')
-        ->will($this->returnValue($now));
+        ->willReturn($now);
 
         $this->mockBlogGateway
         ->expects($this->once())
@@ -138,7 +138,7 @@ class BlogTest extends PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('getRecentPost')
         ->with($userId)
-        ->will($this->returnValue($postVo));
+        ->willReturn($postVo);
 
         $actualResult = $this->subject->getRecentPost($userId);
 

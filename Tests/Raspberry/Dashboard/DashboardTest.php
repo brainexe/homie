@@ -60,7 +60,7 @@ class DashboardTest extends PHPUnit_Framework_TestCase
         $this->mockWidgetFactory
         ->expects($this->once())
         ->method('getAvailableWidgets')
-        ->will($this->returnValue($widgets));
+        ->willReturn($widgets);
 
         $actualResult = $this->subject->getAvailableWidgets();
 

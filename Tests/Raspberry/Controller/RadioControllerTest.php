@@ -52,23 +52,23 @@ class RadioControllerTest extends PHPUnit_Framework_TestCase
 
     public function testIndex()
     {
-        $radios_formatted = ['radios_formatted'];
+        $radiosFormatted = ['radios_formatted'];
         $jobs = ['jobs'];
 
         $this->mockRadios
             ->expects($this->once())
             ->method('getRadios')
-            ->will($this->returnValue($radios_formatted));
+            ->willReturn($radiosFormatted);
 
         $this->mockRadioJob
             ->expects($this->once())
             ->method('getJobs')
-            ->will($this->returnValue($jobs));
+            ->willReturn($jobs);
 
         $actualResult = $this->subject->index();
 
         $expectedResult = [
-            'radios' => $radios_formatted,
+            'radios' => $radiosFormatted,
             'radio_jobs' => $jobs,
             'pins' => Radios::$radioPins,
         ];
@@ -79,23 +79,23 @@ class RadioControllerTest extends PHPUnit_Framework_TestCase
     public function testSetStatus()
     {
         $request  = new Request();
-        $radio_id = 10;
+        $radioId  = 10;
         $status   = true;
-        $radio_vo = new RadioVO();
-        $event    = new RadioChangeEvent($radio_vo, $status);
+        $radioVo  = new RadioVO();
+        $event    = new RadioChangeEvent($radioVo, $status);
 
         $this->mockRadios
             ->expects($this->once())
             ->method('getRadio')
-            ->with($radio_id)
-            ->will($this->returnValue($radio_vo));
+            ->with($radioId)
+            ->willReturn($radioVo);
 
         $this->mockDispatcher
             ->expects($this->once())
             ->method('dispatchInBackground')
             ->with($event);
 
-        $actualResult = $this->subject->setStatus($request, $radio_id, $status);
+        $actualResult = $this->subject->setStatus($request, $radioId, $status);
 
         $expectedResult = new JsonResponse(true);
         $expectedResult->headers->set('X-Flash', json_encode([ControllerInterface::ALERT_SUCCESS, _('Set Radio')]));
@@ -108,87 +108,76 @@ class RadioControllerTest extends PHPUnit_Framework_TestCase
         $name        = 'name';
         $description = 'description';
         $code        = 12;
-        $pin_raw     = 'A';
+        $pinRaw      = 'A';
         $pin         = 1;
 
         $request = new Request();
         $request->request->set('name', $name);
         $request->request->set('description', $description);
         $request->request->set('code', $code);
-        $request->request->set('pin', $pin_raw);
+        $request->request->set('pin', $pinRaw);
 
-        $radio_vo = new RadioVO();
-        $radio_vo->name        = $name;
-        $radio_vo->description = $description;
-        $radio_vo->code        = $code;
-        $radio_vo->pin         = $pin;
-
-        $this->mockRadios
-        ->expects($this->once())
-        ->method('addRadio')
-        ->with($radio_vo);
+        $radioVo = new RadioVO();
+        $radioVo->name        = $name;
+        $radioVo->description = $description;
+        $radioVo->code        = $code;
+        $radioVo->pin         = $pin;
 
         $this->mockRadios
-        ->expects($this->once())
-        ->method('getRadioPin')
-        ->with($pin_raw)
-        ->will($this->returnValue($pin));
+            ->expects($this->once())
+            ->method('addRadio')
+            ->with($radioVo);
+
+        $this->mockRadios
+            ->expects($this->once())
+            ->method('getRadioPin')
+            ->with($pinRaw)
+            ->willReturn($pin);
 
         $actualResult = $this->subject->addRadio($request);
 
-        $this->assertEquals($radio_vo, $actualResult);
+        $this->assertEquals($radioVo, $actualResult);
     }
 
     public function testDeleteRadio()
     {
         $request = new Request();
-        $radio_id = 10;
+        $radioId = 10;
 
         $this->mockRadios
-        ->expects($this->once())
-        ->method('deleteRadio')
-        ->with($radio_id);
+            ->expects($this->once())
+            ->method('deleteRadio')
+            ->with($radioId);
 
-        $actualResult = $this->subject->deleteRadio($request, $radio_id);
-
-        $this->assertTrue($actualResult);
-    }
-
-    public function testEditRadio()
-    {
-        $radio_id = 10;
-
-        $request = new Request();
-        $request->request->set('radio_id', $radio_id);
-
-        $actualResult = $this->subject->editRadio($request);
+        $actualResult = $this->subject->deleteRadio($request, $radioId);
 
         $this->assertTrue($actualResult);
     }
+
 
     public function testAddRadioJob()
     {
-        $radio_id    = 10;
-        $status      = false;
-        $time_string = 'time';
+        $radioId    = 10;
+        $status     = false;
+        $timeString = 'time';
 
-        $radio_vo = new RadioVO();
+        $radioVo = new RadioVO();
 
         $request = new Request();
-        $request->request->set('radio_id', $radio_id);
+        $request->request->set('radio_id', $radioId);
         $request->request->set('status', $status);
-        $request->request->set('time', $time_string);
+        $request->request->set('time', $timeString);
 
         $this->mockRadios
             ->expects($this->once())
             ->method('getRadio')
-            ->with($radio_id)
-            ->will($this->returnValue($radio_vo));
+            ->with($radioId)
+            ->willReturn($radioVo);
 
         $this->mockRadioJob
             ->expects($this->once())
             ->method('addRadioJob')
-            ->with($radio_vo, $time_string, $status);
+            ->with($radioVo, $timeString, $status);
 
         $actualResult = $this->subject->addRadioJob($request);
 
@@ -203,14 +192,14 @@ class RadioControllerTest extends PHPUnit_Framework_TestCase
     public function testDeleteRadioJob()
     {
         $request = new Request();
-        $radio_id = 10;
+        $radioId = 10;
 
         $this->mockRadioJob
             ->expects($this->once())
             ->method('deleteJob')
-            ->with($radio_id);
+            ->with($radioId);
 
-        $actualResult = $this->subject->deleteRadioJob($request, $radio_id);
+        $actualResult = $this->subject->deleteRadioJob($request, $radioId);
 
         $this->assertTrue($actualResult);
     }

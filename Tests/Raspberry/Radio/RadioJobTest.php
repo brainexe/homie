@@ -51,7 +51,7 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('getEventsByType')
         ->with(RadioChangeEvent::CHANGE_RADIO)
-        ->will($this->returnValue($jobs));
+        ->willReturn($jobs);
 
         $actualResult = $this->subject->getJobs();
 
@@ -71,7 +71,7 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('parseString')
         ->with($time_string)
-        ->will($this->returnValue($timestamp));
+        ->willReturn($timestamp);
 
         $event = new RadioChangeEvent($radio_vo, $status);
         $this->mock_dispatcher

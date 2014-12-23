@@ -39,7 +39,7 @@ class EggTimer
     public function __construct(MessageQueueGateway $messageQueueGateway, TimeParser $timeParser)
     {
         $this->messageQueueGateway = $messageQueueGateway;
-        $this->timeParser = $timeParser;
+        $this->timeParser          = $timeParser;
     }
 
     /**

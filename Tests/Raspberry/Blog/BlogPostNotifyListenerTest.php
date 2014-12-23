@@ -62,13 +62,13 @@ class BlogPostNotifyListenerTest extends PHPUnit_Framework_TestCase
             ->expects($this->at(0))
             ->method('date')
             ->with('G')
-            ->will($this->returnValue($hour));
+            ->willReturn($hour);
 
         $this->mockTime
         ->expects($this->at(1))
         ->method('date')
         ->with('i')
-        ->will($this->returnValue($minute));
+        ->willReturn($minute);
 
         $espeak = new EspeakVO($this->anything());
         $espeakEvent = new EspeakEvent($espeak);
@@ -84,13 +84,13 @@ class BlogPostNotifyListenerTest extends PHPUnit_Framework_TestCase
         $this->mockTime
         ->expects($this->once())
         ->method('now')
-        ->will($this->returnValue($now));
+        ->willReturn($now);
 
         $this->mockTime
         ->expects($this->once())
         ->method('strtotime')
         ->with(BlogPostNotifyListener::NOTIFY_TIME)
-        ->will($this->returnValue($notify_time));
+        ->willReturn($notify_time);
 
         $this->mockEventDispatcher
         ->expects($this->at(1))

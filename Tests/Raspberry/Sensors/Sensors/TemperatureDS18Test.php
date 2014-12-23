@@ -48,7 +48,7 @@ class TemperatureDS18Test extends PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('exists')
         ->with($file)
-        ->will($this->returnValue(false));
+        ->willReturn(false);
 
         $actualResult = $this->subject->getValue($pin);
 
@@ -70,13 +70,13 @@ class TemperatureDS18Test extends PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('exists')
         ->with($file)
-        ->will($this->returnValue(true));
+        ->willReturn(true);
 
         $this->mockFileSystem
         ->expects($this->once())
         ->method('fileGetContents')
         ->with($file)
-        ->will($this->returnValue($content));
+        ->willReturn($content);
 
         $actualResult = $this->subject->getValue($pin);
 
@@ -114,7 +114,7 @@ class TemperatureDS18Test extends PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('exists')
         ->with($file)
-        ->will($this->returnValue(true));
+        ->willReturn(true);
 
         $output = new DummyOutput();
         $actualResult = $this->subject->isSupported($output);
@@ -130,7 +130,7 @@ class TemperatureDS18Test extends PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('exists')
         ->with($file)
-        ->will($this->returnValue(false));
+        ->willReturn(false);
 
         $output = new DummyOutput();
         $actualResult = $this->subject->isSupported($output);

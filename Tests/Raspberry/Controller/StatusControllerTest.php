@@ -50,12 +50,12 @@ class StatusControllerTest extends PHPUnit_Framework_TestCase
         $this->mockMessageQueueGateway
         ->expects($this->once())
         ->method('getEventsByType')
-        ->will($this->returnValue($eventsByType));
+        ->willReturn($eventsByType);
 
         $this->mockMessageQueueGateway
         ->expects($this->once())
         ->method('countJobs')
-        ->will($this->returnValue($messageQueueJobs));
+        ->willReturn($messageQueueJobs);
 
         $actualResult = $this->subject->index();
 
@@ -78,7 +78,7 @@ class StatusControllerTest extends PHPUnit_Framework_TestCase
         $this->mockMessageQueueGateway
         ->expects($this->once())
         ->method('deleteEvent')
-        ->will($this->returnValue($jobId));
+        ->willReturn($jobId);
 
 
         $actualResult = $this->subject->deleteJob($request);

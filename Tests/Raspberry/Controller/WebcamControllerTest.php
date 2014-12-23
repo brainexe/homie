@@ -55,14 +55,14 @@ class WebcamControllerTest extends PHPUnit_Framework_TestCase
         $photos = [];
 
         $this->mockWebcam
-        ->expects($this->once())
-        ->method('getPhotos')
-        ->will($this->returnValue($photos));
+            ->expects($this->once())
+            ->method('getPhotos')
+            ->willReturn($photos);
 
         $actualResult = $this->subject->index();
 
         $expectedResult = [
-        'shots' => $photos
+            'shots' => $photos
         ];
 
         $this->assertEquals($expectedResult, $actualResult);
@@ -70,19 +70,19 @@ class WebcamControllerTest extends PHPUnit_Framework_TestCase
 
     public function testTakePhoto()
     {
-        $random_id = 11880;
+        $randomId = 11880;
 
         $this->mockIdGenerator
-        ->expects($this->once())
-        ->method('generateRandomId')
-        ->will($this->returnValue($random_id));
+            ->expects($this->once())
+            ->method('generateRandomId')
+            ->willReturn($randomId);
 
-        $event = new WebcamEvent($random_id, WebcamEvent::TAKE_PHOTO);
+        $event = new WebcamEvent($randomId, WebcamEvent::TAKE_PHOTO);
 
         $this->mockEventDispatcher
-        ->expects($this->once())
-        ->method('dispatchInBackground')
-        ->with($event);
+            ->expects($this->once())
+            ->method('dispatchInBackground')
+            ->with($event);
 
         $actualResult = $this->subject->takePhoto();
 
@@ -95,16 +95,15 @@ class WebcamControllerTest extends PHPUnit_Framework_TestCase
 
     public function testDelete()
     {
-        $photo_id = 12;
+        $photoId = 12;
 
         $request = new Request();
-        $request->request->set('shot_id', $photo_id);
+        $request->request->set('shot_id', $photoId);
 
         $this->mockWebcam
-        ->expects($this->once())
-        ->method('delete')
-        ->with($photo_id);
-
+            ->expects($this->once())
+            ->method('delete')
+            ->with($photoId);
 
         $actualResult = $this->subject->delete($request);
 

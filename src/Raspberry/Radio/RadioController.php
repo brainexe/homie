@@ -26,13 +26,14 @@ class RadioController
     }
 
     /**
-     * @param string $code
+     * @param string  $code
      * @param integer $number
      * @param boolean $status
      */
     public function setStatus($code, $number, $status)
     {
         $command = sprintf('%s %s %d %d', self::BASE_COMMAND, $code, $number, (int)$status);
+
         $this->client->execute($command);
     }
 }

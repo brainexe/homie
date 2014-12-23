@@ -29,13 +29,13 @@ class Espeak implements SpeakOutputInterface
 
     /**
      * @Inject({"@MessageQueueGateway", "@RaspberryClient"})
-     * @param MessageQueueGateway $messageQueueGateway
+     * @param MessageQueueGateway $gateway
      * @param ClientInterface $client
      */
-    public function __construct(MessageQueueGateway $messageQueueGateway, ClientInterface $client)
+    public function __construct(MessageQueueGateway $gateway, ClientInterface $client)
     {
         $this->client  = $client;
-        $this->gateway = $messageQueueGateway;
+        $this->gateway = $gateway;
     }
 
     /**

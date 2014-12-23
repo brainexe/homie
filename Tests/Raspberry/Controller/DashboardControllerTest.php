@@ -41,12 +41,12 @@ class DashboardControllerTest extends PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('getDashboard')
         ->with($userId)
-        ->will($this->returnValue($dashboard));
+        ->willReturn($dashboard);
 
         $this->mockDashboard
         ->expects($this->once())
         ->method('getAvailableWidgets')
-        ->will($this->returnValue($widgets));
+        ->willReturn($widgets);
 
         $request = new Request();
         $actualResult = $this->subject->index($request);
@@ -80,7 +80,7 @@ class DashboardControllerTest extends PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('getDashboard')
         ->with($userId)
-        ->will($this->returnValue($dashboard));
+        ->willReturn($dashboard);
 
         $actualResult = $this->subject->addWidget($request);
 
@@ -89,25 +89,25 @@ class DashboardControllerTest extends PHPUnit_Framework_TestCase
 
     public function testDeleteWidget()
     {
-        $widget_id = 12;
+        $widgetId = 12;
         $userId   = 0;
 
         $dashboard = ['dashboard'];
 
         $request = new Request();
-        $request->request->set('widget_id', $widget_id);
+        $request->request->set('widget_id', $widgetId);
 
         $this->mockDashboard
-        ->expects($this->once())
-        ->method('deleteWidget')
-        ->with($userId, $widget_id)
-        ->will($this->returnValue($dashboard));
+            ->expects($this->once())
+            ->method('deleteWidget')
+            ->with($userId, $widgetId)
+            ->willReturn($dashboard);
 
         $this->mockDashboard
-        ->expects($this->once())
-        ->method('getDashboard')
-        ->with($userId)
-        ->will($this->returnValue($dashboard));
+            ->expects($this->once())
+            ->method('getDashboard')
+            ->with($userId)
+            ->willReturn($dashboard);
 
         $actualResult = $this->subject->deleteWidget($request);
 

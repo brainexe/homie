@@ -117,7 +117,7 @@ class Pin implements JsonSerializable
      *
      * @return boolean
      */
-    public function getValue()
+    public function isHighValue()
     {
         return $this->value;
     }

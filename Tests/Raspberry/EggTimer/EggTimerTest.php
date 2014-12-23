@@ -66,7 +66,7 @@ class EggTimerTest extends PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('parseString')
         ->with($time)
-        ->will($this->returnValue($timestamp));
+        ->willReturn($timestamp);
 
         $this->mockEventDispatcher
         ->expects($this->once())
@@ -90,7 +90,7 @@ class EggTimerTest extends PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('parseString')
         ->with($time)
-        ->will($this->returnValue($timestamp));
+        ->willReturn($timestamp);
 
         $this->mockEventDispatcher
         ->expects($this->once())
@@ -120,13 +120,13 @@ class EggTimerTest extends PHPUnit_Framework_TestCase
         $this->mockTime
         ->expects($this->once())
         ->method('now')
-        ->will($this->returnValue($now));
+        ->willReturn($now);
 
         $this->mockMessageQueueGateway
         ->expects($this->once())
         ->method('getEventsByType')
         ->with(EggTimerEvent::DONE, $now)
-        ->will($this->returnValue($jobs));
+        ->willReturn($jobs);
 
         $actualResult = $this->subject->getJobs();
 

@@ -60,7 +60,7 @@ class MessageQueueClientListenerTest extends PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('executeWithReturn')
         ->with($command)
-        ->will($this->returnValue($output));
+        ->willReturn($output);
 
         $this->subject->handleExecuteEvent($event);
     }

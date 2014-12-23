@@ -63,7 +63,7 @@ class SensorAddCommandTest extends \PHPUnit_Framework_TestCase
         $this->mockSensorBuilder
         ->expects($this->once())
         ->method('getSensors')
-        ->will($this->returnValue($sensors));
+        ->willReturn($sensors);
 
         /** @var HelperSet|MockObject $helper_set */
         $helper_set = $this->getMock(HelperSet::class);
@@ -76,25 +76,25 @@ class SensorAddCommandTest extends \PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('get')
         ->with('dialog')
-        ->will($this->returnValue($dialog));
+        ->willReturn($dialog);
 
         $dialog
         ->expects($this->at(0))
         ->method('select')
         ->with($this->isInstanceOf(OutputInterface::class), "Sensor type?\n", array_keys($sensors))
-        ->will($this->returnValue(1));
+        ->willReturn(1);
 
         $dialog
         ->expects($this->at(1))
         ->method('askConfirmation')
         ->with($this->isInstanceOf(OutputInterface::class), 'Abort adding this sensor? (y/n)')
-        ->will($this->returnValue(true));
+        ->willReturn(true);
 
         $sensor_2
         ->expects($this->once())
         ->method('isSupported')
         ->with($this->isInstanceOf(OutputInterface::class))
-        ->will($this->returnValue(false));
+        ->willReturn(false);
 
         $input = ['--force'];
         $command_tester->execute($input);
@@ -117,7 +117,7 @@ class SensorAddCommandTest extends \PHPUnit_Framework_TestCase
         $this->mockSensorBuilder
         ->expects($this->once())
         ->method('getSensors')
-        ->will($this->returnValue($sensors));
+        ->willReturn($sensors);
 
         /** @var HelperSet|MockObject $helper_set */
         $helper_set = $this->getMock(HelperSet::class);
@@ -138,67 +138,67 @@ class SensorAddCommandTest extends \PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('get')
         ->with('dialog')
-        ->will($this->returnValue($dialog));
+        ->willReturn($dialog);
 
         $dialog
         ->expects($this->at(0))
         ->method('select')
         ->with($this->isInstanceOf(OutputInterface::class), "Sensor type?\n", array_keys($sensors))
-        ->will($this->returnValue(1));
+        ->willReturn(1);
 
         $dialog
         ->expects($this->at(1))
         ->method('askConfirmation')
         ->with($this->isInstanceOf(OutputInterface::class), 'Abort adding this sensor? (y/n)')
-        ->will($this->returnValue(false));
+        ->willReturn(false);
 
         $dialog
         ->expects($this->at(2))
         ->method('ask')
         ->with($this->isInstanceOf(OutputInterface::class), "Sensor name\n")
-        ->will($this->returnValue($name));
+        ->willReturn($name);
 
         $dialog
         ->expects($this->at(3))
         ->method('ask')
         ->with($this->isInstanceOf(OutputInterface::class))
-        ->will($this->returnValue($description));
+        ->willReturn($description);
 
         $dialog
         ->expects($this->at(4))
         ->method('ask')
         ->with($this->isInstanceOf(OutputInterface::class))
-        ->will($this->returnValue($pin));
+        ->willReturn($pin);
 
         $dialog
         ->expects($this->at(5))
         ->method('ask')
         ->with($this->isInstanceOf(OutputInterface::class))
-        ->will($this->returnValue($interval));
+        ->willReturn($interval);
 
         $dialog
         ->expects($this->at(6))
         ->method('ask')
         ->with($this->isInstanceOf(OutputInterface::class))
-        ->will($this->returnValue($node));
+        ->willReturn($node);
 
         $sensor_2
         ->expects($this->once())
         ->method('isSupported')
         ->with($this->isInstanceOf(OutputInterface::class))
-        ->will($this->returnValue(false));
+        ->willReturn(false);
 
         $sensor_2
         ->expects($this->once())
         ->method('getValue')
         ->with($pin)
-        ->will($this->returnValue($value));
+        ->willReturn($value);
 
         $sensor_2
         ->expects($this->once())
         ->method('formatValue')
         ->with($value)
-        ->will($this->returnValue($formatted_value));
+        ->willReturn($formatted_value);
 
 
         $expected_sensor_vo = new SensorVO();
@@ -238,7 +238,7 @@ class SensorAddCommandTest extends \PHPUnit_Framework_TestCase
         $this->mockSensorBuilder
         ->expects($this->once())
         ->method('getSensors')
-        ->will($this->returnValue($sensors));
+        ->willReturn($sensors);
 
         /** @var HelperSet|MockObject $helper_set */
         $helper_set = $this->getMock(HelperSet::class);
@@ -259,55 +259,55 @@ class SensorAddCommandTest extends \PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('get')
         ->with('dialog')
-        ->will($this->returnValue($dialog));
+        ->willReturn($dialog);
 
         $dialog
         ->expects($this->at(0))
         ->method('select')
         ->with($this->isInstanceOf(OutputInterface::class), "Sensor type?\n", array_keys($sensors))
-        ->will($this->returnValue(1));
+        ->willReturn(1);
 
         $dialog
         ->expects($this->at(1))
         ->method('ask')
         ->with($this->isInstanceOf(OutputInterface::class), "Sensor name\n")
-        ->will($this->returnValue($name));
+        ->willReturn($name);
 
         $dialog
         ->expects($this->at(2))
         ->method('ask')
         ->with($this->isInstanceOf(OutputInterface::class))
-        ->will($this->returnValue($description));
+        ->willReturn($description);
 
         $dialog
         ->expects($this->at(3))
         ->method('ask')
         ->with($this->isInstanceOf(OutputInterface::class))
-        ->will($this->returnValue($pin));
+        ->willReturn($pin);
 
         $dialog
         ->expects($this->at(4))
         ->method('ask')
         ->with($this->isInstanceOf(OutputInterface::class))
-        ->will($this->returnValue($interval));
+        ->willReturn($interval);
 
         $dialog
         ->expects($this->at(5))
         ->method('ask')
         ->with($this->isInstanceOf(OutputInterface::class))
-        ->will($this->returnValue($node));
+        ->willReturn($node);
 
         $sensor_2
         ->expects($this->once())
         ->method('isSupported')
         ->with($this->isInstanceOf(OutputInterface::class))
-        ->will($this->returnValue(true));
+        ->willReturn(true);
 
         $sensor_2
         ->expects($this->once())
         ->method('getValue')
         ->with($pin)
-        ->will($this->returnValue(null));
+        ->willReturn(null);
 
         $expected_sensor_vo = new SensorVO();
         $expected_sensor_vo->name = $name;

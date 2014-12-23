@@ -46,7 +46,7 @@ class MessageQueueNotificationsTest extends PHPUnit_Framework_TestCase
         $this->mockMessageQueueGateway
         ->expects($this->once())
         ->method('countJobs')
-        ->will($this->returnValue($count));
+        ->willReturn($count);
 
         $actualResult = $this->subject->getNotification();
 

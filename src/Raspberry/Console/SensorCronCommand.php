@@ -60,12 +60,14 @@ class SensorCronCommand extends Command
     protected function configure()
     {
         $this->setName('cron:sensor')
-        ->setDescription('Runs sensor cron')
-        ->addOption('force', null, InputOption::VALUE_NONE, 'Force sensor mesasure');
+            ->setDescription('Runs sensor cron')
+            ->addOption('force', null, InputOption::VALUE_NONE, 'Force sensor mesasure');
     }
 
     /**
-     * @Inject({"@SensorGateway", "@SensorValuesGateway","@SensorBuilder", "@SensorVOBuilder", "@EventDispatcher", "%node.id%"})
+     * @Inject(
+        {"@SensorGateway", "@SensorValuesGateway","@SensorBuilder", "@SensorVOBuilder", "@EventDispatcher", "%node.id%"
+     })
      * @param SensorGateway $gateway
      * @param SensorValuesGateway $valuesGateway
      * @param SensorBuilder $builder

@@ -53,7 +53,7 @@ class DashboardGatewayTest extends TestCase
         ->expects($this->once())
         ->method('hGetAll')
         ->with("dashboard:$userId")
-        ->will($this->returnValue($widgets_raw));
+        ->willReturn($widgets_raw);
 
         $actualResult = $this->subject->getDashboard($userId);
 
@@ -75,7 +75,7 @@ class DashboardGatewayTest extends TestCase
         $this->mockIdGenerator
         ->expects($this->once())
         ->method('generateRandomNumericId')
-        ->will($this->returnValue($new_id));
+        ->willReturn($new_id);
 
         $this->mockRedis
         ->expects($this->once())

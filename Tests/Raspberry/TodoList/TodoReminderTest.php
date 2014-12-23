@@ -49,7 +49,7 @@ class TodoReminderTest extends PHPUnit_Framework_TestCase
         $this->mockTodoList
         ->expects($this->once())
         ->method('getList')
-        ->will($this->returnValue($todos));
+        ->willReturn($todos);
 
         $this->mockEventDispatcher
         ->expects($this->never())
@@ -74,7 +74,7 @@ class TodoReminderTest extends PHPUnit_Framework_TestCase
         $this->mockTodoList
         ->expects($this->once())
         ->method('getList')
-        ->will($this->returnValue($todos));
+        ->willReturn($todos);
 
         $this->mockEventDispatcher
         ->expects($this->once())

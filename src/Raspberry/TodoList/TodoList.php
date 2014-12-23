@@ -87,6 +87,7 @@ class TodoList
             return null;
         }
 
+        // TODO builder
         $itemVo = new TodoItemVO();
         $itemVo->todoId      = $raw['todoId'];
         $itemVo->name        = $raw['name'];

@@ -36,7 +36,7 @@ class ShoppingListTest extends PHPUnit_Framework_TestCase
         $this->mockShoppingListGateway
         ->expects($this->once())
         ->method('getShoppingListItems')
-        ->will($this->returnValue($list));
+        ->willReturn($list);
 
         $actualResult = $this->subject->getShoppingListItems();
         $this->assertEquals($list, $actualResult);

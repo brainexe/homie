@@ -62,12 +62,12 @@ class TodoListTest extends PHPUnit_Framework_TestCase
         $this->mockTime
         ->expects($this->once())
         ->method('now')
-        ->will($this->returnValue($now));
+        ->willReturn($now);
 
         $this->mockIdGenerator
         ->expects($this->once())
         ->method('generateRandomNumericId')
-        ->will($this->returnValue($todoId));
+        ->willReturn($todoId);
 
         $user = new UserVO();
         $user->id = $userId = 42;
@@ -110,7 +110,7 @@ class TodoListTest extends PHPUnit_Framework_TestCase
         $this->mockTodoListGateway
             ->expects($this->once())
             ->method('getList')
-            ->will($this->returnValue($rawList));
+            ->willReturn($rawList);
 
         $actualResult = $this->subject->getList();
 
@@ -203,7 +203,7 @@ class TodoListTest extends PHPUnit_Framework_TestCase
         $itemVo->deadline    = $deadline;
         $itemVo->createdAt   = $createdAt;
         $itemVo->lastChange  = $lastChange;
-        
+
         $this->mockTodoListGateway
             ->expects($this->once())
             ->method('editItem')
@@ -213,7 +213,7 @@ class TodoListTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('getRawItem')
             ->with($itemId)
-            ->will($this->returnValue($itemRaw));
+            ->willReturn($itemRaw);
 
         $event = new TodoListEvent($itemVo, TodoListEvent::EDIT);
         $this->mockEventDispatcher

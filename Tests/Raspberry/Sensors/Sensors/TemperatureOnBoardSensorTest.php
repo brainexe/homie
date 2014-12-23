@@ -47,7 +47,7 @@ class TemperatureOnBoardSensorTest extends PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('fileGetContents')
         ->with(TemperatureOnBoardSensor::PATH)
-        ->will($this->returnValue($value));
+        ->willReturn($value);
 
         $actualResult = $this->subject->getValue($pin);
 
@@ -62,7 +62,7 @@ class TemperatureOnBoardSensorTest extends PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('exists')
         ->with($file)
-        ->will($this->returnValue(true));
+        ->willReturn(true);
 
         $output = new DummyOutput();
         $actualResult = $this->subject->isSupported($output);
@@ -78,7 +78,7 @@ class TemperatureOnBoardSensorTest extends PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('exists')
         ->with($file)
-        ->will($this->returnValue(false));
+        ->willReturn(false);
 
         $output = new DummyOutput();
         $actualResult = $this->subject->isSupported($output);

@@ -36,9 +36,9 @@ class DummyClientTest extends PHPUnit_Framework_TestCase
         $command = 'test';
 
         $this->mockLogger
-        ->expects($this->once())
-        ->method('log')
-        ->with('info', $command);
+            ->expects($this->once())
+            ->method('log')
+            ->with('info', $command);
 
         $this->subject->execute($command);
     }
@@ -48,9 +48,9 @@ class DummyClientTest extends PHPUnit_Framework_TestCase
         $command = 'test';
 
         $this->mockLogger
-        ->expects($this->once())
-        ->method('log')
-        ->with('info', $command);
+            ->expects($this->once())
+            ->method('log')
+            ->with('info', $command);
 
         $actualResult = $this->subject->executeWithReturn($command);
 

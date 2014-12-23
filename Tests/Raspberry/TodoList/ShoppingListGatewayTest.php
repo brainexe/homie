@@ -38,7 +38,7 @@ class ShoppingListGatewayTest extends PHPUnit_Framework_TestCase
         ->expects($this->once())
         ->method('sMembers')
         ->with(ShoppingListGateway::REDIS_KEY)
-        ->will($this->returnValue($items));
+        ->willReturn($items);
 
         $actualResult = $this->subject->getShoppingListItems();
 
