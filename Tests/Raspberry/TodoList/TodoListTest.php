@@ -60,14 +60,14 @@ class TodoListTest extends PHPUnit_Framework_TestCase
         $now = 1000;
 
         $this->mockTime
-        ->expects($this->once())
-        ->method('now')
-        ->willReturn($now);
+            ->expects($this->once())
+            ->method('now')
+            ->willReturn($now);
 
         $this->mockIdGenerator
-        ->expects($this->once())
-        ->method('generateRandomNumericId')
-        ->willReturn($todoId);
+            ->expects($this->once())
+            ->method('generateRandomNumericId')
+            ->willReturn($todoId);
 
         $user = new UserVO();
         $user->id = $userId = 42;

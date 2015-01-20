@@ -1,7 +1,7 @@
 App.ng.controller('RadioController', ['$scope', function ($scope) {
-	$scope.radios = {};
+	$scope.radios     = {};
 	$scope.radio_jobs = {};
-	$scope.pins = {};
+	$scope.pins       = {};
 
 	$.get('/radio/', function(data) {
 		$scope.radios = data.radios;

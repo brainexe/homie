@@ -56,9 +56,9 @@ class RadiosTest extends PHPUnit_Framework_TestCase
         ];
 
         $this->mockRadioGateway
-        ->expects($this->once())
-        ->method('getRadios')
-        ->willReturn([$radio]);
+            ->expects($this->once())
+            ->method('getRadios')
+            ->willReturn([$radio]);
 
         $actualResult = $this->subject->getRadios();
 
@@ -83,10 +83,10 @@ class RadiosTest extends PHPUnit_Framework_TestCase
         $radio_id = 12;
 
         $this->mockRadioGateway
-        ->expects($this->once())
-        ->method('addRadio')
-        ->with($radio_vo)
-        ->willReturn($radio_id);
+            ->expects($this->once())
+            ->method('addRadio')
+            ->with($radio_vo)
+            ->willReturn($radio_id);
 
         $actualResult = $this->subject->addRadio($radio_vo);
 
@@ -95,42 +95,42 @@ class RadiosTest extends PHPUnit_Framework_TestCase
 
     public function testDeleteRadio()
     {
-        $radio_id = 12;
+        $radioId = 12;
 
         $this->mockRadioGateway
-        ->expects($this->once())
-        ->method('deleteRadio')
-        ->with($radio_id);
+            ->expects($this->once())
+            ->method('deleteRadio')
+            ->with($radioId);
 
-        $this->subject->deleteRadio($radio_id);
+        $this->subject->deleteRadio($radioId);
     }
 
     public function testGetRadio()
     {
-        $radio_id = 21;
+        $radioId = 21;
 
         $radio = [
-        'id' => $radio_id,
-        'name' => 'test',
-        'description' => 'description',
-        'pin' => 100,
-        'code' => 1
+            'id' => $radioId,
+            'name' => 'test',
+            'description' => 'description',
+            'pin' => 100,
+            'code' => 1
         ];
 
         $this->mockRadioGateway
-        ->expects($this->once())
-        ->method('getRadio')
-        ->with($radio_id)
-        ->willReturn($radio);
+            ->expects($this->once())
+            ->method('getRadio')
+            ->with($radioId)
+            ->willReturn($radio);
 
-        $result = $this->subject->getRadio($radio_id);
+        $result = $this->subject->getRadio($radioId);
 
-        $radio_vo = new RadioVO();
-        $radio_vo->radioId = $radio_id;
-        $radio_vo->name = $radio['name'];
+        $radio_vo              = new RadioVO();
+        $radio_vo->radioId     = $radioId;
+        $radio_vo->name        = $radio['name'];
         $radio_vo->description = $radio['description'];
-        $radio_vo->code = $radio['code'];
-        $radio_vo->pin = $radio['pin'];
+        $radio_vo->code        = $radio['code'];
+        $radio_vo->pin         = $radio['pin'];
 
         $this->assertEquals($radio_vo, $result);
     }
@@ -146,10 +146,10 @@ class RadiosTest extends PHPUnit_Framework_TestCase
         $radio = [];
 
         $this->mockRadioGateway
-        ->expects($this->once())
-        ->method('getRadio')
-        ->with($radio_id)
-        ->willReturn($radio);
+            ->expects($this->once())
+            ->method('getRadio')
+            ->with($radio_id)
+            ->willReturn($radio);
 
         $this->subject->getRadio($radio_id);
     }

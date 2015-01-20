@@ -6,4 +6,5 @@ define('ROOT', realpath(__DIR__ . '/..').'/');
 
 include ROOT . '/vendor/autoload.php';
 
-return Core::boot();
+$core = new Core();
+return $core->boot();

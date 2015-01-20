@@ -37,19 +37,19 @@ class SoundTest extends PHPUnit_Framework_TestCase
         $process = $this->getMock(Process::class, [], [], '', false);
 
         $this->mockProcessBuilder
-        ->expects($this->once())
-        ->method('setArguments')
-        ->with([Sound::COMMAND, $file])
-        ->willReturn($this->mockProcessBuilder);
+            ->expects($this->once())
+            ->method('setArguments')
+            ->with([Sound::COMMAND, $file])
+            ->willReturn($this->mockProcessBuilder);
 
         $this->mockProcessBuilder
-        ->expects($this->once())
-        ->method('getProcess')
-        ->willReturn($process);
+            ->expects($this->once())
+            ->method('getProcess')
+            ->willReturn($process);
 
         $process
-        ->expects($this->once())
-        ->method('run');
+            ->expects($this->once())
+            ->method('run');
 
         $this->subject->playSound($file);
     }

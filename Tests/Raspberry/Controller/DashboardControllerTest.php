@@ -38,15 +38,15 @@ class DashboardControllerTest extends PHPUnit_Framework_TestCase
         $widgets   = ['widgets'];
 
         $this->mockDashboard
-        ->expects($this->once())
-        ->method('getDashboard')
-        ->with($userId)
-        ->willReturn($dashboard);
+            ->expects($this->once())
+            ->method('getDashboard')
+            ->with($userId)
+            ->willReturn($dashboard);
 
         $this->mockDashboard
-        ->expects($this->once())
-        ->method('getAvailableWidgets')
-        ->willReturn($widgets);
+            ->expects($this->once())
+            ->method('getAvailableWidgets')
+            ->willReturn($widgets);
 
         $request = new Request();
         $actualResult = $this->subject->index($request);
@@ -72,15 +72,15 @@ class DashboardControllerTest extends PHPUnit_Framework_TestCase
         $request->request->set('payload', $payload);
 
         $this->mockDashboard
-        ->expects($this->once())
-        ->method('addWidget')
-        ->with($userId, $type, $payload);
+            ->expects($this->once())
+            ->method('addWidget')
+            ->with($userId, $type, $payload);
 
         $this->mockDashboard
-        ->expects($this->once())
-        ->method('getDashboard')
-        ->with($userId)
-        ->willReturn($dashboard);
+            ->expects($this->once())
+            ->method('getDashboard')
+            ->with($userId)
+            ->willReturn($dashboard);
 
         $actualResult = $this->subject->addWidget($request);
 

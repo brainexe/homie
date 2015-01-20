@@ -45,10 +45,10 @@ class TemperatureDS18Test extends PHPUnit_Framework_TestCase
         $file = sprintf(TemperatureDS18::PIN_FILE, $pin);
 
         $this->mockFileSystem
-        ->expects($this->once())
-        ->method('exists')
-        ->with($file)
-        ->willReturn(false);
+            ->expects($this->once())
+            ->method('exists')
+            ->with($file)
+            ->willReturn(false);
 
         $actualResult = $this->subject->getValue($pin);
 
@@ -67,16 +67,16 @@ class TemperatureDS18Test extends PHPUnit_Framework_TestCase
         $file = sprintf(TemperatureDS18::PIN_FILE, $pin);
 
         $this->mockFileSystem
-        ->expects($this->once())
-        ->method('exists')
-        ->with($file)
-        ->willReturn(true);
+            ->expects($this->once())
+            ->method('exists')
+            ->with($file)
+            ->willReturn(true);
 
         $this->mockFileSystem
-        ->expects($this->once())
-        ->method('fileGetContents')
-        ->with($file)
-        ->willReturn($content);
+            ->expects($this->once())
+            ->method('fileGetContents')
+            ->with($file)
+            ->willReturn($content);
 
         $actualResult = $this->subject->getValue($pin);
 
@@ -111,10 +111,10 @@ class TemperatureDS18Test extends PHPUnit_Framework_TestCase
         $file = sprintf(TemperatureDS18::BUS_DIR);
 
         $this->mockFileSystem
-        ->expects($this->once())
-        ->method('exists')
-        ->with($file)
-        ->willReturn(true);
+            ->expects($this->once())
+            ->method('exists')
+            ->with($file)
+            ->willReturn(true);
 
         $output = new DummyOutput();
         $actualResult = $this->subject->isSupported($output);
@@ -127,10 +127,10 @@ class TemperatureDS18Test extends PHPUnit_Framework_TestCase
         $file = sprintf(TemperatureDS18::BUS_DIR);
 
         $this->mockFileSystem
-        ->expects($this->once())
-        ->method('exists')
-        ->with($file)
-        ->willReturn(false);
+            ->expects($this->once())
+            ->method('exists')
+            ->with($file)
+            ->willReturn(false);
 
         $output = new DummyOutput();
         $actualResult = $this->subject->isSupported($output);

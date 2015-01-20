@@ -58,7 +58,7 @@ class SensorAddCommand extends Command
         /** @var DialogHelper $dialog */
         $dialog = $this->getHelperSet()->get('dialog');
 
-        $sensors      = $this->builder->getSensors();
+        $sensors     = $this->builder->getSensors();
         $sensorTypes = array_keys($sensors);
 
         $sensorTypeIdx = $dialog->select($output, "Sensor type?\n", $sensorTypes);

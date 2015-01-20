@@ -34,9 +34,9 @@ class ShoppingListTest extends PHPUnit_Framework_TestCase
         $list = [];
 
         $this->mockShoppingListGateway
-        ->expects($this->once())
-        ->method('getShoppingListItems')
-        ->willReturn($list);
+            ->expects($this->once())
+            ->method('getShoppingListItems')
+            ->willReturn($list);
 
         $actualResult = $this->subject->getShoppingListItems();
         $this->assertEquals($list, $actualResult);
@@ -47,9 +47,9 @@ class ShoppingListTest extends PHPUnit_Framework_TestCase
         $name = 'name';
 
         $this->mockShoppingListGateway
-        ->expects($this->once())
-        ->method('addShoppingListItem')
-        ->with($name);
+            ->expects($this->once())
+            ->method('addShoppingListItem')
+            ->with($name);
 
         $this->subject->addShoppingListItem($name);
     }
@@ -59,9 +59,9 @@ class ShoppingListTest extends PHPUnit_Framework_TestCase
         $name = 'name';
 
         $this->mockShoppingListGateway
-        ->expects($this->once())
-        ->method('removeShoppingListItem')
-        ->with($name);
+            ->expects($this->once())
+            ->method('removeShoppingListItem')
+            ->with($name);
 
         $this->subject->removeShoppingListItem($name);
     }

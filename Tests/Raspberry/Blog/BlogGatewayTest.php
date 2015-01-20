@@ -86,14 +86,14 @@ class BlogGatewayTest extends PHPUnit_Framework_TestCase
 
         $post = new BlogPostVO();
         $posts_raw = [
-        serialize($post)
+            serialize($post)
         ];
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('zRevRangeByScore')
-        ->with($key, '+inf', '0', ['limit' => [0, 1]])
-        ->willReturn($posts_raw);
+            ->expects($this->once())
+            ->method('zRevRangeByScore')
+            ->with($key, '+inf', '0', ['limit' => [0, 1]])
+            ->willReturn($posts_raw);
 
         $actualResult = $this->subject->getRecentPost($userId);
 
@@ -106,9 +106,9 @@ class BlogGatewayTest extends PHPUnit_Framework_TestCase
         $targetId = 12;
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('sAdd')
-        ->with("blog:subscribers:$targetId", $userId);
+            ->expects($this->once())
+            ->method('sAdd')
+            ->with("blog:subscribers:$targetId", $userId);
 
         $this->subject->addSubscriber($userId, $targetId);
     }
@@ -150,9 +150,9 @@ class BlogGatewayTest extends PHPUnit_Framework_TestCase
         $timestamp = 1000;
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('zDeleteRangeByScore')
-        ->with("blog:$userId");
+            ->expects($this->once())
+            ->method('zDeleteRangeByScore')
+            ->with("blog:$userId");
 
         $this->subject->deletePost($userId, $timestamp);
     }

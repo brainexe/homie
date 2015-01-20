@@ -43,39 +43,39 @@ class LocalClientTest extends PHPUnit_Framework_TestCase
         $process = $this->getMock(Process::class, [], [], '', false);
 
         $this->mockProcessBuilder
-        ->expects($this->once())
-        ->method('add')
-        ->willReturnSelf();
+            ->expects($this->once())
+            ->method('add')
+            ->willReturnSelf();
 
         $this->mockProcessBuilder
-        ->expects($this->once())
-        ->method('setTimeout')
-        ->with(LocalClient::TIMEOUT)
-        ->willReturnSelf();
+            ->expects($this->once())
+            ->method('setTimeout')
+            ->with(LocalClient::TIMEOUT)
+            ->willReturnSelf();
 
         $this->mockProcessBuilder
-        ->expects($this->once())
-        ->method('getProcess')
-        ->willReturn($process);
+            ->expects($this->once())
+            ->method('getProcess')
+            ->willReturn($process);
 
         $process
-        ->expects($this->once())
-        ->method('setCommandLine')
-        ->with($command);
+            ->expects($this->once())
+            ->method('setCommandLine')
+            ->with($command);
 
         $process
-        ->expects($this->once())
-        ->method('run');
+            ->expects($this->once())
+            ->method('run');
 
         $process
-        ->expects($this->once())
-        ->method('isSuccessful')
-        ->willReturn(false);
+            ->expects($this->once())
+            ->method('isSuccessful')
+            ->willReturn(false);
 
         $process
-        ->expects($this->once())
-        ->method('getErrorOutput')
-        ->willReturn('error');
+            ->expects($this->once())
+            ->method('getErrorOutput')
+            ->willReturn('error');
 
         $this->subject->executeWithReturn($command);
     }
@@ -87,39 +87,39 @@ class LocalClientTest extends PHPUnit_Framework_TestCase
         $process = $this->getMock(Process::class, [], [], '', false);
 
         $this->mockProcessBuilder
-        ->expects($this->once())
-        ->method('add')
-        ->willReturnSelf();
+            ->expects($this->once())
+            ->method('add')
+            ->willReturnSelf();
 
         $this->mockProcessBuilder
-        ->expects($this->once())
-        ->method('setTimeout')
-        ->with(LocalClient::TIMEOUT)
-        ->willReturnSelf();
+            ->expects($this->once())
+            ->method('setTimeout')
+            ->with(LocalClient::TIMEOUT)
+            ->willReturnSelf();
 
         $this->mockProcessBuilder
-        ->expects($this->once())
-        ->method('getProcess')
-        ->willReturn($process);
+            ->expects($this->once())
+            ->method('getProcess')
+            ->willReturn($process);
 
         $process
-        ->expects($this->once())
-        ->method('setCommandLine')
-        ->with($command);
+            ->expects($this->once())
+            ->method('setCommandLine')
+            ->with($command);
 
         $process
-        ->expects($this->once())
-        ->method('run');
+            ->expects($this->once())
+            ->method('run');
 
         $process
-        ->expects($this->once())
-        ->method('isSuccessful')
-        ->willReturn(true);
+            ->expects($this->once())
+            ->method('isSuccessful')
+            ->willReturn(true);
 
         $process
-        ->expects($this->once())
-        ->method('getOutput')
-        ->willReturn($output);
+            ->expects($this->once())
+            ->method('getOutput')
+            ->willReturn($output);
 
         $actualResult = $this->subject->executeWithReturn($command);
         $this->assertEquals($output, $actualResult);
@@ -132,34 +132,34 @@ class LocalClientTest extends PHPUnit_Framework_TestCase
         $process = $this->getMock(Process::class, [], [], '', false);
 
         $this->mockProcessBuilder
-        ->expects($this->once())
-        ->method('add')
-        ->willReturnSelf();
+            ->expects($this->once())
+            ->method('add')
+            ->willReturnSelf();
 
         $this->mockProcessBuilder
-        ->expects($this->once())
-        ->method('setTimeout')
-        ->with(LocalClient::TIMEOUT)
-        ->willReturnSelf();
+            ->expects($this->once())
+            ->method('setTimeout')
+            ->with(LocalClient::TIMEOUT)
+            ->willReturnSelf();
 
         $this->mockProcessBuilder
-        ->expects($this->once())
-        ->method('getProcess')
-        ->willReturn($process);
+            ->expects($this->once())
+            ->method('getProcess')
+            ->willReturn($process);
 
         $process
-        ->expects($this->once())
-        ->method('run');
+            ->expects($this->once())
+            ->method('run');
 
         $process
-        ->expects($this->once())
-        ->method('isSuccessful')
-        ->willReturn(true);
+            ->expects($this->once())
+            ->method('isSuccessful')
+            ->willReturn(true);
 
         $process
-        ->expects($this->once())
-        ->method('getOutput')
-        ->willReturn($output);
+            ->expects($this->once())
+            ->method('getOutput')
+            ->willReturn($output);
 
         $this->subject->execute($command);
     }

@@ -46,14 +46,14 @@ class DashboardGatewayTest extends TestCase
 
         $payload = ['payload'];
         $widgets_raw = [
-        $widget_id = 10 => json_encode($payload)
+            $widget_id = 10 => json_encode($payload)
         ];
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('hGetAll')
-        ->with("dashboard:$userId")
-        ->willReturn($widgets_raw);
+            ->expects($this->once())
+            ->method('hGetAll')
+            ->with("dashboard:$userId")
+            ->willReturn($widgets_raw);
 
         $actualResult = $this->subject->getDashboard($userId);
 
@@ -73,14 +73,14 @@ class DashboardGatewayTest extends TestCase
 
         $new_id = 11880;
         $this->mockIdGenerator
-        ->expects($this->once())
-        ->method('generateRandomNumericId')
-        ->willReturn($new_id);
+            ->expects($this->once())
+            ->method('generateRandomNumericId')
+            ->willReturn($new_id);
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('HSET')
-        ->with("dashboard:$userId", $new_id, json_encode($payload));
+            ->expects($this->once())
+            ->method('HSET')
+            ->with("dashboard:$userId", $new_id, json_encode($payload));
 
         $this->subject->addWidget($userId, $payload);
     }
@@ -91,9 +91,9 @@ class DashboardGatewayTest extends TestCase
         $userId = 42;
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('HDEL')
-        ->with("dashboard:$userId", $widget_id);
+            ->expects($this->once())
+            ->method('HDEL')
+            ->with("dashboard:$userId", $widget_id);
 
         $this->subject->deleteWidget($userId, $widget_id);
     }

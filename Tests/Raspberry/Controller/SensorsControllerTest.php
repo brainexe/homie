@@ -99,47 +99,47 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
         ];
 
         $this->mockSensorBuilder
-        ->expects($this->once())
-        ->method('getSensors')
-        ->willReturn($sensors_obj);
+            ->expects($this->once())
+            ->method('getSensors')
+            ->willReturn($sensors_obj);
 
         $sensorIds = [$sensorId];
         $this->mockSensorGateway
-        ->expects($this->once())
-        ->method('getSensorIds')
-        ->willReturn($sensorIds);
+            ->expects($this->once())
+            ->method('getSensorIds')
+            ->willReturn($sensorIds);
 
         $this->mockSensorGateway
-        ->expects($this->once())
-        ->method('getSensors')
-        ->willReturn($sensors_raw);
+            ->expects($this->once())
+            ->method('getSensors')
+            ->willReturn($sensors_raw);
 
         $sensor->expects($this->once())
-        ->method('formatValue')
-        ->with($last_value)
-        ->willReturn($formatted_value);
+            ->method('formatValue')
+            ->with($last_value)
+            ->willReturn($formatted_value);
 
         $sensor->expects($this->once())
-        ->method('getEspeakText')
-        ->with($last_value)
-        ->willReturn($formatted_value);
+            ->method('getEspeakText')
+            ->with($last_value)
+            ->willReturn($formatted_value);
 
         $sensor_values = ['values'];
         $sensors_raw[0]['espeak'] = true;
         $sensors_raw[0]['last_value'] = $formatted_value;
 
         $this->mockSensorValuesGateway
-        ->expects($this->once())
-        ->method('getSensorValues')
-        ->with($sensorId, $from)
-        ->willReturn($sensor_values);
+            ->expects($this->once())
+            ->method('getSensorValues')
+            ->with($sensorId, $from)
+            ->willReturn($sensor_values);
 
         $json = ['json'];
         $this->mockChart
-        ->expects($this->once())
-        ->method('formatJsonData')
-        ->with($sensors_raw, [$sensorId => $sensor_values])
-        ->willReturn($json);
+            ->expects($this->once())
+            ->method('formatJsonData')
+            ->with($sensors_raw, [$sensorId => $sensor_values])
+            ->willReturn($json);
 
         $actualResult = $this->subject->indexSensor($request, $active_sensor_ids);
 
@@ -186,29 +186,29 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
         ];
 
         $this->mockSensorBuilder
-        ->expects($this->once())
-        ->method('getSensors')
-        ->willReturn($sensors_obj);
+            ->expects($this->once())
+            ->method('getSensors')
+            ->willReturn($sensors_obj);
 
         $sensorIds = [$sensorId];
         $this->mockSensorGateway
-        ->expects($this->once())
-        ->method('getSensorIds')
-        ->willReturn($sensorIds);
+            ->expects($this->once())
+            ->method('getSensorIds')
+            ->willReturn($sensorIds);
 
         $this->mockSensorGateway
-        ->expects($this->once())
-        ->method('getSensors')
-        ->willReturn($sensors_raw);
+            ->expects($this->once())
+            ->method('getSensors')
+            ->willReturn($sensors_raw);
 
         $sensors_raw[0]['espeak'] = false;
 
         $json = ['json'];
         $this->mockChart
-        ->expects($this->once())
-        ->method('formatJsonData')
-        ->with($sensors_raw, [])
-        ->willReturn($json);
+            ->expects($this->once())
+            ->method('formatJsonData')
+            ->with($sensors_raw, [])
+            ->willReturn($json);
 
         $actualResult = $this->subject->indexSensor($request, "13");
 
@@ -255,9 +255,9 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
         $sensorVo->node        = $node;
 
         $this->mockSensorGateway
-        ->expects($this->once())
-        ->method('addSensor')
-        ->with($sensorVo);
+            ->expects($this->once())
+            ->method('addSensor')
+            ->with($sensorVo);
 
         $actualResult = $this->subject->addSensor($request);
 
@@ -276,31 +276,31 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
         ];
 
         $this->mockSensorGateway
-        ->expects($this->once())
-        ->method('getSensor')
-        ->with($sensorId)
-        ->willReturn($sensor);
+            ->expects($this->once())
+            ->method('getSensor')
+            ->with($sensorId)
+            ->willReturn($sensor);
 
         $mock_sensor = $this->getMockForAbstractClass(SensorInterface::class, ['getEspeakText']);
 
         $this->mockSensorBuilder
-        ->expects($this->once())
-        ->method('build')
-        ->with($sensor_type)
-        ->willReturn($mock_sensor);
+            ->expects($this->once())
+            ->method('build')
+            ->with($sensor_type)
+            ->willReturn($mock_sensor);
 
         $mock_sensor
-        ->expects($this->once())
-        ->method('getEspeakText')
-        ->willReturn($espeak_text);
+            ->expects($this->once())
+            ->method('getEspeakText')
+            ->willReturn($espeak_text);
 
         $espeak_vo = new EspeakVO($espeak_text);
         $event = new EspeakEvent($espeak_vo);
 
         $this->mockEventDispatcher
-        ->expects($this->once())
-        ->method('dispatchInBackground')
-        ->with($event);
+            ->expects($this->once())
+            ->method('dispatchInBackground')
+            ->with($event);
 
         $actualResult = $this->subject->espeak($request, $sensorId);
 
@@ -323,22 +323,22 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
         ];
 
         $this->mockSensorGateway
-        ->expects($this->once())
-        ->method('getSensor')
-        ->with($sensorId)
-        ->willReturn($sensor_raw);
+            ->expects($this->once())
+            ->method('getSensor')
+            ->with($sensorId)
+            ->willReturn($sensor_raw);
 
         $this->mockSensorBuilder
-        ->expects($this->once())
-        ->method('build')
-        ->with($type)
-        ->willReturn($sensor_obj);
+            ->expects($this->once())
+            ->method('build')
+            ->with($type)
+            ->willReturn($sensor_obj);
 
         $sensor_obj
-        ->expects($this->once())
-        ->method('getEspeakText')
-        ->with($sensor_value)
-        ->willReturn($sensor_value_formatted);
+            ->expects($this->once())
+            ->method('getEspeakText')
+            ->with($sensor_value)
+            ->willReturn($sensor_value_formatted);
 
         $actualResult = $this->subject->slim($request, $sensorId);
 
@@ -369,22 +369,22 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
         ];
 
         $this->mockSensorGateway
-        ->expects($this->once())
-        ->method('getSensor')
-        ->with($sensorId)
-        ->willReturn($sensor_raw);
+            ->expects($this->once())
+            ->method('getSensor')
+            ->with($sensorId)
+            ->willReturn($sensor_raw);
 
         $this->mockSensorBuilder
-        ->expects($this->once())
-        ->method('build')
-        ->with($type)
-        ->willReturn($sensor_obj);
+            ->expects($this->once())
+            ->method('build')
+            ->with($type)
+            ->willReturn($sensor_obj);
 
         $sensor_obj
-        ->expects($this->once())
-        ->method('getEspeakText')
-        ->with($sensor_value)
-        ->willReturn($sensor_value_formatted);
+            ->expects($this->once())
+            ->method('getEspeakText')
+            ->with($sensor_value)
+            ->willReturn($sensor_value_formatted);
 
         $actualResult = $this->subject->getValue($request);
 

@@ -53,9 +53,9 @@ class EggTimerListenerTest extends PHPUnit_Framework_TestCase
         $event = new EggTimerEvent();
 
         $this->mockSound
-        ->expects($this->once())
-        ->method('playSound')
-        ->with(ROOT . EggTimer::EGG_TIMER_RING_SOUND);
+            ->expects($this->once())
+            ->method('playSound')
+            ->with(ROOT . EggTimer::EGG_TIMER_RING_SOUND);
 
         $this->subject->handleEggTimerEvent($event);
     }
@@ -69,14 +69,14 @@ class EggTimerListenerTest extends PHPUnit_Framework_TestCase
         $espeakEvent = new EspeakEvent($espeak);
 
         $this->mockEventDispatcher
-        ->expects($this->once())
-        ->method('dispatchEvent')
-        ->with($espeakEvent);
+            ->expects($this->once())
+            ->method('dispatchEvent')
+            ->with($espeakEvent);
 
         $this->mockSound
-        ->expects($this->once())
-        ->method('playSound')
-        ->with(ROOT . EggTimer::EGG_TIMER_RING_SOUND);
+            ->expects($this->once())
+            ->method('playSound')
+            ->with(ROOT . EggTimer::EGG_TIMER_RING_SOUND);
 
         $this->subject->handleEggTimerEvent($event);
     }

@@ -45,9 +45,9 @@ class RadioJobListenerTest extends PHPUnit_Framework_TestCase
         $event->status = $status = 'status';
 
         $this->mockRadioController
-        ->expects($this->once())
-        ->method('setStatus')
-        ->with($code, $pin, $status);
+            ->expects($this->once())
+            ->method('setStatus')
+            ->with($code, $pin, $status);
 
         $this->subject->handleChangeEvent($event);
     }

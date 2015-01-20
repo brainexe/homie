@@ -44,9 +44,9 @@ class EspeakListenerTest extends PHPUnit_Framework_TestCase
         $event = new EspeakEvent($espeak_vo);
 
         $this->mockEspeak
-        ->expects($this->once())
-        ->method('speak')
-        ->with($espeak_vo->text, $espeak_vo->volume, $espeak_vo->speed, $espeak_vo->speaker);
+            ->expects($this->once())
+            ->method('speak')
+            ->with($espeak_vo->text, $espeak_vo->volume, $espeak_vo->speed, $espeak_vo->speaker);
 
         $this->subject->handleEspeakEvent($event);
     }

@@ -1,8 +1,9 @@
 "use strict";
+// todo cleanup + extract into single models
 
 /**
  * @deprecated
- * @todo
+ * @todo replace by angulat
  * @param element
  */
 function togglePanel(element) {
@@ -52,7 +53,7 @@ var App = {
 		var sockjs = new SockJS(socket_url);
 
 		sockjs.onmessage = function (message) {
-			var event = JSON.parse(message.data);
+			var event      = JSON.parse(message.data);
 			var event_name = event.event_name;
 
 			App.Layout.$scope.$broadcast(event_name, event);

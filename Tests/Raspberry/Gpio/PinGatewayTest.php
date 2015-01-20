@@ -37,10 +37,10 @@ class PinGatewayTest extends PHPUnit_Framework_TestCase
         $descriptions = ['descriptions'];
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('hGetAll')
-        ->with(PinGateway::REDIS_PINS)
-        ->willReturn($descriptions);
+            ->expects($this->once())
+            ->method('hGetAll')
+            ->with(PinGateway::REDIS_PINS)
+            ->willReturn($descriptions);
 
         $actualResult = $this->subject->getPinDescriptions();
 

@@ -42,25 +42,25 @@ class SensorGatewayTest extends PHPUnit_Framework_TestCase
         $result = ['result'];
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('SMEMBERS')
-        ->with(SensorGateway::SENSOR_IDS)
-        ->willReturn($sensorIds);
+            ->expects($this->once())
+            ->method('SMEMBERS')
+            ->with(SensorGateway::SENSOR_IDS)
+            ->willReturn($sensorIds);
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('multi')
-        ->willReturn($this->mockRedis);
+            ->expects($this->once())
+            ->method('multi')
+            ->willReturn($this->mockRedis);
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('HGETALL')
-        ->with("sensor:$sensorId");
+            ->expects($this->once())
+            ->method('HGETALL')
+            ->with("sensor:$sensorId");
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('exec')
-        ->willReturn($result);
+            ->expects($this->once())
+            ->method('exec')
+            ->willReturn($result);
 
         $actualResult = $this->subject->getSensors();
 
@@ -84,25 +84,25 @@ class SensorGatewayTest extends PHPUnit_Framework_TestCase
         ];
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('SMEMBERS')
-        ->with(SensorGateway::SENSOR_IDS)
-        ->willReturn($sensorIds);
+            ->expects($this->once())
+            ->method('SMEMBERS')
+            ->with(SensorGateway::SENSOR_IDS)
+            ->willReturn($sensorIds);
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('multi')
-        ->willReturn($this->mockRedis);
+            ->expects($this->once())
+            ->method('multi')
+            ->willReturn($this->mockRedis);
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('HGETALL')
-        ->with("sensor:$sensorId");
+            ->expects($this->once())
+            ->method('HGETALL')
+            ->with("sensor:$sensorId");
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('exec')
-        ->willReturn($result);
+            ->expects($this->once())
+            ->method('exec')
+            ->willReturn($result);
 
         $actualResult = $this->subject->getSensorsForNode($node);
 
@@ -121,10 +121,10 @@ class SensorGatewayTest extends PHPUnit_Framework_TestCase
         ];
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('SMEMBERS')
-        ->with(SensorGateway::SENSOR_IDS)
-        ->willReturn($sensorIds);
+            ->expects($this->once())
+            ->method('SMEMBERS')
+            ->with(SensorGateway::SENSOR_IDS)
+            ->willReturn($sensorIds);
 
         $actualResult = $this->subject->getSensorIds();
 
@@ -146,29 +146,29 @@ class SensorGatewayTest extends PHPUnit_Framework_TestCase
         $sensor_data['last_value_timestamp'] = 0;
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('SMEMBERS')
-        ->with(SensorGateway::SENSOR_IDS)
-        ->willReturn($sensorIds);
+            ->expects($this->once())
+            ->method('SMEMBERS')
+            ->with(SensorGateway::SENSOR_IDS)
+            ->willReturn($sensorIds);
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('multi')
-        ->willReturn($this->mockRedis);
+            ->expects($this->once())
+            ->method('multi')
+            ->willReturn($this->mockRedis);
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('HMSET')
-        ->with("sensor:$new_sensor_id");
+            ->expects($this->once())
+            ->method('HMSET')
+            ->with("sensor:$new_sensor_id");
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('sAdd')
-        ->with(SensorGateway::SENSOR_IDS, $new_sensor_id);
+            ->expects($this->once())
+            ->method('sAdd')
+            ->with(SensorGateway::SENSOR_IDS, $new_sensor_id);
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('exec');
+            ->expects($this->once())
+            ->method('exec');
 
         $actualResult = $this->subject->addSensor($sensorVo);
 
@@ -181,10 +181,10 @@ class SensorGatewayTest extends PHPUnit_Framework_TestCase
         $sensor = ['sensor'];
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('hGetAll')
-        ->with("sensor:$sensorId")
-        ->willReturn($sensor);
+            ->expects($this->once())
+            ->method('hGetAll')
+            ->with("sensor:$sensorId")
+            ->willReturn($sensor);
 
         $actualResult = $this->subject->getSensor($sensorId);
 
@@ -196,19 +196,19 @@ class SensorGatewayTest extends PHPUnit_Framework_TestCase
         $sensorId = 10;
 
         $this->mockRedis
-        ->expects($this->at(0))
-        ->method('del')
-        ->with("sensor:$sensorId");
+            ->expects($this->at(0))
+            ->method('del')
+            ->with("sensor:$sensorId");
 
         $this->mockRedis
-        ->expects($this->at(1))
-        ->method('sRem')
-        ->with(SensorGateway::SENSOR_IDS, $sensorId);
+            ->expects($this->at(1))
+            ->method('sRem')
+            ->with(SensorGateway::SENSOR_IDS, $sensorId);
 
         $this->mockRedis
-        ->expects($this->at(2))
-        ->method('del')
-        ->with("sensor_values:$sensorId");
+            ->expects($this->at(2))
+            ->method('del')
+            ->with("sensor_values:$sensorId");
 
         $this->subject->deleteSensor($sensorId);
     }

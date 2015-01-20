@@ -47,13 +47,13 @@ class TodoReminderTest extends PHPUnit_Framework_TestCase
         $todo->status = TodoItemVO::STATUS_COMPLETED;
 
         $this->mockTodoList
-        ->expects($this->once())
-        ->method('getList')
-        ->willReturn($todos);
+            ->expects($this->once())
+            ->method('getList')
+            ->willReturn($todos);
 
         $this->mockEventDispatcher
-        ->expects($this->never())
-        ->method('dispatchInBackground');
+            ->expects($this->never())
+            ->method('dispatchInBackground');
 
         $this->subject->sendNotification();
     }
@@ -72,13 +72,13 @@ class TodoReminderTest extends PHPUnit_Framework_TestCase
         $todo_unknown->status = 'unknown';
 
         $this->mockTodoList
-        ->expects($this->once())
-        ->method('getList')
-        ->willReturn($todos);
+            ->expects($this->once())
+            ->method('getList')
+            ->willReturn($todos);
 
         $this->mockEventDispatcher
-        ->expects($this->once())
-        ->method('dispatchInBackground');
+            ->expects($this->once())
+            ->method('dispatchInBackground');
       //TODO check for exact event
 
         $this->subject->sendNotification();

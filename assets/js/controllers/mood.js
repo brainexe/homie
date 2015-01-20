@@ -1,4 +1,5 @@
 
+// todo cleanup
 App.ng.controller('MoodController', ['$scope', function ($scope) {
 	require(['mood'], function(){
 		$.get('/blog/mood/', function(data) {
@@ -6,7 +7,7 @@ App.ng.controller('MoodController', ['$scope', function ($scope) {
 		});
 
 		var canvas = window.document.getElementById('mood_stage');
-		var stage = new createjs.Stage(canvas);
+		var stage  = new createjs.Stage(canvas);
 
 		var INITIAL_SMILEY_RADIUS = 100;
 		var thought = {
@@ -25,8 +26,8 @@ App.ng.controller('MoodController', ['$scope', function ($scope) {
 
 		var r = 0, g = 0, b = 0, color_states = {}, color, i, diff;
 		color_states[100] = {r: 0, g: 200, b: 0, next: null};
-		color_states[50] = {r: 255, g: 210, b: 0, next: color_states[100]};
-		color_states[0] = {r: 180, g: 30, b: 0, next: color_states[50]};
+		color_states[50]  = {r: 255, g: 210, b: 0, next: color_states[100]};
+		color_states[0]   = {r: 180, g: 30, b: 0, next: color_states[50]};
 
 		function rgbToHex(r, g, b) {
 			r = r <= 0 ? '00' : r.toString('16');

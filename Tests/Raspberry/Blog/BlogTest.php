@@ -58,10 +58,10 @@ class BlogTest extends PHPUnit_Framework_TestCase
         $posts = [];
 
         $this->mockBlogGateway
-        ->expects($this->once())
-        ->method('getPosts')
-        ->with($userId, $from, $to)
-        ->willReturn($posts);
+            ->expects($this->once())
+            ->method('getPosts')
+            ->with($userId, $from, $to)
+            ->willReturn($posts);
 
         $actualResult = $this->subject->getPosts($userId, $from, $to);
 
@@ -84,20 +84,20 @@ class BlogTest extends PHPUnit_Framework_TestCase
         $expected_post->mood = null;
 
         $this->mockTime
-        ->expects($this->once())
-        ->method('now')
-        ->willReturn($now);
+            ->expects($this->once())
+            ->method('now')
+            ->willReturn($now);
 
         $this->mockBlogGateway
-        ->expects($this->once())
-        ->method('addPost')
-        ->with($userId, $now, $postVo);
+            ->expects($this->once())
+            ->method('addPost')
+            ->with($userId, $now, $postVo);
 
         $event = new BlogEvent($user, $expected_post);
         $this->mockEventDispatcher
-        ->expects($this->once())
-        ->method('dispatchInBackground')
-        ->with($event);
+            ->expects($this->once())
+            ->method('dispatchInBackground')
+            ->with($event);
 
         $this->subject->addPost($user, $postVo);
     }
@@ -108,9 +108,9 @@ class BlogTest extends PHPUnit_Framework_TestCase
         $timestamp = 1000;
 
         $this->mockBlogGateway
-        ->expects($this->once())
-        ->method('deletePost')
-        ->with($userId, $timestamp);
+            ->expects($this->once())
+            ->method('deletePost')
+            ->with($userId, $timestamp);
 
         $this->subject->deletePost($userId, $timestamp);
     }
@@ -121,9 +121,9 @@ class BlogTest extends PHPUnit_Framework_TestCase
         $target_id = 24;
 
         $this->mockBlogGateway
-        ->expects($this->once())
-        ->method('addSubscriber')
-        ->with($userId, $target_id);
+            ->expects($this->once())
+            ->method('addSubscriber')
+            ->with($userId, $target_id);
 
         $this->subject->addSubscriber($userId, $target_id);
     }
@@ -135,10 +135,10 @@ class BlogTest extends PHPUnit_Framework_TestCase
         $postVo = new BlogPostVO();
 
         $this->mockBlogGateway
-        ->expects($this->once())
-        ->method('getRecentPost')
-        ->with($userId)
-        ->willReturn($postVo);
+            ->expects($this->once())
+            ->method('getRecentPost')
+            ->with($userId)
+            ->willReturn($postVo);
 
         $actualResult = $this->subject->getRecentPost($userId);
 

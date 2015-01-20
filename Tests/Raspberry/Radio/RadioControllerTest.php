@@ -36,9 +36,9 @@ class RadioControllerTest extends PHPUnit_Framework_TestCase
         $status = 1;
 
         $this->mockLocalClient
-        ->expects($this->once())
-        ->method('execute')
-        ->with($this->anything());
+            ->expects($this->once())
+            ->method('execute')
+            ->with($this->anything());
 
         $this->subject->setStatus($code, $number, $status);
     }

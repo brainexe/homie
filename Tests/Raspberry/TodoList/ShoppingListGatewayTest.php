@@ -35,10 +35,10 @@ class ShoppingListGatewayTest extends PHPUnit_Framework_TestCase
         $items = [];
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('sMembers')
-        ->with(ShoppingListGateway::REDIS_KEY)
-        ->willReturn($items);
+            ->expects($this->once())
+            ->method('sMembers')
+            ->with(ShoppingListGateway::REDIS_KEY)
+            ->willReturn($items);
 
         $actualResult = $this->subject->getShoppingListItems();
 
@@ -50,9 +50,9 @@ class ShoppingListGatewayTest extends PHPUnit_Framework_TestCase
         $name = 'name';
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('sAdd')
-        ->with(ShoppingListGateway::REDIS_KEY, $name);
+            ->expects($this->once())
+            ->method('sAdd')
+            ->with(ShoppingListGateway::REDIS_KEY, $name);
 
         $this->subject->addShoppingListItem($name);
     }
@@ -62,9 +62,9 @@ class ShoppingListGatewayTest extends PHPUnit_Framework_TestCase
         $name = 'name';
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('sRem')
-        ->with(ShoppingListGateway::REDIS_KEY, $name);
+            ->expects($this->once())
+            ->method('sRem')
+            ->with(ShoppingListGateway::REDIS_KEY, $name);
 
         $this->subject->removeShoppingListItem($name);
     }

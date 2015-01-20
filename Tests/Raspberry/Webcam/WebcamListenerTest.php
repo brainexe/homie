@@ -45,9 +45,9 @@ class WebcamListenerTest extends PHPUnit_Framework_TestCase
         $event = new WebcamEvent($name, WebcamEvent::TAKE_PHOTO);
 
         $this->mockWebcam
-        ->expects($this->once())
-        ->method('takePhoto')
-        ->with($name);
+            ->expects($this->once())
+            ->method('takePhoto')
+            ->with($name);
 
         $this->subject->handleWebcamEvent($event);
     }

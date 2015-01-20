@@ -48,10 +48,10 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase
         $jobs = [];
 
         $this->mock_message_queue_gateway
-        ->expects($this->once())
-        ->method('getEventsByType')
-        ->with(RadioChangeEvent::CHANGE_RADIO)
-        ->willReturn($jobs);
+            ->expects($this->once())
+            ->method('getEventsByType')
+            ->with(RadioChangeEvent::CHANGE_RADIO)
+            ->willReturn($jobs);
 
         $actualResult = $this->subject->getJobs();
 
@@ -68,16 +68,16 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase
         $radio_vo->radioId = 1;
 
         $this->mock_time_parser
-        ->expects($this->once())
-        ->method('parseString')
-        ->with($time_string)
-        ->willReturn($timestamp);
+            ->expects($this->once())
+            ->method('parseString')
+            ->with($time_string)
+            ->willReturn($timestamp);
 
         $event = new RadioChangeEvent($radio_vo, $status);
         $this->mock_dispatcher
-        ->expects($this->once())
-        ->method('dispatchInBackground')
-        ->with($event, $timestamp);
+            ->expects($this->once())
+            ->method('dispatchInBackground')
+            ->with($event, $timestamp);
 
         $this->subject->addRadioJob($radio_vo, $time_string, $status);
     }
@@ -87,9 +87,9 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase
         $jobId = 19;
 
         $this->mock_message_queue_gateway
-        ->expects($this->once())
-        ->method('deleteEvent')
-        ->with($jobId, RadioChangeEvent::CHANGE_RADIO);
+            ->expects($this->once())
+            ->method('deleteEvent')
+            ->with($jobId, RadioChangeEvent::CHANGE_RADIO);
 
         $this->subject->deleteJob($jobId);
 

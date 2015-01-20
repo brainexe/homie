@@ -57,14 +57,14 @@ class InputControlTest extends TestCase
         $event   = new RadioChangeEvent($radioVo, true);
 
         $this->mockRadios
-        ->expects($this->once())
-        ->method('getRadio')
-        ->with($radioId)
-        ->willReturn($radioVo);
+            ->expects($this->once())
+            ->method('getRadio')
+            ->with($radioId)
+            ->willReturn($radioVo);
         $this->mockEventDispatcher
-        ->expects($this->once())
-        ->method('dispatchEvent')
-        ->with($event);
+            ->expects($this->once())
+            ->method('dispatchEvent')
+            ->with($event);
 
         $this->subject->setRadio($inputEvent);
     }

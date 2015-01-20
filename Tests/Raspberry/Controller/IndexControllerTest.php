@@ -44,12 +44,12 @@ class IndexControllerTest extends PHPUnit_Framework_TestCase
         $request->attributes->set('user', $user);
 
         $this->mockTwigEnvironment
-        ->expects($this->once())
-        ->method('render')
-        ->with('layout.html.twig', [
+            ->expects($this->once())
+            ->method('render')
+            ->with('layout.html.twig', [
         'current_user' => $user
         ])
-        ->willReturn($text);
+            ->willReturn($text);
 
         $actualResult = $this->subject->index($request);
 

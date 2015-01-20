@@ -6,5 +6,8 @@
         <parameter key="piwik.id"/>
         <parameter key="node.id">0</parameter>
         <parameter key="socket.url">http://localhost:8081/socket</parameter>
+
+        <parameter key="serial.port">ttyACM*</parameter>
+        <parameter key="serial.baud">57600</parameter>
     </parameters>
 </container>

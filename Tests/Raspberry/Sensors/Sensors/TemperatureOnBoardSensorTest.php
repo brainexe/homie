@@ -44,10 +44,10 @@ class TemperatureOnBoardSensorTest extends PHPUnit_Framework_TestCase
         $pin   = 2;
 
         $this->mockFileSystem
-        ->expects($this->once())
-        ->method('fileGetContents')
-        ->with(TemperatureOnBoardSensor::PATH)
-        ->willReturn($value);
+            ->expects($this->once())
+            ->method('fileGetContents')
+            ->with(TemperatureOnBoardSensor::PATH)
+            ->willReturn($value);
 
         $actualResult = $this->subject->getValue($pin);
 
@@ -59,10 +59,10 @@ class TemperatureOnBoardSensorTest extends PHPUnit_Framework_TestCase
         $file = TemperatureOnBoardSensor::PATH;
 
         $this->mockFileSystem
-        ->expects($this->once())
-        ->method('exists')
-        ->with($file)
-        ->willReturn(true);
+            ->expects($this->once())
+            ->method('exists')
+            ->with($file)
+            ->willReturn(true);
 
         $output = new DummyOutput();
         $actualResult = $this->subject->isSupported($output);
@@ -75,10 +75,10 @@ class TemperatureOnBoardSensorTest extends PHPUnit_Framework_TestCase
         $file = TemperatureOnBoardSensor::PATH;
 
         $this->mockFileSystem
-        ->expects($this->once())
-        ->method('exists')
-        ->with($file)
-        ->willReturn(false);
+            ->expects($this->once())
+            ->method('exists')
+            ->with($file)
+            ->willReturn(false);
 
         $output = new DummyOutput();
         $actualResult = $this->subject->isSupported($output);

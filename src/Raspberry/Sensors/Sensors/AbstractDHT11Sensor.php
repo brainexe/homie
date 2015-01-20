@@ -41,8 +41,8 @@ abstract class AbstractDHT11Sensor implements SensorInterface
         $command = sprintf('sudo %s 11 %d', self::ADA_SCRIPT, $pin);
 
         $process = $this->processBuilder
-        ->setArguments([$command])
-        ->getProcess();
+            ->setArguments([$command])
+            ->getProcess();
 
         $process->run();
 

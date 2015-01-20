@@ -38,23 +38,23 @@ class WidgetCompilerPassTest extends PHPUnit_Framework_TestCase
         $widget_id         = 'widget_1';
 
         $this->mockContainer
-        ->expects($this->at(0))
-        ->method('getDefinition')
-        ->with('WidgetFactory')
-        ->willReturn($widget_factory);
+            ->expects($this->at(0))
+            ->method('getDefinition')
+            ->with('WidgetFactory')
+            ->willReturn($widget_factory);
 
         $this->mockContainer
-        ->expects($this->at(1))
-        ->method('findTaggedServiceIds')
-        ->with(WidgetCompilerPass::TAG)
-        ->will($this->returnValue([
+            ->expects($this->at(1))
+            ->method('findTaggedServiceIds')
+            ->with(WidgetCompilerPass::TAG)
+            ->will($this->returnValue([
         $widget_id => $widget_definition
         ]));
 
         $widget_factory
-        ->expects($this->once())
-        ->method('addMethodCall')
-        ->with('addWidget', [new Reference($widget_id)]);
+            ->expects($this->once())
+            ->method('addMethodCall')
+            ->with('addWidget', [new Reference($widget_id)]);
 
         $this->subject->process($this->mockContainer);
     }

@@ -60,15 +60,15 @@ class EspeakTest extends PHPUnit_Framework_TestCase
         $pending_jobs = [];
 
         $this->mockTime
-        ->expects($this->once())
-        ->method('now')
-        ->willReturn($now);
+            ->expects($this->once())
+            ->method('now')
+            ->willReturn($now);
 
         $this->mockMessageQueueGateway
-        ->expects($this->once())
-        ->method('getEventsByType')
-        ->with(EspeakEvent::SPEAK, $now)
-        ->willReturn($pending_jobs);
+            ->expects($this->once())
+            ->method('getEventsByType')
+            ->with(EspeakEvent::SPEAK, $now)
+            ->willReturn($pending_jobs);
 
         $actualResult = $this->subject->getPendingJobs();
 
@@ -83,8 +83,8 @@ class EspeakTest extends PHPUnit_Framework_TestCase
         $speaker = 'de';
 
         $this->mockLocalClient
-        ->expects($this->never())
-        ->method('execute');
+            ->expects($this->never())
+            ->method('execute');
 
         $this->subject->speak($text, $volume, $speed, $speaker);
     }
@@ -96,8 +96,8 @@ class EspeakTest extends PHPUnit_Framework_TestCase
         $speaker = 'de';
 
         $this->mockLocalClient
-        ->expects($this->once())
-        ->method('execute');
+            ->expects($this->once())
+            ->method('execute');
 
         $this->subject->speak($text, $volume, $speed, $speaker);
     }
@@ -107,9 +107,9 @@ class EspeakTest extends PHPUnit_Framework_TestCase
         $jobId = 12;
 
         $this->mockMessageQueueGateway
-        ->expects($this->once())
-        ->method('deleteEvent')
-        ->with($jobId, EspeakEvent::SPEAK);
+            ->expects($this->once())
+            ->method('deleteEvent')
+            ->with($jobId, EspeakEvent::SPEAK);
 
         $this->subject->deleteJob($jobId);
     }

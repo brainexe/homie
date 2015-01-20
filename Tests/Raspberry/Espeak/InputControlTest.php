@@ -49,9 +49,9 @@ class InputControlTest extends TestCase
         $event = new EspeakEvent(new EspeakVO('text'));
 
         $this->mockEventDispatcher
-        ->expects($this->once())
-        ->method('dispatchEvent')
-        ->with($event);
+            ->expects($this->once())
+            ->method('dispatchEvent')
+            ->with($event);
 
         $this->subject->say($input_event);
     }

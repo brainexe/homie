@@ -113,33 +113,33 @@ class SensorCronCommandTest extends PHPUnit_Framework_TestCase
 
         $sensor_object = $this->getMockForAbstractClass(SensorInterface::class);
         $this->mockTime
-        ->expects($this->once())
-        ->method('now')
-        ->willReturn($now);
+            ->expects($this->once())
+            ->method('now')
+            ->willReturn($now);
 
         $this->mockSensorGateway
-        ->expects($this->once())
-        ->method('getSensors')
-        ->with($this->nodeId)
-        ->willReturn($sensors);
+            ->expects($this->once())
+            ->method('getSensors')
+            ->with($this->nodeId)
+            ->willReturn($sensors);
 
         $this->mockSensorVOBuilder
-        ->expects($this->once())
-        ->method('buildFromArray')
-        ->with($sensor_raw)
-        ->willReturn($sensor);
+            ->expects($this->once())
+            ->method('buildFromArray')
+            ->with($sensor_raw)
+            ->willReturn($sensor);
 
         $this->mockSensorBuilder
-        ->expects($this->once())
-        ->method('build')
-        ->with($type)
-        ->willReturn($sensor_object);
+            ->expects($this->once())
+            ->method('build')
+            ->with($type)
+            ->willReturn($sensor_object);
 
         $sensor_object
-        ->expects($this->once())
-        ->method('getValue')
-        ->with($pin)
-        ->willReturn($current_sensor_value);
+            ->expects($this->once())
+            ->method('getValue')
+            ->with($pin)
+            ->willReturn($current_sensor_value);
 
         $input = ['--force'];
         $command_tester = new CommandTester($this->subject);
@@ -168,39 +168,39 @@ class SensorCronCommandTest extends PHPUnit_Framework_TestCase
         /** @var SensorInterface|MockObject $sensor_object */
         $sensor_object = $this->getMockForAbstractClass(SensorInterface::class);
         $this->mockTime
-        ->expects($this->once())
-        ->method('now')
-        ->willReturn($now);
+            ->expects($this->once())
+            ->method('now')
+            ->willReturn($now);
 
         $this->mockSensorGateway
-        ->expects($this->once())
-        ->method('getSensors')
-        ->with($this->nodeId)
-        ->willReturn($sensors);
+            ->expects($this->once())
+            ->method('getSensors')
+            ->with($this->nodeId)
+            ->willReturn($sensors);
 
         $this->mockSensorVOBuilder
-        ->expects($this->once())
-        ->method('buildFromArray')
-        ->with($sensor_raw)
-        ->willReturn($sensor);
+            ->expects($this->once())
+            ->method('buildFromArray')
+            ->with($sensor_raw)
+            ->willReturn($sensor);
 
         $this->mockSensorBuilder
-        ->expects($this->once())
-        ->method('build')
-        ->with($type)
-        ->willReturn($sensor_object);
+            ->expects($this->once())
+            ->method('build')
+            ->with($type)
+            ->willReturn($sensor_object);
 
         $sensor_object
-        ->expects($this->once())
-        ->method('getValue')
-        ->with($pin)
-        ->willReturn($current_sensor_value);
+            ->expects($this->once())
+            ->method('getValue')
+            ->with($pin)
+            ->willReturn($current_sensor_value);
 
         $sensor_object
-        ->expects($this->once())
-        ->method('formatValue')
-        ->with($current_sensor_value)
-        ->willReturn($formatted_sensor_value);
+            ->expects($this->once())
+            ->method('formatValue')
+            ->with($current_sensor_value)
+            ->willReturn($formatted_sensor_value);
 
         $event = new SensorValueEvent(
             $sensor,

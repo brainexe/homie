@@ -44,9 +44,9 @@ class DashboardTest extends PHPUnit_Framework_TestCase
         $userId    = 10;
 
         $this->mockGateway
-        ->expects($this->once())
-        ->method('getDashboard')
-        ->willReturn($dashboard);
+            ->expects($this->once())
+            ->method('getDashboard')
+            ->willReturn($dashboard);
 
         $actualResult = $this->subject->getDashboard($userId);
 
@@ -58,9 +58,9 @@ class DashboardTest extends PHPUnit_Framework_TestCase
         $widgets = [];
 
         $this->mockWidgetFactory
-        ->expects($this->once())
-        ->method('getAvailableWidgets')
-        ->willReturn($widgets);
+            ->expects($this->once())
+            ->method('getAvailableWidgets')
+            ->willReturn($widgets);
 
         $actualResult = $this->subject->getAvailableWidgets();
 
@@ -77,34 +77,34 @@ class DashboardTest extends PHPUnit_Framework_TestCase
         $widget = $this->getMock(AbstractWidget::class);
 
         $this->mockWidgetFactory
-        ->expects($this->once())
-        ->method('getWidget')
-        ->with($type)
-        ->willReturn($widget);
+            ->expects($this->once())
+            ->method('getWidget')
+            ->with($type)
+            ->willReturn($widget);
 
         $widget
-        ->expects($this->once())
-        ->method('validate')
-        ->with($payload);
+            ->expects($this->once())
+            ->method('validate')
+            ->with($payload);
 
         $this->mockGateway
-        ->expects($this->once())
-        ->method('addWidget')
-        ->with($userId, $payload);
+            ->expects($this->once())
+            ->method('addWidget')
+            ->with($userId, $payload);
 
         $this->subject->addWidget($userId, $type, $payload);
     }
 
     public function testDeleteWidget()
     {
-        $widget_id = 1;
+        $widgetId = 1;
         $userId   = 42;
 
         $this->mockGateway
-        ->expects($this->once())
-        ->method('deleteWidget')
-        ->with($userId, $widget_id);
+            ->expects($this->once())
+            ->method('deleteWidget')
+            ->with($userId, $widgetId);
 
-        $this->subject->deleteWidget($userId, $widget_id);
+        $this->subject->deleteWidget($userId, $widgetId);
     }
 }

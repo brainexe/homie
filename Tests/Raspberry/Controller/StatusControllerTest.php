@@ -48,14 +48,14 @@ class StatusControllerTest extends PHPUnit_Framework_TestCase
         $messageQueueJobs = 10;
 
         $this->mockMessageQueueGateway
-        ->expects($this->once())
-        ->method('getEventsByType')
-        ->willReturn($eventsByType);
+            ->expects($this->once())
+            ->method('getEventsByType')
+            ->willReturn($eventsByType);
 
         $this->mockMessageQueueGateway
-        ->expects($this->once())
-        ->method('countJobs')
-        ->willReturn($messageQueueJobs);
+            ->expects($this->once())
+            ->method('countJobs')
+            ->willReturn($messageQueueJobs);
 
         $actualResult = $this->subject->index();
 
@@ -76,9 +76,9 @@ class StatusControllerTest extends PHPUnit_Framework_TestCase
         $request->request->set('job_id', $jobId);
 
         $this->mockMessageQueueGateway
-        ->expects($this->once())
-        ->method('deleteEvent')
-        ->willReturn($jobId);
+            ->expects($this->once())
+            ->method('deleteEvent')
+            ->willReturn($jobId);
 
 
         $actualResult = $this->subject->deleteJob($request);
@@ -91,9 +91,9 @@ class StatusControllerTest extends PHPUnit_Framework_TestCase
         $event = new SelfUpdateEvent(SelfUpdateEvent::TRIGGER);
 
         $this->mockEventDispatcher
-        ->expects($this->once())
-        ->method('dispatchInBackground')
-        ->with($event);
+            ->expects($this->once())
+            ->method('dispatchInBackground')
+            ->with($event);
 
         $actualResult = $this->subject->startSelfUpdate();
 

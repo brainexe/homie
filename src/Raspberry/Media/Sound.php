@@ -32,8 +32,8 @@ class Sound
     public function playSound($file)
     {
         $process = $this->processBuilder
-        ->setArguments([self::COMMAND, $file])
-        ->getProcess();
+            ->setArguments([self::COMMAND, $file])
+            ->getProcess();
 
         $process->run();
     }

@@ -56,14 +56,14 @@ class EspeakControllerTest extends PHPUnit_Framework_TestCase
         $jobs = ['jobs'];
 
         $this->mockEspeak
-        ->expects($this->once())
-        ->method('getSpeakers')
-        ->willReturn($speakers);
+            ->expects($this->once())
+            ->method('getSpeakers')
+            ->willReturn($speakers);
 
         $this->mockEspeak
-        ->expects($this->once())
-        ->method('getPendingJobs')
-        ->willReturn($jobs);
+            ->expects($this->once())
+            ->method('getPendingJobs')
+            ->willReturn($jobs);
 
         $actualResult = $this->subject->index();
 

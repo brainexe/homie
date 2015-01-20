@@ -59,14 +59,14 @@ class GpioManagerTest extends PHPUnit_Framework_TestCase
         $pin_collection->add($pin);
 
         $this->mockPinLoader
-        ->expects($this->once())
-        ->method('loadPins')
-        ->willReturn($pin_collection);
+            ->expects($this->once())
+            ->method('loadPins')
+            ->willReturn($pin_collection);
 
         $this->mockPinGateway
-        ->expects($this->once())
-        ->method('getPinDescriptions')
-        ->willReturn($descriptions);
+            ->expects($this->once())
+            ->method('getPinDescriptions')
+            ->willReturn($descriptions);
 
         $actualResult = $this->subject->getPins();
 
@@ -84,20 +84,20 @@ class GpioManagerTest extends PHPUnit_Framework_TestCase
         $pin->setID($id);
 
         $this->mockPinLoader
-        ->expects($this->once())
-        ->method('loadPin')
-        ->with($id)
-        ->willReturn($pin);
+            ->expects($this->once())
+            ->method('loadPin')
+            ->with($id)
+            ->willReturn($pin);
 
         $this->mockLocalClient
-        ->expects($this->at(0))
-        ->method('execute')
-        ->with(sprintf(GpioManager::GPIO_COMMAND_DIRECTION, $id, 'out'));
+            ->expects($this->at(0))
+            ->method('execute')
+            ->with(sprintf(GpioManager::GPIO_COMMAND_DIRECTION, $id, 'out'));
 
         $this->mockLocalClient
-        ->expects($this->at(1))
-        ->method('execute')
-        ->with(sprintf(GpioManager::GPIO_COMMAND_VALUE, $id, 1));
+            ->expects($this->at(1))
+            ->method('execute')
+            ->with(sprintf(GpioManager::GPIO_COMMAND_VALUE, $id, 1));
 
         $actualResult = $this->subject->setPin($id, $status, $value);
 

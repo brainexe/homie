@@ -65,9 +65,7 @@ class SensorCronCommand extends Command
     }
 
     /**
-     * @Inject(
-        {"@SensorGateway", "@SensorValuesGateway","@SensorBuilder", "@SensorVOBuilder", "@EventDispatcher", "%node.id%"
-     })
+     * @Inject({"@SensorGateway", "@SensorValuesGateway","@SensorBuilder", "@SensorVOBuilder", "@EventDispatcher", "%node.id%"})
      * @param SensorGateway $gateway
      * @param SensorValuesGateway $valuesGateway
      * @param SensorBuilder $builder
@@ -103,11 +101,10 @@ class SensorCronCommand extends Command
 
         foreach ($sensors as $sensorData) {
             $sensorVo = $this->sensorVoBuilder->buildFromArray($sensorData);
-
             $interval = $sensorVo->interval ?: 1;
+            $lastRun  = $sensorVo->lastValueTimestamp;
+            $delta    = $now - $lastRun;
 
-            $lastRunTimestamp = $sensorVo->lastValueTimestamp;
-            $delta = $now - $lastRunTimestamp;
             if ($delta > $interval * 60 || $input->getOption('force')) {
                 $sensor = $this->builder->build($sensorVo->type);
                 $currentSensorValue = $sensor->getValue($sensorVo->pin);

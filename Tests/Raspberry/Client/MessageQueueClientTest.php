@@ -46,9 +46,9 @@ class MessageQueueClientTest extends PHPUnit_Framework_TestCase
         $event = new ExecuteCommandEvent($command, false);
 
         $this->mockEventDispatcher
-        ->expects($this->once())
-        ->method('dispatchInBackground')
-        ->with($event, 0);
+            ->expects($this->once())
+            ->method('dispatchInBackground')
+            ->with($event, 0);
 
         $this->subject->execute($command);
     }
@@ -60,14 +60,14 @@ class MessageQueueClientTest extends PHPUnit_Framework_TestCase
         $event = new ExecuteCommandEvent($command, true);
 
         $this->mockEventDispatcher
-        ->expects($this->once())
-        ->method('dispatchInBackground')
-        ->with($event);
+            ->expects($this->once())
+            ->method('dispatchInBackground')
+            ->with($event);
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('brPop')
-        ->with(MessageQueueClient::RETURN_CHANNEL, 5);
+            ->expects($this->once())
+            ->method('brPop')
+            ->with(MessageQueueClient::RETURN_CHANNEL, 5);
 
         $this->subject->executeWithReturn($command);
     }

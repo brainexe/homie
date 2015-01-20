@@ -41,9 +41,9 @@ class LocalClient implements ClientInterface
     public function executeWithReturn($command)
     {
         $process = $this->processBuilder
-        ->add('')
-        ->setTimeout(self::TIMEOUT)
-        ->getProcess();
+            ->add('')
+            ->setTimeout(self::TIMEOUT)
+            ->getProcess();
 
         $process->setCommandLine($command);
         $process->run();

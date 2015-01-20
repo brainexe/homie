@@ -67,20 +67,20 @@ class WebcamTest extends PHPUnit_Framework_TestCase
         $file = $this->getMock(SplFileInfo::class, [], [], '', false);
 
         $file->expects($this->once())
-        ->method('getPath')
-        ->willReturn($file_path);
+            ->method('getPath')
+            ->willReturn($file_path);
 
         $file->expects($this->once())
-        ->method('getRelativePathname')
-        ->willReturn($relative_file_path);
+            ->method('getRelativePathname')
+            ->willReturn($relative_file_path);
 
         $file->expects($this->once())
-        ->method('getCTime')
-        ->willReturn($file_c_time);
+            ->method('getCTime')
+            ->willReturn($file_c_time);
 
         $file->expects($this->once())
-        ->method('getBasename')
-        ->willReturn($file_base_name);
+            ->method('getBasename')
+            ->willReturn($file_base_name);
 
         $expected_webcam_vo = new WebcamVO();
         $expected_webcam_vo->filePath = $file_path;
@@ -90,42 +90,42 @@ class WebcamTest extends PHPUnit_Framework_TestCase
         $expected_webcam_vo->timestamp = $file_c_time;
 
         $this->mockFilesystem
-        ->expects($this->once())
-        ->method('exists')
-        ->with($directory)
-        ->willReturn(false);
+            ->expects($this->once())
+            ->method('exists')
+            ->with($directory)
+            ->willReturn(false);
 
         $this->mockFilesystem
-        ->expects($this->once())
-        ->method('mkdir')
-        ->with($directory, 0777);
+            ->expects($this->once())
+            ->method('mkdir')
+            ->with($directory, 0777);
 
         $this->mockFinder
-        ->expects($this->at(0))
-        ->method('files')
-        ->willReturn($this->mockFinder);
+            ->expects($this->at(0))
+            ->method('files')
+            ->willReturn($this->mockFinder);
 
         $this->mockFinder
-        ->expects($this->at(1))
-        ->method('in')
-        ->with($directory)
-        ->willReturn($this->mockFinder);
+            ->expects($this->at(1))
+            ->method('in')
+            ->with($directory)
+            ->willReturn($this->mockFinder);
 
         $this->mockFinder
-        ->expects($this->at(2))
-        ->method('name')
-        ->with('*.jpg')
-        ->willReturn($this->mockFinder);
+            ->expects($this->at(2))
+            ->method('name')
+            ->with('*.jpg')
+            ->willReturn($this->mockFinder);
 
         $this->mockFinder
-        ->expects($this->at(3))
-        ->method('sortByName')
-        ->willReturn($this->mockFinder);
+            ->expects($this->at(3))
+            ->method('sortByName')
+            ->willReturn($this->mockFinder);
 
         $this->mockFinder
-        ->expects($this->at(4))
-        ->method('getIterator')
-        ->willReturn(new ArrayIterator([$file]));
+            ->expects($this->at(4))
+            ->method('getIterator')
+            ->willReturn(new ArrayIterator([$file]));
 
         $actualResult = $this->subject->getPhotos();
 
@@ -141,32 +141,32 @@ class WebcamTest extends PHPUnit_Framework_TestCase
         $process = $this->getMock(Process::class, [], [], '', false);
 
         $this->mockProcessBuilder
-        ->expects($this->once())
-        ->method('setArguments')
-        ->with([Webcam::EXECUTABLE, '-d', '/dev/video0', $path])
-        ->willReturn($this->mockProcessBuilder);
+            ->expects($this->once())
+            ->method('setArguments')
+            ->with([Webcam::EXECUTABLE, '-d', '/dev/video0', $path])
+            ->willReturn($this->mockProcessBuilder);
 
         $this->mockProcessBuilder
-        ->expects($this->once())
-        ->method('setTimeout')
-        ->with(Webcam::TIMEOUT)
-        ->willReturn($this->mockProcessBuilder);
+            ->expects($this->once())
+            ->method('setTimeout')
+            ->with(Webcam::TIMEOUT)
+            ->willReturn($this->mockProcessBuilder);
 
         $this->mockProcessBuilder
-        ->expects($this->once())
-        ->method('getProcess')
-        ->willReturn($process);
+            ->expects($this->once())
+            ->method('getProcess')
+            ->willReturn($process);
 
 
         $process->expects($this->once())
-        ->method('run');
+            ->method('run');
 
         $event = new WebcamEvent($name, WebcamEvent::TOOK_PHOTO);
 
         $this->mockEventDispatcher
-        ->expects($this->once())
-        ->method('dispatchEvent')
-        ->with($event);
+            ->expects($this->once())
+            ->method('dispatchEvent')
+            ->with($event);
 
         $this->subject->takePhoto($name);
     }
@@ -176,9 +176,9 @@ class WebcamTest extends PHPUnit_Framework_TestCase
         $id = 'id';
 
         $this->mockFilesystem
-        ->expects($this->once())
-        ->method('remove')
-        ->with(ROOT . Webcam::ROOT . 'id.jpg');
+            ->expects($this->once())
+            ->method('remove')
+            ->with(ROOT . Webcam::ROOT . 'id.jpg');
 
         $this->subject->delete($id);
     }

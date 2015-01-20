@@ -47,9 +47,9 @@ class SpeakCommandTest extends PHPUnit_Framework_TestCase
         $event = new EspeakEvent($espeak_vo);
 
         $this->mockEventDispatcher
-        ->expects($this->once())
-        ->method('dispatchEvent')
-        ->with($event);
+            ->expects($this->once())
+            ->method('dispatchEvent')
+            ->with($event);
 
         $commandTester->execute(['text' => $text]);
     }

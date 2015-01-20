@@ -119,27 +119,27 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase
 
         $posts = [];
         $userNames = [
-        'Hans Peter' => $userId
+            'Hans Peter' => $userId
         ];
 
         $this->mockBlog
-        ->expects($this->once())
-        ->method('getPosts')
-        ->with($userId)
-        ->willReturn($posts);
+            ->expects($this->once())
+            ->method('getPosts')
+            ->with($userId)
+            ->willReturn($posts);
 
         $this->mockDatabaseUserProvider
-        ->expects($this->once())
-        ->method('getAllUserNames')
-        ->willReturn($userNames);
+            ->expects($this->once())
+            ->method('getAllUserNames')
+            ->willReturn($userNames);
 
         $actualResult = $this->subject->blogForUser($request, $userId);
 
         $expectedResult = [
-        'posts' => $posts,
-        'users' => $userNames,
-        'active_user_id' => $userId,
-        'current_user_id' => $userId,
+            'posts' => $posts,
+            'users' => $userNames,
+            'active_user_id' => $userId,
+            'current_user_id' => $userId,
         ];
 
         $this->assertEquals($expectedResult, $actualResult);
@@ -162,15 +162,15 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase
         ];
 
         $this->mockBlog
-        ->expects($this->once())
-        ->method('getPosts')
-        ->with($userId)
-        ->willReturn($posts);
+            ->expects($this->once())
+            ->method('getPosts')
+            ->with($userId)
+            ->willReturn($posts);
 
         $this->mockDatabaseUserProvider
-        ->expects($this->once())
-        ->method('getAllUserNames')
-        ->willReturn($userNames);
+            ->expects($this->once())
+            ->method('getAllUserNames')
+            ->willReturn($userNames);
 
         $actualResult = $this->subject->blogForUser($request, $userId);
 
@@ -197,20 +197,21 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase
         $postVo->text = $text;
 
         $this->mockBlog
-        ->expects($this->once())
-        ->method('addPost')
-        ->with($userVo, $postVo)
-        ->willReturn($postVo);
+            ->expects($this->once())
+            ->method('addPost')
+            ->with($userVo, $postVo)
+            ->willReturn($postVo);
 
         $this->mockTime
-        ->expects($this->once())
-        ->method('now')
-        ->willReturn($now);
+            ->expects($this->once())
+            ->method('now')
+            ->willReturn($now);
 
         $actualResult = $this->subject->addPost($request);
 
         $expectedResult = [
-        $now, $postVo
+            $now,
+            $postVo
         ];
 
         $this->assertEquals($expectedResult, $actualResult);
@@ -225,9 +226,9 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase
         $request->attributes->set('user_id', $userId);
 
         $this->mockBlog
-        ->expects($this->once())
-        ->method('deletePost')
-        ->with($userId, $timestamp);
+            ->expects($this->once())
+            ->method('deletePost')
+            ->with($userId, $timestamp);
 
         $actualResult = $this->subject->deletePost($request, $timestamp);
 

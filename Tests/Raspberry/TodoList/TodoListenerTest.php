@@ -51,8 +51,8 @@ class TodoListenerTest extends PHPUnit_Framework_TestCase
         $event = new TodoListEvent($itemVo, TodoListEvent::ADD);
 
         $this->mockEventDispatcher
-        ->expects($this->never())
-        ->method('dispatchInBackground');
+            ->expects($this->never())
+            ->method('dispatchInBackground');
 
         $this->subject->handleAddEvent($event);
     }
@@ -65,9 +65,9 @@ class TodoListenerTest extends PHPUnit_Framework_TestCase
         $event = new TodoListEvent($itemVo, TodoListEvent::ADD);
 
         $this->mockEventDispatcher
-        ->expects($this->once())
-        ->method('dispatchInBackground')
-        ->with($this->anything(), $deadline);
+            ->expects($this->once())
+            ->method('dispatchInBackground')
+            ->with($this->anything(), $deadline);
 
         $this->subject->handleAddEvent($event);
     }

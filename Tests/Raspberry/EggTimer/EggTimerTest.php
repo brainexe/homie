@@ -63,15 +63,15 @@ class EggTimerTest extends PHPUnit_Framework_TestCase
         $event = new EggTimerEvent($espeak_vo);
 
         $this->mockTimeParser
-        ->expects($this->once())
-        ->method('parseString')
-        ->with($time)
-        ->willReturn($timestamp);
+            ->expects($this->once())
+            ->method('parseString')
+            ->with($time)
+            ->willReturn($timestamp);
 
         $this->mockEventDispatcher
-        ->expects($this->once())
-        ->method('dispatchInBackground')
-        ->with($event, $timestamp);
+            ->expects($this->once())
+            ->method('dispatchInBackground')
+            ->with($event, $timestamp);
 
         $this->subject->addNewJob($time, $text);
     }
@@ -87,15 +87,15 @@ class EggTimerTest extends PHPUnit_Framework_TestCase
         $event = new EggTimerEvent($espeak_vo);
 
         $this->mockTimeParser
-        ->expects($this->once())
-        ->method('parseString')
-        ->with($time)
-        ->willReturn($timestamp);
+            ->expects($this->once())
+            ->method('parseString')
+            ->with($time)
+            ->willReturn($timestamp);
 
         $this->mockEventDispatcher
-        ->expects($this->once())
-        ->method('dispatchInBackground')
-        ->with($event, $timestamp);
+            ->expects($this->once())
+            ->method('dispatchInBackground')
+            ->with($event, $timestamp);
 
         $this->subject->addNewJob($time, $text);
     }
@@ -105,28 +105,28 @@ class EggTimerTest extends PHPUnit_Framework_TestCase
         $jobId = 10;
 
         $this->mockMessageQueueGateway
-        ->expects($this->once())
-        ->method('deleteEvent')
-        ->with($jobId, EggTimerEvent::DONE);
+            ->expects($this->once())
+            ->method('deleteEvent')
+            ->with($jobId, EggTimerEvent::DONE);
 
         $this->subject->deleteJob($jobId);
     }
 
     public function testGetJobs()
     {
-        $now = 1000;
+        $now  = 1000;
         $jobs = [];
 
         $this->mockTime
-        ->expects($this->once())
-        ->method('now')
-        ->willReturn($now);
+            ->expects($this->once())
+            ->method('now')
+            ->willReturn($now);
 
         $this->mockMessageQueueGateway
-        ->expects($this->once())
-        ->method('getEventsByType')
-        ->with(EggTimerEvent::DONE, $now)
-        ->willReturn($jobs);
+            ->expects($this->once())
+            ->method('getEventsByType')
+            ->with(EggTimerEvent::DONE, $now)
+            ->willReturn($jobs);
 
         $actualResult = $this->subject->getJobs();
 

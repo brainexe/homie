@@ -40,8 +40,8 @@ class SendTodoReminderCommandTest extends PHPUnit_Framework_TestCase
         $commandTester = new CommandTester($command);
 
         $this->mockTodoReminder
-        ->expects($this->once())
-        ->method('sendNotification');
+            ->expects($this->once())
+            ->method('sendNotification');
 
         $commandTester->execute(['command' => $command->getName()]);
     }

@@ -46,14 +46,14 @@ class TodoListGatewayTest extends PHPUnit_Framework_TestCase
         $itemVo->todoId = $id = 10;
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('HMSET')
-        ->with("todo:$id", $this->isType('array'));
+            ->expects($this->once())
+            ->method('HMSET')
+            ->with("todo:$id", $this->isType('array'));
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('sAdd')
-        ->with(TodoListGateway::TODO_IDS, $itemVo->todoId);
+            ->expects($this->once())
+            ->method('sAdd')
+            ->with(TodoListGateway::TODO_IDS, $itemVo->todoId);
 
         $this->subject->addItem($itemVo);
     }
@@ -148,14 +148,14 @@ class TodoListGatewayTest extends PHPUnit_Framework_TestCase
         $itemId = 10;
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('del')
-        ->with("todo:$itemId");
+            ->expects($this->once())
+            ->method('del')
+            ->with("todo:$itemId");
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('sRem')
-        ->with(TodoListGateway::TODO_IDS, $itemId);
+            ->expects($this->once())
+            ->method('sRem')
+            ->with(TodoListGateway::TODO_IDS, $itemId);
 
         $this->subject->deleteItem($itemId);
     }

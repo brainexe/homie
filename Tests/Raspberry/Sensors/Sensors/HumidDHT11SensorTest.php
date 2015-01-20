@@ -54,21 +54,21 @@ class HumidDHT11SensorTest extends PHPUnit_Framework_TestCase
         $process = $this->getMock(Process::class, [], [], '', false);
 
         $this->mockProcessBuilder
-        ->expects($this->once())
-        ->method('setArguments')
-        ->willReturn($this->mockProcessBuilder);
+            ->expects($this->once())
+            ->method('setArguments')
+            ->willReturn($this->mockProcessBuilder);
 
         $this->mockProcessBuilder
-        ->expects($this->once())
-        ->method('getProcess')
-        ->willReturn($process);
+            ->expects($this->once())
+            ->method('getProcess')
+            ->willReturn($process);
 
         $process->expects($this->once())
-        ->method('run');
+            ->method('run');
 
         $process->expects($this->once())
-        ->method('isSuccessful')
-        ->willReturn(false);
+            ->method('isSuccessful')
+            ->willReturn(false);
 
         $actualResult = $this->subject->getValue($pin);
 
@@ -85,25 +85,25 @@ class HumidDHT11SensorTest extends PHPUnit_Framework_TestCase
         $process = $this->getMock(Process::class, [], [], '', false);
 
         $this->mockProcessBuilder
-        ->expects($this->once())
-        ->method('setArguments')
-        ->willReturn($this->mockProcessBuilder);
+            ->expects($this->once())
+            ->method('setArguments')
+            ->willReturn($this->mockProcessBuilder);
 
         $this->mockProcessBuilder
-        ->expects($this->once())
-        ->method('getProcess')
-        ->willReturn($process);
+            ->expects($this->once())
+            ->method('getProcess')
+            ->willReturn($process);
 
         $process->expects($this->once())
-        ->method('run');
+            ->method('run');
 
         $process->expects($this->once())
-        ->method('isSuccessful')
-        ->willReturn(true);
+            ->method('isSuccessful')
+            ->willReturn(true);
 
         $process->expects($this->once())
-        ->method('getOutput')
-        ->willReturn($output);
+            ->method('getOutput')
+            ->willReturn($output);
 
         $actualResult = $this->subject->getValue($pin);
 
@@ -138,10 +138,10 @@ class HumidDHT11SensorTest extends PHPUnit_Framework_TestCase
         $file = sprintf(AbstractDHT11Sensor::ADA_SCRIPT);
 
         $this->mockFileSystem
-        ->expects($this->once())
-        ->method('exists')
-        ->with($file)
-        ->willReturn(true);
+            ->expects($this->once())
+            ->method('exists')
+            ->with($file)
+            ->willReturn(true);
 
         $output = new DummyOutput();
         $actualResult = $this->subject->isSupported($output);
@@ -154,10 +154,10 @@ class HumidDHT11SensorTest extends PHPUnit_Framework_TestCase
         $file = sprintf(AbstractDHT11Sensor::ADA_SCRIPT);
 
         $this->mockFileSystem
-        ->expects($this->once())
-        ->method('exists')
-        ->with($file)
-        ->willReturn(false);
+            ->expects($this->once())
+            ->method('exists')
+            ->with($file)
+            ->willReturn(false);
 
         $output = new DummyOutput();
         $actualResult = $this->subject->isSupported($output);

@@ -192,16 +192,16 @@ class TodoListControllerTest extends PHPUnit_Framework_TestCase
         ];
 
         $this->mockDatabaseUserProvider
-        ->expects($this->once())
-        ->method('loadUserById')
-        ->with($userId)
-        ->willReturn($userVo);
+            ->expects($this->once())
+            ->method('loadUserById')
+            ->with($userId)
+            ->willReturn($userVo);
 
         $this->mockTodoList
-        ->expects($this->once())
-        ->method('editItem')
-        ->with($itemId, $changes)
-        ->willReturn($itemVo);
+            ->expects($this->once())
+            ->method('editItem')
+            ->with($itemId, $changes)
+            ->willReturn($itemVo);
 
         $actualResult = $this->subject->setAssignee($request);
 
@@ -218,9 +218,9 @@ class TodoListControllerTest extends PHPUnit_Framework_TestCase
         $request->request->set('id', $itemId);
 
         $this->mockTodoList
-        ->expects($this->once())
-        ->method('deleteItem')
-        ->with($itemId);
+            ->expects($this->once())
+            ->method('deleteItem')
+            ->with($itemId);
 
         $actualResult = $this->subject->deleteItem($request);
 

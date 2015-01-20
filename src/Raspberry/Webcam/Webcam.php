@@ -90,9 +90,9 @@ class Webcam
         $path = $this->getFilename($name);
 
         $process = $this->processBuilder
-        ->setArguments([self::EXECUTABLE, '-d', '/dev/video0', $path])
-        ->setTimeout(self::TIMEOUT)
-        ->getProcess();
+            ->setArguments([self::EXECUTABLE, '-d', '/dev/video0', $path])
+            ->setTimeout(self::TIMEOUT)
+            ->getProcess();
 
         $process->run();
 

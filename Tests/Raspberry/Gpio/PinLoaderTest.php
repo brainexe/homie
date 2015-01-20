@@ -48,10 +48,10 @@ class PinLoaderTest extends PHPUnit_Framework_TestCase
 +----------+------+------+--------+------+-------+\n";
 
         $this->mockLocalClient
-        ->expects($this->once())
-        ->method('executeWithReturn')
-        ->with(GpioManager::GPIO_COMMAND_READALL)
-        ->willReturn($gpio_result);
+            ->expects($this->once())
+            ->method('executeWithReturn')
+            ->with(GpioManager::GPIO_COMMAND_READALL)
+            ->willReturn($gpio_result);
 
         $actualResult = $this->subject->loadPins();
 

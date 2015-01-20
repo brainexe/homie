@@ -52,15 +52,15 @@ class MessageQueueClientListenerTest extends PHPUnit_Framework_TestCase
         $output = 'output';
 
         $this->mockRedis
-        ->expects($this->once())
-        ->method('lPush')
-        ->with(MessageQueueClient::RETURN_CHANNEL, $output);
+            ->expects($this->once())
+            ->method('lPush')
+            ->with(MessageQueueClient::RETURN_CHANNEL, $output);
 
         $this->mockLocalClient
-        ->expects($this->once())
-        ->method('executeWithReturn')
-        ->with($command)
-        ->willReturn($output);
+            ->expects($this->once())
+            ->method('executeWithReturn')
+            ->with($command)
+            ->willReturn($output);
 
         $this->subject->handleExecuteEvent($event);
     }

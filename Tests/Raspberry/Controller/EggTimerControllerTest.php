@@ -37,9 +37,9 @@ class EggTimerControllerTest extends PHPUnit_Framework_TestCase
         $jobs = [];
 
         $this->mockEggTimer
-        ->expects($this->once())
-        ->method('getJobs')
-        ->willReturn($jobs);
+            ->expects($this->once())
+            ->method('getJobs')
+            ->willReturn($jobs);
 
         $actualResult = $this->subject->index();
 
@@ -60,15 +60,15 @@ class EggTimerControllerTest extends PHPUnit_Framework_TestCase
         $request->request->set('time', $time);
 
         $this->mockEggTimer
-        ->expects($this->once())
-        ->method('addNewJob')
-        ->with($time, $text);
+            ->expects($this->once())
+            ->method('addNewJob')
+            ->with($time, $text);
 
         $jobs = ['jobs'];
         $this->mockEggTimer
-        ->expects($this->once())
-        ->method('getJobs')
-        ->willReturn($jobs);
+            ->expects($this->once())
+            ->method('getJobs')
+            ->willReturn($jobs);
 
         $actualResult = $this->subject->add($request);
 
@@ -83,14 +83,14 @@ class EggTimerControllerTest extends PHPUnit_Framework_TestCase
         $jobs = [];
 
         $this->mockEggTimer
-        ->expects($this->once())
-        ->method('deleteJob')
-        ->with($jobId);
+            ->expects($this->once())
+            ->method('deleteJob')
+            ->with($jobId);
 
         $this->mockEggTimer
-        ->expects($this->once())
-        ->method('getJobs')
-        ->willReturn($jobs);
+            ->expects($this->once())
+            ->method('getJobs')
+            ->willReturn($jobs);
 
         $actualResult = $this->subject->deleteEggTimer($request, $jobId);
 

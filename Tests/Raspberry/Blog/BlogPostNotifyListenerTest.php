@@ -65,37 +65,34 @@ class BlogPostNotifyListenerTest extends PHPUnit_Framework_TestCase
             ->willReturn($hour);
 
         $this->mockTime
-        ->expects($this->at(1))
-        ->method('date')
-        ->with('i')
-        ->willReturn($minute);
-
-        $espeak = new EspeakVO($this->anything());
-        $espeakEvent = new EspeakEvent($espeak);
+            ->expects($this->at(1))
+            ->method('date')
+            ->with('i')
+            ->willReturn($minute);
 
         $this->mockEventDispatcher
-        ->expects($this->at(0))
-        ->method('dispatchInBackground')
-        ->with($this->isInstanceOf(EspeakEvent::class), 0);
+            ->expects($this->at(0))
+            ->method('dispatchInBackground')
+            ->with($this->isInstanceOf(EspeakEvent::class), 0);
 
         $now = 1000;
         $notify_time = 1001;
 
         $this->mockTime
-        ->expects($this->once())
-        ->method('now')
-        ->willReturn($now);
+            ->expects($this->once())
+            ->method('now')
+            ->willReturn($now);
 
         $this->mockTime
-        ->expects($this->once())
-        ->method('strtotime')
-        ->with(BlogPostNotifyListener::NOTIFY_TIME)
-        ->willReturn($notify_time);
+            ->expects($this->once())
+            ->method('strtotime')
+            ->with(BlogPostNotifyListener::NOTIFY_TIME)
+            ->willReturn($notify_time);
 
         $this->mockEventDispatcher
-        ->expects($this->at(1))
-        ->method('dispatchInBackground')
-        ->with($this->isInstanceOf(EspeakEvent::class), $notify_time);
+            ->expects($this->at(1))
+            ->method('dispatchInBackground')
+            ->with($this->isInstanceOf(EspeakEvent::class), $notify_time);
 
         $this->subject->handlePostEvent($event);
     }
