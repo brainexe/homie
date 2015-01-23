@@ -5,7 +5,8 @@ composer.lock
 app/config.xml
 coverage
 messages.mo
-/lang/de_DE/LC_MESSAGES/messages.po~
 web/*
 bin/*
+node_modules
+npm-debug.log
 /cache/annotated.xml
