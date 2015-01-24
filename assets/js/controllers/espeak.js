@@ -22,10 +22,10 @@ App.ng.controller('EspeakController', ['$scope', function($scope) {
 
 	$scope.addEspeak = function() {
 		var payload = {
-			text:$scope.text,
-			delay:$scope.delay,
-			volume:$scope.volume,
-			speed:$scope.speed,
+			text:   $scope.text,
+			delay:  $scope.delay,
+			volume: $scope.volume,
+			speed:  $scope.speed,
 			speaker:$scope.speaker
 		};
 

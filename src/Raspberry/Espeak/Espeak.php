@@ -43,7 +43,12 @@ class Espeak implements SpeakOutputInterface
      */
     public function getSpeakers()
     {
-        return ['de+m1' => 'DE Male', 'de+f1' => 'DE Female', 'en' => 'EN', 'fr' => 'FR'];
+        return [
+            'de+m1' => 'DE Male',
+            'de+f1' => 'DE Female',
+            'en'    => 'EN',
+            'fr'    => 'FR'
+        ];
     }
 
     /**
@@ -68,7 +73,13 @@ class Espeak implements SpeakOutputInterface
             return;
         }
 
-        $command = sprintf('espeak "%s" -s %d -a %d  -v%ss --stdout | aplay', $text, $speed, $volume, $speaker);
+        $command = sprintf(
+            'espeak "%s" -s %d -a %d  -v%ss --stdout | aplay',
+            $text,
+            $speed,
+            $volume,
+            $speaker
+        );
 
         $this->client->execute($command);
     }

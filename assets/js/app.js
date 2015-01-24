@@ -102,7 +102,7 @@ App.Layout = {
 		{controller:'SensorController', name: 'Sensors', url: 'sensor', icon:'dashboard', templateUrl: asset('/templates/sensor.html')},
 		{controller:'GpioController', name: 'GPIO', url: 'gpio', icon:'flash', templateUrl: asset('/templates/gpio.html')},
 		{controller:'RadioController', name: 'Home Control', url: 'radio', icon:'home', templateUrl: asset('/templates/radio.html')},
-		{controller:'SpeakController', name: 'Speak', url: 'speak', icon:'home', templateUrl: asset('/templates/espeak.html')},
+		{controller:'EspeakController', name: 'Speak', url: 'speak', icon:'home', templateUrl: asset('/templates/espeak.html')},
 		{controller:'WebcamController', name: 'Webcam', url: 'webcam', icon:'bullhorn', templateUrl: asset('/templates/webcam.html')},
 		{controller:'StatusController', name: 'Status', url: 'status', icon:'stats', templateUrl: asset('/templates/status.html')},
 		{controller:'BlogController', name: 'Blog', url: 'blog', icon:'paperclip', templateUrl: asset('/templates/blog.html')},

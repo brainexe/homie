@@ -21,6 +21,7 @@ App.ng.controller('TodoController', ['$scope', function($scope) {
 			$scope.user_names.push({id: user_id, name: data.user_names[user_id]})
 		}
 
+		// todo native loop
 		$.each(data.list, function(index, params) {
 			$scope.stati[params.status].tasks.push(params);
 		});
