@@ -4,6 +4,7 @@ namespace Tests\Raspberry\TodoList\TodoList;
 
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
+use Raspberry\TodoList\Builder;
 use Raspberry\TodoList\TodoList;
 use BrainExe\Core\Authentication\UserVO;
 use Raspberry\TodoList\TodoListEvent;
@@ -41,14 +42,20 @@ class TodoListTest extends PHPUnit_Framework_TestCase
      */
     private $mockTime;
 
+    /**
+     * @var Builder|MockObject
+     */
+    private $mockBuilder;
+
     public function setUp()
     {
         $this->mockTodoListGateway = $this->getMock(TodoListGateway::class, [], [], '', false);
         $this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
-        $this->mockIdGenerator = $this->getMock(IdGenerator::class, [], [], '', false);
-        $this->mockTime = $this->getMock(Time::class, [], [], '', false);
+        $this->mockIdGenerator     = $this->getMock(IdGenerator::class, [], [], '', false);
+        $this->mockTime            = $this->getMock(Time::class, [], [], '', false);
+        $this->mockBuilder         = $this->getMock(Builder::class, [], [], '', false);
 
-        $this->subject = new TodoList($this->mockTodoListGateway);
+        $this->subject = new TodoList($this->mockTodoListGateway, $this->mockBuilder);
         $this->subject->setEventDispatcher($this->mockEventDispatcher);
         $this->subject->setIdGenerator($this->mockIdGenerator);
         $this->subject->setTime($this->mockTime);

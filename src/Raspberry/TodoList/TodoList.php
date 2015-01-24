@@ -13,7 +13,6 @@ use Raspberry\TodoList\VO\TodoItemVO;
  */
 class TodoList
 {
-
     use EventDispatcherTrait;
     use IdGeneratorTrait;
     use TimeTrait;
@@ -24,12 +23,19 @@ class TodoList
     private $gateway;
 
     /**
-     * @Inject({"@TodoListGateway"})
-     * @param TodoListGateway $gateway
+     * @var Builder
      */
-    public function __construct(TodoListGateway $gateway)
+    private $builder;
+
+    /**
+     * @Inject({"@TodoListGateway", "@TodoVoBuilder"})
+     * @param TodoListGateway $gateway
+     * @param Builder $builder
+     */
+    public function __construct(TodoListGateway $gateway, Builder $builder)
     {
         $this->gateway = $gateway;
+        $this->builder = $builder;
     }
 
     /**
@@ -67,8 +73,7 @@ class TodoList
         $rawList = $this->gateway->getList();
 
         foreach ($rawList as $item) {
-            $itemVo = new TodoItemVO();
-            $itemVo->fillValues($item);
+            $itemVo = $this->builder->build($item);
             $list[$item['todoId']] = $itemVo;
         }
 
@@ -87,19 +92,7 @@ class TodoList
             return null;
         }
 
-        // TODO builder
-        $itemVo = new TodoItemVO();
-        $itemVo->todoId      = $raw['todoId'];
-        $itemVo->name        = $raw['name'];
-        $itemVo->userId      = $raw['userId'];
-        $itemVo->userName    = $raw['userName'];
-        $itemVo->description = $raw['description'];
-        $itemVo->status      = $raw['status'];
-        $itemVo->deadline    = $raw['deadline'];
-        $itemVo->createdAt   = $raw['createdAt'];
-        $itemVo->lastChange  = $raw['lastChange'];
-
-        return $itemVo;
+        return $this->builder->build($raw);
     }
 
     /**

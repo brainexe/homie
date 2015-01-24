@@ -2,9 +2,7 @@
 
 namespace Raspberry\Espeak;
 
-use BrainExe\Core\Util\AbstractVO;
-
-class EspeakVO extends AbstractVO
+class EspeakVO
 {
 
     /**

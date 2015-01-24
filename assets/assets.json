@@ -44,6 +44,7 @@
 		{
 			"name": "common.css",
 			"files": [
+				"^bower_components\/bootstrap\/dist\/css\/bootstrap.min.css",
 				"^css\/.*.css"
 			]
 		}
