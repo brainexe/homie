@@ -9,20 +9,25 @@ use Raspberry\Client\ClientInterface;
  */
 class RadioController
 {
-    const BASE_COMMAND = 'sudo /opt/rcswitch-pi/send';
-
     /**
      * @var ClientInterface
      */
     private $client;
 
     /**
-     * @Inject("@RaspberryClient")
-     * @param ClientInterface $client
+     * @var string
      */
-    public function __construct(ClientInterface $client)
+    private $rcSwitchCommand;
+
+    /**
+     * @Inject({"@RaspberryClient", "%rc_switch.command%"})
+     * @param ClientInterface $client
+     * @param $rcSwitchCommand
+     */
+    public function __construct(ClientInterface $client, $rcSwitchCommand)
     {
         $this->client = $client;
+        $this->rcSwitchCommand = $rcSwitchCommand;
     }
 
     /**
@@ -32,7 +37,7 @@ class RadioController
      */
     public function setStatus($code, $number, $status)
     {
-        $command = sprintf('%s %s %d %d', self::BASE_COMMAND, $code, $number, (int)$status);
+        $command = sprintf('%s %s %d %d', $this->rcSwitchCommand, $code, $number, (int)$status);
 
         $this->client->execute($command);
     }

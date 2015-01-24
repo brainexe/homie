@@ -1,6 +1,8 @@
 
 App.ng.controller('LoginController', ['$scope', function ($scope) {
 
+	$scope.needsOneTimeToken = false;
+
 	$scope.login = function() {
 		var payload = {
 			username: $scope.username,
@@ -17,6 +19,18 @@ App.ng.controller('LoginController', ['$scope', function ($scope) {
 
 			window.location.href = '#dashboard';
 		})
+	};
+
+	$scope.usernameBlur = function() {
+		var username = $scope.username;
+		if (!username) {
+			$scope.needsOneTimeToken = false;
+			return;
+		}
+		$.get('/login/needsOneTimeToken', {username: username}, function(data) {
+			$scope.needsOneTimeToken = data;
+			$scope.$apply();
+		});
 	};
 
 	$scope.sendToken = function() {

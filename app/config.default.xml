@@ -7,6 +7,8 @@
         <parameter key="node.id">0</parameter>
         <parameter key="socket.url">http://localhost:8081/socket</parameter>
 
+        <parameter key="rc_switch.command">sudo /opt/rcswitch-pi/send</parameter>
+
         <parameter key="serial.port">ttyACM*</parameter>
         <parameter key="serial.baud">57600</parameter>
     </parameters>

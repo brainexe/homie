@@ -42,8 +42,8 @@ class RadioControllerTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->mockRadios = $this->getMock(Radios::class, [], [], '', false);
-        $this->mockRadioJob = $this->getMock(RadioJob::class, [], [], '', false);
+        $this->mockRadios     = $this->getMock(Radios::class, [], [], '', false);
+        $this->mockRadioJob   = $this->getMock(RadioJob::class, [], [], '', false);
         $this->mockDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
         $this->subject = new RadioController($this->mockRadios, $this->mockRadioJob);

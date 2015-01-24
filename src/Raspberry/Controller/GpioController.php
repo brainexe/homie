@@ -37,7 +37,7 @@ class GpioController implements ControllerInterface
         $pins = $this->manager->getPins();
 
         return [
-        'pins' => $pins->getAll()
+            'pins' => $pins->getAll()
         ];
     }
 
