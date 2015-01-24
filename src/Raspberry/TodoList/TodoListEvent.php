@@ -8,9 +8,9 @@ use Raspberry\TodoList\VO\TodoItemVO;
 
 class TodoListEvent extends AbstractEvent implements PushViaWebsocketInterface
 {
-    const ADD = 'todo.add';
+    const ADD    = 'todo.add';
     const REMOVE = 'todo.remove';
-    const EDIT = 'todo.edit';
+    const EDIT   = 'todo.edit';
 
     /**
      * @var TodoItemVO
@@ -19,7 +19,7 @@ class TodoListEvent extends AbstractEvent implements PushViaWebsocketInterface
 
     /**
      * @param TodoItemVO $itemVo
-     * @param string$eventName
+     * @param string $eventName
      */
     public function __construct(TodoItemVO $itemVo, $eventName)
     {
