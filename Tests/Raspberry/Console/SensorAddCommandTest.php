@@ -3,21 +3,25 @@
 namespace Tests\Raspberry\Console\SensorAddCommand;
 
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
+use PHPUnit_Framework_TestCase;
 use Raspberry\Console\SensorAddCommand;
 use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorBuilder;
 use Raspberry\Sensors\Sensors\SensorInterface;
 use Raspberry\Sensors\SensorVO;
 use Symfony\Component\Console\Application;
-use Symfony\Component\Console\Helper\DialogHelper;
 use Symfony\Component\Console\Helper\HelperSet;
+use Symfony\Component\Console\Helper\QuestionHelper;
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ChoiceQuestion;
+use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
  * @Covers Raspberry\Console\SensorAddCommand
  */
-class SensorAddCommandTest extends \PHPUnit_Framework_TestCase
+class SensorAddCommandTest extends PHPUnit_Framework_TestCase
 {
 
     /**
@@ -40,7 +44,10 @@ class SensorAddCommandTest extends \PHPUnit_Framework_TestCase
         $this->mockSensorGateway = $this->getMock(SensorGateway::class, [], [], '', false);
         $this->mockSensorBuilder = $this->getMock(SensorBuilder::class, [], [], '', false);
 
-        $this->subject = new SensorAddCommand($this->mockSensorGateway, $this->mockSensorBuilder);
+        $this->subject = new SensorAddCommand(
+            $this->mockSensorGateway,
+            $this->mockSensorBuilder
+        );
     }
 
     /**
@@ -50,68 +57,79 @@ class SensorAddCommandTest extends \PHPUnit_Framework_TestCase
     {
         $application = new Application();
         $application->add($this->subject);
-        $command_tester = new CommandTester($this->subject);
+        $tester = new CommandTester($this->subject);
 
-        $sensor_1 = $this->getMock(SensorInterface::class);
-        $sensor_2 = $this->getMock(SensorInterface::class);
+        $sensor1 = $this->getMock(SensorInterface::class);
+        $sensor2 = $this->getMock(SensorInterface::class);
 
         $sensors = [
-        $sensor_type_1 = 'type_1' => $sensor_1,
-        $sensor_type_2 = 'type_2' => $sensor_2,
+            $sensorType1 = 'type_1' => $sensor1,
+            'type_2' => $sensor2,
         ];
+
+        $output = $this->isInstanceOf(OutputInterface::class);
+        $input  = $this->isInstanceOf(InputInterface::class);
 
         $this->mockSensorBuilder
             ->expects($this->once())
             ->method('getSensors')
             ->willReturn($sensors);
 
-        /** @var HelperSet|MockObject $helper_set */
-        $helper_set = $this->getMock(HelperSet::class);
-        $this->subject->setHelperSet($helper_set);
+        /** @var HelperSet|MockObject $helperSet */
+        $helperSet = $this->getMock(HelperSet::class);
+        $this->subject->setHelperSet($helperSet);
 
-        /** @var DialogHelper|MockObject $helper_set */
-        $dialog = $this->getMock(DialogHelper::class);
+        /** @var QuestionHelper|MockObject $helper_set */
+        $questionHelper = $this->getMock(QuestionHelper::class);
 
-        $helper_set
+        $helperSet
             ->expects($this->once())
             ->method('get')
-            ->with('dialog')
-            ->willReturn($dialog);
+            ->with('question')
+            ->willReturn($questionHelper);
 
-        $dialog
+        $questionHelper
             ->expects($this->at(0))
-            ->method('select')
-            ->with($this->isInstanceOf(OutputInterface::class), "Sensor type?\n", array_keys($sensors))
-            ->willReturn(1);
+            ->method('ask')
+            ->with(
+                $input,
+                $output,
+                new ChoiceQuestion("Sensor Type", array_keys($sensors))
+            )
+            ->willReturn($sensorType1);
 
-        $dialog
+        $questionHelper
             ->expects($this->at(1))
-            ->method('askConfirmation')
-            ->with($this->isInstanceOf(OutputInterface::class), 'Abort adding this sensor? (y/n)')
+            ->method('ask')
+            ->with(
+                $input,
+                $output,
+                $this->isInstanceOf(Question::class)
+            )
             ->willReturn(true);
 
-        $sensor_2
+        $sensor1
             ->expects($this->once())
             ->method('isSupported')
-            ->with($this->isInstanceOf(OutputInterface::class))
+            ->with($output)
             ->willReturn(false);
 
         $input = ['--force'];
-        $command_tester->execute($input);
+        $tester->execute($input);
     }
 
     public function testExecuteWhenSensorNotSupported()
     {
         $application = new Application();
         $application->add($this->subject);
-        $command_tester = new CommandTester($this->subject);
+        $commandTester = new CommandTester($this->subject);
 
-        $sensor_1 = $this->getMock(SensorInterface::class);
-        $sensor_2 = $this->getMock(SensorInterface::class);
+        $sensor1 = $this->getMock(SensorInterface::class);
+        $sensor2 = $this->getMock(SensorInterface::class);
 
         $sensors = [
-        $sensor_type_1 = 'type_1' => $sensor_1,
-        $sensor_type_2 = 'type_2' => $sensor_2,
+            'type_1' => $sensor1,
+            $sensorType2 = 'type_2' => $sensor2,
         ];
 
         $this->mockSensorBuilder
@@ -119,12 +137,15 @@ class SensorAddCommandTest extends \PHPUnit_Framework_TestCase
             ->method('getSensors')
             ->willReturn($sensors);
 
-        /** @var HelperSet|MockObject $helper_set */
-        $helper_set = $this->getMock(HelperSet::class);
-        $this->subject->setHelperSet($helper_set);
+        /** @var HelperSet|MockObject $helperSet */
+        $helperSet = $this->getMock(HelperSet::class);
+        $this->subject->setHelperSet($helperSet);
 
-        /** @var DialogHelper|MockObject $helper_set */
-        $dialog = $this->getMock(DialogHelper::class);
+        /** @var QuestionHelper|MockObject $helper_set */
+        $helper = $this->getMock(QuestionHelper::class);
+
+        $output = $this->isInstanceOf(OutputInterface::class);
+        $input  = $this->isInstanceOf(InputInterface::class);
 
         $name        = 'name';
         $description = 'description';
@@ -134,89 +155,96 @@ class SensorAddCommandTest extends \PHPUnit_Framework_TestCase
         $value       = 122;
         $formatted_value = "122 Grad";
 
-        $helper_set
+        $helperSet
             ->expects($this->once())
             ->method('get')
-            ->with('dialog')
-            ->willReturn($dialog);
+            ->with('question')
+            ->willReturn($helper);
 
-        $dialog
+        $helper
             ->expects($this->at(0))
-            ->method('select')
-            ->with($this->isInstanceOf(OutputInterface::class), "Sensor type?\n", array_keys($sensors))
-            ->willReturn(1);
+            ->method('ask')
+            ->with(
+                $input,
+                $output,
+                new ChoiceQuestion("Sensor Type", array_keys($sensors))
+            )
+            ->willReturn($sensorType2);
 
-        $dialog
+        $helper
             ->expects($this->at(1))
-            ->method('askConfirmation')
-            ->with($this->isInstanceOf(OutputInterface::class), 'Abort adding this sensor? (y/n)')
-            ->willReturn(false);
+            ->method('ask')
+            ->with(
+                $input,
+                $output,
+                $this->isInstanceOf(Question::class)
+            );
 
-        $dialog
+        $helper
             ->expects($this->at(2))
             ->method('ask')
-            ->with($this->isInstanceOf(OutputInterface::class), "Sensor name\n")
+            ->with($input, $output, new Question("Sensor name?\n"))
             ->willReturn($name);
 
-        $dialog
+        $helper
             ->expects($this->at(3))
             ->method('ask')
-            ->with($this->isInstanceOf(OutputInterface::class))
+            ->with($input, $output, new Question("Description (optional)?\n"))
             ->willReturn($description);
 
-        $dialog
+        $helper
             ->expects($this->at(4))
             ->method('ask')
-            ->with($this->isInstanceOf(OutputInterface::class))
+            ->with($input, $output, new Question("Pin (Optional)?\n"))
             ->willReturn($pin);
 
-        $dialog
+        $helper
             ->expects($this->at(5))
             ->method('ask')
-            ->with($this->isInstanceOf(OutputInterface::class))
+            ->with($input, $output, new Question("Interval in minutes\n"))
             ->willReturn($interval);
 
-        $dialog
+        $helper
             ->expects($this->at(6))
             ->method('ask')
-            ->with($this->isInstanceOf(OutputInterface::class))
+            ->with($input, $output, new Question("Node\n"))
             ->willReturn($node);
 
-        $sensor_2
+        $sensor2
             ->expects($this->once())
             ->method('isSupported')
-            ->with($this->isInstanceOf(OutputInterface::class))
+            ->with($output)
             ->willReturn(false);
 
-        $sensor_2
+        $sensor2
             ->expects($this->once())
             ->method('getValue')
             ->with($pin)
             ->willReturn($value);
 
-        $sensor_2
+        $sensor2
             ->expects($this->once())
             ->method('formatValue')
             ->with($value)
             ->willReturn($formatted_value);
 
-        $expected_sensor_vo = new SensorVO();
-        $expected_sensor_vo->name = $name;
-        $expected_sensor_vo->type = $sensor_type_2;
-        $expected_sensor_vo->description = $description;
-        $expected_sensor_vo->pin = $pin;
-        $expected_sensor_vo->interval = $interval;
-        $expected_sensor_vo->node = $node;
+        $expectedVo              = new SensorVO();
+        $expectedVo->name        = $name;
+        $expectedVo->type        = $sensorType2;
+        $expectedVo->description = $description;
+        $expectedVo->pin         = $pin;
+        $expectedVo->interval    = $interval;
+        $expectedVo->node        = $node;
 
         $this->mockSensorGateway
             ->expects($this->once())
             ->method('addSensor')
-            ->with($expected_sensor_vo);
+            ->with($expectedVo);
 
         $input = ['--force'];
-        $command_tester->execute($input);
+        $commandTester->execute($input);
 
-        $display = $command_tester->getDisplay();
+        $display = $commandTester->getDisplay();
         $this->assertEquals("Sensor is not supported\nSensor value: 122 Grad\n", $display);
     }
 
@@ -224,14 +252,14 @@ class SensorAddCommandTest extends \PHPUnit_Framework_TestCase
     {
         $application = new Application();
         $application->add($this->subject);
-        $command_tester = new CommandTester($this->subject);
+        $commandTester = new CommandTester($this->subject);
 
-        $sensor_1 = $this->getMock(SensorInterface::class);
-        $sensor_2 = $this->getMock(SensorInterface::class);
+        $sensor1 = $this->getMock(SensorInterface::class);
+        $sensor2 = $this->getMock(SensorInterface::class);
 
         $sensors = [
-            $sensor_type_1 = 'type_1' => $sensor_1,
-            $sensorType2 = 'type_2' => $sensor_2,
+            'type_1' => $sensor1,
+            $sensorType2 = 'type_2' => $sensor2,
         ];
 
         $this->mockSensorBuilder
@@ -239,92 +267,100 @@ class SensorAddCommandTest extends \PHPUnit_Framework_TestCase
             ->method('getSensors')
             ->willReturn($sensors);
 
-        /** @var HelperSet|MockObject $helper_set */
-        $helper_set = $this->getMock(HelperSet::class);
-        $this->subject->setHelperSet($helper_set);
+        /** @var HelperSet|MockObject $helperSet */
+        $helperSet = $this->getMock(HelperSet::class);
+        $this->subject->setHelperSet($helperSet);
 
-        /** @var DialogHelper|MockObject $helper_set */
-        $dialog = $this->getMock(DialogHelper::class);
+        /** @var QuestionHelper|MockObject $helper_set */
+        $helper = $this->getMock(QuestionHelper::class);
 
         $name        = 'name';
         $description = 'description';
         $pin         = 'pin';
         $interval    = 12;
         $node        = 2;
-        $value       = 122;
-        $formatted_value = "122 Grad";
 
-        $helper_set
+        $helperSet
             ->expects($this->once())
             ->method('get')
-            ->with('dialog')
-            ->willReturn($dialog);
+            ->with('question')
+            ->willReturn($helper);
 
-        $dialog
+        $output = $this->isInstanceOf(OutputInterface::class);
+        $input  = $this->isInstanceOf(InputInterface::class);
+
+        $helper
             ->expects($this->at(0))
-            ->method('select')
-            ->with($this->isInstanceOf(OutputInterface::class), "Sensor type?\n", array_keys($sensors))
-            ->willReturn(1);
+            ->method('ask')
+            ->with(
+                $input,
+                $output,
+                new ChoiceQuestion("Sensor Type", array_keys($sensors))
+            )
+            ->willReturn($sensorType2);
 
-        $dialog
+        $helper
             ->expects($this->at(1))
             ->method('ask')
-            ->with($this->isInstanceOf(OutputInterface::class), "Sensor name\n")
+            ->with($input, $output, new Question("Sensor name?\n"))
             ->willReturn($name);
 
-        $dialog
+        $helper
             ->expects($this->at(2))
             ->method('ask')
-            ->with($this->isInstanceOf(OutputInterface::class))
+            ->with($input, $output, new Question("Description (optional)?\n"))
             ->willReturn($description);
 
-        $dialog
+        $helper
             ->expects($this->at(3))
             ->method('ask')
-            ->with($this->isInstanceOf(OutputInterface::class))
+            ->with($input, $output, new Question("Pin (Optional)?\n"))
             ->willReturn($pin);
 
-        $dialog
+        $helper
             ->expects($this->at(4))
             ->method('ask')
-            ->with($this->isInstanceOf(OutputInterface::class))
+            ->with($input, $output, new Question("Interval in minutes\n"))
             ->willReturn($interval);
 
-        $dialog
+        $helper
             ->expects($this->at(5))
             ->method('ask')
-            ->with($this->isInstanceOf(OutputInterface::class))
+            ->with($input, $output, new Question("Node\n"))
             ->willReturn($node);
 
-        $sensor_2
+        $sensor2
             ->expects($this->once())
             ->method('isSupported')
-            ->with($this->isInstanceOf(OutputInterface::class))
+            ->with($output)
             ->willReturn(true);
 
-        $sensor_2
+        $sensor2
             ->expects($this->once())
             ->method('getValue')
             ->with($pin)
             ->willReturn(null);
 
-        $expected_sensor_vo              = new SensorVO();
-        $expected_sensor_vo->name        = $name;
-        $expected_sensor_vo->type        = $sensorType2;
-        $expected_sensor_vo->description = $description;
-        $expected_sensor_vo->pin         = $pin;
-        $expected_sensor_vo->interval    = $interval;
-        $expected_sensor_vo->node        = $node;
+        $expectedVo              = new SensorVO();
+        $expectedVo->name        = $name;
+        $expectedVo->type        = $sensorType2;
+        $expectedVo->description = $description;
+        $expectedVo->pin         = $pin;
+        $expectedVo->interval    = $interval;
+        $expectedVo->node        = $node;
 
         $this->mockSensorGateway
             ->expects($this->once())
             ->method('addSensor')
-            ->with($expected_sensor_vo);
+            ->with($expectedVo);
 
         $input = ['--force'];
-        $command_tester->execute($input);
+        $commandTester->execute($input);
 
-        $display = $command_tester->getDisplay();
-        $this->assertEquals("Sensor is supported\nSensor returned invalid data.\n", $display);
+        $display = $commandTester->getDisplay();
+        $this->assertEquals(
+            "Sensor is supported\nSensor returned invalid data.\n",
+            $display
+        );
     }
 }

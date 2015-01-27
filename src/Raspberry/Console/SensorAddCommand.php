@@ -7,9 +7,12 @@ use Raspberry\Sensors\SensorBuilder;
 use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorVO;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\DialogHelper;
+use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ChoiceQuestion;
+use Symfony\Component\Console\Question\ConfirmationQuestion;
+use Symfony\Component\Console\Question\Question;
 
 /**
  * @Command
@@ -55,28 +58,28 @@ class SensorAddCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /** @var DialogHelper $dialog */
-        $dialog = $this->getHelperSet()->get('dialog');
+        /** @var QuestionHelper $helper */
+        $helper = $this->getHelperSet()->get('question');
 
         $sensors     = $this->builder->getSensors();
         $sensorTypes = array_keys($sensors);
 
-        $sensorTypeIdx = $dialog->select($output, "Sensor type?\n", $sensorTypes);
-        $type   = $sensorTypes[$sensorTypeIdx];
-        $sensor = $sensors[$type];
+        $question = new ChoiceQuestion("Sensor Type", $sensorTypes);
+        $type     = $helper->ask($input, $output, $question);
+        $sensor   = $sensors[$type];
 
         if (!$sensor->isSupported($output)) {
             $output->writeln('<error>Sensor is not supported</error>');
-            $this->askForTermination($dialog, $output);
+            $this->askForTermination($helper, $input, $output);
         } else {
             $output->writeln('<info>Sensor is supported</info>');
         }
 
-        $name        = $dialog->ask($output, "Sensor name\n");
-        $description = $dialog->ask($output, "Description (optional)\n");
-        $pin         = $dialog->ask($output, "Pin (optional)\n");
-        $interval    = (int)$dialog->ask($output, "Interval in minutes\n") ?: 1;
-        $node        = (int)$dialog->ask($output, "Node\n");
+        $name        = $helper->ask($input, $output, new Question("Sensor name?\n"));
+        $description = $helper->ask($input, $output, new Question("Description (optional)?\n"));
+        $pin         = $helper->ask($input, $output, new Question("Pin (Optional)?\n"));
+        $interval    = (int)$helper->ask($input, $output, new Question("Interval in minutes\n")) ?: 1;
+        $node        = (int)$helper->ask($input, $output, new Question("Node\n"));
 
         // get test value
         $testValue = $sensor->getValue($pin);
@@ -84,7 +87,7 @@ class SensorAddCommand extends Command
             $output->writeln(sprintf('<info>Sensor value: %s</info>', $sensor->formatValue($testValue)));
         } else {
             $output->writeln('<error>Sensor returned invalid data.</error>');
-            $this->askForTermination($dialog, $output);
+            $this->askForTermination($helper, $input, $output);
         }
 
         $sensorVo              = new SensorVO();
@@ -99,14 +102,15 @@ class SensorAddCommand extends Command
     }
 
     /**
-     * @param DialogHelper $dialog
+     * @param QuestionHelper $helper
+     * @param InputInterface $input
      * @param OutputInterface $output
      * @throws Exception
-     * @todo using deprecated Class
      */
-    private function askForTermination(DialogHelper $dialog, OutputInterface $output)
+    private function askForTermination(QuestionHelper $helper, InputInterface $input, OutputInterface $output)
     {
-        if ($dialog->askConfirmation($output, 'Abort adding this sensor? (y/n)')) {
+        $question = new ConfirmationQuestion('Abort adding this sensor? (y/n)');
+        if ($helper->ask($input, $output, $question)) {
             throw new Exception('Terminated');
         }
     }
