@@ -12,6 +12,7 @@ use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorValuesGateway;
 use Raspberry\Sensors\SensorVO;
 
+use Raspberry\Sensors\SensorVOBuilder;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -36,6 +37,11 @@ class SensorsController implements ControllerInterface
     private $valuesGateway;
 
     /**
+     * @var SensorVOBuilder
+     */
+    private $voBuilder;
+
+    /**
      * @var SensorBuilder;
      */
     private $builder;
@@ -46,22 +52,25 @@ class SensorsController implements ControllerInterface
     private $chart;
 
     /**
-     * @Inject({"@SensorGateway", "@SensorValuesGateway", "@Chart", "@SensorBuilder"})
+     * @Inject({"@SensorGateway", "@SensorValuesGateway", "@Chart", "@SensorBuilder", "@SensorVOBuilder"})
      * @param SensorGateway $gateway
      * @param SensorValuesGateway $valuesGateway
      * @param Chart $chart
      * @param SensorBuilder $builder
+     * @param SensorVOBuilder $voBuilder
      */
     public function __construct(
         SensorGateway $gateway,
         SensorValuesGateway $valuesGateway,
         Chart $chart,
-        SensorBuilder $builder
+        SensorBuilder $builder,
+        SensorVOBuilder $voBuilder
     ) {
         $this->gateway        = $gateway;
-        $this->valuesGateway = $valuesGateway;
-        $this->chart                 = $chart;
+        $this->valuesGateway  = $valuesGateway;
+        $this->chart          = $chart;
         $this->builder        = $builder;
+        $this->voBuilder      = $voBuilder;
     }
 
     /**
@@ -149,14 +158,15 @@ class SensorsController implements ControllerInterface
         $interval    = $request->request->getInt('interval');
         $node        = $request->request->getInt('node');
 
-        // TODO sensor vo builder
-        $sensorVo              = new SensorVO();
-        $sensorVo->name        = $name;
-        $sensorVo->type        = $sensorType;
-        $sensorVo->description = $description;
-        $sensorVo->pin         = $pin;
-        $sensorVo->interval    = $interval;
-        $sensorVo->node        = $node;
+        $sensorVo = $this->voBuilder->build(
+            null,
+            $name,
+            $description,
+            $interval,
+            $node,
+            $pin,
+            $sensorType
+        );
 
         $this->gateway->addSensor($sensorVo);
 

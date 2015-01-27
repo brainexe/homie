@@ -47,19 +47,19 @@ class SensorVOBuilder
         $node,
         $pin,
         $type,
-        $lastValue,
-        $lastValueTimestamp
+        $lastValue = null,
+        $lastValueTimestamp = null
     ) {
         $sensor = new SensorVO();
 
-        $sensor->sensorId = $sensorId;
-        $sensor->name = $name;
-        $sensor->description = $description;
-        $sensor->interval = $interval;
-        $sensor->node = $node;
-        $sensor->pin = $pin;
-        $sensor->type = $type;
-        $sensor->lastValue = $lastValue;
+        $sensor->sensorId           = $sensorId;
+        $sensor->name               = $name;
+        $sensor->description        = $description;
+        $sensor->interval           = $interval;
+        $sensor->node               = $node;
+        $sensor->pin                = $pin;
+        $sensor->type               = $type;
+        $sensor->lastValue          = $lastValue;
         $sensor->lastValueTimestamp = $lastValueTimestamp;
 
         return $sensor;

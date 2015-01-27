@@ -10,6 +10,7 @@ use Raspberry\Espeak\EspeakVO;
 use Raspberry\Sensors\Sensors\SensorInterface;
 use Raspberry\Sensors\SensorVO;
 
+use Raspberry\Sensors\SensorVOBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorValuesGateway;
@@ -55,19 +56,26 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
      */
     private $mockEventDispatcher;
 
+    /**
+     * @var SensorVOBuilder|MockObject
+     */
+    private $mockVoBuilder;
+
     public function setUp()
     {
-        $this->mockSensorGateway = $this->getMock(SensorGateway::class, [], [], '', false);
+        $this->mockSensorGateway       = $this->getMock(SensorGateway::class, [], [], '', false);
         $this->mockSensorValuesGateway = $this->getMock(SensorValuesGateway::class, [], [], '', false);
-        $this->mockChart = $this->getMock(Chart::class, [], [], '', false);
-        $this->mockSensorBuilder = $this->getMock(SensorBuilder::class, [], [], '', false);
-        $this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->mockChart               = $this->getMock(Chart::class, [], [], '', false);
+        $this->mockSensorBuilder       = $this->getMock(SensorBuilder::class, [], [], '', false);
+        $this->mockEventDispatcher     = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->mockVoBuilder           = $this->getMock(SensorVOBuilder::class, [], [], '', false);
 
         $this->subject = new SensorsController(
             $this->mockSensorGateway,
             $this->mockSensorValuesGateway,
             $this->mockChart,
-            $this->mockSensorBuilder
+            $this->mockSensorBuilder,
+            $this->mockVoBuilder
         );
         $this->subject->setEventDispatcher($this->mockEventDispatcher);
     }
@@ -248,12 +256,20 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
 
         $sensorVo = new SensorVO();
         $sensorVo->name        = $name;
-        $sensorVo->type        = $type;
-        $sensorVo->description = $description;
-        $sensorVo->pin         = $pin;
-        $sensorVo->interval    = $interval;
-        $sensorVo->node        = $node;
 
+        $this->mockVoBuilder
+            ->expects($this->once())
+            ->method('build')
+            ->with(
+                null,
+                $name,
+                $description,
+                $interval,
+                $node,
+                $pin,
+                $type
+            )
+            ->willReturn($sensorVo);
         $this->mockSensorGateway
             ->expects($this->once())
             ->method('addSensor')
@@ -268,11 +284,11 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
     {
         $request = new Request();
         $sensorId = 10;
-        $espeak_text = 'last value';
+        $espeakText = 'last value';
 
         $sensor = [
-        'type' => $sensor_type = 'type',
-        'last_value' => $last_value = 'last value',
+            'type' => $sensor_type = 'type',
+            'last_value' => $last_value = 'last value',
         ];
 
         $this->mockSensorGateway
@@ -292,9 +308,9 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
         $mock_sensor
             ->expects($this->once())
             ->method('getEspeakText')
-            ->willReturn($espeak_text);
+            ->willReturn($espeakText);
 
-        $espeak_vo = new EspeakVO($espeak_text);
+        $espeak_vo = new EspeakVO($espeakText);
         $event = new EspeakEvent($espeak_vo);
 
         $this->mockEventDispatcher
