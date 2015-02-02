@@ -2,6 +2,7 @@
 
 namespace Raspberry\EggTimer;
 
+use BrainExe\Core\Annotations\EventListener;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Raspberry\Espeak\EspeakEvent;
 use Raspberry\Media\Sound;
@@ -21,7 +22,7 @@ class EggTimerListener implements EventSubscriberInterface
     private $sound;
 
     /**
-     * @inject("@Sound")
+     * @Inject("@Sound")
      * @param Sound $sound
      */
     public function __construct(Sound $sound)
@@ -35,7 +36,7 @@ class EggTimerListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-        EggTimerEvent::DONE => 'handleEggTimerEvent'
+            EggTimerEvent::DONE => 'handleEggTimerEvent'
         ];
     }
 

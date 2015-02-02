@@ -30,7 +30,7 @@ class InputControl implements EventSubscriberInterface
     }
 
     /**
-     * @inject("@Radios")
+     * @Inject("@Radios")
      * @param Radios $radios
      */
     public function __construct(Radios $radios)

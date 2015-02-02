@@ -385,7 +385,7 @@ body > .header .navbar .nav > li > a:hover > .label {
 }
 body > .header .logo {
   float: left;
-  font-size: 20px;
+  font-size: 28px;
   line-height: 50px;
   text-align: center;
   padding: 0 10px;
@@ -537,7 +537,7 @@ body > .header .logo .icon {
   width: 20px;
 }
 .user-panel {
-  padding: 10px;
+  padding: 7px;
 }
 .user-panel:before,
 .user-panel:after {
@@ -608,7 +608,7 @@ body > .header .logo .icon {
     left: 0px;
   }
 }
-/* 
+/*
     Dropdown menus
 ----------------------------
 */
@@ -985,7 +985,7 @@ body > .header .logo .icon {
     left: auto;
   }
 }
-/* 
+/*
    All form elements including input, select, textarea etc.
 -----------------------------------------------------------------
 */
@@ -1225,7 +1225,7 @@ body > .header .logo .icon {
   -moz-border-radius: 50%;
   border-radius: 50%;
 }
-/* 
+/*
     Component: alert
 ------------------------
 */
@@ -1391,7 +1391,7 @@ body > .header .logo .icon {
   border-radius: 0;
 }
 
-/* 
+/*
     Page: 404 and 500 error pages
 ------------------------------------
 */
@@ -1441,7 +1441,7 @@ body > .header .logo .icon {
 .error-page:after {
   clear: both;
 }
-/* 
+/*
     Page: Invoice
 */
 .invoice {
@@ -1474,7 +1474,7 @@ body > .header .logo .icon {
     white-space: normal!important;
   }
 }
-/* 
+/*
     Skins
     -----
 */
@@ -1554,9 +1554,12 @@ body > .header .logo .icon {
   margin: 0 1px;
   background: #444;
 }
-.left-side {
+.left-side, .logo {
   background: #333;
-}
+  background: -moz-linear-gradient(left, rgba(51,51,51,1) 94%, rgba(51,51,51,1) 95%, rgba(51,51,51,0.65) 100%);
+  background: -webkit-gradient(left top, right top, color-stop(94%, rgba(51,51,51,1)), color-stop(95%, rgba(51,51,51,1)), color-stop(100%, rgba(51,51,51,0.65)));
+  background: -webkit-linear-gradient(left, rgba(51,51,51,1) 94%, rgba(51,51,51,1) 95%, rgba(51,51,51,0.65) 100%);
+  background: linear-gradient(to right, rgba(51,51,51,1) 94%, rgba(51,51,51,1) 95%, rgba(51,51,51,0.65) 100%);}
 .sidebar a {
   color: #eee;
 }

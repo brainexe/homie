@@ -1,10 +1,9 @@
 
 // TODO stroke
-// todo prio
 App.ng.controller('TodoController', ['$scope', function($scope) {
 	$scope.todos = [];
-	$scope.shopping_list = [];
-	$scope.user_names = [];
+	$scope.shoppingList = [];
+	$scope.userNames = [];
 
 	$scope.stati = {
 		"pending" : {id:'pending', name: "Pending", tasks: [], prio:1},
@@ -13,12 +12,12 @@ App.ng.controller('TodoController', ['$scope', function($scope) {
 	};
 
 	$.get('/todo/', function(data) {
-		$scope.shopping_list = data.shopping_list.map(function(text) {
+		$scope.shoppingList = data.shoppingList.map(function(text) {
 			return {text:text, done:false};
 		});
 
-		for (var user_id in data.user_names) {
-			$scope.user_names.push({id: user_id, name: data.user_names[user_id]})
+		for (var userId in data.userNames) {
+			$scope.userNames.push({id: userId, name: data.userNames[userId]})
 		}
 
 		// todo native loop
@@ -44,10 +43,10 @@ App.ng.controller('TodoController', ['$scope', function($scope) {
 		}
 	};
 
-	$scope.assign = function(item_id, user_id) {
+	$scope.assign = function(item_id, userId) {
 		$.post('/todo/assign/', {
 			id: item_id,
-			user_id: user_id
+			userId: userId
 		});
 	};
 
@@ -81,8 +80,8 @@ App.ng.controller('TodoController', ['$scope', function($scope) {
 		array.splice(index, 1);
 	};
 
-	$scope.onDelete = function(data){
-		$.post('/todo/delete/', {'id':data.id});
+	$scope.onDelete = function(data) {
+		$.post('/todo/delete/', {'id':data.todoId});
 	};
 
 	$scope.onDrop = function(status, event, data, tasks) {
@@ -94,7 +93,7 @@ App.ng.controller('TodoController', ['$scope', function($scope) {
 
 		data.status = status;
 		$.post('/todo/edit/', {
-			id: data.id,
+			id: data.todoId,
 			changes: {
 				status: status
 			}

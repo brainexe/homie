@@ -85,7 +85,7 @@ class Radios
         $radiosRaw = $this->gateway->getRadios();
 
         foreach ($radiosRaw as $radio) {
-            $radios[$radio['id']] = $this->buildRadioVO($radio);
+            $radios[$radio['radioId']] = $this->buildRadioVO($radio);
         }
 
         return $radios;
@@ -114,12 +114,12 @@ class Radios
      */
     private function buildRadioVO(array $raw)
     {
-        $radioVo = new RadioVO();
-        $radioVo->radioId = $raw['id'];
-        $radioVo->name = $raw['name'];
+        $radioVo              = new RadioVO();
+        $radioVo->radioId     = $raw['radioId'];
+        $radioVo->name        = $raw['name'];
         $radioVo->description = $raw['description'];
-        $radioVo->code = $raw['code'];
-        $radioVo->pin = $raw['pin'];
+        $radioVo->code        = $raw['code'];
+        $radioVo->pin         = $raw['pin'];
 
         return $radioVo;
     }

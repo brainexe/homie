@@ -58,7 +58,7 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase
 
         $posts = [];
         $userNames = [
-            'Hans Peter' => $userId
+                'Hans Peter' => $userId
         ];
 
         $this->mockBlog
@@ -75,10 +75,10 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase
         $actualResult = $this->subject->index($request);
 
         $expectedResult = [
-            'posts' => $posts,
-            'users' => $userNames,
-            'active_user_id' => $userId,
-            'current_user_id' => $userId,
+                'posts' => $posts,
+                'users' => $userNames,
+                'active_user_id' => $userId,
+                'current_user_id' => $userId,
         ];
 
         $this->assertEquals($expectedResult, $actualResult);
@@ -103,8 +103,8 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase
         $actualResult = $this->subject->getMood($request);
 
         $expectedResult = [
-            'mood' => $mood * 10,
-            'thought' => $text,
+                'mood' => $mood * 10,
+                'thought' => $text,
         ];
 
         $this->assertEquals($expectedResult, $actualResult);
@@ -119,7 +119,7 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase
 
         $posts = [];
         $userNames = [
-            'Hans Peter' => $userId
+                'Hans Peter' => $userId
         ];
 
         $this->mockBlog
@@ -136,10 +136,10 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase
         $actualResult = $this->subject->blogForUser($request, $userId);
 
         $expectedResult = [
-            'posts' => $posts,
-            'users' => $userNames,
-            'active_user_id' => $userId,
-            'current_user_id' => $userId,
+                'posts' => $posts,
+                'users' => $userNames,
+                'active_user_id' => $userId,
+                'current_user_id' => $userId,
         ];
 
         $this->assertEquals($expectedResult, $actualResult);
@@ -158,7 +158,7 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase
 
         $posts = [];
         $userNames = [
-            'Hans Peter' => 100
+                'Hans Peter' => 100
         ];
 
         $this->mockBlog

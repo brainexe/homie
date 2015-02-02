@@ -16,5 +16,10 @@ interface SpeakOutputInterface
      * @param integer $speed
      * @param string $speaker
      */
-    public function speak($text, $volume = 100, $speed = 100, $speaker = Espeak::DEFAULT_SPEAKER);
+    public function speak(
+        $text,
+        $volume,
+        $speed,
+        $speaker
+    );
 }

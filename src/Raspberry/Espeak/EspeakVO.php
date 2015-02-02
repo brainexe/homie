@@ -31,11 +31,15 @@ class EspeakVO
      * @param integer $speed
      * @param string $speaker
      */
-    public function __construct($text, $volume = 100, $speed = 100, $speaker = Espeak::DEFAULT_SPEAKER)
-    {
-        $this->text = $text;
-        $this->volume = $volume;
-        $this->speed = $speed;
+    public function __construct(
+        $text,
+        $volume = 100,
+        $speed = 100,
+        $speaker = Espeak::DEFAULT_SPEAKER
+    ) {
+        $this->text    = $text;
+        $this->volume  = $volume;
+        $this->speed   = $speed;
         $this->speaker = $speaker;
     }
 }

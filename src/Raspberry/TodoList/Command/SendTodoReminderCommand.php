@@ -19,7 +19,7 @@ class SendTodoReminderCommand extends AbstractCommand
     private $todoReminder;
 
     /**
-     * @inject("@TodoReminder")
+     * @Inject("@TodoReminder")
      * @param TodoReminder $todoReminder
      */
     public function __construct(TodoReminder $todoReminder)

@@ -2,10 +2,12 @@
 
 namespace Raspberry\Gpio;
 
+use BrainExe\Core\Application\UserException;
+use Exception;
 use Raspberry\Client\ClientInterface;
 
 /**
- * @service(public=false)
+ * @Service(public=false)
  */
 class PinLoader
 {
@@ -49,11 +51,17 @@ class PinLoader
             return $this->pins;
         }
 
-        $results = $this->client->executeWithReturn(GpioManager::GPIO_COMMAND_READALL);
+        $this->pins = new PinsCollection();
+
+        try {
+            $results = $this->client->executeWithReturn(GpioManager::GPIO_COMMAND_READALL);
+        } catch (Exception $e) {
+            throw new UserException('No GPIO pins found. You have to install "readall".');
+        }
+
         $results = explode("\n", $results);
         $results = array_slice($results, 3, -2);
 
-        $this->pins = new PinsCollection();
         foreach ($results as $r) {
             $matches = explode('|', $r);
             $matches = array_map('trim', $matches);

@@ -25,15 +25,15 @@ class SensorVOBuilderTest extends PHPUnit_Framework_TestCase
     public function testBuildSensorVOFromArray()
     {
         $array = [
-        'id' => $id = 'id',
-        'name' => $name = 'name',
-        'description' => $description = 'description',
-        'interval' => $interval = 'interval',
-        'node' => $node = 'node',
-        'pin' => $pin = 'pin',
-        'type' => $type = 'type',
-        'last_value' => $last_value = 'last_value',
-        'last_value_timestamp' => $last_value_timestamp = 'last_value_timestamp'
+            'id' => $id = 'id',
+            'name' => $name = 'name',
+            'description' => $description = 'description',
+            'interval' => $interval = 'interval',
+            'node' => $node = 'node',
+            'pin' => $pin = 'pin',
+            'type' => $type = 'type',
+            'last_value' => $last_value = 'last_value',
+            'last_value_timestamp' => $last_value_timestamp = 'last_value_timestamp'
         ];
 
         $actualResult = $this->subject->buildFromArray($array);

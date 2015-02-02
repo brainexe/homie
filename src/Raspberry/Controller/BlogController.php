@@ -2,6 +2,9 @@
 
 namespace Raspberry\Controller;
 
+use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Core\Annotations\Controller;
+use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Application\UserException;
 use BrainExe\Core\Authentication\DatabaseUserProvider;
 use BrainExe\Core\Authentication\UserVO;
@@ -37,7 +40,7 @@ class BlogController implements ControllerInterface
      */
     public function __construct(Blog $blog, DatabaseUserProvider $userProvider)
     {
-        $this->blog                   = $blog;
+        $this->blog         = $blog;
         $this->userProvider = $userProvider;
     }
 
@@ -88,10 +91,10 @@ class BlogController implements ControllerInterface
         }
 
         return [
-        'posts' => $posts,
-        'users' => $users,
-        'active_user_id' => $userId,
-        'current_user_id' => $currentUserId,
+            'posts' => $posts,
+            'users' => $users,
+            'active_user_id' => $userId,
+            'current_user_id' => $currentUserId,
         ];
     }
 

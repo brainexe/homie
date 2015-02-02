@@ -10,7 +10,7 @@
 	<tbody>
 		<tr ng-repeat="radio in radios">
 			<td>
-				<div title="Code: {{ radio.code }} Pin: {{ radio.pin }} ID: {{ radio.id }}" class="tip">
+				<div title="Code: {{ radio.code }} Pin: {{ radio.pin }} ID: {{ radio.radioId }}" class="tip">
 					<div ng-if="radio.edit">
 						<input type="text" ng-value="radio.name"/>
 						<input type="text" ng-value="radio.description"/>
@@ -26,7 +26,7 @@
 			</td>
 			<td><a ng-click="setStatus(radio, 1)" class="btn btn-success">Enable</a></td>
 			<td><a ng-click="setStatus(radio, 0)" class="btn btn-danger">Disable</a></td>
-			<td><a ng-click="deleteRadio(radio.id)" class="glyphicon glyphicon-remove"></a></td>
+			<td><a ng-click="deleteRadio(radio.radioId)" class="glyphicon glyphicon-remove"></a></td>
 		</tr>
 	</tbody>
 </table>
@@ -43,7 +43,7 @@
 	<tbody>
 		<tr ng-repeat="radio_job in radio_jobs">
 			<td>{{ radio_job.timestamp|timeAgo }}</td>
-			<td>{{ radios[radio_job.event.radio_vo.id].name }}</td>
+			<td>{{ radios[radio_job.event.radio_vo.radioId].name }}</td>
 			<td>
 				<a ng-click="setStatus(radio_job.radio_id, 1);deleteRadioJob(radio_job.event_id)" class="btn" ng-class="{'btn-danger':!radio_job.event.status, 'btn-success':radio_job.event.status}">{{ radio_job.event.status ? "ON" : "OFF" }}</a>
 			</td>
@@ -53,6 +53,41 @@
 		</tr>
 	</tbody>
 </table>
+
+<div ng-if="radios" class="panel panel-primary">
+	<div class="panel-heading panel-toggle" onclick="togglePanel(this)">Add Job</div>
+	<div class="panel-body">
+		<form ng-submit="addRadioJob(new_job)" class="navbar-forms navbar-lefts ">
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="input-group">
+						<span class="input-group-addon">Radio</span>
+						<select ng-model="new_job.radio_id" required class="form-control" ng-options="radio_id as radio.name for (radio_id, radio) in radios"></select>
+					</div>
+				</div>
+				<div class="col-lg-3">
+					<div class="input-group">
+						<span class="input-group-addon tip" title="e.g. 10s, 30m, 1h">Time</span>
+						<input type="text" ng-model="new_job.time" required class="form-control" value="1h"/>
+					</div>
+				</div>
+				<div class="col-lg-3">
+					<div class="input-group">
+						<span class="input-group-addon">Status</span>
+						<input type="checkbox" ng-model="new_job.status" required class="form-control" value="1"/>
+					</div>
+				</div>
+				<div class="col-lg-2">
+					<div class="input-group">
+						<span class="input-group-btn">
+							<button class="btn btn-primary form-control" type="submit">Add</button>
+						</span>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
 
 <div class="panel panel-primary">
 	<div class="panel-heading panel-toggle" onclick="togglePanel(this)">Add Radio</div>
@@ -83,40 +118,6 @@
 					<div class="input-group">
 						<span class="input-group-addon">Pin</span>
 						<select ng-model="pin" class="form-control" ng-options="key for (key, value) in pins"></select>
-					</div>
-				</div>
-				<div class="col-lg-2">
-					<div class="input-group">
-						<span class="input-group-btn">
-							<button class="btn btn-primary form-control" type="submit">Add</button>
-						</span>
-					</div>
-				</div>
-			</div>
-		</form>
-	</div>
-</div>
-<div ng-if="radios" class="panel panel-primary">
-	<div class="panel-heading panel-toggle" onclick="togglePanel(this)">Add Job</div>
-	<div class="panel-body hidden">
-		<form ng-submit="addRadioJob(new_job)" class="navbar-forms navbar-lefts ">
-			<div class="row">
-				<div class="col-lg-3">
-					<div class="input-group">
-						<span class="input-group-addon">Radio</span>
-						<select ng-model="new_job.radio_id" required class="form-control" ng-options="radio_id as radio.name for (radio_id, radio) in radios"></select>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="input-group">
-						<span class="input-group-addon">Time</span>
-						<input type="text" ng-model="new_job.time" required class="form-control" value="1h"/>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="input-group">
-						<span class="input-group-addon">Status</span>
-						<input type="checkbox" ng-model="new_job.status" required class="form-control" value="1"/>
 					</div>
 				</div>
 				<div class="col-lg-2">

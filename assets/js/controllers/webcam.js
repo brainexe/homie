@@ -8,8 +8,7 @@ App.ng.controller('WebcamController', ['$scope', function($scope) {
 	});
 
 	$scope.takeShot = function() {
-		$.post('/webcam/take/', function() {
-		});
+		$.post('/webcam/take/');
 	};
 
 	$scope.removeShot = function(index) {

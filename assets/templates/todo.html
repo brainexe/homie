@@ -4,8 +4,11 @@
 		<form ng-submit="addTodo()">
 			<input ng-model="newTitle" type="text" placeholder="Title" />
 			<textarea ng-model="newDescription" placeholder="Description"></textarea>
-			<input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy" ng-fodatepicker-popup="dd-MMMM-yyyy" ng-model="newDateline" placeholder="Deadline" datepicker-options="{}" date-disabled="disabled(date, mode)" close-text="Close" />
-
+			<input
+					type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy"
+					ng-fodatepicker-popup="dd-MMMM-yyyy" ng-model="newDateline"
+					placeholder="Deadline" datepicker-options="{}"
+					date-disabled="disabled(date, mode)" close-text="Close" />
 			<input  type="submit" class="btn btn-primary" value="Add Task" />
 		</form>
 		<div id="delete-div" ui-on-Drop="onDelete($data)">
@@ -15,24 +18,23 @@
 
 	<div
 			class="task-list task-container"
-			ng-repeat="status in stati"
+			ng-repeat="status in stati|orderObjectBy:'prio'"
 			ng-model="status.id"
-			ui-on-Drop="onDrop(status.id,$event,$data,status.tasks)"
-			>
+			ui-on-Drop="onDrop(status.id,$event,$data,status.tasks)">
 		<h3>{{ status.name }}</h3>
 		<div
 				ng-repeat="item in status.tasks|orderBy:'name'" class="todo-task"
 				ui-draggable="true"
 				drag="item"
-				on-drop-success="dropSuccessHandler($index, status.id, item.id, status.tasks)"
+				on-drop-success="dropSuccessHandler($index, status.id, item.todoId, status.tasks)"
 				>
 			<div class="task-header">{{item.name}}</div>
 			<div class="task-description" ng-if="item.description">{{item.description}}</div>
 			<div class="task-deadline" ng-if="item.deadline > 0">{{item.deadline|timeAgo}}</div>
 			<select
-					ng-change="assign(item.id, item.user_id)"
-					ng-model="item.user_id"
-					ng-options="user.id as user.name for user in user_names" >
+					ng-change="assign(item.todoId, item.userId)"
+					ng-model="item.userId"
+					ng-options="user.id as user.name for user in userNames" >
 			</select>
 		</div>
 	</div>

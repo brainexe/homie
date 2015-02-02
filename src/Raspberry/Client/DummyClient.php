@@ -2,6 +2,7 @@
 
 namespace Raspberry\Client;
 
+use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\LoggerTrait;
 
 /**

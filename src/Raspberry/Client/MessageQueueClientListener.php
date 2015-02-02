@@ -19,7 +19,7 @@ class MessageQueueClientListener implements EventSubscriberInterface
     private $client;
 
     /**
-     * @inject("@RaspberryClient.Local")
+     * @Inject("@RaspberryClient.Local")
      * @param ClientInterface $client
      */
     public function __construct(ClientInterface $client)

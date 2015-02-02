@@ -47,6 +47,7 @@ App.ng.controller('RadioController', ['$scope', function ($scope) {
 		};
 
 		$.post('/radio/add/', payload, function(data) {
+			console.log(data);
 			$scope.radios[data.id] = data;
 			$scope.pin = $scope.description = $scope.name = $scope.code = '';
 			$scope.$apply();
@@ -63,6 +64,7 @@ App.ng.controller('RadioController', ['$scope', function ($scope) {
 	};
 
 	$scope.deleteRadioJob = function(job_id) {
+		console.log(job_id)
 		var event_id = job_id.split(':')[1];
 		$.post('/radio/job/delete/{0}/'.format(event_id), function(){
 			delete $scope.radio_jobs[job_id];

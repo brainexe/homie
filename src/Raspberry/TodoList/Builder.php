@@ -2,12 +2,14 @@
 
 namespace Raspberry\TodoList;
 
+use BrainExe\Annotations\Annotations\Service;
 use Raspberry\TodoList\VO\TodoItemVO;
 
 /**
- * @service("TodoVoBuilder", public=false)
+ * @Service("TodoVoBuilder", public=false)
  */
-class Builder {
+class Builder
+{
 
     /**
      * @param array $raw

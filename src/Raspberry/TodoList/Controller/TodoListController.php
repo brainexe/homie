@@ -37,9 +37,12 @@ class TodoListController implements ControllerInterface
      * @param DatabaseUserProvider $userProvider
      * @param ShoppingList $list
      */
-    public function __construct(TodoList $todo, DatabaseUserProvider $userProvider, ShoppingList $list)
-    {
-        $this->todo = $todo;
+    public function __construct(
+        TodoList $todo,
+        DatabaseUserProvider $userProvider,
+        ShoppingList $list
+    ) {
+        $this->todo         = $todo;
         $this->userProvider = $userProvider;
         $this->shoppingList = $list;
     }
@@ -56,8 +59,8 @@ class TodoListController implements ControllerInterface
 
         return new JsonResponse([
             'list' => $list,
-            'shopping_list' => $shoppingList,
-            'user_names' => array_flip($userNames)
+            'shoppingList' => $shoppingList,
+            'userNames' => array_flip($userNames)
         ]);
     }
 
@@ -142,7 +145,7 @@ class TodoListController implements ControllerInterface
     public function setAssignee(Request $request)
     {
         $itemId = $request->request->getInt('id');
-        $userId = $request->request->getInt('user_id');
+        $userId = $request->request->getInt('userId');
 
         $user = $this->userProvider->loadUserById($userId);
 

@@ -2,6 +2,7 @@
 
 namespace Raspberry\Sensors\Sensors;
 
+use BrainExe\Annotations\Annotations\Service;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**

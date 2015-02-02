@@ -76,10 +76,10 @@ class SensorGatewayTest extends PHPUnit_Framework_TestCase
 
         $result = [
         [
-        'node' => 100
+            'node' => 100
         ],
         [
-        'node' => $node
+            'node' => $node
         ]
         ];
 
@@ -108,7 +108,7 @@ class SensorGatewayTest extends PHPUnit_Framework_TestCase
 
         $expectedResult = [
         1 => [
-        'node' => $node
+            'node' => $node
         ]
         ];
         $this->assertEquals($expectedResult, $actualResult);

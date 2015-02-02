@@ -62,7 +62,7 @@ class WebcamControllerTest extends PHPUnit_Framework_TestCase
         $actualResult = $this->subject->index();
 
         $expectedResult = [
-            'shots' => $photos
+                'shots' => $photos
         ];
 
         $this->assertEquals($expectedResult, $actualResult);

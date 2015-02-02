@@ -2,6 +2,8 @@
 
 namespace Raspberry\EggTimer;
 
+use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Application\UserException;
 use BrainExe\Core\Traits\TimeTrait;
 use BrainExe\MessageQueue\MessageQueueGateway;
@@ -36,8 +38,10 @@ class EggTimer
      * @param MessageQueueGateway $messageQueueGateway
      * @param TimeParser $timeParser
      */
-    public function __construct(MessageQueueGateway $messageQueueGateway, TimeParser $timeParser)
-    {
+    public function __construct(
+        MessageQueueGateway $messageQueueGateway,
+        TimeParser $timeParser
+    ) {
         $this->messageQueueGateway = $messageQueueGateway;
         $this->timeParser          = $timeParser;
     }
@@ -75,6 +79,9 @@ class EggTimer
      */
     public function getJobs()
     {
-        return $this->messageQueueGateway->getEventsByType(EggTimerEvent::DONE, $this->now());
+        return $this->messageQueueGateway->getEventsByType(
+            EggTimerEvent::DONE,
+            $this->now()
+        );
     }
 }

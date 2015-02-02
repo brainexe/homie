@@ -28,6 +28,7 @@ App.ng.controller('EspeakController', ['$scope', function($scope) {
 			speed:  $scope.speed,
 			speaker:$scope.speaker
 		};
+		console.log(payload);
 
 		$.post('/espeak/speak/', payload, function(new_jobs) {
 			$scope.jobs = new_jobs;

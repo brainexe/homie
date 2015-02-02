@@ -2,6 +2,8 @@
 
 namespace Raspberry\Client;
 
+use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Annotations\Annotations\Service;
 use RuntimeException;
 use Symfony\Component\Process\ProcessBuilder;
 
@@ -19,7 +21,7 @@ class LocalClient implements ClientInterface
     private $processBuilder;
 
     /**
-     * @inject("@ProcessBuilder")
+     * @Inject("@ProcessBuilder")
      * @param ProcessBuilder $processBuilder
      */
     public function __construct(ProcessBuilder $processBuilder)

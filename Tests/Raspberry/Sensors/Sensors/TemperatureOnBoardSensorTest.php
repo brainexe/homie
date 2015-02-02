@@ -41,7 +41,7 @@ class TemperatureOnBoardSensorTest extends PHPUnit_Framework_TestCase
     public function testGetValue()
     {
         $value = 12200;
-        $pin   = 2;
+        $pin   = null;
 
         $this->mockFileSystem
             ->expects($this->once())

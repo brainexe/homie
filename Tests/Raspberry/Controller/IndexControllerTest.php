@@ -47,8 +47,8 @@ class IndexControllerTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('render')
             ->with('layout.html.twig', [
-        'current_user' => $user
-        ])
+                'current_user' => $user
+            ])
             ->willReturn($text);
 
         $actualResult = $this->subject->index($request);

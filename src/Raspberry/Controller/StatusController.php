@@ -2,6 +2,9 @@
 
 namespace Raspberry\Controller;
 
+use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Core\Annotations\Controller;
+use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Application\SelfUpdate\SelfUpdateEvent;
 
 use BrainExe\Core\Controller\ControllerInterface;

@@ -2,6 +2,8 @@
 
 namespace Raspberry\Dashboard;
 
+use BrainExe\Annotations\Annotations\Inject;
+
 /**
  * @Service(public=false)
  */

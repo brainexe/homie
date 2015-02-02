@@ -36,7 +36,10 @@ class Chart
             ];
 
             foreach ($sensorValues[$sensorId] as $timestamp => $value) {
-                $sensorJson['data'][] = ['x' => (int)$timestamp, 'y' => (double)$value];
+                $sensorJson['data'][] = [
+                    'x' => (int)$timestamp,
+                    'y' => (double)$value
+                ];
             }
 
             $output[] = $sensorJson;

@@ -27,11 +27,12 @@ App.ng.controller('NewWidgetController', ['$scope', '$modalInstance', 'widgets',
 
 	$scope.addWidget = function(widget) {
 		var payload = {
-			type: widget.id,
+			type: widget.widgetId,
 			payload: $scope.payload
 		};
 
 		$.post('/dashboard/add/', payload, function(data) {
+			$scope.$parent.dashboard = data;
 			$scope.dashboard = data;
 			$scope.$apply();
 		});

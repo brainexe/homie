@@ -44,7 +44,7 @@ class EggTimerControllerTest extends PHPUnit_Framework_TestCase
         $actualResult = $this->subject->index();
 
         $expected = [
-        'jobs' => $jobs
+            'jobs' => $jobs
         ];
 
         $this->assertEquals($expected, $actualResult);

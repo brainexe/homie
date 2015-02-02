@@ -2,6 +2,7 @@
 
 namespace Raspberry\Sensors\Sensors;
 
+use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Util\FileSystem;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -22,7 +23,7 @@ class TemperatureOnBoardSensor implements SensorInterface
     private $fileSystem;
 
     /**
-     * @inject("@FileSystem")
+     * @Inject("@FileSystem")
      * @param Filesystem $filesystem
      */
     public function __construct(Filesystem $filesystem)
@@ -43,7 +44,7 @@ class TemperatureOnBoardSensor implements SensorInterface
      */
     public function getValue($pin)
     {
-        $content = $this->fileSystem->fileGetContents(self::PATH);
+        $content = $this->fileSystem->fileGetContents($pin ?: self::PATH);
 
         return $content / 1000;
     }

@@ -37,7 +37,7 @@ class Webcam
     private $finder;
 
     /**
-     * @inject({"@Filesystem", "@ProcessBuilder", "@Finder"})
+     * @Inject({"@Filesystem", "@ProcessBuilder", "@Finder"})
      * @param Filesystem $filesystem
      * @param ProcessBuilder $processBuilder
      * @param Finder $finder

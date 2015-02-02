@@ -1,6 +1,7 @@
 {
   "name": "brainexe/raspberry",
-  "description": "Raspberry",
+  "description": "HomeControl via RaspberryPi",
+  "homepage": "https://mdoetsch.de",
   "minimum-stability": "dev",
   "authors": [
     {
@@ -30,8 +31,5 @@
   },
   "config": {
     "bin-dir": "bin/"
-  },
-  "scripts": {
-    "post-update-cmd": "rm cache/dic_*.php -f && php console cache:clear"
   }
 }

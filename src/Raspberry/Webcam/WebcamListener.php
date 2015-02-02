@@ -16,7 +16,7 @@ class WebcamListener implements EventSubscriberInterface
     private $webcam;
 
     /**
-     * @inject("@Webcam")
+     * @Inject("@Webcam")
      * @param Webcam $webcam
      */
     public function __construct(Webcam $webcam)

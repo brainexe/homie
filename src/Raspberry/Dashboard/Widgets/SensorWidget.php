@@ -2,6 +2,7 @@
 
 namespace Raspberry\Dashboard\Widgets;
 
+use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Application\UserException;
 use Raspberry\Dashboard\AbstractWidget;
 

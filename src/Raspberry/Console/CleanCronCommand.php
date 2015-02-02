@@ -2,6 +2,7 @@
 
 namespace Raspberry\Console;
 
+use BrainExe\Annotations\Annotations\Inject;
 use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorValuesGateway;
 use Symfony\Component\Console\Command\Command;

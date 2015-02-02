@@ -49,7 +49,7 @@ class GpioControllerTest extends PHPUnit_Framework_TestCase
         $actualResult = $this->subject->index();
 
         $expectedResult = [
-            'pins' => $pins->getAll()
+                'pins' => $pins->getAll()
         ];
 
         $this->assertEquals($expectedResult, $actualResult);

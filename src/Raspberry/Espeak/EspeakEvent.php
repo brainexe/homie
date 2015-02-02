@@ -21,6 +21,6 @@ class EspeakEvent extends AbstractEvent implements PushViaWebsocketInterface
     public function __construct(EspeakVO $espeak)
     {
         $this->event_name = self::SPEAK;
-        $this->espeak = $espeak;
+        $this->espeak     = $espeak;
     }
 }

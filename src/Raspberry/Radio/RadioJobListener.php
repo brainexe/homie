@@ -17,7 +17,7 @@ class RadioJobListener implements EventSubscriberInterface
 
     /**
      * @param RadioController $radioController
-     * @inject("@RadioController")
+     * @Inject("@RadioController")
      */
     public function __construct(RadioController $radioController)
     {

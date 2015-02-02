@@ -1,8 +1,24 @@
 <form class="form-signin" ng-submit="login()">
 	<h2 class="form-signin-heading">Login</h2>
-	<input type="text" ng-model="username" class="form-control" ng-blur="usernameBlur()" placeholder="Username" required autofocus>
-	<input type="password" ng-model="password" class="form-control" placeholder="Password" required>
-	<input type="number" ng-show="needsOneTimeToken" ng-model="one_time_token" class="form-control" placeholder="One Time Token">
-	<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-	<button ng-show="needsOneTimeToken" class="btn btn-lg" type="button" ng-click="sendToken()">Send Token via Mail</button>
+	<input
+			type="text" ng-model="username"
+			class="form-control" ng-blur="usernameBlur()"
+			placeholder="Username" required autofocus
+			>
+	<input
+			type="password" ng-model="password" class="form-control"
+			placeholder="Password" required>
+	<input
+			type="number" ng-show="needsOneTimeToken"
+			ng-model="one_time_token" class="form-control"
+			placeholder="One Time Token">
+	<button
+			class="btn btn-lg btn-primary
+			btn-block" type="submit">
+		Sign in
+	</button>
+	<button ng-show="needsOneTimeToken"
+			class="btn btn-lg" type="button" ng-click="sendToken()">
+		Send Token via Mail
+	</button>
 </form>

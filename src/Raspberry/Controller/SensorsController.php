@@ -2,6 +2,9 @@
 
 namespace Raspberry\Controller;
 
+use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Core\Annotations\Controller;
+use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Controller\ControllerInterface;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Raspberry\Espeak\EspeakEvent;
@@ -102,7 +105,7 @@ class SensorsController implements ControllerInterface
         $session->set(self::SESSION_LAST_VIEW, $activeSensorIds);
         $session->set(self::SESSION_LAST_TIMESPAN, $from);
 
-        $activeSensorIds = array_map('intval', explode(':', $activeSensorIds));
+        $activeSensorIds = array_unique(array_map('intval', explode(':', $activeSensorIds)));
 
         $sensorValues        = [];
 
@@ -130,7 +133,7 @@ class SensorsController implements ControllerInterface
 
         return [
             'sensors' => $sensorsRaw,
-            'active_sensor_ids' => $activeSensorIds,
+            'active_sensor_ids' => array_values($activeSensorIds),
             'json' => $json,
             'current_from' => $from,
             'available_sensors' => $sensorObjects,
@@ -208,10 +211,10 @@ class SensorsController implements ControllerInterface
         $formattedValue = $sensorObj->getEspeakText($sensor['last_value']);
 
         return [
-            'sensor' => $sensor,
+            'sensor'                 => $sensor,
             'sensor_value_formatted' => $formattedValue,
-            'sensor_obj' => $sensorObj,
-            'refresh_interval' => 60
+            'sensor_obj'             => $sensorObj,
+            'refresh_interval'       => 60
         ];
     }
 

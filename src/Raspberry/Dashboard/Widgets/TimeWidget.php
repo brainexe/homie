@@ -2,6 +2,7 @@
 
 namespace Raspberry\Dashboard\Widgets;
 
+use BrainExe\Annotations\Annotations\Service;
 use Raspberry\Dashboard\AbstractWidget;
 
 /**

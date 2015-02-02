@@ -60,8 +60,8 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('HMSET')
             ->with(SensorGateway::REDIS_SENSOR_PREFIX . $sensorId, [
-        'last_value' => $value,
-        'last_value_timestamp' => $now
+            'last_value' => $value,
+            'last_value_timestamp' => $now
         ]);
 
         $this->mockRedis

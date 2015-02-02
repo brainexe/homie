@@ -45,14 +45,14 @@ class CleanCronCommandTest extends PHPUnit_Framework_TestCase
             $this->mockSensorValuesGateway,
             $this->mockSensorGateway,
             $this->deleteSensorValues = [
-            [
-            'days'       => 7,
-            'percentage' => 10,
-            ],
-            [
-            'days'       => 10,
-            'percentage' => 80,
-            ]
+                [
+                    'days'       => 7,
+                    'percentage' => 10,
+                ],
+                [
+                    'days'       => 10,
+                    'percentage' => 80,
+                ]
             ]
         );
     }

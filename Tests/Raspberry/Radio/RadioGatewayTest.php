@@ -42,8 +42,8 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
 
     public function testGetRadios()
     {
-        $radio_ids = [
-        $radio_id = 1
+        $radioIds = [
+            $radioId = 1
         ];
 
         $result = ['result'];
@@ -52,7 +52,7 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('SMEMBERS')
             ->with(RadioGateway::REDIS_RADIO_IDS)
-            ->willReturn($radio_ids);
+            ->willReturn($radioIds);
 
         $this->mockRedis
             ->expects($this->once())
@@ -62,7 +62,7 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
         $this->mockRedis
             ->expects($this->once())
             ->method('HGETALL')
-            ->with("radios:$radio_id");
+            ->with("radios:$radioId");
 
         $this->mockRedis
             ->expects($this->once())

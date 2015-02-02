@@ -5,9 +5,8 @@
     {
       "name": "sensor.js",
       "files": [
-        "^bower_components\/rickshaw\/vendor\/d3.min.js",
-        "^bower_components\/rickshaw\/vendor\/d3.layout.min.js",
-        "^bower_components\/rickshaw\/rickshaw.min.js"
+        "^bower_components\/rickshaw\/vendor\/d3.v3.js",
+        "^bower_components\/rickshaw\/rickshaw.js"
       ]
     },
     {
@@ -42,6 +41,7 @@
       "name": "common.css",
       "files": [
         "^bower_components\/bootstrap\/dist\/css\/bootstrap.min.css",
+        "^bower_components\/rickshaw\/rickshaw.css",
         "^css\/.*.css"
       ]
     }

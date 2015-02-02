@@ -36,8 +36,11 @@ class GpioManager
      * @param ClientInterface $client
      * @param PinLoader $loader
      */
-    public function __construct(PinGateway $gateway, ClientInterface $client, PinLoader $loader)
-    {
+    public function __construct(
+        PinGateway $gateway,
+        ClientInterface $client,
+        PinLoader $loader
+    ) {
         $this->gateway = $gateway;
         $this->client  = $client;
         $this->loader  = $loader;

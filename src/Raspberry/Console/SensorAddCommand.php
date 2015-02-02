@@ -2,6 +2,7 @@
 
 namespace Raspberry\Console;
 
+use BrainExe\Annotations\Annotations\Inject;
 use Exception;
 use Raspberry\Sensors\SensorBuilder;
 use Raspberry\Sensors\SensorGateway;

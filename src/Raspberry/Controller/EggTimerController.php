@@ -2,6 +2,9 @@
 
 namespace Raspberry\Controller;
 
+use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Core\Annotations\Controller;
+use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Controller\ControllerInterface;
 use BrainExe\MessageQueue\MessageQueueJob;
 use Raspberry\EggTimer\EggTimer;

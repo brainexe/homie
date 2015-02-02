@@ -2,11 +2,12 @@
 
 namespace Raspberry\Dashboard;
 
+use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\IdGeneratorTrait;
 use BrainExe\Core\Traits\RedisTrait;
 
 /**
- * @service(public=false)
+ * @Service(public=false)
  */
 class DashboardGateway
 {

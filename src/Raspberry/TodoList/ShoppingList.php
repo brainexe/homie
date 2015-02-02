@@ -2,6 +2,9 @@
 
 namespace Raspberry\TodoList;
 
+use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Annotations\Annotations\Service;
+
 /**
  * @Service(public=false)
  */

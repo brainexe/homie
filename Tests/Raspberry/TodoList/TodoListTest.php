@@ -110,7 +110,7 @@ class TodoListTest extends PHPUnit_Framework_TestCase
     {
         $rawList = [
             [
-              'todoId' => $todoId = 'id'
+                  'todoId' => $todoId = 'id'
             ]
         ];
 
@@ -155,15 +155,15 @@ class TodoListTest extends PHPUnit_Framework_TestCase
         $itemId = 10;
 
         $rawItem = [
-            'todoId' => $todoId = 'todoId',
-            'name' => $name = 'name',
-            'userId' => $userId = 'user_id',
-            'userName' => $userName = 'user_name',
-            'description' => $description = 'description',
-            'status' => $status = 'status',
-            'deadline' => $deadline = 'deadline',
-            'createdAt' => $createdAt = 'created_at',
-            'lastChange' => $lastChange = 'last_change',
+                'todoId' => $todoId = 'todoId',
+                'name' => $name = 'name',
+                'userId' => $userId = 'user_id',
+                'userName' => $userName = 'user_name',
+                'description' => $description = 'description',
+                'status' => $status = 'status',
+                'deadline' => $deadline = 'deadline',
+                'createdAt' => $createdAt = 'created_at',
+                'lastChange' => $lastChange = 'last_change',
         ];
 
         $this->mockTodoListGateway
@@ -200,15 +200,15 @@ class TodoListTest extends PHPUnit_Framework_TestCase
         $itemId = 10;
 
         $itemRaw = [
-            'todoId' => $itemId,
-            'name' => $name = 'name',
-            'userId' => $userId = 'user_id',
-            'userName' => $userName = 'user_name',
-            'description' => $description = 'description',
-            'status' => $status = 'status',
-            'deadline' => $deadline = 'deadline',
-            'createdAt' => $createdAt = 'created_at',
-            'lastChange' => $lastChange = 'last_change',
+                'todoId' => $itemId,
+                'name' => $name = 'name',
+                'userId' => $userId = 'user_id',
+                'userName' => $userName = 'user_name',
+                'description' => $description = 'description',
+                'status' => $status = 'status',
+                'deadline' => $deadline = 'deadline',
+                'createdAt' => $createdAt = 'created_at',
+                'lastChange' => $lastChange = 'last_change',
         ];
 
         $itemVo = new TodoItemVO();
@@ -256,15 +256,15 @@ class TodoListTest extends PHPUnit_Framework_TestCase
         $itemId = 10;
 
         $itemRaw = [
-            'todoId' => $itemId,
-            'name' => $name = 'name',
-            'userId' => $userId = 'user_id',
-            'userName' => $userName = 'user_name',
-            'description' => $description = 'description',
-            'status' => $status = 'status',
-            'deadline' => $deadline = 'deadline',
-            'createdAt' => $createdAt = 'created_at',
-            'lastChange' => $lastChange = 'last_change',
+                'todoId' => $itemId,
+                'name' => $name = 'name',
+                'userId' => $userId = 'user_id',
+                'userName' => $userName = 'user_name',
+                'description' => $description = 'description',
+                'status' => $status = 'status',
+                'deadline' => $deadline = 'deadline',
+                'createdAt' => $createdAt = 'created_at',
+                'lastChange' => $lastChange = 'last_change',
         ];
 
         $itemVo = new TodoItemVO();

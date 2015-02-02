@@ -64,7 +64,7 @@ class SensorAddCommandTest extends PHPUnit_Framework_TestCase
 
         $sensors = [
             $sensorType1 = 'type_1' => $sensor1,
-            'type_2' => $sensor2,
+                'type_2' => $sensor2,
         ];
 
         $output = $this->isInstanceOf(OutputInterface::class);
@@ -128,7 +128,7 @@ class SensorAddCommandTest extends PHPUnit_Framework_TestCase
         $sensor2 = $this->getMock(SensorInterface::class);
 
         $sensors = [
-            'type_1' => $sensor1,
+                'type_1' => $sensor1,
             $sensorType2 = 'type_2' => $sensor2,
         ];
 
@@ -258,7 +258,7 @@ class SensorAddCommandTest extends PHPUnit_Framework_TestCase
         $sensor2 = $this->getMock(SensorInterface::class);
 
         $sensors = [
-            'type_1' => $sensor1,
+                'type_1' => $sensor1,
             $sensorType2 = 'type_2' => $sensor2,
         ];
 

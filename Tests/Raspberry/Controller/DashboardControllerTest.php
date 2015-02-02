@@ -52,8 +52,8 @@ class DashboardControllerTest extends PHPUnit_Framework_TestCase
         $actualResult = $this->subject->index($request);
 
         $expectedResult = [
-        'dashboard' => $dashboard,
-        'widgets'   => $widgets
+            'dashboard' => $dashboard,
+            'widgets'   => $widgets
         ];
 
         $this->assertEquals($expectedResult, $actualResult);

@@ -60,9 +60,9 @@ class StatusControllerTest extends PHPUnit_Framework_TestCase
         $actualResult = $this->subject->index();
 
         $expectedResult = [
-        'jobs' => $eventsByType,
-        'stats' => [
-        'Queue Len' => $messageQueueJobs
+            'jobs' => $eventsByType,
+            'stats' => [
+            'Queue Len' => $messageQueueJobs
         ],
         ];
 

@@ -2,6 +2,8 @@
 
 namespace Raspberry\Espeak;
 
+use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\TimeTrait;
 use BrainExe\MessageQueue\MessageQueueGateway;
 use BrainExe\MessageQueue\MessageQueueJob;
@@ -67,14 +69,18 @@ class Espeak implements SpeakOutputInterface
      * @param integer $speed
      * @param string $speaker
      */
-    public function speak($text, $volume = 100, $speed = 100, $speaker = self::DEFAULT_SPEAKER)
-    {
+    public function speak(
+        $text,
+        $volume,
+        $speed,
+        $speaker
+    ) {
         if (empty($text)) {
             return;
         }
 
         $command = sprintf(
-            'espeak "%s" -s %d -a %d  -v%ss --stdout | aplay',
+            'espeak "%s" -s "%d" -a "%d" -v%ss --stdout | aplay',
             $text,
             $speed,
             $volume,

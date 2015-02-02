@@ -2,6 +2,7 @@
 
 namespace Raspberry\Sensors\Sensors;
 
+use BrainExe\Annotations\Annotations\Inject;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Process\ProcessBuilder;
@@ -9,6 +10,7 @@ use Symfony\Component\Process\ProcessBuilder;
 abstract class AbstractDHT11Sensor implements SensorInterface
 {
 
+    // todo put into config
     const ADA_SCRIPT = '/opt/Adafruit-Raspberry-Pi-Python-Code/Adafruit_DHT_Driver/Adafruit_DHT';
 
     /**

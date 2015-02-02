@@ -68,8 +68,8 @@ class EspeakControllerTest extends PHPUnit_Framework_TestCase
         $actualResult = $this->subject->index();
 
         $expectedResult = [
-        'speakers' => $speakers,
-        'jobs' => $jobs
+            'speakers' => $speakers,
+            'jobs' => $jobs
         ];
 
         $this->assertEquals($expectedResult, $actualResult);

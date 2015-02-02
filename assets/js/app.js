@@ -3,7 +3,7 @@
 
 /**
  * @deprecated
- * @todo replace by angulat
+ * @todo replace by angular
  * @param element
  */
 function togglePanel(element) {
@@ -69,9 +69,11 @@ var App = {
 	 */
 	showNotification: function (content) {
 		if (!("Notification" in window)) {
+			// not supported
 		} else if (Notification.permission === "granted") {
-			// If it's okay let's create a notification
-			var notification = new Notification(content);
+			var notification = new Notification(content, {
+				icon: asset('favicon.ico')
+			});
 			window.setTimeout(function () {
 				notification.close();
 			}, 10000);
@@ -99,16 +101,17 @@ App.Layout = {
 	controllers: [
 		// menu
 		{controller:'DashboardController', name: 'Dashboard', url: 'dashboard', icon:'th-large', templateUrl: asset('/templates/dashboard.html')},
-		{controller:'SensorController', name: 'Sensors', url: 'sensor', icon:'dashboard', templateUrl: asset('/templates/sensor.html')},
+		{controller:'SensorController', name: 'Sensors', url: 'sensor', icon:'stats', templateUrl: asset('/templates/sensor.html')},
 		{controller:'GpioController', name: 'GPIO', url: 'gpio', icon:'flash', templateUrl: asset('/templates/gpio.html')},
 		{controller:'RadioController', name: 'Home Control', url: 'radio', icon:'home', templateUrl: asset('/templates/radio.html')},
-		{controller:'EspeakController', name: 'Speak', url: 'speak', icon:'home', templateUrl: asset('/templates/espeak.html')},
-		{controller:'WebcamController', name: 'Webcam', url: 'webcam', icon:'bullhorn', templateUrl: asset('/templates/webcam.html')},
-		{controller:'StatusController', name: 'Status', url: 'status', icon:'stats', templateUrl: asset('/templates/status.html')},
+		{controller:'EspeakController', name: 'Speak', url: 'speak', icon:'bullhorn', templateUrl: asset('/templates/espeak.html')},
+		{controller:'FlowerController', name: 'Flowers', url: 'flower', icon:'leaf', templateUrl: asset('/templates/flower.html')},
 		{controller:'BlogController', name: 'Blog', url: 'blog', icon:'paperclip', templateUrl: asset('/templates/blog.html')},
 		{controller:'EggTimerController', name: 'Egg Timer', url: 'egg_timer', icon:'time', templateUrl: asset('/templates/egg_timer.html')},
 		{controller:'TodoController', name: 'ToDo List', url: 'todo', icon:'list', templateUrl: asset('/templates/todo.html')},
+		{controller:'WebcamController', name: 'Webcam', url: 'webcam', icon:'bullhorn', templateUrl: asset('/templates/webcam.html')},
 		{controller:'UserController', name: 'User Settings', url: 'user', icon:'user', templateUrl: asset('/templates/user/user.html')},
+		{controller:'StatusController', name: 'Status', url: 'status', icon:'stats', templateUrl: asset('/templates/status.html')},
 
 		// private
 		{controller:'LoginController', name: 'Login', url: 'login', icon: 'user', is_public: true, templateUrl: asset('/templates/user/login.html')},
@@ -137,6 +140,9 @@ App.Layout = {
 				return $scope.current_user && $scope.current_user.id > 0;
 			};
 
+			$scope.removeFlash = function(index) {
+				$scope.flash_bag.splice(index, 1);
+			};
 
 			/**
 			 * @param {String} type
@@ -165,7 +171,7 @@ App.Layout = {
 			};
 
 			$scope.$on('sensor.value', function (event_name, event) {
-				var text = '{0}: {1}'.format(event.sensor_vo.name, event.value_formatted);
+				var text = '{0}: {1}'.format(event.sensorVo.name, event.valueFormatted);
 				App.showNotification(text);
 			});
 
@@ -173,7 +179,7 @@ App.Layout = {
 				App.showNotification(event.espeak.text);
 			});
 
-			$scope.$on('$routeChangeSuccess', function (event, current, previous) {
+			$scope.$on('$routeChangeSuccess', function (event, current) {
 				if (current.$$route.name) {
 					App.Layout.changeTitle(current.$$route.name);
 				}
@@ -207,7 +213,23 @@ App.ng.filter('notEmpty', function () {
 		return Object.keys(input).length > 0;
 	};
 });
+App.ng.filter('orderObjectBy', function(){
+	return function(input, attribute) {
+		if (!angular.isObject(input)) return input;
 
+		var array = [];
+		for(var objectKey in input) {
+			array.push(input[objectKey]);
+		}
+
+		array.sort(function(a, b){
+			a = parseInt(a[attribute]);
+			b = parseInt(b[attribute]);
+			return a - b;
+		});
+		return array;
+	}
+});
 require.config({
 	paths: {
 		'mood': asset('mood.js').replace('.js', ''),

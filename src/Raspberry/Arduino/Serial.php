@@ -54,7 +54,12 @@ class Serial
             $this->initSerial();
         }
 
-        $line = sprintf("%s:%d:%d\n", $event->getAction(), $event->getPin(), $event->getValue());
+        $line = sprintf(
+            "%s:%d:%d\n",
+            $event->getAction(),
+            $event->getPin(),
+            $event->getValue()
+        );
 
         fwrite($this->fileHandle, $line);
     }
@@ -68,13 +73,12 @@ class Serial
             ->getIterator();
 
         /** @var SplFileInfo $file */
-        $file = null;
-        foreach ($iterator as $file) {
-            // TODO dirt hack
-        }
+        $file =  $iterator->current();
 
         if ($file === null) {
-            throw new RuntimeException(sprintf("no file found matching %s", $this->serialPort));
+            throw new RuntimeException(
+                sprintf("no file found matching %s", $this->serialPort)
+            );
         }
 
         $filename = $file->getPathname();

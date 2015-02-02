@@ -1,20 +1,19 @@
 
 #shopping_list {
-	width: 250px;
+	width: 500px;
 	float: left;
-	margin: 0 5px;
-	background-color: #e3e3e3;
 	min-height: 500px;
-	border-radius: 10px;
-	padding-bottom: 15px;
 }
 
 .shopping-entry {
-	border-radius: 5px;
-	background-color: #fff;
 	width: 230px;
+}
+
+.shopping-entry, #shopping_list {
+	background-color: #e3e3e3;
+	border-radius: 10px;
 	margin: 5px;
-	padding: 5px;
+	padding: 10px;
 	border: 1px darkgray solid;
 }
 

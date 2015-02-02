@@ -1,19 +1,19 @@
 
 App.ng.controller('SensorController', ['$scope', function($scope) {
-	$scope.sensors = {};
+	$scope.sensors           = {};
 	$scope.active_sensor_ids = '';
-	$scope.current_from = 0;
-	$scope.from_intervals = {};
+	$scope.current_from      = 0;
+	$scope.from_intervals    = {};
 	$scope.available_sensors = {};
 
 	$.get('/sensors/load/0', function(data) {
-		$scope.sensors = data.sensors;
+		$scope.sensors           = data.sensors;
 		$scope.active_sensor_ids = data.active_sensor_ids;
-		$scope.current_from = data.current_from;
-		$scope.from_intervals = data.from_intervals;
+		$scope.current_from      = data.current_from;
+		$scope.from_intervals    = data.from_intervals;
 		$scope.available_sensors = data.available_sensors;
 
-		require(['sensor'], function(){
+		require(['sensor'], function() {
 			$scope.graph = new Rickshaw.Graph({
 				element: document.getElementById("chart"),
 				width: $('.content').width(),
@@ -40,7 +40,6 @@ App.ng.controller('SensorController', ['$scope', function($scope) {
 				graph: $scope.graph
 			});
 
-
 			$scope.$apply();
 		});
 	});
@@ -50,7 +49,7 @@ App.ng.controller('SensorController', ['$scope', function($scope) {
 	 * @returns {boolean}
 	 */
 	$scope.isSensorActive = function(sensor_id) {
-		return $scope.active_sensor_ids && $scope.active_sensor_ids.indexOf(sensor_id) > -1;
+		return $scope.active_sensor_ids && $scope.active_sensor_ids.indexOf(~~sensor_id) > -1;
 	};
 
 	/**
@@ -58,6 +57,7 @@ App.ng.controller('SensorController', ['$scope', function($scope) {
 	 * @param {Number} from
 	 */
 	$scope.sensorView = function(sensor_id, from) {
+		sensor_id = ~~sensor_id;
 		$scope.current_from = from = from || $scope.current_from;
 
 		if (sensor_id) {
@@ -70,7 +70,8 @@ App.ng.controller('SensorController', ['$scope', function($scope) {
 		}
 
 		var active_ids = $scope.active_sensor_ids.join(':') || "0";
-		$.get("/sensors/load/{0}?from={1}".format(active_ids, $scope.current_from), function(data){
+		var url = "/sensors/load/{0}?from={1}".format(active_ids, $scope.current_from);
+		$.get(url, function(data){
 			updateGraph(data.json);
 		});
 
@@ -81,6 +82,8 @@ App.ng.controller('SensorController', ['$scope', function($scope) {
 	 * @param sensor_values
 	 */
 	function updateGraph(sensor_values) {
+		console.log(arguments);
+
 		var old_active = $scope.graph.series.active;
 		sensor_values.active = old_active;
 		$scope.graph.series = sensor_values;

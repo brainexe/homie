@@ -68,9 +68,9 @@ class RadioControllerTest extends PHPUnit_Framework_TestCase
         $actualResult = $this->subject->index();
 
         $expectedResult = [
-            'radios' => $radiosFormatted,
-            'radio_jobs' => $jobs,
-            'pins' => Radios::$radioPins,
+                'radios' => $radiosFormatted,
+                'radio_jobs' => $jobs,
+                'pins' => Radios::$radioPins,
         ];
 
         $this->assertEquals($expectedResult, $actualResult);
@@ -183,7 +183,7 @@ class RadioControllerTest extends PHPUnit_Framework_TestCase
 
         $expectedResult = new JsonResponse(true);
         $expectedResult->headers->set(
-            'X-Flash',
+                'X-Flash',
             json_encode([ControllerInterface::ALERT_SUCCESS, _('The job was sored successfully')])
         );
         $this->assertEquals($expectedResult, $actualResult);

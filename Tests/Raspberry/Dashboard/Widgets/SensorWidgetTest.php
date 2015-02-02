@@ -39,7 +39,7 @@ class SensorWidgetTest extends PHPUnit_Framework_TestCase
     public function testCreate()
     {
         $payload = [
-            'sensor_id' => 1
+                'sensor_id' => 1
         ];
 
         $this->subject->create($payload);

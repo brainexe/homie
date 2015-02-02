@@ -2,6 +2,7 @@
 
 namespace Raspberry\Console;
 
+use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Core\Traits\LoggerTrait;
 use BrainExe\Core\Traits\TimeTrait;

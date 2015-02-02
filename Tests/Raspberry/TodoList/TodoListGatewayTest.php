@@ -62,11 +62,11 @@ class TodoListGatewayTest extends PHPUnit_Framework_TestCase
     {
 
         $itemRaw1 = [
-        'id' => $item1Id = 42
+            'id' => $item1Id = 42
         ];
 
         $itemRaw2 = [
-          'id' => $item2Id = 43
+              'id' => $item2Id = 43
         ];
 
         $this->mockRedis
@@ -106,7 +106,7 @@ class TodoListGatewayTest extends PHPUnit_Framework_TestCase
         $itemId = 10;
 
         $itemRaw = [
-            'id' => $itemId
+                'id' => $itemId
         ];
 
         $this->mockRedis
@@ -126,7 +126,7 @@ class TodoListGatewayTest extends PHPUnit_Framework_TestCase
         $now = 1000;
 
         $changes = [
-            'name' => 'change'
+                'name' => 'change'
         ];
 
         $this->mockTime

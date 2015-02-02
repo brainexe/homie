@@ -2,6 +2,7 @@
 
 namespace Raspberry\Sensors\Sensors;
 
+use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Util\FileSystem;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -23,7 +24,7 @@ class TemperatureDS18 implements SensorInterface
     private $fileSystem;
 
     /**
-     * @inject("@FileSystem")
+     * @Inject("@FileSystem")
      * @param Filesystem $filesystem
      */
     public function __construct(Filesystem $filesystem)
