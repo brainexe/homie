@@ -20,19 +20,19 @@ class NodeTest extends PHPUnit_Framework_TestCase
     /**
      * @var integer
      */
-    private $node_id;
+    private $nodeId;
 
     public function setUp()
     {
-        $this->node_id = 5;
+        $this->nodeId = 5;
 
-        $this->subject = new Node($this->node_id);
+        $this->subject = new Node($this->nodeId);
     }
 
     public function testGetNodeId()
     {
         $actualResult = $this->subject->getNodeId();
-        $this->assertEquals($this->node_id, $actualResult);
+        $this->assertEquals($this->nodeId, $actualResult);
     }
 
     public function testIsMaster()

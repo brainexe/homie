@@ -2,6 +2,8 @@
 
 namespace Raspberry\Media;
 
+use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Annotations\Annotations\Service;
 use Symfony\Component\Process\ProcessBuilder;
 
 /**
@@ -10,7 +12,7 @@ use Symfony\Component\Process\ProcessBuilder;
 class Sound
 {
 
-    const COMMAND = 'mplayer';
+    const COMMAND = 'mplayer %s';
 
     /**
      * @var ProcessBuilder
@@ -32,9 +34,10 @@ class Sound
     public function playSound($file)
     {
         $process = $this->processBuilder
-            ->setArguments([self::COMMAND, $file])
+            ->add('')
             ->getProcess();
 
+        $process->setCommandLine(sprintf(self::COMMAND, $file));
         $process->run();
     }
 }

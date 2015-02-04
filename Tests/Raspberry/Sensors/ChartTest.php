@@ -22,9 +22,9 @@ class ChartTest extends \PHPUnit_Framework_TestCase
         $sensors = [
         [
             'id' => $sensorId = 'sensor_id',
-            'name' => $sensor_name = 'name',
-            'description' => $sensor_description = 'description',
-            'pin' => $sensor_pin = 'pin',
+            'name' => $sensorName = 'name',
+            'description' => $sensorDescription = 'description',
+            'pin' => $sensorPin = 'pin',
         ],
         [
             'id' => $sensorId_2 = 'sensor_id_2',
@@ -42,10 +42,10 @@ class ChartTest extends \PHPUnit_Framework_TestCase
         $expectedResult = [
         [
             'sensor_id' => $sensorId,
-            'name' => $sensor_name,
-            'description' => $sensor_description,
+            'name' => $sensorName,
+            'description' => $sensorDescription,
             'color' => '#d96d86',
-            'pin' => $sensor_pin,
+            'pin' => $sensorPin,
             'data' => [
         [
              'x' => $timestamp,

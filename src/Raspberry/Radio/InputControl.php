@@ -2,6 +2,7 @@
 
 namespace Raspberry\Radio;
 
+use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\InputControl\Event;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

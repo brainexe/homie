@@ -34,11 +34,15 @@ App.ng.controller('SensorController', ['$scope', function($scope) {
 			});
 
 			$scope.graph.render();
-			var legend = document.querySelector('#legend');
 
 			new Rickshaw.Graph.HoverDetail({
 				graph: $scope.graph
 			});
+
+			new Rickshaw.Graph.Legend( {
+				element: document.querySelector('#legend'),
+				graph: $scope.graph
+			} );
 
 			$scope.$apply();
 		});
@@ -82,11 +86,16 @@ App.ng.controller('SensorController', ['$scope', function($scope) {
 	 * @param sensor_values
 	 */
 	function updateGraph(sensor_values) {
-		console.log(arguments);
-
 		var old_active = $scope.graph.series.active;
 		sensor_values.active = old_active;
 		$scope.graph.series = sensor_values;
 		$scope.graph.update();
+
+		var legend = document.querySelector('#legend');
+		legend.innerHTML = '';
+		new Rickshaw.Graph.Legend( {
+			element: legend,
+			graph: $scope.graph
+		} );
 	}
 }]);

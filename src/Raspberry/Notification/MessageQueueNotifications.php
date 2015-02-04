@@ -2,6 +2,8 @@
 
 namespace Raspberry\Notification;
 
+use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Annotations\Annotations\Service;
 use BrainExe\MessageQueue\MessageQueueGateway;
 use BrainExe\Core\Notification\NotificationCollectorInterface;
 use BrainExe\Core\Traits\RedisTrait;

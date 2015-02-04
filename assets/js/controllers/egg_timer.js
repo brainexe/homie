@@ -13,6 +13,9 @@ App.ng.controller('EggTimerController', ['$scope', function($scope) {
 			text: $scope.text
 		};
 
+		$scope.time = '';
+		$scope.text = '';
+
 		$.post('/egg_timer/add/', payload, function(new_jobs) {
 			$scope.jobs = new_jobs;
 			$scope.$apply();

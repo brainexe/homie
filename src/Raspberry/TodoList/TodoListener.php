@@ -2,6 +2,7 @@
 
 namespace Raspberry\TodoList;
 
+use BrainExe\Core\Annotations\EventListener;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Raspberry\Espeak\EspeakEvent;
 use Raspberry\Espeak\EspeakVO;

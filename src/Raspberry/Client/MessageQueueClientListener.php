@@ -2,6 +2,8 @@
 
 namespace Raspberry\Client;
 
+use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Core\Annotations\EventListener;
 use BrainExe\Core\Traits\RedisTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

@@ -35,16 +35,15 @@ class PinLoaderTest extends PHPUnit_Framework_TestCase
 
     public function testGetPins()
     {
-        $id = 12;
+        $pinId = 12;
         $name = 'name';
         $direction = 'IN';
         $value = 'Low';
-        $description = 'descriptions';
 
         $gpio_result = "+----------+-Rev2-+------+--------+------+-------+
 | wiringPi | GPIO | Phys | Name   | Mode | Value |
 +----------+------+------+--------+------+-------+
-|      $id   |  17  |  11  | $name | $direction   | $value   |
+|      $pinId   |  17  |  11  | $name | $direction   | $value   |
 +----------+------+------+--------+------+-------+\n";
 
         $this->mockLocalClient
@@ -56,7 +55,7 @@ class PinLoaderTest extends PHPUnit_Framework_TestCase
         $actualResult = $this->subject->loadPins();
 
         $expected_pin = new Pin();
-        $expected_pin->setID($id);
+        $expected_pin->setID($pinId);
         $expected_pin->setName($name);
         $expected_pin->setDirection($direction);
         $expected_pin->setValue(0);
@@ -71,6 +70,6 @@ class PinLoaderTest extends PHPUnit_Framework_TestCase
         $actualResult = $this->subject->loadPins();
         $this->assertEquals($expected_pin_collection, $actualResult);
 
-        $this->assertEquals($expected_pin, $this->subject->loadPin($id));
+        $this->assertEquals($expected_pin, $this->subject->loadPin($pinId));
     }
 }

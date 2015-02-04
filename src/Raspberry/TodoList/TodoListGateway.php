@@ -2,7 +2,8 @@
 
 namespace Raspberry\TodoList;
 
-use BrainExe\Core\Redis\Redis;
+use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Redis\PhpRedis;
 use BrainExe\Core\Traits\RedisTrait;
 use BrainExe\Core\Traits\TimeTrait;
 use Raspberry\TodoList\VO\TodoItemVO;
@@ -40,12 +41,12 @@ class TodoListGateway
     {
         $itemIds = $this->getRedis()->sMembers(self::TODO_IDS);
 
-        $redis = $this->getRedis()->multi(Redis::PIPELINE);
+        $redis = $this->getRedis()->multi(PhpRedis::PIPELINE);
         foreach ($itemIds as $itemId) {
             $redis->HGETALL($this->getRedisKey($itemId));
         }
 
-        return $redis->exec();
+        return $redis->execute();
     }
 
     /**

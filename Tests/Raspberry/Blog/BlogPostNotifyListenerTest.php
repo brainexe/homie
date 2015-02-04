@@ -11,7 +11,6 @@ use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Raspberry\Blog\BlogPostVO;
 use Raspberry\Blog\Events\BlogEvent;
 use Raspberry\Espeak\EspeakEvent;
-use Raspberry\Espeak\EspeakVO;
 
 class BlogPostNotifyListenerTest extends PHPUnit_Framework_TestCase
 {

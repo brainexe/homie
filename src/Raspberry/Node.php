@@ -2,6 +2,9 @@
 
 namespace Raspberry;
 
+use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Annotations\Annotations\Value;
+
 /**
  * @Service(public=false)
  */

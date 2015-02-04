@@ -2,7 +2,8 @@
 
 namespace Raspberry\Sensors;
 
-use BrainExe\Core\Redis\Redis;
+use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Redis\PhpRedis;
 use BrainExe\Core\Traits\RedisTrait;
 
 /**
@@ -23,13 +24,12 @@ class SensorGateway
     {
         $sensorIds = $this->getSensorIds();
 
-        /** @var Redis $redis */
-        $redis = $this->getRedis()->multi(Redis::PIPELINE);
+        $redis = $this->getRedis()->multi(PhpRedis::PIPELINE);
         foreach ($sensorIds as $sensorId) {
             $redis->HGETALL($this->getKey($sensorId));
         }
 
-        return $redis->exec();
+        return $redis->execute();
     }
 
     /**
@@ -66,7 +66,7 @@ class SensorGateway
         $sensorIds = $this->getSensorIds();
         $newId = end($sensorIds) + 1;
 
-        $redis = $this->getRedis()->multi(Redis::PIPELINE);
+        $redis = $this->getRedis()->multi(PhpRedis::PIPELINE);
 
         $key = $this->getKey($newId);
 
@@ -79,7 +79,7 @@ class SensorGateway
 
         $redis->sAdd(self::SENSOR_IDS, $newId);
 
-        $redis->exec();
+        $redis->execute();
 
         $sensorVo->sensorId = $newId;
 

@@ -2,8 +2,9 @@
 
 namespace Tests\Raspberry\Gpio\PinGateway;
 
-use BrainExe\Core\Redis\Redis;
+
 use BrainExe\Core\Redis\RedisInterface;
+use BrainExe\Tests\RedisMockTrait;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Gpio\PinGateway;
@@ -13,6 +14,8 @@ use Raspberry\Gpio\PinGateway;
  */
 class PinGatewayTest extends PHPUnit_Framework_TestCase
 {
+
+    use RedisMockTrait;
 
     /**
      * @var PinGateway
@@ -26,7 +29,7 @@ class PinGatewayTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->mockRedis = $this->getMock(Redis::class, [], [], '', false);
+        $this->mockRedis = $this->getRedisMock();
 
         $this->subject = new PinGateway();
         $this->subject->setRedis($this->mockRedis);

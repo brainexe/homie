@@ -2,6 +2,8 @@
 
 namespace Raspberry\Radio;
 
+use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Annotations\Annotations\Service;
 use BrainExe\MessageQueue\MessageQueueGateway;
 use BrainExe\MessageQueue\MessageQueueJob;
 use BrainExe\Core\Traits\EventDispatcherTrait;

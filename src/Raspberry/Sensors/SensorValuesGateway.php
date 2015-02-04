@@ -2,7 +2,8 @@
 
 namespace Raspberry\Sensors;
 
-use BrainExe\Core\Redis\Redis;
+use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Redis\PhpRedis;
 use BrainExe\Core\Traits\RedisTrait;
 use BrainExe\Core\Traits\TimeTrait;
 
@@ -23,7 +24,7 @@ class SensorValuesGateway
      */
     public function addValue($sensorId, $value)
     {
-        $redis = $this->getRedis()->multi(Redis::PIPELINE);
+        $redis = $this->getRedis()->multi(PhpRedis::PIPELINE);
         $now   = $this->now();
         $key   = $this->getKey($sensorId);
 
@@ -34,7 +35,7 @@ class SensorValuesGateway
             'last_value_timestamp' => $now
         ]);
 
-        $redis->exec();
+        $redis->execute();
     }
 
     /**

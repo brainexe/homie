@@ -2,6 +2,8 @@
 
 namespace Raspberry\Arduino;
 
+use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Core\Annotations\EventListener;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -9,7 +11,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class Listener implements EventSubscriberInterface
 {
-
 
     /**
      * {@inheritdoc}

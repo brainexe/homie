@@ -2,7 +2,7 @@
 
 namespace Tests\Raspberry\Notification\MessageQueueNotifications;
 
-use BrainExe\Core\Redis\Redis;
+use BrainExe\Core\Redis\Predis;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Notification\MessageQueueNotifications;
@@ -25,14 +25,14 @@ class MessageQueueNotificationsTest extends PHPUnit_Framework_TestCase
     private $mockMessageQueueGateway;
 
     /**
-     * @var Redis|MockObject
+     * @var Predis|MockObject
      */
     private $mockRedis;
 
     public function setUp()
     {
         $this->mockMessageQueueGateway = $this->getMock(MessageQueueGateway::class, [], [], '', false);
-        $this->mockRedis = $this->getMock(Redis::class, [], [], '', false);
+        $this->mockRedis               = $this->getMock(Predis::class, [], [], '', false);
 
         $this->subject = new MessageQueueNotifications();
         $this->subject->setMessageQueueGateway($this->mockMessageQueueGateway);

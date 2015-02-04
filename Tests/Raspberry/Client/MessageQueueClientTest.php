@@ -2,11 +2,13 @@
 
 namespace Tests\Raspberry\Client\MessageQueueClient;
 
+
+use BrainExe\Core\Redis\RedisInterface;
+use BrainExe\Tests\RedisMockTrait;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Client\ExecuteCommandEvent;
 use Raspberry\Client\MessageQueueClient;
-use BrainExe\Core\Redis\Redis;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 
 /**
@@ -15,13 +17,15 @@ use BrainExe\Core\EventDispatcher\EventDispatcher;
 class MessageQueueClientTest extends PHPUnit_Framework_TestCase
 {
 
+    use RedisMockTrait;
+
     /**
      * @var MessageQueueClient
      */
     private $subject;
 
     /**
-     * @var Redis|MockObject
+     * @var RedisInterface|MockObject
      */
     private $mockRedis;
 
@@ -32,7 +36,7 @@ class MessageQueueClientTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->mockRedis = $this->getMock(Redis::class, [], [], '', false);
+        $this->mockRedis = $this->getRedisMock();
         $this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
         $this->subject = new MessageQueueClient();
         $this->subject->setRedis($this->mockRedis);

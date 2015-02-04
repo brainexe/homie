@@ -15,7 +15,7 @@ App.ng.controller('RadioController', ['$scope', function ($scope) {
 	 * @param {Number} status
 	 */
 	$scope.setStatus = function (radio, status) {
-		$.post('/radio/status/{0}/{1}/'.format(radio.id, status));
+		$.post('/radio/status/{0}/{1}/'.format(radio.radioId, status));
 	};
 
 	/**
@@ -48,7 +48,7 @@ App.ng.controller('RadioController', ['$scope', function ($scope) {
 
 		$.post('/radio/add/', payload, function(data) {
 			console.log(data);
-			$scope.radios[data.id] = data;
+			$scope.radios[data.radioId] = data;
 			$scope.pin = $scope.description = $scope.name = $scope.code = '';
 			$scope.$apply();
 		});

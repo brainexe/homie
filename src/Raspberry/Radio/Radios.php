@@ -2,6 +2,8 @@
 
 namespace Raspberry\Radio;
 
+use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Application\UserException;
 use InvalidArgumentException;
 use Raspberry\Radio\VO\RadioVO;

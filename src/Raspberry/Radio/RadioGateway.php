@@ -2,7 +2,8 @@
 
 namespace Raspberry\Radio;
 
-use BrainExe\Core\Redis\Redis;
+use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Redis\PhpRedis;
 use BrainExe\Core\Traits\IdGeneratorTrait;
 use BrainExe\Core\Traits\RedisTrait;
 use Raspberry\Radio\VO\RadioVO;
@@ -16,7 +17,7 @@ class RadioGateway
     use RedisTrait;
     use IdGeneratorTrait;
 
-    const REDIS_RADIO = 'radios:%d';
+    const REDIS_RADIO     = 'radios:%d';
     const REDIS_RADIO_IDS = 'radio_ids';
 
     /**
@@ -26,14 +27,13 @@ class RadioGateway
     {
         $radioIds = $this->getRadioIds();
 
-        /** @var Redis $pipeline */
-        $pipeline = $this->getRedis()->multi(Redis::PIPELINE);
+        $pipeline = $this->getRedis()->multi(PhpRedis::PIPELINE);
 
         foreach ($radioIds as $radioId) {
             $pipeline->HGETALL(self::getRadioKey($radioId));
         }
 
-        return $pipeline->exec();
+        return $pipeline->execute();
     }
 
     /**
@@ -65,7 +65,7 @@ class RadioGateway
     {
         $newId = $this->generateRandomId();
 
-        $pipeline = $this->getRedis()->multi(Redis::PIPELINE);
+        $pipeline = $this->getRedis()->multi(PhpRedis::PIPELINE);
 
         $key = $this->getRadioKey($newId);
         $pipeline->HMSET($key, [
@@ -78,7 +78,7 @@ class RadioGateway
 
         $this->getRedis()->SADD(self::REDIS_RADIO_IDS, $newId);
 
-        $pipeline->exec();
+        $pipeline->execute();
 
         $radioVo->radioId = $newId;
 

@@ -2,6 +2,8 @@
 
 namespace Raspberry\Webcam;
 
+use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
@@ -14,9 +16,9 @@ use Symfony\Component\Process\ProcessBuilder;
 class Webcam
 {
 
-    const ROOT = 'web/static/webcam/';
-    const EXTENSION = 'jpg';
-    const TIMEOUT = 10000;
+    const ROOT       = 'web/static/webcam/';
+    const EXTENSION  = 'jpg';
+    const TIMEOUT    = 10000;
     const EXECUTABLE = 'fswebcam';
 
     use EventDispatcherTrait;

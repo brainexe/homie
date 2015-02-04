@@ -2,7 +2,8 @@
 
 namespace Tests\Raspberry\Radio\RadioGateway;
 
-use BrainExe\Core\Redis\Redis;
+use BrainExe\Core\Redis\RedisInterface;
+use BrainExe\Tests\RedisMockTrait;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Radio\RadioGateway;
@@ -15,13 +16,15 @@ use BrainExe\Core\Util\IdGenerator;
 class RadioGatewayTest extends PHPUnit_Framework_TestCase
 {
 
+    use RedisMockTrait;
+
     /**
      * @var RadioGateway
      */
     private $subject;
 
     /**
-     * @var Redis|MockObject
+     * @var RedisInterface|MockObject
      */
     private $mockRedis;
 
@@ -32,7 +35,7 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->mockRedis = $this->getMock(Redis::class, [], [], '', false);
+        $this->mockRedis       = $this->getRedisMock();
         $this->mockIdGenerator = $this->getMock(IdGenerator::class, [], [], '', false);
 
         $this->subject = new RadioGateway();
@@ -66,7 +69,7 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
 
         $this->mockRedis
             ->expects($this->once())
-            ->method('exec')
+            ->method('execute')
             ->willReturn($result);
 
         $actualResult = $this->subject->getRadios();
@@ -149,7 +152,7 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
 
         $this->mockRedis
             ->expects($this->once())
-            ->method('exec');
+            ->method('execute');
 
         $actualResult = $this->subject->addRadio($radioVo);
 

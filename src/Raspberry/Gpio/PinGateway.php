@@ -2,6 +2,7 @@
 
 namespace Raspberry\Gpio;
 
+use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\RedisTrait;
 
 /**

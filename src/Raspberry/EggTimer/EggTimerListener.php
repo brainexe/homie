@@ -2,6 +2,7 @@
 
 namespace Raspberry\EggTimer;
 
+use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\EventListener;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Raspberry\Espeak\EspeakEvent;

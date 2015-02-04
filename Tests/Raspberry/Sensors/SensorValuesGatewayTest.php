@@ -2,8 +2,9 @@
 
 namespace Tests\Raspberry\Sensors\SensorValuesGateway;
 
-use BrainExe\Core\Redis\Redis;
+use BrainExe\Core\Redis\Predis;
 use BrainExe\Core\Util\Time;
+use BrainExe\Tests\RedisMockTrait;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Sensors\SensorGateway;
@@ -15,13 +16,15 @@ use Raspberry\Sensors\SensorValuesGateway;
 class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
 {
 
+    use RedisMockTrait;
+
     /**
      * @var SensorValuesGateway
      */
     private $subject;
 
     /**
-     * @var Redis|MockObject
+     * @var Predis|MockObject
      */
     private $mockRedis;
 
@@ -32,8 +35,8 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->mockRedis = $this->getMock(Redis::class, [], [], '', false);
-        $this->mockTime = $this->getMock(Time::class, [], [], '', false);
+        $this->mockRedis = $this->getRedisMock();
+        $this->mockTime  = $this->getMock(Time::class, [], [], '', false);
 
         $this->subject = new SensorValuesGateway();
         $this->subject->setRedis($this->mockRedis);
@@ -43,8 +46,8 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
     public function testAddValue()
     {
         $sensorId = 10;
-        $value     = 100;
-        $now       = 10000;
+        $value    = 100;
+        $now      = 10000;
 
         $this->mockRedis
             ->expects($this->once())
@@ -66,7 +69,7 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
 
         $this->mockRedis
             ->expects($this->once())
-            ->method('exec');
+            ->method('execute');
 
         $this->mockTime
             ->expects($this->once())

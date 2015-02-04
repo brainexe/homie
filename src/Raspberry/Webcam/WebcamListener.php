@@ -2,6 +2,8 @@
 
 namespace Raspberry\Webcam;
 
+use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Core\Annotations\EventListener;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**

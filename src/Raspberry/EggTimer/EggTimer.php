@@ -71,7 +71,10 @@ class EggTimer
      */
     public function deleteJob($jobId)
     {
-        $this->messageQueueGateway->deleteEvent($jobId, EggTimerEvent::DONE);
+        $this->messageQueueGateway->deleteEvent(
+            $jobId,
+            EggTimerEvent::DONE
+        );
     }
 
     /**

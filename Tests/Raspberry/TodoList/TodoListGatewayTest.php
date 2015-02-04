@@ -2,8 +2,9 @@
 
 namespace Tests\Raspberry\TodoList\TodoListGateway;
 
-use BrainExe\Core\Redis\Redis;
+use BrainExe\Core\Redis\Predis;
 use BrainExe\Core\Util\Time;
+use BrainExe\Tests\RedisMockTrait;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\TodoList\TodoListGateway;
@@ -15,13 +16,15 @@ use Raspberry\TodoList\VO\TodoItemVO;
 class TodoListGatewayTest extends PHPUnit_Framework_TestCase
 {
 
+    use RedisMockTrait;
+
     /**
      * @var TodoListGateway
      */
     private $subject;
 
     /**
-     * @var Redis|MockObject
+     * @var Predis|MockObject
      */
     private $mockRedis;
 
@@ -32,7 +35,7 @@ class TodoListGatewayTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->mockRedis = $this->getMock(Redis::class, [], [], '', false);
+        $this->mockRedis = $this->getRedisMock();
         $this->mockTime = $this->getMock(Time::class, [], [], '', false);
 
         $this->subject = new TodoListGateway();
@@ -43,12 +46,12 @@ class TodoListGatewayTest extends PHPUnit_Framework_TestCase
     public function testAddItem()
     {
         $itemVo = new TodoItemVO();
-        $itemVo->todoId = $id = 10;
+        $itemVo->todoId = $todoId = 10;
 
         $this->mockRedis
             ->expects($this->once())
             ->method('HMSET')
-            ->with("todo:$id", $this->isType('array'));
+            ->with("todo:$todoId", $this->isType('array'));
 
         $this->mockRedis
             ->expects($this->once())
@@ -94,7 +97,7 @@ class TodoListGatewayTest extends PHPUnit_Framework_TestCase
 
         $this->mockRedis
             ->expects($this->at(4))
-            ->method('exec')
+            ->method('execute')
             ->willReturn([$itemRaw1, $itemRaw2]);
 
         $actualResult = $this->subject->getList();

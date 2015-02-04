@@ -2,11 +2,12 @@
 
 namespace Tests\Raspberry\Blog\BlogGateway;
 
+use BrainExe\Core\Redis\Predis;
+use BrainExe\Tests\RedisMockTrait;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Blog\BlogGateway;
 use Raspberry\Blog\BlogPostVO;
-use BrainExe\Core\Redis\Redis;
 
 /**
  * @Covers Raspberry\Blog\BlogGateway
@@ -14,20 +15,22 @@ use BrainExe\Core\Redis\Redis;
 class BlogGatewayTest extends PHPUnit_Framework_TestCase
 {
 
+    use RedisMockTrait;
+
     /**
      * @var BlogGateway
      */
     private $subject;
 
     /**
-     * @var Redis|MockObject
+     * @var Predis|MockObject
      */
     private $mockRedis;
 
     public function setUp()
     {
-        $this->mockRedis = $this->getMock(Redis::class, [], [], '', false);
-        $this->subject = new BlogGateway();
+        $this->mockRedis = $this->getRedisMock();
+        $this->subject   = new BlogGateway();
         $this->subject->setRedis($this->mockRedis);
     }
 
@@ -40,20 +43,20 @@ class BlogGatewayTest extends PHPUnit_Framework_TestCase
         $key = "blog:$userId";
 
         $post = new BlogPostVO();
-        $posts_raw = [
-        serialize($post) => $timestamp = 50
+        $postsRaw = [
+            serialize($post) => $timestamp = 50
         ];
 
         $this->mockRedis
             ->expects($this->once())
             ->method('zRangeByScore')
             ->with($key, $from, $to, ['withscores' => true])
-            ->willReturn($posts_raw);
+            ->willReturn($postsRaw);
 
         $actualResult = $this->subject->getPosts($userId, $from, $to);
 
         $expectedResult = [
-         $timestamp => $post
+            $timestamp => $post
         ];
 
         $this->assertEquals($expectedResult, $actualResult);

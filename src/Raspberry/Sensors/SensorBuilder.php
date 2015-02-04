@@ -2,6 +2,7 @@
 
 namespace Raspberry\Sensors;
 
+use BrainExe\Annotations\Annotations\Service;
 use InvalidArgumentException;
 use Raspberry\Sensors\Sensors\SensorInterface;
 

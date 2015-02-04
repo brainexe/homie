@@ -2,6 +2,7 @@
 
 namespace Raspberry\Blog;
 
+use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\RedisTrait;
 
 /**
@@ -10,7 +11,7 @@ use BrainExe\Core\Traits\RedisTrait;
 class BlogGateway
 {
 
-    const REDIS_POSTS_KEY = 'blog:%d';
+    const REDIS_POSTS_KEY   = 'blog:%d';
     const REDIS_SUBSCRIBERS = 'blog:subscribers:%d';
 
     use RedisTrait;

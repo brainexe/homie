@@ -10,7 +10,6 @@ use Raspberry\Gpio\PinGateway;
 use Raspberry\Client\LocalClient;
 use Raspberry\Gpio\PinLoader;
 use Raspberry\Gpio\PinsCollection;
-use Symfony\Component\DependencyInjection\Exception\RuntimeException;
 
 class GpioManagerTest extends PHPUnit_Framework_TestCase
 {

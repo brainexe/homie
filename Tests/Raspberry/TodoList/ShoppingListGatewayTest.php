@@ -2,7 +2,9 @@
 
 namespace Tests\Raspberry\TodoList\ShoppingListGateway;
 
-use BrainExe\Core\Redis\Redis;
+
+use BrainExe\Core\Redis\RedisInterface;
+use BrainExe\Tests\RedisMockTrait;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\TodoList\ShoppingListGateway;
@@ -13,19 +15,21 @@ use Raspberry\TodoList\ShoppingListGateway;
 class ShoppingListGatewayTest extends PHPUnit_Framework_TestCase
 {
 
+    use RedisMockTrait;
+
     /**
      * @var ShoppingListGateway
      */
     private $subject;
 
     /**
-     * @var Redis|MockObject
+     * @var RedisInterface|MockObject
      */
     private $mockRedis;
 
     public function setUp()
     {
-        $this->mockRedis = $this->getMock(Redis::class, [], [], '', false);
+        $this->mockRedis = $this->getRedisMock();
         $this->subject = new ShoppingListGateway();
         $this->subject->setRedis($this->mockRedis);
     }

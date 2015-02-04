@@ -2,6 +2,7 @@
 
 namespace Raspberry\Blog;
 
+use BrainExe\Core\Annotations\EventListener;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Traits\TimeTrait;
 use Raspberry\Blog\Events\BlogEvent;
