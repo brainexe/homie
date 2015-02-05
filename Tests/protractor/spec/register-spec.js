@@ -1,6 +1,6 @@
 var helper = require('../helper');
 
-describe('Login into raspberry app', function() {
+describe('Register at raspberry app', function() {
 
     var username = element(by.model('username'));
     var password = element(by.model('password'));
@@ -10,7 +10,7 @@ describe('Login into raspberry app', function() {
     it('Click "login" in menu', function () {
         browser.get('http://localhost:8080');
 
-        var link = $('a[href="/#login"]');
+        var link = $('a[href="/#register"]');
         expect(link.isPresent()).toBe(true);
 
         link.click();
@@ -18,25 +18,30 @@ describe('Login into raspberry app', function() {
         expect($('.form-signin').isPresent()).toBe(true);
     });
 
-    it('Try wrong username', function () {
+    it('Try empty username', function () {
         expect(submit.isPresent()).toBe(true);
 
-        username.sendKeys("wrong");
-        password.sendKeys("also wrong");
+        username.sendKeys("u");
+        password.sendKeys("Password");
+
         submit.click();
 
-        helper.expectFlash('Username "wrong" does not exist.');
+        helper.expectFlash('Username must not be empty');
     });
 
-    it('Try wrong password', function () {
+    it('Try empty password', function () {
+        expect(submit.isPresent()).toBe(true);
+
         username.clear();
-        username.sendKeys("testuser");
+        password.clear();
+        username.sendKeys("username");
+        password.sendKeys("p");
         submit.click();
 
-        helper.expectFlash('Invalid Password');
+        helper.expectFlash('Password must not be empty');
     });
 
-    it('Try correct credentials', function () {
+    it('Try already existing username (testuser)', function () {
         expect(submit.isPresent()).toBe(true);
 
         username.clear();
@@ -45,12 +50,7 @@ describe('Login into raspberry app', function() {
         password.sendKeys("testpassword");
         submit.click();
 
-        helper.expectFlash('Welcome testuser');
+        helper.expectFlash('User testuser already exists');
     });
 
-    it('Check layout after login', function () {
-        // todo check menu
-        var userName = element(by.binding('current_user.username'));
-        expect(userName.getText()).toBe('testuser');
-    });
 });

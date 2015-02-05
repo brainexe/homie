@@ -12,7 +12,7 @@ module.exports.sleep = function(delay) {
 
 module.exports.expectFlash = function(expectedText) {
     $('.content-header').getInnerHtml().then(function (html) {
-        expect(html.indexOf(expectedText)).not.toBe(-1);
+        expect(html.indexOf(expectedText) != -1).toBe(true);
         self.closeAllFlashs();
     });
 };
@@ -29,32 +29,6 @@ module.exports.takeScreenshot = function(filename) {
         writeScreenShot(png, filename);
     });
 };
-
-module.exports.login = function() {
-    var link = $('a[href="/#login"]');
-
-    self.sleep(4000);
-
-    console.log(link);
-    if (!link.isPresent()) {
-        // already logged in
-        return;
-    }
-
-    var username = element(by.model('username'));
-    var password = element(by.model('password'));
-
-    username.sendKeys("testuser"); // TODO use config
-    password.sendKeys("testpassword");
-
-    var submit = $('.form-signin button[type="submit"]');
-    submit.click();
-
-    self.sleep(200);
-
-    self.expectFlash('Welcome testuser');
-};
-
 
 module.exports.restart = function() {
     browser = browser.forkNewDriverInstance();

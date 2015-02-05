@@ -18,11 +18,12 @@
 	<tbody>
 		<tr ng-repeat="job in jobs">
 			<th>
-				<span title="{{ job.event }}" class="tip">{{ job.event_id }}</span>
-				<hr />
+				<span title="{{ job.event }}" class="tip">{{ job.eventId }}</span>
+				<br />
+				<small>{{ job.event }}</small>
 			</th>
 			<th>{{ job.timestamp|timeAgo }}</th>
-			<td><a ng-click="deleteEvent(job.event_id)" class="glyphicon glyphicon-remove"></a></td>
+			<td><a ng-click="deleteEvent(job.eventId)" class="glyphicon glyphicon-remove"></a></td>
 		</tr>
 	</tbody>
 </table>

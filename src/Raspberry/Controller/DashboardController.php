@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * @Controller
  */
-class DashboardController implements ControllerInterface
+class   DashboardController implements ControllerInterface
 {
 
     /**
@@ -56,7 +56,7 @@ class DashboardController implements ControllerInterface
     public function addWidget(Request $request)
     {
         $type    = $request->request->get('type');
-        $payload = $request->request->get('payload');
+        $payload = (array)$request->request->get('payload');
         $userId  = $this->getUserId($request);
 
         $this->dashboard->addWidget($userId, $type, $payload);

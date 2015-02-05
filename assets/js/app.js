@@ -121,7 +121,7 @@ App.Layout = {
 		{url: 'logout', templateUrl: "/templates/mood.html", controller: "LogoutController"},
 		{url: 'user/change_password', templateUrl: "/templates/user/change_password.html", controller: "ChangePasswordController"},
 		{url: 'user/otp', templateUrl: "/templates/user/otp.html", controller: "OtpController"},
-		{url: 'templates/index.html', templateUrl: "/", controller: "IndexController"}
+		{url: '', controller: "IndexController"}
 	],
 
 	init: function (debug, current_user) {
