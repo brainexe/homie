@@ -12,7 +12,7 @@ class ShoppingListGateway
 {
     use RedisTrait;
 
-    const REDIS_KEY = 'shipping_list';
+    const REDIS_KEY = 'shopping_list';
 
     /**
      * @return string[]

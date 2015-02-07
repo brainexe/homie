@@ -1,7 +1,6 @@
 var helper = require('../helper');
 
 describe('Login into raspberry app', function() {
-
     var username = element(by.model('username'));
     var password = element(by.model('password'));
 

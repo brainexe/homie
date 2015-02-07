@@ -13,7 +13,7 @@ class SensorGateway
 {
 
     const REDIS_SENSOR_PREFIX = 'sensor:';
-    const SENSOR_IDS = 'sensor_ids';
+    const SENSOR_IDS          = 'sensor_ids';
 
     use RedisTrait;
 

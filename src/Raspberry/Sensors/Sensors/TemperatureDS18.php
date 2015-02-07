@@ -15,9 +15,9 @@ class TemperatureDS18 implements SensorInterface
 
     use TemperatureSensorTrait;
 
-    const TYPE = 'temp_ds18';
+    const TYPE     = 'temp_ds18';
     const PIN_FILE = '/sys/bus/w1/devices/%s/w1_slave';
-    const BUS_DIR = '/sys/bus/w1/devices';
+    const BUS_DIR  = '/sys/bus/w1/devices';
 
     /**
      * @var Filesystem

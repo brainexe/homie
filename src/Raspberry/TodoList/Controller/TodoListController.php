@@ -85,10 +85,10 @@ class TodoListController implements ControllerInterface
      */
     public function addItem(Request $request)
     {
-        $itemVo = new TodoItemVO();
-        $itemVo->name = $request->request->get('name');
+        $itemVo              = new TodoItemVO();
+        $itemVo->name        = $request->request->get('name');
         $itemVo->description = $request->request->get('description');
-        $itemVo->deadline = strtotime($request->request->get('deadline'));
+        $itemVo->deadline    = strtotime($request->request->get('deadline'));
 
         $user = $request->attributes->get('user');
 
@@ -153,8 +153,8 @@ class TodoListController implements ControllerInterface
         $user = $this->userProvider->loadUserById($userId);
 
         $itemVo = $this->todo->editItem($itemId, [
-        'user_id' => $userId,
-        'user_name' => $user->username,
+            'userId' => $userId,
+            'userName' => $user->username,
         ]);
         return new JsonResponse($itemVo);
     }

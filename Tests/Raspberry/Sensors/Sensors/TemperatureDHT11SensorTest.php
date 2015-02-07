@@ -32,7 +32,7 @@ class TemperatureDHT11SensorTest extends PHPUnit_Framework_TestCase
         $this->mockProcessBuilder = $this->getMock(ProcessBuilder::class, [], [], '', false);
         $this->mockFileSystem = $this->getMock(Filesystem::class, [], [], '', false);
 
-        $this->subject = new TemperatureDHT11Sensor($this->mockProcessBuilder, $this->mockFileSystem);
+        $this->subject = new TemperatureDHT11Sensor($this->mockProcessBuilder, $this->mockFileSystem, '/ada/');
     }
 
     public function testGetSensorType()

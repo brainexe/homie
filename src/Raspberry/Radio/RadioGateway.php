@@ -17,7 +17,7 @@ class RadioGateway
     use RedisTrait;
     use IdGeneratorTrait;
 
-    const REDIS_RADIO     = 'radios:%d';
+    const REDIS_RADIO     = 'radios:%s';
     const REDIS_RADIO_IDS = 'radio_ids';
 
     /**

@@ -19,15 +19,15 @@ App.ng.controller('RadioController', ['$scope', function ($scope) {
 	};
 
 	/**
-	 * @param {Number} radio_id
+	 * @param {Number} radioId
 	 */
-	$scope.deleteRadio = function (radio_id) {
-		if (!confirm('Remove this Radio-Job?')) {
+	$scope.deleteRadio = function (radioId) {
+		if (!confirm(_('Remove this Radio-Job?'))) {
 			return;
 		}
 
-		$.post('/radio/delete/{0}/'.format(radio_id), function () {
-			delete $scope.radios[radio_id];
+		$.post('/radio/delete/{0}/'.format(radioId), function () {
+			delete $scope.radios[radioId];
 			$scope.$apply();
 		});
 	};
@@ -47,7 +47,6 @@ App.ng.controller('RadioController', ['$scope', function ($scope) {
 		};
 
 		$.post('/radio/add/', payload, function(data) {
-			console.log(data);
 			$scope.radios[data.radioId] = data;
 			$scope.pin = $scope.description = $scope.name = $scope.code = '';
 			$scope.$apply();
@@ -58,13 +57,12 @@ App.ng.controller('RadioController', ['$scope', function ($scope) {
 	$scope.addRadioJob = function(new_job) {
 		$.post('/radio/job/add/', new_job, function (data) {
 			$scope.radio_jobs = data;
-			$scope.job_time = '';
+			$scope.job_time   = '';
 			$scope.$apply();
 		});
 	};
 
 	$scope.deleteRadioJob = function(job_id) {
-		console.log(job_id)
 		var event_id = job_id.split(':')[1];
 		$.post('/radio/job/delete/{0}/'.format(event_id), function(){
 			delete $scope.radio_jobs[job_id];

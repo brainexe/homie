@@ -6,8 +6,8 @@ App.ng.controller('TodoController', ['$scope', function($scope) {
 	$scope.userNames = [];
 
 	$scope.stati = {
-		"pending" : {id:'pending', name: "Pending", tasks: [], prio:1},
-		"progress" : {id:'progress', name: "Progress", tasks: [], prio:2},
+		"pending"   : {id:'pending', name: "Pending", tasks: [], prio:1},
+		"progress"  : {id:'progress', name: "Progress", tasks: [], prio:2},
 		"completed" : {id:'completed', name: "Completed", tasks: [], prio:3}
 	};
 
@@ -15,6 +15,8 @@ App.ng.controller('TodoController', ['$scope', function($scope) {
 		$scope.shoppingList = data.shoppingList.map(function(text) {
 			return {text:text, done:false};
 		});
+
+		console.log($scope.shoppingList)
 
 		for (var userId in data.userNames) {
 			$scope.userNames.push({id: userId, name: data.userNames[userId]})
@@ -28,10 +30,16 @@ App.ng.controller('TodoController', ['$scope', function($scope) {
 		$scope.$apply();
 	});
 
-	$scope.addTodo = function() {
-		$.post('/todo/shopping/add/', {name: $scope.todoText});
+	$scope.addShoppingItem = function() {
+		var name = $scope.todoText;
 
-		$scope.todos.push({text:$scope.todoText, done:false});
+		if (!name) {
+			return;
+		}
+
+		$.post('/todo/shopping/add/', {name: name});
+
+		$scope.shoppingList.push({text: name, done:false});
 		$scope.todoText = '';
 	};
 
@@ -51,7 +59,7 @@ App.ng.controller('TodoController', ['$scope', function($scope) {
 	};
 
 	$scope.addTodo = function() {
-		var errorMessage = "name can not be empty",
+		var errorMessage = _("name can not be empty"),
 			name, description, date, tempData;
 
 		name = $scope.newTitle;

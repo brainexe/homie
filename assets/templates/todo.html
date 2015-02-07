@@ -20,7 +20,8 @@
 			class="task-list task-container"
 			ng-repeat="status in stati|orderObjectBy:'prio'"
 			ng-model="status.id"
-			ui-on-Drop="onDrop(status.id,$event,$data,status.tasks)">
+			ui-on-Drop="onDrop(status.id,$event,$data,status.tasks)"
+	>
 		<h3>{{ status.name }}</h3>
 		<div
 				ng-repeat="item in status.tasks|orderBy:'name'" class="todo-task"
@@ -46,12 +47,12 @@
 	<h3>Shopping List</h3>
 
 	<ul class="unstyled">
-		<li ng-repeat="todo in todos">
+		<li ng-repeat="todo in shoppingList">
 			<input type="checkbox" ng-change="change(todo.text, todo.done)" ng-model="todo.done">
 			<span class="done-{{todo.done}}">{{todo.text}}</span>
 		</li>
 	</ul>
-	<form ng-submit="addTodo()">
+	<form ng-submit="addShoppingItem()">
 		<input type="text" ng-model="todoText" size="30" placeholder="Add an item">
 		<input class="btn btn-primary" type="submit" value="add">
 	</form>

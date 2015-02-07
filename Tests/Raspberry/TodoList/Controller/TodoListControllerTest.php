@@ -199,8 +199,8 @@ class TodoListControllerTest extends PHPUnit_Framework_TestCase
         $itemVo = new TodoItemVO();
 
         $changes = [
-            'user_id' => $userId,
-            'user_name' => $userName
+            'userId' => $userId,
+            'userName' => $userName
         ];
 
         $this->mockDatabaseUserProvider

@@ -45,7 +45,6 @@ class LoadSensor implements SensorInterface
         return sprintf('%1.1f', $value);
     }
 
-
     /**
      * {@inheritdoc}
      */

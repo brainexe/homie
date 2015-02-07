@@ -46,6 +46,7 @@ class PinLoader
 
     /**
      * @return PinsCollection
+     * @throws UserException
      */
     public function loadPins()
     {
@@ -58,7 +59,7 @@ class PinLoader
         try {
             $results = $this->client->executeWithReturn(GpioManager::GPIO_COMMAND_READALL);
         } catch (Exception $e) {
-            throw new UserException('No GPIO pins found. You have to install "readall".');
+            throw new UserException(_('No GPIO pins found. You have to install "readall".'));
         }
 
         $results = explode("\n", $results);

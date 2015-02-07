@@ -3,7 +3,7 @@ App.ng.controller('SensorController', ['$scope', function($scope) {
 	$scope.sensors           = {};
 	$scope.active_sensor_ids = '';
 	$scope.current_from      = 0;
-	$scope.from_intervals    = {};
+	$scope.from_intervals    = {}; // todo sorting in angular is fuzzy
 	$scope.available_sensors = {};
 
 	$.get('/sensors/load/0', function(data) {

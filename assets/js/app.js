@@ -18,6 +18,10 @@ function asset(filename) {
 	return filename;
 }
 
+function _(string) {
+	return string;
+}
+
 /**
  * @returns String {string}
  */
@@ -175,14 +179,15 @@ App.Layout = {
 				App.showNotification(text);
 			});
 
-			$scope.$on('espeak.speak', function (event) {
-				App.showNotification(event.espeak.text);
-			});
+			//$scope.$on('espeak.speak', function (event) {
+			//	App.showNotification(event.espeak.text);
+			//});
 
 			$scope.$on('$routeChangeSuccess', function (event, current) {
 				if (current.$$route.name) {
 					App.Layout.changeTitle(current.$$route.name);
 				}
+				//$scope.flash_bag = [];
 			});
 		}]);
 
@@ -196,11 +201,9 @@ App.Layout = {
 
 	/**
 	 * @param {String} title
-	 * @todo fix
 	 */
 	changeTitle: function (title) {
 		document.title = title;
-		//App.$scope.title = title;
 	}
 };
 

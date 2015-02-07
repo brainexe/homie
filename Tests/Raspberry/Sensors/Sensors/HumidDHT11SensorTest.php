@@ -37,7 +37,7 @@ class HumidDHT11SensorTest extends PHPUnit_Framework_TestCase
         $this->mockProcessBuilder = $this->getMock(ProcessBuilder::class, [], [], '', false);
         $this->mockFileSystem = $this->getMock(Filesystem::class, [], [], '', false);
 
-        $this->subject = new HumidDHT11Sensor($this->mockProcessBuilder, $this->mockFileSystem);
+        $this->subject = new HumidDHT11Sensor($this->mockProcessBuilder, $this->mockFileSystem, '/ada/');
     }
 
     public function testGetSensorType()
@@ -135,7 +135,7 @@ class HumidDHT11SensorTest extends PHPUnit_Framework_TestCase
 
     public function testIsSupported()
     {
-        $file = sprintf(AbstractDHT11Sensor::ADA_SCRIPT);
+        $file = '/ada/' . AbstractDHT11Sensor::ADAFRUIT_SCRIPT;
 
         $this->mockFileSystem
             ->expects($this->once())
@@ -151,7 +151,7 @@ class HumidDHT11SensorTest extends PHPUnit_Framework_TestCase
 
     public function testIsSupportedWhenNotSupported()
     {
-        $file = sprintf(AbstractDHT11Sensor::ADA_SCRIPT);
+        $file = '/ada/' . AbstractDHT11Sensor::ADAFRUIT_SCRIPT;
 
         $this->mockFileSystem
             ->expects($this->once())
@@ -165,25 +165,31 @@ class HumidDHT11SensorTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($actualResult);
     }
 
+    /**
+     * @return array[]
+     */
     public function provideEspeakText()
     {
         return [
-        [100, '100 Percent'],
-        [0, '0 Percent'],
-        ['', '0 Percent'],
-        [10.2222, '10 Percent'],
-        [-10.2222, '-10 Percent'],
+            [100, '100 Percent'],
+            [0, '0 Percent'],
+            ['', '0 Percent'],
+            [10.2222, '10 Percent'],
+            [-10.2222, '-10 Percent'],
         ];
     }
 
+    /**
+     * @return array[]
+     */
     public function provideFormatValues()
     {
         return [
-        [100, '100%'],
-        [0, '0%'],
-        ['', '0%'],
-        [10.2222, '10%'],
-        [-10.2222, '-10%'],
+            [100, '100%'],
+            [0, '0%'],
+            ['', '0%'],
+            [10.2222, '10%'],
+            [-10.2222, '-10%'],
         ];
     }
 }

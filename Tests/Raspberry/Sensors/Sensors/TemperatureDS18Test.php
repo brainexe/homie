@@ -144,11 +144,11 @@ class TemperatureDS18Test extends PHPUnit_Framework_TestCase
     public function provideFormatValues()
     {
         return [
-        [100, '100.00°'],
-        [0, '0.00°'],
-        ['', '0.00°'],
-        [10.2222, '10.22°'],
-        [-10.2222, '-10.22°'],
+            [100, '100.00°'],
+            [0, '0.00°'],
+            ['', '0.00°'],
+            [10.2222, '10.22°'],
+            [-10.2222, '-10.22°'],
         ];
     }
 
@@ -158,11 +158,11 @@ class TemperatureDS18Test extends PHPUnit_Framework_TestCase
     public function provideEspeakText()
     {
         return [
-        [100, '100,0 Degree'],
-        [0, '0,0 Degree'],
-        ['', '0,0 Degree'],
-        [10.2222, '10,2 Degree'],
-        [-10.2222, '-10,2 Degree'],
+            [100, '100,0 Degree'],
+            [0, '0,0 Degree'],
+            ['', '0,0 Degree'],
+            [10.2222, '10,2 Degree'],
+            [-10.2222, '-10,2 Degree'],
         ];
     }
 
@@ -172,14 +172,13 @@ class TemperatureDS18Test extends PHPUnit_Framework_TestCase
     public function provideContent()
     {
         return [
-        ['', null],
-        ['invalid', null],
-        ['YES foo', null],
-        ['YES t=0', null],
-        ['YES t=85000', null],
-        ['YES t=70000', 70]
-        ,
-        ['YES t=70001', 70.001],
+            ['', null],
+            ['invalid', null],
+            ['YES foo', null],
+            ['YES t=0', null],
+            ['YES t=85000', null],
+            ['YES t=70000', 70],
+            ['YES t=70001', 70.001],
         ];
     }
 }

@@ -66,7 +66,7 @@ class RadioController implements ControllerInterface
      * @param integer $radioId
      * @param integer $status
      * @return JsonResponse
-     * @Route("/radio/status/{radio_id}/{status}/", name="radio.set_status", methods="POST")
+     * @Route("/radio/status/{radioId}/{status}/", name="radio.set_status", methods="POST")
      */
     public function setStatus(Request $request, $radioId, $status)
     {
@@ -112,7 +112,7 @@ class RadioController implements ControllerInterface
      * @param Request $request
      * @param integer $radioId
      * @return boolean
-     * @Route("/radio/delete/{radio_id}/", name="radio.delete", methods="POST")
+     * @Route("/radio/delete/{radioId}/", name="radio.delete", methods="POST")
      */
     public function deleteRadio(Request $request, $radioId)
     {
@@ -130,7 +130,7 @@ class RadioController implements ControllerInterface
      */
     public function addRadioJob(Request $request)
     {
-        $radioId     = $request->request->getInt('radio_id');
+        $radioId     = $request->request->getInt('radioId');
         $status      = $request->request->getInt('status');
         $timeString  = $request->request->get('time');
 

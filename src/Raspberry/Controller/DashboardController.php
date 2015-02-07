@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * @Controller
  */
-class   DashboardController implements ControllerInterface
+class DashboardController implements ControllerInterface
 {
 
     /**

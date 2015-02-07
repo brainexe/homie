@@ -32,5 +32,8 @@
   },
   "config": {
     "bin-dir": "bin/"
+  },
+  "suggest": {
+    "ext-phpiredis": "Allows faster serialization and deserialization of the Redis protocol"
   }
 }

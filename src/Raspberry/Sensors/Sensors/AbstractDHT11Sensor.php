@@ -10,8 +10,7 @@ use Symfony\Component\Process\ProcessBuilder;
 abstract class AbstractDHT11Sensor implements SensorInterface
 {
 
-    // todo put into config
-    const ADA_SCRIPT = '/opt/Adafruit-Raspberry-Pi-Python-Code/Adafruit_DHT_Driver/Adafruit_DHT';
+    const ADAFRUIT_SCRIPT = 'Adafruit_DHT';
 
     /**
      * @var ProcessBuilder
@@ -22,16 +21,22 @@ abstract class AbstractDHT11Sensor implements SensorInterface
      * @var Filesystem
      */
     private $filesystem;
+    /**
+     * @var
+     */
+    private $adafruit;
 
     /**
-     * @Inject({"@ProcessBuilder", "@FileSystem"})
+     * @Inject({"@ProcessBuilder", "@FileSystem", "%adafruit.path%"})
      * @param ProcessBuilder $processBuilder
      * @param Filesystem $filesystem
+     * @param string $adafruit
      */
-    public function __construct(ProcessBuilder $processBuilder, Filesystem $filesystem)
+    public function __construct(ProcessBuilder $processBuilder, Filesystem $filesystem, $adafruit)
     {
         $this->processBuilder = $processBuilder;
-        $this->filesystem = $filesystem;
+        $this->filesystem     = $filesystem;
+        $this->adafruit       = $adafruit;
     }
 
     /**
@@ -40,7 +45,7 @@ abstract class AbstractDHT11Sensor implements SensorInterface
      */
     protected function getContent($pin)
     {
-        $command = sprintf('sudo %s 11 %d', self::ADA_SCRIPT, $pin);
+        $command = sprintf('sudo %s 11 %d', self::ADAFRUIT_SCRIPT, $pin);
 
         $process = $this->processBuilder
             ->setArguments([$command])
@@ -60,11 +65,13 @@ abstract class AbstractDHT11Sensor implements SensorInterface
      */
     public function isSupported(OutputInterface $output)
     {
-        if (!$this->filesystem->exists(self::ADA_SCRIPT)) {
+        $script = $this->adafruit . self::ADAFRUIT_SCRIPT;
+
+        if (!$this->filesystem->exists($script)) {
             $output->writeln(sprintf(
                 '<error>%s: ada script not exists: %s</error>',
                 $this->getSensorType(),
-                self::ADA_SCRIPT
+                $script
             ));
             return false;
         }
