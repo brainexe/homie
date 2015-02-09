@@ -13,7 +13,7 @@ describe('Test "Speak" component', function() {
         link.click();
         browser.ignoreSynchronization = true;
 
-        expect($('.content button[type="submit"]').isPresent()).toBe(true);
+        expect(submit.isPresent()).toBe(true);
     });
 
     it('Speak anything', function () {
@@ -26,7 +26,6 @@ describe('Test "Speak" component', function() {
         text.sendKeys("test");
         delay.sendKeys("10h");
 
-        var submit = $('.content button[type="submit"]');
         submit.click();
     });
 

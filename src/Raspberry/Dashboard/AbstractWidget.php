@@ -7,6 +7,16 @@ use JsonSerializable;
 abstract class AbstractWidget implements WidgetInterface, JsonSerializable
 {
 
+    const TYPE = 'none';
+
+    /**
+     * @return string
+     */
+    public function getId()
+    {
+        return static::TYPE;
+    }
+
     /**
      * {@inheritdoc}
      */

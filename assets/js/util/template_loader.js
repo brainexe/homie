@@ -1,37 +1,37 @@
 
 App.TemplateLoader = function(directory) {
-	this.prefix = directory || '';
+	this.prefix     = directory || '';
 	this._templates = {};
-	this._loading = {};
-	this._queues = {};
+	this._loading   = {};
+	this._queues    = {};
 };
 
-App.TemplateLoader.prototype.load = function(type, callback) {
-	callback = callback || function(){};
-
-	if (this._templates[type]) {
-		callback(type);
-	}
-
-	if (this._loading[type]) {
-		var queue = this._queues[type] = this._queues[type] || [];
-		queue.push(callback);
-		return;
-	}
-
-	this._loading[type] = true;
-
+App.TemplateLoader.prototype.load = function(type) {
 	var self = this;
-	$.get('/templates/' + this.prefix + type + '.html', function(template) {
-		delete self._loading[type];
-		self._templates[type] = template;
-		callback(template);
-
-		if (self._queues[type]) {
-			self._queues[type].forEach(function(callback) {
-				callback(template);
-			})
+	return new Promise(function(resolve, reject) {
+		if (self._templates[type]) {
+			resolve(type);
 		}
-		delete(self._queues[type]);
+
+		if (self._loading[type]) {
+			var queue = self._queues[type] = self._queues[type] || [];
+			queue.push(resolve);
+			return;
+		}
+
+		self._loading[type] = true;
+
+		$.get('/templates/' + self.prefix + type + '.html', function(template) {
+			delete self._loading[type];
+			self._templates[type] = template;
+			resolve(template);
+
+			if (self._queues[type]) {
+				self._queues[type].forEach(function(resolve) {
+					resolve(template);
+				})
+			}
+			delete(self._queues[type]);
+		});
 	});
 };

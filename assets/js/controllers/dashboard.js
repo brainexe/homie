@@ -1,27 +1,55 @@
 
+var templates = new App.TemplateLoader('');
+App.Dashboard = {};
+
 App.Widgets = {
 	time: {
 		interval: 1000,
-		title: 'Current Time',
+		title: _('Current Time'),
 		render: function ($scope, widget) {
-			$scope.content = new Date().toString();
+			$scope.setContent($scope, new Date().toString());
 		}
 	},
 
 	sensor: {
 		interval: 60 * 5 * 1000,
 		render: function ($scope, widget) {
-			$scope.content = widget.sensor_id + Math.random();
 			$.get('/sensors/value/', {sensor_id: widget.sensor_id}, function(sensor_data) {
 				$scope.title = "{0} ({1})".format(sensor_data.sensor.name, sensor_data.sensor.type);
-				$scope.content = sensor_data.sensor.name + ": " + sensor_data.sensor_value_formatted;
+				$scope.setContent($scope, sensor_data.sensor.name + ": " + sensor_data.sensor_value_formatted);
 				$scope.$apply();
 			});
+		}
+	},
+
+	radio: {
+		render: function ($scope, widget) {
+			var template = templates.load('widgets/radio');
+			var radios = App.Radios.loadAll();
+			Promise.all([radios, template]).then(function(values) {
+				var radio = values[0][widget.radioId];
+				if (radio) {
+					$scope.title = radio.name;
+				}
+				$scope.setContent($scope, values[1]);
+				$scope.$apply();
+			});
+		}
+	},
+	egg_timer: {
+		title: _('Egg Timer'),
+		render: function ($scope, widget) {
+			templates
+				.load('widgets/egg_timer')
+				.then(function(html) {
+					$scope.setContent($scope, html);
+					$scope.$apply();
+				});
 		}
 	}
 };
 
-App.ng.controller('NewWidgetController', ['$scope', '$modalInstance', 'widgets', function ($scope, $modalInstance, widgets) {
+App.ng.controller('NewWidgetController', ['$scope', '$modalInstance', 'widgets', function($scope, $modalInstance, widgets) {
 	$scope.widgets = widgets;
 	$scope.payload = {};
 
@@ -32,9 +60,8 @@ App.ng.controller('NewWidgetController', ['$scope', '$modalInstance', 'widgets',
 		};
 
 		$.post('/dashboard/add/', payload, function(data) {
-			$scope.$parent.dashboard = data;
-			$scope.dashboard = data;
-			$scope.$apply();
+			App.Dashboard.$scope.dashboard = data;
+			App.Dashboard.$scope.$apply();
 		});
 		$modalInstance.close();
 	};
@@ -44,7 +71,9 @@ App.ng.controller('NewWidgetController', ['$scope', '$modalInstance', 'widgets',
 	}
 }]);
 
-App.ng.controller('DashboardController', ['$scope', '$modal', function ($scope, $modal) {
+App.ng.controller('DashboardController', ['$scope', '$modal', function($scope, $modal) {
+	App.Dashboard.$scope = $scope;
+
 	$.get('/dashboard/', function(data) {
 		$scope.dashboard = data.dashboard;
 		$scope.widgets   = data.widgets;
@@ -53,7 +82,7 @@ App.ng.controller('DashboardController', ['$scope', '$modal', function ($scope, 
 
 	$scope.openModal = function() {
 		var modalInstance = $modal.open({
-			templateUrl: asset('/templates/widgets/new_widget.html'),
+			templateUrl: asset('/templates/widgets/new.html'),
 			controller: 'NewWidgetController',
 			resolve: {
 				widgets: function() {
@@ -80,12 +109,16 @@ App.ng.controller('DashboardController', ['$scope', '$modal', function ($scope, 
 	}
 }]);
 
-App.ng.controller('WidgetController', ['$scope', function ($scope) {
+App.ng.controller('WidgetController', ['$scope', '$sce', function ($scope, $sce) {
 	var widget_payload = $scope.$parent.widget;
 
 	var widget_meta = App.Widgets[widget_payload.type];
+	// todo use name from widgets definition
+	$scope.title = widget_meta.title || widget_payload.name;
 
-	$scope.title = widget_meta.title || widget_payload.type;
+	$scope.setContent = function(scope, html) {
+		scope.content = $sce.trustAsHtml(html);
+	};
 
 	function update() {
 		widget_meta.render($scope, widget_payload);
@@ -94,9 +127,8 @@ App.ng.controller('WidgetController', ['$scope', function ($scope) {
 
 	if (widget_meta.interval) {
 		window.setInterval(function() {
-				update();
-				$scope.$apply();
-			}, widget_meta.interval
-		);
+			update();
+			$scope.$apply();
+		}, widget_meta.interval);
 	}
 }]);

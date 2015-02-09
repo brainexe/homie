@@ -56,7 +56,7 @@ class TodoReminder
 
             /** @var TodoItemVO $todo */
             foreach ($issuesPerStatus as $todo) {
-                $text .= sprintf('%s: %s. ', $todo->userName, $todo->name);
+                $text .= sprintf('%s: %s. . .', $todo->userName, $todo->name);
             }
         }
 
@@ -92,12 +92,30 @@ class TodoReminder
      */
     private function getStateName($count, $state)
     {
+        $stringCount = $this->getNumber($count);
+
         switch ($state) {
             case TodoItemVO::STATUS_PROGRESS:
-                return sprintf(ngettext('%d Aufgabe in Arbeit', '%d offene Aufgaben in Arbeit', $count), $count);
+                return sprintf(ngettext('%s Aufgabe in Arbeit', '%s offene Aufgaben in Arbeit', $count), $stringCount);
             case TodoItemVO::STATUS_PENDING:
             default:
-                return sprintf(ngettext('%d offene Aufgabe', '%d offene Aufgaben', $count), $count);
+                return sprintf(ngettext('%s offene Aufgabe', '%s offene Aufgaben', $count), $stringCount);
+        }
+    }
+
+    /**
+     * @param int $count
+     * @return string
+     */
+    private function getNumber($count)
+    {
+        switch ($count) {
+            case 0:
+                return _('keine');
+            case 1:
+                return _('eine');
+            default:
+                return $count;
         }
     }
 }

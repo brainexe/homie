@@ -1,6 +1,6 @@
 <?php
 
-namespace Raspberry\DIC;
+namespace Raspberry\Sensors;
 
 use BrainExe\Core\Annotations\CompilerPass;
 use Raspberry\Sensors\Sensors\SensorInterface;

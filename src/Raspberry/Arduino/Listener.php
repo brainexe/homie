@@ -11,7 +11,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class Listener implements EventSubscriberInterface
 {
-
     /**
      * {@inheritdoc}
      */

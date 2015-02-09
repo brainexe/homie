@@ -79,7 +79,7 @@ class Radios
     }
 
     /**
-     * @return array[]
+     * @return RadioVO[]
      */
     public function getRadios()
     {

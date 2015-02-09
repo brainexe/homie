@@ -1,6 +1,6 @@
 <?php
 
-namespace Raspberry\DIC;
+namespace Raspberry\Dashboard;
 
 use BrainExe\Core\Annotations\CompilerPass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;

@@ -1,3 +1,22 @@
+App.Radios = {
+	_radios: null,
+
+	loadAll: function() {
+		var self = this;
+		return new Promise(function(resolve, reject) {
+			if (self._radios !== null) {
+				resolve(self._radios);
+				return;
+			}
+
+			$.get('/radio/', function (data) {
+				resolve(data.radios);
+				self._radios = data;
+			});
+		});
+	}
+};
+
 App.ng.controller('RadioController', ['$scope', function ($scope) {
 	$scope.radios     = {};
 	$scope.radio_jobs = {};
@@ -55,7 +74,7 @@ App.ng.controller('RadioController', ['$scope', function ($scope) {
 
 	$scope.new_radio = {};
 	$scope.addRadioJob = function(new_job) {
-		$.post('/radio/job/add/', new_job, function (data) {
+		$.post('/radio/job/add/', new_job, function(data) {
 			$scope.radio_jobs = data;
 			$scope.job_time   = '';
 			$scope.$apply();
@@ -64,7 +83,7 @@ App.ng.controller('RadioController', ['$scope', function ($scope) {
 
 	$scope.deleteRadioJob = function(job_id) {
 		var event_id = job_id.split(':')[1];
-		$.post('/radio/job/delete/{0}/'.format(event_id), function(){
+		$.post('/radio/job/delete/{0}/'.format(event_id), function() {
 			delete $scope.radio_jobs[job_id];
 			$scope.$apply();
 		});

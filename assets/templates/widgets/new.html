@@ -16,7 +16,19 @@
 			</div>
 			<div class="col-lg-5">
 				<div class="input-group">
-					<input ng-repeat="(type, parameter_name) in widget.parameters" type="text" ng-model="payload[type]" class="form-control" placeholder="{{parameter_name}}"/>
+					<input
+							ng-repeat="(type, parameter) in widget.parameters"
+							type="text"
+							ng-model="payload[type]"
+							class="form-control"
+							placeholder="{{parameter.name}}" />
+					<select
+							ng-repeat="(type, parameter) in widget.parameters"
+							ng-options="type as parameter for (type, parameter) in parameter.values"
+							ng-model="payload[type]"
+							required="required"
+							class="form-control input-sm">
+					</select>
 				</div>
 			</div>
 		</div>

@@ -1,17 +1,17 @@
 <?php
 
-namespace Tests\Raspberry\DIC\SensorCompilerPass;
+namespace Tests\Raspberry\Sensors\SensorCompilerPass;
 
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Raspberry\DIC\SensorCompilerPass;
+use Raspberry\Sensors\SensorCompilerPass;
 use Raspberry\Sensors\Sensors\SensorInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * @Covers Raspberry\DIC\SensorCompilerPass
+ * @Covers Raspberry\Sensors\SensorCompilerPass
  */
 class SensorCompilerPassTest extends PHPUnit_Framework_TestCase
 {

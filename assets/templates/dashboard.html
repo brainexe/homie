@@ -7,8 +7,7 @@
 					{{ title }}
 					<span ng-click="deleteWidget(widget.id)" class="delete glyphicon glyphicon-remove"></span>
 				</div>
-				<div class="panel-body" ng-show="widget.open">
-					{{ content }}
+				<div class="panel-body" ng-show="widget.open" ng-bind-html="content">
 				</div>
 			</div>
 		</div>

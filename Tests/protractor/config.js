@@ -9,6 +9,7 @@ exports.config = {
         'spec/register-spec.js',
         'spec/login-spec.js',
         'spec/speak-spec.js',
+        'spec/eggtimer-spec.js',
         'spec/status-spec.js',
         'spec/logout-spec.js'
     ],

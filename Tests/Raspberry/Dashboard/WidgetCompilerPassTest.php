@@ -1,16 +1,16 @@
 <?php
 
-namespace Tests\Raspberry\DIC\WidgetCompilerPass;
+namespace Tests\Raspberry\Dashboard\WidgetCompilerPass;
 
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Raspberry\DIC\WidgetCompilerPass;
+use Raspberry\Dashboard\WidgetCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * @Covers Raspberry\DIC\WidgetCompilerPass
+ * @Covers Raspberry\Dashboard\WidgetCompilerPass
  */
 class WidgetCompilerPassTest extends PHPUnit_Framework_TestCase
 {

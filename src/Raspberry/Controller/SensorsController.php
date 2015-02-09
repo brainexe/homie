@@ -137,7 +137,7 @@ class SensorsController implements ControllerInterface
             'json' => $json,
             'current_from' => $from,
             'available_sensors' => $sensorObjects,
-            'from_intervals' => [
+            'fromIntervals' => [
                 0 => 'All',
                 3600 => 'Last Hour',
                 86400 => 'Last Day',

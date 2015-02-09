@@ -156,7 +156,7 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
             'json' => $json,
             'current_from' => $from,
             'available_sensors' => $sensors_obj,
-            'from_intervals' => [
+            'fromIntervals' => [
                 0 => 'All',
                 3600 => 'Last Hour',
                 86400 => 'Last Day',
@@ -226,7 +226,7 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
             'json' => $json,
             'current_from' => Chart::DEFAULT_TIME,
             'available_sensors' => $sensors_obj,
-            'from_intervals' => [
+            'fromIntervals' => [
                 0 => 'All',
                 3600 => 'Last Hour',
                 86400 => 'Last Day',
