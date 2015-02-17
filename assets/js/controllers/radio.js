@@ -14,7 +14,11 @@ App.Radios = {
 				self._radios = data;
 			});
 		});
-	}
+	},
+
+    setRadio: function (radioId, status) {
+        return $.post('/radio/status/{0}/{1}/'.format(radioId, status));
+    }
 };
 
 App.ng.controller('RadioController', ['$scope', function ($scope) {
@@ -34,7 +38,7 @@ App.ng.controller('RadioController', ['$scope', function ($scope) {
 	 * @param {Number} status
 	 */
 	$scope.setStatus = function (radio, status) {
-		$.post('/radio/status/{0}/{1}/'.format(radio.radioId, status));
+        return App.Radios.setRadio(radio.radioId, status);
 	};
 
 	/**

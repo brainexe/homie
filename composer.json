@@ -23,9 +23,11 @@
   ],
   "require": {
     "brainexe/core": "dev-master",
+    "brainexe/template": "dev-master",
     "brainexe/assets": "dev-master",
     "brainexe/totp": "dev-master",
-    "brainexe/input-control": "dev-master"
+    "brainexe/input-control": "dev-master",
+    "brainexe/search": "dev-master"
   },
   "require-dev": {
     "phpunit/phpunit": "4.5.*"

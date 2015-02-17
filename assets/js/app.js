@@ -125,7 +125,7 @@ App.Layout = {
 		{url: 'logout', templateUrl: "/templates/mood.html", controller: "LogoutController"},
 		{url: 'user/change_password', templateUrl: "/templates/user/change_password.html", controller: "ChangePasswordController"},
 		{url: 'user/otp', templateUrl: "/templates/user/otp.html", controller: "OtpController"},
-		{url: '', controller: "IndexController"}
+		{url: 'index', templateUrl: "/templates/index.html", controller: "IndexController"}
 	],
 
 	init: function (debug, current_user) {
@@ -174,20 +174,23 @@ App.Layout = {
 				$scope.$apply();
 			};
 
+			$scope.search = function(query) {
+				$
+					.get('/search/', {query: query})
+					.then(function (data) {
+						console.log(data);
+					});
+			};
+
 			$scope.$on('sensor.value', function (event_name, event) {
 				var text = '{0}: {1}'.format(event.sensorVo.name, event.valueFormatted);
 				App.showNotification(text);
 			});
 
-			//$scope.$on('espeak.speak', function (event) {
-			//	App.showNotification(event.espeak.text);
-			//});
-
 			$scope.$on('$routeChangeSuccess', function (event, current) {
-				if (current.$$route.name) {
+				if (current.$$route && current.$$route.name) {
 					App.Layout.changeTitle(current.$$route.name);
 				}
-				//$scope.flash_bag = [];
 			});
 		}]);
 
@@ -196,6 +199,8 @@ App.Layout = {
 				var metadata = App.Layout.controllers[i];
 				$routeProvider.when('/' + metadata.url, metadata);
 			}
+
+            $routeProvider.otherwise({redirectTo: '/index'});
 		}]);
 	},
 
