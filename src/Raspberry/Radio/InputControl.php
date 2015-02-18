@@ -6,9 +6,10 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\InputControl\Event;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use BrainExe\InputControl\Annotations\InputControl as InputControlAnnotation;
 
 /**
- * @InputControl(name="radio")
+ * @InputControlAnnotation(name="radio")
  */
 class InputControl implements EventSubscriberInterface
 {

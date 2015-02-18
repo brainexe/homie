@@ -2,6 +2,8 @@
 
 namespace Raspberry\Sensors;
 
+use BrainExe\Annotations\Annotations\Service;
+
 /**
  * @Service(public=false)
  */

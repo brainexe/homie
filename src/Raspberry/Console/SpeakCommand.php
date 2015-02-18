@@ -2,6 +2,7 @@
 
 namespace Raspberry\Console;
 
+use BrainExe\Core\Annotations\Command as CommandAnnotation;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -11,7 +12,7 @@ use Raspberry\Espeak\EspeakEvent;
 use Raspberry\Espeak\EspeakVO;
 
 /**
- * @Command
+ * @CommandAnnotation
  */
 class SpeakCommand extends Command
 {

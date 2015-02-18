@@ -14,9 +14,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Question\Question;
+use BrainExe\Core\Annotations\Command as CommandAnnotation;
 
 /**
- * @Command
+ * @CommandAnnotation
  */
 class SensorAddCommand extends Command
 {

@@ -7,9 +7,10 @@ use BrainExe\InputControl\Event;
 use Raspberry\Espeak\EspeakEvent;
 use Raspberry\Espeak\EspeakVO;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use BrainExe\InputControl\Annotations\InputControl as InputControlAnnotation;
 
 /**
- * @InputControl(name="sensor")
+ * @InputControlAnnotation(name="sensor")
  */
 class InputControl implements EventSubscriberInterface
 {

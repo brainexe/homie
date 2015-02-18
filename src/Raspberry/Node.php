@@ -2,6 +2,7 @@
 
 namespace Raspberry;
 
+use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Annotations\Annotations\Value;
 
@@ -17,7 +18,7 @@ class Node
     private $nodeId;
 
     /**
-     * @Value("%node.id%")
+     * @Inject("%node.id%")
      * @param $nodeId
      */
     public function __construct($nodeId)

@@ -2,6 +2,8 @@
 
 namespace Raspberry\Sensors\Sensors;
 
+use BrainExe\Annotations\Annotations\Service;
+
 /**
  * @Service(public=false, tags={{"name" = "sensor"}})
  */

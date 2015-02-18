@@ -2,6 +2,7 @@
 
 namespace Raspberry\Arduino;
 
+use BrainExe\Core\Annotations\Command as CommandAnnotation;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -10,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @codeCoverageIgnore
- * @Command("Command.Arduino")
+ * @CommandAnnotation("Command.Arduino")
  */
 class Command extends SymfonyCommand
 {

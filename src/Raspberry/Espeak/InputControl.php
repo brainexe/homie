@@ -3,11 +3,12 @@
 namespace Raspberry\Espeak;
 
 use BrainExe\Core\Traits\EventDispatcherTrait;
+use BrainExe\InputControl\Annotations\InputControl as InputControlAnnotation;
 use BrainExe\InputControl\Event;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * @InputControl(name="espeak")
+ * @InputControlAnnotation(name="espeak")
  */
 class InputControl implements EventSubscriberInterface
 {
