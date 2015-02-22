@@ -25,7 +25,7 @@ class FlowerController implements ControllerInterface
 
     /**
      * @Route("/flower/water/", name="flower.water", methods="POST");
-     * @return array
+     * @return bool
      */
     public function water()
     {

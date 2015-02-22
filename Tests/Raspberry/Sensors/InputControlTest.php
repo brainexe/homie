@@ -41,7 +41,7 @@ class InputControlTest extends TestCase
         $this->assertInternalType('array', $actualResult);
     }
 
-    public function testSay()
+    public function testEspeakSensor()
     {
         $inputEvent = new Event();
         $inputEvent->match = $sensorId = 'sensorID';

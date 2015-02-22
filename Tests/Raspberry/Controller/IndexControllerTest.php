@@ -5,7 +5,6 @@ namespace Tests\Raspberry\Controller\IndexController;
 use BrainExe\Core\Authentication\UserVO;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-
 use Raspberry\Controller\IndexController;
 use Symfony\Component\HttpFoundation\Request;
 use BrainExe\Template\TwigEnvironment;
