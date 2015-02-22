@@ -22,12 +22,12 @@ class SensorWidgetTest extends TestCase
     /**
      * @var SensorGateway|MockObject
      */
-    private $mockSensorGateway;
+    private $gateway;
 
     public function setUp()
     {
-        $this->mockSensorGateway = $this->getMock(SensorGateway::class);
-        $this->subject           = new SensorWidget($this->mockSensorGateway);
+        $this->gateway = $this->getMock(SensorGateway::class);
+        $this->subject = new SensorWidget($this->gateway);
 
     }
 
@@ -59,7 +59,7 @@ class SensorWidgetTest extends TestCase
 
     public function testSerialize()
     {
-        $this->mockSensorGateway
+        $this->gateway
             ->expects($this->once())
             ->method('getSensors')
             ->willReturn([]);
@@ -71,14 +71,21 @@ class SensorWidgetTest extends TestCase
 
     public function testJsonEncode()
     {
-        $this->mockSensorGateway
+        $sensors = [
+            [
+                'name' => 'sensor name',
+                'id' => 12
+            ]
+        ];
+
+        $this->gateway
             ->expects($this->once())
             ->method('getSensors')
-            ->willReturn([]);
+            ->willReturn($sensors);
 
         $actualResult = json_encode($this->subject);
 
-        $expectedResult = '{"name":"Sensor","parameters":{"sensor_id":{"name":"Sensor ID","values":[]}},"widgetId":"sensor"}';
+        $expectedResult = '{"name":"Sensor","parameters":{"sensor_id":{"name":"Sensor ID","values":{"12":"sensor name"}}},"widgetId":"sensor"}';
         $this->assertEquals($expectedResult, $actualResult);
     }
 }

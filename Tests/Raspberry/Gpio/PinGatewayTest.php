@@ -24,21 +24,21 @@ class PinGatewayTest extends PHPUnit_Framework_TestCase
     /**
      * @var RedisInterface|MockObject
      */
-    private $mockRedis;
+    private $redis;
 
     public function setUp()
     {
-        $this->mockRedis = $this->getRedisMock();
+        $this->redis = $this->getRedisMock();
 
         $this->subject = new PinGateway();
-        $this->subject->setRedis($this->mockRedis);
+        $this->subject->setRedis($this->redis);
     }
 
     public function testGetPinDescriptions()
     {
         $descriptions = ['descriptions'];
 
-        $this->mockRedis
+        $this->redis
             ->expects($this->once())
             ->method('hGetAll')
             ->with(PinGateway::REDIS_PINS)
@@ -47,5 +47,17 @@ class PinGatewayTest extends PHPUnit_Framework_TestCase
         $actualResult = $this->subject->getPinDescriptions();
 
         $this->assertEquals($descriptions, $actualResult);
+    }
+    public function testSetDescription()
+    {
+        $pinId       = 100;
+        $description = 'test';
+
+        $this->redis
+            ->expects($this->once())
+            ->method('hset')
+            ->with(PinGateway::REDIS_PINS, $pinId, $description);
+
+        $this->subject->setDescription($pinId, $description);
     }
 }

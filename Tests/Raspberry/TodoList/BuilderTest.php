@@ -51,5 +51,4 @@ class BuilderTest extends TestCase
 
         $this->assertEquals($expectedResult, $actualResult);
     }
-
 }

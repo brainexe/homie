@@ -2,6 +2,7 @@
 
 namespace Tests\Raspberry\Gpio\PinLoader;
 
+use Exception;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Gpio\GpioManager;
@@ -24,13 +25,12 @@ class PinLoaderTest extends PHPUnit_Framework_TestCase
     /**
      * @var LocalClient|MockObject
      */
-    private $mockLocalClient;
+    private $client;
 
     public function setUp()
     {
-        $this->mockLocalClient = $this->getMock(LocalClient::class, [], [], '', false);
-
-        $this->subject = new PinLoader($this->mockLocalClient);
+        $this->client  = $this->getMock(LocalClient::class, [], [], '', false);
+        $this->subject = new PinLoader($this->client);
     }
 
     public function testGetPins()
@@ -46,7 +46,7 @@ class PinLoaderTest extends PHPUnit_Framework_TestCase
 |      $pinId   |  17  |  11  | $name | $direction   | $value   |
 +----------+------+------+--------+------+-------+\n";
 
-        $this->mockLocalClient
+        $this->client
             ->expects($this->once())
             ->method('executeWithReturn')
             ->with(GpioManager::GPIO_COMMAND_READALL)
@@ -71,5 +71,18 @@ class PinLoaderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expectedCollection, $actualResult);
 
         $this->assertEquals($expectedPin, $this->subject->loadPin($pinId));
+    }
+
+    public function testGetPinsFallback()
+    {
+        $this->client
+            ->expects($this->once())
+            ->method('executeWithReturn')
+            ->with(GpioManager::GPIO_COMMAND_READALL)
+            ->willThrowException(new Exception());
+
+        $actualResult = $this->subject->loadPins();
+
+        $this->assertCount(21, $actualResult->getAll());
     }
 }

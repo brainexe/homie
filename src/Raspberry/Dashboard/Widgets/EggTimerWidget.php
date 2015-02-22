@@ -11,7 +11,7 @@ use Raspberry\Sensors\SensorGateway;
 /**
  * @Service(public=false, tags={{"name" = "widget"}})
  */
-class WggTimerWidget extends AbstractWidget
+class EggTimerWidget extends AbstractWidget
 {
 
     const TYPE = 'egg_timer';

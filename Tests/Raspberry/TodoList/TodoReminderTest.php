@@ -32,7 +32,7 @@ class TodoReminderTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->todoList = $this->getMock(TodoList::class, [], [], '', false);
+        $this->todoList        = $this->getMock(TodoList::class, [], [], '', false);
         $this->eventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
         $this->subject = new TodoReminder($this->todoList);
@@ -67,6 +67,8 @@ class TodoReminderTest extends PHPUnit_Framework_TestCase
 
         $todoProgress = $todos[] = new TodoItemVO();
         $todoProgress->status = TodoItemVO::STATUS_PROGRESS;
+        $todoProgress2 = $todos[] = new TodoItemVO();
+        $todoProgress2->status = TodoItemVO::STATUS_PROGRESS;
 
         $todoUnknown = $todos[] = new TodoItemVO();
         $todoUnknown->status = 'unknown';
@@ -84,4 +86,5 @@ class TodoReminderTest extends PHPUnit_Framework_TestCase
 
         $this->subject->sendNotification();
     }
+
 }

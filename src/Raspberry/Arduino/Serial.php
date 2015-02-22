@@ -7,6 +7,7 @@ use BrainExe\Annotations\Annotations\Service;
 use RuntimeException;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
+use Symfony\Component\Process\ProcessBuilder;
 
 /**
  * @Service("Arduino.Serial", public=false)
@@ -35,16 +36,27 @@ class Serial
     private $finder;
 
     /**
-     * @Inject({"@Finder", "%serial.port%", "%serial.baud%"})
+     * @var ProcessBuilder
+     */
+    private $processBuilder;
+
+    /**
+     * @Inject({"@Finder", "@ProcessBuilder", "%serial.port%", "%serial.baud%"})
      * @param Finder $finder
+     * @param ProcessBuilder $processBuilder
      * @param string $serialPort
      * @param int $serialBaud
      */
-    public function __construct(Finder $finder, $serialPort, $serialBaud)
-    {
-        $this->serialBaud = $serialBaud;
-        $this->serialPort = $serialPort;
-        $this->finder     = $finder;
+    public function __construct(
+        Finder $finder,
+        ProcessBuilder $processBuilder,
+        $serialPort,
+        $serialBaud
+    ) {
+        $this->serialBaud     = $serialBaud;
+        $this->processBuilder = $processBuilder;
+        $this->serialPort     = $serialPort;
+        $this->finder         = $finder;
     }
 
     /**
@@ -77,13 +89,14 @@ class Serial
         /** @var SplFileInfo $file */
         $file =  $iterator->current();
 
-        if ($file === null) {
+        if (!$file instanceof SplFileInfo) {
             throw new RuntimeException(
-                sprintf("no file found matching %s", $this->serialPort)
+                sprintf("No file found matching %s", $this->serialPort)
             );
         }
 
         $filename = $file->getPathname();
+
         exec(sprintf('sudo stty -F %s %d', $filename, $this->serialBaud));
 
         $this->fileHandle = fopen($filename, 'w+');

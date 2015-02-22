@@ -14,14 +14,6 @@ class TimeWidget extends AbstractWidget
     const TYPE = 'time';
 
     /**
-     * @return string
-     */
-    public function getId()
-    {
-        return self::TYPE;
-    }
-
-    /**
      * @return WidgetMetadataVo
      */
     public function getMetadata()

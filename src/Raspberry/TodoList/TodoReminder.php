@@ -110,8 +110,6 @@ class TodoReminder
     private function getNumber($count)
     {
         switch ($count) {
-            case 0:
-                return _('keine');
             case 1:
                 return _('eine');
             default:
