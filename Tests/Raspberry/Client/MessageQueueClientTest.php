@@ -2,7 +2,6 @@
 
 namespace Tests\Raspberry\Client\MessageQueueClient;
 
-
 use BrainExe\Core\Redis\RedisInterface;
 use BrainExe\Tests\RedisMockTrait;
 use PHPUnit_Framework_TestCase;

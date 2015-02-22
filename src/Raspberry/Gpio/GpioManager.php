@@ -86,6 +86,15 @@ class GpioManager
     }
 
     /**
+     * @param int $pinId
+     * @param string $description
+     */
+    public function setDescription($pinId, $description)
+    {
+        $this->gateway->setDescription($pinId, $description);
+    }
+
+    /**
      * @param Pin $pin Pin
      */
     private function updatePin(Pin $pin)

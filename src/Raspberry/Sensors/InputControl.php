@@ -30,7 +30,7 @@ class InputControl implements EventSubscriberInterface
     /**
      * @param Event $event
      */
-    public function say(Event $event)
+    public function espeakSensor(Event $event)
     {
         $sensorId = $event->match;
 

@@ -30,16 +30,16 @@ class PinsCollectionTest extends PHPUnit_Framework_TestCase
         $pin->setID($pinId);
         $pin->setName($pinName);
 
-        $pin_collection = new PinsCollection();
-        $pin_collection->add($pin);
+        $collection = new PinsCollection();
+        $collection->add($pin);
 
-        $actualResult = $pin_collection->get($pinId);
-        $json_result = $pin->jsonSerialize();
+        $actualResult = $collection->get($pinId);
+        $jsonResult = $pin->jsonSerialize();
 
         $this->assertEquals($pin, $actualResult);
-        $this->assertInternalType('array', $json_result);
-        $this->assertEquals($pinId, $json_result['id']);
+        $this->assertInternalType('array', $jsonResult);
+        $this->assertEquals($pinId, $jsonResult['id']);
         $this->assertEquals($pinName, $actualResult->getName());
-        $this->assertEquals($pinName, $json_result['name']);
+        $this->assertEquals($pinName, $jsonResult['name']);
     }
 }

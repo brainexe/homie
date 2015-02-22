@@ -59,7 +59,7 @@ class PinLoader
         try {
             $results = $this->client->executeWithReturn(GpioManager::GPIO_COMMAND_READALL);
         } catch (Exception $e) {
-            throw new UserException(_('No GPIO pins found. You have to install "readall".'));
+            $results = file_get_contents(__DIR__ . '/gpio.txt');
         }
 
         $results = explode("\n", $results);

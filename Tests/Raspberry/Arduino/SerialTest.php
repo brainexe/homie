@@ -42,5 +42,4 @@ class SerialTest extends TestCase
 
         $this->subject->sendSerial($event);
     }
-
 }

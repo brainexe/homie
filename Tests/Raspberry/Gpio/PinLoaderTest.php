@@ -35,12 +35,12 @@ class PinLoaderTest extends PHPUnit_Framework_TestCase
 
     public function testGetPins()
     {
-        $pinId = 12;
-        $name = 'name';
+        $pinId     = 12;
+        $name      = 'name';
         $direction = 'IN';
-        $value = 'Low';
+        $value     = 'Low';
 
-        $gpio_result = "+----------+-Rev2-+------+--------+------+-------+
+        $gpioResult = "+----------+-Rev2-+------+--------+------+-------+
 | wiringPi | GPIO | Phys | Name   | Mode | Value |
 +----------+------+------+--------+------+-------+
 |      $pinId   |  17  |  11  | $name | $direction   | $value   |
@@ -50,26 +50,26 @@ class PinLoaderTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('executeWithReturn')
             ->with(GpioManager::GPIO_COMMAND_READALL)
-            ->willReturn($gpio_result);
+            ->willReturn($gpioResult);
 
         $actualResult = $this->subject->loadPins();
 
-        $expected_pin = new Pin();
-        $expected_pin->setID($pinId);
-        $expected_pin->setName($name);
-        $expected_pin->setDirection($direction);
-        $expected_pin->setValue(0);
+        $expectedPin = new Pin();
+        $expectedPin->setID($pinId);
+        $expectedPin->setName($name);
+        $expectedPin->setDirection($direction);
+        $expectedPin->setValue(0);
 
-        $expected_pin_collection = new PinsCollection();
-        $expected_pin_collection->add($expected_pin);
+        $expectedCollection = new PinsCollection();
+        $expectedCollection->add($expectedPin);
 
-        $this->assertEquals($expected_pin_collection, $actualResult);
-        $this->assertEquals($direction, $expected_pin->getDirection());
-        $this->assertEquals(0, $expected_pin->isHighValue());
+        $this->assertEquals($expectedCollection, $actualResult);
+        $this->assertEquals($direction, $expectedPin->getDirection());
+        $this->assertEquals(0, $expectedPin->isHighValue());
 
         $actualResult = $this->subject->loadPins();
-        $this->assertEquals($expected_pin_collection, $actualResult);
+        $this->assertEquals($expectedCollection, $actualResult);
 
-        $this->assertEquals($expected_pin, $this->subject->loadPin($pinId));
+        $this->assertEquals($expectedPin, $this->subject->loadPin($pinId));
     }
 }

@@ -4,10 +4,6 @@
  *   License: Open source - MIT
  *           Please visit http://opensource.org/licenses/MIT for more information
 !*/
-/*
-    Core: General style
-----------------------------
-*/
 html,
 body {
   -webkit-font-smoothing: antialiased;
@@ -106,7 +102,7 @@ body.fixed .wrapper {
 }
 /* Content */
 .content {
-  padding: 15px 15px;
+  padding-left: 10px;
   background: #f9f9f9;
 }
 /* Utility */
@@ -399,7 +395,7 @@ body > .header .logo .icon {
 }
 .right-side > .content-header {
   position: relative;
-  padding: 10px 10px 10px 10px;
+  padding-left: 10px;
 }
 .right-side > .content-header > h1 {
   margin: 0;
@@ -448,6 +444,9 @@ body > .header .logo .icon {
   }
 }
 @media (max-width: 767px) {
+  .logo {
+    display: none !important;
+  }
   .navbar .navbar-nav > li {
     float: left;
   }

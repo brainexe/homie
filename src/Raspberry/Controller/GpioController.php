@@ -60,4 +60,19 @@ class GpioController implements ControllerInterface
 
         return $pin;
     }
+
+    /**
+     * @param Request $request
+     * @Route("/gpio/description/", name="gpio.set", methods="POST")
+     * @return bool
+     */
+    public function setDescription(Request $request)
+    {
+        $pinId       = $request->request->get('pinId');
+        $description = $request->request->get('description');
+
+        $this->manager->setDescription($pinId, $description);
+
+        return true;
+    }
 }

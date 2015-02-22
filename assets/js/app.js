@@ -105,9 +105,9 @@ App.Layout = {
 	controllers: [
 		// menu
 		{controller:'DashboardController', name: 'Dashboard', url: 'dashboard', icon:'th-large', templateUrl: asset('/templates/dashboard.html')},
+        {controller:'RadioController', name: 'Home Control', url: 'radio', icon:'home', templateUrl: asset('/templates/radio.html')},
 		{controller:'SensorController', name: 'Sensors', url: 'sensor', icon:'stats', templateUrl: asset('/templates/sensor.html')},
 		{controller:'GpioController', name: 'GPIO', url: 'gpio', icon:'flash', templateUrl: asset('/templates/gpio.html')},
-		{controller:'RadioController', name: 'Home Control', url: 'radio', icon:'home', templateUrl: asset('/templates/radio.html')},
 		{controller:'EspeakController', name: 'Speak', url: 'speak', icon:'bullhorn', templateUrl: asset('/templates/espeak.html')},
 		{controller:'FlowerController', name: 'Flowers', url: 'flower', icon:'leaf', templateUrl: asset('/templates/flower.html')},
 		{controller:'BlogController', name: 'Blog', url: 'blog', icon:'paperclip', templateUrl: asset('/templates/blog.html')},

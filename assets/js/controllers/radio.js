@@ -25,6 +25,7 @@ App.ng.controller('RadioController', ['$scope', function ($scope) {
 	$scope.radios     = {};
 	$scope.radio_jobs = {};
 	$scope.pins       = {};
+	$scope.editMode   = false;
 
 	$.get('/radio/', function(data) {
 		$scope.radios = data.radios;

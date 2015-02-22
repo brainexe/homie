@@ -59,35 +59,35 @@ class WebcamTest extends PHPUnit_Framework_TestCase
     {
         $directory = ROOT . Webcam::ROOT;
 
-        $file_path = 'file path';
-        $relative_file_path = 'relative path name';
-        $file_c_time = 10;
-        $file_base_name = 'relative.ext';
+        $filePath = 'file path';
+        $relativeFilePath = 'relative path name';
+        $fileCTime = 10;
+        $fileBaseName = 'relative.ext';
 
         $file = $this->getMock(SplFileInfo::class, [], [], '', false);
 
         $file->expects($this->once())
             ->method('getPath')
-            ->willReturn($file_path);
+            ->willReturn($filePath);
 
         $file->expects($this->once())
             ->method('getRelativePathname')
-            ->willReturn($relative_file_path);
+            ->willReturn($relativeFilePath);
 
         $file->expects($this->once())
             ->method('getCTime')
-            ->willReturn($file_c_time);
+            ->willReturn($fileCTime);
 
         $file->expects($this->once())
             ->method('getBasename')
-            ->willReturn($file_base_name);
+            ->willReturn($fileBaseName);
 
-        $expected_webcam_vo = new WebcamVO();
-        $expected_webcam_vo->filePath = $file_path;
-        $expected_webcam_vo->webcamId = $file_base_name;
-        $expected_webcam_vo->name = $relative_file_path;
-        $expected_webcam_vo->webPath = 'static/webcam/relative path name';
-        $expected_webcam_vo->timestamp = $file_c_time;
+        $expectedWebcam = new WebcamVO();
+        $expectedWebcam->filePath = $filePath;
+        $expectedWebcam->webcamId = $fileBaseName;
+        $expectedWebcam->name = $relativeFilePath;
+        $expectedWebcam->webPath = 'static/webcam/relative path name';
+        $expectedWebcam->timestamp = $fileCTime;
 
         $this->mockFilesystem
             ->expects($this->once())
@@ -129,8 +129,8 @@ class WebcamTest extends PHPUnit_Framework_TestCase
 
         $actualResult = $this->subject->getPhotos();
 
-        $this->assertEquals([$expected_webcam_vo], $actualResult);
-        $this->assertEquals($relative_file_path, $expected_webcam_vo->getWebcamId());
+        $this->assertEquals([$expectedWebcam], $actualResult);
+        $this->assertEquals($relativeFilePath, $expectedWebcam->getWebcamId());
     }
 
     public function testTakePhoto()
@@ -157,7 +157,6 @@ class WebcamTest extends PHPUnit_Framework_TestCase
             ->method('getProcess')
             ->willReturn($process);
 
-
         $process->expects($this->once())
             ->method('run');
 
@@ -173,21 +172,21 @@ class WebcamTest extends PHPUnit_Framework_TestCase
 
     public function testDelete()
     {
-        $id = 'id';
+        $webcamId = 'id';
 
         $this->mockFilesystem
             ->expects($this->once())
             ->method('remove')
             ->with(ROOT . Webcam::ROOT . 'id.jpg');
 
-        $this->subject->delete($id);
+        $this->subject->delete($webcamId);
     }
 
     public function testGetFilename()
     {
-        $id = '5';
+        $webcamId = '5';
 
-        $actualResult = $this->subject->getFilename($id);
-        $this->assertEquals(ROOT . Webcam::ROOT . $id  . '.' . Webcam::EXTENSION, $actualResult);
+        $actualResult = $this->subject->getFilename($webcamId);
+        $this->assertEquals(ROOT . Webcam::ROOT . $webcamId  . '.' . Webcam::EXTENSION, $actualResult);
     }
 }

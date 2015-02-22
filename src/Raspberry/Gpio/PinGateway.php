@@ -23,4 +23,13 @@ class PinGateway
 
         return $redis->hGetAll(self::REDIS_PINS);
     }
+
+    /**
+     * @param int $pinId
+     * @param $description
+     */
+    public function setDescription($pinId, $description)
+    {
+        $this->getRedis()->hset(self::REDIS_PINS, $pinId, $description);
+    }
 }

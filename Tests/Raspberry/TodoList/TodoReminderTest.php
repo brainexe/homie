@@ -23,20 +23,20 @@ class TodoReminderTest extends PHPUnit_Framework_TestCase
     /**
      * @var TodoList|MockObject
      */
-    private $mockTodoList;
+    private $todoList;
 
     /**
      * @var EventDispatcher|MockObject
      */
-    private $mockEventDispatcher;
+    private $eventDispatcher;
 
     public function setUp()
     {
-        $this->mockTodoList = $this->getMock(TodoList::class, [], [], '', false);
-        $this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->todoList = $this->getMock(TodoList::class, [], [], '', false);
+        $this->eventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-        $this->subject = new TodoReminder($this->mockTodoList);
-        $this->subject->setEventDispatcher($this->mockEventDispatcher);
+        $this->subject = new TodoReminder($this->todoList);
+        $this->subject->setEventDispatcher($this->eventDispatcher);
     }
 
     public function testSendNotificationShouldDoNothingWhenClosed()
@@ -46,12 +46,12 @@ class TodoReminderTest extends PHPUnit_Framework_TestCase
         $todo = $todos[] = new TodoItemVO();
         $todo->status = TodoItemVO::STATUS_COMPLETED;
 
-        $this->mockTodoList
+        $this->todoList
             ->expects($this->once())
             ->method('getList')
             ->willReturn($todos);
 
-        $this->mockEventDispatcher
+        $this->eventDispatcher
             ->expects($this->never())
             ->method('dispatchInBackground');
 
@@ -62,24 +62,25 @@ class TodoReminderTest extends PHPUnit_Framework_TestCase
     {
         $todos = [];
 
-        $todo_pending = $todos[] = new TodoItemVO();
-        $todo_pending->status = TodoItemVO::STATUS_PENDING;
+        $todoPending = $todos[] = new TodoItemVO();
+        $todoPending->status = TodoItemVO::STATUS_PENDING;
 
-        $todo_progress = $todos[] = new TodoItemVO();
-        $todo_progress->status = TodoItemVO::STATUS_PROGRESS;
+        $todoProgress = $todos[] = new TodoItemVO();
+        $todoProgress->status = TodoItemVO::STATUS_PROGRESS;
 
-        $todo_unknown = $todos[] = new TodoItemVO();
-        $todo_unknown->status = 'unknown';
+        $todoUnknown = $todos[] = new TodoItemVO();
+        $todoUnknown->status = 'unknown';
 
-        $this->mockTodoList
+        $this->todoList
             ->expects($this->once())
             ->method('getList')
             ->willReturn($todos);
 
-        $this->mockEventDispatcher
+        $this->eventDispatcher
             ->expects($this->once())
             ->method('dispatchInBackground');
-      //TODO check for exact event
+
+        //TODO check for exact event
 
         $this->subject->sendNotification();
     }

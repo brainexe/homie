@@ -99,19 +99,18 @@ class SensorCronCommandTest extends PHPUnit_Framework_TestCase
 
         $now = 1000;
         $sensors = [
-        $sensor_raw = [
-        ]
+            $sensorRaw = []
         ];
 
         $sensor = new SensorVO();
         $sensor->sensorId = 10;
         $sensor->type = $type = 'type';
         $sensor->pin = $pin = 12;
-        $sensor->name = $name = 'name';
+        $sensor->name = 'name';
 
-        $current_sensor_value = null;
+        $currentSensorValue = null;
 
-        $sensor_object = $this->getMockForAbstractClass(SensorInterface::class);
+        $sensorObject = $this->getMockForAbstractClass(SensorInterface::class);
         $this->mockTime
             ->expects($this->once())
             ->method('now')
@@ -126,47 +125,47 @@ class SensorCronCommandTest extends PHPUnit_Framework_TestCase
         $this->mockSensorVOBuilder
             ->expects($this->once())
             ->method('buildFromArray')
-            ->with($sensor_raw)
+            ->with($sensorRaw)
             ->willReturn($sensor);
 
         $this->mockSensorBuilder
             ->expects($this->once())
             ->method('build')
             ->with($type)
-            ->willReturn($sensor_object);
+            ->willReturn($sensorObject);
 
-        $sensor_object
+        $sensorObject
             ->expects($this->once())
             ->method('getValue')
             ->with($pin)
-            ->willReturn($current_sensor_value);
+            ->willReturn($currentSensorValue);
 
         $input = ['--force'];
-        $command_tester = new CommandTester($this->subject);
-        $command_tester->execute($input);
+        $commandTester = new CommandTester($this->subject);
+        $commandTester->execute($input);
 
-        $output = $command_tester->getDisplay();
+        $output = $commandTester->getDisplay();
         $this->assertEquals("Invalid sensor value: #10 type (name)\n", $output);
     }
+
     public function testExecute()
     {
         $now = 1000;
         $sensors = [
-        $sensor_raw = [
-        ]
+            $sensorRaw = []
         ];
 
         $sensor = new SensorVO();
         $sensor->sensorId = 10;
         $sensor->type = $type = 'type';
         $sensor->pin = $pin = 12;
-        $sensor->name = $name = 'name';
+        $sensor->name = 'name';
 
-        $current_sensor_value = 1000;
-        $formatted_sensor_value = "1000 grad";
+        $currentSensorValue = 1000;
+        $formattedSensorValue = "1000 grad";
 
-        /** @var SensorInterface|MockObject $sensor_object */
-        $sensor_object = $this->getMockForAbstractClass(SensorInterface::class);
+        /** @var SensorInterface|MockObject $sensorObject */
+        $sensorObject = $this->getMockForAbstractClass(SensorInterface::class);
         $this->mockTime
             ->expects($this->once())
             ->method('now')
@@ -181,32 +180,32 @@ class SensorCronCommandTest extends PHPUnit_Framework_TestCase
         $this->mockSensorVOBuilder
             ->expects($this->once())
             ->method('buildFromArray')
-            ->with($sensor_raw)
+            ->with($sensorRaw)
             ->willReturn($sensor);
 
         $this->mockSensorBuilder
             ->expects($this->once())
             ->method('build')
             ->with($type)
-            ->willReturn($sensor_object);
+            ->willReturn($sensorObject);
 
-        $sensor_object
+        $sensorObject
             ->expects($this->once())
             ->method('getValue')
             ->with($pin)
-            ->willReturn($current_sensor_value);
+            ->willReturn($currentSensorValue);
 
-        $sensor_object
+        $sensorObject
             ->expects($this->once())
             ->method('formatValue')
-            ->with($current_sensor_value)
-            ->willReturn($formatted_sensor_value);
+            ->with($currentSensorValue)
+            ->willReturn($formattedSensorValue);
 
         $event = new SensorValueEvent(
             $sensor,
-            $sensor_object,
-            $current_sensor_value,
-            $formatted_sensor_value,
+            $sensorObject,
+            $currentSensorValue,
+            $formattedSensorValue,
             $now
         );
 
@@ -218,10 +217,10 @@ class SensorCronCommandTest extends PHPUnit_Framework_TestCase
         $application = new Application();
         $application->add($this->subject);
         $input = ['--force'];
-        $command_tester = new CommandTester($this->subject);
-        $command_tester->execute($input);
+        $commandTester = new CommandTester($this->subject);
+        $commandTester->execute($input);
 
-        $output = $command_tester->getDisplay();
+        $output = $commandTester->getDisplay();
         $this->assertEquals("Sensor value: #10 type (name): 1000 grad\n", $output);
     }
 }

@@ -31,18 +31,18 @@ class RadiosTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerPins
-     * @param string $input_pin
-     * @param string $expected_pin
+     * @param string $inputPin
+     * @param string $expectedPin
      * @throws UserException
      */
-    public function testGetRadioPin($input_pin, $expected_pin)
+    public function testGetRadioPin($inputPin, $expectedPin)
     {
-        if (false === $expected_pin) {
+        if (false === $expectedPin) {
             $this->setExpectedException(UserException::class);
         }
-        $actual_pin = $this->subject->getRadioPin($input_pin);
+        $actualPin = $this->subject->getRadioPin($inputPin);
 
-        $this->assertEquals($expected_pin, $actual_pin);
+        $this->assertEquals($expectedPin, $actualPin);
     }
 
     public function testGetRadios()

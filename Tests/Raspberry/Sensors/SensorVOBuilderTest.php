@@ -25,30 +25,30 @@ class SensorVOBuilderTest extends PHPUnit_Framework_TestCase
     public function testBuildSensorVOFromArray()
     {
         $array = [
-            'id' => $id = 'id',
+            'id' => $sensorId = 'id',
             'name' => $name = 'name',
             'description' => $description = 'description',
             'interval' => $interval = 'interval',
             'node' => $node = 'node',
             'pin' => $pin = 'pin',
             'type' => $type = 'type',
-            'last_value' => $last_value = 'last_value',
-            'last_value_timestamp' => $last_value_timestamp = 'last_value_timestamp'
+            'last_value' => $lastValue = 'last_value',
+            'last_value_timestamp' => $lastValueTimestamp = 'last_value_timestamp'
         ];
 
         $actualResult = $this->subject->buildFromArray($array);
 
         $expectedResult = new SensorVO();
 
-        $expectedResult->sensorId = $id;
+        $expectedResult->sensorId = $sensorId;
         $expectedResult->name = $name;
         $expectedResult->description = $description;
         $expectedResult->interval = $interval;
         $expectedResult->node = $node;
         $expectedResult->pin = $pin;
         $expectedResult->type = $type;
-        $expectedResult->lastValue = $last_value;
-        $expectedResult->lastValueTimestamp = $last_value_timestamp;
+        $expectedResult->lastValue = $lastValue;
+        $expectedResult->lastValueTimestamp = $lastValueTimestamp;
 
         $this->assertEquals($expectedResult, $actualResult);
     }

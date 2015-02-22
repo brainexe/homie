@@ -63,9 +63,9 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('HMSET')
             ->with(SensorGateway::REDIS_SENSOR_PREFIX . $sensorId, [
-            'last_value' => $value,
-            'last_value_timestamp' => $now
-        ]);
+                'last_value' => $value,
+                'last_value_timestamp' => $now
+            ]);
 
         $this->mockRedis
             ->expects($this->once())
@@ -115,23 +115,23 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
         $sensorId = 10;
         $days = 1;
         $now = 86410;
-        $deleted_percent = 80;
+        $deletedPercent = 80;
 
         $this->mockTime
             ->expects($this->once())
             ->method('now')
             ->willReturn($now);
 
-        $old_values = [
-        "701-100",
-        "702-101",
+        $oldValues = [
+            "701-100",
+            "702-101",
         ];
 
         $this->mockRedis
             ->expects($this->at(0))
             ->method('ZRANGEBYSCORE')
             ->with("sensor_values:$sensorId", 0, 10)
-            ->willReturn($old_values);
+            ->willReturn($oldValues);
 
         $this->mockRedis
             ->expects($this->at(1))
@@ -143,7 +143,7 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
             ->method('ZREM')
             ->with("sensor_values:$sensorId", "702-101");
 
-        $actualResult = $this->subject->deleteOldValues($sensorId, $days, $deleted_percent);
+        $actualResult = $this->subject->deleteOldValues($sensorId, $days, $deletedPercent);
 
         $this->assertEquals(2, $actualResult);
 

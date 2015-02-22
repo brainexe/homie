@@ -22,14 +22,14 @@ class SensorBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testGetSensors()
     {
-        /** @var SensorInterface|MockObject $sensor_mock */
-        $sensor_mock = $this->getMock(SensorInterface::class);
-        $sensor_type = 'sensor_123';
+        /** @var SensorInterface|MockObject $sensorMock */
+        $sensorMock = $this->getMock(SensorInterface::class);
+        $sensorType = 'sensor_123';
 
-        $this->subject->addSensor($sensor_type, $sensor_mock);
+        $this->subject->addSensor($sensorType, $sensorMock);
         $actualResult = $this->subject->getSensors();
 
-        $this->assertEquals([$sensor_type => $sensor_mock], $actualResult);
+        $this->assertEquals([$sensorType => $sensorMock], $actualResult);
     }
 
     /**
@@ -38,21 +38,21 @@ class SensorBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testBuildInvalid()
     {
-        $sensor_type = 'sensor_123';
+        $sensorType = 'sensor_123';
 
-        $this->subject->build($sensor_type);
+        $this->subject->build($sensorType);
     }
 
     public function testBuildValid()
     {
-        /** @var SensorInterface|MockObject $sensor_mock */
-        $sensor_mock = $this->getMock('Raspberry\Sensors\Sensors\SensorInterface');
-        $sensor_type = 'sensor_123';
+        /** @var SensorInterface|MockObject $sensorMock */
+        $sensorMock = $this->getMock(SensorInterface::class);
+        $sensorType = 'sensor_123';
 
-        $this->subject->addSensor($sensor_type, $sensor_mock);
+        $this->subject->addSensor($sensorType, $sensorMock);
 
-        $actualResult = $this->subject->build($sensor_type);
+        $actualResult = $this->subject->build($sensorType);
 
-        $this->assertEquals($sensor_mock, $actualResult);
+        $this->assertEquals($sensorMock, $actualResult);
     }
 }

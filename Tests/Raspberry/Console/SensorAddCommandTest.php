@@ -32,21 +32,21 @@ class SensorAddCommandTest extends PHPUnit_Framework_TestCase
     /**
      * @var SensorGateway|MockObject
      */
-    private $mockSensorGateway;
+    private $sensorGateway;
 
     /**
      * @var SensorBuilder|MockObject
      */
-    private $mockSensorBuilder;
+    private $sensorBuilder;
 
     public function setUp()
     {
-        $this->mockSensorGateway = $this->getMock(SensorGateway::class, [], [], '', false);
-        $this->mockSensorBuilder = $this->getMock(SensorBuilder::class, [], [], '', false);
+        $this->sensorGateway = $this->getMock(SensorGateway::class, [], [], '', false);
+        $this->sensorBuilder = $this->getMock(SensorBuilder::class, [], [], '', false);
 
         $this->subject = new SensorAddCommand(
-            $this->mockSensorGateway,
-            $this->mockSensorBuilder
+            $this->sensorGateway,
+            $this->sensorBuilder
         );
     }
 
@@ -70,7 +70,7 @@ class SensorAddCommandTest extends PHPUnit_Framework_TestCase
         $output = $this->isInstanceOf(OutputInterface::class);
         $input  = $this->isInstanceOf(InputInterface::class);
 
-        $this->mockSensorBuilder
+        $this->sensorBuilder
             ->expects($this->once())
             ->method('getSensors')
             ->willReturn($sensors);
@@ -128,11 +128,11 @@ class SensorAddCommandTest extends PHPUnit_Framework_TestCase
         $sensor2 = $this->getMock(SensorInterface::class);
 
         $sensors = [
-                'type_1' => $sensor1,
+            'type_1' => $sensor1,
             $sensorType2 = 'type_2' => $sensor2,
         ];
 
-        $this->mockSensorBuilder
+        $this->sensorBuilder
             ->expects($this->once())
             ->method('getSensors')
             ->willReturn($sensors);
@@ -153,7 +153,7 @@ class SensorAddCommandTest extends PHPUnit_Framework_TestCase
         $interval    = 12;
         $node        = 2;
         $value       = 122;
-        $formatted_value = "122 Grad";
+        $formattedValue = "122 Grad";
 
         $helperSet
             ->expects($this->once())
@@ -226,7 +226,7 @@ class SensorAddCommandTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('formatValue')
             ->with($value)
-            ->willReturn($formatted_value);
+            ->willReturn($formattedValue);
 
         $expectedVo              = new SensorVO();
         $expectedVo->name        = $name;
@@ -236,7 +236,7 @@ class SensorAddCommandTest extends PHPUnit_Framework_TestCase
         $expectedVo->interval    = $interval;
         $expectedVo->node        = $node;
 
-        $this->mockSensorGateway
+        $this->sensorGateway
             ->expects($this->once())
             ->method('addSensor')
             ->with($expectedVo);
@@ -262,7 +262,7 @@ class SensorAddCommandTest extends PHPUnit_Framework_TestCase
             $sensorType2 = 'type_2' => $sensor2,
         ];
 
-        $this->mockSensorBuilder
+        $this->sensorBuilder
             ->expects($this->once())
             ->method('getSensors')
             ->willReturn($sensors);
@@ -349,7 +349,7 @@ class SensorAddCommandTest extends PHPUnit_Framework_TestCase
         $expectedVo->interval    = $interval;
         $expectedVo->node        = $node;
 
-        $this->mockSensorGateway
+        $this->sensorGateway
             ->expects($this->once())
             ->method('addSensor')
             ->with($expectedVo);

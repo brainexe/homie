@@ -2,7 +2,7 @@
 <table ng-if="gpios|notEmpty" class="table table-bordered table-striped table-hover">
 	<thead>
 		<tr>
-			<th>#</th>
+			<th width="30">#</th>
 			<th>Name</th>
 			<th>Value</th>
 			<th>Direction</th>
@@ -10,20 +10,28 @@
 	</thead>
 	<tbody ng-repeat="pin in gpios">
 		<tr>
-			<td>{{ pin.id }}</td>
+			<td>#{{ pin.id }}</td>
 			<td>
 				{{ pin.name }} <span ng-if="pin.description">({{ pin.description }})</span>
-			</td>
+
+                <span ng-if="editMode" class="glyphicon glyphicon-pencil" ng-click="pin.edit=true"></span>
+                <div ng-if="pin.edit">
+                    <input type="text" ng-model="pin.description"/>
+                    <span class="glyphicon glyphicon-save" ng-click="saveDescription(pin)"></span>
+                </div>
+            </td>
 			<td>
-				<a ng-click="changeValue($index)" class="btn btn-{{ pin.value ? 'success' : 'danger'}}">
+				<a ng-click="changeValue(pin)" class="btn btn-{{ pin.value ? 'success' : 'danger'}}">
 					{{ pin.value ? 'OFF' : 'ON' }}
 				</a>
 			</td>
 			<td>
-				<a ng-click="changeDirection($index)" class="btn btn-{{ pin.direction ? 'success' : 'info'}}">
+				<a ng-click="changeDirection(pin)" class="btn btn-{{ pin.direction ? 'success' : 'info'}}">
 					{{ pin.direction ? "OUT" : "IN"}}
 				</a>
 			</td>
 		</tr>
 	</tbody>
 </table>
+<button class="btn btn-primary" ng-click="editMode = !editMode">Edit Mode</button>
+

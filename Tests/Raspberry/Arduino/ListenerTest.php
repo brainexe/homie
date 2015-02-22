@@ -22,12 +22,12 @@ class ListenerTest extends TestCase
     /**
      * @var Serial|MockObject
      */
-    private $mockSerial;
+    private $serial;
 
     public function setUp()
     {
-        $this->mockSerial = $this->getMock(Serial::class, [], [], '', false);
-        $this->subject    = new Listener($this->mockSerial);
+        $this->serial = $this->getMock(Serial::class, [], [], '', false);
+        $this->subject    = new Listener($this->serial);
     }
 
     public function testGetSubscribedEvents()
@@ -44,12 +44,11 @@ class ListenerTest extends TestCase
 
         $event = new SerialEvent($action, $pin, $value);
 
-        $this->mockSerial
+        $this->serial
             ->expects($this->once())
             ->method('sendSerial')
             ->with($event);
 
         $this->subject->handleEvent($event);
     }
-
 }

@@ -24,7 +24,7 @@ class Dashboard
     /**
      * @Inject({"@DashboardGateway", "@WidgetFactory"})
      * @param DashboardGateway $dashboardGateway
-     * @param WidgetFactory $widgetFactory
+     * @param WidgetFactory    $widgetFactory
      */
     public function __construct(DashboardGateway $dashboardGateway, WidgetFactory $widgetFactory)
     {

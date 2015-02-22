@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Raspberry\Espeak;
+namespace Tests\Raspberry\Sensors;
 
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\InputControl\Event;
@@ -8,10 +8,10 @@ use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Raspberry\Espeak\EspeakEvent;
 use Raspberry\Espeak\EspeakVO;
-use Raspberry\Espeak\InputControl;
+use Raspberry\Sensors\InputControl;
 
 /**
- * @Covers Raspberry\Espeak\InputControl
+ * @Covers Raspberry\Sensors\InputControl
  */
 class InputControlTest extends TestCase
 {
@@ -24,14 +24,14 @@ class InputControlTest extends TestCase
     /**
      * @var EventDispatcher|MockObject
      */
-    private $mockEventDispatcher;
+    private $eventDispatcher;
 
     public function setUp()
     {
-        $this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->eventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
         $this->subject = new InputControl();
-        $this->subject->setEventDispatcher($this->mockEventDispatcher);
+        $this->subject->setEventDispatcher($this->eventDispatcher);
     }
 
     public function testGetSubscribedEvents()
@@ -44,15 +44,15 @@ class InputControlTest extends TestCase
     public function testSay()
     {
         $inputEvent = new Event();
-        $inputEvent->match = 'text';
+        $inputEvent->match = $sensorId = 'sensorID';
 
-        $event = new EspeakEvent(new EspeakVO('text'));
+        $event = new EspeakEvent(new EspeakVO($sensorId));
 
-        $this->mockEventDispatcher
+        $this->eventDispatcher
             ->expects($this->once())
             ->method('dispatchEvent')
             ->with($event);
 
-        $this->subject->say($inputEvent);
+        $this->subject->espeakSensor($inputEvent);
     }
 }

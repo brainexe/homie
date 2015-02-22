@@ -1,7 +1,8 @@
 
 App.ng.controller('GpioController', ['$scope', function($scope) {
 
-	$scope.gpios = {};
+	$scope.gpios    = {};
+    $scope.editMode = false;
 
 	$.get('/gpio/', function(data) {
 		$scope.gpios = data.pins;
@@ -19,6 +20,23 @@ App.ng.controller('GpioController', ['$scope', function($scope) {
 			}
 		);
 	}
+	/**
+	 * @param {Object} pin
+	 */
+    $scope.saveDescription = function(pin) {
+        console.log(pin)
+		$.post(
+			'/gpio/description/',
+            {
+                pinId: pin.id,
+                description: pin.description
+            }
+        ).then(function() {
+            $scope.editMode = false;
+            pin.Mode = false;
+            $scope.$apply();
+        });
+	};
 
 	/**
 	 * @param {Object} pin
