@@ -1,6 +1,6 @@
 <?php
 
-namespace Raspberry\Console;
+namespace Raspberry\Sensors\Command;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
@@ -10,7 +10,7 @@ use Raspberry\Sensors\SensorBuilder;
 use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorValueEvent;
 use Raspberry\Sensors\SensorValuesGateway;
-use Raspberry\Sensors\SensorVOBuilder;
+use Raspberry\Sensors\Builder;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -18,9 +18,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use BrainExe\Core\Annotations\Command as CommandAnnotation;
 
 /**
- * @CommandAnnotation
+ * @CommandAnnotation("Sensor.Cron")
  */
-class SensorCronCommand extends Command
+class Cron extends Command
 {
 
     use LoggerTrait;
@@ -47,7 +47,7 @@ class SensorCronCommand extends Command
     private $nodeId;
 
     /**
-     * @var SensorVOBuilder
+     * @var Builder
      */
     private $sensorVoBuilder;
 
@@ -67,11 +67,11 @@ class SensorCronCommand extends Command
     }
 
     /**
-     * @Inject({"@SensorGateway", "@SensorValuesGateway","@SensorBuilder", "@SensorVOBuilder", "@EventDispatcher", "%node.id%"})
+     * @Inject({"@SensorGateway", "@SensorValuesGateway","@SensorBuilder", "@Sensor.VOBuilder", "@EventDispatcher", "%node.id%"})
      * @param SensorGateway $gateway
      * @param SensorValuesGateway $valuesGateway
      * @param SensorBuilder $builder
-     * @param SensorVOBuilder $voBuilder
+     * @param Builder $voBuilder
      * @param EventDispatcher $dispatcher
      * @param integer $nodeId
      */
@@ -79,7 +79,7 @@ class SensorCronCommand extends Command
         SensorGateway $gateway,
         SensorValuesGateway $valuesGateway,
         SensorBuilder $builder,
-        SensorVOBuilder $voBuilder,
+        Builder $voBuilder,
         EventDispatcher $dispatcher,
         $nodeId
     ) {

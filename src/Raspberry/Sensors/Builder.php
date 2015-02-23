@@ -5,9 +5,9 @@ namespace Raspberry\Sensors;
 use BrainExe\Annotations\Annotations\Service;
 
 /**
- * @Service(public=false)
+ * @Service("Sensor.VOBuilder", public=false)
  */
-class SensorVOBuilder
+class Builder
 {
 
     /**

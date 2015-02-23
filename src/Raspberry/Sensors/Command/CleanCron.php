@@ -1,6 +1,6 @@
 <?php
 
-namespace Raspberry\Console;
+namespace Raspberry\Sensors\Command;
 
 use BrainExe\Annotations\Annotations\Inject;
 use Raspberry\Sensors\SensorGateway;
@@ -11,32 +11,33 @@ use Symfony\Component\Console\Output\OutputInterface;
 use BrainExe\Core\Annotations\Command as CommandAnnotation;
 
 /**
- * @CommandAnnotation
+ * @CommandAnnotation("Sensors.CleanCron")
  */
-class CleanCronCommand extends Command
+class CleanCron extends Command
 {
 
     /**
      * @var SensorValuesGateway
      */
-    private $sensorValuesGateway;
+    private $valuesGateway;
 
     /**
      * @var SensorGateway
      */
-    private $sensorGateway;
+    private $gateway;
 
     /**
      * @var array
      */
-    private $valueDeleteSensorValues;
+    private $deleteSensorValues;
 
     /**
      * {@inheritdoc}
      */
     protected function configure()
     {
-        $this->setName('cron:clean')
+        $this
+            ->setName('cron:clean')
             ->setDescription('Delete old sensor values');
     }
 
@@ -46,11 +47,14 @@ class CleanCronCommand extends Command
      * @param SensorGateway $gateway
      * @param integer[] $deleteValues
      */
-    public function __construct(SensorValuesGateway $valuesGateway, SensorGateway $gateway, $deleteValues)
-    {
-        $this->sensorValuesGateway     = $valuesGateway;
-        $this->valueDeleteSensorValues = $deleteValues;
-        $this->sensorGateway           = $gateway;
+    public function __construct(
+        SensorValuesGateway $valuesGateway,
+        SensorGateway $gateway,
+        $deleteValues
+    ) {
+        $this->valuesGateway      = $valuesGateway;
+        $this->deleteSensorValues = $deleteValues;
+        $this->gateway            = $gateway;
 
         parent::__construct();
     }
@@ -60,7 +64,7 @@ class CleanCronCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $sensorIds = $this->sensorGateway->getSensorIds();
+        $sensorIds = $this->gateway->getSensorIds();
 
         foreach ($sensorIds as $sensorId) {
             $this->deleteOldValues($output, $sensorId);
@@ -77,14 +81,20 @@ class CleanCronCommand extends Command
     {
         $deletedRows = 0;
 
-        foreach ($this->valueDeleteSensorValues as $delete) {
-            $deletedRows += $this->sensorValuesGateway->deleteOldValues(
+        foreach ($this->deleteSensorValues as $delete) {
+            $deletedRows += $this->valuesGateway->deleteOldValues(
                 $sensorId,
                 $delete['days'],
                 $delete['percentage']
             );
         }
 
-        $output->writeln(sprintf('<info>sensor #%d, deleted %d rows</info>', $sensorId, $deletedRows));
+        $output->writeln(
+            sprintf(
+                '<info>sensor #%d, deleted %d rows</info>',
+                $sensorId,
+                $deletedRows
+            )
+        );
     }
 }

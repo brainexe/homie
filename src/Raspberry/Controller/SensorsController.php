@@ -15,7 +15,7 @@ use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorValuesGateway;
 use Raspberry\Sensors\SensorVO;
 
-use Raspberry\Sensors\SensorVOBuilder;
+use Raspberry\Sensors\Builder;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -40,7 +40,7 @@ class SensorsController implements ControllerInterface
     private $valuesGateway;
 
     /**
-     * @var SensorVOBuilder
+     * @var Builder
      */
     private $voBuilder;
 
@@ -55,19 +55,19 @@ class SensorsController implements ControllerInterface
     private $chart;
 
     /**
-     * @Inject({"@SensorGateway", "@SensorValuesGateway", "@Chart", "@SensorBuilder", "@SensorVOBuilder"})
+     * @Inject({"@SensorGateway", "@SensorValuesGateway", "@Chart", "@SensorBuilder", "@Sensor.VOBuilder"})
      * @param SensorGateway $gateway
      * @param SensorValuesGateway $valuesGateway
      * @param Chart $chart
      * @param SensorBuilder $builder
-     * @param SensorVOBuilder $voBuilder
+     * @param Builder $voBuilder
      */
     public function __construct(
         SensorGateway $gateway,
         SensorValuesGateway $valuesGateway,
         Chart $chart,
         SensorBuilder $builder,
-        SensorVOBuilder $voBuilder
+        Builder $voBuilder
     ) {
         $this->gateway        = $gateway;
         $this->valuesGateway  = $valuesGateway;

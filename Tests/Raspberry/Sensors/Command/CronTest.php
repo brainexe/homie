@@ -1,17 +1,17 @@
 <?php
 
-namespace Tests\Raspberry\Console\SensorCronCommand;
+namespace Tests\Raspberry\Sensors\Command;
 
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Raspberry\Console\SensorCronCommand;
+use Raspberry\Sensors\Command\Cron;
 use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\Sensors\SensorInterface;
 use Raspberry\Sensors\SensorValueEvent;
 use Raspberry\Sensors\SensorValuesGateway;
 use Raspberry\Sensors\SensorBuilder;
 use Raspberry\Sensors\SensorVO;
-use Raspberry\Sensors\SensorVOBuilder;
+use Raspberry\Sensors\Builder;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Monolog\Logger;
 use BrainExe\Core\Util\Time;
@@ -19,45 +19,45 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
- * @Covers Raspberry\Console\SensorCronCommand
+ * @Covers Raspberry\Sensors\Command\Cron
  */
-class SensorCronCommandTest extends PHPUnit_Framework_TestCase
+class CronTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var SensorCronCommand
+     * @var Cron
      */
     private $subject;
 
     /**
      * @var SensorGateway|MockObject
      */
-    private $mockSensorGateway;
+    private $gateway;
 
     /**
      * @var SensorValuesGateway|MockObject
      */
-    private $mockSensorValuesGateway;
+    private $valuesGateway;
 
     /**
      * @var SensorBuilder|MockObject
      */
-    private $mockSensorBuilder;
+    private $builder;
 
     /**
-     * @var SensorVOBuilder|MockObject
+     * @var Builder|MockObject
      */
-    private $mockSensorVOBuilder;
+    private $voBuilder;
 
     /**
      * @var EventDispatcher|MockObject
      */
-    private $mockEventDispatcher;
+    private $dispatcher;
 
     /**
      * @var Logger|MockObject
      */
-    private $mockLogger;
+    private $logger;
 
     /**
      * @var Time|MockObject
@@ -71,23 +71,23 @@ class SensorCronCommandTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->mockSensorGateway = $this->getMock(SensorGateway::class, [], [], '', false);
-        $this->mockSensorValuesGateway = $this->getMock(SensorValuesGateway::class, [], [], '', false);
-        $this->mockSensorBuilder = $this->getMock(SensorBuilder::class, [], [], '', false);
-        $this->mockSensorVOBuilder = $this->getMock(SensorVOBuilder::class, [], [], '', false);
-        $this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
-        $this->mockLogger = $this->getMock(Logger::class, [], [], '', false);
-        $this->mockTime = $this->getMock(Time::class, [], [], '', false);
+        $this->gateway       = $this->getMock(SensorGateway::class, [], [], '', false);
+        $this->valuesGateway = $this->getMock(SensorValuesGateway::class, [], [], '', false);
+        $this->builder       = $this->getMock(SensorBuilder::class, [], [], '', false);
+        $this->voBuilder     = $this->getMock(Builder::class, [], [], '', false);
+        $this->dispatcher    = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->logger        = $this->getMock(Logger::class, [], [], '', false);
+        $this->mockTime      = $this->getMock(Time::class, [], [], '', false);
 
-        $this->subject = new SensorCronCommand(
-            $this->mockSensorGateway,
-            $this->mockSensorValuesGateway,
-            $this->mockSensorBuilder,
-            $this->mockSensorVOBuilder,
-            $this->mockEventDispatcher,
+        $this->subject = new Cron(
+            $this->gateway,
+            $this->valuesGateway,
+            $this->builder,
+            $this->voBuilder,
+            $this->dispatcher,
             $this->nodeId
         );
-        $this->subject->setLogger($this->mockLogger);
+        $this->subject->setLogger($this->logger);
         $this->subject->setTime($this->mockTime);
     }
 
@@ -116,19 +116,19 @@ class SensorCronCommandTest extends PHPUnit_Framework_TestCase
             ->method('now')
             ->willReturn($now);
 
-        $this->mockSensorGateway
+        $this->gateway
             ->expects($this->once())
             ->method('getSensors')
             ->with($this->nodeId)
             ->willReturn($sensors);
 
-        $this->mockSensorVOBuilder
+        $this->voBuilder
             ->expects($this->once())
             ->method('buildFromArray')
             ->with($sensorRaw)
             ->willReturn($sensor);
 
-        $this->mockSensorBuilder
+        $this->builder
             ->expects($this->once())
             ->method('build')
             ->with($type)
@@ -171,19 +171,19 @@ class SensorCronCommandTest extends PHPUnit_Framework_TestCase
             ->method('now')
             ->willReturn($now);
 
-        $this->mockSensorGateway
+        $this->gateway
             ->expects($this->once())
             ->method('getSensors')
             ->with($this->nodeId)
             ->willReturn($sensors);
 
-        $this->mockSensorVOBuilder
+        $this->voBuilder
             ->expects($this->once())
             ->method('buildFromArray')
             ->with($sensorRaw)
             ->willReturn($sensor);
 
-        $this->mockSensorBuilder
+        $this->builder
             ->expects($this->once())
             ->method('build')
             ->with($type)
@@ -209,7 +209,7 @@ class SensorCronCommandTest extends PHPUnit_Framework_TestCase
             $now
         );
 
-        $this->mockEventDispatcher
+        $this->dispatcher
             ->expects($this->once())
             ->method('dispatchEvent')
             ->with($event);

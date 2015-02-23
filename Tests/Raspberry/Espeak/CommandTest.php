@@ -1,24 +1,24 @@
 <?php
 
-namespace Tests\Raspberry\Console\SpeakCommand;
+namespace Tests\Raspberry\Espeak;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Raspberry\Console\SpeakCommand;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
+use Raspberry\Espeak\Command;
 use Raspberry\Espeak\EspeakEvent;
 use Raspberry\Espeak\EspeakVO;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
- * @Covers Raspberry\Console\SpeakCommand
+ * @Covers Raspberry\Espeak\Command
  */
-class SpeakCommandTest extends PHPUnit_Framework_TestCase
+class CommandTest extends TestCase
 {
 
     /**
-     * @var SpeakCommand
+     * @var Command
      */
     private $subject;
 
@@ -30,7 +30,7 @@ class SpeakCommandTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
-        $this->subject = new SpeakCommand();
+        $this->subject = new Command();
         $this->subject->setEventDispatcher($this->mockEventDispatcher);
     }
 
@@ -43,8 +43,8 @@ class SpeakCommandTest extends PHPUnit_Framework_TestCase
 
         $commandTester = new CommandTester($this->subject);
 
-        $espeak_vo = new EspeakVO($text);
-        $event = new EspeakEvent($espeak_vo);
+        $espeakVo = new EspeakVO($text);
+        $event = new EspeakEvent($espeakVo);
 
         $this->mockEventDispatcher
             ->expects($this->once())

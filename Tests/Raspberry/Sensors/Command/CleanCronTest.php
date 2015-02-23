@@ -1,35 +1,35 @@
 <?php
 
-namespace Tests\Raspberry\Console\CleanCronCommand;
+namespace Tests\Raspberry\Sensors\Command;
 
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Raspberry\Console\CleanCronCommand;
+use Raspberry\Sensors\Command\CleanCron;
 use Raspberry\Sensors\SensorValuesGateway;
 use Raspberry\Sensors\SensorGateway;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
- * @Covers Raspberry\Console\CleanCronCommand
+ * @Covers Raspberry\Sensors\Command\CleanCron
  */
-class CleanCronCommandTest extends PHPUnit_Framework_TestCase
+class CleanCronTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var CleanCronCommand
+     * @var CleanCron
      */
     private $subject;
 
     /**
      * @var SensorValuesGateway|MockObject
      */
-    private $mockSensorValuesGateway;
+    private $valuesGateway;
 
     /**
      * @var SensorGateway|MockObject
      */
-    private $mockSensorGateway;
+    private $gateway;
 
     /**
      * @var array
@@ -38,12 +38,12 @@ class CleanCronCommandTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->mockSensorValuesGateway = $this->getMock(SensorValuesGateway::class, [], [], '', false);
-        $this->mockSensorGateway       = $this->getMock(SensorGateway::class, [], [], '', false);
+        $this->valuesGateway = $this->getMock(SensorValuesGateway::class, [], [], '', false);
+        $this->gateway       = $this->getMock(SensorGateway::class, [], [], '', false);
 
-        $this->subject = new CleanCronCommand(
-            $this->mockSensorValuesGateway,
-            $this->mockSensorGateway,
+        $this->subject = new CleanCron(
+            $this->valuesGateway,
+            $this->gateway,
             $this->deleteSensorValues = [
                 [
                     'days'       => 7,
@@ -68,18 +68,18 @@ class CleanCronCommandTest extends PHPUnit_Framework_TestCase
             $sensorId = 10
         ];
 
-        $this->mockSensorGateway
+        $this->gateway
             ->expects($this->once())
             ->method('getSensorIds')
             ->willReturn($sensorIds);
 
-        $this->mockSensorValuesGateway
+        $this->valuesGateway
             ->expects($this->at(0))
             ->method('deleteOldValues')
             ->with($sensorId, 7, 10)
             ->willReturn(5);
 
-        $this->mockSensorValuesGateway
+        $this->valuesGateway
             ->expects($this->at(1))
             ->method('deleteOldValues')
             ->with($sensorId, 10, 80)

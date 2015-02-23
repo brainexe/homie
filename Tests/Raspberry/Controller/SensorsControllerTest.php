@@ -9,7 +9,7 @@ use Raspberry\Espeak\EspeakEvent;
 use Raspberry\Espeak\EspeakVO;
 use Raspberry\Sensors\Sensors\SensorInterface;
 use Raspberry\Sensors\SensorVO;
-use Raspberry\Sensors\SensorVOBuilder;
+use Raspberry\Sensors\Builder;
 use Symfony\Component\HttpFoundation\Request;
 use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorValuesGateway;
@@ -56,7 +56,7 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
     private $mockEventDispatcher;
 
     /**
-     * @var SensorVOBuilder|MockObject
+     * @var c cBuilder|MockObject
      */
     private $mockVoBuilder;
 
@@ -67,7 +67,7 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
         $this->mockChart               = $this->getMock(Chart::class, [], [], '', false);
         $this->mockSensorBuilder       = $this->getMock(SensorBuilder::class, [], [], '', false);
         $this->mockEventDispatcher     = $this->getMock(EventDispatcher::class, [], [], '', false);
-        $this->mockVoBuilder           = $this->getMock(SensorVOBuilder::class, [], [], '', false);
+        $this->mockVoBuilder           = $this->getMock(Builder::class, [], [], '', false);
 
         $this->subject = new SensorsController(
             $this->mockSensorGateway,

@@ -1,6 +1,6 @@
 <?php
 
-namespace Raspberry\Console;
+namespace Raspberry\Sensors\Command;
 
 use BrainExe\Annotations\Annotations\Inject;
 use Exception;
@@ -17,9 +17,9 @@ use Symfony\Component\Console\Question\Question;
 use BrainExe\Core\Annotations\Command as CommandAnnotation;
 
 /**
- * @CommandAnnotation
+ * @CommandAnnotation("Sensor.Add")
  */
-class SensorAddCommand extends Command
+class Add extends Command
 {
 
     /**

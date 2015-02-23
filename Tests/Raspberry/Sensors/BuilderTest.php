@@ -4,22 +4,22 @@ namespace Tests\Raspberry\Sensors\SensorGateway;
 
 use PHPUnit_Framework_TestCase;
 use Raspberry\Sensors\SensorVO;
-use Raspberry\Sensors\SensorVOBuilder;
+use Raspberry\Sensors\Builder;
 
 /**
- * @Covers Raspberry\Sensors\SensorVOBuilder
+ * @Covers Raspberry\Sensors\Builder
  */
-class SensorVOBuilderTest extends PHPUnit_Framework_TestCase
+class BuilderTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var SensorVOBuilder
+     * @var Builder
      */
     private $subject;
 
     public function setUp()
     {
-        $this->subject = new SensorVOBuilder();
+        $this->subject = new Builder();
     }
 
     public function testBuildSensorVOFromArray()

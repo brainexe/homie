@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Raspberry\Console\SensorAddCommand;
+namespace Tests\Raspberry\Sensors\Command;
 
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase;
-use Raspberry\Console\SensorAddCommand;
+use Raspberry\Sensors\Command\Add;
 use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorBuilder;
 use Raspberry\Sensors\Sensors\SensorInterface;
@@ -19,34 +19,34 @@ use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
- * @Covers Raspberry\Console\SensorAddCommand
+ * @Covers Raspberry\Sensors\Command\Add
  */
-class SensorAddCommandTest extends PHPUnit_Framework_TestCase
+class AddTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var SensorAddCommand
+     * @var Add
      */
     private $subject;
 
     /**
      * @var SensorGateway|MockObject
      */
-    private $sensorGateway;
+    private $gateway;
 
     /**
      * @var SensorBuilder|MockObject
      */
-    private $sensorBuilder;
+    private $builder;
 
     public function setUp()
     {
-        $this->sensorGateway = $this->getMock(SensorGateway::class, [], [], '', false);
-        $this->sensorBuilder = $this->getMock(SensorBuilder::class, [], [], '', false);
+        $this->gateway = $this->getMock(SensorGateway::class, [], [], '', false);
+        $this->builder = $this->getMock(SensorBuilder::class, [], [], '', false);
 
-        $this->subject = new SensorAddCommand(
-            $this->sensorGateway,
-            $this->sensorBuilder
+        $this->subject = new Add(
+            $this->gateway,
+            $this->builder
         );
     }
 
@@ -70,7 +70,7 @@ class SensorAddCommandTest extends PHPUnit_Framework_TestCase
         $output = $this->isInstanceOf(OutputInterface::class);
         $input  = $this->isInstanceOf(InputInterface::class);
 
-        $this->sensorBuilder
+        $this->builder
             ->expects($this->once())
             ->method('getSensors')
             ->willReturn($sensors);
@@ -132,7 +132,7 @@ class SensorAddCommandTest extends PHPUnit_Framework_TestCase
             $sensorType2 = 'type_2' => $sensor2,
         ];
 
-        $this->sensorBuilder
+        $this->builder
             ->expects($this->once())
             ->method('getSensors')
             ->willReturn($sensors);
@@ -236,7 +236,7 @@ class SensorAddCommandTest extends PHPUnit_Framework_TestCase
         $expectedVo->interval    = $interval;
         $expectedVo->node        = $node;
 
-        $this->sensorGateway
+        $this->gateway
             ->expects($this->once())
             ->method('addSensor')
             ->with($expectedVo);
@@ -262,7 +262,7 @@ class SensorAddCommandTest extends PHPUnit_Framework_TestCase
             $sensorType2 = 'type_2' => $sensor2,
         ];
 
-        $this->sensorBuilder
+        $this->builder
             ->expects($this->once())
             ->method('getSensors')
             ->willReturn($sensors);
@@ -349,7 +349,7 @@ class SensorAddCommandTest extends PHPUnit_Framework_TestCase
         $expectedVo->interval    = $interval;
         $expectedVo->node        = $node;
 
-        $this->sensorGateway
+        $this->gateway
             ->expects($this->once())
             ->method('addSensor')
             ->with($expectedVo);
