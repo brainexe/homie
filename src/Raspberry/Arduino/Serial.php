@@ -4,6 +4,7 @@ namespace Raspberry\Arduino;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
+use Raspberry\Client\ClientInterface;
 use RuntimeException;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
@@ -36,25 +37,25 @@ class Serial
     private $finder;
 
     /**
-     * @var ProcessBuilder
+     * @var ClientInterface
      */
-    private $processBuilder;
+    private $client;
 
     /**
-     * @Inject({"@Finder", "@ProcessBuilder", "%serial.port%", "%serial.baud%"})
+     * @Inject({"@Finder", "@RaspberryClient", "%serial.port%", "%serial.baud%"})
      * @param Finder $finder
-     * @param ProcessBuilder $processBuilder
+     * @param ClientInterface $client
      * @param string $serialPort
      * @param int $serialBaud
      */
     public function __construct(
         Finder $finder,
-        ProcessBuilder $processBuilder,
+        ClientInterface $client,
         $serialPort,
         $serialBaud
     ) {
         $this->serialBaud     = $serialBaud;
-        $this->processBuilder = $processBuilder;
+        $this->client         = $client;
         $this->serialPort     = $serialPort;
         $this->finder         = $finder;
     }
@@ -97,7 +98,8 @@ class Serial
 
         $filename = $file->getPathname();
 
-        exec(sprintf('sudo stty -F %s %d', $filename, $this->serialBaud));
+        $command = sprintf('sudo stty -F %s %d', $filename, $this->serialBaud);
+        $this->client->execute($command);
 
         $this->fileHandle = fopen($filename, 'w+');
     }
