@@ -1,23 +1,19 @@
 <?php
 
-namespace Raspberry\Controller;
+namespace Raspberry\Espeak;
 
 use BrainExe\Annotations\Annotations\Inject;
-use BrainExe\Core\Annotations\Controller;
+use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
-use BrainExe\Core\Controller\ControllerInterface;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Util\TimeParser;
 use BrainExe\MessageQueue\MessageQueueJob;
-use Raspberry\Espeak\Espeak;
-use Raspberry\Espeak\EspeakEvent;
-use Raspberry\Espeak\EspeakVO;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Controller
+ * @ControllerAnnotation
  */
-class EspeakController implements ControllerInterface
+class Controller
 {
 
     use EventDispatcherTrait;

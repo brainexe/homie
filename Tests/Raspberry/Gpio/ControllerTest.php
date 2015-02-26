@@ -1,25 +1,23 @@
 <?php
 
-namespace Tests\Raspberry\Controller\GpioController;
+namespace Tests\Raspberry\Gpio;
 
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-
-use Raspberry\Controller\GpioController;
+use Raspberry\Gpio\Controller;
 use Raspberry\Gpio\Pin;
 use Raspberry\Gpio\PinsCollection;
-
 use Symfony\Component\HttpFoundation\Request;
 use Raspberry\Gpio\GpioManager;
 
 /**
- * @Covers Raspberry\Controller\GpioController
+ * @Covers Raspberry\Gpio\Controller
  */
-class GpioControllerTest extends PHPUnit_Framework_TestCase
+class ControllerTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var GpioController
+     * @var Controller
      */
     private $subject;
 
@@ -32,7 +30,7 @@ class GpioControllerTest extends PHPUnit_Framework_TestCase
     {
         $this->manager = $this->getMock(GpioManager::class, [], [], '', false);
 
-        $this->subject = new GpioController($this->manager);
+        $this->subject = new Controller($this->manager);
     }
 
     public function testIndex()

@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Raspberry\Controller\RadioController;
+namespace Tests\Raspberry\Radio;
 
 use BrainExe\Core\Controller\ControllerInterface;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Raspberry\Controller\RadioController;
+use Raspberry\Radio\Controller;
 use Raspberry\Radio\RadioChangeEvent;
 use Raspberry\Radio\VO\RadioVO;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -15,13 +15,13 @@ use Raspberry\Radio\RadioJob;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 
 /**
- * @Covers Raspberry\Controller\RadioController
+ * @Covers Raspberry\Radio\Controller
  */
-class RadioControllerTest extends PHPUnit_Framework_TestCase
+class ControllerTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var RadioController
+     * @var Controller
      */
     private $subject;
 
@@ -46,7 +46,7 @@ class RadioControllerTest extends PHPUnit_Framework_TestCase
         $this->mockRadioJob   = $this->getMock(RadioJob::class, [], [], '', false);
         $this->mockDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-        $this->subject = new RadioController($this->mockRadios, $this->mockRadioJob);
+        $this->subject = new Controller($this->mockRadios, $this->mockRadioJob);
         $this->subject->setEventDispatcher($this->mockDispatcher);
     }
 

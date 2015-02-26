@@ -1,20 +1,16 @@
 <?php
 
-namespace Raspberry\Controller;
+namespace Raspberry\Gpio;
 
 use BrainExe\Annotations\Annotations\Inject;
-use BrainExe\Core\Annotations\Controller;
+use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
-use BrainExe\Core\Controller\ControllerInterface;
-use Raspberry\Gpio\GpioManager;
-use Raspberry\Gpio\Pin;
-
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Controller
+ * @ControllerAnnotation
  */
-class GpioController implements ControllerInterface
+class Controller
 {
 
     /**

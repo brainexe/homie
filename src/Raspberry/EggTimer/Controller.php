@@ -1,20 +1,18 @@
 <?php
 
-namespace Raspberry\Controller;
+namespace Raspberry\EggTimer;
 
 use BrainExe\Annotations\Annotations\Inject;
-use BrainExe\Core\Annotations\Controller;
+use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Controller\ControllerInterface;
 use BrainExe\MessageQueue\MessageQueueJob;
-use Raspberry\EggTimer\EggTimer;
-
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Controller
+ * @ControllerAnnotation
  */
-class EggTimerController implements ControllerInterface
+class Controller implements ControllerInterface
 {
 
     /**

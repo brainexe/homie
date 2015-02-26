@@ -1,22 +1,21 @@
 <?php
 
-namespace Tests\Raspberry\Controller\EggTimerController;
+namespace Tests\Raspberry\EggTimer;
 
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Raspberry\Controller\EggTimerController;
+use Raspberry\EggTimer\Controller;
 use Raspberry\EggTimer\EggTimer;
-
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Covers Raspberry\Controller\EggTimerController
+ * @Covers Raspberry\EggTimer\Controller
  */
-class EggTimerControllerTest extends PHPUnit_Framework_TestCase
+class ControllerTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var EggTimerController
+     * @var Controller
      */
     private $subject;
 
@@ -29,7 +28,7 @@ class EggTimerControllerTest extends PHPUnit_Framework_TestCase
     {
         $this->mockEggTimer = $this->getMock(EggTimer::class, [], [], '', false);
 
-        $this->subject = new EggTimerController($this->mockEggTimer);
+        $this->subject = new Controller($this->mockEggTimer);
     }
 
     public function testIndex()

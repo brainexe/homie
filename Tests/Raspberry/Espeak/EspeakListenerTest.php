@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Raspberry\Espeak\EspeakListener;
+namespace Tests\Raspberry\Espeak;
 
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
@@ -14,7 +14,6 @@ use Raspberry\Espeak\EspeakVO;
  */
 class EspeakListenerTest extends PHPUnit_Framework_TestCase
 {
-
     /**
      * @var EspeakListener
      */
@@ -28,8 +27,7 @@ class EspeakListenerTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->mockEspeak = $this->getMock(Espeak::class, [], [], '', false);
-
-        $this->subject = new EspeakListener($this->mockEspeak);
+        $this->subject    = new EspeakListener($this->mockEspeak);
     }
 
     public function testGetSubscribedEvents()
@@ -40,13 +38,18 @@ class EspeakListenerTest extends PHPUnit_Framework_TestCase
 
     public function testHandleEspeakEvent()
     {
-        $espeak_vo = new EspeakVO("text");
-        $event = new EspeakEvent($espeak_vo);
+        $espeakVo = new EspeakVO("text");
+        $event    = new EspeakEvent($espeakVo);
 
         $this->mockEspeak
             ->expects($this->once())
             ->method('speak')
-            ->with($espeak_vo->text, $espeak_vo->volume, $espeak_vo->speed, $espeak_vo->speaker);
+            ->with(
+                $espeakVo->text,
+                $espeakVo->volume,
+                $espeakVo->speed,
+                $espeakVo->speaker
+            );
 
         $this->subject->handleEspeakEvent($event);
     }

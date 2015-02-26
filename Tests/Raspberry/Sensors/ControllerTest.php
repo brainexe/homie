@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Raspberry\Controller\SensorsController;
+namespace Tests\Raspberry\Sensors\Controller;
 
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Raspberry\Controller\SensorsController;
 use Raspberry\Espeak\EspeakEvent;
 use Raspberry\Espeak\EspeakVO;
+use Raspberry\Sensors\Controller;
 use Raspberry\Sensors\Sensors\SensorInterface;
 use Raspberry\Sensors\SensorVO;
 use Raspberry\Sensors\Builder;
@@ -20,13 +20,13 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 
 /**
- * @Covers Raspberry\Controller\SensorsController
+ * @Covers Raspberry\Sensors\Controller
  */
-class SensorsControllerTest extends PHPUnit_Framework_TestCase
+class ControllerTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var SensorsController
+     * @var Controller
      */
     private $subject;
 
@@ -69,7 +69,7 @@ class SensorsControllerTest extends PHPUnit_Framework_TestCase
         $this->mockEventDispatcher     = $this->getMock(EventDispatcher::class, [], [], '', false);
         $this->mockVoBuilder           = $this->getMock(Builder::class, [], [], '', false);
 
-        $this->subject = new SensorsController(
+        $this->subject = new Controller(
             $this->mockSensorGateway,
             $this->mockSensorValuesGateway,
             $this->mockChart,

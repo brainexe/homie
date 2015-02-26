@@ -1,24 +1,22 @@
 <?php
 
-namespace Raspberry\Controller;
+namespace Raspberry\Blog;
 
 use BrainExe\Annotations\Annotations\Inject;
-use BrainExe\Core\Annotations\Controller;
+use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Application\UserException;
 use BrainExe\Core\Authentication\DatabaseUserProvider;
 use BrainExe\Core\Authentication\UserVO;
 use BrainExe\Core\Controller\ControllerInterface;
 use BrainExe\Core\Traits\TimeTrait;
-use Raspberry\Blog\Blog;
-use Raspberry\Blog\BlogPostVO;
 
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Controller
+ * @ControllerAnnotation
  */
-class BlogController implements ControllerInterface
+class Controller implements ControllerInterface
 {
 
     use TimeTrait;
@@ -63,13 +61,12 @@ class BlogController implements ControllerInterface
      */
     public function getMood(Request $request)
     {
-        $user = $request->attributes->get('user_id');
-
+        $user       = $request->attributes->get('user_id');
         $recentPost = $this->blog->getRecentPost($user);
 
         return [
-        'mood' => $recentPost->mood * 10,
-        'thought' => $recentPost->text,
+            'mood'    => $recentPost->mood * 10,
+            'thought' => $recentPost->text,
         ];
     }
 
@@ -82,7 +79,7 @@ class BlogController implements ControllerInterface
      */
     public function blogForUser(Request $request, $userId)
     {
-        $currentUserId = $request->attributes->get('user_id');
+        $currentUserId   = $request->attributes->get('user_id');
         $posts           = $this->blog->getPosts($userId);
         $users           = $this->userProvider->getAllUserNames();
 

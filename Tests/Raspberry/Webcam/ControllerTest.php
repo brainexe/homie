@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Raspberry\Controller\WebcamController;
+namespace Tests\Raspberry\Webcam;
 
 use BrainExe\Core\Controller\ControllerInterface;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Raspberry\Controller\WebcamController;
+use Raspberry\Webcam\Controller;
 use Raspberry\Webcam\WebcamEvent;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,13 +14,13 @@ use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Core\Util\IdGenerator;
 
 /**
- * @Covers Raspberry\Controller\WebcamController
+ * @Covers Raspberry\Webcam\Controller
  */
-class WebcamControllerTest extends PHPUnit_Framework_TestCase
+class ControllerTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var WebcamController
+     * @var Controller
      */
     private $subject;
 
@@ -45,7 +45,7 @@ class WebcamControllerTest extends PHPUnit_Framework_TestCase
         $this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
         $this->mockIdGenerator = $this->getMock(IdGenerator::class, [], [], '', false);
 
-        $this->subject = new WebcamController($this->mockWebcam);
+        $this->subject = new Controller($this->mockWebcam);
         $this->subject->setEventDispatcher($this->mockEventDispatcher);
         $this->subject->setIdGenerator($this->mockIdGenerator);
     }

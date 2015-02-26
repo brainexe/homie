@@ -1,6 +1,11 @@
 
 App.ng.controller('LoginController', ['$scope', function ($scope) {
 
+    if (App.Layout.$scope.isLoggedIn()) {
+        window.location.href = '#/dashboard';
+        return
+    }
+
 	$scope.needsOneTimeToken = false;
 
 	$scope.login = function() {

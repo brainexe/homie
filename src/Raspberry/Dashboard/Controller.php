@@ -1,19 +1,17 @@
 <?php
 
-namespace Raspberry\Controller;
+namespace Raspberry\Dashboard;
 
 use BrainExe\Annotations\Annotations\Inject;
-use BrainExe\Core\Annotations\Controller;
+use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Controller\ControllerInterface;
-use Raspberry\Dashboard\Dashboard;
-
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Controller
+ * @ControllerAnnotation
  */
-class DashboardController implements ControllerInterface
+class Controller implements ControllerInterface
 {
 
     /**

@@ -1019,11 +1019,7 @@ body > .header .logo .icon {
   border-color: #f56954 !important;
   box-shadow: none;
 }
-/* Input group */
-.input-group .input-group-addon {
-  border-radius: 0;
-  background-color: #f4f4f4;
-}
+
 /* button groups */
 .btn-group-vertical .btn.btn-flat:first-of-type,
 .btn-group-vertical .btn.btn-flat:last-of-type {

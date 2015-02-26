@@ -58,14 +58,14 @@
 	</tbody>
 </table>
 
-<div ng-if="radios" class="panel panel-primary">
+<div ng-if="radios|notEmpty" class="panel panel-primary">
 	<div class="panel-heading panel-toggle" onclick="togglePanel(this)">Add Job</div>
 	<div class="panel-body">
 		<form ng-submit="addRadioJob(new_job)" class="navbar-forms navbar-lefts ">
 			<div class="row">
 				<div class="col-lg-3">
 					<div class="input-group">
-						<span class="input-group-addon">Radio</span>
+						<div class="input-group-addon">Radio</div>
 						<select ng-model="new_job.radioId" required class="form-control" ng-options="radio_id as radio.name for (radio_id, radio) in radios"></select>
 					</div>
 				</div>
@@ -95,7 +95,7 @@
 
 <div ng-if="editMode" class="panel panel-primary">
 	<div class="panel-heading panel-toggle" onclick="togglePanel(this)">Add Radio</div>
-	<div class="panel-body hidden">
+	<div class="panel-body">
 		<form ng-submit="addRadio()" class="navbar-forms navbar-lefts">
 			<div class="row">
 				<div class="col-lg-5">

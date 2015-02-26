@@ -8,7 +8,7 @@ use BrainExe\InputControl\Event;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * @InputControlAnnotation(name="espeak")
+ * @InputControlAnnotation("InputControl.espeak")
  */
 class InputControl implements EventSubscriberInterface
 {

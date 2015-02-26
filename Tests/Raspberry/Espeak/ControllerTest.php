@@ -1,27 +1,25 @@
 <?php
 
-namespace Tests\Raspberry\Controller\EspeakController;
+namespace Tests\Raspberry\Espeak;
 
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-
-use Raspberry\Controller\EspeakController;
+use Raspberry\Espeak\Controller;
 use Raspberry\Espeak\EspeakEvent;
 use Raspberry\Espeak\EspeakVO;
-
 use Symfony\Component\HttpFoundation\Request;
 use Raspberry\Espeak\Espeak;
 use BrainExe\Core\Util\TimeParser;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 
 /**
- * @Covers Raspberry\Controller\EspeakController
+ * @Covers Raspberry\Espeak\Controller
  */
-class EspeakControllerTest extends PHPUnit_Framework_TestCase
+class ControllerTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var EspeakController
+     * @var Controller
      */
     private $subject;
 
@@ -42,11 +40,11 @@ class EspeakControllerTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->mockEspeak = $this->getMock(Espeak::class, [], [], '', false);
-        $this->mockTimeParser = $this->getMock(TimeParser::class, [], [], '', false);
+        $this->mockEspeak          = $this->getMock(Espeak::class, [], [], '', false);
+        $this->mockTimeParser      = $this->getMock(TimeParser::class, [], [], '', false);
         $this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-        $this->subject = new EspeakController($this->mockEspeak, $this->mockTimeParser);
+        $this->subject = new Controller($this->mockEspeak, $this->mockTimeParser);
         $this->subject->setEventDispatcher($this->mockEventDispatcher);
     }
 

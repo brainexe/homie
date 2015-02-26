@@ -1,23 +1,21 @@
 <?php
 
-namespace Raspberry\Controller;
+namespace Raspberry\Webcam;
 
 use BrainExe\Annotations\Annotations\Inject;
-use BrainExe\Core\Annotations\Controller;
+use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Controller\ControllerInterface;
 use BrainExe\Core\Traits\AddFlashTrait;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Traits\IdGeneratorTrait;
-use Raspberry\Webcam\Webcam;
-use Raspberry\Webcam\WebcamEvent;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Controller
+ * @ControllerAnnotation
  */
-class WebcamController implements ControllerInterface
+class Controller implements ControllerInterface
 {
 
     use AddFlashTrait;

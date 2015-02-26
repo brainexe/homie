@@ -255,8 +255,13 @@ $(document).ajaxComplete(function (event, request) {
 
 $(function () {
 	//Enable sidebar toggle
-	document.getElementById('offcanvas').onclick = function (e) {
-		e.preventDefault();
+    $('.sidebar-menu a').click(function() {
+        if ($(window).width() <= 992) {
+            toggle()
+        }
+    });
+	var toggle = function (e) {
+		e && e.preventDefault();
 
 		//If window is small enough, enable sidebar push menu
 		if ($(window).width() <= 992) {
@@ -271,6 +276,8 @@ $(function () {
 			$(".right-side").toggleClass("strech");
 		}
 	};
+
+    document.getElementById('offcanvas').onclick = toggle;
 
 	/*
 	 * Make sure that the sidebar is streched full height

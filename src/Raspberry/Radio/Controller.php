@@ -1,9 +1,9 @@
 <?php
 
-namespace Raspberry\Controller;
+namespace Raspberry\Radio;
 
 use BrainExe\Annotations\Annotations\Inject;
-use BrainExe\Core\Annotations\Controller;
+use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Controller\ControllerInterface;
 use BrainExe\Core\Traits\AddFlashTrait;
@@ -16,9 +16,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Controller
+ * @ControllerAnnotation
  */
-class RadioController implements ControllerInterface
+class Controller implements ControllerInterface
 {
 
     use AddFlashTrait;

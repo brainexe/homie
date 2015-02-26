@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Raspberry\Espeak\Espeak;
+namespace Tests\Raspberry\Espeak;
 
 use BrainExe\Core\Util\Time;
 use PHPUnit_Framework_TestCase;

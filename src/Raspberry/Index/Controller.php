@@ -1,19 +1,18 @@
 <?php
 
-namespace Raspberry\Controller;
+namespace Raspberry\Index;
 
-use BrainExe\Core\Annotations\Controller;
+use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Guest;
 use BrainExe\Core\Annotations\Route;
-use BrainExe\Core\Controller\ControllerInterface;
 use BrainExe\Core\Traits\TwigTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @Controller
+ * @ControllerAnnotation
  */
-class IndexController implements ControllerInterface
+class Controller
 {
 
     use TwigTrait;

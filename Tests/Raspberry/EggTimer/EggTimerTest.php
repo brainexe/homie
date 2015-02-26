@@ -23,33 +23,33 @@ class EggTimerTest extends PHPUnit_Framework_TestCase
     /**
      * @var MessageQueueGateway|MockObject
      */
-    private $mockMessageQueueGateway;
+    private $messageQueueGateway;
 
     /**
      * @var TimeParser|MockObject
      */
-    private $mockTimeParser;
+    private $timeParser;
 
     /**
      * @var Time|MockObject
      */
-    private $mockTime;
+    private $time;
 
     /**
      * @var EventDispatcher|MockObject
      */
-    private $mockEventDispatcher;
+    private $dispatcher;
 
     public function setUp()
     {
-        $this->mockMessageQueueGateway = $this->getMock(MessageQueueGateway::class, [], [], '', false);
-        $this->mockTimeParser          = $this->getMock(TimeParser::class, [], [], '', false);
-        $this->mockTime                = $this->getMock(Time::class, [], [], '', false);
-        $this->mockEventDispatcher     = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->messageQueueGateway = $this->getMock(MessageQueueGateway::class, [], [], '', false);
+        $this->timeParser          = $this->getMock(TimeParser::class, [], [], '', false);
+        $this->time                = $this->getMock(Time::class, [], [], '', false);
+        $this->dispatcher          = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-        $this->subject = new EggTimer($this->mockMessageQueueGateway, $this->mockTimeParser);
-        $this->subject->setTime($this->mockTime);
-        $this->subject->setEventDispatcher($this->mockEventDispatcher);
+        $this->subject = new EggTimer($this->messageQueueGateway, $this->timeParser);
+        $this->subject->setTime($this->time);
+        $this->subject->setEventDispatcher($this->dispatcher);
     }
 
     public function testAddNewJobWithoutText()
@@ -59,16 +59,16 @@ class EggTimerTest extends PHPUnit_Framework_TestCase
 
         $timestamp = 100;
 
-        $espeak_vo = null;
-        $event = new EggTimerEvent($espeak_vo);
+        $espeakVo = null;
+        $event = new EggTimerEvent($espeakVo);
 
-        $this->mockTimeParser
+        $this->timeParser
             ->expects($this->once())
             ->method('parseString')
             ->with($time)
             ->willReturn($timestamp);
 
-        $this->mockEventDispatcher
+        $this->dispatcher
             ->expects($this->once())
             ->method('dispatchInBackground')
             ->with($event, $timestamp);
@@ -83,16 +83,16 @@ class EggTimerTest extends PHPUnit_Framework_TestCase
 
         $timestamp = 100;
 
-        $espeak_vo = new EspeakVO($text);
-        $event = new EggTimerEvent($espeak_vo);
+        $espeakVo = new EspeakVO($text);
+        $event = new EggTimerEvent($espeakVo);
 
-        $this->mockTimeParser
+        $this->timeParser
             ->expects($this->once())
             ->method('parseString')
             ->with($time)
             ->willReturn($timestamp);
 
-        $this->mockEventDispatcher
+        $this->dispatcher
             ->expects($this->once())
             ->method('dispatchInBackground')
             ->with($event, $timestamp);
@@ -104,7 +104,7 @@ class EggTimerTest extends PHPUnit_Framework_TestCase
     {
         $jobId = 10;
 
-        $this->mockMessageQueueGateway
+        $this->messageQueueGateway
             ->expects($this->once())
             ->method('deleteEvent')
             ->with($jobId, EggTimerEvent::DONE);
@@ -117,12 +117,12 @@ class EggTimerTest extends PHPUnit_Framework_TestCase
         $now  = 1000;
         $jobs = [];
 
-        $this->mockTime
+        $this->time
             ->expects($this->once())
             ->method('now')
             ->willReturn($now);
 
-        $this->mockMessageQueueGateway
+        $this->messageQueueGateway
             ->expects($this->once())
             ->method('getEventsByType')
             ->with(EggTimerEvent::DONE, $now)

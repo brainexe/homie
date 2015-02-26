@@ -1,23 +1,23 @@
 <?php
 
-namespace Tests\Raspberry\Controller\IndexController;
+namespace Tests\Raspberry\Index;
 
 use BrainExe\Core\Authentication\UserVO;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Raspberry\Controller\IndexController;
+use Raspberry\Index\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use BrainExe\Template\TwigEnvironment;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @Covers Raspberry\Controller\IndexController
+ * @Covers Raspberry\Index
  */
-class IndexControllerTest extends PHPUnit_Framework_TestCase
+class ControllerTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var IndexController
+     * @var Controller
      */
     private $subject;
 
@@ -30,7 +30,7 @@ class IndexControllerTest extends PHPUnit_Framework_TestCase
     {
         $this->mockTwigEnvironment = $this->getMock(TwigEnvironment::class, [], [], '', false);
 
-        $this->subject = new IndexController();
+        $this->subject = new Controller();
         $this->subject->setTwig($this->mockTwigEnvironment);
     }
 

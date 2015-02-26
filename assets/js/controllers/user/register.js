@@ -1,5 +1,9 @@
 
 App.ng.controller('RegisterController', ['$scope', function ($scope) {
+    if (App.Layout.$scope.isLoggedIn()) {
+        window.location.href = '#/dashboard';
+        return
+    }
 
 	$scope.register = function() {
 		var payload = {

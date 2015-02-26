@@ -1,26 +1,25 @@
 <?php
 
-namespace Tests\Raspberry\Controller\BlogController;
+namespace Tests\Raspberry\Blog;
 
 use BrainExe\Core\Authentication\UserVO;
 use BrainExe\Core\Util\Time;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Blog\BlogPostVO;
-use Raspberry\Controller\BlogController;
+use Raspberry\Blog\Controller;
 use Raspberry\Blog\Blog;
 use BrainExe\Core\Authentication\DatabaseUserProvider;
-
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Covers Raspberry\Controller\BlogController
+ * @Covers Raspberry\Blog\Controller
  */
-class BlogControllerTest extends PHPUnit_Framework_TestCase
+class ControllerTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var BlogController
+     * @var Controller
      */
     private $subject;
 
@@ -45,7 +44,7 @@ class BlogControllerTest extends PHPUnit_Framework_TestCase
         $this->mockDatabaseUserProvider = $this->getMock(DatabaseUserProvider::class, [], [], '', false);
         $this->mockTime = $this->getMock(Time::class, [], [], '', false);
 
-        $this->subject = new BlogController($this->mockBlog, $this->mockDatabaseUserProvider);
+        $this->subject = new Controller($this->mockBlog, $this->mockDatabaseUserProvider);
         $this->subject->setTime($this->mockTime);
     }
 

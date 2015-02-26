@@ -1,45 +1,43 @@
 <?php
 
-namespace Tests\Raspberry\Controller\StatusController;
+namespace Tests\Raspberry\Status;
 
 use BrainExe\Core\Application\SelfUpdate\SelfUpdateEvent;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Raspberry\Controller\StatusController;
 use BrainExe\MessageQueue\MessageQueueGateway;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
-
+use Raspberry\Status\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Covers Raspberry\Controller\StatusController
+ * @Covers Raspberry\Status\Controller
  */
-class StatusControllerTest extends PHPUnit_Framework_TestCase
+class ControllerTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var StatusController
+     * @var Controller
      */
     private $subject;
 
     /**
      * @var MessageQueueGateway|MockObject
      */
-    private $mockMessageQueueGateway;
+    private $messageQueueGateway;
 
     /**
      * @var EventDispatcher|MockObject
      */
-    private $mockEventDispatcher;
-
+    private $dispatcher;
 
     public function setUp()
     {
-        $this->mockMessageQueueGateway = $this->getMock(MessageQueueGateway::class, [], [], '', false);
-        $this->mockEventDispatcher     = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->messageQueueGateway = $this->getMock(MessageQueueGateway::class, [], [], '', false);
+        $this->dispatcher          = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-        $this->subject = new StatusController($this->mockMessageQueueGateway);
-        $this->subject->setEventDispatcher($this->mockEventDispatcher);
+        $this->subject = new Controller($this->messageQueueGateway);
+        $this->subject->setEventDispatcher($this->dispatcher);
     }
 
     public function testIndex()
@@ -47,12 +45,12 @@ class StatusControllerTest extends PHPUnit_Framework_TestCase
         $eventsByType     = ['events'];
         $messageQueueJobs = 10;
 
-        $this->mockMessageQueueGateway
+        $this->messageQueueGateway
             ->expects($this->once())
             ->method('getEventsByType')
             ->willReturn($eventsByType);
 
-        $this->mockMessageQueueGateway
+        $this->messageQueueGateway
             ->expects($this->once())
             ->method('countJobs')
             ->willReturn($messageQueueJobs);
@@ -62,8 +60,8 @@ class StatusControllerTest extends PHPUnit_Framework_TestCase
         $expectedResult = [
             'jobs' => $eventsByType,
             'stats' => [
-            'Queue Len' => $messageQueueJobs
-        ],
+                'Queue Len' => $messageQueueJobs
+            ],
         ];
 
         $this->assertEquals($expectedResult, $actualResult);
@@ -75,7 +73,7 @@ class StatusControllerTest extends PHPUnit_Framework_TestCase
         $request = new Request();
         $request->request->set('job_id', $jobId);
 
-        $this->mockMessageQueueGateway
+        $this->messageQueueGateway
             ->expects($this->once())
             ->method('deleteEvent')
             ->willReturn($jobId);
@@ -90,7 +88,7 @@ class StatusControllerTest extends PHPUnit_Framework_TestCase
     {
         $event = new SelfUpdateEvent(SelfUpdateEvent::TRIGGER);
 
-        $this->mockEventDispatcher
+        $this->dispatcher
             ->expects($this->once())
             ->method('dispatchInBackground')
             ->with($event);

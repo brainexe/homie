@@ -1,21 +1,21 @@
 <?php
 
-namespace Tests\Raspberry\Controller\DashboardController;
+namespace Tests\Raspberry\Dashboard;
 
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Raspberry\Controller\DashboardController;
+use Raspberry\Dashboard\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Raspberry\Dashboard\Dashboard;
 
 /**
- * @Covers Raspberry\Controller\DashboardController
+ * @Covers Raspberry\Dashboard\Controller
  */
-class DashboardControllerTest extends PHPUnit_Framework_TestCase
+class ControllerTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var DashboardController
+     * @var Controller
      */
     private $subject;
 
@@ -27,7 +27,7 @@ class DashboardControllerTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->mockDashboard = $this->getMock(Dashboard::class, [], [], '', false);
-        $this->subject = new DashboardController($this->mockDashboard);
+        $this->subject       = new Controller($this->mockDashboard);
     }
 
     public function testIndex()

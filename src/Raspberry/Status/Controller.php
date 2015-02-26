@@ -1,22 +1,19 @@
 <?php
 
-namespace Raspberry\Controller;
+namespace Raspberry\Status;
 
 use BrainExe\Annotations\Annotations\Inject;
-use BrainExe\Core\Annotations\Controller;
+use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Application\SelfUpdate\SelfUpdateEvent;
-
-use BrainExe\Core\Controller\ControllerInterface;
 use BrainExe\MessageQueue\MessageQueueGateway;
 use BrainExe\Core\Traits\EventDispatcherTrait;
-
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Controller
+ * @ControllerAnnotation
  */
-class StatusController implements ControllerInterface
+class Controller
 {
 
     use EventDispatcherTrait;
