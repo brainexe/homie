@@ -2,16 +2,16 @@
 
 namespace Raspberry\Sensors;
 
-use BrainExe\Core\Annotations\CompilerPass;
+use BrainExe\Core\Annotations\CompilerPass as CompilerPassAnnotation;
 use Raspberry\Sensors\Sensors\SensorInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * @CompilerPass
+ * @CompilerPassAnnotation("CompilerPass.Sensor")
  */
-class SensorCompilerPass implements CompilerPassInterface
+class CompilerPass implements CompilerPassInterface
 {
 
     const TAG = 'sensor';

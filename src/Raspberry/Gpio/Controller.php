@@ -8,7 +8,7 @@ use BrainExe\Core\Annotations\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation
+ * @ControllerAnnotation("GpioController")
  */
 class Controller
 {

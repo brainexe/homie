@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Raspberry\Sensors\SensorGateway;
+namespace Tests\Raspberry\Sensors;
 
 use PHPUnit_Framework_TestCase;
 use Raspberry\Sensors\SensorVO;

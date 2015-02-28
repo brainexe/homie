@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Raspberry\Gpio\PinLoader;
+namespace Tests\Raspberry\Gpio;
 
 use Exception;
 use PHPUnit_Framework_TestCase;

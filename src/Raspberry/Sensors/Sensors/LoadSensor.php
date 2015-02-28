@@ -2,11 +2,11 @@
 
 namespace Raspberry\Sensors\Sensors;
 
-use BrainExe\Annotations\Annotations\Service;
+use Raspberry\Sensors\Annotation\Sensor;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * @Service(public=false, tags={{"name" = "sensor"}})
+ * @Sensor("Sensor.Load")
  */
 class LoadSensor implements SensorInterface
 {
@@ -26,6 +26,8 @@ class LoadSensor implements SensorInterface
      */
     public function getValue($pin)
     {
+        unset($pin);
+
         return sys_getloadavg()[0];
     }
 

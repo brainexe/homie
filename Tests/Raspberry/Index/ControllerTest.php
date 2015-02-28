@@ -24,14 +24,14 @@ class ControllerTest extends PHPUnit_Framework_TestCase
     /**
      * @var TwigEnvironment|MockObject
      */
-    private $mockTwigEnvironment;
+    private $twig;
 
     public function setUp()
     {
-        $this->mockTwigEnvironment = $this->getMock(TwigEnvironment::class, [], [], '', false);
+        $this->twig = $this->getMock(TwigEnvironment::class, [], [], '', false);
 
         $this->subject = new Controller();
-        $this->subject->setTwig($this->mockTwigEnvironment);
+        $this->subject->setTwig($this->twig);
     }
 
     public function testIndex()
@@ -42,7 +42,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $request = new Request();
         $request->attributes->set('user', $user);
 
-        $this->mockTwigEnvironment
+        $this->twig
             ->expects($this->once())
             ->method('render')
             ->with('layout.html.twig', [

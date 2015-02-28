@@ -8,7 +8,6 @@ use Raspberry\Client\ClientInterface;
 use RuntimeException;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
-use Symfony\Component\Process\ProcessBuilder;
 
 /**
  * @Service("Arduino.Serial", public=false)

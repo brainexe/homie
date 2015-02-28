@@ -1,10 +1,17 @@
 
-App.ng.controller('SensorController', ['$scope', function($scope) {
+App.ng.controller('SensorController', ['$scope', '$modal', function($scope, $modal) {
 	$scope.sensors           = {};
 	$scope.active_sensor_ids = '';
 	$scope.current_from      = 0;
 	$scope.fromIntervals     = {}; // todo sorting in angular is fuzzy
 	$scope.available_sensors = {};
+
+    $scope.openModal = function() {
+        $modal.open({
+            templateUrl: asset('/templates/new_sensor.html'),
+            controller: 'NewSensorController'
+        });
+    };
 
 	$.get('/sensors/load/0', function(data) {
 		$scope.sensors           = data.sensors;

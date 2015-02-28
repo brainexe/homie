@@ -15,6 +15,7 @@ class MessageQueueClient implements ClientInterface
     use EventDispatcherTrait;
 
     const RETURN_CHANNEL = 'return_channel';
+    const TIMEOUT        = 10;
 
     /**
      * {@inheritdoc}
@@ -35,6 +36,6 @@ class MessageQueueClient implements ClientInterface
 
         $this->dispatchInBackground($event);
 
-        return $this->getRedis()->brPop(self::RETURN_CHANNEL, 5);
+        return $this->getRedis()->brPop(self::RETURN_CHANNEL, self::TIMEOUT);
     }
 }

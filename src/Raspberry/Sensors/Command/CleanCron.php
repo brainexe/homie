@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use BrainExe\Core\Annotations\Command as CommandAnnotation;
 
 /**
- * @CommandAnnotation("Sensors.CleanCron")
+ * @CommandAnnotation("Command.Sensors.CleanCron")
  */
 class CleanCron extends Command
 {

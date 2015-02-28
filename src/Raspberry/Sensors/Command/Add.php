@@ -17,7 +17,7 @@ use Symfony\Component\Console\Question\Question;
 use BrainExe\Core\Annotations\Command as CommandAnnotation;
 
 /**
- * @CommandAnnotation("Sensor.Add")
+ * @CommandAnnotation("Command.Sensor.Add")
  */
 class Add extends Command
 {
@@ -86,7 +86,9 @@ class Add extends Command
         // get test value
         $testValue = $sensor->getValue($pin);
         if ($testValue !== null) {
-            $output->writeln(sprintf('<info>Sensor value: %s</info>', $sensor->formatValue($testValue)));
+            $output->writeln(
+                sprintf('<info>Sensor value: %s</info>', $sensor->formatValue($testValue))
+            );
         } else {
             $output->writeln('<error>Sensor returned invalid data.</error>');
             $this->askForTermination($helper, $input, $output);
@@ -109,8 +111,11 @@ class Add extends Command
      * @param OutputInterface $output
      * @throws Exception
      */
-    private function askForTermination(QuestionHelper $helper, InputInterface $input, OutputInterface $output)
-    {
+    private function askForTermination(
+        QuestionHelper $helper,
+        InputInterface $input,
+        OutputInterface $output
+    ) {
         $question = new ConfirmationQuestion('Abort adding this sensor? (y/n)');
         if ($helper->ask($input, $output, $question)) {
             throw new Exception('Terminated');

@@ -3,12 +3,12 @@
 namespace Raspberry\Sensors\Sensors;
 
 use BrainExe\Annotations\Annotations\Inject;
-use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Util\FileSystem;
+use Raspberry\Sensors\Annotation\Sensor;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * @Service(public=false, tags={{"name" = "sensor"}})
+ * @Sensor("Sensor.Temperature.OnBoard")
  */
 class TemperatureOnBoardSensor implements SensorInterface
 {

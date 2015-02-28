@@ -44,11 +44,14 @@ class Webcam
      * @param ProcessBuilder $processBuilder
      * @param Finder $finder
      */
-    public function __construct(Filesystem $filesystem, ProcessBuilder $processBuilder, Finder $finder)
-    {
-        $this->fileSystem = $filesystem;
+    public function __construct(
+        Filesystem $filesystem,
+        ProcessBuilder $processBuilder,
+        Finder $finder
+    ) {
+        $this->fileSystem     = $filesystem;
         $this->processBuilder = $processBuilder;
-        $this->finder = $finder;
+        $this->finder         = $finder;
     }
 
     /**
@@ -73,11 +76,11 @@ class Webcam
             $filePath = $file->getPath();
             $relativePathName = $file->getRelativePathname();
 
-            $webcamVo = $vos[] = new WebcamVO();
-            $webcamVo->filePath = $filePath;
-            $webcamVo->name = $relativePathName;
-            $webcamVo->webcamId = $file->getBasename();
-            $webcamVo->webPath = sprintf('%s%s', substr(self::ROOT, 4), $webcamVo->name);
+            $webcamVo = $vos[]   = new WebcamVO();
+            $webcamVo->filePath  = $filePath;
+            $webcamVo->name      = $relativePathName;
+            $webcamVo->webcamId  = $file->getBasename();
+            $webcamVo->webPath   = sprintf('%s%s', substr(self::ROOT, 4), $webcamVo->name);
             $webcamVo->timestamp = $file->getCTime();
         }
 

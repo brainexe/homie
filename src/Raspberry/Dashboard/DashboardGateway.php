@@ -31,7 +31,7 @@ class DashboardGateway
             $widget = json_decode($widgetRaw, true);
             $widget['id']   = $id;
             $widget['open'] = true;
-            $dashboard[] = $widget;
+            $dashboard[]    = $widget;
         }
 
         return $dashboard;

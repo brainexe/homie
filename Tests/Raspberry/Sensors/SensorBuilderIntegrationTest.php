@@ -1,6 +1,6 @@
 <?php
 
-namespace Raspberry\Tests\Sensors;
+namespace Tests\Raspberry\Sensors;
 
 use Exception;
 use Raspberry\Sensors\SensorBuilder;

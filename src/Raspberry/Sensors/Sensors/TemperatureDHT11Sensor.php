@@ -2,10 +2,10 @@
 
 namespace Raspberry\Sensors\Sensors;
 
-use BrainExe\Annotations\Annotations\Service;
+use Raspberry\Sensors\Annotation\Sensor;
 
 /**
- * @Service(public=false, tags={{"name" = "sensor"}})
+ * @Sensor("Sensor.DHT11.Temperature")
  */
 class TemperatureDHT11Sensor extends AbstractDHT11Sensor
 {

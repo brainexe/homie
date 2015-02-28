@@ -59,7 +59,7 @@
 </table>
 
 <div ng-if="radios|notEmpty" class="panel panel-primary">
-	<div class="panel-heading panel-toggle" onclick="togglePanel(this)">Add Job</div>
+	<div class="panel-heading panel-toggle">Add Job</div>
 	<div class="panel-body">
 		<form ng-submit="addRadioJob(new_job)" class="navbar-forms navbar-lefts ">
 			<div class="row">
@@ -94,20 +94,20 @@
 </div>
 
 <div ng-if="editMode" class="panel panel-primary">
-	<div class="panel-heading panel-toggle" onclick="togglePanel(this)">Add Radio</div>
+	<div class="panel-heading panel-toggle">Add Radio</div>
 	<div class="panel-body">
-		<form ng-submit="addRadio()" class="navbar-forms navbar-lefts">
+		<form ng-submit="addRadio(newRadio)" class="navbar-forms navbar-lefts">
 			<div class="row">
 				<div class="col-lg-5">
 					<div class="input-group">
 						<span class="input-group-addon">Name</span>
-						<input type="text" ng-model="name" class="form-control" placeholder="Name"/>
+						<input type="text" ng-model="newRadio.name" class="form-control" placeholder="Name"/>
 					</div>
 				</div>
 				<div class="col-lg-5">
 					<div class="input-group">
 						<span class="input-group-addon">Description</span>
-						<input type="text" ng-model="description" class="form-control" placeholder="Description"/>
+						<input type="text" ng-model="newRadio.description" class="form-control" placeholder="Description"/>
 					</div>
 				</div>
 			</div>
@@ -115,13 +115,13 @@
 				<div class="col-lg-2">
 					<div class="input-group">
 						<span class="input-group-addon">Code</span>
-						<input type="text" class="form-control" max="5" min="0" ng-model="code" placeholder="00000"/>
+						<input type="text" class="form-control" max="5" min="0" ng-model="newRadio.code" placeholder="00000"/>
 					</div>
 				</div>
 				<div class="col-lg-2">
 					<div class="input-group">
 						<span class="input-group-addon">Pin</span>
-						<select ng-model="pin" class="form-control" ng-options="key for (key, value) in pins"></select>
+						<select ng-model="newRadio.pin" class="form-control" ng-options="key for (key, value) in pins"></select>
 					</div>
 				</div>
 				<div class="col-lg-2">

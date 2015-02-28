@@ -58,7 +58,7 @@ class SensorWidget extends AbstractWidget
             _('Sensor'),
             [
                 'sensor_id' => [
-                    'name' => _('Sensor ID'),
+                    'name'   => _('Sensor ID'),
                     'values' => $sensors
                 ]
             ]

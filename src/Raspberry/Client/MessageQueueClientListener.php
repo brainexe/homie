@@ -8,7 +8,7 @@ use BrainExe\Core\Traits\RedisTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * @EventListener
+ * @EventListener("Listener.MessageQueueClient")
  */
 class MessageQueueClientListener implements EventSubscriberInterface
 {
@@ -35,7 +35,7 @@ class MessageQueueClientListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-        ExecuteCommandEvent::EXECUTE => 'handleExecuteEvent'
+            ExecuteCommandEvent::EXECUTE => 'handleExecuteEvent'
         ];
     }
 

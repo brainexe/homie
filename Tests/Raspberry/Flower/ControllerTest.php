@@ -2,23 +2,23 @@
 
 namespace Tests\Raspberry\Flower;
 
-use PHPUnit_Framework_TestCase;
-use Raspberry\Flower\FlowerController;
+use PHPUnit_Framework_TestCase as TestCase;
+use Raspberry\Flower\Controller;
 
 /**
  * @Covers Raspberry\Flower
  */
-class FlowerControllerTest extends PHPUnit_Framework_TestCase
+class ControllerTest extends TestCase
 {
 
     /**
-     * @var FlowerController
+     * @var Controller
      */
     private $subject;
 
     public function setUp()
     {
-        $this->subject = new FlowerController();
+        $this->subject = new Controller();
     }
 
     public function testIndex()

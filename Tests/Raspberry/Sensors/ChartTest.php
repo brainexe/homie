@@ -1,6 +1,6 @@
 <?php
 
-namespace Raspberry\Tests\Radio;
+namespace Tests\Raspberry\Sensors;
 
 use Raspberry\Sensors\Chart;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Raspberry\Client\MessageQueueClient;
+namespace Tests\Raspberry\Client;
 
 use BrainExe\Core\Redis\RedisInterface;
 use BrainExe\Tests\RedisMockTrait;
@@ -26,20 +26,20 @@ class MessageQueueClientTest extends PHPUnit_Framework_TestCase
     /**
      * @var RedisInterface|MockObject
      */
-    private $mockRedis;
+    private $redis;
 
     /**
      * @var EventDispatcher|MockObject
      */
-    private $mockEventDispatcher;
+    private $dispatcher;
 
     public function setUp()
     {
-        $this->mockRedis = $this->getRedisMock();
-        $this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->redis = $this->getRedisMock();
+        $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
         $this->subject = new MessageQueueClient();
-        $this->subject->setRedis($this->mockRedis);
-        $this->subject->setEventDispatcher($this->mockEventDispatcher);
+        $this->subject->setRedis($this->redis);
+        $this->subject->setEventDispatcher($this->dispatcher);
     }
 
     public function testExecute()
@@ -48,7 +48,7 @@ class MessageQueueClientTest extends PHPUnit_Framework_TestCase
 
         $event = new ExecuteCommandEvent($command, false);
 
-        $this->mockEventDispatcher
+        $this->dispatcher
             ->expects($this->once())
             ->method('dispatchInBackground')
             ->with($event, 0);
@@ -62,15 +62,15 @@ class MessageQueueClientTest extends PHPUnit_Framework_TestCase
 
         $event = new ExecuteCommandEvent($command, true);
 
-        $this->mockEventDispatcher
+        $this->dispatcher
             ->expects($this->once())
             ->method('dispatchInBackground')
             ->with($event);
 
-        $this->mockRedis
+        $this->redis
             ->expects($this->once())
             ->method('brPop')
-            ->with(MessageQueueClient::RETURN_CHANNEL, 5);
+            ->with(MessageQueueClient::RETURN_CHANNEL, MessageQueueClient::TIMEOUT);
 
         $this->subject->executeWithReturn($command);
     }

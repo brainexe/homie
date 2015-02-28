@@ -22,11 +22,11 @@ App.ng.controller('EspeakController', ['$scope', function($scope) {
 
 	$scope.addEspeak = function() {
 		var payload = {
-			text:   $scope.text,
-			delay:  $scope.delay,
-			volume: $scope.volume,
-			speed:  $scope.speed,
-			speaker:$scope.speaker
+			text:    $scope.text,
+			delay:   $scope.delay,
+			volume:  $scope.volume,
+			speed:   $scope.speed,
+			speaker: $scope.speaker
 		};
 
 		$.post('/espeak/speak/', payload, function(new_jobs) {

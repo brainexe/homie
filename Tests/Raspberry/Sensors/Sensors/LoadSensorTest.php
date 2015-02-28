@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Raspberry\Sensors\Sensors\LoadSensor;
+namespace Tests\Raspberry\Sensors\Sensors;
 
 use PHPUnit_Framework_TestCase;
 

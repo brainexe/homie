@@ -11,7 +11,7 @@ use Raspberry\Espeak\EspeakVO;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation
+ * @ControllerAnnotation("SensorsController")
  */
 class Controller
 {
@@ -217,16 +217,16 @@ class Controller
      */
     public function getValue(Request $request)
     {
-        $sensorId        = $request->query->getInt('sensor_id');
+        $sensorId       = $request->query->getInt('sensor_id');
         $sensor         = $this->gateway->getSensor($sensorId);
         $sensorObj      = $this->builder->build($sensor['type']);
         $formattedValue = $sensorObj->getEspeakText($sensor['last_value']);
 
         return [
-            'sensor' => $sensor,
+            'sensor'                 => $sensor,
             'sensor_value_formatted' => $formattedValue,
-            'sensor_obj' => $sensorObj,
-            'refresh_interval' => 60
+            'sensor_obj'             => $sensorObj,
+            'refresh_interval'       => 60
         ];
     }
 }

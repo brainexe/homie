@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Raspberry\Sensors\SensorValuesGateway;
+namespace Tests\Raspberry\Sensors;
 
 use BrainExe\Core\Redis\Predis;
 use BrainExe\Core\Util\Time;
@@ -26,21 +26,21 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
     /**
      * @var Predis|MockObject
      */
-    private $mockRedis;
+    private $redis;
 
     /**
      * @var Time|MockObject
      */
-    private $mockTime;
+    private $time;
 
     public function setUp()
     {
-        $this->mockRedis = $this->getRedisMock();
-        $this->mockTime  = $this->getMock(Time::class, [], [], '', false);
+        $this->redis = $this->getRedisMock();
+        $this->time  = $this->getMock(Time::class, [], [], '', false);
 
         $this->subject = new SensorValuesGateway();
-        $this->subject->setRedis($this->mockRedis);
-        $this->subject->setTime($this->mockTime);
+        $this->subject->setRedis($this->redis);
+        $this->subject->setTime($this->time);
     }
 
     public function testAddValue()
@@ -49,17 +49,17 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
         $value    = 100;
         $now      = 10000;
 
-        $this->mockRedis
+        $this->redis
             ->expects($this->once())
             ->method('multi')
-            ->willReturn($this->mockRedis);
+            ->willReturn($this->redis);
 
-        $this->mockRedis
+        $this->redis
             ->expects($this->once())
             ->method('ZADD')
             ->with("sensor_values:$sensorId", $now, "$now-$value");
 
-        $this->mockRedis
+        $this->redis
             ->expects($this->once())
             ->method('HMSET')
             ->with(SensorGateway::REDIS_SENSOR_PREFIX . $sensorId, [
@@ -67,11 +67,11 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
                 'last_value_timestamp' => $now
             ]);
 
-        $this->mockRedis
+        $this->redis
             ->expects($this->once())
             ->method('execute');
 
-        $this->mockTime
+        $this->time
             ->expects($this->once())
             ->method('now')
             ->willReturn($now);
@@ -85,7 +85,7 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
         $from = 300;
         $now = 1000;
 
-        $this->mockTime
+        $this->time
             ->expects($this->once())
             ->method('now')
             ->willReturn($now);
@@ -94,7 +94,7 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
         "701-100",
         "702-101",
         ];
-        $this->mockRedis
+        $this->redis
             ->expects($this->once())
             ->method('ZRANGEBYSCORE')
             ->with("sensor_values:$sensorId", 700, $now)
@@ -117,7 +117,7 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
         $now = 86410;
         $deletedPercent = 80;
 
-        $this->mockTime
+        $this->time
             ->expects($this->once())
             ->method('now')
             ->willReturn($now);
@@ -127,18 +127,18 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
             "702-101",
         ];
 
-        $this->mockRedis
+        $this->redis
             ->expects($this->at(0))
             ->method('ZRANGEBYSCORE')
             ->with("sensor_values:$sensorId", 0, 10)
             ->willReturn($oldValues);
 
-        $this->mockRedis
+        $this->redis
             ->expects($this->at(1))
             ->method('ZREM')
             ->with("sensor_values:$sensorId", "701-100");
 
-        $this->mockRedis
+        $this->redis
             ->expects($this->at(2))
             ->method('ZREM')
             ->with("sensor_values:$sensorId", "702-101");

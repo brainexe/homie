@@ -14,7 +14,7 @@ use BrainExe\Core\Traits\TimeTrait;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation
+ * @ControllerAnnotation("BlogController")
  */
 class Controller implements ControllerInterface
 {

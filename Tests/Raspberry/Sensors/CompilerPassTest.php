@@ -1,23 +1,23 @@
 <?php
 
-namespace Tests\Raspberry\Sensors\SensorCompilerPass;
+namespace Tests\Raspberry\Sensors;
 
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Raspberry\Sensors\SensorCompilerPass;
+use Raspberry\Sensors\CompilerPass;
 use Raspberry\Sensors\Sensors\SensorInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * @Covers Raspberry\Sensors\SensorCompilerPass
+ * @Covers Raspberry\Sensors\CompilerPass
  */
-class SensorCompilerPassTest extends PHPUnit_Framework_TestCase
+class CompilerPassTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var SensorCompilerPass
+     * @var CompilerPass
      */
     private $subject;
 
@@ -28,7 +28,7 @@ class SensorCompilerPassTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->subject = new SensorCompilerPass();
+        $this->subject = new CompilerPass();
         $this->mockContainer = $this->getMock(ContainerBuilder::class);
     }
 
@@ -51,7 +51,7 @@ class SensorCompilerPassTest extends PHPUnit_Framework_TestCase
         $this->mockContainer
             ->expects($this->at(1))
             ->method('findTaggedServiceIds')
-            ->with(SensorCompilerPass::TAG)
+            ->with(CompilerPass::TAG)
             ->will($this->returnValue([
                 $sensorId => $sensorDefinition
             ]));

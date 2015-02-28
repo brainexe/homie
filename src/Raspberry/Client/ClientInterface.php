@@ -11,6 +11,7 @@ interface ClientInterface
     public function execute($command);
 
     /**
+     * @todo rename to executeWithResult etc.
      * @param string $command
      * @return string
      */

@@ -46,7 +46,7 @@ class RadioWidget extends AbstractWidget
             _('Radio'),
             [
                 'radioId' => [
-                    'name' => _('Radio ID'),
+                    'name'   => _('Radio ID'),
                     'values' => $values
                 ]
             ]

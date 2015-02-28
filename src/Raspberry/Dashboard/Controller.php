@@ -9,7 +9,7 @@ use BrainExe\Core\Controller\ControllerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation
+ * @ControllerAnnotation("DashboardController")
  */
 class Controller implements ControllerInterface
 {

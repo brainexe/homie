@@ -62,17 +62,9 @@ App.ng.controller('RadioController', ['$scope', function ($scope) {
 		radio.edit = false;
 	};
 
-	$scope.addRadio = function() {
-		var payload = {
-			name: $scope.name,
-			description: $scope.description,
-			code: $scope.code,
-			pin: $scope.pin
-		};
-
-		$.post('/radio/add/', payload, function(data) {
-			$scope.radios[data.radioId] = data;
-			$scope.pin = $scope.description = $scope.name = $scope.code = '';
+	$scope.addRadio = function(newRadio) {
+		$.post('/radio/add/', newRadio, function(data) {
+            $scope.radios[data.radioId] = data;
 			$scope.$apply();
 		});
 	};

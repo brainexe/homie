@@ -10,7 +10,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use BrainExe\InputControl\Annotations\InputControl as InputControlAnnotation;
 
 /**
- * @InputControlAnnotation(name="sensor")
+ * @InputControlAnnotation("InputControl.Sensor")
  */
 class InputControl implements EventSubscriberInterface
 {

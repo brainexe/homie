@@ -8,15 +8,12 @@ use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Controller\ControllerInterface;
 use BrainExe\Core\Traits\AddFlashTrait;
 use BrainExe\Core\Traits\EventDispatcherTrait;
-use Raspberry\Radio\RadioChangeEvent;
-use Raspberry\Radio\RadioJob;
-use Raspberry\Radio\Radios;
 use Raspberry\Radio\VO\RadioVO;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation
+ * @ControllerAnnotation("RadioController")
  */
 class Controller implements ControllerInterface
 {

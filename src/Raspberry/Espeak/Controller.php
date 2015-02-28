@@ -11,7 +11,7 @@ use BrainExe\MessageQueue\MessageQueueJob;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation
+ * @ControllerAnnotation("EspeakController")
  */
 class Controller
 {

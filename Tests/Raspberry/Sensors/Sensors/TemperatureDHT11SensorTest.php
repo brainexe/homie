@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Raspberry\Sensors\Sensors\TemperatureDHT11Sensor;
+namespace Tests\Raspberry\Sensors\Sensors;
 
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;

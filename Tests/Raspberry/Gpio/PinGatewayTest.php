@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Raspberry\Gpio\PinGateway;
+namespace Tests\Raspberry\Gpio;
 
 use BrainExe\Core\Redis\RedisInterface;
 use BrainExe\Tests\RedisMockTrait;

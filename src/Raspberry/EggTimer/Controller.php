@@ -10,7 +10,7 @@ use BrainExe\MessageQueue\MessageQueueJob;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation
+ * @ControllerAnnotation("EggTimerController")
  */
 class Controller implements ControllerInterface
 {

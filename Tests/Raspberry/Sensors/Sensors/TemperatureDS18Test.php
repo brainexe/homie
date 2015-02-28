@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Raspberry\Sensors\Sensors\TemperatureDS18;
+namespace Tests\Raspberry\Sensors\Sensors;
 
 use BrainExe\Core\Util\FileSystem;
 use PHPUnit_Framework_TestCase;

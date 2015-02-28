@@ -2,14 +2,14 @@
 
 namespace Raspberry\Flower;
 
-use BrainExe\Core\Annotations\Controller;
+use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Controller\ControllerInterface;
 
 /**
- * @Controller
+ * @ControllerAnnotation("FlowerController")
  */
-class FlowerController implements ControllerInterface
+class Controller implements ControllerInterface
 {
 
     /**

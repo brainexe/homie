@@ -13,9 +13,9 @@ class GpioManager
 {
 
     // todo put into config.xml
-    const GPIO_COMMAND_READALL = 'gpio readall';
+    const GPIO_COMMAND_READALL   = 'gpio readall';
     const GPIO_COMMAND_DIRECTION = 'gpio mode %d %s';
-    const GPIO_COMMAND_VALUE = 'gpio write %d %d';
+    const GPIO_COMMAND_VALUE     = 'gpio write %d %d';
 
     /**
      * @var ClientInterface

@@ -11,7 +11,7 @@ use BrainExe\Core\Traits\EventDispatcherTrait;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation
+ * @ControllerAnnotation("StatusController")
  */
 class Controller
 {

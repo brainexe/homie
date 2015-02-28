@@ -4,7 +4,6 @@ namespace Raspberry;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
-use BrainExe\Annotations\Annotations\Value;
 
 /**
  * @Service(public=false)
@@ -27,7 +26,7 @@ class Node
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getNodeId()
     {
@@ -35,7 +34,7 @@ class Node
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isMaster()
     {
@@ -43,7 +42,7 @@ class Node
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isSlave()
     {
