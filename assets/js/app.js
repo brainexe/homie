@@ -8,6 +8,10 @@ function asset(filename) {
 	return filename;
 }
 
+/**
+ * @param {String} string
+ * @returns {String}
+ */
 function _(string) {
 	return string;
 }
@@ -33,29 +37,11 @@ var App = {
 		'ngRoute'
 	]),
 
-	init: function (debug, user_vo, socket_server) {
-		App.Layout.init(debug, user_vo);
-		if (socket_server) {
-			App.connectToSocketServer(socket_server);
+	init: function (debug, userVo, socketUrl) {
+		App.Layout.init(debug, userVo);
+		if (socketUrl) {
+			App.SocketServer.connect(socketUrl);
 		}
-	},
-
-	/**
-	 * @param {String} socket_url
-	 */
-	connectToSocketServer: function (socket_url) {
-		var sockjs = new SockJS(socket_url);
-
-		sockjs.onmessage = function (message) {
-			var event      = JSON.parse(message.data);
-			var event_name = event.event_name;
-
-			App.Layout.$scope.$broadcast(event_name, event);
-
-			if (App.Layout.debug) {
-				console.log("socket server: " + event.event_name, event)
-			}
-		};
 	}
 };
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Raspberry\Radio\RadioController;
+namespace Tests\Raspberry\Radio;
 
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
@@ -21,7 +21,7 @@ class RadioControllerTest extends PHPUnit_Framework_TestCase
     /**
      * @var LocalClient|MockObject
      */
-    private $mockLocalClient;
+    private $client;
 
     /**
      * @var string
@@ -31,17 +31,17 @@ class RadioControllerTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->rcSwitchCommand = '/opt/rc_switch';
-        $this->mockLocalClient = $this->getMock(LocalClient::class, [], [], '', false);
-        $this->subject = new RadioController($this->mockLocalClient, $this->rcSwitchCommand);
+        $this->client = $this->getMock(LocalClient::class, [], [], '', false);
+        $this->subject = new RadioController($this->client, $this->rcSwitchCommand);
     }
 
     public function testSetStatus()
     {
-        $code = "0101";
+        $code   = "0101";
         $number = 2;
         $status = 1;
 
-        $this->mockLocalClient
+        $this->client
             ->expects($this->once())
             ->method('execute')
             ->with('/opt/rc_switch 0101 2 1');

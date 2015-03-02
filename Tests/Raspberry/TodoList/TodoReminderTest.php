@@ -86,5 +86,4 @@ class TodoReminderTest extends PHPUnit_Framework_TestCase
 
         $this->subject->sendNotification();
     }
-
 }

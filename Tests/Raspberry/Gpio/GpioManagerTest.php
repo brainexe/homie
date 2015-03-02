@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Raspberry\Gpio\GpioManager;
+namespace Tests\Raspberry\Gpio;
 
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;

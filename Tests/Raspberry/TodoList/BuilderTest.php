@@ -2,7 +2,6 @@
 
 namespace Tests\Raspberry\TodoList;
 
-use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Raspberry\TodoList\Builder;
 use Raspberry\TodoList\VO\TodoItemVO;

@@ -1,5 +1,5 @@
 
-var templates = new App.TemplateLoader('');
+var templates = new App.TemplateLoader();
 App.Dashboard = {};
 
 App.Widgets = {
@@ -24,7 +24,7 @@ App.Widgets = {
 
 	radio: {
 		render: function ($scope, widget) {
-			var template = templates.load('widgets/radio');
+			var template = templates.load(assert('/templates/widgets/radio.html'));
 			var radios = App.Radios.loadAll();
 			Promise.all([radios, template]).then(function(values) {
 				var radio = values[0][widget.radioId];
@@ -40,7 +40,7 @@ App.Widgets = {
 		title: _('Egg Timer'),
 		render: function ($scope, widget) {
 			templates
-				.load('widgets/egg_timer')
+				.load(assert('/templates/widgets/egg_timer.html'))
 				.then(function(html) {
 					$scope.setContent($scope, html);
 					$scope.$apply();

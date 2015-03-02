@@ -18,6 +18,9 @@ App.Layout = {
         {controller:'UserController', name: 'User Settings', url: 'user', icon:'user', templateUrl: asset('/templates/user/user.html')},
         {controller:'StatusController', name: 'Status', url: 'status', icon:'stats', templateUrl: asset('/templates/status.html')},
 
+        // admin
+        {controller:'AdminUsersController', name: 'Users', url: 'admin/users', icon:'stats', templateUrl: asset('/templates/admin/users.html'), role: 'admin'},
+
         // private
         {controller:'LoginController', name: 'Login', url: 'login', icon: 'user', is_public: true, templateUrl: asset('/templates/user/login.html')},
         {controller:'RegisterController', name: 'Register', url: 'register', icon: 'user', is_public: true, templateUrl: asset('/templates/user/register.html')},

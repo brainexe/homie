@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Raspberry\Radio\RadioJobListener;
+namespace Tests\Raspberry\Radio;
 
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
@@ -20,13 +20,13 @@ class RadioJobListenerTest extends PHPUnit_Framework_TestCase
     /**
      * @var RadioController|MockObject
      */
-    private $mockRadioController;
+    private $controller;
 
     public function setUp()
     {
-        $this->mockRadioController = $this->getMock(RadioController::class, [], [], '', false);
+        $this->controller = $this->getMock(RadioController::class, [], [], '', false);
 
-        $this->subject = new RadioJobListener($this->mockRadioController);
+        $this->subject = new RadioJobListener($this->controller);
     }
 
     public function testGetSubscribedEvents()
@@ -44,7 +44,7 @@ class RadioJobListenerTest extends PHPUnit_Framework_TestCase
         $event = new RadioChangeEvent($radio, RadioChangeEvent::CHANGE_RADIO);
         $event->status = $status = 'status';
 
-        $this->mockRadioController
+        $this->controller
             ->expects($this->once())
             ->method('setStatus')
             ->with($code, $pin, $status);

@@ -21,33 +21,33 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase
     /**
      * @var TimeParser|MockObject
      */
-    private $mockTimeParser;
+    private $timeParser;
 
     /**
      * @var MessageQueueGateway|MockObject
      */
-    private $mockMessageQueueGateway;
+    private $gateway;
 
     /**
      * @var EventDispatcher|MockObject
      */
-    private $mockDispatcher;
+    private $dispatcher;
 
     public function setUp()
     {
-        $this->mockTimeParser = $this->getMock(TimeParser::class);
-        $this->mockMessageQueueGateway = $this->getMock(MessageQueueGateway::class, [], [], '', false);
-        $this->mockDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->timeParser = $this->getMock(TimeParser::class);
+        $this->gateway    = $this->getMock(MessageQueueGateway::class, [], [], '', false);
+        $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-        $this->subject = new RadioJob($this->mockMessageQueueGateway, $this->mockTimeParser);
-        $this->subject->setEventDispatcher($this->mockDispatcher);
+        $this->subject = new RadioJob($this->gateway, $this->timeParser);
+        $this->subject->setEventDispatcher($this->dispatcher);
     }
 
     public function testGetJobs()
     {
         $jobs = [];
 
-        $this->mockMessageQueueGateway
+        $this->gateway
             ->expects($this->once())
             ->method('getEventsByType')
             ->with(RadioChangeEvent::CHANGE_RADIO)
@@ -67,14 +67,14 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase
         $radioVo = new RadioVO();
         $radioVo->radioId = 1;
 
-        $this->mockTimeParser
+        $this->timeParser
             ->expects($this->once())
             ->method('parseString')
             ->with($timeString)
             ->willReturn($timestamp);
 
         $event = new RadioChangeEvent($radioVo, $status);
-        $this->mockDispatcher
+        $this->dispatcher
             ->expects($this->once())
             ->method('dispatchInBackground')
             ->with($event, $timestamp);
@@ -86,7 +86,7 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase
     {
         $jobId = 19;
 
-        $this->mockMessageQueueGateway
+        $this->gateway
             ->expects($this->once())
             ->method('deleteEvent')
             ->with($jobId, RadioChangeEvent::CHANGE_RADIO);

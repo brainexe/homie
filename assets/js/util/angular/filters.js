@@ -3,6 +3,7 @@ App.ng.filter('notEmpty', function () {
         if (!input) {
             return false;
         }
+
         return Object.keys(input).length > 0;
     };
 });

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Raspberry\Gpio\PinGateway;
+namespace Tests\Raspberry\Gpio;
 
 use PHPUnit_Framework_TestCase;
 use Raspberry\Gpio\Pin;

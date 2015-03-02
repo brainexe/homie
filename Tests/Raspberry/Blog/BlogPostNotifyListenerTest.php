@@ -50,7 +50,7 @@ class BlogPostNotifyListenerTest extends PHPUnit_Framework_TestCase
     {
         $userVo = new UserVO();
         $postVo = new BlogPostVO();
-        $postVo->mood = $mood = 10;
+        $postVo->mood = 10;
 
         $event = new BlogEvent($userVo, $postVo);
 
@@ -75,7 +75,7 @@ class BlogPostNotifyListenerTest extends PHPUnit_Framework_TestCase
             ->with($this->isInstanceOf(EspeakEvent::class), 0);
 
         $now = 1000;
-        $notify_time = 1001;
+        $notifyTime = 1001;
 
         $this->mockTime
             ->expects($this->once())
@@ -86,12 +86,12 @@ class BlogPostNotifyListenerTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('strtotime')
             ->with(BlogPostNotifyListener::NOTIFY_TIME)
-            ->willReturn($notify_time);
+            ->willReturn($notifyTime);
 
         $this->mockEventDispatcher
             ->expects($this->at(1))
             ->method('dispatchInBackground')
-            ->with($this->isInstanceOf(EspeakEvent::class), $notify_time);
+            ->with($this->isInstanceOf(EspeakEvent::class), $notifyTime);
 
         $this->subject->handlePostEvent($event);
     }

@@ -38,7 +38,7 @@ class BlogGatewayTest extends PHPUnit_Framework_TestCase
     {
         $userId  = 42;
         $from    = 10;
-        $to      = 100;
+        $toTime  = 100;
 
         $key = "blog:$userId";
 
@@ -50,10 +50,10 @@ class BlogGatewayTest extends PHPUnit_Framework_TestCase
         $this->mockRedis
             ->expects($this->once())
             ->method('zRangeByScore')
-            ->with($key, $from, $to, ['withscores' => true])
+            ->with($key, $from, $toTime, ['withscores' => true])
             ->willReturn($postsRaw);
 
-        $actualResult = $this->subject->getPosts($userId, $from, $to);
+        $actualResult = $this->subject->getPosts($userId, $from, $toTime);
 
         $expectedResult = [
             $timestamp => $post
@@ -88,7 +88,7 @@ class BlogGatewayTest extends PHPUnit_Framework_TestCase
         $key = "blog:$userId";
 
         $post = new BlogPostVO();
-        $posts_raw = [
+        $postsRaw = [
             serialize($post)
         ];
 
@@ -96,7 +96,7 @@ class BlogGatewayTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('zRevRangeByScore')
             ->with($key, '+inf', '0', ['limit' => [0, 1]])
-            ->willReturn($posts_raw);
+            ->willReturn($postsRaw);
 
         $actualResult = $this->subject->getRecentPost($userId);
 

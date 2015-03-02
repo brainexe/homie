@@ -5,11 +5,9 @@ namespace Tests\Raspberry\Dashboard\Widgets;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Raspberry\Dashboard\Widgets\RadioWidget;
-use Raspberry\Dashboard\Widgets\SensorWidget;
 use Raspberry\Dashboard\Widgets\WidgetMetadataVo;
 use Raspberry\Radio\Radios;
 use Raspberry\Radio\VO\RadioVO;
-use Raspberry\Sensors\SensorGateway;
 
 /**
  * @Covers Raspberry\Dashboard\Widgets\RadioWidget

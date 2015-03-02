@@ -70,5 +70,4 @@ class RadioSearchTest extends TestCase
 
         $this->assertEquals($expectedResult, $actualResult);
     }
-
 }

@@ -22,12 +22,12 @@ class EspeakListenerTest extends PHPUnit_Framework_TestCase
     /**
      * @var Espeak|MockObject
      */
-    private $mockEspeak;
+    private $espeak;
 
     public function setUp()
     {
-        $this->mockEspeak = $this->getMock(Espeak::class, [], [], '', false);
-        $this->subject    = new EspeakListener($this->mockEspeak);
+        $this->espeak  = $this->getMock(Espeak::class, [], [], '', false);
+        $this->subject = new EspeakListener($this->espeak);
     }
 
     public function testGetSubscribedEvents()
@@ -41,7 +41,7 @@ class EspeakListenerTest extends PHPUnit_Framework_TestCase
         $espeakVo = new EspeakVO("text");
         $event    = new EspeakEvent($espeakVo);
 
-        $this->mockEspeak
+        $this->espeak
             ->expects($this->once())
             ->method('speak')
             ->with(

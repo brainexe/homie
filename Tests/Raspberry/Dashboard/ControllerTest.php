@@ -22,12 +22,12 @@ class ControllerTest extends PHPUnit_Framework_TestCase
     /**
      * @var Dashboard|MockObject
      */
-    private $mockDashboard;
+    private $dashboard;
 
     public function setUp()
     {
-        $this->mockDashboard = $this->getMock(Dashboard::class, [], [], '', false);
-        $this->subject       = new Controller($this->mockDashboard);
+        $this->dashboard = $this->getMock(Dashboard::class, [], [], '', false);
+        $this->subject   = new Controller($this->dashboard);
     }
 
     public function testIndex()
@@ -37,13 +37,13 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $dashboard = ['dashboard'];
         $widgets   = ['widgets'];
 
-        $this->mockDashboard
+        $this->dashboard
             ->expects($this->once())
             ->method('getDashboard')
             ->with($userId)
             ->willReturn($dashboard);
 
-        $this->mockDashboard
+        $this->dashboard
             ->expects($this->once())
             ->method('getAvailableWidgets')
             ->willReturn($widgets);
@@ -71,12 +71,12 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $request->request->set('type', $type);
         $request->request->set('payload', $payload);
 
-        $this->mockDashboard
+        $this->dashboard
             ->expects($this->once())
             ->method('addWidget')
             ->with($userId, $type, $payload);
 
-        $this->mockDashboard
+        $this->dashboard
             ->expects($this->once())
             ->method('getDashboard')
             ->with($userId)
@@ -97,13 +97,13 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $request = new Request();
         $request->request->set('widget_id', $widgetId);
 
-        $this->mockDashboard
+        $this->dashboard
             ->expects($this->once())
             ->method('deleteWidget')
             ->with($userId, $widgetId)
             ->willReturn($dashboard);
 
-        $this->mockDashboard
+        $this->dashboard
             ->expects($this->once())
             ->method('getDashboard')
             ->with($userId)

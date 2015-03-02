@@ -1,0 +1,37 @@
+<table ng-if="users|notEmpty" class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <th width="30">Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th><span class="glyphicon glyphicon-pencil"></span></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="(userId, user) in users">
+            <td>
+                {{ user.userId }}
+            </td>
+            <td>
+                <b>{{ user.username }}</b>
+            </td>
+            <td>
+                <span ng-if="!user.edit">{{ user.email }}</span>
+                <input ng-if="user.edit" ng-model="user.email" placeholder="Email"/>
+            </td>
+            <td>
+                <span ng-if="!user.edit">{{ user.roles }}</span>
+                <input ng-if="user.edit" ng-model="user.roles" placeholder="Roles"/>
+            </td>
+            <td>
+                <a ng-click="user.edit = !user.edit">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </a>
+                <a ng-if="user.edit" ng-click="save(user)">
+                    <span class="glyphicon glyphicon-save"></span>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>

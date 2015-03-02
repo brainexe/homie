@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Raspberry\Radio\RadioGateway;
+namespace Tests\Raspberry\Radio;
 
 use BrainExe\Core\Redis\RedisInterface;
 use BrainExe\Tests\RedisMockTrait;

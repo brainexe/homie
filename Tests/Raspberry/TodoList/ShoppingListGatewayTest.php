@@ -1,7 +1,6 @@
 <?php
 
-namespace Tests\Raspberry\TodoList\ShoppingListGateway;
-
+namespace Tests\Raspberry\TodoList;
 
 use BrainExe\Core\Redis\RedisInterface;
 use BrainExe\Tests\RedisMockTrait;

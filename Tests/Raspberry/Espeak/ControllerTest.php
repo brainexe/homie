@@ -2,7 +2,7 @@
 
 namespace Tests\Raspberry\Espeak;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Espeak\Controller;
 use Raspberry\Espeak\EspeakEvent;
@@ -15,7 +15,7 @@ use BrainExe\Core\EventDispatcher\EventDispatcher;
 /**
  * @Covers Raspberry\Espeak\Controller
  */
-class ControllerTest extends PHPUnit_Framework_TestCase
+class ControllerTest extends TestCase
 {
 
     /**
@@ -26,26 +26,26 @@ class ControllerTest extends PHPUnit_Framework_TestCase
     /**
      * @var Espeak|MockObject
      */
-    private $mockEspeak;
+    private $espeak;
 
     /**
      * @var TimeParser|MockObject
      */
-    private $mockTimeParser;
+    private $timeParser;
 
     /**
      * @var EventDispatcher|MockObject
      */
-    private $mockEventDispatcher;
+    private $dispatcher;
 
     public function setUp()
     {
-        $this->mockEspeak          = $this->getMock(Espeak::class, [], [], '', false);
-        $this->mockTimeParser      = $this->getMock(TimeParser::class, [], [], '', false);
-        $this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->espeak     = $this->getMock(Espeak::class, [], [], '', false);
+        $this->timeParser = $this->getMock(TimeParser::class, [], [], '', false);
+        $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-        $this->subject = new Controller($this->mockEspeak, $this->mockTimeParser);
-        $this->subject->setEventDispatcher($this->mockEventDispatcher);
+        $this->subject = new Controller($this->espeak, $this->timeParser);
+        $this->subject->setEventDispatcher($this->dispatcher);
     }
 
     public function testIndex()
@@ -53,12 +53,12 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $speakers = ['speakers'];
         $jobs = ['jobs'];
 
-        $this->mockEspeak
+        $this->espeak
             ->expects($this->once())
             ->method('getSpeakers')
             ->willReturn($speakers);
 
-        $this->mockEspeak
+        $this->espeak
             ->expects($this->once())
             ->method('getPendingJobs')
             ->willReturn($jobs);
@@ -89,7 +89,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $request->request->set('speed', $speed);
         $request->request->set('delay', $delayRaw);
 
-        $this->mockTimeParser
+        $this->timeParser
             ->expects($this->once())
             ->method('parseString')
             ->with($delayRaw)
@@ -98,14 +98,14 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $espeakVo = new EspeakVO($text, $volume, $speed, $speaker);
         $event = new EspeakEvent($espeakVo);
 
-        $this->mockEventDispatcher
+        $this->dispatcher
             ->expects($this->once())
             ->method('dispatchInBackground')
             ->with($event, $timestamp);
 
         $pendingJobs = ['pending_jobs'];
 
-        $this->mockEspeak
+        $this->espeak
             ->expects($this->once())
             ->method('getPendingJobs')
             ->willReturn($pendingJobs);
@@ -121,7 +121,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $request = new Request();
         $request->request->set('job_id', $jobId);
 
-        $this->mockEspeak
+        $this->espeak
             ->expects($this->once())
             ->method('deleteJob')
             ->willReturn($jobId);
