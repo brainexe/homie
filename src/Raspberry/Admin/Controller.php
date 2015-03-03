@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @todo
+ * @todo move into Core
  * @ControllerAnnotation("AdminController")
  */
 class Controller
@@ -79,5 +79,16 @@ class Controller
         }
 
         return $user;
+    }
+
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("/admin/user/delete/", name="admin.user.delete")
+     * @Role("admin")
+     */
+    public function delete(Request $request)
+    {
+        return true;
     }
 }
