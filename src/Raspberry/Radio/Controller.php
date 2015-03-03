@@ -127,7 +127,7 @@ class Controller implements ControllerInterface
      */
     public function addRadioJob(Request $request)
     {
-        $radioId     = $request->request->getInt('radioId');
+        $radioId     = $request->request->get('radioId');
         $status      = $request->request->getInt('status');
         $timeString  = $request->request->get('time');
 
@@ -135,7 +135,7 @@ class Controller implements ControllerInterface
 
         $this->radioJob->addRadioJob($radioVo, $timeString, $status);
 
-        $response = new JsonResponse(true);
+        $response = new JsonResponse($this->radioJob->getJobs());
         $this->addFlash($response, self::ALERT_SUCCESS, _('The job was sored successfully'));
 
         return $response;

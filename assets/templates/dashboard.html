@@ -3,7 +3,7 @@
 	<div class="row">
 		<div class="col-xs-6" ng-repeat="widget in dashboard">
 			<div class="panel panel-default widget" ng-controller="WidgetController">
-				<div class="panel-heading panel-toggle" ng-click="widget.open = !widget.open">
+				<div class="panel-heading" ng-click="widget.open = !widget.open">
 					{{ title }}
 					<span ng-click="deleteWidget(widget.id)" class="delete glyphicon glyphicon-remove"></span>
 				</div>
@@ -15,5 +15,5 @@
 </div>
 
 <div class="panel panel-primary">
-	<div class="panel-heading panel-toggle" ng-click="openModal()">Add Widget</div>
+	<div class="panel-heading" ng-click="openModal()">Add Widget</div>
 </div>

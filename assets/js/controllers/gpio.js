@@ -24,7 +24,6 @@ App.ng.controller('GpioController', ['$scope', function($scope) {
 	 * @param {Object} pin
 	 */
     $scope.saveDescription = function(pin) {
-        console.log(pin)
 		$.post(
 			'/gpio/description/',
             {

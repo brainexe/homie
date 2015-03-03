@@ -4,6 +4,7 @@
 			<th>Name</th>
 			<th>Enable</th>
 			<th>Disable</th>
+			<th>Timer</th>
 			<th ng-if="editMode">Delete</th>
 		</tr>
 	</thead>
@@ -26,6 +27,7 @@
 			</td>
 			<td><a ng-click="setStatus(radio, 1)" class="btn btn-success">Enable</a></td>
 			<td><a ng-click="setStatus(radio, 0)" class="btn btn-danger">Disable</a></td>
+            <td><a ng-click="highlight(radio)" class="glyphicon glyphicon-hourglass"></a></td>
 			<td ng-if="editMode"><a ng-click="deleteRadio(radio.radioId)" class="glyphicon glyphicon-remove"></a></td>
 		</tr>
 	</tbody>
@@ -49,17 +51,17 @@
 			<td>{{ radio_job.timestamp|timeAgo }}</td>
 			<td>{{ radios[radio_job.event.radio_vo.radioId].name }}</td>
 			<td>
-				<a ng-click="setStatus(radio_job.radio_id, 1);deleteRadioJob(radio_job.event_id)" class="btn" ng-class="{'btn-danger':!radio_job.event.status, 'btn-success':radio_job.event.status}">{{ radio_job.event.status ? "ON" : "OFF" }}</a>
+				<a ng-click="setStatus(radio_job.radioId, 1); deleteRadioJob(radio_job.event_id)" class="btn" ng-class="{'btn-danger':!radio_job.event.status, 'btn-success':radio_job.event.status}">{{ radio_job.event.status ? "ON" : "OFF" }}</a>
 			</td>
 			<td>
-				<a ng-click="deleteRadioJob(radio_job.event_id)" class="glyphicon glyphicon-remove"></a>
+				<a ng-click="deleteRadioJob(radio_job.eventId)" class="glyphicon glyphicon-remove"></a>
 			</td>
 		</tr>
 	</tbody>
 </table>
 
 <div ng-if="radios|notEmpty" class="panel panel-primary">
-	<div class="panel-heading panel-toggle">Add Job</div>
+	<div class="panel-heading">Add Job</div>
 	<div class="panel-body">
 		<form ng-submit="addRadioJob(new_job)" class="navbar-forms navbar-lefts ">
 			<div class="row">
@@ -71,14 +73,14 @@
 				</div>
 				<div class="col-lg-3">
 					<div class="input-group">
-						<span class="input-group-addon tip" title="e.g. 10s, 30m, 1h">Time</span>
-						<input type="text" ng-model="new_job.time" required class="form-control" value="1h"/>
+						<span class="input-group-addon tip" title="e.g. 10s, 30m, 1h" ng-enter="addRadio(newRadio)">Time</span>
+						<input type="text" ng-model="new_job.time" id="new_radio_job_time" required class="form-control" value="1h"/>
 					</div>
 				</div>
 				<div class="col-lg-3">
 					<div class="input-group">
 						<span class="input-group-addon">Status</span>
-						<input type="checkbox" ng-model="new_job.status" required class="form-control" value="1"/>
+						<input type="checkbox" ng-model="new_job.status" class="form-control" value="1"/>
 					</div>
 				</div>
 				<div class="col-lg-2">
@@ -94,7 +96,7 @@
 </div>
 
 <div ng-if="editMode" class="panel panel-primary">
-	<div class="panel-heading panel-toggle">Add Radio</div>
+	<div class="panel-heading">Add Radio</div>
 	<div class="panel-body">
 		<form ng-submit="addRadio(newRadio)" class="navbar-forms navbar-lefts">
 			<div class="row">

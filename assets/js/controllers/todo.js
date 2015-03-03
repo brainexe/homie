@@ -16,8 +16,6 @@ App.ng.controller('TodoController', ['$scope', function($scope) {
 			return {text:text, done:false};
 		});
 
-		console.log($scope.shoppingList)
-
 		for (var userId in data.userNames) {
 			$scope.userNames.push({id: userId, name: data.userNames[userId]})
 		}

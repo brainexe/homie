@@ -25,6 +25,7 @@ App.ng.controller('RadioController', ['$scope', function ($scope) {
 	$scope.radios     = {};
 	$scope.radio_jobs = {};
 	$scope.pins       = {};
+	$scope.new_job    = {};
 	$scope.editMode   = false;
 
 	$.get('/radio/', function(data) {
@@ -56,10 +57,9 @@ App.ng.controller('RadioController', ['$scope', function ($scope) {
 		});
 	};
 
-	$scope.saveRadio = function(radio) {
-		//todo
-
-		radio.edit = false;
+	$scope.highlight = function(radio) {
+		$scope.new_job.radioId = radio.radioId;
+        document.getElementById('new_radio_job_time').focus();
 	};
 
 	$scope.addRadio = function(newRadio) {
