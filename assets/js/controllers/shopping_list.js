@@ -1,5 +1,5 @@
 
-App.ng.controller('ShoppingList', ['$scope', function($scope) {
+App.ng.controller('ShoppingListController', ['$scope', function($scope) {
 	$scope.shoppingList = [];
 
 	$.get('/todo/', function(data) {
