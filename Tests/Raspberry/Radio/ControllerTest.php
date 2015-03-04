@@ -28,26 +28,26 @@ class ControllerTest extends PHPUnit_Framework_TestCase
     /**
      * @var Radios|MockObject
      */
-    private $mockRadios;
+    private $radio;
 
     /**
      * @var RadioJob|MockObject
      */
-    private $mockRadioJob;
+    private $radioJob;
 
     /**
      * @var EventDispatcher|MockObject
      */
-    private $mockDispatcher;
+    private $dispatcher;
 
     public function setUp()
     {
-        $this->mockRadios     = $this->getMock(Radios::class, [], [], '', false);
-        $this->mockRadioJob   = $this->getMock(RadioJob::class, [], [], '', false);
-        $this->mockDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->radio      = $this->getMock(Radios::class, [], [], '', false);
+        $this->radioJob   = $this->getMock(RadioJob::class, [], [], '', false);
+        $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-        $this->subject = new Controller($this->mockRadios, $this->mockRadioJob);
-        $this->subject->setEventDispatcher($this->mockDispatcher);
+        $this->subject = new Controller($this->radio, $this->radioJob);
+        $this->subject->setEventDispatcher($this->dispatcher);
     }
 
     public function testIndex()
@@ -55,12 +55,12 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $radiosFormatted = ['radios_formatted'];
         $jobs = ['jobs'];
 
-        $this->mockRadios
+        $this->radio
             ->expects($this->once())
             ->method('getRadios')
             ->willReturn($radiosFormatted);
 
-        $this->mockRadioJob
+        $this->radioJob
             ->expects($this->once())
             ->method('getJobs')
             ->willReturn($jobs);
@@ -84,13 +84,13 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $radioVo  = new RadioVO();
         $event    = new RadioChangeEvent($radioVo, $status);
 
-        $this->mockRadios
+        $this->radio
             ->expects($this->once())
             ->method('getRadio')
             ->with($radioId)
             ->willReturn($radioVo);
 
-        $this->mockDispatcher
+        $this->dispatcher
             ->expects($this->once())
             ->method('dispatchInBackground')
             ->with($event);
@@ -123,12 +123,12 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $radioVo->code        = $code;
         $radioVo->pin         = $pin;
 
-        $this->mockRadios
+        $this->radio
             ->expects($this->once())
             ->method('addRadio')
             ->with($radioVo);
 
-        $this->mockRadios
+        $this->radio
             ->expects($this->once())
             ->method('getRadioPin')
             ->with($pinRaw)
@@ -144,7 +144,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $request = new Request();
         $radioId = 10;
 
-        $this->mockRadios
+        $this->radio
             ->expects($this->once())
             ->method('deleteRadio')
             ->with($radioId);
@@ -168,20 +168,25 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $request->request->set('status', $status);
         $request->request->set('time', $timeString);
 
-        $this->mockRadios
+        $this->radio
             ->expects($this->once())
             ->method('getRadio')
             ->with($radioId)
             ->willReturn($radioVo);
 
-        $this->mockRadioJob
+        $this->radioJob
             ->expects($this->once())
             ->method('addRadioJob')
             ->with($radioVo, $timeString, $status);
 
+        $this->radioJob
+            ->expects($this->once())
+            ->method('getJobs')
+            ->willReturn([]);
+
         $actualResult = $this->subject->addRadioJob($request);
 
-        $expectedResult = new JsonResponse(true);
+        $expectedResult = new JsonResponse([]);
         $expectedResult->headers->set(
             'X-Flash',
             json_encode([ControllerInterface::ALERT_SUCCESS, _('The job was sored successfully')])
@@ -194,7 +199,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $request = new Request();
         $radioId = 10;
 
-        $this->mockRadioJob
+        $this->radioJob
             ->expects($this->once())
             ->method('deleteJob')
             ->with($radioId);

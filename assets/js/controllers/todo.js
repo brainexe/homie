@@ -2,7 +2,6 @@
 // TODO stroke
 App.ng.controller('TodoController', ['$scope', function($scope) {
 	$scope.todos = [];
-	$scope.shoppingList = [];
 	$scope.userNames = [];
 
 	$scope.stati = {
@@ -12,10 +11,6 @@ App.ng.controller('TodoController', ['$scope', function($scope) {
 	};
 
 	$.get('/todo/', function(data) {
-		$scope.shoppingList = data.shoppingList.map(function(text) {
-			return {text:text, done:false};
-		});
-
 		for (var userId in data.userNames) {
 			$scope.userNames.push({id: userId, name: data.userNames[userId]})
 		}
@@ -27,27 +22,6 @@ App.ng.controller('TodoController', ['$scope', function($scope) {
 
 		$scope.$apply();
 	});
-
-	$scope.addShoppingItem = function() {
-		var name = $scope.todoText;
-
-		if (!name) {
-			return;
-		}
-
-		$.post('/todo/shopping/add/', {name: name});
-
-		$scope.shoppingList.push({text: name, done:false});
-		$scope.todoText = '';
-	};
-
-	$scope.change = function(name, done) {
-		if (done) {
-			$.post('/todo/shopping/remove/', {name:name});
-		} else {
-			$.post('/todo/shopping/add/', {name: name});
-		}
-	};
 
 	$scope.assign = function(item_id, userId) {
 		$.post('/todo/assign/', {
@@ -105,5 +79,4 @@ App.ng.controller('TodoController', ['$scope', function($scope) {
 			}
 		});
 	};
-	//TODO add shopping list entry is gone?
 }]);

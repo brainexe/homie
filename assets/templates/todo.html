@@ -1,15 +1,33 @@
 <div>
 	<div class="task-list">
 		<h3>Add a task</h3>
-		<form ng-submit="addTodo()">
-			<input ng-model="newTitle" type="text" placeholder="Title" />
-			<textarea ng-model="newDescription" placeholder="Description"></textarea>
+		<form ng-submit="addTodo()" class="form-group">
 			<input
-					type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy"
-					ng-fodatepicker-popup="dd-MMMM-yyyy" ng-model="newDateline"
-					placeholder="Deadline" datepicker-options="{}"
-					date-disabled="disabled(date, mode)" close-text="Close" />
-			<input  type="submit" class="btn btn-primary" value="Add Task" />
+                    ng-model="newTitle"
+                    ng-enter="addTodo()"
+                    type="text"
+                    class="form-control"
+                    placeholder="Title"
+            />
+			<textarea
+                    ng-model="newDescription"
+                    ng-enter="addTodo()"
+                    class="form-control"
+                    placeholder="Description"
+                    >
+            </textarea>
+			<input
+					type="text" class="form-control"
+                    datepicker-popup="dd-MMMM-yyyy"
+					ng-fodatepicker-popup="dd-MMMM-yyyy"
+                    ng-model="newDateline"
+					placeholder="Deadline"
+                    datepicker-options="{}"
+					date-disabled="disabled(date, mode)"
+                    close-text="Close"
+                    ng-enter="addTodo()"
+            />
+			<input type="submit" class="btn btn-primary" value="Add Task" />
 		</form>
 		<div id="delete-div" ui-on-Drop="onDelete($data)">
 			Drag Here to Delete
@@ -41,19 +59,4 @@
 	</div>
 
 	<div style="clear:both;"></div>
-</div>
-
-<div id="shopping_list">
-	<h3>Shopping List</h3>
-
-	<ul class="unstyled">
-		<li ng-repeat="todo in shoppingList">
-			<input type="checkbox" ng-change="change(todo.text, todo.done)" ng-model="todo.done">
-			<span class="done-{{todo.done}}">{{todo.text}}</span>
-		</li>
-	</ul>
-	<form ng-submit="addShoppingItem()">
-		<input type="text" ng-model="todoText" size="30" placeholder="Add an item">
-		<input class="btn btn-primary" type="submit" value="add">
-	</form>
 </div>

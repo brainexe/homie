@@ -1,14 +1,13 @@
 <?php
 
-namespace Tests\Raspberry\TodoList\Controller\TodoListController;
+namespace Tests\Raspberry\TodoList\Controller;
 
 use BrainExe\Core\Authentication\UserVO;
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\TodoList\Controller\TodoListController;
 use Raspberry\TodoList\TodoList;
 use BrainExe\Core\Authentication\DatabaseUserProvider;
-use Raspberry\TodoList\ShoppingList;
 use Raspberry\TodoList\VO\TodoItemVO;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * @Covers Raspberry\TodoList\Controller\TodoListController
  */
-class TodoListControllerTest extends PHPUnit_Framework_TestCase
+class TodoListControllerTest extends TestCase
 {
 
     /**
@@ -27,49 +26,35 @@ class TodoListControllerTest extends PHPUnit_Framework_TestCase
     /**
      * @var TodoList|MockObject
      */
-    private $mockTodoList;
+    private $todoList;
 
     /**
      * @var DatabaseUserProvider|MockObject
      */
-    private $mockDatabaseUserProvider;
-
-    /**
-     * @var ShoppingList|MockObject
-     */
-    private $mockShoppingList;
-
+    private $userProvider;
 
     public function setUp()
     {
-        $this->mockTodoList             = $this->getMock(TodoList::class, [], [], '', false);
-        $this->mockDatabaseUserProvider = $this->getMock(DatabaseUserProvider::class, [], [], '', false);
-        $this->mockShoppingList         = $this->getMock(ShoppingList::class, [], [], '', false);
+        $this->todoList     = $this->getMock(TodoList::class, [], [], '', false);
+        $this->userProvider = $this->getMock(DatabaseUserProvider::class, [], [], '', false);
 
         $this->subject = new TodoListController(
-            $this->mockTodoList,
-            $this->mockDatabaseUserProvider,
-            $this->mockShoppingList
+            $this->todoList,
+            $this->userProvider
         );
     }
 
     public function testIndex()
     {
         $list         = ['list'];
-        $shoppingList = 'shoppingList';
         $userNames    = [$userId = 'user_id' => $userName = 'user_nam'];
 
-        $this->mockTodoList
+        $this->todoList
             ->expects($this->once())
             ->method('getList')
             ->willReturn($list);
 
-        $this->mockShoppingList
-            ->expects($this->once())
-            ->method('getShoppingListItems')
-            ->willReturn($shoppingList);
-
-        $this->mockDatabaseUserProvider
+        $this->userProvider
             ->expects($this->once())
             ->method('getAllUserNames')
             ->willReturn($userNames);
@@ -78,7 +63,6 @@ class TodoListControllerTest extends PHPUnit_Framework_TestCase
         $expectedResult = new JsonResponse(
             [
                 'list' => $list,
-                'shoppingList' => $shoppingList,
                 'userNames' => [$userName => $userId]
             ]
         );
@@ -90,7 +74,7 @@ class TodoListControllerTest extends PHPUnit_Framework_TestCase
     {
         $list = [];
 
-        $this->mockTodoList
+        $this->todoList
             ->expects($this->once())
             ->method('getList')
             ->willReturn($list);
@@ -115,7 +99,7 @@ class TodoListControllerTest extends PHPUnit_Framework_TestCase
         $itemVo->deadline    = strtotime($deadlineStr); // todo add to TimeTrait
         $itemVo->description = $description;
 
-        $this->mockTodoList
+        $this->todoList
             ->expects($this->once())
             ->method('addItem')
             ->with($user, $itemVo);
@@ -123,42 +107,6 @@ class TodoListControllerTest extends PHPUnit_Framework_TestCase
         $actualResult = $this->subject->addItem($request);
         $expectedResult = new JsonResponse($itemVo);
 
-        $this->assertEquals($expectedResult, $actualResult);
-    }
-
-    public function testAddShoppingListItem()
-    {
-        $name = 'name';
-
-        $request = new Request();
-        $request->request->set('name', $name);
-
-        $this->mockShoppingList
-            ->expects($this->once())
-            ->method('addShoppingListItem')
-            ->with($name);
-
-        $actualResult = $this->subject->addShoppingListItem($request);
-
-        $expectedResult = new JsonResponse(true);
-        $this->assertEquals($expectedResult, $actualResult);
-    }
-
-    public function testRemoveShoppingListItem()
-    {
-        $name = 'name';
-
-        $request = new Request();
-        $request->request->set('name', $name);
-
-        $this->mockShoppingList
-            ->expects($this->once())
-            ->method('removeShoppingListItem')
-            ->with($name);
-
-        $actualResult = $this->subject->removeShoppingListItem($request);
-
-        $expectedResult = new JsonResponse(true);
         $this->assertEquals($expectedResult, $actualResult);
     }
 
@@ -173,7 +121,7 @@ class TodoListControllerTest extends PHPUnit_Framework_TestCase
 
         $itemVo = new TodoItemVO();
 
-        $this->mockTodoList
+        $this->todoList
             ->expects($this->once())
             ->method('editItem')
             ->with($itemId, $changes)
@@ -203,13 +151,13 @@ class TodoListControllerTest extends PHPUnit_Framework_TestCase
             'userName' => $userName
         ];
 
-        $this->mockDatabaseUserProvider
+        $this->userProvider
             ->expects($this->once())
             ->method('loadUserById')
             ->with($userId)
             ->willReturn($userVo);
 
-        $this->mockTodoList
+        $this->todoList
             ->expects($this->once())
             ->method('editItem')
             ->with($itemId, $changes)
@@ -229,7 +177,7 @@ class TodoListControllerTest extends PHPUnit_Framework_TestCase
         $request = new Request();
         $request->request->set('id', $itemId);
 
-        $this->mockTodoList
+        $this->todoList
             ->expects($this->once())
             ->method('deleteItem')
             ->with($itemId);

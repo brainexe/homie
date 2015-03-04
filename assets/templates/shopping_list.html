@@ -1,0 +1,20 @@
+<div id="shopping_list">
+	<h3>Shopping List</h3>
+
+	<ul class="unstyled">
+		<li ng-repeat="todo in shoppingList">
+			<input type="checkbox" ng-change="change(todo.text, todo.done)" ng-model="todo.done">
+			<span class="done-{{todo.done}}">{{todo.text}}</span>
+		</li>
+	</ul>
+	<form ng-submit="addShoppingItem()">
+		<input
+                type="text"
+                ng-model="todoText"
+                size="30"
+                placeholder="Add an item"
+                ng-enter="addShoppingItem()"
+        >
+		<input class="btn btn-primary" type="submit" value="add">
+	</form>
+</div>

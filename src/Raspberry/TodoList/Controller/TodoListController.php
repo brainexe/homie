@@ -29,24 +29,16 @@ class TodoListController
     private $userProvider;
 
     /**
-     * @var ShoppingList
-     */
-    private $shoppingList;
-
-    /**
-     * @Inject({"@TodoList", "@DatabaseUserProvider", "@ShoppingList"})
+     * @Inject({"@TodoList", "@DatabaseUserProvider"})
      * @param TodoList $todo
      * @param DatabaseUserProvider $userProvider
-     * @param ShoppingList $list
      */
     public function __construct(
         TodoList $todo,
-        DatabaseUserProvider $userProvider,
-        ShoppingList $list
+        DatabaseUserProvider $userProvider
     ) {
         $this->todo         = $todo;
         $this->userProvider = $userProvider;
-        $this->shoppingList = $list;
     }
 
     /**
@@ -56,12 +48,10 @@ class TodoListController
     public function index()
     {
         $list         = $this->todo->getList();
-        $shoppingList = $this->shoppingList->getShoppingListItems();
         $userNames    = $this->userProvider->getAllUserNames();
 
         return new JsonResponse([
             'list' => $list,
-            'shoppingList' => $shoppingList,
             'userNames' => array_flip($userNames)
         ]);
     }
@@ -94,34 +84,6 @@ class TodoListController
         $this->todo->addItem($user, $itemVo);
 
         return new JsonResponse($itemVo);
-    }
-
-    /**
-     * @param Request $request
-     * @Route("/todo/shopping/add/", name="todo.shopping.add")
-     * @return JsonResponse
-     */
-    public function addShoppingListItem(Request $request)
-    {
-        $name = $request->request->get('name');
-
-        $this->shoppingList->addShoppingListItem($name);
-
-        return new JsonResponse(true);
-    }
-
-    /**
-     * @param Request $request
-     * @Route("/todo/shopping/remove/", name="todo.shopping.remove")
-     * @return JsonResponse
-     */
-    public function removeShoppingListItem(Request $request)
-    {
-        $name = $request->request->get('name');
-
-        $this->shoppingList->removeShoppingListItem($name);
-
-        return new JsonResponse(true);
     }
 
     /**

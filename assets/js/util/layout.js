@@ -14,6 +14,7 @@ App.Layout = {
         {controller:'BlogController', name: 'Blog', url: 'blog', icon:'paperclip', templateUrl: asset('/templates/blog.html')},
         {controller:'EggTimerController', name: 'Egg Timer', url: 'egg_timer', icon:'time', templateUrl: asset('/templates/egg_timer.html')},
         {controller:'TodoController', name: 'ToDo List', url: 'todo', icon:'list', templateUrl: asset('/templates/todo.html')},
+        {controller:'ShoppingListController', name: 'Shopping List', url: 'shopping', icon:'list', templateUrl: asset('/templates/shopping_list.html')},
         {controller:'WebcamController', name: 'Webcam', url: 'webcam', icon:'bullhorn', templateUrl: asset('/templates/webcam.html')},
         {controller:'UserController', name: 'User Settings', url: 'user', icon:'user', templateUrl: asset('/templates/user/user.html')},
         {controller:'StatusController', name: 'Status', url: 'status', icon:'stats', templateUrl: asset('/templates/status.html')},
