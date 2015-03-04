@@ -60,3 +60,8 @@
 	width: 90px;
 	margin: auto;
 }
+
+.sidebar-menu > li:hover {
+   background-color: #474747;
+    font-weight: bold;
+}
