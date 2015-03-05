@@ -23,11 +23,11 @@ App.ng.controller('ShoppingListController', ['$scope', function($scope) {
 		$scope.todoText = '';
 	};
 
-	$scope.change = function(name, done) {
-		if (done) {
-			$.post('/todo/shopping/remove/', {name:name});
+	$scope.change = function(item) {
+		if (item.done) {
+			$.post('/todo/shopping/remove/', {name: item.text});
 		} else {
-			$.post('/todo/shopping/add/', {name: name});
+			$.post('/todo/shopping/add/', {name: item.text});
 		}
 	};
 }]);

@@ -17,6 +17,10 @@
 	border: 1px darkgray solid;
 }
 
+#shopping_list .completed {
+    text-decoration: line-through;
+}
+
 .task-list {
 	width: 250px;
 	float: left;

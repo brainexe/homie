@@ -2,9 +2,9 @@
 	<h3>Shopping List</h3>
 
 	<ul class="unstyled">
-		<li ng-repeat="todo in shoppingList">
-			<input type="checkbox" ng-change="change(todo.text, todo.done)" ng-model="todo.done">
-			<span class="done-{{todo.done}}">{{todo.text}}</span>
+		<li ng-repeat="todo in shoppingList|orderBy:'text'">
+			<input type="checkbox" ng-change="change(todo)" ng-model="todo.done">
+			<span ng-class="{completed: todo.done}">{{todo.text}}</span>
 		</li>
 	</ul>
 	<form ng-submit="addShoppingItem()">
@@ -14,7 +14,7 @@
                 size="30"
                 placeholder="Add an item"
                 ng-enter="addShoppingItem()"
-        >
-		<input class="btn btn-primary" type="submit" value="add">
+        />
+		<input class="btn btn-primary" type="submit" value="add" />
 	</form>
 </div>
