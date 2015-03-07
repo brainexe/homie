@@ -2,44 +2,44 @@
 
 namespace Tests\Raspberry\Sensors\Sensors;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Raspberry\Sensors\Sensors\TemperatureDHT11Sensor;
+use Raspberry\Sensors\Sensors\TemperatureDHT11;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
-class TemperatureDHT11SensorTest extends PHPUnit_Framework_TestCase
+class TemperatureDHT11Test extends TestCase
 {
 
     /**
-     * @var TemperatureDHT11Sensor
+     * @var TemperatureDHT11
      */
     private $subject;
 
     /**
      * @var ProcessBuilder|MockObject
      */
-    private $mockProcessBuilder;
+    private $processBuilder;
 
     /**
      * @var Filesystem|MockObject
      */
-    private $mockFileSystem;
+    private $fileSystem;
 
     public function setUp()
     {
-        $this->mockProcessBuilder = $this->getMock(ProcessBuilder::class, [], [], '', false);
-        $this->mockFileSystem = $this->getMock(Filesystem::class, [], [], '', false);
+        $this->processBuilder = $this->getMock(ProcessBuilder::class, [], [], '', false);
+        $this->fileSystem = $this->getMock(Filesystem::class, [], [], '', false);
 
-        $this->subject = new TemperatureDHT11Sensor($this->mockProcessBuilder, $this->mockFileSystem, '/ada/');
+        $this->subject = new TemperatureDHT11($this->processBuilder, $this->fileSystem, '/ada/');
     }
 
     public function testGetSensorType()
     {
         $actualResult = $this->subject->getSensorType();
 
-        $this->assertEquals(TemperatureDHT11Sensor::TYPE, $actualResult);
+        $this->assertEquals(TemperatureDHT11::TYPE, $actualResult);
     }
     public function testGetValueWitInvalidOutput()
     {
@@ -47,12 +47,12 @@ class TemperatureDHT11SensorTest extends PHPUnit_Framework_TestCase
 
         $process = $this->getMock(Process::class, [], [], '', false);
 
-        $this->mockProcessBuilder
+        $this->processBuilder
             ->expects($this->once())
             ->method('setArguments')
-            ->willReturn($this->mockProcessBuilder);
+            ->willReturn($this->processBuilder);
 
-        $this->mockProcessBuilder
+        $this->processBuilder
             ->expects($this->once())
             ->method('getProcess')
             ->willReturn($process);
@@ -78,12 +78,12 @@ class TemperatureDHT11SensorTest extends PHPUnit_Framework_TestCase
 
         $process = $this->getMock(Process::class, [], [], '', false);
 
-        $this->mockProcessBuilder
+        $this->processBuilder
             ->expects($this->once())
             ->method('setArguments')
-            ->willReturn($this->mockProcessBuilder);
+            ->willReturn($this->processBuilder);
 
-        $this->mockProcessBuilder
+        $this->processBuilder
             ->expects($this->once())
             ->method('getProcess')
             ->willReturn($process);

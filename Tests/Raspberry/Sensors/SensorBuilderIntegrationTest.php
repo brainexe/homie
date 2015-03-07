@@ -3,9 +3,8 @@
 namespace Tests\Raspberry\Sensors;
 
 use Exception;
+use Raspberry\Sensors\Interfaces\Sensor;
 use Raspberry\Sensors\SensorBuilder;
-use Raspberry\Sensors\Sensors\SensorInterface;
-use Symfony\Component\Console\Output\NullOutput;
 
 class SensorBuilderIntegrationTest extends \PHPUnit_Framework_TestCase
 {
@@ -33,26 +32,9 @@ class SensorBuilderIntegrationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerSensors
-     * @param SensorInterface $sensor
+     * @param Sensor $sensor
      */
-    public function testGetValue(SensorInterface $sensor)
-    {
-        $output = new NullOutput();
-
-        $isSupported = $sensor->isSupported($output);
-        $this->assertInternalType('boolean', $isSupported);
-
-        if ($isSupported) {
-            $value = $sensor->getValue(0);
-            $this->assertTrue(is_numeric($value));
-        }
-    }
-
-    /**
-     * @dataProvider providerSensors
-     * @param SensorInterface $sensor
-     */
-    public function testFormatValue(SensorInterface $sensor)
+    public function testFormatValue(Sensor $sensor)
     {
         $this->assertInternalType('string', $sensor->formatValue(1.1));
         $this->assertInternalType('string', $sensor->getEspeakText(1.1));
@@ -66,7 +48,7 @@ class SensorBuilderIntegrationTest extends \PHPUnit_Framework_TestCase
         global $dic;
         $builder = $dic->get('SensorBuilder');
 
-        return array_map(function(SensorInterface $sensor) {
+        return array_map(function(Sensor $sensor) {
             return [$sensor];
         }, $builder->getSensors());
     }

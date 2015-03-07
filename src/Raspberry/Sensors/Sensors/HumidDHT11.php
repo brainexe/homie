@@ -7,7 +7,7 @@ use Raspberry\Sensors\Annotation\Sensor;
 /**
  * @Sensor("Sensor.HumidDHT11")
  */
-class HumidDHT11Sensor extends AbstractDHT11Sensor
+class HumidDHT11 extends AbstractDHT11
 {
 
     const TYPE = 'humid_dht11';
@@ -21,12 +21,12 @@ class HumidDHT11Sensor extends AbstractDHT11Sensor
     }
 
     /**
-     * @param integer $pin
+     * @param integer $parameter
      * @return double
      */
-    public function getValue($pin)
+    public function getValue($parameter)
     {
-        $output = $this->getContent($pin);
+        $output = $this->getContent($parameter);
 
         if (!preg_match('/Hum = (\d+) %/', $output, $matches)) {
             return null;

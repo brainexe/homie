@@ -3,7 +3,8 @@
 namespace Tests\Raspberry\Sensors\Sensors;
 
 use BrainExe\Core\Util\FileSystem;
-use PHPUnit_Framework_TestCase;
+use BrainExe\Core\Util\Glob;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Sensors\Sensors\TemperatureDS18;
 use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
@@ -11,7 +12,7 @@ use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 /**
  * @Covers Raspberry\Sensors\Sensors\TemperatureDS18
  */
-class TemperatureDS18Test extends PHPUnit_Framework_TestCase
+class TemperatureDS18Test extends TestCase
 {
 
     /**
@@ -22,13 +23,19 @@ class TemperatureDS18Test extends PHPUnit_Framework_TestCase
     /**
      * @var FileSystem|MockObject
      */
-    private $mockFileSystem;
+    private $fileSystem;
+
+    /**
+     * @var Glob
+     */
+    private $glob;
 
     public function setUp()
     {
-        $this->mockFileSystem = $this->getMock(Filesystem::class, [], [], '', false);
+        $this->fileSystem = $this->getMock(Filesystem::class, [], [], '', false);
+        $this->glob       = $this->getMock(Glob::class, [], [], '', false);
 
-        $this->subject = new TemperatureDS18($this->mockFileSystem);
+        $this->subject = new TemperatureDS18($this->fileSystem, $this->glob);
     }
 
     public function testGetSensorType()
@@ -40,17 +47,15 @@ class TemperatureDS18Test extends PHPUnit_Framework_TestCase
 
     public function testGetValueWhenNotSupported()
     {
-        $pin = 12;
+        $file = 'mockFile';
 
-        $file = sprintf(TemperatureDS18::PIN_FILE, $pin);
-
-        $this->mockFileSystem
+        $this->fileSystem
             ->expects($this->once())
             ->method('exists')
             ->with($file)
             ->willReturn(false);
 
-        $actualResult = $this->subject->getValue($pin);
+        $actualResult = $this->subject->getValue($file);
 
         $this->assertNull($actualResult);
     }
@@ -62,23 +67,21 @@ class TemperatureDS18Test extends PHPUnit_Framework_TestCase
      */
     public function testGetValue($content, $expectedResult)
     {
-        $pin = 12;
+        $file = "mockFile";
 
-        $file = sprintf(TemperatureDS18::PIN_FILE, $pin);
-
-        $this->mockFileSystem
+        $this->fileSystem
             ->expects($this->once())
             ->method('exists')
             ->with($file)
             ->willReturn(true);
 
-        $this->mockFileSystem
+        $this->fileSystem
             ->expects($this->once())
             ->method('fileGetContents')
             ->with($file)
             ->willReturn($content);
 
-        $actualResult = $this->subject->getValue($pin);
+        $actualResult = $this->subject->getValue($file);
 
         $this->assertEquals($expectedResult, $actualResult);
     }
@@ -108,32 +111,32 @@ class TemperatureDS18Test extends PHPUnit_Framework_TestCase
 
     public function testIsSupported()
     {
-        $file = sprintf(TemperatureDS18::BUS_DIR);
+        $file = "mockFile";
 
-        $this->mockFileSystem
+        $this->fileSystem
             ->expects($this->once())
             ->method('exists')
             ->with($file)
             ->willReturn(true);
 
         $output = new DummyOutput();
-        $actualResult = $this->subject->isSupported($output);
+        $actualResult = $this->subject->isSupported($file, $output);
 
         $this->assertTrue($actualResult);
     }
 
     public function testIsSupportedWhenNotSupported()
     {
-        $file = sprintf(TemperatureDS18::BUS_DIR);
+        $file = 'mockFile';
 
-        $this->mockFileSystem
+        $this->fileSystem
             ->expects($this->once())
             ->method('exists')
             ->with($file)
             ->willReturn(false);
 
         $output = new DummyOutput();
-        $actualResult = $this->subject->isSupported($output);
+        $actualResult = $this->subject->isSupported($file, $output);
 
         $this->assertFalse($actualResult);
     }

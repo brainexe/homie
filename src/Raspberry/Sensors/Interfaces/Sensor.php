@@ -1,10 +1,10 @@
 <?php
 
-namespace Raspberry\Sensors\Sensors;
+namespace Raspberry\Sensors\Interfaces;
 
 use Symfony\Component\Console\Output\OutputInterface;
 
-interface SensorInterface
+interface Sensor
 {
 
     /**
@@ -13,10 +13,10 @@ interface SensorInterface
     public function getSensorType();
 
     /**
-     * @param integer $pin
+     * @param integer $parameter
      * @return double
      */
-    public function getValue($pin);
+    public function getValue($parameter);
 
     /**
      * @param double $value
@@ -31,8 +31,9 @@ interface SensorInterface
     public function getEspeakText($value);
 
     /**
+     * @param string $parameter
      * @param OutputInterface $output
-     * @return boolean
+     * @return bool
      */
-    public function isSupported(OutputInterface $output);
+    public function isSupported($parameter, OutputInterface $output);
 }

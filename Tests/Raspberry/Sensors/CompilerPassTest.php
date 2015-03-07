@@ -2,10 +2,10 @@
 
 namespace Tests\Raspberry\Sensors;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Sensors\CompilerPass;
-use Raspberry\Sensors\Sensors\SensorInterface;
+use Raspberry\Sensors\Interfaces\Sensor;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\Reference;
 /**
  * @Covers Raspberry\Sensors\CompilerPass
  */
-class CompilerPassTest extends PHPUnit_Framework_TestCase
+class CompilerPassTest extends TestCase
 {
 
     /**
@@ -39,7 +39,7 @@ class CompilerPassTest extends PHPUnit_Framework_TestCase
     {
         $sensorBuilder    = $this->getMock(Definition::class);
         $sensorDefinition = $this->getMock(Definition::class);
-        $sensor           = $this->getMock(SensorInterface::class);
+        $sensor           = $this->getMock(Sensor::class);
         $sensorId         = 'sensor_1';
 
         $this->mockContainer

@@ -4,7 +4,7 @@ namespace Raspberry\Sensors;
 
 use BrainExe\Annotations\Annotations\Service;
 use InvalidArgumentException;
-use Raspberry\Sensors\Sensors\SensorInterface;
+use Raspberry\Sensors\Interfaces\Sensor;
 
 /**
  * @Service(public=false)
@@ -13,12 +13,12 @@ class SensorBuilder
 {
 
     /**
-     * @var SensorInterface[]
+     * @var Sensor[]
      */
     private $sensors;
 
     /**
-     * @return SensorInterface[]
+     * @return Sensor[]
      */
     public function getSensors()
     {
@@ -27,9 +27,9 @@ class SensorBuilder
 
     /**
      * @param string $type
-     * @param SensorInterface $sensor
+     * @param Sensor $sensor
      */
-    public function addSensor($type, SensorInterface $sensor)
+    public function addSensor($type, Sensor $sensor)
     {
         $this->sensors[$type] = $sensor;
     }
@@ -37,7 +37,7 @@ class SensorBuilder
     /**
      * @param string $type
      * @throws InvalidArgumentException
-     * @return SensorInterface
+     * @return Sensor
      */
     public function build($type)
     {

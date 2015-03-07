@@ -15,12 +15,12 @@ App.ng.controller('BlogController', ['$scope', function($scope) {
 	});
 
 	/**
-	 * @param {String} text
-	 * @param {Number} mood
+	 * @param {Object} post
 	 */
-	$scope.addPost = function(text, mood) {
-		$.post('/blog/add/', {mood:mood, text:text}, function(data) {
-			$scope.newMood = $scope.newText = '';
+	$scope.addPost = function(post) {
+		$.post('/blog/add/', post, function(data) {
+			post.text = '';
+			post.mood = '';
 			$scope.posts[data[0]] = data[1];
 			$scope.$apply();
 		});

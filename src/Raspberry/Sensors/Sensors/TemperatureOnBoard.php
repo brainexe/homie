@@ -9,18 +9,16 @@ use Raspberry\Sensors\Annotation\Sensor;
 use Raspberry\Sensors\Interfaces\Searchable;
 use Symfony\Component\Console\Output\OutputInterface;
 use Raspberry\Sensors\Interfaces\Sensor as SensorInterface;
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
 
 /**
- * @Sensor("Sensor.DS18.Temperature")
+ * @Sensor("Sensor.Temperature.OnBoard")
  */
-class TemperatureDS18 implements SensorInterface, Searchable
+class TemperatureOnBoard implements SensorInterface, Searchable
 {
 
-    use TemperatureTrait;
+    const TYPE = 'temperature_onboard';
 
-    const TYPE     = 'temp_ds18';
+    use TemperatureTrait;
 
     /**
      * @var Filesystem
@@ -34,7 +32,7 @@ class TemperatureDS18 implements SensorInterface, Searchable
 
     /**
      * @Inject({"@FileSystem", "@Glob"})
-     * @param FileSystem $filesystem
+     * @param Filesystem $filesystem
      * @param Glob $glob
      */
     public function __construct(Filesystem $filesystem, Glob $glob)
@@ -44,7 +42,7 @@ class TemperatureDS18 implements SensorInterface, Searchable
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getSensorType()
     {
@@ -52,35 +50,13 @@ class TemperatureDS18 implements SensorInterface, Searchable
     }
 
     /**
-     * @param integer $path
-     * @return double
+     * {@inheritdoc}
      */
-    public function getValue($path)
+    public function getValue($parameter)
     {
-        if (!$this->fileSystem->exists($path)) {
-            return null;
-        }
+        $content = $this->fileSystem->fileGetContents($parameter);
 
-        $content = $this->fileSystem->fileGetContents($path);
-
-        if (strpos($content, 'YES') === false) {
-         // invalid response :(
-            return null;
-        }
-
-        $matches = null;
-        if (!preg_match('/t=([\-\d]+)$/', $content, $matches)) {
-            return null;
-        }
-
-        $temperature = $matches[1] / 1000;
-
-        $invalidTemperatures = [0.0, 85.0];
-        if (in_array($temperature, $invalidTemperatures)) {
-            return null;
-        }
-
-        return $temperature;
+        return $content / 1000;
     }
 
     /**
@@ -91,7 +67,7 @@ class TemperatureDS18 implements SensorInterface, Searchable
         if (!$this->fileSystem->exists($parameter)) {
             $output->writeln(
                 sprintf(
-                    '<error>%s: w1 bus not exists: %s</error>',
+                    '<error>%s: Thermal zone file does not exist: %s</error>',
                     self::TYPE,
                     $parameter
                 )
@@ -107,6 +83,6 @@ class TemperatureDS18 implements SensorInterface, Searchable
      */
     public function search()
     {
-        return $this->glob->glob('/sys/bus/w1/devices/*/w1_slave');
+        return $this->glob->glob('/sys/class/thermal/');
     }
 }

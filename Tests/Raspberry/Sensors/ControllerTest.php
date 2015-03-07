@@ -7,7 +7,7 @@ use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Espeak\EspeakEvent;
 use Raspberry\Espeak\EspeakVO;
 use Raspberry\Sensors\Controller;
-use Raspberry\Sensors\Sensors\SensorInterface;
+use Raspberry\Sensors\Interfaces\Sensor;
 use Raspberry\Sensors\SensorVO;
 use Raspberry\Sensors\Builder;
 use Symfony\Component\HttpFoundation\Request;
@@ -102,7 +102,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         ];
 
         $sensorsObj = [
-            $type => $sensor = $this->getMock(SensorInterface::class)
+            $type => $sensor = $this->getMock(Sensor::class)
         ];
 
         $this->builder
@@ -189,7 +189,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         ];
 
         $sensorsObj = [
-            $type => $this->getMock(SensorInterface::class)
+            $type => $this->getMock(Sensor::class)
         ];
 
         $this->builder
@@ -298,7 +298,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
             ->willReturn($sensor);
 
         $mockSensor = $this->getMockForAbstractClass(
-            SensorInterface::class,
+            Sensor::class,
             ['getEspeakText']
         );
 
@@ -335,7 +335,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 
         $request = new Request();
 
-        $sensorObj = $this->getMock(SensorInterface::class);
+        $sensorObj = $this->getMock(Sensor::class);
         $sensorRaw = [
             'type'       => $type,
             'last_value' => $sensorValue
@@ -381,7 +381,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $request = new Request();
         $request->query->set('sensor_id', $sensorId);
 
-        $sensorObj = $this->getMock(SensorInterface::class);
+        $sensorObj = $this->getMock(Sensor::class);
         $sensorRaw = [
             'type'       => $type,
             'last_value' => $sensorValue

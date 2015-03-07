@@ -3,6 +3,7 @@
 namespace Raspberry\Sensors\Sensors;
 
 use BrainExe\Annotations\Annotations\Inject;
+use Raspberry\Sensors\Interfaces\Sensor;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Process\ProcessBuilder;
@@ -11,7 +12,7 @@ use Symfony\Component\Process\ProcessBuilder;
  * @link http://www.adafruit.com/product/386
  * @link https://learn.adafruit.com/dht
  */
-abstract class AbstractDHT11Sensor implements SensorInterface
+abstract class AbstractDHT11 implements Sensor
 {
 
     // todo use $pin only
@@ -73,15 +74,13 @@ abstract class AbstractDHT11Sensor implements SensorInterface
     /**
      * {@inheritdoc}
      */
-    public function isSupported(OutputInterface $output)
+    public function isSupported($parameter, OutputInterface $output)
     {
-        $script = $this->adafruit . self::ADAFRUIT_SCRIPT;
-
-        if (!$this->filesystem->exists($script)) {
+        if (!$this->filesystem->exists($parameter)) {
             $output->writeln(sprintf(
                 '<error>%s: ada script not exists: %s</error>',
                 $this->getSensorType(),
-                $script
+                $parameter
             ));
             return false;
         }

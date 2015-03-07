@@ -2,6 +2,7 @@
 
 namespace Raspberry\Sensors\Sensors;
 
+use Raspberry\Sensors\Interfaces\Sensor as SensorInterface;
 use Raspberry\Sensors\Annotation\Sensor;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -16,19 +17,21 @@ class Barometer implements SensorInterface
     const TYPE = 'barometer';
 
     /**
-     * @param integer $pin
+     * @todo
+     * @param integer $parameter
      * @return double
      */
-    public function getValue($pin)
+    public function getValue($parameter)
     {
-        unset($pin);
+        unset($parameter);
         return 0;
     }
 
     /**
+     * @todo
      * {@inheritdoc}
      */
-    public function isSupported(OutputInterface $output)
+    public function isSupported($parameter, OutputInterface $output)
     {
         return true;
     }

@@ -31,8 +31,6 @@ App.ng.controller('GpioController', ['$scope', function($scope) {
                 description: pin.description
             }
         ).then(function() {
-            $scope.editMode = false;
-            pin.Mode = false;
             $scope.$apply();
         });
 	};

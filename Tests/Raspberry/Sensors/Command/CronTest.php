@@ -5,8 +5,8 @@ namespace Tests\Raspberry\Sensors\Command;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Sensors\Command\Cron;
+use Raspberry\Sensors\Interfaces\Sensor;
 use Raspberry\Sensors\SensorGateway;
-use Raspberry\Sensors\Sensors\SensorInterface;
 use Raspberry\Sensors\SensorValueEvent;
 use Raspberry\Sensors\SensorValuesGateway;
 use Raspberry\Sensors\SensorBuilder;
@@ -110,7 +110,7 @@ class CronTest extends PHPUnit_Framework_TestCase
 
         $currentSensorValue = null;
 
-        $sensorObject = $this->getMockForAbstractClass(SensorInterface::class);
+        $sensorObject = $this->getMockForAbstractClass(Sensor::class);
         $this->mockTime
             ->expects($this->once())
             ->method('now')
@@ -164,8 +164,8 @@ class CronTest extends PHPUnit_Framework_TestCase
         $currentSensorValue = 1000;
         $formattedSensorValue = "1000 grad";
 
-        /** @var SensorInterface|MockObject $sensorObject */
-        $sensorObject = $this->getMockForAbstractClass(SensorInterface::class);
+        /** @var Sensor|MockObject $sensorObject */
+        $sensorObject = $this->getMockForAbstractClass(Sensor::class);
         $this->mockTime
             ->expects($this->once())
             ->method('now')

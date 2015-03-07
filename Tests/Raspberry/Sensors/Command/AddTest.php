@@ -5,10 +5,11 @@ namespace Tests\Raspberry\Sensors\Command;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase;
 use Raspberry\Sensors\Command\Add;
+use Raspberry\Sensors\Interfaces\Sensor;
 use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorBuilder;
-use Raspberry\Sensors\Sensors\SensorInterface;
 use Raspberry\Sensors\SensorVO;
+use SebastianBergmann\RecursionContext\Exception;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -51,7 +52,8 @@ class AddTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Exception
+     * @expectedException Exception
+     * @expectedExceptionMessage Parameter "mockparameter" is not supported
      */
     public function testExecuteWhenSensorNotSupportedAndAbort()
     {
@@ -59,8 +61,8 @@ class AddTest extends PHPUnit_Framework_TestCase
         $application->add($this->subject);
         $tester = new CommandTester($this->subject);
 
-        $sensor1 = $this->getMock(SensorInterface::class);
-        $sensor2 = $this->getMock(SensorInterface::class);
+        $sensor1 = $this->getMock(Sensor::class);
+        $sensor2 = $this->getMock(Sensor::class);
 
         $sensors = [
             $sensorType1 = 'type_1' => $sensor1,
@@ -98,34 +100,31 @@ class AddTest extends PHPUnit_Framework_TestCase
             )
             ->willReturn($sensorType1);
 
+        $parameter = 'mockparameter';
         $questionHelper
             ->expects($this->at(1))
             ->method('ask')
-            ->with(
-                $input,
-                $output,
-                $this->isInstanceOf(Question::class)
-            )
-            ->willReturn(true);
+            ->with($input, $output, new Question("Parameter (Optional)?\n"))
+            ->willReturn($parameter);
 
         $sensor1
             ->expects($this->once())
             ->method('isSupported')
-            ->with($output)
+            ->with($parameter, $output)
             ->willReturn(false);
 
         $input = ['--force'];
         $tester->execute($input);
     }
 
-    public function testExecuteWhenSensorNotSupported()
+    public function testExecute()
     {
         $application = new Application();
         $application->add($this->subject);
         $commandTester = new CommandTester($this->subject);
 
-        $sensor1 = $this->getMock(SensorInterface::class);
-        $sensor2 = $this->getMock(SensorInterface::class);
+        $sensor1 = $this->getMock(Sensor::class);
+        $sensor2 = $this->getMock(Sensor::class);
 
         $sensors = [
             'type_1' => $sensor1,
@@ -141,142 +140,17 @@ class AddTest extends PHPUnit_Framework_TestCase
         $helperSet = $this->getMock(HelperSet::class);
         $this->subject->setHelperSet($helperSet);
 
-        /** @var QuestionHelper|MockObject $helper_set */
-        $helper = $this->getMock(QuestionHelper::class);
-
-        $output = $this->isInstanceOf(OutputInterface::class);
-        $input  = $this->isInstanceOf(InputInterface::class);
-
-        $name        = 'name';
-        $description = 'description';
-        $pin         = 'pin';
-        $interval    = 12;
-        $node        = 2;
-        $value       = 122;
-        $formattedValue = "122 Grad";
-
-        $helperSet
-            ->expects($this->once())
-            ->method('get')
-            ->with('question')
-            ->willReturn($helper);
-
-        $helper
-            ->expects($this->at(0))
-            ->method('ask')
-            ->with(
-                $input,
-                $output,
-                new ChoiceQuestion("Sensor Type", array_keys($sensors))
-            )
-            ->willReturn($sensorType2);
-
-        $helper
-            ->expects($this->at(1))
-            ->method('ask')
-            ->with(
-                $input,
-                $output,
-                $this->isInstanceOf(Question::class)
-            );
-
-        $helper
-            ->expects($this->at(2))
-            ->method('ask')
-            ->with($input, $output, new Question("Sensor name?\n"))
-            ->willReturn($name);
-
-        $helper
-            ->expects($this->at(3))
-            ->method('ask')
-            ->with($input, $output, new Question("Description (optional)?\n"))
-            ->willReturn($description);
-
-        $helper
-            ->expects($this->at(4))
-            ->method('ask')
-            ->with($input, $output, new Question("Pin (Optional)?\n"))
-            ->willReturn($pin);
-
-        $helper
-            ->expects($this->at(5))
-            ->method('ask')
-            ->with($input, $output, new Question("Interval in minutes\n"))
-            ->willReturn($interval);
-
-        $helper
-            ->expects($this->at(6))
-            ->method('ask')
-            ->with($input, $output, new Question("Node\n"))
-            ->willReturn($node);
-
         $sensor2
             ->expects($this->once())
-            ->method('isSupported')
-            ->with($output)
-            ->willReturn(false);
-
-        $sensor2
-            ->expects($this->once())
-            ->method('getValue')
-            ->with($pin)
-            ->willReturn($value);
-
-        $sensor2
-            ->expects($this->once())
-            ->method('formatValue')
-            ->with($value)
-            ->willReturn($formattedValue);
-
-        $expectedVo              = new SensorVO();
-        $expectedVo->name        = $name;
-        $expectedVo->type        = $sensorType2;
-        $expectedVo->description = $description;
-        $expectedVo->pin         = $pin;
-        $expectedVo->interval    = $interval;
-        $expectedVo->node        = $node;
-
-        $this->gateway
-            ->expects($this->once())
-            ->method('addSensor')
-            ->with($expectedVo);
-
-        $input = ['--force'];
-        $commandTester->execute($input);
-
-        $display = $commandTester->getDisplay();
-        $this->assertEquals("Sensor is not supported\nSensor value: 122 Grad\n", $display);
-    }
-
-    public function testExecute()
-    {
-        $application = new Application();
-        $application->add($this->subject);
-        $commandTester = new CommandTester($this->subject);
-
-        $sensor1 = $this->getMock(SensorInterface::class);
-        $sensor2 = $this->getMock(SensorInterface::class);
-
-        $sensors = [
-                'type_1' => $sensor1,
-            $sensorType2 = 'type_2' => $sensor2,
-        ];
-
-        $this->builder
-            ->expects($this->once())
-            ->method('getSensors')
-            ->willReturn($sensors);
-
-        /** @var HelperSet|MockObject $helperSet */
-        $helperSet = $this->getMock(HelperSet::class);
-        $this->subject->setHelperSet($helperSet);
+            ->method('getSensorType')
+            ->willReturn('type_2');
 
         /** @var QuestionHelper|MockObject $helper_set */
         $helper = $this->getMock(QuestionHelper::class);
 
         $name        = 'name';
         $description = 'description';
-        $pin         = 'pin';
+        $parameter   = 'pin';
         $interval    = 12;
         $node        = 2;
 
@@ -302,20 +176,20 @@ class AddTest extends PHPUnit_Framework_TestCase
         $helper
             ->expects($this->at(1))
             ->method('ask')
-            ->with($input, $output, new Question("Sensor name?\n"))
-            ->willReturn($name);
+            ->with($input, $output, new Question("Parameter (Optional)?\n"))
+            ->willReturn($parameter);
 
         $helper
             ->expects($this->at(2))
             ->method('ask')
-            ->with($input, $output, new Question("Description (optional)?\n"))
-            ->willReturn($description);
+            ->with($input, $output, new Question("Sensor name?\n"))
+            ->willReturn($name);
 
         $helper
             ->expects($this->at(3))
             ->method('ask')
-            ->with($input, $output, new Question("Pin (Optional)?\n"))
-            ->willReturn($pin);
+            ->with($input, $output, new Question("Description (optional)?\n"))
+            ->willReturn($description);
 
         $helper
             ->expects($this->at(4))
@@ -332,20 +206,20 @@ class AddTest extends PHPUnit_Framework_TestCase
         $sensor2
             ->expects($this->once())
             ->method('isSupported')
-            ->with($output)
+            ->with($parameter, $output)
             ->willReturn(true);
 
         $sensor2
             ->expects($this->once())
             ->method('getValue')
-            ->with($pin)
+            ->with($parameter)
             ->willReturn(null);
 
         $expectedVo              = new SensorVO();
         $expectedVo->name        = $name;
         $expectedVo->type        = $sensorType2;
         $expectedVo->description = $description;
-        $expectedVo->pin         = $pin;
+        $expectedVo->pin         = $parameter;
         $expectedVo->interval    = $interval;
         $expectedVo->node        = $node;
 

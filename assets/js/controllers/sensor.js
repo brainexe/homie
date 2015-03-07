@@ -6,18 +6,11 @@ App.ng.controller('SensorController', ['$scope', '$modal', function($scope, $mod
 	$scope.fromIntervals     = {}; // todo sorting in angular is fuzzy
 	$scope.available_sensors = {};
 
-    $scope.openModal = function() {
-        $modal.open({
-            templateUrl: asset('/templates/new_sensor.html'),
-            controller: 'NewSensorController'
-        });
-    };
-
 	$.get('/sensors/load/0', function(data) {
 		$scope.sensors           = data.sensors;
 		$scope.active_sensor_ids = data.active_sensor_ids;
 		$scope.current_from      = data.current_from;
-		$scope.fromIntervals    = data.fromIntervals;
+		$scope.fromIntervals     = data.fromIntervals;
 		$scope.available_sensors = data.available_sensors;
 
 		require(['sensor'], function() {

@@ -14,9 +14,8 @@
 			<td>
 				{{ pin.name }} <span ng-if="pin.description">({{ pin.description }})</span>
 
-                <span ng-if="editMode" class="glyphicon glyphicon-pencil" ng-click="pin.edit=true"></span>
-                <div ng-if="pin.edit">
-                    <input type="text" ng-model="pin.description"/>
+                <div ng-if="editMode">
+                    <input ng-enter="saveDescription(pin)" type="text" ng-model="pin.description"/>
                     <span class="glyphicon glyphicon-save" ng-click="saveDescription(pin)"></span>
                 </div>
             </td>

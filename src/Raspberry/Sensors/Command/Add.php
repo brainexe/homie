@@ -4,6 +4,8 @@ namespace Raspberry\Sensors\Command;
 
 use BrainExe\Annotations\Annotations\Inject;
 use Exception;
+use Raspberry\Sensors\Interfaces\Searchable;
+use Raspberry\Sensors\Interfaces\Sensor;
 use Raspberry\Sensors\SensorBuilder;
 use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorVO;
@@ -63,28 +65,17 @@ class Add extends Command
         /** @var QuestionHelper $helper */
         $helper = $this->getHelperSet()->get('question');
 
-        $sensors     = $this->builder->getSensors();
-        $sensorTypes = array_keys($sensors);
+        $sensor = $this->getSensor($input, $output, $helper);
 
-        $question = new ChoiceQuestion("Sensor Type", $sensorTypes);
-        $type     = $helper->ask($input, $output, $question);
-        $sensor   = $sensors[$type];
-
-        if (!$sensor->isSupported($output)) {
-            $output->writeln('<error>Sensor is not supported</error>');
-            $this->askForTermination($helper, $input, $output);
-        } else {
-            $output->writeln('<info>Sensor is supported</info>');
-        }
-
+        $parameter   = $this->getParameter($input, $output, $sensor, $helper);
         $name        = $helper->ask($input, $output, new Question("Sensor name?\n"));
         $description = $helper->ask($input, $output, new Question("Description (optional)?\n"));
-        $pin         = $helper->ask($input, $output, new Question("Pin (Optional)?\n"));
+
         $interval    = (int)$helper->ask($input, $output, new Question("Interval in minutes\n")) ?: 1;
         $node        = (int)$helper->ask($input, $output, new Question("Node\n"));
 
         // get test value
-        $testValue = $sensor->getValue($pin);
+        $testValue = $sensor->getValue($parameter);
         if ($testValue !== null) {
             $output->writeln(
                 sprintf('<info>Sensor value: %s</info>', $sensor->formatValue($testValue))
@@ -96,9 +87,9 @@ class Add extends Command
 
         $sensorVo              = new SensorVO();
         $sensorVo->name        = $name;
-        $sensorVo->type        = $type;
+        $sensorVo->type        = $sensor->getSensorType();
         $sensorVo->description = $description;
-        $sensorVo->pin         = $pin;
+        $sensorVo->pin         = $parameter;
         $sensorVo->interval    = $interval;
         $sensorVo->node        = $node;
 
@@ -120,5 +111,60 @@ class Add extends Command
         if ($helper->ask($input, $output, $question)) {
             throw new Exception('Terminated');
         }
+    }
+
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @param Sensor $sensor
+     * @param QuestionHelper $helper
+     * @return string
+     * @throws Exception
+     */
+    protected function getParameter(
+        InputInterface $input,
+        OutputInterface $output,
+        Sensor $sensor,
+        QuestionHelper $helper
+    ) {
+        $parameter = null;
+        if ($sensor instanceof Searchable) {
+            $possible = $sensor->search();
+            if ($possible) {
+                $question  = new ChoiceQuestion("Parameter", $possible);
+                $parameter = $helper->ask($input, $output, $question);
+            } else {
+                throw new Exception('No possible sensor found');
+            }
+        } else {
+            $parameter = $helper->ask($input, $output, new Question("Parameter (Optional)?\n"));
+        }
+
+        if (!$sensor->isSupported($parameter, $output)) {
+            $output->writeln('<error>Sensor is not supported</error>');
+            throw new Exception(sprintf('Parameter "%s" is not supported', $parameter));
+        } else {
+            $output->writeln('<info>Sensor is supported</info>');
+        }
+
+        return $parameter;
+    }
+
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @param QuestionHelper $helper
+     * @return Sensor
+     */
+    protected function getSensor(InputInterface $input, OutputInterface $output, QuestionHelper $helper)
+    {
+        $sensors     = $this->builder->getSensors();
+        $sensorTypes = array_keys($sensors);
+
+        $question = new ChoiceQuestion("Sensor Type", $sensorTypes);
+        $type     = $helper->ask($input, $output, $question);
+        $sensor   = $sensors[$type];
+
+        return $sensor;
     }
 }

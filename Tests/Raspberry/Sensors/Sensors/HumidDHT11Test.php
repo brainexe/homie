@@ -4,47 +4,47 @@ namespace Tests\Raspberry\Sensors\Sensors;
 
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Raspberry\Sensors\Sensors\AbstractDHT11Sensor;
-use Raspberry\Sensors\Sensors\HumidDHT11Sensor;
+use Raspberry\Sensors\Sensors\AbstractDHT11;
+use Raspberry\Sensors\Sensors\HumidDHT11;
 use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
 /**
- * @Covers Raspberry\Sensors\Sensors\HumidDHT11Sensor
+ * @Covers Raspberry\Sensors\Sensors\HumidDHT11
  */
-class HumidDHT11SensorTest extends PHPUnit_Framework_TestCase
+class HumidDHT11Test extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var HumidDHT11Sensor
+     * @var HumidDHT11
      */
     private $subject;
 
     /**
      * @var ProcessBuilder|MockObject
      */
-    private $mockProcessBuilder;
+    private $processBuilder;
 
     /**
      * @var Filesystem|MockObject
      */
-    private $mockFileSystem;
+    private $fileSystem;
 
     public function setUp()
     {
-        $this->mockProcessBuilder = $this->getMock(ProcessBuilder::class, [], [], '', false);
-        $this->mockFileSystem = $this->getMock(Filesystem::class, [], [], '', false);
+        $this->processBuilder = $this->getMock(ProcessBuilder::class, [], [], '', false);
+        $this->fileSystem = $this->getMock(Filesystem::class, [], [], '', false);
 
-        $this->subject = new HumidDHT11Sensor($this->mockProcessBuilder, $this->mockFileSystem, '/ada/');
+        $this->subject = new HumidDHT11($this->processBuilder, $this->fileSystem, '/ada/');
     }
 
     public function testGetSensorType()
     {
         $actualResult = $this->subject->getSensorType();
 
-        $this->assertEquals(HumidDHT11Sensor::TYPE, $actualResult);
+        $this->assertEquals(HumidDHT11::TYPE, $actualResult);
     }
 
     public function testGetValueWitInvalidOutput()
@@ -53,12 +53,12 @@ class HumidDHT11SensorTest extends PHPUnit_Framework_TestCase
 
         $process = $this->getMock(Process::class, [], [], '', false);
 
-        $this->mockProcessBuilder
+        $this->processBuilder
             ->expects($this->once())
             ->method('setArguments')
-            ->willReturn($this->mockProcessBuilder);
+            ->willReturn($this->processBuilder);
 
-        $this->mockProcessBuilder
+        $this->processBuilder
             ->expects($this->once())
             ->method('getProcess')
             ->willReturn($process);
@@ -84,12 +84,12 @@ class HumidDHT11SensorTest extends PHPUnit_Framework_TestCase
 
         $process = $this->getMock(Process::class, [], [], '', false);
 
-        $this->mockProcessBuilder
+        $this->processBuilder
             ->expects($this->once())
             ->method('setArguments')
-            ->willReturn($this->mockProcessBuilder);
+            ->willReturn($this->processBuilder);
 
-        $this->mockProcessBuilder
+        $this->processBuilder
             ->expects($this->once())
             ->method('getProcess')
             ->willReturn($process);
@@ -135,32 +135,32 @@ class HumidDHT11SensorTest extends PHPUnit_Framework_TestCase
 
     public function testIsSupported()
     {
-        $file = '/ada/' . AbstractDHT11Sensor::ADAFRUIT_SCRIPT;
+        $file = 'mockFile';
 
-        $this->mockFileSystem
+        $this->fileSystem
             ->expects($this->once())
             ->method('exists')
             ->with($file)
             ->willReturn(true);
 
         $output = new DummyOutput();
-        $actualResult = $this->subject->isSupported($output);
+        $actualResult = $this->subject->isSupported($file, $output);
 
         $this->assertTrue($actualResult);
     }
 
     public function testIsSupportedWhenNotSupported()
     {
-        $file = '/ada/' . AbstractDHT11Sensor::ADAFRUIT_SCRIPT;
+        $file = 'mockFile';
 
-        $this->mockFileSystem
+        $this->fileSystem
             ->expects($this->once())
             ->method('exists')
             ->with($file)
             ->willReturn(false);
 
         $output = new DummyOutput();
-        $actualResult = $this->subject->isSupported($output);
+        $actualResult = $this->subject->isSupported($file, $output);
 
         $this->assertFalse($actualResult);
     }

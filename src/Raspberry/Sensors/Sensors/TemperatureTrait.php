@@ -2,7 +2,7 @@
 
 namespace Raspberry\Sensors\Sensors;
 
-trait TemperatureSensorTrait
+trait TemperatureTrait
 {
 
     /**

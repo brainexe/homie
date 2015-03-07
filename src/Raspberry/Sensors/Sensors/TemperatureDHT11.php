@@ -7,12 +7,12 @@ use Raspberry\Sensors\Annotation\Sensor;
 /**
  * @Sensor("Sensor.DHT11.Temperature")
  */
-class TemperatureDHT11Sensor extends AbstractDHT11Sensor
+class TemperatureDHT11 extends AbstractDHT11
 {
 
     const TYPE = 'temp_dht11';
 
-    use TemperatureSensorTrait;
+    use TemperatureTrait;
 
     /**
      * @return string
@@ -23,12 +23,12 @@ class TemperatureDHT11Sensor extends AbstractDHT11Sensor
     }
 
     /**
-     * @param integer $pin
+     * @param integer $parameter
      * @return double
      */
-    public function getValue($pin)
+    public function getValue($parameter)
     {
-        $output = $this->getContent($pin);
+        $output = $this->getContent($parameter);
 
         if (!preg_match('/Temp = (\d+) /', $output, $matches)) {
             return null;

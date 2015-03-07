@@ -4,7 +4,7 @@ namespace Raspberry\Sensors;
 
 use BrainExe\Core\EventDispatcher\AbstractEvent;
 use BrainExe\Core\EventDispatcher\PushViaWebsocketInterface;
-use Raspberry\Sensors\Sensors\SensorInterface;
+use Raspberry\Sensors\Interfaces\Sensor;
 
 class SensorValueEvent extends AbstractEvent implements PushViaWebsocketInterface
 {
@@ -17,7 +17,7 @@ class SensorValueEvent extends AbstractEvent implements PushViaWebsocketInterfac
     public $sensorVo;
 
     /**
-     * @var SensorInterface
+     * @var Sensor
      */
     public $sensor;
 
@@ -38,14 +38,14 @@ class SensorValueEvent extends AbstractEvent implements PushViaWebsocketInterfac
 
     /**
      * @param SensorVO $sensorVo
-     * @param SensorInterface $sensor
+     * @param Sensor $sensor
      * @param float $value
      * @param string $valueFormatted
      * @param integer $timestamp
      */
     public function __construct(
         SensorVO $sensorVo,
-        SensorInterface $sensor,
+        Sensor $sensor,
         $value,
         $valueFormatted,
         $timestamp

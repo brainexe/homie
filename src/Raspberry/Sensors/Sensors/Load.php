@@ -4,11 +4,12 @@ namespace Raspberry\Sensors\Sensors;
 
 use Raspberry\Sensors\Annotation\Sensor;
 use Symfony\Component\Console\Output\OutputInterface;
+use Raspberry\Sensors\Interfaces\Sensor as SensorInterface;
 
 /**
  * @Sensor("Sensor.Load")
  */
-class LoadSensor implements SensorInterface
+class Load implements SensorInterface
 {
 
     const TYPE = 'load';
@@ -24,9 +25,9 @@ class LoadSensor implements SensorInterface
     /**
      * {@inheritdoc}
      */
-    public function getValue($pin)
+    public function getValue($parameter)
     {
-        unset($pin);
+        unset($parameter);
 
         return sys_getloadavg()[0];
     }
@@ -50,7 +51,7 @@ class LoadSensor implements SensorInterface
     /**
      * {@inheritdoc}
      */
-    public function isSupported(OutputInterface $output)
+    public function isSupported($parameter, OutputInterface $output)
     {
         return true;
     }
