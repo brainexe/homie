@@ -9,8 +9,6 @@ use Raspberry\Sensors\Annotation\Sensor;
 use Raspberry\Sensors\Interfaces\Searchable;
 use Symfony\Component\Console\Output\OutputInterface;
 use Raspberry\Sensors\Interfaces\Sensor as SensorInterface;
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
 
 /**
  * @Sensor("Sensor.DS18.Temperature")

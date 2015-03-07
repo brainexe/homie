@@ -34,6 +34,7 @@ class Controller
      */
     public function index(Request $request)
     {
+        unset($request);
         $userIds = $this->userProvider->getAllUserNames();
         $users = [];
 
@@ -86,9 +87,12 @@ class Controller
      * @return Response
      * @Route("/admin/user/delete/", name="admin.user.delete")
      * @Role("admin")
+     * @todo
      */
     public function delete(Request $request)
     {
+        unset($request);
+
         return true;
     }
 }

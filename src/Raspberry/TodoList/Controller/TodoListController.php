@@ -6,7 +6,7 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Authentication\DatabaseUserProvider;
-use Raspberry\TodoList\ShoppingList;
+
 use Raspberry\TodoList\TodoList;
 use Raspberry\TodoList\VO\TodoItemVO;
 use Symfony\Component\HttpFoundation\JsonResponse;
