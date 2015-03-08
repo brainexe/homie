@@ -5,6 +5,7 @@ namespace Tests\Raspberry\Sensors\Command;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase;
 use Raspberry\Sensors\Command\Add;
+use Raspberry\Sensors\Interfaces\Parameterized;
 use Raspberry\Sensors\Interfaces\Sensor;
 use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorBuilder;
@@ -61,12 +62,12 @@ class AddTest extends PHPUnit_Framework_TestCase
         $application->add($this->subject);
         $tester = new CommandTester($this->subject);
 
-        $sensor1 = $this->getMock(Sensor::class);
-        $sensor2 = $this->getMock(Sensor::class);
+        $sensor1 = $this->getMock(Parameterized::class);
+        $sensor2 = $this->getMock(Parameterized::class);
 
         $sensors = [
             $sensorType1 = 'type_1' => $sensor1,
-                'type_2' => $sensor2,
+            'type_2' => $sensor2,
         ];
 
         $output = $this->isInstanceOf(OutputInterface::class);
@@ -123,8 +124,8 @@ class AddTest extends PHPUnit_Framework_TestCase
         $application->add($this->subject);
         $commandTester = new CommandTester($this->subject);
 
-        $sensor1 = $this->getMock(Sensor::class);
-        $sensor2 = $this->getMock(Sensor::class);
+        $sensor1 = $this->getMock(Parameterized::class);
+        $sensor2 = $this->getMock(Parameterized::class);
 
         $sensors = [
             'type_1' => $sensor1,
@@ -141,7 +142,7 @@ class AddTest extends PHPUnit_Framework_TestCase
         $this->subject->setHelperSet($helperSet);
 
         $sensor2
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('getSensorType')
             ->willReturn('type_2');
 
@@ -182,7 +183,7 @@ class AddTest extends PHPUnit_Framework_TestCase
         $helper
             ->expects($this->at(2))
             ->method('ask')
-            ->with($input, $output, new Question("Sensor name?\n"))
+            ->with($input, $output, new Question("Sensor name?\n", $sensorType2))
             ->willReturn($name);
 
         $helper
@@ -194,7 +195,7 @@ class AddTest extends PHPUnit_Framework_TestCase
         $helper
             ->expects($this->at(4))
             ->method('ask')
-            ->with($input, $output, new Question("Interval in minutes\n"))
+            ->with($input, $output, new Question("Interval in minutes\n", 5))
             ->willReturn($interval);
 
         $helper

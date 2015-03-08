@@ -35,7 +35,7 @@ class MemoryUsed implements SensorInterface
 
         $usedkb = $total[1] - $available[1];
 
-        return $usedkb / 1000;
+        return $usedkb / 1000; // -> MB
     }
 
     /**
@@ -43,7 +43,7 @@ class MemoryUsed implements SensorInterface
      */
     public function formatValue($value)
     {
-        return sprintf('%9.1fMB', $value);
+        return sprintf('%1.1f', $value);
     }
 
     /**

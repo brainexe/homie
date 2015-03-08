@@ -2,7 +2,7 @@
 
 namespace Raspberry\Sensors\Sensors;
 
-use Raspberry\Sensors\Interfaces\Sensor as SensorInterface;
+use Raspberry\Sensors\Interfaces\Parameterized;
 use Raspberry\Sensors\Annotation\Sensor;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @link https://learn.adafruit.com/using-the-bmp085-with-raspberry-pi/using-the-adafruit-bmp-python-library
  * @link http://www.adafruit.com/product/1603
  */
-class Barometer implements SensorInterface
+class Barometer implements Parameterized
 {
 
     const TYPE = 'barometer';

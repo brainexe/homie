@@ -22,7 +22,7 @@ class Chart
         $output = [];
 
         foreach ($sensors as $sensor) {
-            $sensorId = $sensor['id'];
+            $sensorId = $sensor['sensorId'];
 
             if (empty($sensorValues[$sensorId])) {
                 continue;

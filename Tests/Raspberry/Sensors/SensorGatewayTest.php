@@ -3,6 +3,7 @@
 namespace Tests\Raspberry\Sensors;
 
 use BrainExe\Core\Redis\RedisInterface;
+use BrainExe\Core\Util\IdGenerator;
 use BrainExe\Tests\RedisMockTrait;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
@@ -27,12 +28,19 @@ class SensorGatewayTest extends PHPUnit_Framework_TestCase
      */
     private $redis;
 
+    /**
+     * @var IdGenerator|MockObject
+     */
+    private $idGenerator;
+
     public function setUp()
     {
         $this->redis = $this->getRedisMock();
+        $this->idGenerator = $this->getMock(IdGenerator::class);
 
         $this->subject = new SensorGateway();
         $this->subject->setRedis($this->redis);
+        $this->subject->setIdGenerator($this->idGenerator);
     }
 
     public function testGetSensors()
@@ -73,16 +81,16 @@ class SensorGatewayTest extends PHPUnit_Framework_TestCase
     {
         $node = 1;
         $sensorIds = [
-        $sensorId = 10
+            $sensorId = 10
         ];
 
         $result = [
-        [
-            'node' => 100
-        ],
-        [
-            'node' => $node
-        ]
+            [
+                'node' => 100
+            ],
+            [
+                'node' => $node
+            ]
         ];
 
         $this->redis
@@ -109,9 +117,9 @@ class SensorGatewayTest extends PHPUnit_Framework_TestCase
         $actualResult = $this->subject->getSensorsForNode($node);
 
         $expectedResult = [
-        1 => [
-            'node' => $node
-        ]
+            1 => [
+                'node' => $node
+            ]
         ];
         $this->assertEquals($expectedResult, $actualResult);
     }
@@ -135,23 +143,17 @@ class SensorGatewayTest extends PHPUnit_Framework_TestCase
 
     public function testAddSensor()
     {
-        $sensorVo = new SensorVO();
-        $sensorIds = [
-            10
-        ];
+        $sensorVo    = new SensorVO();
+        $newSensorId = 11880;
 
-        $newSensorId = 11;
-
-        $sensorData = (array)$sensorVo;
-        $sensorData['id'] = $newSensorId;
-        $sensorData['last_value'] = 0;
-        $sensorData['last_value_timestamp'] = 0;
-
-        $this->redis
+        $this->idGenerator
             ->expects($this->once())
-            ->method('SMEMBERS')
-            ->with(SensorGateway::SENSOR_IDS)
-            ->willReturn($sensorIds);
+            ->method('generateRandomNumericId')
+            ->willReturn($newSensorId);
+
+        $sensorVo->sensorId = $newSensorId;
+        $sensorVo->lastValueTimestamp = 0;
+        $sensorVo->lastValue = 0;
 
         $this->redis
             ->expects($this->once())

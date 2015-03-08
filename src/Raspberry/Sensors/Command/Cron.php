@@ -137,7 +137,7 @@ class Cron extends Command
 
                 $output->writeln(
                     sprintf(
-                        '<info>Sensor value: #%d %s (%s): %s</info>',
+                        '#%d: <info>%s</info> (<info>%s</info>): <info>%s</info>',
                         $sensorVo->sensorId,
                         $sensorVo->type,
                         $sensorVo->name,

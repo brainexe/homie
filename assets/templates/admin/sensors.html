@@ -1,0 +1,36 @@
+<div class="modal-content">
+	<div class="modal-header">
+		<button ng-click="close()" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h4 class="modal-title">Sensors</h4>
+	</div>
+	<div class="modal-body navbar-forms navbar-lefts">
+		<table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Value</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tr ng-repeat="sensor in sensors">
+                <td title="{{ sensor.sensorId }}">
+                    {{ sensor.type }} <span class="small" ng-if="sensor.pin">({{ sensor.pin }})</span>
+                </td>
+                <td>
+                    {{ sensor.name }} <span ng-if="sensor.description">({{ sensor.description }})</span>
+                </td>
+                <td>{{ sensor.lastValue }}</td>
+                <td>
+                    <a ng-click="sensor.edit = !sensor.edit" class="glyphicon glyphicon-edit"></a>
+                    <a ng-click="deleteSensor(sensor)" class="glyphicon glyphicon-remove"></a>
+                </td>
+            </tr>
+        </table>
+	</div>
+	<div class="modal-footer">
+		<button type="button" ng-click="close()" class="btn btn-default" data-dismiss="modal">Close</button>
+	</div>
+</div>
+
+

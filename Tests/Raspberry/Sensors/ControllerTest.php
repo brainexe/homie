@@ -95,8 +95,8 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 
         $sensorsRaw = [
             [
-                'id' => $sensorId = 12,
-                'last_value' => $lastValue,
+                'sensorId' => $sensorId = 12,
+                'lastValue' => $lastValue,
                 'type' => $type,
             ]
         ];
@@ -133,7 +133,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 
         $sensorValues = ['values'];
         $sensorsRaw[0]['espeak'] = true;
-        $sensorsRaw[0]['last_value'] = $formattedValue;
+        $sensorsRaw[0]['lastValue'] = $formattedValue;
 
         $this->valuesGateway
             ->expects($this->once())
@@ -182,8 +182,8 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 
         $sensorsRaw = [
             [
-                'id' => $sensorId = 12,
-                'last_value' => $lastValue,
+                'sensorId' => $sensorId = 12,
+                'lastValue' => $lastValue,
                 'type' => $type,
             ]
         ];
@@ -288,7 +288,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 
         $sensor = [
             'type' => $sensorType = 'type',
-            'last_value' => 'last value',
+            'lastValue' => 'last value',
         ];
 
         $this->gateway
@@ -338,7 +338,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $sensorObj = $this->getMock(Sensor::class);
         $sensorRaw = [
             'type'       => $type,
-            'last_value' => $sensorValue
+            'lastValue'  => $sensorValue
         ];
 
         $this->gateway
@@ -384,7 +384,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $sensorObj = $this->getMock(Sensor::class);
         $sensorRaw = [
             'type'       => $type,
-            'last_value' => $sensorValue
+            'lastValue'  => $sensorValue
         ];
 
         $this->gateway

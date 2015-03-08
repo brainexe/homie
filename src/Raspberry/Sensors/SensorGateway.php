@@ -4,6 +4,7 @@ namespace Raspberry\Sensors;
 
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Redis\PhpRedis;
+use BrainExe\Core\Traits\IdGeneratorTrait;
 use BrainExe\Core\Traits\RedisTrait;
 
 /**
@@ -16,6 +17,7 @@ class SensorGateway
     const SENSOR_IDS          = 'sensor_ids';
 
     use RedisTrait;
+    use IdGeneratorTrait;
 
     /**
      * @return array[]
@@ -40,7 +42,7 @@ class SensorGateway
     {
         $sensors = $this->getSensors();
 
-        return array_filter($sensors, function($sensor) use ($node) {
+        return array_filter($sensors, function ($sensor) use ($node) {
             return $sensor['node'] == $node;
         });
     }
@@ -63,20 +65,17 @@ class SensorGateway
      */
     public function addSensor(SensorVO $sensorVo)
     {
-        $sensorIds = $this->getSensorIds();
-        $newId = end($sensorIds) + 1;
-
         $redis = $this->getRedis()->multi(PhpRedis::PIPELINE);
+        $newId = $this->generateRandomNumericId();
 
         $key = $this->getKey($newId);
 
+        $sensorVo->sensorId           = $newId;
+        $sensorVo->lastValue          = 0;
+        $sensorVo->lastValueTimestamp = 0;
+
         $data = (array)$sensorVo;
-        $data['id'] = $newId;
-        $data['last_value'] = 0;
-        $data['last_value_timestamp'] = 0;
-
         $redis->HMSET($key, $data);
-
         $redis->sAdd(self::SENSOR_IDS, $newId);
 
         $redis->execute();

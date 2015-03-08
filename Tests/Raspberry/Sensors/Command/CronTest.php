@@ -221,6 +221,6 @@ class CronTest extends PHPUnit_Framework_TestCase
         $commandTester->execute($input);
 
         $output = $commandTester->getDisplay();
-        $this->assertEquals("Sensor value: #10 type (name): 1000 grad\n", $output);
+        $this->assertEquals("#10: type (name): 1000 grad\n", $output);
     }
 }

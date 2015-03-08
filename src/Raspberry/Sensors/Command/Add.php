@@ -4,6 +4,7 @@ namespace Raspberry\Sensors\Command;
 
 use BrainExe\Annotations\Annotations\Inject;
 use Exception;
+use Raspberry\Sensors\Interfaces\Parameterized;
 use Raspberry\Sensors\Interfaces\Searchable;
 use Raspberry\Sensors\Interfaces\Sensor;
 use Raspberry\Sensors\SensorBuilder;
@@ -11,6 +12,7 @@ use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorVO;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
@@ -35,13 +37,34 @@ class Add extends Command
     private $builder;
 
     /**
+     * @var OutputInterface
+     */
+    private $output;
+
+    /**
+     * @var InputInterface
+     */
+    private $input;
+
+    /**
+     * @var QuestionHelper
+     */
+    private $helper;
+
+    /**
      * {@inheritdoc}
      */
     protected function configure()
     {
         $this
             ->setName('sensor:add')
-            ->setDescription('Add a new Sensor');
+            ->setDescription('Add a new Sensor')
+            ->addArgument('type', InputArgument::OPTIONAL)
+            ->addArgument('name', InputArgument::OPTIONAL)
+            ->addArgument('parameter', InputArgument::OPTIONAL)
+            ->addArgument('description', InputArgument::OPTIONAL)
+            ->addArgument('node', InputArgument::OPTIONAL)
+            ->addArgument('interval', InputArgument::OPTIONAL);
     }
 
     /**
@@ -62,17 +85,16 @@ class Add extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /** @var QuestionHelper $helper */
-        $helper = $this->getHelperSet()->get('question');
+        $this->input  = $input;
+        $this->output = $output;
+        $this->helper = $this->getHelperSet()->get('question');
 
-        $sensor = $this->getSensor($input, $output, $helper);
-
-        $parameter   = $this->getParameter($input, $output, $sensor, $helper);
-        $name        = $helper->ask($input, $output, new Question("Sensor name?\n"));
-        $description = $helper->ask($input, $output, new Question("Description (optional)?\n"));
-
-        $interval    = (int)$helper->ask($input, $output, new Question("Interval in minutes\n")) ?: 1;
-        $node        = (int)$helper->ask($input, $output, new Question("Node\n"));
+        $sensor      = $this->getSensor();
+        $parameter   = $this->getParameter($sensor);
+        $name        = $this->getSensorName($sensor);
+        $description = $this->getSensorDescription();
+        $interval    = $this->getInterval();
+        $node        = $this->getNode();
 
         // get test value
         $testValue = $sensor->getValue($parameter);
@@ -82,7 +104,7 @@ class Add extends Command
             );
         } else {
             $output->writeln('<error>Sensor returned invalid data.</error>');
-            $this->askForTermination($helper, $input, $output);
+            $this->askForTermination();
         }
 
         $sensorVo              = new SensorVO();
@@ -97,74 +119,146 @@ class Add extends Command
     }
 
     /**
-     * @param QuestionHelper $helper
-     * @param InputInterface $input
-     * @param OutputInterface $output
      * @throws Exception
      */
-    private function askForTermination(
-        QuestionHelper $helper,
-        InputInterface $input,
-        OutputInterface $output
-    ) {
+    private function askForTermination()
+    {
         $question = new ConfirmationQuestion('Abort adding this sensor? (y/n)');
-        if ($helper->ask($input, $output, $question)) {
+        if ($this->helper->ask($this->input, $this->output, $question)) {
             throw new Exception('Terminated');
         }
     }
 
     /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
      * @param Sensor $sensor
-     * @param QuestionHelper $helper
      * @return string
      * @throws Exception
      */
-    protected function getParameter(
-        InputInterface $input,
-        OutputInterface $output,
-        Sensor $sensor,
-        QuestionHelper $helper
-    ) {
+    protected function getParameter(Sensor $sensor)
+    {
+        if (!$sensor instanceof Parameterized) {
+            return null;
+        }
+
         $parameter = null;
+
+        if ($this->input->getArgument('parameter')) {
+            return $this->input->getArgument('parameter');
+        }
+
         if ($sensor instanceof Searchable) {
             $possible = $sensor->search();
             if ($possible) {
                 $question  = new ChoiceQuestion("Parameter", $possible);
-                $parameter = $helper->ask($input, $output, $question);
+                $parameter = $this->helper->ask($this->input, $this->output, $question);
             } else {
                 throw new Exception('No possible sensor found');
             }
         } else {
-            $parameter = $helper->ask($input, $output, new Question("Parameter (Optional)?\n"));
+            $parameter = $this->helper->ask(
+                $this->input,
+                $this->output,
+                new Question("Parameter (Optional)?\n")
+            );
         }
 
-        if (!$sensor->isSupported($parameter, $output)) {
-            $output->writeln('<error>Sensor is not supported</error>');
+        if (!$sensor->isSupported($parameter, $this->output)) {
+            $this->output->writeln('<error>Sensor is not supported</error>');
             throw new Exception(sprintf('Parameter "%s" is not supported', $parameter));
         } else {
-            $output->writeln('<info>Sensor is supported</info>');
+            $this->output->writeln('<info>Sensor is supported</info>');
         }
 
         return $parameter;
     }
 
     /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @param QuestionHelper $helper
      * @return Sensor
      */
-    protected function getSensor(InputInterface $input, OutputInterface $output, QuestionHelper $helper)
+    protected function getSensor()
     {
-        $sensors     = $this->builder->getSensors();
-        $sensorTypes = array_keys($sensors);
+        $sensors = $this->builder->getSensors();
 
-        $question = new ChoiceQuestion("Sensor Type", $sensorTypes);
-        $type     = $helper->ask($input, $output, $question);
-        $sensor   = $sensors[$type];
+        if ($this->input->getArgument('type')) {
+            $type = $this->input->getArgument('type');
+        } else {
+            $sensorTypes = array_keys($sensors);
+
+            $question = new ChoiceQuestion("Sensor Type", $sensorTypes);
+            $type     = $this->helper->ask($this->input, $this->output, $question);
+        }
+
+        $sensor = $sensors[$type];
 
         return $sensor;
+    }
+
+    /**
+     * @param Sensor $sensor
+     * @return string
+     */
+    protected function getSensorName(Sensor $sensor)
+    {
+        if ($this->input->getArgument('name')) {
+            return $this->input->getArgument('name');
+        }
+
+        $name = $this->helper->ask(
+            $this->input,
+            $this->output,
+            new Question("Sensor name?\n", $sensor->getSensorType())
+        );
+
+        return $name;
+    }
+
+    /**
+     * @return int
+     */
+    protected function getInterval()
+    {
+        if ($this->input->getArgument('interval')) {
+            return (int)$this->input->getArgument('interval');
+        }
+
+        return (int)$this->helper->ask(
+            $this->input,
+            $this->output,
+            new Question("Interval in minutes\n", 5)
+        );
+    }
+
+    /**
+     * @return int
+     */
+    protected function getNode()
+    {
+        if ($this->input->getArgument('node')) {
+            return (int)$this->input->getArgument('node');
+        }
+
+        return (int)$this->helper->ask(
+            $this->input,
+            $this->output,
+            new Question("Node\n")
+        );
+    }
+
+    /**
+     * @return string
+     */
+    protected function getSensorDescription()
+    {
+        if ($this->input->getArgument('description')) {
+            return (int)$this->input->getArgument('description');
+        }
+
+        $description = $this->helper->ask(
+            $this->input,
+            $this->output,
+            new Question("Description (optional)?\n")
+        );
+
+        return $description;
     }
 }

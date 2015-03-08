@@ -8,12 +8,11 @@ use BrainExe\Core\Util\Glob;
 use Raspberry\Sensors\Annotation\Sensor;
 use Raspberry\Sensors\Interfaces\Searchable;
 use Symfony\Component\Console\Output\OutputInterface;
-use Raspberry\Sensors\Interfaces\Sensor as SensorInterface;
 
 /**
  * @Sensor("Sensor.Temperature.OnBoard")
  */
-class TemperatureOnBoard implements SensorInterface, Searchable
+class TemperatureOnBoard implements Searchable
 {
 
     const TYPE = 'temperature_onboard';
@@ -83,6 +82,8 @@ class TemperatureOnBoard implements SensorInterface, Searchable
      */
     public function search()
     {
-        return $this->glob->glob('/sys/class/thermal/');
+        return array_filter($this->glob->glob('/sys/class/thermal/*/temp'), function ($file) {
+            return strpos($file, 'cooling') === false;
+        });
     }
 }

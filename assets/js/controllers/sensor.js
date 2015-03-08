@@ -82,6 +82,13 @@ App.ng.controller('SensorController', ['$scope', '$modal', function($scope, $mod
 		return false;
 	};
 
+    $scope.editModal = function() {
+        var modalInstance = $modal.open({
+            templateUrl: asset('/templates/admin/sensors.html'),
+            controller: 'AdminSensorsController'
+        });
+    };
+
 	/**
 	 * @param sensor_values
 	 */

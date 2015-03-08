@@ -25,15 +25,15 @@ class BuilderTest extends PHPUnit_Framework_TestCase
     public function testBuildSensorVOFromArray()
     {
         $array = [
-            'id' => $sensorId = 'id',
+            'sensorId' => $sensorId = 'id',
             'name' => $name = 'name',
             'description' => $description = 'description',
             'interval' => $interval = 'interval',
             'node' => $node = 'node',
             'pin' => $pin = 'pin',
             'type' => $type = 'type',
-            'last_value' => $lastValue = 'last_value',
-            'last_value_timestamp' => $lastValueTimestamp = 'last_value_timestamp'
+            'lastValue' => $lastValue = 'lastValue',
+            'lastValueTimestamp' => $lastValueTimestamp = 'lastValueTimestamp'
         ];
 
         $actualResult = $this->subject->buildFromArray($array);

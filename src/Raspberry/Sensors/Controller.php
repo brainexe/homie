@@ -69,6 +69,19 @@ class Controller
     }
 
     /**
+     * @return array
+     * @Route("/sensors/")
+     */
+    public function sensors()
+    {
+        return [
+            'types'   => $this->builder->getSensors(),
+            'sensors' => $this->gateway->getSensors()
+        ];
+    }
+
+    /**
+     * @todo cleanup
      * @param Request $request
      * @param string $activeSensorIds
      * @return string
@@ -99,18 +112,18 @@ class Controller
 
         $activeSensorIds = array_unique(array_map('intval', explode(':', $activeSensorIds)));
 
-        $sensorValues        = [];
+        $sensorValues = [];
 
         $sensorsRaw    = $this->gateway->getSensors();
         $sensorObjects = $this->builder->getSensors();
 
         foreach ($sensorsRaw as &$sensor) {
-            $sensorId = $sensor['id'];
+            $sensorId = $sensor['sensorId'];
 
-            if (!empty($sensor['last_value'])) {
-                $sensorObj            = $sensorObjects[$sensor['type']];
-                $sensor['espeak']     = (bool)$sensorObj->getEspeakText($sensor['last_value']);
-                $sensor['last_value'] = $sensorObj->formatValue($sensor['last_value']);
+            if (!empty($sensor['lastValue'])) {
+                $sensorObj           = $sensorObjects[$sensor['type']];
+                $sensor['espeak']    = (bool)$sensorObj->getEspeakText($sensor['lastValue']);
+                $sensor['lastValue'] = $sensorObj->formatValue($sensor['lastValue']);
             } else {
                 $sensor['espeak'] = false;
             }
@@ -180,7 +193,7 @@ class Controller
         $sensor     = $this->gateway->getSensor($sensorId);
         $sensorObj  = $this->builder->build($sensor['type']);
 
-        $text = $sensorObj->getEspeakText($sensor['last_value']);
+        $text = $sensorObj->getEspeakText($sensor['lastValue']);
 
         $espeakVo  = new EspeakVO($text);
         $event     = new EspeakEvent($espeakVo);
@@ -200,7 +213,7 @@ class Controller
         unset($request);
         $sensor         = $this->gateway->getSensor($sensorId);
         $sensorObj      = $this->builder->build($sensor['type']);
-        $formattedValue = $sensorObj->getEspeakText($sensor['last_value']);
+        $formattedValue = $sensorObj->getEspeakText($sensor['lastValue']);
 
         return [
             'sensor'                 => $sensor,
@@ -220,7 +233,7 @@ class Controller
         $sensorId       = $request->query->getInt('sensor_id');
         $sensor         = $this->gateway->getSensor($sensorId);
         $sensorObj      = $this->builder->build($sensor['type']);
-        $formattedValue = $sensorObj->getEspeakText($sensor['last_value']);
+        $formattedValue = $sensorObj->getEspeakText($sensor['lastValue']);
 
         return [
             'sensor'                 => $sensor,
@@ -228,5 +241,19 @@ class Controller
             'sensor_obj'             => $sensorObj,
             'refresh_interval'       => 60
         ];
+    }
+
+    /**
+     * @Route("/sensors/delete/", name="sensor.delete")
+     * @param Request $request
+     * @return bool
+     */
+    public function delete(Request $request)
+    {
+        $sensorId = $request->request->getInt('sensorId');
+
+        $this->gateway->deleteSensor($sensorId);
+
+        return true;
     }
 }

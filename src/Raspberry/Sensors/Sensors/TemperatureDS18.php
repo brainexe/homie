@@ -8,12 +8,11 @@ use BrainExe\Core\Util\Glob;
 use Raspberry\Sensors\Annotation\Sensor;
 use Raspberry\Sensors\Interfaces\Searchable;
 use Symfony\Component\Console\Output\OutputInterface;
-use Raspberry\Sensors\Interfaces\Sensor as SensorInterface;
 
 /**
  * @Sensor("Sensor.DS18.Temperature")
  */
-class TemperatureDS18 implements SensorInterface, Searchable
+class TemperatureDS18 implements Searchable
 {
 
     use TemperatureTrait;

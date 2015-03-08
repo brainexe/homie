@@ -3,6 +3,7 @@
 namespace Raspberry\Sensors\Sensors;
 
 use BrainExe\Annotations\Annotations\Inject;
+use Raspberry\Sensors\Interfaces\Parameterized;
 use Raspberry\Sensors\Interfaces\Sensor;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -12,7 +13,7 @@ use Symfony\Component\Process\ProcessBuilder;
  * @link http://www.adafruit.com/product/386
  * @link https://learn.adafruit.com/dht
  */
-abstract class AbstractDHT11 implements Sensor
+abstract class AbstractDHT11 implements Parameterized
 {
 
     // todo use $pin only

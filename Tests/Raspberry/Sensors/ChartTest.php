@@ -21,13 +21,13 @@ class ChartTest extends \PHPUnit_Framework_TestCase
     {
         $sensors = [
             [
-                'id' => $sensorId = 'sensor_id',
+                'sensorId' => $sensorId = 'sensor_id',
                 'name' => $sensorName = 'name',
                 'description' => $sensorDescription = 'description',
                 'pin' => $sensorPin = 'pin',
             ],
             [
-                'id' => 'sensor_id_2',
+                'sensorId' => 'sensor_id_2',
             ]
         ];
 

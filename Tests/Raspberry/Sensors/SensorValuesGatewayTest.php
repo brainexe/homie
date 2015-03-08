@@ -63,8 +63,8 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('HMSET')
             ->with(SensorGateway::REDIS_SENSOR_PREFIX . $sensorId, [
-                'last_value' => $value,
-                'last_value_timestamp' => $now
+                'lastValue' => $value,
+                'lastValueTimestamp' => $now
             ]);
 
         $this->redis
@@ -82,29 +82,29 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
     public function testGetSensorValues()
     {
         $sensorId = 10;
-        $from = 300;
-        $now = 1000;
+        $from     = 300;
+        $now      = 1000;
 
         $this->time
             ->expects($this->once())
             ->method('now')
             ->willReturn($now);
 
-        $redis_result = [
-        "701-100",
-        "702-101",
+        $redisResult = [
+            "701-100",
+            "702-101",
         ];
         $this->redis
             ->expects($this->once())
             ->method('ZRANGEBYSCORE')
             ->with("sensor_values:$sensorId", 700, $now)
-            ->willReturn($redis_result);
+            ->willReturn($redisResult);
 
         $actualResult = $this->subject->getSensorValues($sensorId, $from);
 
         $expectedResult = [
-        701 => 100,
-        702 => 101,
+            701 => 100,
+            702 => 101,
         ];
 
         $this->assertEquals($expectedResult, $actualResult);
@@ -146,6 +146,5 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
         $actualResult = $this->subject->deleteOldValues($sensorId, $days, $deletedPercent);
 
         $this->assertEquals(2, $actualResult);
-
     }
 }

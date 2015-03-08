@@ -2,7 +2,7 @@
 
 namespace Raspberry\Sensors\Interfaces;
 
-interface Searchable
+interface Searchable extends Parameterized
 {
 
     /**

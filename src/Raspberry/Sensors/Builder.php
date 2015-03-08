@@ -17,15 +17,15 @@ class Builder
     public function buildFromArray(array $data)
     {
         return $this->build(
-            $data['id'],
+            $data['sensorId'],
             $data['name'],
             $data['description'],
             $data['interval'],
             $data['node'],
             $data['pin'],
             $data['type'],
-            $data['last_value'],
-            $data['last_value_timestamp']
+            $data['lastValue'],
+            $data['lastValueTimestamp']
         );
     }
 
