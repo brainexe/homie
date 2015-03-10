@@ -5,19 +5,19 @@ namespace Raspberry\Sensors\Sensors;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Util\FileSystem;
 use BrainExe\Core\Util\Glob;
-use Raspberry\Sensors\Annotation\Sensor;
+use Raspberry\Sensors\CompilerPass\Annotation\Sensor;
+use Raspberry\Sensors\Definition;
+use Raspberry\Sensors\Formatter\Temperature;
 use Raspberry\Sensors\Interfaces\Searchable;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @Sensor("Sensor.Temperature.OnBoard")
  */
-class TemperatureOnBoard implements Searchable
+class TemperatureOnBoard extends AbstractSensor implements Searchable
 {
 
     const TYPE = 'temperature_onboard';
-
-    use TemperatureTrait;
 
     /**
      * @var Filesystem
@@ -38,14 +38,6 @@ class TemperatureOnBoard implements Searchable
     {
         $this->fileSystem = $filesystem;
         $this->glob       = $glob;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getSensorType()
-    {
-        return self::TYPE;
     }
 
     /**
@@ -85,5 +77,18 @@ class TemperatureOnBoard implements Searchable
         return array_filter($this->glob->glob('/sys/class/thermal/*/temp'), function ($file) {
             return strpos($file, 'cooling') === false;
         });
+    }
+
+    /**
+     * @return Definition
+     */
+    public function getDefinition()
+    {
+        $definition            = new Definition();
+        $definition->name      = _('Temp. Onboard');
+        $definition->type      = Definition::TYPE_TEMPERATURE;
+        $definition->formatter = Temperature::TYPE;
+
+        return $definition;
     }
 }

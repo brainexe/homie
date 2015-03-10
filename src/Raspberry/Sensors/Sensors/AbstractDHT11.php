@@ -13,7 +13,7 @@ use Symfony\Component\Process\ProcessBuilder;
  * @link http://www.adafruit.com/product/386
  * @link https://learn.adafruit.com/dht
  */
-abstract class AbstractDHT11 implements Parameterized
+abstract class AbstractDHT11 extends AbstractSensor implements Parameterized
 {
 
     // todo use $pin only

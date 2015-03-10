@@ -31,16 +31,6 @@ class SensorBuilderIntegrationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider providerSensors
-     * @param Sensor $sensor
-     */
-    public function testFormatValue(Sensor $sensor)
-    {
-        $this->assertInternalType('string', $sensor->formatValue(1.1));
-        $this->assertInternalType('string', $sensor->getEspeakText(1.1));
-    }
-
-    /**
      * @return array[]
      */
     public function providerSensors()
@@ -48,7 +38,7 @@ class SensorBuilderIntegrationTest extends \PHPUnit_Framework_TestCase
         global $dic;
         $builder = $dic->get('SensorBuilder');
 
-        return array_map(function(Sensor $sensor) {
+        return array_map(function (Sensor $sensor) {
             return [$sensor];
         }, $builder->getSensors());
     }

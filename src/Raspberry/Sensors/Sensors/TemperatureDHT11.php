@@ -2,7 +2,9 @@
 
 namespace Raspberry\Sensors\Sensors;
 
-use Raspberry\Sensors\Annotation\Sensor;
+use Raspberry\Sensors\CompilerPass\Annotation\Sensor;
+use Raspberry\Sensors\Definition;
+use Raspberry\Sensors\Formatter\Temperature;
 
 /**
  * @Sensor("Sensor.DHT11.Temperature")
@@ -11,16 +13,6 @@ class TemperatureDHT11 extends AbstractDHT11
 {
 
     const TYPE = 'temp_dht11';
-
-    use TemperatureTrait;
-
-    /**
-     * @return string
-     */
-    public function getSensorType()
-    {
-        return self::TYPE;
-    }
 
     /**
      * @param integer $parameter
@@ -35,5 +27,18 @@ class TemperatureDHT11 extends AbstractDHT11
         }
 
         return (double)$matches[1];
+    }
+
+    /**
+     * @return Definition
+     */
+    public function getDefinition()
+    {
+        $definition            = new Definition();
+        $definition->name      = _('Temperature');
+        $definition->type      = Definition::TYPE_TEMPERATURE;
+        $definition->formatter = Temperature::TYPE;
+
+        return $definition;
     }
 }

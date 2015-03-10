@@ -2,25 +2,18 @@
 
 namespace Raspberry\Sensors\Sensors;
 
-use Raspberry\Sensors\Annotation\Sensor;
+use Raspberry\Sensors\CompilerPass\Annotation\Sensor;
+use Raspberry\Sensors\Definition;
+use Raspberry\Sensors\Formatter\Load as Formatter;
 use Symfony\Component\Console\Output\OutputInterface;
-use Raspberry\Sensors\Interfaces\Sensor as SensorInterface;
 
 /**
  * @Sensor("Sensor.Load")
  */
-class Load implements SensorInterface
+class Load extends AbstractSensor
 {
 
     const TYPE = 'load';
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getSensorType()
-    {
-        return self::TYPE;
-    }
 
     /**
      * {@inheritdoc}
@@ -35,24 +28,21 @@ class Load implements SensorInterface
     /**
      * {@inheritdoc}
      */
-    public function formatValue($value)
-    {
-        return sprintf('%0.1f', $value);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getEspeakText($value)
-    {
-        return sprintf('%1.1f', $value);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function isSupported($parameter, OutputInterface $output)
     {
         return true;
+    }
+
+    /**
+     * @return Definition
+     */
+    public function getDefinition()
+    {
+        $definition = new Definition();
+        $definition->name = _('Load');
+        $definition->type = Definition::TYPE_LOAD;
+        $definition->formatter = Formatter::TYPE;
+
+        return $definition;
     }
 }

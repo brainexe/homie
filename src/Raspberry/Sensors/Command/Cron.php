@@ -111,7 +111,10 @@ class Cron extends Command
             $delta    = $now - $lastRun;
 
             if ($delta > $interval * 60 || $input->getOption('force')) {
-                $sensor = $this->builder->build($sensorVo->type);
+                $sensor     = $this->builder->build($sensorVo->type);
+                $formatter  = $this->builder->getFormatter($sensorVo->type);
+                $definition = $this->builder->getDefinition($sensorVo->type);
+
                 $currentSensorValue = $sensor->getValue($sensorVo->pin);
                 if ($currentSensorValue === null) {
                     $output->writeln(sprintf(
@@ -123,7 +126,7 @@ class Cron extends Command
                     continue;
                 }
 
-                $formattedSensorValue = $sensor->formatValue($currentSensorValue);
+                $formattedSensorValue = $formatter->formatValue($currentSensorValue);
                 $event = new SensorValueEvent(
                     $sensorVo,
                     $sensor,
@@ -139,7 +142,7 @@ class Cron extends Command
                     sprintf(
                         '#%d: <info>%s</info> (<info>%s</info>): <info>%s</info>',
                         $sensorVo->sensorId,
-                        $sensorVo->type,
+                        $definition->name,
                         $sensorVo->name,
                         $formattedSensorValue
                     )

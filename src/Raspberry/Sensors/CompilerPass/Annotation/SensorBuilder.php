@@ -1,13 +1,13 @@
 <?php
 
-namespace Raspberry\Sensors\Annotation;
+namespace Raspberry\Sensors\CompilerPass\Annotation;
 
 use BrainExe\Annotations\Loader\Annotation\ServiceDefinitionBuilder;
-use Raspberry\Sensors\CompilerPass;
+use Raspberry\Sensors\CompilerPass\Sensor;
 use ReflectionClass;
 use Symfony\Component\DependencyInjection\Definition;
 
-class Builder extends ServiceDefinitionBuilder
+class SensorBuilder extends ServiceDefinitionBuilder
 {
     /**
      * {@inheritdoc}
@@ -18,7 +18,7 @@ class Builder extends ServiceDefinitionBuilder
         list($serviceId, $definition) = parent::build($reflectionClass, $annotation);
 
         $definition->setPublic(false);
-        $definition->addTag(CompilerPass::TAG);
+        $definition->addTag(Sensor::TAG);
 
         return [$serviceId, $definition];
     }

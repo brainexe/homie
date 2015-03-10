@@ -5,17 +5,17 @@ namespace Raspberry\Sensors\Sensors;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Util\FileSystem;
 use BrainExe\Core\Util\Glob;
-use Raspberry\Sensors\Annotation\Sensor;
+use Raspberry\Sensors\CompilerPass\Annotation\Sensor;
+use Raspberry\Sensors\Definition;
+use Raspberry\Sensors\Formatter\Temperature;
 use Raspberry\Sensors\Interfaces\Searchable;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @Sensor("Sensor.DS18.Temperature")
  */
-class TemperatureDS18 implements Searchable
+class TemperatureDS18 extends AbstractSensor implements Searchable
 {
-
-    use TemperatureTrait;
 
     const TYPE     = 'temp_ds18';
 
@@ -38,14 +38,6 @@ class TemperatureDS18 implements Searchable
     {
         $this->fileSystem = $filesystem;
         $this->glob       = $glob;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSensorType()
-    {
-        return self::TYPE;
     }
 
     /**
@@ -105,5 +97,18 @@ class TemperatureDS18 implements Searchable
     public function search()
     {
         return $this->glob->glob('/sys/bus/w1/devices/*/w1_slave');
+    }
+
+    /**
+     * @return Definition
+     */
+    public function getDefinition()
+    {
+        $definition            = new Definition();
+        $definition->name      = _('Temperature');
+        $definition->type      = Definition::TYPE_TEMPERATURE;
+        $definition->formatter = Temperature::TYPE;
+
+        return $definition;
     }
 }

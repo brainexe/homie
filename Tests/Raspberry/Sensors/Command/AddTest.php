@@ -20,6 +20,8 @@ use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Tester\CommandTester;
 
+abstract class TestSensor implements Sensor, Parameterized {}
+
 /**
  * @Covers Raspberry\Sensors\Command\Add
  */
@@ -62,8 +64,8 @@ class AddTest extends PHPUnit_Framework_TestCase
         $application->add($this->subject);
         $tester = new CommandTester($this->subject);
 
-        $sensor1 = $this->getMock(Parameterized::class);
-        $sensor2 = $this->getMock(Parameterized::class);
+        $sensor1 = $this->getMock(TestSensor::class);
+        $sensor2 = $this->getMock(TestSensor::class);
 
         $sensors = [
             $sensorType1 = 'type_1' => $sensor1,
@@ -124,8 +126,8 @@ class AddTest extends PHPUnit_Framework_TestCase
         $application->add($this->subject);
         $commandTester = new CommandTester($this->subject);
 
-        $sensor1 = $this->getMock(Parameterized::class);
-        $sensor2 = $this->getMock(Parameterized::class);
+        $sensor1 = $this->getMock(TestSensor::class);
+        $sensor2 = $this->getMock(TestSensor::class);
 
         $sensors = [
             'type_1' => $sensor1,

@@ -2,26 +2,19 @@
 
 namespace Raspberry\Sensors\Sensors;
 
-use Raspberry\Sensors\Annotation\Sensor;
+use Raspberry\Sensors\CompilerPass\Annotation\Sensor;
+use Raspberry\Sensors\Definition;
+use Raspberry\Sensors\Formatter\Bytes;
 use Symfony\Component\Console\Output\OutputInterface;
-use Raspberry\Sensors\Interfaces\Sensor as SensorInterface;
 
 /**
  * @Sensor("Sensor.MemoryUsed")
  */
-class MemoryUsed implements SensorInterface
+class MemoryUsed extends AbstractSensor
 {
 
     const MEMINFO = '/proc/meminfo';
     const TYPE    = 'memory_used';
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getSensorType()
-    {
-        return self::TYPE;
-    }
 
     /**
      * {@inheritdoc}
@@ -35,23 +28,7 @@ class MemoryUsed implements SensorInterface
 
         $usedkb = $total[1] - $available[1];
 
-        return $usedkb / 1000; // -> MB
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function formatValue($value)
-    {
-        return sprintf('%1.1f', $value);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getEspeakText($value)
-    {
-        return sprintf('%1.1f', $value);
+        return $usedkb * 1000; // -> Bytes
     }
 
     /**
@@ -60,5 +37,18 @@ class MemoryUsed implements SensorInterface
     public function isSupported($parameter, OutputInterface $output)
     {
         return is_file(self::MEMINFO);
+    }
+
+    /**
+     * @return Definition
+     */
+    public function getDefinition()
+    {
+        $definition            = new Definition();
+        $definition->name      = _('Memory');
+        $definition->type      = Definition::TYPE_MEMORY;
+        $definition->formatter = Bytes::TYPE;
+
+        return $definition;
     }
 }

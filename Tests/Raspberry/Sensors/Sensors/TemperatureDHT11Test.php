@@ -30,7 +30,7 @@ class TemperatureDHT11Test extends TestCase
     public function setUp()
     {
         $this->processBuilder = $this->getMock(ProcessBuilder::class, [], [], '', false);
-        $this->fileSystem = $this->getMock(Filesystem::class, [], [], '', false);
+        $this->fileSystem     = $this->getMock(Filesystem::class, [], [], '', false);
 
         $this->subject = new TemperatureDHT11($this->processBuilder, $this->fileSystem, '/ada/');
     }

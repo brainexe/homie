@@ -121,9 +121,9 @@ class Controller
             $sensorId = $sensor['sensorId'];
 
             if (!empty($sensor['lastValue'])) {
-                $sensorObj           = $sensorObjects[$sensor['type']];
-                $sensor['espeak']    = (bool)$sensorObj->getEspeakText($sensor['lastValue']);
-                $sensor['lastValue'] = $sensorObj->formatValue($sensor['lastValue']);
+                $formatter = $this->builder->getFormatter($sensor['type']);
+                $sensor['espeak']    = (bool)$formatter->getEspeakText($sensor['lastValue']);
+                $sensor['lastValue'] = $formatter->formatValue($sensor['lastValue']);
             } else {
                 $sensor['espeak'] = false;
             }
@@ -191,9 +191,8 @@ class Controller
     {
         unset($request);
         $sensor     = $this->gateway->getSensor($sensorId);
-        $sensorObj  = $this->builder->build($sensor['type']);
-
-        $text = $sensorObj->getEspeakText($sensor['lastValue']);
+        $formatter  = $this->builder->getFormatter($sensor['type']);
+        $text       = $formatter->getEspeakText($sensor['lastValue']);
 
         $espeakVo  = new EspeakVO($text);
         $event     = new EspeakEvent($espeakVo);
@@ -212,33 +211,12 @@ class Controller
     {
         unset($request);
         $sensor         = $this->gateway->getSensor($sensorId);
-        $sensorObj      = $this->builder->build($sensor['type']);
-        $formattedValue = $sensorObj->getEspeakText($sensor['lastValue']);
+        $formatter      = $this->builder->getFormatter($sensor['type']);
+        $formattedValue = $formatter->getEspeakText($sensor['lastValue']);
 
         return [
             'sensor'                 => $sensor,
             'sensor_value_formatted' => $formattedValue,
-            'sensor_obj'             => $sensorObj,
-            'refresh_interval'       => 60
-        ];
-    }
-
-    /**
-     * @Route("/sensors/value/", name="sensor.value")
-     * @param Request $request
-     * @return array
-     */
-    public function getValue(Request $request)
-    {
-        $sensorId       = $request->query->getInt('sensor_id');
-        $sensor         = $this->gateway->getSensor($sensorId);
-        $sensorObj      = $this->builder->build($sensor['type']);
-        $formattedValue = $sensorObj->getEspeakText($sensor['lastValue']);
-
-        return [
-            'sensor'                 => $sensor,
-            'sensor_value_formatted' => $formattedValue,
-            'sensor_obj'             => $sensorObj,
             'refresh_interval'       => 60
         ];
     }

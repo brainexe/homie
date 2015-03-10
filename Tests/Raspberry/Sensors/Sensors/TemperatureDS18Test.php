@@ -86,29 +86,6 @@ class TemperatureDS18Test extends TestCase
         $this->assertEquals($expectedResult, $actualResult);
     }
 
-    /**
-     * @param float $given
-     * @param string $expectedResult
-     * @dataProvider provideFormatValues
-     */
-    public function testFormatValue($given, $expectedResult)
-    {
-        $actualResult = $this->subject->formatValue($given);
-
-        $this->assertEquals($expectedResult, $actualResult);
-    }
-    /**
-     * @param float $given
-     * @param string $expectedResult
-     * @dataProvider provideEspeakText
-     */
-    public function testGetEspeakText($given, $expectedResult)
-    {
-        $actualResult = $this->subject->getEspeakText($given);
-
-        $this->assertEquals($expectedResult, $actualResult);
-    }
-
     public function testIsSupported()
     {
         $file = "mockFile";
@@ -129,44 +106,12 @@ class TemperatureDS18Test extends TestCase
     {
         $file = 'mockFile';
 
-        $this->fileSystem
-            ->expects($this->once())
-            ->method('exists')
-            ->with($file)
-            ->willReturn(false);
+        $this->fileSystem->expects($this->once())->method('exists')->with($file)->willReturn(false);
 
-        $output = new DummyOutput();
+        $output       = new DummyOutput();
         $actualResult = $this->subject->isSupported($file, $output);
 
         $this->assertFalse($actualResult);
-    }
-
-    /**
-     * @return array[]
-     */
-    public function provideFormatValues()
-    {
-        return [
-            [100, '100.00°'],
-            [0, '0.00°'],
-            ['', '0.00°'],
-            [10.2222, '10.22°'],
-            [-10.2222, '-10.22°'],
-        ];
-    }
-
-    /**
-     * @return array[]
-     */
-    public function provideEspeakText()
-    {
-        return [
-            [100, '100,0 Degree'],
-            [0, '0,0 Degree'],
-            ['', '0,0 Degree'],
-            [10.2222, '10,2 Degree'],
-            [-10.2222, '-10,2 Degree'],
-        ];
     }
 
     /**

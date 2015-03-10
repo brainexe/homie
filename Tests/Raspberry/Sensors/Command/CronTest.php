@@ -5,6 +5,7 @@ namespace Tests\Raspberry\Sensors\Command;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Sensors\Command\Cron;
+use Raspberry\Sensors\Formatter\Formatter;
 use Raspberry\Sensors\Interfaces\Sensor;
 use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorValueEvent;
@@ -110,6 +111,8 @@ class CronTest extends PHPUnit_Framework_TestCase
 
         $currentSensorValue = null;
 
+        $formatter = $this->getMock(Formatter::class);
+
         $sensorObject = $this->getMockForAbstractClass(Sensor::class);
         $this->mockTime
             ->expects($this->once())
@@ -133,6 +136,12 @@ class CronTest extends PHPUnit_Framework_TestCase
             ->method('build')
             ->with($type)
             ->willReturn($sensorObject);
+
+        $this->builder
+            ->expects($this->once())
+            ->method('getFormatter')
+            ->with($type)
+            ->willReturn($formatter);
 
         $sensorObject
             ->expects($this->once())
@@ -164,12 +173,26 @@ class CronTest extends PHPUnit_Framework_TestCase
         $currentSensorValue = 1000;
         $formattedSensorValue = "1000 grad";
 
+        $formatter = $this->getMock(Formatter::class);
+
+        $formatter
+            ->expects($this->once())
+            ->method('formatValue')
+            ->with($currentSensorValue)
+            ->willReturn($formattedSensorValue);
+
         /** @var Sensor|MockObject $sensorObject */
         $sensorObject = $this->getMockForAbstractClass(Sensor::class);
         $this->mockTime
             ->expects($this->once())
             ->method('now')
             ->willReturn($now);
+
+        $this->builder
+            ->expects($this->once())
+            ->method('getFormatter')
+            ->with($type)
+            ->willReturn($formatter);
 
         $this->gateway
             ->expects($this->once())
@@ -194,12 +217,6 @@ class CronTest extends PHPUnit_Framework_TestCase
             ->method('getValue')
             ->with($pin)
             ->willReturn($currentSensorValue);
-
-        $sensorObject
-            ->expects($this->once())
-            ->method('formatValue')
-            ->with($currentSensorValue)
-            ->willReturn($formattedSensorValue);
 
         $event = new SensorValueEvent(
             $sensor,

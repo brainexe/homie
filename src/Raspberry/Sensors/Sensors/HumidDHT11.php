@@ -2,7 +2,9 @@
 
 namespace Raspberry\Sensors\Sensors;
 
-use Raspberry\Sensors\Annotation\Sensor;
+use Raspberry\Sensors\CompilerPass\Annotation\Sensor;
+use Raspberry\Sensors\Definition;
+use Raspberry\Sensors\Formatter\Percentage;
 
 /**
  * @Sensor("Sensor.HumidDHT11")
@@ -11,14 +13,6 @@ class HumidDHT11 extends AbstractDHT11
 {
 
     const TYPE = 'humid_dht11';
-
-    /**
-     * @return string
-     */
-    public function getSensorType()
-    {
-        return self::TYPE;
-    }
 
     /**
      * @param integer $parameter
@@ -36,20 +30,15 @@ class HumidDHT11 extends AbstractDHT11
     }
 
     /**
-     * @param double $value
-     * @return string
+     * @return Definition
      */
-    public function formatValue($value)
+    public function getDefinition()
     {
-        return sprintf('%d%%', $value);
-    }
+        $definition            = new Definition();
+        $definition->name      = _('Humidity');
+        $definition->type      = Definition::TYPE_HUMIDITY;
+        $definition->formatter = Percentage::TYPE;
 
-    /**
-     * @param float $value
-     * @return string|null
-     */
-    public function getEspeakText($value)
-    {
-        return sprintf(_('%d Percent'), $value);
+        return $definition;
     }
 }

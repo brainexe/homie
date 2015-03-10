@@ -1,20 +1,21 @@
 <?php
 
-namespace Raspberry\Sensors;
+namespace Raspberry\Sensors\CompilerPass;
 
 use BrainExe\Core\Annotations\CompilerPass as CompilerPassAnnotation;
-use Raspberry\Sensors\Interfaces\Sensor;
+use Raspberry\Sensors\Formatter\Formatter;
+use Raspberry\Sensors\Interfaces\Sensor as SensorInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * @CompilerPassAnnotation("CompilerPass.Sensor")
+ * @CompilerPassAnnotation("CompilerPass.SensorFormatter")
  */
-class CompilerPass implements CompilerPassInterface
+class SensorFormatter implements CompilerPassInterface
 {
 
-    const TAG = 'sensor';
+    const TAG = 'sensor_formatter';
 
     /**
      * {@inheritdoc}
@@ -25,13 +26,13 @@ class CompilerPass implements CompilerPassInterface
         $taggedServices = $container->findTaggedServiceIds(self::TAG);
 
         foreach (array_keys($taggedServices) as $serviceId) {
-            /** @var Sensor $service */
+            /** @var Formatter $service */
             $service = $container->get($serviceId);
 
             $sensorBuilder->addMethodCall(
-                'addSensor',
+                'addFormatter',
                 [
-                    $service->getSensorType(),
+                    $service->getType(),
                     new Reference($serviceId)
                 ]
             );

@@ -39,24 +39,6 @@ class LoadTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(is_numeric($actualResult));
     }
 
-    public function testFormatValue()
-    {
-        $value = 1211.1112;
-
-        $actualResult = $this->subject->formatValue($value);
-
-        $this->assertEquals('1211.1', $actualResult);
-    }
-
-    public function testGetEspeakText()
-    {
-        $value = 1211.1112;
-
-        $actualResult = $this->subject->getEspeakText($value);
-
-        $this->assertEquals('1211.1', $actualResult);
-    }
-
     public function testIsSupported()
     {
         $output = new DummyOutput();

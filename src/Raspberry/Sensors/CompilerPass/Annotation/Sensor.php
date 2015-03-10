@@ -1,6 +1,6 @@
 <?php
 
-namespace Raspberry\Sensors\Annotation;
+namespace Raspberry\Sensors\CompilerPass\Annotation;
 
 use BrainExe\Annotations\Annotations\Service;
 use Doctrine\Common\Annotations\Reader;
@@ -15,6 +15,6 @@ class Sensor extends Service
      */
     public static function getBuilder(Reader $reader)
     {
-        return new Builder($reader);
+        return new SensorBuilder($reader);
     }
 }

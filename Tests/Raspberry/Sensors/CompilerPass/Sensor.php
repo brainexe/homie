@@ -1,11 +1,12 @@
 <?php
 
-namespace Tests\Raspberry\Sensors;
+namespace Tests\Raspberry\Sensors\CompilerPass;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Sensors\CompilerPass;
-use Raspberry\Sensors\Interfaces\Sensor;
+use Raspberry\Sensors\CompilerPass\Sensor;
+use Raspberry\Sensors\Interfaces\Sensor as SensorInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
@@ -17,24 +18,21 @@ class CompilerPassTest extends TestCase
 {
 
     /**
-     * @var CompilerPass
+     * @var Sensor
      */
     private $subject;
 
     /**
      * @var MockObject|ContainerBuilder
      */
-    private $mockContainer;
+    private $container;
 
     public function setUp()
     {
-        $this->subject = new CompilerPass();
-        $this->mockContainer = $this->getMock(ContainerBuilder::class);
+        $this->subject = new Sensor();
+        $this->container = $this->getMock(ContainerBuilder::class);
     }
 
-    /**
-     *
-     */
     public function testProcess()
     {
         $sensorBuilder    = $this->getMock(Definition::class);
@@ -42,21 +40,21 @@ class CompilerPassTest extends TestCase
         $sensor           = $this->getMock(Sensor::class);
         $sensorId         = 'sensor_1';
 
-        $this->mockContainer
+        $this->container
             ->expects($this->at(0))
             ->method('getDefinition')
             ->with('SensorBuilder')
             ->willReturn($sensorBuilder);
 
-        $this->mockContainer
+        $this->container
             ->expects($this->at(1))
             ->method('findTaggedServiceIds')
-            ->with(CompilerPass::TAG)
+            ->with(Sensor::TAG)
             ->will($this->returnValue([
                 $sensorId => $sensorDefinition
             ]));
 
-        $this->mockContainer
+        $this->container
             ->expects($this->at(2))
             ->method('get')
             ->with($sensorId)
@@ -71,6 +69,6 @@ class CompilerPassTest extends TestCase
             ->method('addMethodCall')
             ->with('addSensor', [$sensorId, new Reference($sensorId)]);
 
-        $this->subject->process($this->mockContainer);
+        $this->subject->process($this->container);
     }
 }

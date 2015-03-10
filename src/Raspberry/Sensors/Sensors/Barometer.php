@@ -2,8 +2,11 @@
 
 namespace Raspberry\Sensors\Sensors;
 
+use Raspberry\Sensors\CompilerPass\Annotation\Sensor;
+use Raspberry\Sensors\Definition;
+use Raspberry\Sensors\Formatter\Formatter;
+use Raspberry\Sensors\Formatter\None;
 use Raspberry\Sensors\Interfaces\Parameterized;
-use Raspberry\Sensors\Annotation\Sensor;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -11,7 +14,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @link https://learn.adafruit.com/using-the-bmp085-with-raspberry-pi/using-the-adafruit-bmp-python-library
  * @link http://www.adafruit.com/product/1603
  */
-class Barometer implements Parameterized
+class Barometer extends AbstractSensor implements Parameterized
 {
 
     const TYPE = 'barometer';
@@ -37,28 +40,15 @@ class Barometer implements Parameterized
     }
 
     /**
-     * @return string
+     * @return Definition
      */
-    public function getSensorType()
+    public function getDefinition()
     {
-        return self::TYPE;
-    }
+        $definition            = new Definition();
+        $definition->name      = _('Barometer');
+        $definition->type      = Definition::TYPE_BAROMETER;
+        $definition->formatter = None::TYPE;
 
-    /**
-     * @param double $value
-     * @return string
-     */
-    public function formatValue($value)
-    {
-        return (string)$value;
-    }
-
-    /**
-     * @param float $value
-     * @return string|null
-     */
-    public function getEspeakText($value)
-    {
-        return $this->formatValue($value);
+        return $definition;
     }
 }

@@ -95,12 +95,14 @@ class Add extends Command
         $description = $this->getSensorDescription();
         $interval    = $this->getInterval();
         $node        = $this->getNode();
+        $type        = $sensor->getSensorType();
 
         // get test value
         $testValue = $sensor->getValue($parameter);
         if ($testValue !== null) {
+            $formatter = $this->builder->getFormatter($type);
             $output->writeln(
-                sprintf('<info>Sensor value: %s</info>', $sensor->formatValue($testValue))
+                sprintf('<info>Sensor value: %s</info>', $formatter->formatValue($testValue))
             );
         } else {
             $output->writeln('<error>Sensor returned invalid data.</error>');
@@ -109,7 +111,7 @@ class Add extends Command
 
         $sensorVo              = new SensorVO();
         $sensorVo->name        = $name;
-        $sensorVo->type        = $sensor->getSensorType();
+        $sensorVo->type        = $type;
         $sensorVo->description = $description;
         $sensorVo->pin         = $parameter;
         $sensorVo->interval    = $interval;

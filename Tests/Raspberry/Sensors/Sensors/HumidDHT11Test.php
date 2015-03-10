@@ -110,29 +110,6 @@ class HumidDHT11Test extends PHPUnit_Framework_TestCase
         $this->assertEquals($humid, $actualResult);
     }
 
-    /**
-     * @param float $given
-     * @param string $expectedResult
-     * @dataProvider provideFormatValues
-     */
-    public function testFormatValue($given, $expectedResult)
-    {
-        $actualResult = $this->subject->formatValue($given);
-
-        $this->assertEquals($expectedResult, $actualResult);
-    }
-    /**
-     * @param float $given
-     * @param string $expectedResult
-     * @dataProvider provideEspeakText
-     */
-    public function testGetEspeakText($given, $expectedResult)
-    {
-        $actualResult = $this->subject->getEspeakText($given);
-
-        $this->assertEquals($expectedResult, $actualResult);
-    }
-
     public function testIsSupported()
     {
         $file = 'mockFile';
@@ -165,31 +142,4 @@ class HumidDHT11Test extends PHPUnit_Framework_TestCase
         $this->assertFalse($actualResult);
     }
 
-    /**
-     * @return array[]
-     */
-    public function provideEspeakText()
-    {
-        return [
-            [100, '100 Percent'],
-            [0, '0 Percent'],
-            ['', '0 Percent'],
-            [10.2222, '10 Percent'],
-            [-10.2222, '-10 Percent'],
-        ];
-    }
-
-    /**
-     * @return array[]
-     */
-    public function provideFormatValues()
-    {
-        return [
-            [100, '100%'],
-            [0, '0%'],
-            ['', '0%'],
-            [10.2222, '10%'],
-            [-10.2222, '-10%'],
-        ];
-    }
 }
