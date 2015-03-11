@@ -18,7 +18,7 @@ class Temperature implements Formatter
      */
     public function formatValue($value)
     {
-        return sprintf('%1.2f°', $value);
+        return sprintf('%0.1f°', $value);
     }
 
     /**

@@ -4,7 +4,6 @@ namespace Raspberry\Sensors\Sensors;
 
 use BrainExe\Annotations\Annotations\Inject;
 use Raspberry\Sensors\Interfaces\Parameterized;
-use Raspberry\Sensors\Interfaces\Sensor;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Process\ProcessBuilder;

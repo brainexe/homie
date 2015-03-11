@@ -17,7 +17,7 @@ class None implements Formatter
      */
     public function formatValue($value)
     {
-        return $value;
+        return (string)$value;
     }
 
     /**
@@ -25,7 +25,7 @@ class None implements Formatter
      */
     public function getEspeakText($value)
     {
-        return $value;
+        return (string)$value;
     }
 
     /**

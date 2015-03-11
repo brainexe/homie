@@ -24,7 +24,7 @@ class Load implements Formatter
      */
     public function getEspeakText($value)
     {
-        return sprintf('%1.1f', $value);
+        return $this->formatValue($value);
     }
 
     /**

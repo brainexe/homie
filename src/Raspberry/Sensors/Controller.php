@@ -4,6 +4,7 @@ namespace Raspberry\Sensors;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
+use BrainExe\Core\Annotations\Guest;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Raspberry\Espeak\EspeakEvent;
@@ -233,5 +234,24 @@ class Controller
         $this->gateway->deleteSensor($sensorId);
 
         return true;
+    }
+
+    /**
+     * @Route("/sensors/api/", name="sensor.api")
+     * @Guest
+     * @return array
+     */
+    public function api()
+    {
+        $sensors = $this->gateway->getSensors();
+
+        $values = [];
+
+        foreach ($sensors as $sensor) {
+            $key = sprintf('%s_%s', $sensor['type'], $sensor['sensorId']);
+            $values[$key] = $sensor['lastValue'];
+        }
+
+        return $values;
     }
 }

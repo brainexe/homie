@@ -15,7 +15,7 @@
             </thead>
             <tr ng-repeat="sensor in sensors">
                 <td title="{{ sensor.sensorId }}">
-                    {{ sensor.type }} <span class="small" ng-if="sensor.pin">({{ sensor.pin }})</span>
+                    {{ types[sensor.type].name }} <span class="small" ng-if="sensor.pin">({{ sensor.pin }})</span>
                 </td>
                 <td>
                     {{ sensor.name }} <span ng-if="sensor.description">({{ sensor.description }})</span>
