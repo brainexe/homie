@@ -80,4 +80,16 @@ class Dashboard
     {
         return $this->dashboardGateway->getDashboards();
     }
+
+    /**
+     * @param int $dashboardId
+     * @param string $name
+     * @return DashboardVo
+     */
+    public function updateDashboard($dashboardId, $name)
+    {
+        $this->dashboardGateway->updateDashboard($dashboardId, $name);
+
+        return $this->getDashboard($dashboardId);
+    }
 }

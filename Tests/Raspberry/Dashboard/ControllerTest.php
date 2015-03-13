@@ -84,6 +84,28 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($dashboard, $actualResult);
     }
 
+    public function testUpdateDashboard()
+    {
+        $dashboardId   = 1212;
+        $name          = 'name';
+
+        $dashboard = 'dashboard';
+
+        $request = new Request();
+        $request->request->set('dashboard_id', $dashboardId);
+        $request->request->set('name', $name);
+
+        $this->dashboard
+            ->expects($this->once())
+            ->method('updateDashboard')
+            ->with($dashboardId, $name)
+            ->willReturn($dashboard);
+
+        $actualResult = $this->subject->updateDashboard($request);
+
+        $this->assertEquals($dashboard, $actualResult);
+    }
+
     public function testDeleteWidget()
     {
         $widgetId    = 12;

@@ -110,7 +110,6 @@ class DashboardTest extends PHPUnit_Framework_TestCase
 
     public function testGetDashboards()
     {
-
         $dashboards = ['dashboards'];
 
         $this->gateway
@@ -121,5 +120,18 @@ class DashboardTest extends PHPUnit_Framework_TestCase
         $actual = $this->subject->getDashboards();
 
         $this->assertEquals($dashboards, $actual);
+    }
+
+    public function testUpdateDashboard()
+    {
+        $dashboardId = 1233;
+        $name        = 'name';
+
+        $this->gateway
+            ->expects($this->once())
+            ->method('updateDashboard')
+            ->willReturn($dashboardId, $name);
+
+        $this->subject->updateDashboard($dashboardId, $name);
     }
 }

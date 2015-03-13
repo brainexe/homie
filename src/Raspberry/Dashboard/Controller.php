@@ -58,6 +58,18 @@ class Controller implements ControllerInterface
 
         return $this->dashboard->getDashboard($dashboardId);
     }
+    /**
+     * @param Request $request
+     * @return array
+     * @Route("/dashboard/update/", methods="POST")
+     */
+    public function updateDashboard(Request $request)
+    {
+        $dashboardId = $request->request->get('dashboard_id');
+        $name        = $request->request->get('name');
+
+        return $this->dashboard->updateDashboard($dashboardId, $name);
+    }
 
     /**
      * @param Request $request

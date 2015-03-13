@@ -91,4 +91,13 @@ class DashboardGateway
     {
         return sprintf(self::DASHBOARD_KEY, $dashboardId);
     }
+
+    /**
+     * @param $dashboardId
+     * @param $name
+     */
+    public function updateDashboard($dashboardId, $name)
+    {
+        $this->getRedis()->hset($this->getKey($dashboardId), 'name', $name);
+    }
 }
