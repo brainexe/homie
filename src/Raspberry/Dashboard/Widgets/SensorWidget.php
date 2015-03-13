@@ -50,7 +50,7 @@ class SensorWidget extends AbstractWidget
     {
         $sensors = [];
         foreach ($this->gateway->getSensors() as $sensor) {
-            $sensors[$sensor['id']] = $sensor['name'];
+            $sensors[$sensor['sensorId']] = $sensor['name'];
         }
 
         return new WidgetMetadataVo(

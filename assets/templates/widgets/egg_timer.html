@@ -1,2 +1,3 @@
-<a ng-click="startEggTimer('10m')" class="btn btn-warning">10m</a>
+<a ng-repeat="time in times" ng-click="start(time)" class="btn btn-warning">{{ time }}</a>
 
+<a ng-click="prompt()" class="btn btn-warning">?</a>

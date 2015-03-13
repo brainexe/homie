@@ -12,57 +12,83 @@ use BrainExe\Core\Traits\RedisTrait;
 class DashboardGateway
 {
 
+    const KEY_META = 'META__';
+
     use RedisTrait;
     use IdGeneratorTrait;
 
-    const REDIS_DASHBOARD = 'dashboard:%s';
+    const DASHBOARD_KEY = 'dashboard:%s';
+    const DASHBOARD_IDS = 'dashboard_ids';
 
     /**
-     * @param integer $userId
-     * @return array[]
+     * @return DashboardVo[]
      */
-    public function getDashboard($userId)
+    public function getDashboards()
     {
-        $dashboard = [];
+        $redis = $this->getRedis();
 
-        $widgetsRaw = $this->getRedis()->hGetAll($this->getKey($userId));
+        $dashboards = [];
+        $dashboardIds = $redis->sMembers(self::DASHBOARD_IDS);
+        foreach ($dashboardIds as $dashboardId) {
+            $dashboards[$dashboardId] = $this->getDashboard($dashboardId);
+        }
+
+        return $dashboards;
+    }
+    /**
+     * @param integer $dashboardId
+     * @return DashboardVo
+     */
+    public function getDashboard($dashboardId)
+    {
+        $dashboard = new DashboardVo();
+        $dashboard->dashboardId = $dashboardId;
+
+        $widgetsRaw = $this->getRedis()->hGetAll($this->getKey($dashboardId));
 
         foreach ($widgetsRaw as $id => $widgetRaw) {
+            switch ($id) {
+                case 'name':
+                    $dashboard->name = $widgetRaw;
+                    continue 2;
+            }
+
             $widget = json_decode($widgetRaw, true);
             $widget['id']   = $id;
             $widget['open'] = true;
-            $dashboard[]    = $widget;
+            $dashboard[] = $widget;
         }
 
         return $dashboard;
     }
 
     /**
-     * @param integer $userId
+     * @param integer $dashboardId
      * @param array $payload
      */
-    public function addWidget($userId, array $payload)
+    public function addWidget($dashboardId, array $payload)
     {
         $newId = $this->generateRandomNumericId();
-        $this->getRedis()->HSET($this->getKey($userId), $newId, json_encode($payload));
+        $this->getRedis()->hSet($this->getKey($dashboardId), $newId, json_encode($payload));
+        $this->getRedis()->sAdd(self::DASHBOARD_IDS, $dashboardId);
     }
 
     /**
-     * @param integer $userId
+     * @param integer $dashboardId
      * @param integer $widgetId
      */
-    public function deleteWidget($userId, $widgetId)
+    public function deleteWidget($dashboardId, $widgetId)
     {
-        $this->getRedis()->HDEL($this->getKey($userId), $widgetId);
-
+        $this->getRedis()->hDel($this->getKey($dashboardId), $widgetId);
+        $this->getRedis()->sRem(self::DASHBOARD_IDS, $dashboardId);
     }
 
     /**
-     * @param integer $userId
+     * @param integer $dashboardId
      * @return string
      */
-    private function getKey($userId)
+    private function getKey($dashboardId)
     {
-        return sprintf(self::REDIS_DASHBOARD, $userId);
+        return sprintf(self::DASHBOARD_KEY, $dashboardId);
     }
 }

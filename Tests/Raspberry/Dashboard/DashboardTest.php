@@ -23,19 +23,19 @@ class DashboardTest extends PHPUnit_Framework_TestCase
     /**
      * @var WidgetFactory|MockObject
      */
-    private $mockWidgetFactory;
+    private $widgetFactory;
 
     /**
      * @var DashboardGateway|MockObject
      */
-    private $mockGateway;
+    private $gateway;
 
     public function setUp()
     {
-        $this->mockWidgetFactory = $this->getMock(WidgetFactory::class, [], [], '', false);
-        $this->mockGateway       = $this->getMock(DashboardGateway::class, [], [], '', false);
+        $this->widgetFactory = $this->getMock(WidgetFactory::class, [], [], '', false);
+        $this->gateway       = $this->getMock(DashboardGateway::class, [], [], '', false);
 
-        $this->subject = new Dashboard($this->mockGateway, $this->mockWidgetFactory);
+        $this->subject = new Dashboard($this->gateway, $this->widgetFactory);
     }
 
     public function testGetDashboard()
@@ -43,7 +43,7 @@ class DashboardTest extends PHPUnit_Framework_TestCase
         $dashboard = [];
         $userId    = 10;
 
-        $this->mockGateway
+        $this->gateway
             ->expects($this->once())
             ->method('getDashboard')
             ->willReturn($dashboard);
@@ -57,7 +57,7 @@ class DashboardTest extends PHPUnit_Framework_TestCase
     {
         $widgets = [];
 
-        $this->mockWidgetFactory
+        $this->widgetFactory
             ->expects($this->once())
             ->method('getAvailableWidgets')
             ->willReturn($widgets);
@@ -76,7 +76,7 @@ class DashboardTest extends PHPUnit_Framework_TestCase
 
         $widget = $this->getMock(AbstractWidget::class);
 
-        $this->mockWidgetFactory
+        $this->widgetFactory
             ->expects($this->once())
             ->method('getWidget')
             ->with($type)
@@ -87,7 +87,7 @@ class DashboardTest extends PHPUnit_Framework_TestCase
             ->method('validate')
             ->with($payload);
 
-        $this->mockGateway
+        $this->gateway
             ->expects($this->once())
             ->method('addWidget')
             ->with($userId, $payload);
@@ -100,11 +100,26 @@ class DashboardTest extends PHPUnit_Framework_TestCase
         $widgetId = 1;
         $userId   = 42;
 
-        $this->mockGateway
+        $this->gateway
             ->expects($this->once())
             ->method('deleteWidget')
             ->with($userId, $widgetId);
 
         $this->subject->deleteWidget($userId, $widgetId);
+    }
+
+    public function testGetDashboards()
+    {
+
+        $dashboards = ['dashboards'];
+
+        $this->gateway
+            ->expects($this->once())
+            ->method('getDashboards')
+            ->willReturn($dashboards);
+
+        $actual = $this->subject->getDashboards();
+
+        $this->assertEquals($dashboards, $actual);
     }
 }

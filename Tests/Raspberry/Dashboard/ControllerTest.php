@@ -32,16 +32,13 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 
     public function testIndex()
     {
-        $userId = 0;
-
-        $dashboard = ['dashboard'];
-        $widgets   = ['widgets'];
+        $dashboards = ['dashboards'];
+        $widgets    = ['widgets'];
 
         $this->dashboard
             ->expects($this->once())
-            ->method('getDashboard')
-            ->with($userId)
-            ->willReturn($dashboard);
+            ->method('getDashboards')
+            ->willReturn($dashboards);
 
         $this->dashboard
             ->expects($this->once())
@@ -52,7 +49,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $actualResult = $this->subject->index($request);
 
         $expectedResult = [
-            'dashboard' => $dashboard,
+            'dashboards' => $dashboards,
             'widgets'   => $widgets
         ];
 
@@ -61,8 +58,8 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 
     public function testAddWidget()
     {
-        $type = 'type';
-        $userId   = 0;
+        $type          = 'type';
+        $dashboardId   = 0;
 
         $payload   = ['payload'];
         $dashboard = ['dashboard'];
@@ -74,12 +71,12 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $this->dashboard
             ->expects($this->once())
             ->method('addWidget')
-            ->with($userId, $type, $payload);
+            ->with($dashboardId, $type, $payload);
 
         $this->dashboard
             ->expects($this->once())
             ->method('getDashboard')
-            ->with($userId)
+            ->with($dashboardId)
             ->willReturn($dashboard);
 
         $actualResult = $this->subject->addWidget($request);
@@ -89,8 +86,8 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 
     public function testDeleteWidget()
     {
-        $widgetId = 12;
-        $userId   = 0;
+        $widgetId    = 12;
+        $dashboardId = 0;
 
         $dashboard = ['dashboard'];
 
@@ -100,13 +97,13 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $this->dashboard
             ->expects($this->once())
             ->method('deleteWidget')
-            ->with($userId, $widgetId)
+            ->with($dashboardId, $widgetId)
             ->willReturn($dashboard);
 
         $this->dashboard
             ->expects($this->once())
             ->method('getDashboard')
-            ->with($userId)
+            ->with($dashboardId)
             ->willReturn($dashboard);
 
         $actualResult = $this->subject->deleteWidget($request);

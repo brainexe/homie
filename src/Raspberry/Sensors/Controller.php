@@ -254,4 +254,25 @@ class Controller
 
         return $values;
     }
+
+    /**
+     * @Route("/sensors/value/", name="sensor.value")
+     * @param Request $request
+     * @return array
+     */
+    public function getValue(Request $request)
+    {
+        $sensorId       = $request->query->getInt('sensor_id');
+        $sensor         = $this->gateway->getSensor($sensorId);
+        $sensorObj      = $this->builder->build($sensor['type']);
+        $formatter      = $this->builder->getFormatter($sensor['type']);
+        $formattedValue = $formatter->getEspeakText($sensor['last_value']);
+
+        return [
+            'sensor'                 => $sensor,
+            'sensor_value_formatted' => $formattedValue,
+            'sensor_obj'             => $sensorObj,
+            'refresh_interval'       => 60
+        ];
+    }
 }

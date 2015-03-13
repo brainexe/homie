@@ -1,4 +1,15 @@
 
+App.EggTimer = {
+    setTimer: function(time, text) {
+        var payload = {
+            time: time,
+            text: text
+        };
+
+        return $.post('/egg_timer/add/', payload);
+    }
+};
+
 App.ng.controller('EggTimerController', ['$scope', function($scope) {
 	$scope.jobs = {};
 
@@ -16,10 +27,10 @@ App.ng.controller('EggTimerController', ['$scope', function($scope) {
 		$scope.time = '';
 		$scope.text = '';
 
-		$.post('/egg_timer/add/', payload, function(new_jobs) {
-			$scope.jobs = new_jobs;
-			$scope.$apply();
-		});
+        App.EggTimer.setTimer($scope.time, $scope.text).then(function(new_jobs) {
+            $scope.jobs = new_jobs;
+            $scope.$apply();
+        });
 	};
 
 	/**

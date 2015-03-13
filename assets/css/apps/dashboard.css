@@ -1,3 +1,7 @@
+.dashboard .widget {
+    border: 1px #666666 solid;
+}
+
 .dashboard .widget .delete {
 	float: right;
 	display: none;

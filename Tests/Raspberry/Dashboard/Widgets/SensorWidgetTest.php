@@ -74,7 +74,7 @@ class SensorWidgetTest extends TestCase
         $sensors = [
             [
                 'name' => 'sensor name',
-                'id' => 12
+                'sensorId' => 12
             ]
         ];
 
@@ -85,7 +85,9 @@ class SensorWidgetTest extends TestCase
 
         $actualResult = json_encode($this->subject);
 
-        $expectedResult = '{"name":"Sensor","parameters":{"sensor_id":{"name":"Sensor ID","values":{"12":"sensor name"}}},"widgetId":"sensor"}';
+        $expectedResult =
+            '{"name":"Sensor","parameters":{"sensor_id":'.
+            '{"name":"Sensor ID","values":{"12":"sensor name"}}},"widgetId":"sensor"}';
         $this->assertEquals($expectedResult, $actualResult);
     }
 }

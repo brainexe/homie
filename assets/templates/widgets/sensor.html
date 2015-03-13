@@ -1,4 +1,4 @@
-{{ temperature }} ({{ sensor.lastValueTc ccimestamp|timeAgo }})
+{{ sensor.type }} ({{ sensor.lastValue }} {{ sensor.lastValueTimestamp|timeAgo }})
 
 <a ng-click="reload()" class="glyphicon glyphicon-repeat"></a>
 

@@ -8,6 +8,7 @@ use BrainExe\Tests\RedisMockTrait;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Raspberry\Dashboard\DashboardGateway;
+use Raspberry\Dashboard\DashboardVo;
 
 /**
  * @Covers Raspberry\Dashboard\DashboardGateway
@@ -25,78 +26,140 @@ class DashboardGatewayTest extends TestCase
     /**
      * @var Predis|MockObject
      */
-    private $mockRedis;
+    private $redis;
 
     /**
      * @var IdGenerator|MockObject
      */
-    private $mockIdGenerator;
+    private $idGenerator;
 
     public function setUp()
     {
-        $this->mockRedis = $this->getRedisMock();
-        $this->mockIdGenerator = $this->getMock(IdGenerator::class);
+        $this->redis       = $this->getRedisMock();
+        $this->idGenerator = $this->getMock(IdGenerator::class);
 
         $this->subject = new DashboardGateway();
-        $this->subject->setRedis($this->mockRedis);
-        $this->subject->setIdGenerator($this->mockIdGenerator);
+        $this->subject->setRedis($this->redis);
+        $this->subject->setIdGenerator($this->idGenerator);
     }
 
     public function testGetDashboard()
     {
-        $userId = 42;
+        $dashboardId = 42;
 
-        $payload = ['payload'];
-        $widgetsRaw = [
-            $widgetId = 10 => json_encode($payload)
+        $payload    = [
+            'payload' => 'payload'
         ];
 
-        $this->mockRedis
+        $widgetsRaw = [
+            $widgetId = 10 => json_encode($payload),
+            'name' => 'mockName'
+        ];
+
+        $this->redis
             ->expects($this->once())
             ->method('hGetAll')
-            ->with("dashboard:$userId")
+            ->with("dashboard:$dashboardId")
             ->willReturn($widgetsRaw);
 
-        $actualResult = $this->subject->getDashboard($userId);
+        $actualResult = $this->subject->getDashboard($dashboardId);
 
-        $expectedWidget = $payload;
-        $expectedWidget['id'] = $widgetId;
-        $expectedWidget['open'] = true;
+        $dashboard = new DashboardVo();
 
-        $this->assertEquals([$expectedWidget], $actualResult);
+        $widget = [];
+        $widget['id']      = $widgetId;
+        $widget['open']    = true;
+        $widget['payload'] = 'payload';
+
+        $dashboard->widgets = [$widget];
+        $dashboard->dashboardId = $dashboardId;
+        $dashboard->name = 'mockName';
+
+        $this->assertEquals($dashboard, $actualResult);
+    }
+
+    public function testGetDashboards()
+    {
+        $dashboardId = 42;
+
+        $payload    = [
+            'payload' => 'payload'
+        ];
+
+        $widgetsRaw = [
+            $widgetId = 10 => json_encode($payload),
+            'name' => 'mockName'
+        ];
+
+        $this->redis
+            ->expects($this->once())
+            ->method('sMembers')
+            ->with("dashboard_ids")
+            ->willReturn([$dashboardId]);
+
+        $this->redis
+            ->expects($this->once())
+            ->method('hGetAll')
+            ->with("dashboard:$dashboardId")
+            ->willReturn($widgetsRaw);
+
+        $actualResult = $this->subject->getDashboards();
+
+        $dashboard = new DashboardVo();
+
+        $widget = [];
+        $widget['id']      = $widgetId;
+        $widget['open']    = true;
+        $widget['payload'] = 'payload';
+
+        $dashboard->widgets = [$widget];
+        $dashboard->dashboardId = $dashboardId;
+        $dashboard->name = 'mockName';
+
+        $this->assertEquals([$dashboardId => $dashboard], $actualResult);
     }
 
     public function testAddWidget()
     {
-        $userId             = 42;
+        $dashboardId          = 42;
         $type            = 'type';
         $payload         = [];
         $payload['type'] = $type;
 
         $newId = 11880;
-        $this->mockIdGenerator
+        $this->idGenerator
             ->expects($this->once())
             ->method('generateRandomNumericId')
             ->willReturn($newId);
 
-        $this->mockRedis
+        $this->redis
             ->expects($this->once())
             ->method('HSET')
-            ->with("dashboard:$userId", $newId, json_encode($payload));
+            ->with("dashboard:$dashboardId", $newId, json_encode($payload));
 
-        $this->subject->addWidget($userId, $payload);
+        $this->redis
+            ->expects($this->once())
+            ->method('sAdd')
+            ->with("dashboard_ids", $dashboardId);
+
+        $this->subject->addWidget($dashboardId, $payload);
     }
 
     public function testDeleteWidget()
     {
-        $widgetId = 1;
-        $userId   = 42;
+        $widgetId    = 1;
+        $dashboardId = 42;
 
-        $this->mockRedis
+        $this->redis
             ->expects($this->once())
             ->method('HDEL')
-            ->with("dashboard:$userId", $widgetId);
+            ->with("dashboard:$dashboardId", $widgetId);
 
-        $this->subject->deleteWidget($userId, $widgetId);
+        $this->redis
+            ->expects($this->once())
+            ->method('sRem')
+            ->with("dashboard_ids", $dashboardId);
+
+        $this->subject->deleteWidget($dashboardId, $widgetId);
     }
 }
