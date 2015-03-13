@@ -1,10 +1,10 @@
 
 App.ng.controller('EspeakController', ['$scope', function($scope) {
-	$scope.jobs = {};
+	$scope.jobs     = {};
 	$scope.speakers = {};
 
 	$.get('/espeak/', function(data) {
-		$scope.jobs = data.jobs;
+		$scope.jobs     = data.jobs;
 		$scope.speakers = data.speakers;
 		$scope.$apply();
 	});

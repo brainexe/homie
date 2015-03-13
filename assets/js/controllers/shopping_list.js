@@ -2,7 +2,7 @@
 App.ng.controller('ShoppingListController', ['$scope', function($scope) {
 	$scope.shoppingList = [];
 
-	$.get('/todo/', function(data) {
+	$.get('/todo/shopping/', function(data) {
 		$scope.shoppingList = data.shoppingList.map(function(text) {
 			return {text:text, done:false};
 		});

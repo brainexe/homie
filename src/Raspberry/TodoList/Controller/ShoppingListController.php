@@ -31,7 +31,7 @@ class ShoppingListController
     }
 
     /**
-     * @Route("/todo/", name="todo.index")
+     * @Route("/todo/shopping/", name="todo.shopping.index")
      * @return JsonResponse
      */
     public function index()

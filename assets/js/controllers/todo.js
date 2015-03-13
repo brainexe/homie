@@ -12,13 +12,15 @@ App.ng.controller('TodoController', ['$scope', function($scope) {
 
 	$.get('/todo/', function(data) {
 		for (var userId in data.userNames) {
-			$scope.userNames.push({id: userId, name: data.userNames[userId]})
+			$scope.userNames.push({
+                id: userId, name: data.userNames[userId]
+            });
 		}
 
-		// todo native loop
-		$.each(data.list, function(index, params) {
-			$scope.stati[params.status].tasks.push(params);
-		});
+        for (var id in data.list) {
+            var item = data.list[id];
+            $scope.stati[item.status].tasks.push(item);
+        }
 
 		$scope.$apply();
 	});

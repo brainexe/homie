@@ -32,12 +32,11 @@
 
             <ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
-
                     <a href="#" onclick="return false" class="dropdown-toggle" data-toggle="dropdown">
 						Timespan <span class="glyphicon glyphicon-time"></span><b class="caret"></b>
 					</a>
 					<ul class="dropdown-menu">
-						<li ng-repeat="(interval, label) in fromIntervals" ng_class="{active:interval == current_from}">
+						<li ng-repeat="(interval, label) in fromIntervals" ng_class="{active:(interval == current_from)}">
 							<a ng-click="sensorView(null, interval)">
 								{{ label }}
 							</a>
@@ -50,12 +49,8 @@
 </nav>
 
 <div id="chart_container">
+    <div id="legend"></div>
 	<div id="y_axis"></div>
-	<br>
-
-	<div id="legend"></div>
-
 	<div id="chart"></div>
-	<br>
 </div>
 

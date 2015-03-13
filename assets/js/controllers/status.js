@@ -1,12 +1,12 @@
 App.ng.controller('StatusController', ['$scope', function($scope) {
 	$scope.textarea = '';
-	$scope.stats = {};
-	$scope.jobs = {};
+	$scope.stats    = {};
+	$scope.jobs     = {};
 
 	$.get('/status/', function(data) {
 		$scope.$apply();
 		$scope.stats = data.stats;
-		$scope.jobs = data.jobs;
+		$scope.jobs  = data.jobs;
 		$scope.$apply();
 	});
 
