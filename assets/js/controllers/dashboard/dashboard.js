@@ -2,7 +2,9 @@
 App.Dashboard = {};
 
 App.ng.controller('DashboardController', ['$scope', '$modal', function($scope, $modal) {
-	App.Dashboard.$scope = $scope;
+	App.Dashboard.$scope = $scope; // todo scope needed?
+
+    $scope.editMode = false;
 
 	$.get('/dashboard/', function(data) {
 		$scope.dashboards = data.dashboards;
@@ -10,7 +12,7 @@ App.ng.controller('DashboardController', ['$scope', '$modal', function($scope, $
 		$scope.$apply();
 	});
 
-	$scope.openModal = function(dashboard) {
+	$scope.openModal = function(dashboards) {
         $modal.open({
 			templateUrl: asset('/templates/widgets/new.html'),
 			controller: 'NewWidgetController',
@@ -18,12 +20,35 @@ App.ng.controller('DashboardController', ['$scope', '$modal', function($scope, $
 				widgets: function() {
 					return $scope.widgets;
 				},
-                dashboard: function () {
-                    return dashboard;
+                dashboards: function () {
+                    return dashboards;
                 }
             }
 		});
 	};
+
+    $scope.deleteDashboard = function(dashboardId) {
+        var payload = {
+            dashboard_id: dashboardId
+        };
+
+        $.post('/dashboard/delete/', payload, function() {
+            delete $scope.dashboards[dashboardId];
+            $scope.$apply();
+        });
+    };
+
+    $scope.saveDashboard = function(dashboard) {
+        var payload = {
+            dashboard_id: dashboard.dashboardId,
+            name: dashboard.name
+        };
+
+        $.post('/dashboard/update/', payload, function(data) {
+            $scope.dashboards[data.dashboardId] = data;
+            $scope.$apply();
+        });
+    };
 
 	/**
      * @param dashboard_id
@@ -32,11 +57,11 @@ App.ng.controller('DashboardController', ['$scope', '$modal', function($scope, $
 	$scope.deleteWidget = function(dashboard_id, widget_id) {
 		var payload = {
             dashboard_id: dashboard_id,
-			widget_id: widget_id
+			widget_id:    widget_id
 		};
 
-		$.post('/dashboard/delete/', payload, function(data) {
-			$scope.dashboard = data;
+		$.post('/dashboard/widget/delete/', payload, function(data) {
+			$scope.dashboards[data.dashboardId] = data;
 			$scope.$apply();
 		});
 

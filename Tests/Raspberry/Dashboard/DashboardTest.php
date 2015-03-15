@@ -134,4 +134,16 @@ class DashboardTest extends PHPUnit_Framework_TestCase
 
         $this->subject->updateDashboard($dashboardId, $name);
     }
+
+    public function testDelete()
+    {
+        $dashboardId = 1233;
+
+        $this->gateway
+            ->expects($this->once())
+            ->method('delete')
+            ->willReturn($dashboardId);
+
+        $this->subject->delete($dashboardId);
+    }
 }

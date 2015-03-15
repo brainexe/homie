@@ -1,11 +1,24 @@
 <div ng-repeat="(dashboard_id, dashboard) in dashboards" class="span-9 dashboard">
-    <h2>Dashboard - {{ dashboard.name || dashboard.dashboardId }}</h2>
+    <h2>
+        Dashboard - {{ dashboard.name || dashboard.dashboardId }}
+    </h2>
+    <div ng-if="editMode">
+        <input
+                ng-enter="saveDashboard(dashboard)"
+                type="text"
+                placeholder="Name"
+                ng-model="dashboard.name" />
+            <span
+                    ng-click="deleteDashboard(dashboard.dashboardId)"
+                    class="delete glyphicon glyphicon-remove">
+            </span>
+    </div>
 	<div class="row">
 		<div class="col-xs-6" ng-repeat="widget in dashboard.widgets">
 			<div class="panel panel-default widget" ng-controller="WidgetController">
 				<div class="panel-heading" ng-click="widget.open = !widget.open">
 					{{ title }}
-					<span ng-click="deleteWidget(widget.id)" class="delete glyphicon glyphicon-remove"></span>
+					<span ng-if="editMode" ng-click="deleteWidget(dashboard.dashboardId, widget.id)" class="delete glyphicon glyphicon-remove"></span>
 				</div>
 				<div class="panel-body" ng-show="widget.open">
                     <content-item widget="widget"></content-item>
@@ -13,7 +26,11 @@
 			</div>
 		</div>
 	</div>
-    <div class="panel panel-primary">
-        <div class="panel-heading" ng-click="openModal(dashboard)">Add Widget</div>
-    </div>
 </div>
+
+<div ng-if="editMode" class="panel panel-primary">
+    <div class="panel-heading" ng-click="openModal(dashboards, dashboard)">Add Widget</div>
+</div>
+
+<button class="btn btn-primary" ng-click="editMode = !editMode">Edit Mode</button>
+

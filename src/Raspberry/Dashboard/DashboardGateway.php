@@ -80,7 +80,6 @@ class DashboardGateway
     public function deleteWidget($dashboardId, $widgetId)
     {
         $this->getRedis()->hDel($this->getKey($dashboardId), $widgetId);
-        $this->getRedis()->sRem(self::DASHBOARD_IDS, $dashboardId);
     }
 
     /**
@@ -99,5 +98,14 @@ class DashboardGateway
     public function updateDashboard($dashboardId, $name)
     {
         $this->getRedis()->hset($this->getKey($dashboardId), 'name', $name);
+    }
+
+    /**
+     * @param int $dashboardId
+     */
+    public function delete($dashboardId)
+    {
+        $this->getRedis()->del($this->getKey($dashboardId));
+        $this->getRedis()->sRem(self::DASHBOARD_IDS, $dashboardId);
     }
 }

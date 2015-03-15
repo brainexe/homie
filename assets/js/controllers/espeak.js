@@ -1,4 +1,10 @@
 
+App.Speak = {
+    speak: function(payload) {
+        return $.post('/espeak/speak/', payload);
+    }
+};
+
 App.ng.controller('EspeakController', ['$scope', function($scope) {
 	$scope.jobs     = {};
 	$scope.speakers = {};
@@ -29,9 +35,9 @@ App.ng.controller('EspeakController', ['$scope', function($scope) {
 			speaker: $scope.speaker
 		};
 
-		$.post('/espeak/speak/', payload, function(new_jobs) {
-			$scope.jobs = new_jobs;
-			$scope.$apply();
-		});
+        App.Speak.speak(payload).then(function(new_jobs) {
+            $scope.jobs = new_jobs;
+            $scope.$apply();
+        });
 	}
 }]);

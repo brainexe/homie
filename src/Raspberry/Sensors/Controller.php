@@ -266,7 +266,7 @@ class Controller
         $sensor         = $this->gateway->getSensor($sensorId);
         $sensorObj      = $this->builder->build($sensor['type']);
         $formatter      = $this->builder->getFormatter($sensor['type']);
-        $formattedValue = $formatter->getEspeakText($sensor['last_value']);
+        $formattedValue = $formatter->getEspeakText($sensor['lastValue']);
 
         return [
             'sensor'                 => $sensor,

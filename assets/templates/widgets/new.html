@@ -7,6 +7,15 @@
 		<div class="row">
 			<div class="col-lg-5">
 				<div class="input-group">
+					<span class="input-group-addon">Dashboard</span>
+					<select
+							ng-options="dashboardId as dashboardId for (dashboardId, dashboard) in dashboards"
+							ng-model="dashboardId" class="form-control">
+					</select>
+				</div>
+			</div>
+            <div class="col-lg-5">
+				<div class="input-group">
 					<span class="input-group-addon">Type</span>
 					<select
 							ng-options="widget as widget.name for widget in widgets"
@@ -16,7 +25,7 @@
 			</div>
 			<div class="col-lg-5">
 				<div class="input-group">
-					<input
+					<input disabled="disabled"
 							ng-repeat="(type, parameter) in widget.parameters"
 							type="text"
 							ng-model="payload[type]"
@@ -35,7 +44,7 @@
 	</div>
 	<div class="modal-footer">
 		<button type="button" ng-click="close()" class="btn btn-default" data-dismiss="modal">Close</button>
-		<button type="button" ng-click="addWidget(dashboard, widget)" class="btn btn-primary">Add</button>
+		<button type="button" ng-click="addWidget(dashboardId, widget)" class="btn btn-primary">Add</button>
 	</div>
 </div>
 

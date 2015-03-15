@@ -155,11 +155,36 @@ class DashboardGatewayTest extends TestCase
             ->method('HDEL')
             ->with("dashboard:$dashboardId", $widgetId);
 
+        $this->subject->deleteWidget($dashboardId, $widgetId);
+    }
+
+    public function testDelete()
+    {
+        $dashboardId = 42;
+
+        $this->redis
+            ->expects($this->once())
+            ->method('del')
+            ->with("dashboard:$dashboardId");
+
         $this->redis
             ->expects($this->once())
             ->method('sRem')
             ->with("dashboard_ids", $dashboardId);
 
-        $this->subject->deleteWidget($dashboardId, $widgetId);
+        $this->subject->delete($dashboardId);
+    }
+
+    public function testUpdateDashboard()
+    {
+        $dashboardId = 42;
+        $name = 'fooname';
+
+        $this->redis
+            ->expects($this->once())
+            ->method('hSet')
+            ->with("dashboard:$dashboardId", 'name', $name);
+
+        $this->subject->updateDashboard($dashboardId, $name);
     }
 }

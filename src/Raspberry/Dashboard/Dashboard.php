@@ -4,12 +4,15 @@ namespace Raspberry\Dashboard;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Traits\IdGeneratorTrait;
 
 /**
  * @Service(public=false)
  */
 class Dashboard
 {
+
+    use IdGeneratorTrait;
 
     /**
      * @var WidgetFactory
@@ -19,7 +22,7 @@ class Dashboard
     /**
      * @var DashboardGateway
      */
-    private $dashboardGateway;
+    private $gateway;
 
     /**
      * @Inject({"@DashboardGateway", "@WidgetFactory"})
@@ -29,7 +32,7 @@ class Dashboard
     public function __construct(DashboardGateway $dashboardGateway, WidgetFactory $widgetFactory)
     {
         $this->widgetFactory    = $widgetFactory;
-        $this->dashboardGateway = $dashboardGateway;
+        $this->gateway = $dashboardGateway;
     }
 
     /**
@@ -38,7 +41,7 @@ class Dashboard
      */
     public function getDashboard($dashboardId)
     {
-        return $this->dashboardGateway->getDashboard($dashboardId);
+        return $this->gateway->getDashboard($dashboardId);
     }
 
     /**
@@ -56,12 +59,16 @@ class Dashboard
      */
     public function addWidget($dashboardId, $type, array $payload)
     {
+        if (!$dashboardId) {
+            $dashboardId = $this->generateRandomNumericId();
+        }
+
         $widget = $this->widgetFactory->getWidget($type);
         $widget->validate($payload);
 
         $payload['type'] = $type;
 
-        $this->dashboardGateway->addWidget($dashboardId, $payload);
+        $this->gateway->addWidget($dashboardId, $payload);
     }
 
     /**
@@ -70,7 +77,7 @@ class Dashboard
      */
     public function deleteWidget($dashboardId, $widgetId)
     {
-        $this->dashboardGateway->deleteWidget($dashboardId, $widgetId);
+        $this->gateway->deleteWidget($dashboardId, $widgetId);
     }
 
     /**
@@ -78,7 +85,7 @@ class Dashboard
      */
     public function getDashboards()
     {
-        return $this->dashboardGateway->getDashboards();
+        return $this->gateway->getDashboards();
     }
 
     /**
@@ -88,8 +95,16 @@ class Dashboard
      */
     public function updateDashboard($dashboardId, $name)
     {
-        $this->dashboardGateway->updateDashboard($dashboardId, $name);
+        $this->gateway->updateDashboard($dashboardId, $name);
 
         return $this->getDashboard($dashboardId);
+    }
+
+    /**
+     * @param int $dashboardId
+     */
+    public function delete($dashboardId)
+    {
+        $this->gateway->delete($dashboardId);
     }
 }

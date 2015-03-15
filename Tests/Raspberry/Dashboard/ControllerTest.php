@@ -133,4 +133,21 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $expectedResult = $dashboard;
         $this->assertEquals($expectedResult, $actualResult);
     }
+
+    public function testDelete()
+    {
+        $dashboardId = 0;
+
+        $request = new Request();
+        $request->request->set('dashboard_id', $dashboardId);
+
+        $this->dashboard
+            ->expects($this->once())
+            ->method('delete')
+            ->with($dashboardId);
+
+        $actualResult = $this->subject->deleteDashboard($request);
+
+        $this->assertEquals(true, $actualResult);
+    }
 }

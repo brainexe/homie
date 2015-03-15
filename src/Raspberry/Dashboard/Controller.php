@@ -74,7 +74,7 @@ class Controller implements ControllerInterface
     /**
      * @param Request $request
      * @return array
-     * @Route("/dashboard/delete/", methods="POST")
+     * @Route("/dashboard/widget/delete/", methods="POST")
      */
     public function deleteWidget(Request $request)
     {
@@ -86,5 +86,18 @@ class Controller implements ControllerInterface
         $dashboard = $this->dashboard->getDashboard($dashboardId);
 
         return $dashboard;
+    }
+    /**
+     * @param Request $request
+     * @return bool
+     * @Route("/dashboard/delete/", methods="POST")
+     */
+    public function deleteDashboard(Request $request)
+    {
+        $dashboardId = $request->request->getInt('dashboard_id');
+
+        $this->dashboard->delete($dashboardId);
+
+        return true;
     }
 }
