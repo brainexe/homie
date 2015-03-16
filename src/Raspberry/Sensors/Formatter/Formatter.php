@@ -2,7 +2,8 @@
 
 namespace Raspberry\Sensors\Formatter;
 
-interface Formatter {
+interface Formatter
+{
 
     /**
      * @return string

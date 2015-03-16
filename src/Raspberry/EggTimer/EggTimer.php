@@ -53,10 +53,10 @@ class EggTimer
      */
     public function addNewJob($time, $text)
     {
+        $espeakVo = null;
+
         if ($text) {
             $espeakVo = new EspeakVO($text);
-        } else {
-            $espeakVo = null;
         }
 
         $event = new EggTimerEvent($espeakVo);

@@ -101,11 +101,9 @@ class Controller
             $activeSensorIds = implode(':', $availableSensorIds);
         }
 
-        $from = $request->query->get('from');
-        if ($from === null) {
+        $from = (int)$request->query->get('from');
+        if (!$from) {
             $from = Chart::DEFAULT_TIME;
-        } else {
-            $from = (int)$from;
         }
 
         $session->set(self::SESSION_LAST_VIEW, $activeSensorIds);
@@ -123,10 +121,7 @@ class Controller
 
             if (!empty($sensor['lastValue'])) {
                 $formatter = $this->builder->getFormatter($sensor['type']);
-                $sensor['espeak']    = (bool)$formatter->getEspeakText($sensor['lastValue']);
                 $sensor['lastValue'] = $formatter->formatValue($sensor['lastValue']);
-            } else {
-                $sensor['espeak'] = false;
             }
 
             if ($activeSensorIds && !in_array($sensorId, $activeSensorIds)) {

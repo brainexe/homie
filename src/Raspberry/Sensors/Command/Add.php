@@ -150,12 +150,11 @@ class Add extends Command
 
         if ($sensor instanceof Searchable) {
             $possible = $sensor->search();
-            if ($possible) {
-                $question  = new ChoiceQuestion("Parameter", $possible);
-                $parameter = $this->helper->ask($this->input, $this->output, $question);
-            } else {
+            if (!$possible) {
                 throw new Exception('No possible sensor found');
             }
+            $question  = new ChoiceQuestion("Parameter", $possible);
+            $parameter = $this->helper->ask($this->input, $this->output, $question);
         } else {
             $parameter = $this->helper->ask(
                 $this->input,
@@ -164,12 +163,13 @@ class Add extends Command
             );
         }
 
+        /** @var Sensor $sensor */
         if (!$sensor->isSupported($parameter, $this->output)) {
             $this->output->writeln('<error>Sensor is not supported</error>');
             throw new Exception(sprintf('Parameter "%s" is not supported', $parameter));
-        } else {
-            $this->output->writeln('<info>Sensor is supported</info>');
         }
+
+        $this->output->writeln('<info>Sensor is supported</info>');
 
         return $parameter;
     }

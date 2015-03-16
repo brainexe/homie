@@ -9,5 +9,4 @@ interface Searchable extends Parameterized
      * @return string[]
      */
     public function search();
-
 }

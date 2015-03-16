@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * @Covers Raspberry\Sensors\CompilerPass
+ * @Covers Raspberry\Sensors\CompilerPass\Sensor
  */
 class CompilerPassTest extends TestCase
 {
@@ -29,7 +29,7 @@ class CompilerPassTest extends TestCase
 
     public function setUp()
     {
-        $this->subject = new Sensor();
+        $this->subject   = new Sensor();
         $this->container = $this->getMock(ContainerBuilder::class);
     }
 
@@ -37,7 +37,7 @@ class CompilerPassTest extends TestCase
     {
         $sensorBuilder    = $this->getMock(Definition::class);
         $sensorDefinition = $this->getMock(Definition::class);
-        $sensor           = $this->getMock(Sensor::class);
+        $sensor           = $this->getMock(SensorInterface::class);
         $sensorId         = 'sensor_1';
 
         $this->container

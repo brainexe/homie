@@ -136,14 +136,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
             ->with($lastValue)
             ->willReturn($formattedValue);
 
-        $formatter
-            ->expects($this->once())
-            ->method('getEspeakText')
-            ->with($lastValue)
-            ->willReturn($formattedValue);
-
         $sensorValues = ['values'];
-        $sensorsRaw[0]['espeak'] = true;
         $sensorsRaw[0]['lastValue'] = $formattedValue;
 
         $this->valuesGateway
@@ -218,8 +211,6 @@ class ControllerTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('getSensors')
             ->willReturn($sensorsRaw);
-
-        $sensorsRaw[0]['espeak'] = false;
 
         $json = ['json'];
         $this->chart
@@ -374,6 +365,85 @@ class ControllerTest extends PHPUnit_Framework_TestCase
             'sensor' => $sensorRaw,
             'sensor_value_formatted' => $sensorValueFormatted,
             'refresh_interval' => 60
+        ];
+
+        $this->assertEquals($expectedValue, $actualResult);
+    }
+
+    public function testGetValue()
+    {
+        $sensorId             = 12;
+        $sensorValueFormatted = 100;
+        $sensorValue          = '100 grad';
+        $type                 = 'sensor type';
+
+        $request = new Request();
+        $request->query->set('sensor_id', $sensorId);
+
+        $sensorRaw = [
+            'type'       => $type,
+            'lastValue'  => $sensorValue
+        ];
+
+        $formatter    = $this->getMock(Formatter::class);
+        $sensorObject = $this->getMock(Sensor::class);
+
+        $this->gateway
+            ->expects($this->once())
+            ->method('getSensor')
+            ->with($sensorId)
+            ->willReturn($sensorRaw);
+
+        $this->builder
+            ->expects($this->once())
+            ->method('getFormatter')
+            ->with($type)
+            ->willReturn($formatter);
+        $this->builder
+            ->expects($this->once())
+            ->method('build')
+            ->with($type)
+            ->willReturn($sensorObject);
+
+        $formatter
+            ->expects($this->once())
+            ->method('getEspeakText')
+            ->with($sensorValue)
+            ->willReturn($sensorValueFormatted);
+
+        $actualResult = $this->subject->getValue($request);
+
+        $expectedValue = [
+            'sensor' => $sensorRaw,
+            'sensor_value_formatted' => $sensorValueFormatted,
+            'refresh_interval' => 60,
+            'sensor_obj' => $sensorObject
+        ];
+
+        $this->assertEquals($expectedValue, $actualResult);
+    }
+
+    public function testApi()
+    {
+        $request = new Request();
+
+        $sensors = [
+            [
+                'type'       => 'mockType',
+                'sensorId'   => 'mockSensorId',
+                'lastValue'  => 'mockValue'
+            ]
+        ];
+
+        $this->gateway
+            ->expects($this->once())
+            ->method('getSensors')
+            ->willReturn($sensors);
+
+        $actualResult = $this->subject->api($request);
+
+        $expectedValue = [
+            'mockType_mockSensorId' => 'mockValue'
         ];
 
         $this->assertEquals($expectedValue, $actualResult);

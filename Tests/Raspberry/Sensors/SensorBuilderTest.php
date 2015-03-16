@@ -5,6 +5,8 @@ namespace Raspberry\Tests\Sensors;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Raspberry\Sensors\Definition;
+use Raspberry\Sensors\Formatter\Formatter;
+use Raspberry\Sensors\Formatter\None;
 use Raspberry\Sensors\Interfaces\Sensor;
 use Raspberry\Sensors\SensorBuilder;
 
@@ -41,6 +43,34 @@ class SensorBuilderTest extends TestCase
         $this->assertEquals([$sensorType => $sensorMock], $actualResult);
     }
 
+    public function testGetDefinition()
+    {
+        /** @var Sensor|MockObject $sensorMock */
+        $sensorMock = $this->getMock(Sensor::class);
+        $sensorType = 'sensor_123';
+
+        $definition = new Definition();
+
+        $sensorMock
+            ->expects($this->once())
+            ->method('getDefinition')
+            ->willReturn($definition);
+
+        $this->subject->addSensor($sensorType, $sensorMock);
+        $actualResult = $this->subject->getDefinition($sensorType);
+
+        $this->assertEquals($definition, $actualResult);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Invalid sensor type: invalid
+     */
+    public function testGetDefinitionWithInvalid()
+    {
+        $this->subject->getDefinition('invalid');
+    }
+
     /**
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Invalid sensor type: sensor_123
@@ -70,5 +100,62 @@ class SensorBuilderTest extends TestCase
         $actualResult = $this->subject->build($sensorType);
 
         $this->assertEquals($sensorMock, $actualResult);
+    }
+
+    public function testGetFormatter()
+    {
+        $type = 'mockType';
+
+        /** @var Formatter $formatter */
+        $formatter = $this->getMock(Formatter::class);
+
+        $this->subject->addFormatter($type, $formatter);
+
+        $actual = $this->subject->getFormatter($type);
+
+        $this->assertEquals($formatter, $actual);
+    }
+
+    public function testGetFormatterDefault()
+    {
+        $type = 'mockType';
+
+        /** @var Formatter $formatter */
+        $formatter = $this->getMock(Formatter::class);
+        $this->subject->addFormatter(None::TYPE, $formatter);
+
+        $actual = $this->subject->getFormatter($type);
+
+        $this->assertEquals($formatter, $actual);
+    }
+
+    public function testGetFormatterFromSensor()
+    {
+        $type = 'mockType';
+
+        /** @var Sensor|MockObject $sensorMock */
+        $sensorMock = $this->getMock(Sensor::class);
+
+        $definition = new Definition();
+        $definition->formatter = 'newFormatter';
+        $sensorMock
+            ->expects($this->once())
+            ->method('getDefinition')
+            ->willReturn($definition);
+
+        /** @var Formatter $formatter */
+        $formatter = $this->getMock(Formatter::class);
+        $this->subject->addFormatter('newFormatter', $formatter);
+
+        $this->subject->addSensor($type, $sensorMock);
+
+        /** @var Formatter $formatter */
+        $formatter = $this->getMock(Formatter::class);
+
+        $this->subject->addFormatter($type, $formatter);
+
+        $actual = $this->subject->getFormatter($type);
+
+        $this->assertEquals($formatter, $actual);
     }
 }

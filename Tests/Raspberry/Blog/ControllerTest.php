@@ -26,26 +26,26 @@ class ControllerTest extends PHPUnit_Framework_TestCase
     /**
      * @var Blog|MockObject
      */
-    private $mockBlog;
+    private $blog;
 
     /**
      * @var DatabaseUserProvider|MockObject
      */
-    private $mockDatabaseUserProvider;
+    private $userProvider;
 
     /**
      * @var Time|MockObject
      */
-    private $mockTime;
+    private $time;
 
     public function setUp()
     {
-        $this->mockBlog = $this->getMock(Blog::class, [], [], '', false);
-        $this->mockDatabaseUserProvider = $this->getMock(DatabaseUserProvider::class, [], [], '', false);
-        $this->mockTime = $this->getMock(Time::class, [], [], '', false);
+        $this->blog         = $this->getMock(Blog::class, [], [], '', false);
+        $this->userProvider = $this->getMock(DatabaseUserProvider::class, [], [], '', false);
+        $this->time         = $this->getMock(Time::class, [], [], '', false);
 
-        $this->subject = new Controller($this->mockBlog, $this->mockDatabaseUserProvider);
-        $this->subject->setTime($this->mockTime);
+        $this->subject = new Controller($this->blog, $this->userProvider);
+        $this->subject->setTime($this->time);
     }
 
     public function testIndex()
@@ -60,13 +60,13 @@ class ControllerTest extends PHPUnit_Framework_TestCase
                 'Hans Peter' => $userId
         ];
 
-        $this->mockBlog
+        $this->blog
             ->expects($this->once())
             ->method('getPosts')
             ->with($userId)
             ->willReturn($posts);
 
-        $this->mockDatabaseUserProvider
+        $this->userProvider
             ->expects($this->once())
             ->method('getAllUserNames')
             ->willReturn($userNames);
@@ -93,7 +93,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 
         $request->attributes->set('user_id', $userId);
 
-        $this->mockBlog
+        $this->blog
             ->expects($this->once())
             ->method('getRecentPost')
             ->with($userId)
@@ -121,13 +121,13 @@ class ControllerTest extends PHPUnit_Framework_TestCase
                 'Hans Peter' => $userId
         ];
 
-        $this->mockBlog
+        $this->blog
             ->expects($this->once())
             ->method('getPosts')
             ->with($userId)
             ->willReturn($posts);
 
-        $this->mockDatabaseUserProvider
+        $this->userProvider
             ->expects($this->once())
             ->method('getAllUserNames')
             ->willReturn($userNames);
@@ -160,13 +160,13 @@ class ControllerTest extends PHPUnit_Framework_TestCase
                 'Hans Peter' => 100
         ];
 
-        $this->mockBlog
+        $this->blog
             ->expects($this->once())
             ->method('getPosts')
             ->with($userId)
             ->willReturn($posts);
 
-        $this->mockDatabaseUserProvider
+        $this->userProvider
             ->expects($this->once())
             ->method('getAllUserNames')
             ->willReturn($userNames);
@@ -195,13 +195,13 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $postVo->mood = $mood;
         $postVo->text = $text;
 
-        $this->mockBlog
+        $this->blog
             ->expects($this->once())
             ->method('addPost')
             ->with($userVo, $postVo)
             ->willReturn($postVo);
 
-        $this->mockTime
+        $this->time
             ->expects($this->once())
             ->method('now')
             ->willReturn($now);
@@ -224,7 +224,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $request = new Request();
         $request->attributes->set('user_id', $userId);
 
-        $this->mockBlog
+        $this->blog
             ->expects($this->once())
             ->method('deletePost')
             ->with($userId, $timestamp);

@@ -27,7 +27,7 @@ class Barometer implements Formatter
      */
     public function getEspeakText($value)
     {
-        $this->formatValue($value);
+        return $this->formatValue($value);
     }
 
     /**

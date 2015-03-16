@@ -70,5 +70,4 @@ class ShoppingListController
 
         return new JsonResponse(true);
     }
-
 }
