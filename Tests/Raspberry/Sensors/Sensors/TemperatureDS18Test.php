@@ -6,6 +6,8 @@ use BrainExe\Core\Util\FileSystem;
 use BrainExe\Core\Util\Glob;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
+use Raspberry\Sensors\Definition;
+use Raspberry\Sensors\Formatter\Temperature;
 use Raspberry\Sensors\Sensors\TemperatureDS18;
 use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 
@@ -26,7 +28,7 @@ class TemperatureDS18Test extends TestCase
     private $fileSystem;
 
     /**
-     * @var Glob
+     * @var Glob|MockObject
      */
     private $glob;
 
@@ -112,6 +114,33 @@ class TemperatureDS18Test extends TestCase
         $actualResult = $this->subject->isSupported($file, $output);
 
         $this->assertFalse($actualResult);
+    }
+
+    public function testGetDefinition()
+    {
+        $definition            = new Definition();
+        $definition->name      = 'Temperature';
+        $definition->type      = Definition::TYPE_TEMPERATURE;
+        $definition->formatter = Temperature::TYPE;
+
+        $actual = $this->subject->getDefinition();
+
+        $this->assertEquals($definition, $actual);
+    }
+
+    public function testSearch()
+    {
+        $expected = ['search'];
+
+        $this->glob
+            ->expects($this->once())
+            ->method('glob')
+            ->with('/sys/bus/w1/devices/*/w1_slave')
+            ->willReturn($expected);
+
+        $actual = $this->subject->search();
+
+        $this->assertEquals($expected, $actual);
     }
 
     /**

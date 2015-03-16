@@ -103,7 +103,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         ];
 
         $sensorsObj = [
-            $type => $sensor = $this->getMock(Sensor::class)
+            $type => $this->getMock(Sensor::class)
         ];
 
         $formatter = $this->getMock(Formatter::class);
@@ -343,7 +343,6 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 
         $request = new Request();
 
-        $sensorObj = $this->getMock(Sensor::class);
         $sensorRaw = [
             'type'       => $type,
             'lastValue'  => $sensorValue
@@ -356,12 +355,6 @@ class ControllerTest extends PHPUnit_Framework_TestCase
             ->method('getSensor')
             ->with($sensorId)
             ->willReturn($sensorRaw);
-
-        $this->builder
-            ->expects($this->once())
-            ->method('build')
-            ->with($type)
-            ->willReturn($sensorObj);
 
         $this->builder
             ->expects($this->once())
@@ -380,11 +373,9 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $expectedValue = [
             'sensor' => $sensorRaw,
             'sensor_value_formatted' => $sensorValueFormatted,
-            'sensor_obj' => $sensorObj,
             'refresh_interval' => 60
         ];
 
         $this->assertEquals($expectedValue, $actualResult);
     }
-
 }

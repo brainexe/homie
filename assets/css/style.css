@@ -65,3 +65,7 @@
    background-color: #474747;
     font-weight: bold;
 }
+
+.cursor {
+    cursor: pointer;
+}

@@ -1,24 +1,63 @@
-<div ng-repeat="(dashboard_id, dashboard) in dashboards" class="span-9 dashboard">
-    <h2>
-        Dashboard - {{ dashboard.name || dashboard.dashboardId }}
-    </h2>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button
+                    type="button"
+                    class="navbar-toggle"
+                    data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1"
+            >
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li
+                        ng-repeat="(dashboard_id, tmp_dashboard) in dashboards"
+                        class="btn-group cursor"
+                        ng-class="{active:tmp_dashboard==dashboard}"
+                >
+                    <a ng-click="selectDashboard(tmp_dashboard)">
+                        {{ tmp_dashboard.name }}
+                    </a>
+                </li>
+                <li class="btn-group active"">
+                    <a ng-click="openModal(dashboards)">
+                        <span class="glyphicon glyphicon-plus cursor"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div ng-if="dashboard" class="span-9 dashboard">
+    <h2>{{ dashboard.name }}</h2>
     <div ng-if="editMode">
         <input
                 ng-enter="saveDashboard(dashboard)"
                 type="text"
                 placeholder="Name"
                 ng-model="dashboard.name" />
-            <span
-                    ng-click="deleteDashboard(dashboard.dashboardId)"
-                    class="delete glyphicon glyphicon-remove">
-            </span>
+        <span
+                ng-click="deleteDashboard(dashboard.dashboardId)"
+                class="delete glyphicon glyphicon-remove cursor">
+        </span>
     </div>
 	<div class="row">
 		<div class="col-xs-6" ng-repeat="widget in dashboard.widgets">
 			<div class="panel panel-default widget" ng-controller="WidgetController">
 				<div class="panel-heading" ng-click="widget.open = !widget.open">
 					{{ title }}
-					<span ng-if="editMode" ng-click="deleteWidget(dashboard.dashboardId, widget.id)" class="delete glyphicon glyphicon-remove"></span>
+					<span
+                            ng-if="editMode"
+                            ng-click="deleteWidget(dashboard.dashboardId, widget.id)"
+                            class="delete glyphicon glyphicon-remove cursor">
+                    </span>
 				</div>
 				<div class="panel-body" ng-show="widget.open">
                     <content-item widget="widget"></content-item>

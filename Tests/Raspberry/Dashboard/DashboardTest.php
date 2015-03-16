@@ -2,6 +2,7 @@
 
 namespace Tests\Raspberry\Dashboard\Dashboard;
 
+use BrainExe\Core\Util\IdGenerator;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Dashboard\AbstractWidget;
@@ -30,12 +31,19 @@ class DashboardTest extends PHPUnit_Framework_TestCase
      */
     private $gateway;
 
+    /**
+     * @var IdGenerator|MockObject
+     */
+    private $idGenerator;
+
     public function setUp()
     {
         $this->widgetFactory = $this->getMock(WidgetFactory::class, [], [], '', false);
         $this->gateway       = $this->getMock(DashboardGateway::class, [], [], '', false);
+        $this->idGenerator   = $this->getMock(IdGenerator::class, [], [], '', false);
 
         $this->subject = new Dashboard($this->gateway, $this->widgetFactory);
+        $this->subject->setIdGenerator($this->idGenerator);
     }
 
     public function testGetDashboard()
@@ -69,7 +77,7 @@ class DashboardTest extends PHPUnit_Framework_TestCase
 
     public function testAddWidget()
     {
-        $userId = 42;
+        $dashboardId = 42;
         $type = 'type';
         $payload = [];
         $payload['type'] = $type;
@@ -90,9 +98,49 @@ class DashboardTest extends PHPUnit_Framework_TestCase
         $this->gateway
             ->expects($this->once())
             ->method('addWidget')
-            ->with($userId, $payload);
+            ->with($dashboardId, $payload);
 
-        $this->subject->addWidget($userId, $type, $payload);
+        $this->subject->addWidget($dashboardId, $type, $payload);
+    }
+
+    public function testAddWidgetWithoutDashboard()
+    {
+        $dashboardId = 11880;
+        $type = 'type';
+        $payload = [];
+        $payload['type'] = $type;
+
+        $widget = $this->getMock(AbstractWidget::class);
+
+        $this->widgetFactory
+            ->expects($this->once())
+            ->method('getWidget')
+            ->with($type)
+            ->willReturn($widget);
+
+        $this->idGenerator
+            ->expects($this->once())
+            ->method('generateRandomNumericId')
+            ->willReturn($dashboardId);
+
+        $widget
+            ->expects($this->once())
+            ->method('validate')
+            ->with($payload);
+
+        $this->gateway
+            ->expects($this->once())
+            ->method('addWidget')
+            ->with($dashboardId, $payload);
+
+        $this->gateway
+            ->expects($this->once())
+            ->method('addDashboard')
+            ->with($dashboardId, [
+                'name' => 'Dashboard'
+            ]);
+
+        $this->subject->addWidget(null, $type, $payload);
     }
 
     public function testDeleteWidget()
@@ -125,14 +173,14 @@ class DashboardTest extends PHPUnit_Framework_TestCase
     public function testUpdateDashboard()
     {
         $dashboardId = 1233;
-        $name        = 'name';
+        $payload     = ['payload'];
 
         $this->gateway
             ->expects($this->once())
-            ->method('updateDashboard')
-            ->willReturn($dashboardId, $name);
+            ->method('updateMetadata')
+            ->willReturn($dashboardId, $payload);
 
-        $this->subject->updateDashboard($dashboardId, $name);
+        $this->subject->updateDashboard($dashboardId, $payload);
     }
 
     public function testDelete()
@@ -145,5 +193,19 @@ class DashboardTest extends PHPUnit_Framework_TestCase
             ->willReturn($dashboardId);
 
         $this->subject->delete($dashboardId);
+    }
+
+    public function testUpdateWidget()
+    {
+        $dashboardId = 1233;
+        $widgetId    = 999;
+        $payload     = ['payload'];
+
+        $this->gateway
+            ->expects($this->once())
+            ->method('updateWidget')
+            ->willReturn($dashboardId, $widgetId, $payload);
+
+        $this->subject->updateWidget($dashboardId, $widgetId, $payload);
     }
 }

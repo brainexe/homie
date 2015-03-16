@@ -17,7 +17,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class TemperatureDS18 extends AbstractSensor implements Searchable
 {
 
-    const TYPE     = 'temp_ds18';
+    const TYPE = 'temp_ds18';
 
     /**
      * @var Filesystem

@@ -6,6 +6,8 @@ use BrainExe\Core\Util\FileSystem;
 use BrainExe\Core\Util\Glob;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
+use Raspberry\Sensors\Definition;
+use Raspberry\Sensors\Formatter\Temperature;
 use Raspberry\Sensors\Sensors\TemperatureOnBoard;
 use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 
@@ -91,5 +93,32 @@ class TemperatureOnBoardTest extends TestCase
         $actualResult = $this->subject->isSupported($file, $output);
 
         $this->assertFalse($actualResult);
+    }
+
+    public function testGetDefinition()
+    {
+        $definition            = new Definition();
+        $definition->name      = _('Temp. Onboard');
+        $definition->type      = Definition::TYPE_TEMPERATURE;
+        $definition->formatter = Temperature::TYPE;
+
+        $actual = $this->subject->getDefinition();
+
+        $this->assertEquals($definition, $actual);
+    }
+
+    public function testSearch()
+    {
+        $result = ['search', 'foo/cooling'];
+
+        $this->glob
+            ->expects($this->once())
+            ->method('glob')
+            ->with('/sys/class/thermal/*/temp')
+            ->willReturn($result);
+
+        $actual = $this->subject->search();
+
+        $this->assertEquals(['search'], $actual);
     }
 }

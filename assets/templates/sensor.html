@@ -13,7 +13,8 @@
 			<ul class="nav navbar-nav">
 				<li ng-repeat="sensor in sensors" ng-class="{'active':isSensorActive(sensor.sensorId)}">
 					<a
-                        class="tip" data-placement="bottom"
+                        class="tip cursor"
+                        data-placement="bottom"
                         title="Latest: {{ sensor.lastValue }}"
 					    ng-click="sensorView(sensor.sensorId)"
                     >

@@ -71,12 +71,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $this->dashboard
             ->expects($this->once())
             ->method('addWidget')
-            ->with($dashboardId, $type, $payload);
-
-        $this->dashboard
-            ->expects($this->once())
-            ->method('getDashboard')
-            ->with($dashboardId)
+            ->with($dashboardId, $type, $payload)
             ->willReturn($dashboard);
 
         $actualResult = $this->subject->addWidget($request);
@@ -86,19 +81,18 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 
     public function testUpdateDashboard()
     {
-        $dashboardId   = 1212;
-        $name          = 'name';
-
-        $dashboard = 'dashboard';
+        $dashboardId = 1212;
+        $payload     = ['payload'];
+        $dashboard   = 'dashboard';
 
         $request = new Request();
         $request->request->set('dashboard_id', $dashboardId);
-        $request->request->set('name', $name);
+        $request->request->set('payload', $payload);
 
         $this->dashboard
             ->expects($this->once())
             ->method('updateDashboard')
-            ->with($dashboardId, $name)
+            ->with($dashboardId, $payload)
             ->willReturn($dashboard);
 
         $actualResult = $this->subject->updateDashboard($request);
@@ -149,5 +143,32 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $actualResult = $this->subject->deleteDashboard($request);
 
         $this->assertEquals(true, $actualResult);
+    }
+    public function testUpdateWidget()
+    {
+        $dashboardId = 100;
+        $widgetId    = 222;
+        $payload     = ['payload'];
+        $dashboard   = ['dashboard'];
+
+        $request = new Request();
+        $request->request->set('dashboard_id', $dashboardId);
+        $request->request->set('widget_id', $widgetId);
+        $request->request->set('payload', $payload);
+
+        $this->dashboard
+            ->expects($this->once())
+            ->method('updateWidget')
+            ->with($dashboardId, $widgetId, $payload);
+
+        $this->dashboard
+            ->expects($this->once())
+            ->method('getDashboard')
+            ->with($dashboardId)
+            ->willReturn($dashboard);
+
+        $actualResult = $this->subject->updateWidget($request);
+
+        $this->assertEquals($dashboard, $actualResult);
     }
 }

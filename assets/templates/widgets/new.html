@@ -1,6 +1,11 @@
 <div class="modal-content">
 	<div class="modal-header">
-		<button ng-click="close()" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<button
+                ng-click="close()"
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-hidden="true">&times;</button>
 		<h4 class="modal-title">Add Widget</h4>
 	</div>
 	<div class="modal-body navbar-forms navbar-lefts">
@@ -9,8 +14,9 @@
 				<div class="input-group">
 					<span class="input-group-addon">Dashboard</span>
 					<select
-							ng-options="dashboardId as dashboardId for (dashboardId, dashboard) in dashboards"
-							ng-model="dashboardId" class="form-control">
+							ng-options="dashboard.dashboardId as dashboardId for (dashboardId, dashboard) in dashboards"
+							ng-model="dashboardId"
+                            class="form-control">
 					</select>
 				</div>
 			</div>
@@ -19,7 +25,8 @@
 					<span class="input-group-addon">Type</span>
 					<select
 							ng-options="widget as widget.name for widget in widgets"
-							ng-model="widget" class="form-control">
+							ng-model="widget"
+                            class="form-control">
 					</select>
 				</div>
 			</div>

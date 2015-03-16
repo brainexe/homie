@@ -12,13 +12,12 @@ use BrainExe\Core\Traits\RedisTrait;
 class DashboardGateway
 {
 
-    const KEY_META = 'META__';
-
     use RedisTrait;
     use IdGeneratorTrait;
 
-    const DASHBOARD_KEY = 'dashboard:%s';
-    const DASHBOARD_IDS = 'dashboard_ids';
+    const META_KEY   = 'dashboard:meta:%s';
+    const WIDGET_KEY = 'dashboard:widgets:%s';
+    const IDS_KEY    = 'dashboard:ids';
 
     /**
      * @return DashboardVo[]
@@ -28,7 +27,7 @@ class DashboardGateway
         $redis = $this->getRedis();
 
         $dashboards = [];
-        $dashboardIds = $redis->sMembers(self::DASHBOARD_IDS);
+        $dashboardIds = $redis->sMembers(self::IDS_KEY);
         foreach ($dashboardIds as $dashboardId) {
             $dashboards[$dashboardId] = $this->getDashboard($dashboardId);
         }
@@ -44,19 +43,17 @@ class DashboardGateway
         $dashboard = new DashboardVo();
         $dashboard->dashboardId = $dashboardId;
 
-        $widgetsRaw = $this->getRedis()->hGetAll($this->getKey($dashboardId));
+        $widgetsRaw = $this->getRedis()->hGetAll($this->getWidgetKey($dashboardId));
+        $meta       = $this->getRedis()->hGetAll($this->getMetaKey($dashboardId));
 
-        foreach ($widgetsRaw as $id => $widgetRaw) {
-            switch ($id) {
-                case 'name':
-                    $dashboard->name = $widgetRaw;
-                    continue 2;
-            }
-
+        foreach ($widgetsRaw as $widgetRaw) {
             $widget = json_decode($widgetRaw, true);
-            $widget['id']   = $id;
             $widget['open'] = true;
             $dashboard->widgets[] = $widget;
+        }
+
+        foreach ($meta as $key => $value) {
+            $dashboard->$key = $value;
         }
 
         return $dashboard;
@@ -69,8 +66,19 @@ class DashboardGateway
     public function addWidget($dashboardId, array $payload)
     {
         $newId = $this->generateRandomNumericId();
-        $this->getRedis()->hSet($this->getKey($dashboardId), $newId, json_encode($payload));
-        $this->getRedis()->sAdd(self::DASHBOARD_IDS, $dashboardId);
+        $payload['id'] = $newId;
+
+        $this->updateWidget($dashboardId, $newId, $payload);
+    }
+
+    /**
+     * @param int $dashboardId
+     * @param int $widgetId
+     * @param array $payload
+     */
+    public function updateWidget($dashboardId, $widgetId, array $payload)
+    {
+        $this->getRedis()->hSet($this->getWidgetKey($dashboardId), $widgetId, json_encode($payload));
     }
 
     /**
@@ -79,25 +87,26 @@ class DashboardGateway
      */
     public function deleteWidget($dashboardId, $widgetId)
     {
-        $this->getRedis()->hDel($this->getKey($dashboardId), $widgetId);
+        $this->getRedis()->hDel($this->getWidgetKey($dashboardId), $widgetId);
     }
 
     /**
-     * @param integer $dashboardId
-     * @return string
+     * @param int $dashboardId
+     * @param array $metadata
      */
-    private function getKey($dashboardId)
+    public function addDashboard($dashboardId, array $metadata)
     {
-        return sprintf(self::DASHBOARD_KEY, $dashboardId);
+        $this->getRedis()->sAdd(self::IDS_KEY, $dashboardId);
+        $this->updateMetadata($dashboardId, $metadata);
     }
 
     /**
-     * @param $dashboardId
-     * @param $name
+     * @param int $dashboardId
+     * @param array $payload
      */
-    public function updateDashboard($dashboardId, $name)
+    public function updateMetadata($dashboardId, array $payload)
     {
-        $this->getRedis()->hset($this->getKey($dashboardId), 'name', $name);
+        $this->getRedis()->hmset($this->getMetaKey($dashboardId), $payload);
     }
 
     /**
@@ -105,7 +114,26 @@ class DashboardGateway
      */
     public function delete($dashboardId)
     {
-        $this->getRedis()->del($this->getKey($dashboardId));
-        $this->getRedis()->sRem(self::DASHBOARD_IDS, $dashboardId);
+        $this->getRedis()->del($this->getWidgetKey($dashboardId));
+        $this->getRedis()->del($this->getMetaKey($dashboardId));
+        $this->getRedis()->sRem(self::IDS_KEY, $dashboardId);
+    }
+
+    /**
+     * @param integer $dashboardId
+     * @return string
+     */
+    private function getWidgetKey($dashboardId)
+    {
+        return sprintf(self::WIDGET_KEY, $dashboardId);
+    }
+
+    /**
+     * @param integer $dashboardId
+     * @return string
+     */
+    private function getMetaKey($dashboardId)
+    {
+        return sprintf(self::META_KEY, $dashboardId);
     }
 }

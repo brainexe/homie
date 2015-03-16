@@ -45,7 +45,7 @@ class Controller implements ControllerInterface
 
     /**
      * @param Request $request
-     * @return array
+     * @return DashboardVo
      * @Route("/dashboard/add/", methods="POST")
      */
     public function addWidget(Request $request)
@@ -54,9 +54,7 @@ class Controller implements ControllerInterface
         $payload     = (array)$request->request->get('payload');
         $dashboardId = $request->request->get('dashboard_id');
 
-        $this->dashboard->addWidget($dashboardId, $type, $payload);
-
-        return $this->dashboard->getDashboard($dashboardId);
+        return $this->dashboard->addWidget($dashboardId, $type, $payload);
     }
     /**
      * @param Request $request
@@ -66,9 +64,25 @@ class Controller implements ControllerInterface
     public function updateDashboard(Request $request)
     {
         $dashboardId = $request->request->get('dashboard_id');
-        $name        = $request->request->get('name');
+        $payload     = (array)$request->request->get('payload');
 
-        return $this->dashboard->updateDashboard($dashboardId, $name);
+        return $this->dashboard->updateDashboard($dashboardId, $payload);
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     * @Route("/dashboard/widget/update/", methods="POST")
+     */
+    public function updateWidget(Request $request)
+    {
+        $dashboardId = $request->request->get('dashboard_id');
+        $widgetId    = $request->request->get('widget_id');
+        $payload     = (array)$request->request->get('payload');
+
+        $this->dashboard->updateWidget($dashboardId, $widgetId, $payload);
+
+        return $this->dashboard->getDashboard($dashboardId);
     }
 
     /**

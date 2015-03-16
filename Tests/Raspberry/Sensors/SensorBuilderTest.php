@@ -4,6 +4,7 @@ namespace Raspberry\Tests\Sensors;
 
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
+use Raspberry\Sensors\Definition;
 use Raspberry\Sensors\Interfaces\Sensor;
 use Raspberry\Sensors\SensorBuilder;
 
@@ -27,6 +28,13 @@ class SensorBuilderTest extends TestCase
         $sensorMock = $this->getMock(Sensor::class);
         $sensorType = 'sensor_123';
 
+        $definition = new Definition();
+
+        $sensorMock
+            ->expects($this->once())
+            ->method('getDefinition')
+            ->willReturn($definition);
+
         $this->subject->addSensor($sensorType, $sensorMock);
         $actualResult = $this->subject->getSensors();
 
@@ -49,6 +57,13 @@ class SensorBuilderTest extends TestCase
         /** @var Sensor|MockObject $sensorMock */
         $sensorMock = $this->getMock(Sensor::class);
         $sensorType = 'sensor_123';
+
+        $definition = new Definition();
+
+        $sensorMock
+            ->expects($this->once())
+            ->method('getDefinition')
+            ->willReturn($definition);
 
         $this->subject->addSensor($sensorType, $sensorMock);
 

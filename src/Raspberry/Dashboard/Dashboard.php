@@ -56,11 +56,15 @@ class Dashboard
      * @param integer $dashboardId
      * @param string $type
      * @param array $payload
+     * @return DashboardVo
      */
     public function addWidget($dashboardId, $type, array $payload)
     {
         if (!$dashboardId) {
             $dashboardId = $this->generateRandomNumericId();
+            $this->gateway->addDashboard($dashboardId, [
+                'name' => _('Dashboard')
+            ]);
         }
 
         $widget = $this->widgetFactory->getWidget($type);
@@ -69,6 +73,18 @@ class Dashboard
         $payload['type'] = $type;
 
         $this->gateway->addWidget($dashboardId, $payload);
+
+        return $this->getDashboard($dashboardId);
+    }
+
+    /**
+     * @param int $dashboardId
+     * @param int $widgetId
+     * @param array $payload
+     */
+    public function updateWidget($dashboardId, $widgetId, array $payload)
+    {
+        $this->gateway->updateWidget($dashboardId, $widgetId, $payload);
     }
 
     /**
@@ -90,12 +106,12 @@ class Dashboard
 
     /**
      * @param int $dashboardId
-     * @param string $name
+     * @param array $payload
      * @return DashboardVo
      */
-    public function updateDashboard($dashboardId, $name)
+    public function updateDashboard($dashboardId, array $payload)
     {
-        $this->gateway->updateDashboard($dashboardId, $name);
+        $this->gateway->updateMetadata($dashboardId, $payload);
 
         return $this->getDashboard($dashboardId);
     }
