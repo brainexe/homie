@@ -1,7 +1,7 @@
 <nav ng-if="sensors" class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+			<button type="button" collapse-toggle class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 				<span class="sr-only">Toggle navigation</span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
@@ -15,7 +15,7 @@
 					<a
                         class="tip cursor"
                         data-placement="bottom"
-                        title="Latest: {{ sensor.lastValue }}"
+                        tooltip="Latest: {{ sensor.lastValue }}"
 					    ng-click="sensorView(sensor.sensorId)"
                     >
 						{{ sensor.name }}
@@ -30,10 +30,9 @@
                     </a>
                 </li>
             </ul>
-
             <ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-                    <a href="#" onclick="return false" class="dropdown-toggle" data-toggle="dropdown">
+				<li class="dropdown" dropdown>
+                    <a href class="dropdown-toggle" dropdown-toggle>
 						Timespan <span class="glyphicon glyphicon-time"></span><b class="caret"></b>
 					</a>
 					<ul class="dropdown-menu">

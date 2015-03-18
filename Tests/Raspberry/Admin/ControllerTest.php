@@ -3,7 +3,6 @@
 namespace Tests\Raspberry\Admin;
 
 use BrainExe\Core\Authentication\UserVO;
-use BrainExe\Core\Util\Time;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Admin\Controller;
@@ -15,7 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class ControllerTest extends TestCase
 {
-
     /**
      * @var Controller
      */

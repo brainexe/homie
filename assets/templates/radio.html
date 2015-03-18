@@ -11,7 +11,7 @@
 	<tbody>
 		<tr ng-repeat="radio in radios">
 			<td>
-				<div title="Code: {{ radio.code }} Pin: {{ radio.pin }} ID: {{ radio.radioId }}" class="tip">
+				<div tooltip="Code: {{ radio.code }} - Pin: {{ radio.pin }} - ID: {{ radio.radioId }}" class="tip">
 					<div ng-if="radio.edit">
 						<input type="text" ng-model="radio.name"/>
 						<input type="text" ng-model="radio.description"/>
@@ -73,7 +73,7 @@
 				</div>
 				<div class="col-lg-3">
 					<div class="input-group">
-						<span class="input-group-addon tip" title="e.g. 10s, 30m, 1h" ng-enter="addRadio(newRadio)">Time</span>
+						<span class="input-group-addon tip" tooltip="e.g. 10s, 30m, 1h" ng-enter="addRadio(newRadio)">Time</span>
 						<input type="text" ng-model="new_job.time" id="new_radio_job_time" required class="form-control" value="1h"/>
 					</div>
 				</div>

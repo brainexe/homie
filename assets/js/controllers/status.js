@@ -3,12 +3,19 @@ App.ng.controller('StatusController', ['$scope', function($scope) {
 	$scope.stats    = {};
 	$scope.jobs     = {};
 
-	$.get('/status/', function(data) {
-		$scope.$apply();
-		$scope.stats = data.stats;
-		$scope.jobs  = data.jobs;
-		$scope.$apply();
-	});
+    $scope.update = function() {
+        $.get('/status/', function(data) {
+            $scope.stats = data.stats;
+            $scope.jobs  = data.jobs;
+            $scope.$apply();
+        });
+    };
+
+    $scope.update();
+
+    setInterval(function() {
+        $scope.update();
+    }, 2500);
 
 	$scope.startUpdate = function() {
 		if (!confirm('Do you want to start self update? This may take some time...')) {
