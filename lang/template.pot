@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+
+#: assets/templates/radio.html:8
+msgid "Delete"
+msgstr ""
+
+#: assets/templates/radio.html:6
+msgid "Disable"
+msgstr ""
+
+#: assets/templates/radio.html:5
+msgid "Enable"
+msgstr ""
+
+#: templates/content.html:2
+msgid "HomeControl"
+msgstr ""
+
+#: assets/templates/blog.html:59
+msgid "Mood"
+msgstr ""
+
+#: assets/templates/radio.html:4
+msgid "Name"
+msgstr ""
+
+#: templates/content.html:52
+msgid "Profile"
+msgstr ""
+
+#: templates/content.html:55
+msgid "Sign out"
+msgstr ""
+
+#: assets/templates/blog.html:60
+msgid "Text"
+msgstr ""
+
+#: assets/templates/blog.html:58
+msgid "Time"
+msgstr ""
+
+#: assets/templates/radio.html:7
+msgid "Timer"
+msgstr ""

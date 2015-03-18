@@ -32,10 +32,14 @@ String.prototype.format = function () {
 var App = {
 	ng: angular.module('raspberry', [
 		'ngDragDrop',
+        'ngRoute',
 		'ui.bootstrap',
 		'yaru22.angular-timeago',
-		'ngRoute'
-	]),
+        'gettext'
+	]).run(function (gettextCatalog) {
+        gettextCatalog.setCurrentLanguage('DE');
+        gettextCatalog.debug = true;
+    }),
 
 	init: function (debug, userVo, socketUrl) {
 		App.Layout.init(debug, userVo);

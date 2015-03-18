@@ -1,0 +1,57 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Matthias Dötsch <matze@mdoetsch.de>\n"
+"Language-Team: \n"
+"Language: DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"Plural-Forms: Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
+
+#: assets/templates/radio.html:8
+msgid "Delete"
+msgstr "Löschen"
+
+#: assets/templates/radio.html:6
+msgid "Disable"
+msgstr "Aus"
+
+#: assets/templates/radio.html:5
+msgid "Enable"
+msgstr "An"
+
+#: templates/content.html:2
+msgid "HomeControl"
+msgstr "HomeControl"
+
+#: assets/templates/blog.html:59
+msgid "Mood"
+msgstr "Stimmung"
+
+#: assets/templates/radio.html:4
+msgid "Name"
+msgstr "Name"
+
+#: templates/content.html:52
+msgid "Profile"
+msgstr "Profil"
+
+#: templates/content.html:55
+msgid "Sign out"
+msgstr "Logout"
+
+#: assets/templates/blog.html:60
+msgid "Text"
+msgstr "Text"
+
+#: assets/templates/blog.html:58
+msgid "Time"
+msgstr "Zeit"
+
+#: assets/templates/radio.html:7
+msgid "Timer"
+msgstr "Timer"
