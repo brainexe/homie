@@ -3,9 +3,9 @@
 	<thead>
 		<tr>
 			<th width="30">#</th>
-			<th>Name</th>
-			<th>Value</th>
-			<th>Direction</th>
+			<th translate>Name</th>
+			<th translate>Value</th>
+			<th translate>Direction</th>
 		</tr>
 	</thead>
 	<tbody ng-repeat="pin in gpios">
@@ -32,5 +32,5 @@
 		</tr>
 	</tbody>
 </table>
-<button class="btn btn-primary" ng-click="editMode = !editMode">Edit Mode</button>
+<button class="btn btn-primary" ng-click="editMode = !editMode" translate>Edit Mode</button>
 

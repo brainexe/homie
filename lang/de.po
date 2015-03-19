@@ -12,17 +12,58 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
 
-#: assets/templates/radio.html:8
+#: assets/templates/new_sensor.html:18
+msgid "Add"
+msgstr "Hinzufgen"
+
+#: assets/templates/new_sensor.html:4
+msgid "Add Sensor"
+msgstr "Sensor hinzufügen"
+
+#: assets/templates/dashboard.html:81
+msgid "Add Widget"
+msgstr "Neues Widget"
+
+#: assets/templates/todo.html:3
+msgid "Add a task"
+msgstr "Neuer Task"
+
+#: assets/templates/status.html:14
+msgid "Date"
+msgstr "Datum"
+
+#: assets/templates/egg_timer.html:23 assets/templates/espeak.html:45
+#: assets/templates/radio.html:8 assets/templates/status.html:15
 msgid "Delete"
 msgstr "Löschen"
+
+#: assets/templates/gpio.html:8
+msgid "Direction"
+msgstr "Richtung"
 
 #: assets/templates/radio.html:6
 msgid "Disable"
 msgstr "Aus"
 
+#: assets/templates/todo.html:32
+msgid "Drag Here to Delete"
+msgstr ""
+
+#: assets/templates/gpio.html:35
+msgid "Edit Mode"
+msgstr "Editieren"
+
 #: assets/templates/radio.html:5
 msgid "Enable"
 msgstr "An"
+
+#: assets/templates/status.html:13
+msgid "Event-ID"
+msgstr "Event-ID"
+
+#: assets/templates/flower.html:1
+msgid "Flower"
+msgstr "Blumen"
 
 #: templates/content.html:2
 msgid "HomeControl"
@@ -32,6 +73,7 @@ msgstr "HomeControl"
 msgid "Mood"
 msgstr "Stimmung"
 
+#: assets/templates/dashboard.html:42 assets/templates/gpio.html:6
 #: assets/templates/radio.html:4
 msgid "Name"
 msgstr "Name"
@@ -40,18 +82,55 @@ msgstr "Name"
 msgid "Profile"
 msgstr "Profil"
 
+#: assets/templates/dashboard.html:49
+msgid "Save"
+msgstr "Speichern"
+
+#: assets/templates/status.html:32
+msgid "Self update"
+msgstr "Update"
+
 #: templates/content.html:55
 msgid "Sign out"
 msgstr "Logout"
 
-#: assets/templates/blog.html:60
+#: assets/templates/status.html:34
+msgid "Start self update in background"
+msgstr "Update im Hintergrund"
+
+#: assets/templates/blog.html:49 assets/templates/espeak.html:37
+msgid "Submit"
+msgstr "Abschicken"
+
+#: assets/templates/webcam.html:12
+msgid "Take Photo"
+msgstr "Foto machen"
+
+#: assets/templates/blog.html:60 assets/templates/egg_timer.html:22
+#: assets/templates/egg_timer.html:3 assets/templates/espeak.html:44
 msgid "Text"
 msgstr "Text"
 
-#: assets/templates/blog.html:58
+#: assets/templates/blog.html:58 assets/templates/egg_timer.html:21
+#: assets/templates/espeak.html:43
 msgid "Time"
 msgstr "Zeit"
 
 #: assets/templates/radio.html:7
 msgid "Timer"
 msgstr "Timer"
+
+#: assets/templates/new_sensor.html:10
+msgid "Type"
+msgstr "Typ"
+
+#: assets/templates/gpio.html:7
+msgid "Value"
+msgstr "Wert"
+
+#: assets/templates/egg_timer.html:12 assets/templates/espeak.html:12
+msgid "e.g. 10s, 30m, 1h"
+msgstr "z.B. 10s, 30m, 1h"
+
+#~ msgid "Home Control"
+#~ msgstr "HomeControl"

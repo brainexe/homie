@@ -10,9 +10,9 @@
 <table ng-if="jobs|notEmpty" class="table table-striped table-bordered table-hover">
 	<thead>
 		<tr>
-			<th>Event-ID</th>
-			<th>Date</th>
-			<th>Delete</th>
+			<th translate>Event-ID</th>
+			<th translate>Date</th>
+			<th translate>Delete</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -29,7 +29,7 @@
 </table>
 <a class="btn btn-primary" ng-click="update()">Update</a><br />
 
-<h2>Self update</h2>
+<h2 translate>Self update</h2>
 
-<a class="btn btn-primary" ng-click="startUpdate()">Start self update in background</a><br />
+<a class="btn btn-primary" ng-click="startUpdate()" translate>Start self update in background</a><br />
 <textarea style="width:800px; height: 300px" ng-if="textarea" ng-model="textarea" readonly="readonly"></textarea>

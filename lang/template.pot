@@ -4,16 +4,59 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 
+#: assets/templates/new_sensor.html:18
+msgid "Add"
+msgstr ""
+
+#: assets/templates/new_sensor.html:4
+msgid "Add Sensor"
+msgstr ""
+
+#: assets/templates/dashboard.html:81
+msgid "Add Widget"
+msgstr ""
+
+#: assets/templates/todo.html:3
+msgid "Add a task"
+msgstr ""
+
+#: assets/templates/status.html:14
+msgid "Date"
+msgstr ""
+
+#: assets/templates/egg_timer.html:23
+#: assets/templates/espeak.html:45
 #: assets/templates/radio.html:8
+#: assets/templates/status.html:15
 msgid "Delete"
+msgstr ""
+
+#: assets/templates/gpio.html:8
+msgid "Direction"
 msgstr ""
 
 #: assets/templates/radio.html:6
 msgid "Disable"
 msgstr ""
 
+#: assets/templates/todo.html:32
+msgid "Drag Here to Delete"
+msgstr ""
+
+#: assets/templates/gpio.html:35
+msgid "Edit Mode"
+msgstr ""
+
 #: assets/templates/radio.html:5
 msgid "Enable"
+msgstr ""
+
+#: assets/templates/status.html:13
+msgid "Event-ID"
+msgstr ""
+
+#: assets/templates/flower.html:1
+msgid "Flower"
 msgstr ""
 
 #: templates/content.html:2
@@ -24,6 +67,8 @@ msgstr ""
 msgid "Mood"
 msgstr ""
 
+#: assets/templates/dashboard.html:42
+#: assets/templates/gpio.html:6
 #: assets/templates/radio.html:4
 msgid "Name"
 msgstr ""
@@ -32,18 +77,57 @@ msgstr ""
 msgid "Profile"
 msgstr ""
 
+#: assets/templates/dashboard.html:49
+msgid "Save"
+msgstr ""
+
+#: assets/templates/status.html:32
+msgid "Self update"
+msgstr ""
+
 #: templates/content.html:55
 msgid "Sign out"
 msgstr ""
 
+#: assets/templates/status.html:34
+msgid "Start self update in background"
+msgstr ""
+
+#: assets/templates/blog.html:49
+#: assets/templates/espeak.html:37
+msgid "Submit"
+msgstr ""
+
+#: assets/templates/webcam.html:12
+msgid "Take Photo"
+msgstr ""
+
 #: assets/templates/blog.html:60
+#: assets/templates/egg_timer.html:22
+#: assets/templates/egg_timer.html:3
+#: assets/templates/espeak.html:44
 msgid "Text"
 msgstr ""
 
 #: assets/templates/blog.html:58
+#: assets/templates/egg_timer.html:21
+#: assets/templates/espeak.html:43
 msgid "Time"
 msgstr ""
 
 #: assets/templates/radio.html:7
 msgid "Timer"
+msgstr ""
+
+#: assets/templates/new_sensor.html:10
+msgid "Type"
+msgstr ""
+
+#: assets/templates/gpio.html:7
+msgid "Value"
+msgstr ""
+
+#: assets/templates/egg_timer.html:12
+#: assets/templates/espeak.html:12
+msgid "e.g. 10s, 30m, 1h"
 msgstr ""

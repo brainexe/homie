@@ -46,7 +46,7 @@
            {{ newMood }}/10
         </option>
 	</select>
-	<button class="btn btn-lg btn-primary btn-block" ng-click="addPost(post)" type="button">
+	<button class="btn btn-lg btn-primary btn-block" ng-click="addPost(post)" type="button" translate>
         Submit
     </button>
 </form>
@@ -70,7 +70,7 @@
 			</td>
 			<td>{{ post.text }}</td>
 			<td>
-				<a ng-click="deletePost(timestamp)" class="glyphicon glyphicon-remove"> </a>
+				<a ng-click="deletePost(timestamp)" class="glyphicon glyphicon-remove"></a>
 			</td>
 		</tr>
 	</tbody>

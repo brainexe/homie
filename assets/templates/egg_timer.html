@@ -1,6 +1,6 @@
 <form ng-submit="addTimer()" class="form-horizontal">
 	<div class="form-group">
-		<label for="eggTimerTextInput" class="col-sm-2 control-label">Text</label>
+		<label for="eggTimerTextInput" class="col-sm-2 control-label" translate>Text</label>
 		<div class="col-sm-10">
 			<input ng-model="text" ng-enter="addTimer()" type="text" class="form-control input-lg" id="eggTimerTextInput" placeholder="Text" />
 		</div>
@@ -9,7 +9,7 @@
 		<label for="eggTimerTimeInput" class="col-sm-2 control-label">Delay</label>
 		<div class="col-sm-10">
 			<input ng-model="time" ng-enter="addTimer()" type="text" class="form-control input-sm" id="eggTimerTimeInput" placeholder="15m" />
-			<span class="help-block">e.g. 10s, 30m, 1h</span>
+			<span class="help-block" translate>e.g. 10s, 30m, 1h</span>
 		</div>
 	</div>
 	<button type="submit" class="btn btn-primary btn-lg">Submit</button>
@@ -18,9 +18,9 @@
 <table ng-if="jobs|notEmpty" class="table table-bordered table-striped table-hover">
 	<thead>
 		<tr>
-			<th>Time</th>
-			<th>Text</th>
-			<th>Delete</th>
+			<th translate>Time</th>
+			<th translate>Text</th>
+			<th translate>Delete</th>
 		</tr>
 	</thead>
 

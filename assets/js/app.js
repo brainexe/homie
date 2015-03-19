@@ -30,19 +30,31 @@ String.prototype.format = function () {
 };
 
 var App = {
+    debug: null, // TODO
+    user: null,
+
 	ng: angular.module('raspberry', [
 		'ngDragDrop',
         'ngRoute',
 		'ui.bootstrap',
 		'yaru22.angular-timeago',
         'gettext'
-	]).run(function (gettextCatalog) {
+	]).config(['$routeProvider', function ($routeProvider) {
+        for (var i in controllers) {
+            var metadata = controllers[i];
+            $routeProvider.when('/' + metadata.url, metadata);
+        }
+
+        $routeProvider.otherwise({redirectTo: '/index'});
+    }]).run(function(gettextCatalog) {
         gettextCatalog.setCurrentLanguage('DE');
         gettextCatalog.debug = true;
     }),
 
-	init: function (debug, userVo, socketUrl) {
-		App.Layout.init(debug, userVo);
+	init: function (debug, user, socketUrl) {
+        App.debug  = debug;
+        App.user   = user;
+
 		if (socketUrl) {
 			App.SocketServer.connect(socketUrl);
 		}
@@ -66,11 +78,6 @@ $(document).ajaxComplete(function (event, request) {
 
 $(function () {
 	//Enable sidebar toggle
-    $('.sidebar-menu a').click(function() {
-        if ($(window).width() <= 992) {
-            toggle()
-        }
-    });
 	var toggle = function (e) {
 		e && e.preventDefault();
 
@@ -87,7 +94,11 @@ $(function () {
 			$(".right-side").toggleClass("strech");
 		}
 	};
-
+    $('.sidebar-menu a').click(function() {
+        if ($(window).width() <= 992) {
+            toggle()
+        }
+    });
     document.getElementById('offcanvas').onclick = toggle;
 
 	/*
@@ -115,6 +126,6 @@ $(function () {
 	};
 });
 
-window['init'] = function (debug, user_vo, socket_server) {
-	App.init(debug, user_vo, socket_server);
+window['init'] = function (debug, user, socketUrl) {
+	App.init(debug, user, socketUrl);
 };

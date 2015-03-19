@@ -1,9 +1,17 @@
 
-App.ng.controller('MenuController', ['$scope', '$route', function ($scope, $routeProvider) {
-	$scope.$parent.$watch('current_user', function(user){
+App.ng.controller('MenuController', ['$scope', '$route', '$location', 'controllers', function ($scope, $route, $location, controllers) {
+    $scope.controllers = controllers;
+
+    $scope.$on('$routeChangeSuccess', function (event, current) {
+        if (current.$$route && current.$$route.name) {
+            document.title = current.$$route.name;
+        }
+    });
+
+	$scope.$parent.$watch('current_user', function(user) {
 		var is_logged_in = $scope.$parent.isLoggedIn();
 
-		$scope.menu = App.Layout.controllers.filter(function(item) {
+		$scope.menu = $scope.controllers.filter(function(item) {
 			if (!item.name) {
 				return false;
 			}

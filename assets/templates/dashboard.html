@@ -39,14 +39,14 @@
     <h2>{{ dashboard.name }}</h2>
     <div ng-if="editMode">
         <div class="input-group">
-            <span class="input-group-addon">Name</span>
+            <span class="input-group-addon" translate>Name</span>
             <input
                    type="text"
                    ng-model="dashboard.name"
                    class="form-control"
                     />
             <span class="input-group-addon">
-                <a ng-click="saveDashboard(dashboard)" class="cursor">Save</a>
+                <a ng-click="saveDashboard(dashboard)" class="cursor" translate>Save</a>
             </span>
         </div>
 
@@ -78,7 +78,7 @@
 </div>
 
 <div ng-if="editMode" class="panel panel-primary">
-    <div class="panel-heading" ng-click="openModal(dashboards, dashboard)">Add Widget</div>
+    <div class="panel-heading" ng-click="openModal(dashboards, dashboard)" translate>Add Widget</div>
 </div>
 
 <button class="btn btn-primary" ng-click="editMode = !editMode">Edit Mode</button>

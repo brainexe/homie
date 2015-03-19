@@ -1,6 +1,6 @@
 <div>
 	<div class="task-list">
-		<h3>Add a task</h3>
+		<h3 translate>Add a task</h3>
 		<form ng-submit="addTodo()" class="form-group">
 			<input
                     ng-model="newTitle"
@@ -29,7 +29,7 @@
             />
 			<input type="submit" class="btn btn-primary" value="Add Task" />
 		</form>
-		<div id="delete-div" ui-on-Drop="onDelete($data)">
+		<div id="delete-div" ui-on-Drop="onDelete($data)" translate>
 			Drag Here to Delete
 		</div>
 	</div>
