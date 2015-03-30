@@ -1,10 +1,19 @@
 App.Layout = {};
 
-App.ng.controller('LayoutController', ['$scope', function ($scope) {
+App.ng.controller('LayoutController', ['$scope', 'gettextCatalog', function ($scope, gettextCatalog) {
     App.Layout.$scope = $scope;
 
     $scope.flash_bag = [];
+    $scope.languages = {
+        'DE': 'Deutsch',
+        'EN': 'English'
+    };
+
     $scope.current_user = App.user;
+
+    $scope.changeLanguage = function(lang) {
+        gettextCatalog.setCurrentLanguage(lang);
+    };
 
     /**
      * @returns {Boolean}

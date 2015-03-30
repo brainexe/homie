@@ -15,7 +15,7 @@ class RadioJobListener implements EventSubscriberInterface
     /**
      * @var RadioController
      */
-    private $radioController;
+    private $controller;
 
     /**
      * @param RadioController $radioController
@@ -23,7 +23,7 @@ class RadioJobListener implements EventSubscriberInterface
      */
     public function __construct(RadioController $radioController)
     {
-        $this->radioController = $radioController;
+        $this->controller = $radioController;
     }
 
     /**
@@ -32,7 +32,7 @@ class RadioJobListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-        RadioChangeEvent::CHANGE_RADIO => 'handleChangeEvent'
+            RadioChangeEvent::CHANGE_RADIO => 'handleChangeEvent'
         ];
     }
 
@@ -41,6 +41,9 @@ class RadioJobListener implements EventSubscriberInterface
      */
     public function handleChangeEvent(RadioChangeEvent $event)
     {
-        $this->radioController->setStatus($event->radio_vo->code, $event->radio_vo->pin, $event->status);
+        $this->controller->setStatus(
+            $event->radio_vo,
+            $event->status
+        );
     }
 }

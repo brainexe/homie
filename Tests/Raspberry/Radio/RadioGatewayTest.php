@@ -11,7 +11,7 @@ use Raspberry\Radio\VO\RadioVO;
 use BrainExe\Core\Util\IdGenerator;
 
 /**
- * @Covers Raspberry\Radio\RadioGateway
+ * @covers Raspberry\Radio\RadioGateway
  */
 class RadioGatewayTest extends PHPUnit_Framework_TestCase
 {
@@ -143,6 +143,7 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
                 'description' => $description,
                 'pin' => $pin,
                 'code' => $code,
+                'status' => $radioVo->status,
             ]);
 
         $this->mockRedis
@@ -163,6 +164,7 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
     {
         $radioVo = new RadioVO();
         $radioVo->radioId = $radioId = 10;
+        $radioVo->status  = 1;
 
         $this->mockRedis
             ->expects($this->once())
@@ -173,6 +175,7 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
                 'pin' => null,
                 'name' => null,
                 'description' => null,
+                'status' => 1,
             ]);
 
         $this->subject->editRadio($radioVo);

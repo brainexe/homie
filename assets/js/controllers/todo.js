@@ -1,13 +1,12 @@
 
-// TODO stroke
-App.ng.controller('TodoController', ['$scope', function($scope) {
+App.ng.controller('TodoController', ['$scope', 'gettextCatalog', function($scope, gettextCatalog) {
 	$scope.todos = [];
 	$scope.userNames = [];
 
 	$scope.stati = {
-		"pending"   : {id:'pending', name: "Pending", tasks: [], prio:1},
-		"progress"  : {id:'progress', name: "Progress", tasks: [], prio:2},
-		"completed" : {id:'completed', name: "Completed", tasks: [], prio:3}
+		"pending"   : {id:'pending', name: gettextCatalog.getString("Pending"), tasks: [], prio:1},
+		"progress"  : {id:'progress', name: gettextCatalog.getString("Progress"), tasks: [], prio:2},
+		"completed" : {id:'completed', name: gettextCatalog.getString("Completed"), tasks: [], prio:3}
 	};
 
 	$.get('/todo/', function(data) {
@@ -33,7 +32,7 @@ App.ng.controller('TodoController', ['$scope', function($scope) {
 	};
 
 	$scope.addTodo = function() {
-		var errorMessage = _("name can not be empty"),
+		var errorMessage = gettextCatalog.getString("name can not be empty"),
 			name, description, date, tempData;
 
 		name = $scope.newTitle;

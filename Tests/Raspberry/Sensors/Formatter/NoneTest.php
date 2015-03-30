@@ -6,7 +6,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Raspberry\Sensors\Formatter\None;
 
 /**
- * @Covers Raspberry\Sensors\Formatter\None
+ * @covers Raspberry\Sensors\Formatter\None
  */
 class NoneTest extends TestCase
 {

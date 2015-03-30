@@ -2,9 +2,11 @@
 App.ng.controller('BlogController', ['$scope', function($scope) {
 
 	$scope.posts = {};
+	$scope.post = {};
 	$scope.users = {};
 	$scope.current_user_id = null;
 	$scope.active_user_id  = null;
+    $scope.pending = false;
 
 	$.get('/blog/', function(data) {
 		$scope.posts = data.posts;
@@ -18,8 +20,11 @@ App.ng.controller('BlogController', ['$scope', function($scope) {
 	 * @param {Object} post
 	 */
 	$scope.addPost = function(post) {
-		$.post('/blog/add/', post, function(data) {
-			post.text = '';
+        $scope.pending = true;
+
+        $.post('/blog/add/', post, function(data) {
+            $scope.pending = false;
+            post.text = '';
 			post.mood = '';
 			$scope.posts[data[0]] = data[1];
 			$scope.$apply();

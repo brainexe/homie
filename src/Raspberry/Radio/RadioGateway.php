@@ -74,6 +74,7 @@ class RadioGateway
             'description' => $radioVo->description,
             'pin' => $radioVo->pin,
             'code' => $radioVo->code,
+            'status' => $radioVo->status,
         ]);
 
         $this->getRedis()->SADD(self::REDIS_RADIO_IDS, $newId);

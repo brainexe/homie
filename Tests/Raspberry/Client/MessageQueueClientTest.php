@@ -11,7 +11,7 @@ use Raspberry\Client\MessageQueueClient;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 
 /**
- * @Covers Raspberry\Client\MessageQueueClient
+ * @covers Raspberry\Client\MessageQueueClient
  */
 class MessageQueueClientTest extends PHPUnit_Framework_TestCase
 {

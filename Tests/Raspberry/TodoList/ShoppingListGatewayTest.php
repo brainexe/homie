@@ -9,7 +9,7 @@ use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\TodoList\ShoppingListGateway;
 
 /**
- * @Covers Raspberry\TodoList\ShoppingListGateway
+ * @covers Raspberry\TodoList\ShoppingListGateway
  */
 class ShoppingListGatewayTest extends PHPUnit_Framework_TestCase
 {

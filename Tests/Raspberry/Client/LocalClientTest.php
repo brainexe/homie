@@ -10,7 +10,7 @@ use Symfony\Component\Process\ProcessBuilder;
 use RuntimeException;
 
 /**
- * @Covers Raspberry\Client\LocalClient
+ * @covers Raspberry\Client\LocalClient
  */
 class LocalClientTest extends PHPUnit_Framework_TestCase
 {

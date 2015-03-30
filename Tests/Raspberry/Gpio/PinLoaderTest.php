@@ -12,7 +12,7 @@ use Raspberry\Client\LocalClient;
 use Raspberry\Gpio\PinsCollection;
 
 /**
- * @Covers Raspberry\Gpio\PinLoader
+ * @covers Raspberry\Gpio\PinLoader
  */
 class PinLoaderTest extends PHPUnit_Framework_TestCase
 {

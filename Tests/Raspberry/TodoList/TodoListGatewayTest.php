@@ -11,7 +11,7 @@ use Raspberry\TodoList\TodoListGateway;
 use Raspberry\TodoList\VO\TodoItemVO;
 
 /**
- * @Covers Raspberry\TodoList\TodoListGateway
+ * @covers Raspberry\TodoList\TodoListGateway
  */
 class TodoListGatewayTest extends PHPUnit_Framework_TestCase
 {

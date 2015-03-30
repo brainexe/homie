@@ -11,7 +11,7 @@ use Raspberry\Dashboard\DashboardGateway;
 use Raspberry\Dashboard\WidgetFactory;
 
 /**
- * @Covers Raspberry\Dashboard\Dashboard
+ * @covers Raspberry\Dashboard\Dashboard
  */
 class DashboardTest extends PHPUnit_Framework_TestCase
 {

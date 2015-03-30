@@ -23,7 +23,7 @@ use Symfony\Component\Console\Tester\CommandTester;
 abstract class TestSensor implements Sensor, Parameterized {}
 
 /**
- * @Covers Raspberry\Sensors\Command\Add
+ * @covers Raspberry\Sensors\Command\Add
  */
 class AddTest extends PHPUnit_Framework_TestCase
 {

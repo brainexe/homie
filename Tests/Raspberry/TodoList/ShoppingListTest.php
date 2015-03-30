@@ -8,7 +8,7 @@ use Raspberry\TodoList\ShoppingList;
 use Raspberry\TodoList\ShoppingListGateway;
 
 /**
- * @Covers Raspberry\TodoList\ShoppingList
+ * @covers Raspberry\TodoList\ShoppingList
  */
 class ShoppingListTest extends PHPUnit_Framework_TestCase
 {

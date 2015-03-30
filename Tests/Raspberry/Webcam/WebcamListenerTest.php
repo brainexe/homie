@@ -9,7 +9,7 @@ use Raspberry\Webcam\WebcamListener;
 use Raspberry\Webcam\Webcam;
 
 /**
- * @Covers Raspberry\Webcam\WebcamListener
+ * @covers Raspberry\Webcam\WebcamListener
  */
 class WebcamListenerTest extends PHPUnit_Framework_TestCase
 {

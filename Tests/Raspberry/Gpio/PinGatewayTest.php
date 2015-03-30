@@ -9,7 +9,7 @@ use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Gpio\PinGateway;
 
 /**
- * @Covers Raspberry\Gpio\PinGateway
+ * @covers Raspberry\Gpio\PinGateway
  */
 class PinGatewayTest extends PHPUnit_Framework_TestCase
 {

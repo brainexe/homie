@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * @Covers Raspberry\Sensors\CompilerPass\Sensor
+ * @covers Raspberry\Sensors\CompilerPass\Sensor
  */
 class CompilerPassTest extends TestCase
 {

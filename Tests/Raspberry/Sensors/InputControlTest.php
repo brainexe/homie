@@ -11,7 +11,7 @@ use Raspberry\Espeak\EspeakVO;
 use Raspberry\Sensors\InputControl;
 
 /**
- * @Covers Raspberry\Sensors\InputControl
+ * @covers Raspberry\Sensors\InputControl
  */
 class InputControlTest extends TestCase
 {

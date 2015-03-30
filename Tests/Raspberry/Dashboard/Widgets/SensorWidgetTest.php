@@ -9,7 +9,7 @@ use Raspberry\Dashboard\Widgets\WidgetMetadataVo;
 use Raspberry\Sensors\SensorGateway;
 
 /**
- * @Covers Raspberry\Dashboard\Widgets\SensorWidget
+ * @covers Raspberry\Dashboard\Widgets\SensorWidget
  */
 class SensorWidgetTest extends TestCase
 {

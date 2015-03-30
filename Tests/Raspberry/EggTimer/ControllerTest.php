@@ -9,7 +9,7 @@ use Raspberry\EggTimer\EggTimer;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Covers Raspberry\EggTimer\Controller
+ * @covers Raspberry\EggTimer\Controller
  */
 class ControllerTest extends PHPUnit_Framework_TestCase
 {

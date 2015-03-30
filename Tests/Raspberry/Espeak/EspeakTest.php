@@ -11,7 +11,7 @@ use Raspberry\Client\LocalClient;
 use Raspberry\Espeak\EspeakEvent;
 
 /**
- * @Covers Raspberry\Espeak\Espeak
+ * @covers Raspberry\Espeak\Espeak
  */
 class EspeakTest extends PHPUnit_Framework_TestCase
 {

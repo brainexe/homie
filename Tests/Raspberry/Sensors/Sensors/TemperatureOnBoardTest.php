@@ -12,7 +12,7 @@ use Raspberry\Sensors\Sensors\TemperatureOnBoard;
 use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 
 /**
- * @Covers Raspberry\Sensors\Sensors\TemperatureOnBoard
+ * @covers Raspberry\Sensors\Sensors\TemperatureOnBoard
  */
 class TemperatureOnBoardTest extends TestCase
 {

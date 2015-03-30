@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * @Covers Raspberry\Dashboard\WidgetCompilerPass
+ * @covers Raspberry\Dashboard\WidgetCompilerPass
  */
 class WidgetCompilerPassTest extends PHPUnit_Framework_TestCase
 {

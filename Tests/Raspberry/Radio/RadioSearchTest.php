@@ -9,7 +9,7 @@ use Raspberry\Radio\Radios;
 use Raspberry\Radio\VO\RadioVO;
 
 /**
- * @Covers Raspberry\Radio\RadioSearch
+ * @covers Raspberry\Radio\RadioSearch
  */
 class RadioSearchTest extends TestCase
 {

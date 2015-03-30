@@ -9,7 +9,7 @@ use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
 /**
- * @Covers Raspberry\Media\Sound
+ * @covers Raspberry\Media\Sound
  */
 class SoundTest extends PHPUnit_Framework_TestCase
 {

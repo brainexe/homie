@@ -15,6 +15,7 @@ function asset(filename) {
 function _(string) {
 	return string;
 }
+var gettext = gettext || function(s){return s};
 
 /**
  * @returns String {string}
@@ -49,6 +50,7 @@ var App = {
     }]).run(function(gettextCatalog) {
         gettextCatalog.setCurrentLanguage('DE');
         gettextCatalog.debug = true;
+        gettextCatalog.debugPrefix = '?';
     }),
 
 	init: function (debug, user, socketUrl) {

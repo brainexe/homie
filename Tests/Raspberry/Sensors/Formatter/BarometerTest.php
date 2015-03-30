@@ -6,7 +6,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Raspberry\Sensors\Formatter\Barometer;
 
 /**
- * @Covers Raspberry\Sensors\Formatter\Barometer
+ * @covers Raspberry\Sensors\Formatter\Barometer
  */
 class BarometerTest extends TestCase
 {

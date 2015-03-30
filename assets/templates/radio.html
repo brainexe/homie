@@ -21,12 +21,16 @@
 					<div ng-if="!radio.edit">
 						{{ radio.name }}
 						<small ng-if="radio.description">({{ radio.description }})</small>
-						<span ng-if="editMode" class="glyphicon glyphicon-pencil" ng-click="radio.edit=true"></span>
+						<span
+                                ng-if="editMode"
+                                class="glyphicon glyphicon-pencil"
+                                ng-click="radio.edit=true">
+                        </span>
 					</div>
 				</div>
 			</td>
-			<td><a ng-click="setStatus(radio, 1)" class="btn btn-success">Enable</a></td>
-			<td><a ng-click="setStatus(radio, 0)" class="btn btn-danger">Disable</a></td>
+			<td><a ng-disabled="!radio.status"  ng-click="setStatus(radio, 1)" class="btn btn-success">Enable</a></td>
+			<td><a ng-disabled="radio.status" ng-click="setStatus(radio, 0)" class="btn btn-danger">Disable</a></td>
             <td><a ng-click="highlight(radio)" class="glyphicon glyphicon-hourglass"></a></td>
 			<td ng-if="editMode"><a ng-click="deleteRadio(radio.radioId)" class="glyphicon glyphicon-remove"></a></td>
 		</tr>
@@ -40,10 +44,10 @@
 <table ng-if="radio_jobs|notEmpty" class="table table-bordered table-striped table-hover">
 	<thead>
 		<tr>
-			<th>Time</th>
-			<th>Radio</th>
-			<th>Status</th>
-			<th>Delete</th>
+			<th translate>Time</th>
+			<th translate>Radio</th>
+			<th translate>Status</th>
+			<th translate>Delete</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -51,7 +55,13 @@
 			<td>{{ radio_job.timestamp|timeAgo }}</td>
 			<td>{{ radios[radio_job.event.radio_vo.radioId].name }}</td>
 			<td>
-				<a ng-click="setStatus(radio_job.radioId, 1); deleteRadioJob(radio_job.event_id)" class="btn" ng-class="{'btn-danger':!radio_job.event.status, 'btn-success':radio_job.event.status}">{{ radio_job.event.status ? "ON" : "OFF" }}</a>
+				<a
+                        ng-click="setStatus(radio_job.radioId, 1); deleteRadioJob(radio_job.event_id)"
+                        class="btn"
+                        ng-class="{'btn-danger':!radio_job.event.status, 'btn-success':radio_job.event.status}"
+                >
+                    {{ radio_job.event.status ? "ON" : "OFF" }}
+                </a>
 			</td>
 			<td>
 				<a ng-click="deleteRadioJob(radio_job.eventId)" class="glyphicon glyphicon-remove"></a>
@@ -67,26 +77,54 @@
 			<div class="row">
 				<div class="col-lg-3">
 					<div class="input-group">
-						<div class="input-group-addon">Radio</div>
-						<select ng-model="new_job.radioId" required class="form-control" ng-options="radio_id as radio.name for (radio_id, radio) in radios"></select>
+						<div class="input-group-addon" translate>Switch</div>
+						<select
+                                ng-model="new_job.radioId"
+                                required
+                                class="form-control"
+                                ng-options="radio_id as radio.name for (radio_id, radio) in radios">
+                        </select>
 					</div>
 				</div>
 				<div class="col-lg-3">
 					<div class="input-group">
-						<span class="input-group-addon tip" tooltip="e.g. 10s, 30m, 1h" ng-enter="addRadio(newRadio)">Time</span>
-						<input type="text" ng-model="new_job.time" id="new_radio_job_time" required class="form-control" value="1h"/>
+						<span
+                                class="input-group-addon tip"
+                                translate
+                                tooltip="e.g. 10s, 30m, 1h"
+                                ng-enter="addRadio(newRadio)">
+                            Time
+                        </span>
+						<input
+                                type="text"
+                                ng-model="new_job.time"
+                                id="new_radio_job_time"
+                                required
+                                class="form-control"
+                                value="1h"
+                                />
 					</div>
 				</div>
 				<div class="col-lg-3">
 					<div class="input-group">
-						<span class="input-group-addon">Status</span>
-						<input type="checkbox" ng-model="new_job.status" class="form-control" value="1"/>
+						<span class="input-group-addon" translate>Status</span>
+						<input
+                                type="checkbox"
+                                ng-model="new_job.status"
+                                class="form-control"
+                                value="1"
+                        />
 					</div>
 				</div>
 				<div class="col-lg-2">
 					<div class="input-group">
 						<span class="input-group-btn">
-							<button class="btn btn-primary form-control" type="submit">Add</button>
+							<button
+                                    class="btn btn-primary form-control"
+                                    translate
+                                    type="submit">
+                                Add
+                            </button>
 						</span>
 					</div>
 				</div>
@@ -96,40 +134,82 @@
 </div>
 
 <div ng-if="editMode" class="panel panel-primary">
-	<div class="panel-heading">Add Radio</div>
+	<div class="panel-heading" translate>
+        Add Switch
+    </div>
 	<div class="panel-body">
 		<form ng-submit="addRadio(newRadio)" class="navbar-forms navbar-lefts">
 			<div class="row">
 				<div class="col-lg-5">
 					<div class="input-group">
-						<span class="input-group-addon">Name</span>
-						<input type="text" ng-model="newRadio.name" class="form-control" placeholder="Name"/>
+						<span class="input-group-addon" translate>Name</span>
+						<input
+                                type="text"
+                                ng-model="newRadio.name"
+                                class="form-control"
+                                placeholder="{{'Name'|translate}}"
+                        />
 					</div>
 				</div>
 				<div class="col-lg-5">
 					<div class="input-group">
-						<span class="input-group-addon">Description</span>
-						<input type="text" ng-model="newRadio.description" class="form-control" placeholder="Description"/>
+						<span class="input-group-addon" translate>Description</span>
+						<input
+                                type="text"
+                                ng-model="newRadio.description"
+                                class="form-control"
+                                placeholder="{{'Description'|translate}}"
+                        />
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-lg-2">
 					<div class="input-group">
-						<span class="input-group-addon">Code</span>
-						<input type="text" class="form-control" max="5" min="0" ng-model="newRadio.code" placeholder="00000"/>
+						<span
+                                class="input-group-addon"
+                                translate
+                                translate-comment="radio code"
+                        >
+                            Code
+                        </span>
+						<input
+                                type="text"
+                                class="form-control"
+                                max="5"
+                                min="0"
+                                ng-model="newRadio.code"
+                                placeholder="00000"
+                        />
 					</div>
 				</div>
 				<div class="col-lg-2">
 					<div class="input-group">
-						<span class="input-group-addon">Pin</span>
-						<select ng-model="newRadio.pin" class="form-control" ng-options="key for (key, value) in pins"></select>
+						<span
+                                class="input-group-addon"
+                                translate
+                                translate-comment="radio pin"
+                        >
+                            Pin
+                        </span>
+						<select
+                                ng-model="newRadio.pin"
+                                class="form-control"
+                                ng-options="key for (key, value) in pins">
+                        </select>
 					</div>
 				</div>
 				<div class="col-lg-2">
 					<div class="input-group">
 						<span class="input-group-btn">
-							<button class="btn btn-primary form-control" type="submit">Add</button>
+							<button
+                                    class="btn btn-primary form-control"
+                                    type="submit"
+                                    translate
+                                    translate-comment="add radio"
+                            >
+                                Add
+                            </button>
 						</span>
 					</div>
 				</div>

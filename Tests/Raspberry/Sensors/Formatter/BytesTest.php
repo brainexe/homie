@@ -6,7 +6,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Raspberry\Sensors\Formatter\Bytes;
 
 /**
- * @Covers Raspberry\Sensors\Formatter\Bytes
+ * @covers Raspberry\Sensors\Formatter\Bytes
  */
 class BytesTest extends TestCase
 {

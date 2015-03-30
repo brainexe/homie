@@ -10,7 +10,7 @@ use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Raspberry\TodoList\VO\TodoItemVO;
 
 /**
- * @Covers Raspberry\TodoList\TodoReminder
+ * @covers Raspberry\TodoList\TodoReminder
  */
 class TodoReminderTest extends PHPUnit_Framework_TestCase
 {

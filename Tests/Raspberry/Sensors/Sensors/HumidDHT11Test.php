@@ -12,7 +12,7 @@ use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
 /**
- * @Covers Raspberry\Sensors\Sensors\HumidDHT11
+ * @covers Raspberry\Sensors\Sensors\HumidDHT11
  */
 class HumidDHT11Test extends PHPUnit_Framework_TestCase
 {

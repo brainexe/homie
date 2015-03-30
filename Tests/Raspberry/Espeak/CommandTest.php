@@ -12,7 +12,7 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
- * @Covers Raspberry\Espeak\Command
+ * @covers Raspberry\Espeak\Command
  */
 class CommandTest extends TestCase
 {

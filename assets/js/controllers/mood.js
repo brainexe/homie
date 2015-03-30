@@ -1,6 +1,14 @@
 
 // todo cleanup
 App.ng.controller('MoodController', ['$scope', function ($scope) {
+
+    $scope.requestFullScreen = function() {
+
+        var el = document.getElementById('mood_stage');
+        el.requestFullScreen();
+
+    };
+
 	require(['mood'], function(){
 		$.get('/blog/mood/', function(data) {
 			init(data);

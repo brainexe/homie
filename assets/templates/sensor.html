@@ -1,8 +1,9 @@
 <nav ng-if="sensors" class="navbar navbar-default" role="navigation">
+<nav ng-if="sensors" class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<button type="button" collapse-toggle class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-				<span class="sr-only">Toggle navigation</span>
+				<span class="sr-only" translate>Toggle navigation</span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
@@ -26,14 +27,17 @@
 			<ul class="nav navbar-nav navbar-right">
                 <li>
                     <a ng-click="editModal()">
-                        Edit <b class="glyphicon glyphicon-pencil"></b>
+                        {{'Edit'|translate}}
+                        <b class="glyphicon glyphicon-pencil"></b>
                     </a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-                    <a href class="dropdown-toggle">
-						Timespan <span class="glyphicon glyphicon-time"></span><b class="caret"></b>
+				<li class="dropdown" dropdown>
+                    <a href class="dropdown-toggle" dropdown-toggle>
+                        {{'Timespan'|translate}}
+                        <span class="glyphicon glyphicon-time"></span>
+                        <b class="caret"></b>
 					</a>
 					<ul class="dropdown-menu">
 						<li ng-repeat="(interval, label) in fromIntervals" ng_class="{active:(interval == current_from)}">
@@ -53,4 +57,3 @@
 	<div id="y_axis"></div>
 	<div id="chart"></div>
 </div>
-

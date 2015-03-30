@@ -4,12 +4,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 
+#. add radio
 #: assets/templates/new_sensor.html:18
+#: assets/templates/radio.html:118
+#: assets/templates/radio.html:201
+#: assets/templates/shopping_list.html:24
 msgid "Add"
+msgstr ""
+
+#: assets/templates/blog.html:28
+msgid "Add Post"
 msgstr ""
 
 #: assets/templates/new_sensor.html:4
 msgid "Add Sensor"
+msgstr ""
+
+#: assets/templates/radio.html:133
+msgid "Add Switch"
+msgstr ""
+
+#: assets/templates/todo.html:30
+msgid "Add Task"
 msgstr ""
 
 #: assets/templates/dashboard.html:81
@@ -20,15 +36,60 @@ msgstr ""
 msgid "Add a task"
 msgstr ""
 
+#: assets/templates/shopping_list.html:21
+msgid "Add an item"
+msgstr ""
+
+#: assets/js/controllers/controllers.js:10
+msgid "Blog"
+msgstr ""
+
+#: assets/templates/user/change_password.html:18
+msgid "Change"
+msgstr ""
+
+#: assets/templates/user/change_password.html:2
+#: assets/templates/user/user.html:8
+msgid "Change Password"
+msgstr ""
+
+#: assets/templates/admin/sensors.html:42
+msgid "Close"
+msgstr ""
+
+#. radio code
+#: assets/templates/radio.html:165
+msgid "Code"
+msgstr ""
+
+#: assets/js/controllers/todo.js:9
+msgid "Completed"
+msgstr ""
+
+#: assets/js/controllers/controllers.js:4
+msgid "Dashboard"
+msgstr ""
+
 #: assets/templates/status.html:14
 msgid "Date"
 msgstr ""
 
+#: assets/templates/espeak.html:9
+msgid "Delay"
+msgstr ""
+
 #: assets/templates/egg_timer.html:23
-#: assets/templates/espeak.html:45
+#: assets/templates/espeak.html:73
+#: assets/templates/radio.html:46
 #: assets/templates/radio.html:8
 #: assets/templates/status.html:15
 msgid "Delete"
+msgstr ""
+
+#: assets/templates/radio.html:152
+#: assets/templates/radio.html:157
+#: assets/templates/todo.html:16
+msgid "Description"
 msgstr ""
 
 #: assets/templates/gpio.html:8
@@ -39,12 +100,30 @@ msgstr ""
 msgid "Disable"
 msgstr ""
 
+#: assets/templates/user/otp.html:14
+msgid "Disable One Time Secret"
+msgstr ""
+
 #: assets/templates/todo.html:32
 msgid "Drag Here to Delete"
 msgstr ""
 
+#: assets/templates/admin/sensors.html:21
+#: assets/templates/sensor.html:30
+msgid "Edit"
+msgstr ""
+
 #: assets/templates/gpio.html:35
 msgid "Edit Mode"
+msgstr ""
+
+#: assets/js/controllers/controllers.js:11
+msgid "Egg Timer"
+msgstr ""
+
+#: assets/templates/admin/users.html:21
+#: assets/templates/admin/users.html:6
+msgid "Email"
 msgstr ""
 
 #: assets/templates/radio.html:5
@@ -59,59 +138,207 @@ msgstr ""
 msgid "Flower"
 msgstr ""
 
+#: assets/js/controllers/controllers.js:9
+msgid "Flowers"
+msgstr ""
+
+#: assets/js/controllers/controllers.js:7
+msgid "GPIO"
+msgstr ""
+
+#: templates/content.html:73
+msgid "Hello {{ current_user.username }}!"
+msgstr ""
+
 #: templates/content.html:2
 msgid "HomeControl"
 msgstr ""
 
+#: assets/templates/admin/users.html:4
+msgid "Id"
+msgstr ""
+
+#: assets/js/controllers/controllers.js:22
+msgid "Login"
+msgstr ""
+
+#: assets/templates/user/user.html:5
+msgid "Logout"
+msgstr ""
+
+#: assets/templates/blog.html:24
 #: assets/templates/blog.html:59
 msgid "Mood"
 msgstr ""
 
+#: assets/templates/admin/sensors.html:19
+#: assets/templates/admin/users.html:5
 #: assets/templates/dashboard.html:42
 #: assets/templates/gpio.html:6
+#: assets/templates/radio.html:141
+#: assets/templates/radio.html:146
 #: assets/templates/radio.html:4
 msgid "Name"
+msgstr ""
+
+#: assets/templates/widgets/radio.html:2
+msgid "Off"
+msgstr ""
+
+#: assets/templates/widgets/radio.html:1
+msgid "On"
+msgstr ""
+
+#: assets/templates/user/login.html:23
+msgid "One Time Token"
+msgstr ""
+
+#: assets/templates/user/change_password.html:15
+#: assets/templates/user/change_password.html:20
+#: assets/templates/user/change_password.html:7
+#: assets/templates/user/login.html:16
+#: assets/templates/user/register.html:15
+msgid "Password"
+msgstr ""
+
+#: assets/js/controllers/todo.js:7
+msgid "Pending"
+msgstr ""
+
+#. radio pin
+#: assets/templates/radio.html:184
+msgid "Pin"
 msgstr ""
 
 #: templates/content.html:52
 msgid "Profile"
 msgstr ""
 
+#: assets/js/controllers/todo.js:8
+msgid "Progress"
+msgstr ""
+
+#: assets/templates/user/otp.html:4
+msgid "QR-code"
+msgstr ""
+
+#: assets/templates/radio.html:44
+msgid "Radio"
+msgstr ""
+
+#: assets/js/controllers/controllers.js:23
+#: assets/templates/user/register.html:18
+#: assets/templates/user/register.html:2
+msgid "Register"
+msgstr ""
+
+#: assets/js/controllers/radio.js:50
+msgid "Remove this Radio-Job?"
+msgstr ""
+
+#: assets/templates/user/otp.html:19
+msgid "Requet One Time Secret"
+msgstr ""
+
+#: assets/templates/admin/users.html:25
+#: assets/templates/admin/users.html:7
+msgid "Roles"
+msgstr ""
+
 #: assets/templates/dashboard.html:49
 msgid "Save"
 msgstr ""
 
-#: assets/templates/status.html:32
+#: templates/content.html:77
+msgid "Search..."
+msgstr ""
+
+#. otp
+#: assets/templates/user/otp.html:7
+msgid "Secret:"
+msgstr ""
+
+#: assets/templates/status.html:34
 msgid "Self update"
+msgstr ""
+
+#: assets/templates/user/login.html:30
+msgid "Send Token via Mail"
+msgstr ""
+
+#: assets/js/controllers/controllers.js:6
+#: assets/templates/admin/sensors.html:12
+msgid "Sensors"
+msgstr ""
+
+#: assets/js/controllers/controllers.js:13
+#: assets/templates/shopping_list.html:2
+msgid "Shopping List"
+msgstr ""
+
+#: assets/templates/user/login.html:24
+msgid "Sign in"
 msgstr ""
 
 #: templates/content.html:55
 msgid "Sign out"
 msgstr ""
 
-#: assets/templates/status.html:34
+#: assets/js/controllers/controllers.js:8
+#: assets/templates/widgets/speak.html:3
+msgid "Speak"
+msgstr ""
+
+#: assets/templates/espeak.html:53
+msgid "Speaker"
+msgstr ""
+
+#: assets/templates/espeak.html:38
+msgid "Speed"
+msgstr ""
+
+#: assets/templates/status.html:36
 msgid "Start self update in background"
 msgstr ""
 
+#: assets/js/controllers/controllers.js:16
+#: assets/templates/radio.html:106
+#: assets/templates/radio.html:45
+msgid "Status"
+msgstr ""
+
 #: assets/templates/blog.html:49
-#: assets/templates/espeak.html:37
+#: assets/templates/espeak.html:65
 msgid "Submit"
+msgstr ""
+
+#: assets/templates/radio.html:76
+msgid "Switch"
+msgstr ""
+
+#: assets/js/controllers/controllers.js:5
+msgid "Switches"
 msgstr ""
 
 #: assets/templates/webcam.html:12
 msgid "Take Photo"
 msgstr ""
 
+#: assets/templates/blog.html:34
 #: assets/templates/blog.html:60
 #: assets/templates/egg_timer.html:22
 #: assets/templates/egg_timer.html:3
-#: assets/templates/espeak.html:44
+#: assets/templates/espeak.html:3
+#: assets/templates/espeak.html:72
+#: assets/templates/widgets/speak.html:1
 msgid "Text"
 msgstr ""
 
 #: assets/templates/blog.html:58
 #: assets/templates/egg_timer.html:21
-#: assets/templates/espeak.html:43
+#: assets/templates/espeak.html:71
+#: assets/templates/radio.html:43
+#: assets/templates/radio.html:87
 msgid "Time"
 msgstr ""
 
@@ -119,15 +346,72 @@ msgstr ""
 msgid "Timer"
 msgstr ""
 
+#: assets/templates/sensor.html:38
+msgid "Timespan"
+msgstr ""
+
+#: assets/templates/todo.html:10
+msgid "Title"
+msgstr ""
+
+#: assets/js/controllers/controllers.js:12
+msgid "ToDo List"
+msgstr ""
+
+#: assets/templates/blog.html:5
+#: assets/templates/sensor.html:6
+msgid "Toggle navigation"
+msgstr ""
+
+#: assets/templates/user/otp.html:1
+#: assets/templates/user/user.html:11
+msgid "Two Factor Authentication"
+msgstr ""
+
+#: assets/templates/admin/sensors.html:18
 #: assets/templates/new_sensor.html:10
 msgid "Type"
 msgstr ""
 
+#: assets/templates/status.html:32
+msgid "Update"
+msgstr ""
+
+#: assets/templates/user/user.html:1
+msgid "User"
+msgstr ""
+
+#: assets/js/controllers/controllers.js:15
+msgid "User Settings"
+msgstr ""
+
+#: assets/templates/user/login.html:8
+#: assets/templates/user/register.html:7
+msgid "Username"
+msgstr ""
+
+#: assets/js/controllers/controllers.js:19
+msgid "Users"
+msgstr ""
+
+#: assets/templates/admin/sensors.html:20
 #: assets/templates/gpio.html:7
 msgid "Value"
 msgstr ""
 
+#: assets/templates/espeak.html:22
+msgid "Volume"
+msgstr ""
+
+#: assets/js/controllers/controllers.js:14
+msgid "Webcam"
+msgstr ""
+
 #: assets/templates/egg_timer.html:12
-#: assets/templates/espeak.html:12
+#: assets/templates/espeak.html:18
 msgid "e.g. 10s, 30m, 1h"
+msgstr ""
+
+#: assets/js/controllers/todo.js:35
+msgid "name can not be empty"
 msgstr ""

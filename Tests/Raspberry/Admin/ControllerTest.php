@@ -10,7 +10,7 @@ use BrainExe\Core\Authentication\DatabaseUserProvider;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Covers Raspberry\Admin\Controller
+ * @covers Raspberry\Admin\Controller
  */
 class ControllerTest extends TestCase
 {

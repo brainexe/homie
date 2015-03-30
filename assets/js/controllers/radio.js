@@ -40,14 +40,18 @@ App.ng.controller('RadioController', ['$scope', function ($scope) {
 	 * @param {Number} status
 	 */
 	$scope.setStatus = function (radio, status) {
-        return App.Radios.setRadio(radio.radioId, status);
+        App.Radios.setRadio(radio.radioId, status).then(function() {
+            radio.status = status;
+            console.log(radio)
+            $scope.$apply();
+        });
 	};
 
 	/**
 	 * @param {Number} radioId
 	 */
 	$scope.deleteRadio = function (radioId) {
-		if (!confirm(_('Remove this Radio-Job?'))) {
+		if (!confirm(gettext('Remove this Radio-Job?'))) {
 			return;
 		}
 

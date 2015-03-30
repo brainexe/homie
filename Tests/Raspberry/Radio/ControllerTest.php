@@ -15,7 +15,7 @@ use Raspberry\Radio\RadioJob;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 
 /**
- * @Covers Raspberry\Radio\Controller
+ * @covers Raspberry\Radio\Controller
  */
 class ControllerTest extends PHPUnit_Framework_TestCase
 {

@@ -7,7 +7,7 @@ use Raspberry\Sensors\SensorVO;
 use Raspberry\Sensors\Builder;
 
 /**
- * @Covers Raspberry\Sensors\Builder
+ * @covers Raspberry\Sensors\Builder
  */
 class BuilderTest extends PHPUnit_Framework_TestCase
 {

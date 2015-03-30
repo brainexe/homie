@@ -7,7 +7,7 @@ use Raspberry\TodoList\Builder;
 use Raspberry\TodoList\VO\TodoItemVO;
 
 /**
- * @Covers Raspberry\TodoList\Builder
+ * @covers Raspberry\TodoList\Builder
  */
 class BuilderTest extends TestCase
 {

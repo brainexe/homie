@@ -1,5 +1,5 @@
 
-App.ng.controller('MenuController', ['$scope', '$route', '$location', 'controllers', function ($scope, $route, $location, controllers) {
+App.ng.controller('MenuController', ['$scope', '$route', '$location', 'controllers', 'gettextCatalog', function ($scope, $route, $location, controllers, gettextCatalog) {
     $scope.controllers = controllers;
 
     $scope.$on('$routeChangeSuccess', function (event, current) {
@@ -15,6 +15,8 @@ App.ng.controller('MenuController', ['$scope', '$route', '$location', 'controlle
 			if (!item.name) {
 				return false;
 			}
+
+            item.name = gettextCatalog.getString(item.name);
 
 			if (!is_logged_in && !item.is_public) {
 				return false;

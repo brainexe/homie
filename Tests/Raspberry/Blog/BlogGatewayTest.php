@@ -10,7 +10,7 @@ use Raspberry\Blog\BlogGateway;
 use Raspberry\Blog\BlogPostVO;
 
 /**
- * @Covers Raspberry\Blog\BlogGateway
+ * @covers Raspberry\Blog\BlogGateway
  */
 class BlogGatewayTest extends PHPUnit_Framework_TestCase
 {

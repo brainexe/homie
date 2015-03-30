@@ -8,7 +8,7 @@ use Raspberry\Client\DummyClient;
 use Monolog\Logger;
 
 /**
- * @Covers Raspberry\Client\DummyClient
+ * @covers Raspberry\Client\DummyClient
  */
 class DummyClientTest extends PHPUnit_Framework_TestCase
 {

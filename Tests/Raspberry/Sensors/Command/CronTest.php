@@ -21,7 +21,7 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
- * @Covers Raspberry\Sensors\Command\Cron
+ * @covers Raspberry\Sensors\Command\Cron
  */
 class CronTest extends PHPUnit_Framework_TestCase
 {

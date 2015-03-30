@@ -11,7 +11,7 @@ use Raspberry\Dashboard\DashboardGateway;
 use Raspberry\Dashboard\DashboardVo;
 
 /**
- * @Covers Raspberry\Dashboard\DashboardGateway
+ * @covers Raspberry\Dashboard\DashboardGateway
  */
 class DashboardGatewayTest extends TestCase
 {

@@ -13,7 +13,7 @@ use Raspberry\Media\Sound;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 
 /**
- * @Covers Raspberry\EggTimer\EggTimerListener
+ * @covers Raspberry\EggTimer\EggTimerListener
  */
 class EggTimerListenerTest extends PHPUnit_Framework_TestCase
 {

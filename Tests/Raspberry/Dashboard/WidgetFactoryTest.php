@@ -9,7 +9,7 @@ use Raspberry\Dashboard\WidgetInterface;
 use Raspberry\Dashboard\Widgets\TimeWidget;
 
 /**
- * @Covers Raspberry\Dashboard\Dashboard
+ * @covers Raspberry\Dashboard\Dashboard
  */
 class WidgetFactoryTest extends PHPUnit_Framework_TestCase
 {

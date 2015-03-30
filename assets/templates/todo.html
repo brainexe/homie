@@ -7,13 +7,13 @@
                     ng-enter="addTodo()"
                     type="text"
                     class="form-control"
-                    placeholder="Title"
+                    placeholder="{{'Title'|translate}}"
             />
 			<textarea
                     ng-model="newDescription"
                     ng-enter="addTodo()"
                     class="form-control"
-                    placeholder="Description"
+                    placeholder="{{'Description'|translate}}"
                     >
             </textarea>
 			<input
@@ -27,7 +27,7 @@
                     close-text="Close"
                     ng-enter="addTodo()"
             />
-			<input type="submit" class="btn btn-primary" value="Add Task" />
+			<input type="submit" class="btn btn-primary" value="{{'Add Task'|translate}}" />
 		</form>
 		<div id="delete-div" ui-on-Drop="onDelete($data)" translate>
 			Drag Here to Delete
@@ -42,7 +42,8 @@
 	>
 		<h3>{{ status.name }}</h3>
 		<div
-				ng-repeat="item in status.tasks|orderBy:'name'" class="todo-task"
+				ng-repeat="item in status.tasks|orderBy:'name'"
+                class="todo-task"
 				ui-draggable="true"
 				drag="item"
 				on-drop-success="dropSuccessHandler($index, status.id, item.todoId, status.tasks)"

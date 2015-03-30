@@ -11,7 +11,7 @@ use Raspberry\Sensors\SensorGateway;
 use Raspberry\Sensors\SensorVO;
 
 /**
- * @Covers Raspberry\Sensors\SensorGateway
+ * @covers Raspberry\Sensors\SensorGateway
  */
 class SensorGatewayTest extends PHPUnit_Framework_TestCase
 {

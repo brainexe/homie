@@ -1,3 +1,16 @@
-<input ng-enter="speak(text)" type="text" placeholder="Text" ng-model="text" class="form-control"/>
+<input
+        ng-enter="speak(text)"
+        type="text"
+        placeholder="{{'Text'|translate}}"
+        ng-model="text"
+        class="form-control"
+/>
 
-<a ng-click="speak(text)" class="btn btn-warning">Speak</a>
+<a
+        ng-click="speak(text)"
+        ng-disabled="pending"
+        class="btn btn-warning"
+        translate
+>
+    Speak
+</a>

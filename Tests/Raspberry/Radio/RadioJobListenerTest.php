@@ -38,8 +38,8 @@ class RadioJobListenerTest extends PHPUnit_Framework_TestCase
     public function testHandleChangeEvent()
     {
         $radio = new RadioVO();
-        $radio->code = $code = 'code';
-        $radio->pin = $pin = 'pin';
+        $radio->code = 'code';
+        $radio->pin  = 'pin';
 
         $event = new RadioChangeEvent($radio, RadioChangeEvent::CHANGE_RADIO);
         $event->status = $status = 'status';
@@ -47,7 +47,7 @@ class RadioJobListenerTest extends PHPUnit_Framework_TestCase
         $this->controller
             ->expects($this->once())
             ->method('setStatus')
-            ->with($code, $pin, $status);
+            ->with($radio, $status);
 
         $this->subject->handleChangeEvent($event);
     }

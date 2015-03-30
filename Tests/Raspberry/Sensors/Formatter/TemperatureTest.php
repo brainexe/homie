@@ -6,7 +6,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Raspberry\Sensors\Formatter\Temperature;
 
 /**
- * @Covers Raspberry\Sensors\Formatter\Temperature
+ * @covers Raspberry\Sensors\Formatter\Temperature
  */
 class TemperatureTest extends TestCase
 {

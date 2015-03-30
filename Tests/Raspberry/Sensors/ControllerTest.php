@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 
 /**
- * @Covers Raspberry\Sensors\Controller
+ * @covers Raspberry\Sensors\Controller
  */
 class ControllerTest extends PHPUnit_Framework_TestCase
 {

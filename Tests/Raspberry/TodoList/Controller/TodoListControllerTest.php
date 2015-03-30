@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Covers Raspberry\TodoList\Controller\TodoListController
+ * @covers Raspberry\TodoList\Controller\TodoListController
  */
 class TodoListControllerTest extends TestCase
 {

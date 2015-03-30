@@ -14,7 +14,7 @@ use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Core\Util\IdGenerator;
 
 /**
- * @Covers Raspberry\Webcam\Controller
+ * @covers Raspberry\Webcam\Controller
  */
 class ControllerTest extends PHPUnit_Framework_TestCase
 {

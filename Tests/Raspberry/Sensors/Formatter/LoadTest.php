@@ -6,7 +6,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Raspberry\Sensors\Formatter\Load;
 
 /**
- * @Covers Raspberry\Sensors\Formatter\Barometer
+ * @covers Raspberry\Sensors\Formatter\Barometer
  */
 class LoadTest extends TestCase
 {

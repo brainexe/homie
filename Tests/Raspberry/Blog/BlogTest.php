@@ -13,7 +13,7 @@ use Raspberry\Blog\BlogPostVO;
 use Raspberry\Blog\Events\BlogEvent;
 
 /**
- * @Covers Raspberry\Blog\Blog
+ * @covers Raspberry\Blog\Blog
  */
 class BlogTest extends PHPUnit_Framework_TestCase
 {

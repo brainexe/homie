@@ -7,6 +7,7 @@ module.exports = function(grunt) {
                 files: {
                     'lang/template.pot': [
                         'assets/templates/*.html',
+                        'assets/templates/*/*.html',
                         'assets/js/*.js',
                         'assets/js/*/*.js',
                         'templates/*.html'

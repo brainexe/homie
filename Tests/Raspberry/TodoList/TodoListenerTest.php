@@ -11,7 +11,7 @@ use Raspberry\TodoList\TodoListEvent;
 use Raspberry\TodoList\VO\TodoItemVO;
 
 /**
- * @Covers Raspberry\TodoList\TodoListener
+ * @covers Raspberry\TodoList\TodoListener
  */
 class TodoListenerTest extends PHPUnit_Framework_TestCase
 {

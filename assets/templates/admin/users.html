@@ -1,10 +1,10 @@
 <table ng-if="users|notEmpty" class="table table-bordered table-striped table-hover">
     <thead>
         <tr>
-            <th width="30">Id</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Roles</th>
+            <th translate width="30">Id</th>
+            <th translate>Name</th>
+            <th translate>Email</th>
+            <th translate>Roles</th>
             <th><span class="glyphicon glyphicon-pencil"></span></th>
         </tr>
     </thead>
@@ -18,11 +18,11 @@
             </td>
             <td>
                 <span ng-if="!user.edit">{{ user.email }}</span>
-                <input ng-if="user.edit" ng-model="user.email" placeholder="Email"/>
+                <input ng-if="user.edit" ng-model="user.email" placeholder="{{'Email'|translate}}"/>
             </td>
             <td>
                 <span ng-if="!user.edit">{{ user.roles }}</span>
-                <input ng-if="user.edit" ng-model="user.roles" placeholder="Roles"/>
+                <input ng-if="user.edit" ng-model="user.roles" placeholder="{{'Roles'|translate}}"/>
             </td>
             <td>
                 <a ng-click="user.edit = !user.edit">

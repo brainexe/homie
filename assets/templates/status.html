@@ -23,11 +23,13 @@
 				<small>{{ job.event }}</small>
 			</th>
 			<th>{{ job.timestamp|timeAgo }}</th>
-			<td><a ng-click="deleteEvent(job.eventId)" class="glyphicon glyphicon-remove"></a></td>
+			<td>
+                <a ng-click="deleteEvent(job.eventId)" class="glyphicon glyphicon-remove"></a>
+            </td>
 		</tr>
 	</tbody>
 </table>
-<a class="btn btn-primary" ng-click="update()">Update</a><br />
+<a class="btn btn-primary" ng-click="update()" translate>Update</a><br />
 
 <h2 translate>Self update</h2>
 

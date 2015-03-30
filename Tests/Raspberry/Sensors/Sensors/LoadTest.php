@@ -8,7 +8,7 @@ use Raspberry\Sensors\Sensors\Load;
 use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 
 /**
- * @Covers Raspberry\Sensors\Sensors\Load
+ * @covers Raspberry\Sensors\Sensors\Load
  */
 class LoadTest extends PHPUnit_Framework_TestCase
 {

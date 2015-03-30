@@ -13,7 +13,7 @@ use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Finder\Tests\Iterator\Iterator;
 
 /**
- * @Covers Raspberry\Arduino\Serial
+ * @covers Raspberry\Arduino\Serial
  */
 class SerialTest extends TestCase
 {

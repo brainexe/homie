@@ -5,8 +5,6 @@ App.ng.controller('NewWidgetController', ['$scope', '$modalInstance', 'widgets',
     $scope.payload   = {};
 
     $scope.addWidget = function(dashboardId, widget) {
-        console.log(arguments);
-
         var payload = {
             type:         widget.widgetId,
             dashboard_id: dashboardId,

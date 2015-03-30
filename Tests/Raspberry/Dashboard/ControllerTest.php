@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Raspberry\Dashboard\Dashboard;
 
 /**
- * @Covers Raspberry\Dashboard\Controller
+ * @covers Raspberry\Dashboard\Controller
  */
 class ControllerTest extends PHPUnit_Framework_TestCase
 {

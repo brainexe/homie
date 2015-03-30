@@ -7,7 +7,7 @@ use Raspberry\Dashboard\Widgets\EggTimerWidget;
 use Raspberry\Dashboard\Widgets\WidgetMetadataVo;
 
 /**
- * @Covers Raspberry\Dashboard\Widgets\EggTimer
+ * @covers Raspberry\Dashboard\Widgets\EggTimer
  */
 class EggTimerWidgetTest extends TestCase
 {

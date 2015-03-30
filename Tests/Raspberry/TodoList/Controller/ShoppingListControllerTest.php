@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Covers Raspberry\TodoList\Controller\ShoppingListController
+ * @covers Raspberry\TodoList\Controller\ShoppingListController
  */
 class ShoppingListControllerTest extends TestCase
 {

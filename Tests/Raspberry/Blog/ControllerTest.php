@@ -13,7 +13,7 @@ use BrainExe\Core\Authentication\DatabaseUserProvider;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Covers Raspberry\Blog\Controller
+ * @covers Raspberry\Blog\Controller
  */
 class ControllerTest extends PHPUnit_Framework_TestCase
 {

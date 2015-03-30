@@ -9,7 +9,7 @@ use Raspberry\Arduino\Serial;
 use Raspberry\Arduino\SerialEvent;
 
 /**
- * @Covers Raspberry\Arduino\Listener
+ * @covers Raspberry\Arduino\Listener
  */
 class ListenerTest extends TestCase
 {

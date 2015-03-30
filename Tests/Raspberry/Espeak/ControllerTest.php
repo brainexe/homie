@@ -13,7 +13,7 @@ use BrainExe\Core\Util\TimeParser;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 
 /**
- * @Covers Raspberry\Espeak\Controller
+ * @covers Raspberry\Espeak\Controller
  */
 class ControllerTest extends TestCase
 {

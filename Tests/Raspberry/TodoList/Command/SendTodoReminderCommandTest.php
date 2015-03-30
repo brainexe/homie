@@ -10,7 +10,7 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
- * @Covers Raspberry\TodoList\Command\SendTodoReminderCommand
+ * @covers Raspberry\TodoList\Command\SendTodoReminderCommand
  */
 class SendTodoReminderCommandTest extends PHPUnit_Framework_TestCase
 {

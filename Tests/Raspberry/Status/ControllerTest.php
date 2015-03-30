@@ -11,7 +11,7 @@ use Raspberry\Status\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Covers Raspberry\Status\Controller
+ * @covers Raspberry\Status\Controller
  */
 class ControllerTest extends PHPUnit_Framework_TestCase
 {

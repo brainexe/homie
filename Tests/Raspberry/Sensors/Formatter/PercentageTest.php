@@ -6,7 +6,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Raspberry\Sensors\Formatter\Percentage;
 
 /**
- * @Covers Raspberry\Sensors\Formatter\Percentage
+ * @covers Raspberry\Sensors\Formatter\Percentage
  */
 class PercentageTest extends TestCase
 {

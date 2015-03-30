@@ -1,6 +1,6 @@
 
 App.Widgets.egg_timer = {
-    title: _('Egg Timer'),
+    title: gettext('Egg Timer'),
 
     init: function($scope) {
         $scope.times = [
@@ -16,7 +16,7 @@ App.Widgets.egg_timer = {
         };
 
         $scope.prompt = function() {
-            var time = prompt(_('Set Time'));
+            var time = prompt(gettext('Set Time'));
             App.EggTimer.setTimer(time);
         }
     },

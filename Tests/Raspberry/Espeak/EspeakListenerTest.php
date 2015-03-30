@@ -10,7 +10,7 @@ use Raspberry\Espeak\Espeak;
 use Raspberry\Espeak\EspeakVO;
 
 /**
- * @Covers Raspberry\Espeak\EspeakListener
+ * @covers Raspberry\Espeak\EspeakListener
  */
 class EspeakListenerTest extends PHPUnit_Framework_TestCase
 {

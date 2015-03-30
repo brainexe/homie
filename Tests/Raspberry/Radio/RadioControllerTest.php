@@ -6,9 +6,11 @@ use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Radio\RadioController;
 use Raspberry\Client\LocalClient;
+use Raspberry\Radio\RadioGateway;
+use Raspberry\Radio\VO\RadioVO;
 
 /**
- * @Covers Raspberry\Radio\RadioController
+ * @covers Raspberry\Radio\RadioController
  */
 class RadioControllerTest extends PHPUnit_Framework_TestCase
 {
@@ -28,17 +30,24 @@ class RadioControllerTest extends PHPUnit_Framework_TestCase
      */
     private $rcSwitchCommand;
 
+    /**
+     * @var RadioGateway|MockObject
+     */
+    private $gateway;
+
     public function setUp()
     {
         $this->rcSwitchCommand = '/opt/rc_switch';
-        $this->client = $this->getMock(LocalClient::class, [], [], '', false);
-        $this->subject = new RadioController($this->client, $this->rcSwitchCommand);
+        $this->client          = $this->getMock(LocalClient::class, [], [], '', false);
+        $this->gateway         = $this->getMock(RadioGateway::class, [], [], '', false);
+        $this->subject         = new RadioController($this->client, $this->gateway, $this->rcSwitchCommand);
     }
 
     public function testSetStatus()
     {
-        $code   = "0101";
-        $number = 2;
+        $radioVo = new RadioVO();
+        $radioVo->code = "0101";
+        $radioVo->pin  = 2;
         $status = 1;
 
         $this->client
@@ -46,6 +55,11 @@ class RadioControllerTest extends PHPUnit_Framework_TestCase
             ->method('execute')
             ->with('/opt/rc_switch 0101 2 1');
 
-        $this->subject->setStatus($code, $number, $status);
+        $this->client
+            ->expects($this->once())
+            ->method('execute')
+            ->with('/opt/rc_switch 0101 2 1');
+
+        $this->subject->setStatus($radioVo, $status);
     }
 }

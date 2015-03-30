@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Raspberry\Gpio\GpioManager;
 
 /**
- * @Covers Raspberry\Gpio\Controller
+ * @covers Raspberry\Gpio\Controller
  */
 class ControllerTest extends PHPUnit_Framework_TestCase
 {

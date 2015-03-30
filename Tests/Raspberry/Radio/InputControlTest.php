@@ -12,7 +12,7 @@ use Raspberry\Radio\Radios;
 use Raspberry\Radio\VO\RadioVO;
 
 /**
- * @Covers Raspberry\Radio\InputControl
+ * @covers Raspberry\Radio\InputControl
  */
 class InputControlTest extends TestCase
 {

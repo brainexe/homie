@@ -7,7 +7,7 @@ use PHPUnit_Framework_TestCase;
 use Raspberry\Node;
 
 /**
- * @Covers Raspberry\Node
+ * @covers Raspberry\Node
  */
 class NodeTest extends PHPUnit_Framework_TestCase
 {

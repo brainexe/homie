@@ -33,8 +33,8 @@
                 </li>
                 -->
                 <!-- User Account: style can be found in dropdown.less -->
-                <li class="dropdown user user-menu" >
-                    <a href="#/user/" class="dropdown-toggle" >
+                <li class="dropdown user user-menu" dropdown>
+                    <a href="#/user/" class="dropdown-toggle" dropdown-toggle>
                         <i class="glyphicon glyphicon-user"></i>
                         <span>{{ current_user.username }} <i class="caret"></i></span>
                     </a>
@@ -50,6 +50,14 @@
                         <li class="user-footer">
                             <div class="pull-left">
                                 <a href="#/user" class="btn btn-default btn-flat" translate>Profile</a>
+
+                                <a
+                                        ng-click="changeLanguage(lang)"
+                                        ng-repeat="(lang, lang_string) in languages"
+                                        class="btn btn-default btn-flat"
+                                >
+                                    {{lang}}
+                                </a>
                             </div>
                             <div class="pull-right">
                                 <a href="#/logout" class="btn btn-default btn-flat" translate>Sign out</a>
@@ -70,16 +78,16 @@
                     <div class="user_avatar img-circle"></div>
                 </div>
                 <div ng-if="isLoggedIn()" class="pull-left info">
-                    <p>Hello {{ current_user.username }}!</p>
+                    <p translate>Hello {{ current_user.username }}!</p>
                 </div>
                 <form action="#" method="get" class="sidebar-form">
                     <div class="input-group">
-                        <input type="text" ng-model="query" ng-keydown="search(query)" class="form-connsol" placeholder="Search..."/>
-							<span class="input-group-btn">
-								<button type="submit" name="seach" id="search-btn" class="btn btn-flat">
-                                    <i class="glyphicon glyphicon-search"></i>
-                                </button>
-							</span>
+                        <input type="text" ng-model="query" ng-keydown="search(query)" class="form-connsol" placeholder="{{'Search...'|translate}}"/>
+                        <span class="input-group-btn">
+                            <button type="submit" name="seach" id="search-btn" class="btn btn-flat">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </span>
                     </div>
                 </form>
                 <ul class="sidebar-menu" ng-controller="MenuController">

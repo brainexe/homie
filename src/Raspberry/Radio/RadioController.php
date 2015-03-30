@@ -5,6 +5,7 @@ namespace Raspberry\Radio;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use Raspberry\Client\ClientInterface;
+use Raspberry\Radio\VO\RadioVO;
 
 /**
  * @Service(public=false)
@@ -22,25 +23,41 @@ class RadioController
     private $rcSwitchCommand;
 
     /**
-     * @Inject({"@RaspberryClient", "%rc_switch.command%"})
+     * @var RadioGateway
+     */
+    private $gateway;
+
+    /**
+     * @Inject({"@RaspberryClient", "@RadioGateway", "%rc_switch.command%"})
      * @param ClientInterface $client
+     * @param RadioGateway $gateway
      * @param $rcSwitchCommand
      */
-    public function __construct(ClientInterface $client, $rcSwitchCommand)
+    public function __construct(ClientInterface $client, RadioGateway $gateway, $rcSwitchCommand)
     {
-        $this->client = $client;
+        $this->client          = $client;
         $this->rcSwitchCommand = $rcSwitchCommand;
+        $this->gateway         = $gateway;
     }
 
     /**
-     * @param string  $code
-     * @param integer $number
+     * @param RadioVO $radioVO
      * @param boolean $status
      */
-    public function setStatus($code, $number, $status)
+    public function setStatus(RadioVO $radioVO, $status)
     {
-        $command = sprintf('%s %s %d %d', $this->rcSwitchCommand, $code, $number, (int)$status);
+        $this->gateway->editRadio($radioVO);
+
+        $command = sprintf(
+            '%s %s %d %d',
+            $this->rcSwitchCommand,
+            $radioVO->code,
+            $radioVO->pin,
+            (int)$status
+        );
+        $radioVO->status = (bool)$status;
 
         $this->client->execute($command);
+
     }
 }

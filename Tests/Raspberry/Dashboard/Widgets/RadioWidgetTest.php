@@ -10,7 +10,7 @@ use Raspberry\Radio\Radios;
 use Raspberry\Radio\VO\RadioVO;
 
 /**
- * @Covers Raspberry\Dashboard\Widgets\RadioWidget
+ * @covers Raspberry\Dashboard\Widgets\RadioWidget
  */
 class RadioWidgetTest extends TestCase
 {

@@ -11,7 +11,7 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
- * @Covers Raspberry\Sensors\Command\CleanCron
+ * @covers Raspberry\Sensors\Command\CleanCron
  */
 class CleanCronTest extends PHPUnit_Framework_TestCase
 {
