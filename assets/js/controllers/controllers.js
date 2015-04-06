@@ -4,6 +4,7 @@ var controllers = [
     {controller:'DashboardController', name: gettext('Dashboard'), url: 'dashboard', icon:'th-large', templateUrl: asset('/templates/dashboard.html')},
     {controller:'RadioController', name: gettext('Switches'), url: 'radio', icon:'home', templateUrl: asset('/templates/radio.html')},
     {controller:'SensorController', name: gettext('Sensors'), url: 'sensor', icon:'stats', templateUrl: asset('/templates/sensor.html')},
+    {controller:'ExpressionController', name: gettext('Actions'), url: 'expression', icon:'link', templateUrl: asset('/templates/expression.html')},
     {controller:'GpioController', name: gettext('GPIO'), url: 'gpio', icon:'flash', templateUrl: asset('/templates/gpio.html')},
     {controller:'EspeakController', name: gettext('Speak'), url: 'speak', icon:'bullhorn', templateUrl: asset('/templates/espeak.html')},
     {controller:'FlowerController', name: gettext('Flowers'), url: 'flower', icon:'leaf', templateUrl: asset('/templates/flower.html')},

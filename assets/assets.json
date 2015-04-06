@@ -24,6 +24,7 @@
         "^bower_components\/angular\/angular.min.js",
         "^bower_components\/angular-route\/angular-route.min.js",
         "^bower_components\/angular-gettext\/dist\/angular-gettext.min.js",
+        "^bower_components\/allmighty-autocomplete\/script\/autocomplete.js",
         "^bower_components\/requirejs\/require.js",
         "^js\/vendor\/.*.js"
       ]
@@ -44,6 +45,7 @@
       "files": [
         "^bower_components\/bootstrap\/dist\/css\/bootstrap.min.css",
         "^bower_components\/rickshaw\/rickshaw.css",
+        "^bower_components\/allmighty-autocomplete\/style\/autocomplete.css",
         "^css\/.*.css"
       ]
     }

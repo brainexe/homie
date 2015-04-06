@@ -25,6 +25,7 @@
     "rickshaw": "1.5.*",
     "jquery": "2.1.*",
     "requirejs": "2.1.*",
-    "angular-gettext": "2.0.*"
+    "angular-gettext": "2.0.*",
+    "allmighty-autocomplete": "*"
   }
 }

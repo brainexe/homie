@@ -1,0 +1,91 @@
+
+<form style="width: 400px;" role="form">
+	<h2 translate>Expression</h2>
+    <div class="form-group">
+        <label for="expressionConditionField" translate>Condition</label>
+        <autocomplete
+            id="expressionConditionField"
+            ng-model="editExpression.condition"
+            attrInputClass="form-control"
+            on-type="autocompleteCondition"
+            ng-enter="saveExpression(editExpression)"
+            data="suggestionsCondion"
+            placeholder="{{'Condition'|translate}}"
+            required
+        </autocomplete>
+        <!--<input-->
+                <!--ng-enter="saveExpression(editExpression)"-->
+                <!--ng-model="editExpression.condition"-->
+                <!--class="form-control"-->
+                <!--autofocus-->
+    </div>
+
+    <div class="form-group">
+        <label translate>Actions</label>
+        {{suggestionsActions}}
+
+        <div ng-repeat="(key, action) in editExpression.actions">
+            <autocomplete
+                    <!--ng-model="editExpression.actions[key]"-->
+                    ng-model="action"
+                    attrInputClass="form-control"
+                    on-type="autocompleteAction"
+                    placeholder="{{'Action'|translate}}"
+                    required
+                    data="suggestionsActions"
+            ></autocomplete>
+        </div>
+    </div>
+
+	<button
+            class="btn btn-lg btn-primary btn-block"
+            ng-click="addAction(editExpression)"
+            type="button"
+            translate
+    >
+        Add Action
+    </button>
+
+	<button
+            class="btn btn-lg btn-primary btn-block"
+            ng-disabled="pending"
+            ng-click="save(editExpression)"
+            type="button"
+            translate
+    >
+        Save
+    </button>
+</form>
+
+<hr />
+<table ng-if="expressions|notEmpty" class="table table-bordered table-striped table-hover">
+	<thead>
+		<tr>
+            <th translate>Counter</th>
+			<th translate>Condition</th>
+			<th translate>Actions</th>
+			<th><span class="glyphicon glyphicon-edit"></span></th>
+			<th><span class="glyphicon glyphicon-remove"></span></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="(expressionId, expression) in expressions">
+			<td>{{ expression.counter }}</td>
+			<td>{{ expression.condition }}</td>
+			<td>
+                <ul>
+                    <li ng-repeat="action in expression.actions">{{ action }}</li>
+                </ul>
+			</td>
+			<td>
+				<a
+                        ng-click="edit(expression)"
+                        class="glyphicon glyphicon-edit cursor"
+                ></a>
+			</td>
+			<td>
+				<a ng-click="deleteExpression(expressionId)" class="glyphicon glyphicon-remove"></a>
+			</td>
+		</tr>
+	</tbody>
+</table>

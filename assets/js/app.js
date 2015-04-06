@@ -1,6 +1,7 @@
 "use strict";
 
 /**
+ * Pseudo function needed to mark asset links. during console assets:dump the links are replaced by hashed ones
  * @param {String} filename
  * @returns {String}
  */
@@ -8,14 +9,9 @@ function asset(filename) {
 	return filename;
 }
 
-/**
- * @param {String} string
- * @returns {String}
- */
-function _(string) {
-	return string;
-}
-var gettext = gettext || function(s){return s};
+var gettext = gettext || function(s) {
+	return s
+};
 
 /**
  * @returns String {string}
@@ -25,8 +21,7 @@ String.prototype.format = function () {
 	return this.replace(/{(\d+)}/g, function (match, number) {
 		return typeof args[number] != 'undefined'
 			? args[number]
-			: match
-			;
+			: match;
 	});
 };
 
@@ -36,6 +31,7 @@ var App = {
 
 	ng: angular.module('raspberry', [
 		'ngDragDrop',
+		'autocomplete',
         'ngRoute',
 		'ui.bootstrap',
 		'yaru22.angular-timeago',
