@@ -69,3 +69,7 @@
 .cursor {
     cursor: pointer;
 }
+
+.autocomplete ul {
+	padding-left: 0;
+}

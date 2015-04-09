@@ -2,7 +2,7 @@
 App.ng.controller('ExpressionController', ['$scope', function ($scope) {
 	$scope.action         = [];
 	$scope.expressions    = {};
-    $scope.editExpression = {};
+    $scope.editExpression = {actions:['']};
     $scope.eventNames     = [];
 
     var variables = [
@@ -10,20 +10,19 @@ App.ng.controller('ExpressionController', ['$scope', function ($scope) {
         'eventName'
     ];
 
-    var functions = [
-        'sprintf'
+    var actions = [
+        'input("say foo")',
+        'setProperty("test", eventNae)'
     ];
 
     $scope.suggestionsCondion = [];
-    $scope.suggestionsActions = ["1", "2"];
+    $scope.suggestionsActions = [];
 
     $scope.autocompleteAction = function(typed) {
-        console.log(typed)
         $scope.suggestionsActions = $scope.actions.map(function(regexp) {
-            //return "1sdf dsdsfnn" + ~~(Math.random() *10000);
-            return '"' + regexp + '"';
+            return '"' + regexp.substr(2, regexp.length - 4) + '"';
         });
-        console.log($scope.suggestionsActions)
+        $scope.suggestionsActions = $scope.suggestionsActions.concat(actions);
     };
 
     $scope.autocompleteCondition = function(typed){
@@ -42,13 +41,26 @@ App.ng.controller('ExpressionController', ['$scope', function ($scope) {
     $scope.save = function(expression) {
         $.post('/expressions/save/', expression, function(data) {
             $scope.expressions[data.expressionId] = data;
-            console.log(data);
+            $scope.$apply();
+        });
+    };
+
+    $scope.delete = function(expressionId) {
+        $.post('/expressions/delete/', {expressionId:expressionId}, function() {
+            delete $scope.expressions[expressionId];
             $scope.$apply();
         });
     };
 
     $scope.edit = function(expression) {
         $scope.editExpression = expression;
+    };
+
+    $scope.deleteAction = function(index) {
+        console.log($scope.editExpression.actions);
+        $scope.editExpression.actions.splice(index, 1);
+        console.log(index)
+        console.log($scope.editExpression.actions)
     };
 
     $scope.addAction = function(expression) {
