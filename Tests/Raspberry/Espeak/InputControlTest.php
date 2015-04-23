@@ -44,7 +44,7 @@ class InputControlTest extends TestCase
     public function testSay()
     {
         $inputEvent = new Event();
-        $inputEvent->match = 'text';
+        $inputEvent->matches = ['say', 'text'];
 
         $event = new EspeakEvent(new EspeakVO('text'));
 

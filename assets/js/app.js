@@ -34,8 +34,10 @@ var App = {
 		'autocomplete',
         'ngRoute',
 		'ui.bootstrap',
+		'ui.select',
 		'yaru22.angular-timeago',
-        'gettext'
+        'gettext',
+		'ngSanitize'
 	]).config(['$routeProvider', function ($routeProvider) {
         for (var i in controllers) {
             var metadata = controllers[i];

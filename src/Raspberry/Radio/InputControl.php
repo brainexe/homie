@@ -4,14 +4,14 @@ namespace Raspberry\Radio;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Traits\EventDispatcherTrait;
+use BrainExe\InputControl\Annotations\InputControlInterface;
 use BrainExe\InputControl\Event;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use BrainExe\InputControl\Annotations\InputControl as InputControlAnnotation;
 
 /**
  * @InputControlAnnotation(name="radio")
  */
-class InputControl implements EventSubscriberInterface
+class InputControl implements InputControlInterface
 {
 
     use EventDispatcherTrait;

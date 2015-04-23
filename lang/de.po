@@ -12,12 +12,12 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
 
-#: assets/templates/expression.html:30
+#: assets/templates/expression.html:25
 msgid "Action"
 msgstr "Aktion"
 
-#: assets/js/controllers/controllers.js:7 assets/templates/expression.html:24
-#: assets/templates/expression.html:63
+#: assets/js/controllers/controllers.js:7 assets/templates/expression.html:18
+#: assets/templates/expression.html:61
 msgid "Actions"
 msgstr "Aktionen"
 
@@ -26,10 +26,6 @@ msgstr "Aktionen"
 #: assets/templates/radio.html:205 assets/templates/shopping_list.html:24
 msgid "Add"
 msgstr "Hinzufgen"
-
-#: assets/templates/expression.html:37
-msgid "Add Action"
-msgstr "Aktion hinzufügen"
 
 #: assets/templates/blog.html:28
 msgid "Add Post"
@@ -86,11 +82,11 @@ msgid "Completed"
 msgstr "Abgeschlossen"
 
 #: assets/templates/expression.html:13 assets/templates/expression.html:5
-#: assets/templates/expression.html:62
+#: assets/templates/expression.html:60
 msgid "Condition"
 msgstr "Bedingung"
 
-#: assets/templates/expression.html:61
+#: assets/templates/expression.html:58
 msgid "Counter"
 msgstr "Zähler"
 
@@ -107,8 +103,8 @@ msgid "Delay"
 msgstr "Verzögerung"
 
 #: assets/templates/egg_timer.html:23 assets/templates/espeak.html:83
-#: assets/templates/radio.html:50 assets/templates/radio.html:8
-#: assets/templates/status.html:15
+#: assets/templates/expression.html:100 assets/templates/radio.html:50
+#: assets/templates/radio.html:8 assets/templates/status.html:15
 msgid "Delete"
 msgstr "Löschen"
 
@@ -189,6 +185,10 @@ msgstr "HomeControl"
 msgid "Id"
 msgstr "Id"
 
+#: assets/templates/expression.html:99
+msgid "Interval"
+msgstr "Intervall"
+
 #: assets/js/controllers/controllers.js:23
 msgid "Login"
 msgstr "Login"
@@ -208,6 +208,10 @@ msgstr "Stimmung"
 msgid "Name"
 msgstr "Name"
 
+#: assets/templates/expression.html:98
+msgid "Next Run"
+msgstr "Nächster Lauf"
+
 #: assets/templates/widgets/radio.html:2
 msgid "Off"
 msgstr "Aus"
@@ -226,6 +230,10 @@ msgstr "Einmal-Token"
 #: assets/templates/user/login.html:16 assets/templates/user/register.html:15
 msgid "Password"
 msgstr "Passwort"
+
+#: assets/templates/expression.html:59
+msgid "Payload"
+msgstr "Payload"
 
 #: assets/js/controllers/todo.js:7
 msgid "Pending"
@@ -270,7 +278,7 @@ msgstr "One Time Secret anfordern"
 msgid "Roles"
 msgstr "Rollen"
 
-#: assets/templates/dashboard.html:49 assets/templates/expression.html:46
+#: assets/templates/dashboard.html:49 assets/templates/expression.html:43
 msgid "Save"
 msgstr "Speichern"
 
@@ -368,6 +376,10 @@ msgstr "Timer"
 msgid "Timespan"
 msgstr "Zeitspanne"
 
+#: assets/templates/expression.html:97
+msgid "Timing-ID"
+msgstr "Timing-ID"
+
 #: assets/templates/todo.html:10
 msgid "Title"
 msgstr "Titel"
@@ -427,6 +439,9 @@ msgstr "z.B. 10s, 30m, 1h"
 #: assets/js/controllers/todo.js:35
 msgid "name can not be empty"
 msgstr "Der Name darf nicht leer sein"
+
+#~ msgid "Add Action"
+#~ msgstr "Aktion hinzufügen"
 
 #~ msgid "Home Control"
 #~ msgstr "HomeControl"

@@ -78,12 +78,12 @@
 				<div class="col-lg-3">
 					<div class="input-group">
 						<div class="input-group-addon" translate>Switch</div>
-						<select
-                                ng-model="new_job.radioId"
-                                required
-                                class="form-control"
-                                ng-options="radio_id as radio.name for (radio_id, radio) in radios">
-                        </select>
+						<ui-select ng-model="new_job.radioId">
+							<ui-select-match placeholder="Select Radio...">{{$select.selected.name}}</ui-select-match>
+							<ui-select-choices repeat="radio.radioId as radio in radios|toArray|propsFilter:{name: $select.search, description: $select.search}">
+								<span ng-bind-html="radio.name|highlight:$select.search"></span> d<span class="small" ng-bind-html="radio.description|highlight:$select.search"></span>
+							</ui-select-choices>
+						</ui-select>
 					</div>
 				</div>
 				<div class="col-lg-3">

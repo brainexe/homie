@@ -1,9 +1,10 @@
 
 App.ng.controller('ExpressionController', ['$scope', function ($scope) {
-	$scope.action         = [];
+	$scope.input_control  = [];
 	$scope.expressions    = {};
     $scope.editExpression = {actions:['']};
     $scope.eventNames     = [];
+    $scope.timers         = [];
 
     var variables = [
         'event',
@@ -19,22 +20,34 @@ App.ng.controller('ExpressionController', ['$scope', function ($scope) {
     $scope.suggestionsActions = [];
 
     $scope.autocompleteAction = function(typed) {
-        $scope.suggestionsActions = $scope.actions.map(function(regexp) {
-            return '"' + regexp.substr(2, regexp.length - 4) + '"';
-        });
-        $scope.suggestionsActions = $scope.suggestionsActions.concat(actions);
+        $scope.suggestionsActions = [].concat(
+            $scope.input_control.map(function(regexp) {
+                return 'input("' + regexp.substr(2, regexp.length - 4) + '")';
+            }),
+            Object.keys($scope.timers).map(function(key) {
+                var timer = $scope.timers[key];
+                return 'isTiming("' + timer.event.event.timingId + '")';
+            })
+        );
     };
 
-    $scope.autocompleteCondition = function(typed){
-        $scope.suggestionsCondion = $scope.eventNames.map(function(eventname) {
-            return 'eventName == "' + eventname + '"';
-        });
+    $scope.autocompleteCondition = function(typed) {
+        $scope.suggestionsCondion = [].concat(
+            $scope.eventNames.map(function(eventname) {
+                return 'eventName == "' + eventname + '"';
+            }),
+            Object.keys($scope.timers).map(function(key) {
+                var timer = $scope.timers[key];
+                return 'isTiming("' + timer.event.event.timingId + '")';
+            })
+        );
     };
 
     $.get('/expressions/', function(data) {
-		$scope.expressions = data.expressions;
-		$scope.actions     = data.actions;
-		$scope.eventNames  = data.events;
+		$scope.expressions   = data.expressions;
+		$scope.input_control = data.input_control;
+		$scope.eventNames    = data.events;
+		$scope.timers        = data.timers;
 		$scope.$apply();
 	});
 
@@ -57,10 +70,7 @@ App.ng.controller('ExpressionController', ['$scope', function ($scope) {
     };
 
     $scope.deleteAction = function(index) {
-        console.log($scope.editExpression.actions);
         $scope.editExpression.actions.splice(index, 1);
-        console.log(index)
-        console.log($scope.editExpression.actions)
     };
 
     $scope.addAction = function(expression) {
@@ -69,5 +79,12 @@ App.ng.controller('ExpressionController', ['$scope', function ($scope) {
             expression.actions.push('');
         }
     };
+
+    $scope.addTimer = function(timer) {
+        $.post('/expressions/timer/', timer, function(data) {
+            $scope.timers = data.timers;
+            $scope.$apply();
+        });
+    }
 
 }]);

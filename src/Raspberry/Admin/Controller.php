@@ -7,6 +7,7 @@ use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Role;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Authentication\DatabaseUserProvider;
+use BrainExe\Core\Authentication\UserVO;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -51,7 +52,11 @@ class Controller
         }
 
         return [
-            'users' => $users
+            'users' => $users,
+            'rights' => [
+                UserVO::ROLE_ADMIN,
+                UserVO::ROLE_USER,
+            ]
         ];
     }
 
@@ -63,9 +68,10 @@ class Controller
      */
     public function save(Request $request)
     {
-        $userId = $request->request->getInt('userId');
-        $email  = $request->request->get('email');
-        $roles  = $request->request->get('roles');
+        $userId    = $request->request->getInt('userId');
+        $email     = $request->request->get('email');
+        $roles     = $request->request->get('roles');
+        $password  = $request->request->get('password');
 
         $user = $this->userProvider->loadUserById($userId);
 
@@ -79,6 +85,10 @@ class Controller
             $this->userProvider->setUserProperty($user, 'roles');
         }
 
+        if ($password) {
+            $this->userProvider->changePassword($user, $password);
+        }
+
         return $user;
     }
 
@@ -87,11 +97,12 @@ class Controller
      * @return Response
      * @Route("/admin/user/delete/", name="admin.user.delete")
      * @Role("admin")
-     * @todo
      */
     public function delete(Request $request)
     {
-        unset($request);
+        $userId = $request->request->getInt('userId');
+
+        $this->userProvider->deleteUser($userId);
 
         return true;
     }

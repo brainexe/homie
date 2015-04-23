@@ -4,13 +4,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 
-#: assets/templates/expression.html:30
+#: assets/templates/expression.html:25
 msgid "Action"
 msgstr ""
 
 #: assets/js/controllers/controllers.js:7
-#: assets/templates/expression.html:24
-#: assets/templates/expression.html:63
+#: assets/templates/expression.html:18
+#: assets/templates/expression.html:61
 msgid "Actions"
 msgstr ""
 
@@ -20,10 +20,6 @@ msgstr ""
 #: assets/templates/radio.html:205
 #: assets/templates/shopping_list.html:24
 msgid "Add"
-msgstr ""
-
-#: assets/templates/expression.html:37
-msgid "Add Action"
 msgstr ""
 
 #: assets/templates/blog.html:28
@@ -82,11 +78,11 @@ msgstr ""
 
 #: assets/templates/expression.html:13
 #: assets/templates/expression.html:5
-#: assets/templates/expression.html:62
+#: assets/templates/expression.html:60
 msgid "Condition"
 msgstr ""
 
-#: assets/templates/expression.html:61
+#: assets/templates/expression.html:58
 msgid "Counter"
 msgstr ""
 
@@ -104,6 +100,7 @@ msgstr ""
 
 #: assets/templates/egg_timer.html:23
 #: assets/templates/espeak.html:83
+#: assets/templates/expression.html:100
 #: assets/templates/radio.html:50
 #: assets/templates/radio.html:8
 #: assets/templates/status.html:15
@@ -190,6 +187,10 @@ msgstr ""
 msgid "Id"
 msgstr ""
 
+#: assets/templates/expression.html:99
+msgid "Interval"
+msgstr ""
+
 #: assets/js/controllers/controllers.js:23
 msgid "Login"
 msgstr ""
@@ -213,6 +214,10 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
+#: assets/templates/expression.html:98
+msgid "Next Run"
+msgstr ""
+
 #: assets/templates/widgets/radio.html:2
 msgid "Off"
 msgstr ""
@@ -231,6 +236,10 @@ msgstr ""
 #: assets/templates/user/login.html:16
 #: assets/templates/user/register.html:15
 msgid "Password"
+msgstr ""
+
+#: assets/templates/expression.html:59
+msgid "Payload"
 msgstr ""
 
 #: assets/js/controllers/todo.js:7
@@ -278,7 +287,7 @@ msgid "Roles"
 msgstr ""
 
 #: assets/templates/dashboard.html:49
-#: assets/templates/expression.html:46
+#: assets/templates/expression.html:43
 msgid "Save"
 msgstr ""
 
@@ -381,6 +390,10 @@ msgstr ""
 
 #: assets/templates/sensor.html:38
 msgid "Timespan"
+msgstr ""
+
+#: assets/templates/expression.html:97
+msgid "Timing-ID"
 msgstr ""
 
 #: assets/templates/todo.html:10

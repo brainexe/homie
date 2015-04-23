@@ -13,8 +13,9 @@ App.ng.controller('WebcamController', ['$scope', function($scope) {
 
 	$scope.removeShot = function(index) {
 		var shot = $scope.shots[index];
-		$.post('/webcam/delete/', {id:shot.id}, function() {
-			delete $scope.shots[index];
+		shot.deleting = true;
+		$.post('/webcam/delete/', {shotId:shot.webPath}, function() {
+			$scope.shots.slice(index, 1);
 			$scope.$apply();
 		});
 	};

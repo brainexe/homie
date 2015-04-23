@@ -4,6 +4,7 @@
             <th translate width="30">Id</th>
             <th translate>Name</th>
             <th translate>Email</th>
+            <th translate>Password</th>
             <th translate>Roles</th>
             <th><span class="glyphicon glyphicon-pencil"></span></th>
         </tr>
@@ -21,8 +22,15 @@
                 <input ng-if="user.edit" ng-model="user.email" placeholder="{{'Email'|translate}}"/>
             </td>
             <td>
-                <span ng-if="!user.edit">{{ user.roles }}</span>
-                <input ng-if="user.edit" ng-model="user.roles" placeholder="{{'Roles'|translate}}"/>
+                <a ng-click="newPassword(user)" class="glyphicon glyphicon-lock"></a>
+            </td>
+            <td>
+                <ui-select multiple ng-disabled="!user.edit" ng-model="user.roles">
+                    <ui-select-match placeholder="Select role...">{{$item}}</ui-select-match>
+                    <ui-select-choices repeat="role in rights">
+                        <div ng-bind="role"></div>
+                    </ui-select-choices>
+                </ui-select>
             </td>
             <td>
                 <a ng-click="user.edit = !user.edit">

@@ -9,8 +9,10 @@ use BrainExe\Core\Controller\ControllerInterface;
 use BrainExe\Core\Traits\AddFlashTrait;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Traits\IdGeneratorTrait;
+use League\Flysystem\Filesystem;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @ControllerAnnotation("WebcamController")
@@ -28,12 +30,19 @@ class Controller implements ControllerInterface
     private $webcam;
 
     /**
-     * @Inject("@Webcam")
-     * @param Webcam $webcam
+     * @var Filesystem
      */
-    public function __construct(Webcam $webcam)
+    private $filesystem;
+
+    /**
+     * @Inject({"@Webcam", "@RemoteFilesystem"})
+     * @param Webcam $webcam
+     * @param Filesystem $filesystem
+     */
+    public function __construct(Webcam $webcam, Filesystem $filesystem)
     {
         $this->webcam = $webcam;
+        $this->filesystem = $filesystem;
     }
 
     /**
@@ -73,10 +82,30 @@ class Controller implements ControllerInterface
      */
     public function delete(Request $request)
     {
-        $shotId = $request->request->get('shot_id');
+        $filename = $request->request->get('shotId');
 
-        $this->webcam->delete($shotId);
+        $this->webcam->delete($filename);
 
         return true;
     }
+
+    /**
+     * @Route("/webcam/image/", name="webcam.image")
+     * @param Request $request
+     * @return boolean
+     */
+    public function getImage(Request $request)
+    {
+        $file   = $request->query->get('file');
+        $stream = $this->filesystem->readStream($file);
+        $mime   = $this->filesystem->getMimetype($file);
+
+        $response = new Response();
+        $response->setContent(stream_get_contents($stream));
+        $response->headers->set('Content-Type', $mime);
+        $response->headers->set('Cache-Control', 'max-age=86400, must-revalidate');
+
+        return $response;
+    }
+
 }

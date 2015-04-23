@@ -3,6 +3,7 @@
 namespace Tests\Raspberry\Webcam\Webcam;
 
 use ArrayIterator;
+use BrainExe\Core\Util\FileUploader;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Webcam\Webcam;
@@ -44,14 +45,25 @@ class WebcamTest extends PHPUnit_Framework_TestCase
      */
     private $mockEventDispatcher;
 
+    /**
+     * @var FileUploader|MockObject
+     */
+    private $mockFileUploader;
+
     public function setUp()
     {
-        $this->mockFilesystem = $this->getMock(Filesystem::class, [], [], '', false);
-        $this->mockProcessBuilder = $this->getMock(ProcessBuilder::class, [], [], '', false);
-        $this->mockFinder = $this->getMock(Finder::class, [], [], '', false);
+        $this->mockFilesystem      = $this->getMock(Filesystem::class, [], [], '', false);
+        $this->mockProcessBuilder  = $this->getMock(ProcessBuilder::class, [], [], '', false);
+        $this->mockFinder          = $this->getMock(Finder::class, [], [], '', false);
         $this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->mockFileUploader     = $this->getMock(FileUploader::class, [], [], '', false);
 
-        $this->subject = new Webcam($this->mockFilesystem, $this->mockProcessBuilder, $this->mockFinder);
+        $this->subject = new Webcam(
+            $this->mockFilesystem,
+            $this->mockProcessBuilder,
+            $this->mockFinder,
+            $this->mockFileUploader
+        );
         $this->subject->setEventDispatcher($this->mockEventDispatcher);
     }
 
@@ -59,10 +71,10 @@ class WebcamTest extends PHPUnit_Framework_TestCase
     {
         $directory = ROOT . Webcam::ROOT;
 
-        $filePath = 'file path';
+        $filePath         = 'file path';
         $relativeFilePath = 'relative path name';
-        $fileCTime = 10;
-        $fileBaseName = 'relative.ext';
+        $fileCTime        = 10;
+        $fileBaseName     = 'relative.ext';
 
         $file = $this->getMock(SplFileInfo::class, [], [], '', false);
 
@@ -166,6 +178,10 @@ class WebcamTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('dispatchEvent')
             ->with($event);
+
+        $this->mockFileUploader
+            ->expects($this->once())
+            ->method('upload');
 
         $this->subject->takePhoto($name);
     }

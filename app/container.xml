@@ -4,6 +4,7 @@
         <parameter key="logger.sensor.log">logs/sensor.log</parameter>
 		<parameter key="application.name">raspberry</parameter>
 		<parameter key="application.registration_enabled">false</parameter>
+        <parameter key="application.allowed_private_ips">true</parameter>
 
 		<parameter key="delete_sensor_values" type="collection">
 			<parameter type="collection">
@@ -15,9 +16,70 @@
 				<parameter key="percentage">50</parameter>
 			</parameter>
 		</parameter>
-    </parameters>
 
+        <parameter key="remote_filesystem.url"></parameter>
+        <parameter key="remote_filesystem.username"></parameter>
+        <parameter key="remote_filesystem.password"></parameter>
+    </parameters>
 	<services>
 		<service id="RaspberryClient" alias="RaspberryClient.Local" public="false"/>
-	</services>
+
+        <service id="RemoteFilesystem" class="League\Flysystem\Filesystem" public="true">
+            <argument type="service">
+                <service class="League\Flysystem\WebDAV\WebDAVAdapter">
+                    <argument type="service">
+                        <service class="Sabre\DAV\Client">
+                            <argument type="collection">
+                                <argument key="userName">%filesystem.remote.username%</argument>
+                                <argument key="password">%filesystem.remote.password%</argument>
+                                <argument key="baseUri">%filesystem.remote.url%</argument>
+                                <argument key="authType" type="constant">Sabre\DAV\Client::AUTH_BASIC</argument>
+                            </argument>
+                            <call method="addCurlSetting">
+                                <argument type="constant">CURLOPT_SSL_VERIFYHOST</argument>
+                                <argument>0</argument>
+                            </call>
+                            <call method="addCurlSetting">
+                                <argument type="constant">CURLOPT_SSL_VERIFYPEER</argument>
+                                <argument>0</argument>
+                            </call>
+                        </service>
+                    </argument>
+                </service>
+            </argument>
+        </service>
+        <service id="CachedRemoteFilesystem" class="League\Flysystem\Filesystem" public="true">
+            <argument type="service">
+                <service class="League\Flysystem\Cached\CachedAdapter">
+                    <argument type="service">
+                        <service class="League\Flysystem\WebDAV\WebDAVAdapter">
+                            <argument type="service">
+                                <service class="Sabre\DAV\Client">
+                                    <argument type="collection">
+                                        <argument key="userName">%filesystem.remote.username%</argument>
+                                        <argument key="password">%filesystem.remote.password%</argument>
+                                        <argument key="baseUri">%filesystem.remote.url%</argument>
+                                        <argument key="authType" type="constant">Sabre\DAV\Client::AUTH_BASIC</argument>
+                                    </argument>
+                                    <call method="addCurlSetting">
+                                        <argument type="constant">CURLOPT_SSL_VERIFYHOST</argument>
+                                        <argument>0</argument>
+                                    </call>
+                                    <call method="addCurlSetting">
+                                        <argument type="constant">CURLOPT_SSL_VERIFYPEER</argument>
+                                        <argument>0</argument>
+                                    </call>
+                                </service>
+                            </argument>
+                        </service>
+                    </argument>
+                    <argument type="service">
+                        <service class="League\Flysystem\Cached\Storage\Predis">
+                            <argument type="service" id="redis"></argument>
+                        </service>
+                    </argument>
+                </service>
+            </argument>
+        </service>
+    </services>
 </container>

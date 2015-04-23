@@ -32,7 +32,7 @@ class WebcamListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-        WebcamEvent::TAKE_PHOTO => 'handleWebcamEvent'
+            WebcamEvent::TAKE_PHOTO => 'handleWebcamEvent'
         ];
     }
 

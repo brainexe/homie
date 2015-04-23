@@ -23,7 +23,7 @@ class InputControl implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            '/^sensor (\d+)$/i' => 'espeakSensor'
+            '/^sensor say (\d+)$/i' => 'espeakSensor'
         ];
     }
 
@@ -34,6 +34,7 @@ class InputControl implements EventSubscriberInterface
     {
         $sensorId = $event->match;
 
+        // todo fetch value
         $event = new EspeakEvent(new EspeakVO($sensorId));
 
         $this->dispatchEvent($event);

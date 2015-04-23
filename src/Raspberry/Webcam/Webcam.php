@@ -5,9 +5,7 @@ namespace Raspberry\Webcam;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\EventDispatcherTrait;
-use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
+use League\Flysystem\Filesystem;
 use Symfony\Component\Process\ProcessBuilder;
 
 /**
@@ -16,7 +14,7 @@ use Symfony\Component\Process\ProcessBuilder;
 class Webcam
 {
 
-    const ROOT       = 'web/static/webcam/';
+    const ROOT       = 'Webcam/';
     const EXTENSION  = 'jpg';
     const TIMEOUT    = 10000;
     const EXECUTABLE = 'fswebcam';
@@ -24,34 +22,26 @@ class Webcam
     use EventDispatcherTrait;
 
     /**
-     * @var Filesystem
-     */
-    private $fileSystem;
-
-    /**
      * @var ProcessBuilder
      */
     private $processBuilder;
 
     /**
-     * @var Finder
+     * @var Filesystem
      */
-    private $finder;
+    private $remoteFilesystem;
 
     /**
-     * @Inject({"@Filesystem", "@ProcessBuilder", "@Finder"})
-     * @param Filesystem $filesystem
+     * @Inject({"@ProcessBuilder", "@RemoteFilesystem"})
      * @param ProcessBuilder $processBuilder
-     * @param Finder $finder
+     * @param Filesystem $fileUploader
      */
     public function __construct(
-        Filesystem $filesystem,
         ProcessBuilder $processBuilder,
-        Finder $finder
+        Filesystem $fileUploader
     ) {
-        $this->fileSystem     = $filesystem;
-        $this->processBuilder = $processBuilder;
-        $this->finder         = $finder;
+        $this->processBuilder   = $processBuilder;
+        $this->remoteFilesystem = $fileUploader;
     }
 
     /**
@@ -59,29 +49,16 @@ class Webcam
      */
     public function getPhotos()
     {
-        $directory = ROOT . self::ROOT;
-        if (!$this->fileSystem->exists($directory)) {
-            $this->fileSystem->mkdir($directory, 0777);
-        }
-
-        $this->finder
-            ->files()
-            ->in($directory)
-            ->name('*.jpg')
-            ->sortByName();
+        $files = $this->remoteFilesystem->listContents('/Webcam/', true);
 
         $vos = [];
-        foreach ($this->finder as $file) {
-            /** @var SplFileInfo $file */
-            $filePath = $file->getPath();
-            $relativePathName = $file->getRelativePathname();
-
+        foreach ($files as $file) {
             $webcamVo = $vos[]   = new WebcamVO();
-            $webcamVo->filePath  = $filePath;
-            $webcamVo->name      = $relativePathName;
-            $webcamVo->webcamId  = $file->getBasename();
-            $webcamVo->webPath   = sprintf('%s%s', substr(self::ROOT, 4), $webcamVo->name);
-            $webcamVo->timestamp = $file->getCTime();
+            $webcamVo->filePath  = $file['path'];
+            $webcamVo->name      = $file['basename'];
+            $webcamVo->webcamId  = $file['basename'];
+            $webcamVo->webPath   = sprintf('%s%s', self::ROOT, $webcamVo->name);
+            $webcamVo->timestamp = isset($file['timestamp']) ? $file['timestamp'] : null;
         }
 
         return $vos;
@@ -94,8 +71,9 @@ class Webcam
     {
         $path = $this->getFilename($name);
 
+        $temp = tempnam(sys_get_temp_dir(), 'webcam');
         $process = $this->processBuilder
-            ->setArguments([self::EXECUTABLE, '-d', '/dev/video0', $path])
+            ->setArguments([self::EXECUTABLE, '-d', '/dev/video0', $temp])
             ->setTimeout(self::TIMEOUT)
             ->getProcess();
 
@@ -103,16 +81,18 @@ class Webcam
 
         $event = new WebcamEvent($name, WebcamEvent::TOOK_PHOTO);
         $this->dispatchEvent($event);
+
+        $this->remoteFilesystem->writeStream(self::ROOT . basename($path), fopen($temp, 'r'));
+
+        unlink($temp);
     }
 
     /**
-     * @param string $shotId
+     * @param string $filename
      */
-    public function delete($shotId)
+    public function delete($filename)
     {
-        $filename = $this->getFilename($shotId);
-
-        $this->fileSystem->remove($filename);
+        $this->remoteFilesystem->delete($filename);
     }
 
     /**

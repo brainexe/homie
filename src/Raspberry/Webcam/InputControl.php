@@ -1,14 +1,14 @@
 <?php
 
-namespace Raspberry\Espeak;
+namespace Raspberry\Webcam;
 
 use BrainExe\Core\Traits\EventDispatcherTrait;
-use BrainExe\InputControl\Annotations\InputControl as InputControlAnnotation;
 use BrainExe\InputControl\Annotations\InputControlInterface;
 use BrainExe\InputControl\Event;
+use BrainExe\InputControl\Annotations\InputControl as InputControlAnnotation;
 
 /**
- * @InputControlAnnotation("InputControl.espeak")
+ * @InputControlAnnotation(name="webcam")
  */
 class InputControl implements InputControlInterface
 {
@@ -21,17 +21,18 @@ class InputControl implements InputControlInterface
     public static function getSubscribedEvents()
     {
         return [
-            '/^(say|speak) (.*)$/' => 'say'
+            '/^webcam$/i' => 'takeShot'
         ];
     }
 
     /**
      * @param Event $event
      */
-    public function say(Event $event)
+    public function takeShot(Event $event)
     {
-        $event = new EspeakEvent(new EspeakVO($event->matches[1]));
+        $name  = microtime(true);
+        $event = new WebcamEvent($name, WebcamEvent::TAKE_PHOTO);
 
-        $this->dispatchEvent($event);
+        $this->dispatchInBackground($event);
     }
 }

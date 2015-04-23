@@ -36,16 +36,12 @@
             autofocus
     >
 
-	<select ng-model="post.mood" ng-click="addEnter(post)" class="form-control">
-		<option
-                class="blog_mood blog_mood_{{ newMood }}"
-                ng-enter="addPost(post)"
-                value="{{ newMood }}"
-                ng-repeat="newMood in [1,2,3,4,5,6,6,7,8,9,10] track by $index"
-        >
-           {{ newMood }}/10
-        </option>
-	</select>
+	<ui-select ng-model="post.mood" ng-enter="addPost(post)">
+		<ui-select-match placeholder="Select role...">{{$select.selected}}</ui-select-match>
+		<ui-select-choices repeat="newMood in [1,2,3,4,5,6,6,7,8,9,10] track by $index">
+			<span class="blog_mood blog_mood_{{ newMood }}">{{ newMood }}/10</span>
+		</ui-select-choices>
+	</ui-select>
 	<button
             class="btn btn-lg btn-primary btn-block"
             ng-disabled="pending"
