@@ -15,12 +15,6 @@
       "Raspberry": "src/"
     }
   },
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "http://satis.mdoetsch.de"
-    }
-  ],
   "require": {
     "brainexe/core": "dev-master",
     "brainexe/template": "dev-master",
