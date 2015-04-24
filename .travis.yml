@@ -9,4 +9,4 @@ before_install:
   - composer update --prefer-dist
 
 script:
-  - echo "OK"
+  - phpunit .
