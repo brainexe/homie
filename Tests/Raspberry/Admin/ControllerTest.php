@@ -69,6 +69,10 @@ class ControllerTest extends TestCase
                     'avatar' => 'mockAvatar'
                 ]
             ],
+            'rights' => [
+                UserVO::ROLE_ADMIN,
+                UserVO::ROLE_USER,
+            ]
         ];
 
         $this->assertEquals($expectedResult, $actualResult);

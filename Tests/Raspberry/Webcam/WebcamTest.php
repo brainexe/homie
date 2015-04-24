@@ -4,14 +4,13 @@ namespace Tests\Raspberry\Webcam\Webcam;
 
 use ArrayIterator;
 use BrainExe\Core\Util\FileUploader;
+use League\Flysystem\Filesystem;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Webcam\Webcam;
 use Raspberry\Webcam\WebcamEvent;
 use Raspberry\Webcam\WebcamVO;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\SplFileInfo;
-
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 use Symfony\Component\Finder\Finder;
@@ -36,33 +35,19 @@ class WebcamTest extends PHPUnit_Framework_TestCase
     private $mockProcessBuilder;
 
     /**
-     * @var Finder|MockObject
-     */
-    private $mockFinder;
-
-    /**
      * @var EventDispatcher|MockObject
      */
     private $mockEventDispatcher;
-
-    /**
-     * @var FileUploader|MockObject
-     */
-    private $mockFileUploader;
 
     public function setUp()
     {
         $this->mockFilesystem      = $this->getMock(Filesystem::class, [], [], '', false);
         $this->mockProcessBuilder  = $this->getMock(ProcessBuilder::class, [], [], '', false);
-        $this->mockFinder          = $this->getMock(Finder::class, [], [], '', false);
         $this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
-        $this->mockFileUploader     = $this->getMock(FileUploader::class, [], [], '', false);
 
         $this->subject = new Webcam(
-            $this->mockFilesystem,
             $this->mockProcessBuilder,
-            $this->mockFinder,
-            $this->mockFileUploader
+            $this->mockFilesystem
         );
         $this->subject->setEventDispatcher($this->mockEventDispatcher);
     }
@@ -71,78 +56,35 @@ class WebcamTest extends PHPUnit_Framework_TestCase
     {
         $directory = ROOT . Webcam::ROOT;
 
-        $filePath         = 'file path';
-        $relativeFilePath = 'relative path name';
-        $fileCTime        = 10;
+        $filePath         = '/www/something/relative.ext';
         $fileBaseName     = 'relative.ext';
+        $fileCTime        = 10;
 
-        $file = $this->getMock(SplFileInfo::class, [], [], '', false);
+        $files = [
+            [
+                'path' => $filePath,
+                'basename' => $fileBaseName,
+                'timestamp' => $fileCTime
+            ]
+        ];
 
-        $file->expects($this->once())
-            ->method('getPath')
-            ->willReturn($filePath);
+        $this->mockFilesystem
+            ->expects($this->once())
+            ->method('listContents')
+            ->with(Webcam::ROOT)
+            ->willReturn($files);
 
-        $file->expects($this->once())
-            ->method('getRelativePathname')
-            ->willReturn($relativeFilePath);
-
-        $file->expects($this->once())
-            ->method('getCTime')
-            ->willReturn($fileCTime);
-
-        $file->expects($this->once())
-            ->method('getBasename')
-            ->willReturn($fileBaseName);
-
-        $expectedWebcam = new WebcamVO();
-        $expectedWebcam->filePath = $filePath;
-        $expectedWebcam->webcamId = $fileBaseName;
-        $expectedWebcam->name = $relativeFilePath;
-        $expectedWebcam->webPath = 'static/webcam/relative path name';
+        $expectedWebcam            = new WebcamVO();
+        $expectedWebcam->filePath  = $filePath;
+        $expectedWebcam->webcamId  = $fileBaseName;
+        $expectedWebcam->name      = $fileBaseName;
+        $expectedWebcam->webPath   = 'Webcam/relative.ext';
         $expectedWebcam->timestamp = $fileCTime;
-
-        $this->mockFilesystem
-            ->expects($this->once())
-            ->method('exists')
-            ->with($directory)
-            ->willReturn(false);
-
-        $this->mockFilesystem
-            ->expects($this->once())
-            ->method('mkdir')
-            ->with($directory, 0777);
-
-        $this->mockFinder
-            ->expects($this->at(0))
-            ->method('files')
-            ->willReturn($this->mockFinder);
-
-        $this->mockFinder
-            ->expects($this->at(1))
-            ->method('in')
-            ->with($directory)
-            ->willReturn($this->mockFinder);
-
-        $this->mockFinder
-            ->expects($this->at(2))
-            ->method('name')
-            ->with('*.jpg')
-            ->willReturn($this->mockFinder);
-
-        $this->mockFinder
-            ->expects($this->at(3))
-            ->method('sortByName')
-            ->willReturn($this->mockFinder);
-
-        $this->mockFinder
-            ->expects($this->at(4))
-            ->method('getIterator')
-            ->willReturn(new ArrayIterator([$file]));
 
         $actualResult = $this->subject->getPhotos();
 
         $this->assertEquals([$expectedWebcam], $actualResult);
-        $this->assertEquals($relativeFilePath, $expectedWebcam->getWebcamId());
+        $this->assertEquals($fileBaseName, $expectedWebcam->getWebcamId());
     }
 
     public function testTakePhoto()
@@ -155,7 +97,7 @@ class WebcamTest extends PHPUnit_Framework_TestCase
         $this->mockProcessBuilder
             ->expects($this->once())
             ->method('setArguments')
-            ->with([Webcam::EXECUTABLE, '-d', '/dev/video0', $path])
+//            ->with([Webcam::EXECUTABLE, '-d', '/dev/video0', ])
             ->willReturn($this->mockProcessBuilder);
 
         $this->mockProcessBuilder
@@ -179,23 +121,24 @@ class WebcamTest extends PHPUnit_Framework_TestCase
             ->method('dispatchEvent')
             ->with($event);
 
-        $this->mockFileUploader
+        $this->mockFilesystem
             ->expects($this->once())
-            ->method('upload');
+            ->method('writeStream')
+            ->with(Webcam::ROOT . $name . '.jpg');
 
         $this->subject->takePhoto($name);
     }
 
     public function testDelete()
     {
-        $webcamId = 'id';
+        $filename = 'id';
 
         $this->mockFilesystem
             ->expects($this->once())
-            ->method('remove')
-            ->with(ROOT . Webcam::ROOT . 'id.jpg');
+            ->method('delete')
+            ->with($filename);
 
-        $this->subject->delete($webcamId);
+        $this->subject->delete($filename);
     }
 
     public function testGetFilename()

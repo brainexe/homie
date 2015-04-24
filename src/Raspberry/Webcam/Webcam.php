@@ -49,7 +49,7 @@ class Webcam
      */
     public function getPhotos()
     {
-        $files = $this->remoteFilesystem->listContents('/Webcam/', true);
+        $files = $this->remoteFilesystem->listContents(self::ROOT, true);
 
         $vos = [];
         foreach ($files as $file) {
