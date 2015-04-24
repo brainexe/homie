@@ -6,7 +6,7 @@ php:
   - nightly
   
 before_install:
-  - composer install
+  - composer update --prefer-dist
 
 script:
   - echo "OK"
