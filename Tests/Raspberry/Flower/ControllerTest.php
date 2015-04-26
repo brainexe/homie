@@ -6,7 +6,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Raspberry\Flower\Controller;
 
 /**
- * @covers Raspberry\Flower
+ * @covers Raspberry\Flower\Controller
  */
 class ControllerTest extends TestCase
 {

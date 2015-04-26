@@ -11,7 +11,7 @@ use BrainExe\Template\TwigEnvironment;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @covers Raspberry\Index
+ * @covers Raspberry\Index\Controller
  */
 class ControllerTest extends PHPUnit_Framework_TestCase
 {

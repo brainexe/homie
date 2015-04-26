@@ -7,7 +7,7 @@ use Raspberry\Dashboard\Widgets\SpeakWidget;
 use Raspberry\Dashboard\Widgets\WidgetMetadataVo;
 
 /**
- * @covers Raspberry\Dashboard\Widgets\Speak
+ * @covers Raspberry\Dashboard\Widgets\SpeakWidget
  */
 class SpeakWidgetTest extends TestCase
 {
