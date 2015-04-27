@@ -3,6 +3,8 @@
 // create test user:
 // php console user:create testuser testpassword
 
+process.env.RASPBERRY_HOST = process.env.RASPBERRY_HOST || 'https://raspberry.mdoetsch.de';
+
 exports.config = {
     sauceUser: process.env.SAUCE_USERNAME,
     sauceKey:  process.env.SAUCE_ACCESS_KEY,
