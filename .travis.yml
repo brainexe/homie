@@ -1,5 +1,10 @@
 language: php
 
+env:
+  global:
+    - secure: "a73ImjeRdD/KD3NAehVdjm7Cw+fCF+qx1eh7TTahiQyOETVIpl0CJA14AuPTha8IXv4HFWePHHqZVgtMVCC1MG/lGvSUVQIV6fbDKl6Kl8sxKIG8kdmM/3cZYZ4yQGmHX/CBr2knOn6HqjtH2Wp29xxb/wYCE+4jONja3XdYPQs="
+    - SAUCE_USERNAME=brainexe
+
 php:
   - 5.5
   - 5.6

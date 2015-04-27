@@ -4,7 +4,13 @@
 // php console user:create testuser testpassword
 
 exports.config = {
-    seleniumAddress: 'http://localhost:4444/wd/hub',
+    sauceUser: process.env.SAUCE_USERNAME,
+    sauceKey:  process.env.SAUCE_ACCESS_KEY,
+
+    capabilities: {
+        'browserName': 'chrome'
+    },
+
     specs: [
         'spec/register-spec.js',
         'spec/login-spec.js',
