@@ -2,17 +2,17 @@
 
 namespace Tests\Raspberry\EggTimer\EggTimer;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\EggTimer\EggTimer;
-use BrainExe\MessageQueue\MessageQueueGateway;
+use BrainExe\MessageQueue\Gateway;
 use BrainExe\Core\Util\TimeParser;
 use BrainExe\Core\Util\Time;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Raspberry\EggTimer\EggTimerEvent;
 use Raspberry\Espeak\EspeakVO;
 
-class EggTimerTest extends PHPUnit_Framework_TestCase
+class EggTimerTest extends TestCase
 {
 
     /**
@@ -21,9 +21,9 @@ class EggTimerTest extends PHPUnit_Framework_TestCase
     private $subject;
 
     /**
-     * @var MessageQueueGateway|MockObject
+     * @var Gateway|MockObject
      */
-    private $messageQueueGateway;
+    private $gateway;
 
     /**
      * @var TimeParser|MockObject
@@ -42,12 +42,12 @@ class EggTimerTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->messageQueueGateway = $this->getMock(MessageQueueGateway::class, [], [], '', false);
+        $this->gateway = $this->getMock(Gateway::class, [], [], '', false);
         $this->timeParser          = $this->getMock(TimeParser::class, [], [], '', false);
         $this->time                = $this->getMock(Time::class, [], [], '', false);
         $this->dispatcher          = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-        $this->subject = new EggTimer($this->messageQueueGateway, $this->timeParser);
+        $this->subject = new EggTimer($this->gateway, $this->timeParser);
         $this->subject->setTime($this->time);
         $this->subject->setEventDispatcher($this->dispatcher);
     }
@@ -104,7 +104,7 @@ class EggTimerTest extends PHPUnit_Framework_TestCase
     {
         $jobId = 10;
 
-        $this->messageQueueGateway
+        $this->gateway
             ->expects($this->once())
             ->method('deleteEvent')
             ->with($jobId, EggTimerEvent::DONE);
@@ -122,7 +122,7 @@ class EggTimerTest extends PHPUnit_Framework_TestCase
             ->method('now')
             ->willReturn($now);
 
-        $this->messageQueueGateway
+        $this->gateway
             ->expects($this->once())
             ->method('getEventsByType')
             ->with(EggTimerEvent::DONE, $now)

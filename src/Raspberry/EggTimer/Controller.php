@@ -6,7 +6,7 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Controller\ControllerInterface;
-use BrainExe\MessageQueue\MessageQueueJob;
+use BrainExe\MessageQueue\Job;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -44,7 +44,7 @@ class Controller implements ControllerInterface
 
     /**
      * @param Request $request
-     * @return MessageQueueJob[]
+     * @return Job[]
      * @Route("/egg_timer/add/", name="egg_timer.add", methods="POST")
      */
     public function add(Request $request)
@@ -62,7 +62,7 @@ class Controller implements ControllerInterface
     /**
      * @param Request $request
      * @param string $jobId
-     * @return MessageQueueJob[]
+     * @return Job[]
      * @Route("/egg_timer/delete/{job_id}/", name="egg_timer.delete", methods="POST")
      */
     public function deleteEggTimer(Request $request, $jobId)

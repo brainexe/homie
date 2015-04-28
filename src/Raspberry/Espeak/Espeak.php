@@ -5,8 +5,8 @@ namespace Raspberry\Espeak;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\TimeTrait;
-use BrainExe\MessageQueue\MessageQueueGateway;
-use BrainExe\MessageQueue\MessageQueueJob;
+use BrainExe\MessageQueue\Gateway;
+use BrainExe\MessageQueue\Job;
 use Raspberry\Client\ClientInterface;
 
 /**
@@ -25,16 +25,16 @@ class Espeak implements SpeakOutputInterface
     private $client;
 
     /**
-     * @var MessageQueueGateway
+     * @var Gateway
      */
     private $gateway;
 
     /**
-     * @Inject({"@MessageQueueGateway", "@RaspberryClient"})
-     * @param MessageQueueGateway $gateway
+     * @Inject({"@MessageQueue.Gateway", "@RaspberryClient"})
+     * @param Gateway $gateway
      * @param ClientInterface $client
      */
-    public function __construct(MessageQueueGateway $gateway, ClientInterface $client)
+    public function __construct(Gateway $gateway, ClientInterface $client)
     {
         $this->client  = $client;
         $this->gateway = $gateway;
@@ -54,7 +54,7 @@ class Espeak implements SpeakOutputInterface
     }
 
     /**
-     * @return MessageQueueJob[]
+     * @return Job[]
      */
     public function getPendingJobs()
     {

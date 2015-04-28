@@ -6,7 +6,7 @@ use BrainExe\Core\Util\Time;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Raspberry\Espeak\Espeak;
-use BrainExe\MessageQueue\MessageQueueGateway;
+use BrainExe\MessageQueue\Gateway;
 use Raspberry\Client\LocalClient;
 use Raspberry\Espeak\EspeakEvent;
 
@@ -22,9 +22,9 @@ class EspeakTest extends PHPUnit_Framework_TestCase
     private $subject;
 
     /**
-     * @var MessageQueueGateway|MockObject
+     * @var Gateway|MockObject
      */
-    private $messageQueueGateway;
+    private $gateway;
 
     /**
      * @var LocalClient|MockObject
@@ -38,13 +38,11 @@ class EspeakTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        parent::setUp();
+        $this->gateway = $this->getMock(Gateway::class, [], [], '', false);
+        $this->client  = $this->getMock(LocalClient::class, [], [], '', false);
+        $this->time    = $this->getMock(Time::class, [], [], '', false);
 
-        $this->messageQueueGateway = $this->getMock(MessageQueueGateway::class, [], [], '', false);
-        $this->client              = $this->getMock(LocalClient::class, [], [], '', false);
-        $this->time                = $this->getMock(Time::class, [], [], '', false);
-
-        $this->subject = new Espeak($this->messageQueueGateway, $this->client);
+        $this->subject = new Espeak($this->gateway, $this->client);
         $this->subject->setTime($this->time);
     }
 
@@ -64,7 +62,7 @@ class EspeakTest extends PHPUnit_Framework_TestCase
             ->method('now')
             ->willReturn($now);
 
-        $this->messageQueueGateway
+        $this->gateway
             ->expects($this->once())
             ->method('getEventsByType')
             ->with(EspeakEvent::SPEAK, $now)
@@ -106,7 +104,7 @@ class EspeakTest extends PHPUnit_Framework_TestCase
     {
         $jobId = 12;
 
-        $this->messageQueueGateway
+        $this->gateway
             ->expects($this->once())
             ->method('deleteEvent')
             ->with($jobId, EspeakEvent::SPEAK);

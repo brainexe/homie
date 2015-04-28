@@ -4,8 +4,8 @@ namespace Raspberry\Radio;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
-use BrainExe\MessageQueue\MessageQueueGateway;
-use BrainExe\MessageQueue\MessageQueueJob;
+use BrainExe\MessageQueue\Gateway;
+use BrainExe\MessageQueue\Job;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Util\TimeParser;
 use Raspberry\Radio\VO\RadioVO;
@@ -24,27 +24,27 @@ class RadioJob
     private $timeParser;
 
     /**
-     * @var MessageQueueGateway
+     * @var Gateway
      */
-    private $messageQueueGateway;
+    private $gateway;
 
     /**
-     * @Inject({"@MessageQueueGateway", "@TimeParser"})
-     * @param MessageQueueGateway $messageQueueGateway
+     * @Inject({"@MessageQueue.Gateway", "@TimeParser"})
+     * @param Gateway $gateway
      * @param TimeParser $timeParser
      */
-    public function __construct(MessageQueueGateway $messageQueueGateway, TimeParser $timeParser)
+    public function __construct(Gateway $gateway, TimeParser $timeParser)
     {
-        $this->messageQueueGateway = $messageQueueGateway;
+        $this->gateway    = $gateway;
         $this->timeParser = $timeParser;
     }
 
     /**
-     * @return MessageQueueJob[]
+     * @return Job[]
      */
     public function getJobs()
     {
-        return $this->messageQueueGateway->getEventsByType(RadioChangeEvent::CHANGE_RADIO, time());
+        return $this->gateway->getEventsByType(RadioChangeEvent::CHANGE_RADIO, time());
     }
 
     /**
@@ -65,6 +65,6 @@ class RadioJob
      */
     public function deleteJob($jobId)
     {
-        $this->messageQueueGateway->deleteEvent($jobId, RadioChangeEvent::CHANGE_RADIO);
+        $this->gateway->deleteEvent($jobId, RadioChangeEvent::CHANGE_RADIO);
     }
 }

@@ -5,7 +5,7 @@ namespace Tests\Raspberry\Status;
 use BrainExe\Core\Application\SelfUpdate\SelfUpdateEvent;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use BrainExe\MessageQueue\MessageQueueGateway;
+use BrainExe\MessageQueue\Gateway;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Raspberry\Status\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,9 +22,9 @@ class ControllerTest extends PHPUnit_Framework_TestCase
     private $subject;
 
     /**
-     * @var MessageQueueGateway|MockObject
+     * @var Gateway|MockObject
      */
-    private $messageQueueGateway;
+    private $gateway;
 
     /**
      * @var EventDispatcher|MockObject
@@ -33,10 +33,10 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->messageQueueGateway = $this->getMock(MessageQueueGateway::class, [], [], '', false);
-        $this->dispatcher          = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->gateway    = $this->getMock(Gateway::class, [], [], '', false);
+        $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-        $this->subject = new Controller($this->messageQueueGateway);
+        $this->subject = new Controller($this->gateway);
         $this->subject->setEventDispatcher($this->dispatcher);
     }
 
@@ -45,12 +45,12 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $eventsByType     = ['events'];
         $messageQueueJobs = 10;
 
-        $this->messageQueueGateway
+        $this->gateway
             ->expects($this->once())
             ->method('getEventsByType')
             ->willReturn($eventsByType);
 
-        $this->messageQueueGateway
+        $this->gateway
             ->expects($this->once())
             ->method('countJobs')
             ->willReturn($messageQueueJobs);
@@ -73,7 +73,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $request = new Request();
         $request->request->set('job_id', $jobId);
 
-        $this->messageQueueGateway
+        $this->gateway
             ->expects($this->once())
             ->method('deleteEvent')
             ->willReturn($jobId);

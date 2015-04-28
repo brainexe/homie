@@ -6,8 +6,8 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Application\UserException;
 use BrainExe\Core\Traits\TimeTrait;
-use BrainExe\MessageQueue\MessageQueueGateway;
-use BrainExe\MessageQueue\MessageQueueJob;
+use BrainExe\MessageQueue\Gateway;
+use BrainExe\MessageQueue\Job;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Util\TimeParser;
 use Raspberry\Espeak\EspeakVO;
@@ -24,9 +24,9 @@ class EggTimer
     use EventDispatcherTrait;
 
     /**
-     * @var MessageQueueGateway
+     * @var Gateway
      */
-    private $messageQueueGateway;
+    private $gateway;
 
     /**
      * @var TimeParser
@@ -34,16 +34,16 @@ class EggTimer
     private $timeParser;
 
     /**
-     * @Inject({"@MessageQueueGateway", "@TimeParser"})
-     * @param MessageQueueGateway $messageQueueGateway
+     * @Inject({"@MessageQueue.Gateway", "@TimeParser"})
+     * @param Gateway $gateway
      * @param TimeParser $timeParser
      */
     public function __construct(
-        MessageQueueGateway $messageQueueGateway,
+        Gateway $gateway,
         TimeParser $timeParser
     ) {
-        $this->messageQueueGateway = $messageQueueGateway;
-        $this->timeParser          = $timeParser;
+        $this->gateway     = $gateway;
+        $this->timeParser  = $timeParser;
     }
 
     /**
@@ -71,18 +71,18 @@ class EggTimer
      */
     public function deleteJob($jobId)
     {
-        $this->messageQueueGateway->deleteEvent(
+        $this->gateway->deleteEvent(
             $jobId,
             EggTimerEvent::DONE
         );
     }
 
     /**
-     * @return MessageQueueJob[]
+     * @return Job[]
      */
     public function getJobs()
     {
-        return $this->messageQueueGateway->getEventsByType(
+        return $this->gateway->getEventsByType(
             EggTimerEvent::DONE,
             $this->now()
         );

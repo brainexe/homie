@@ -6,7 +6,7 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Application\SelfUpdate\SelfUpdateEvent;
-use BrainExe\MessageQueue\MessageQueueGateway;
+use BrainExe\MessageQueue\Gateway;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -19,17 +19,17 @@ class Controller
     use EventDispatcherTrait;
 
     /**
-     * @var MessageQueueGateway
+     * @var Gateway
      */
-    private $messageQueueGateway;
+    private $Gateway;
 
     /**
-     * @Inject("@MessageQueueGateway")
-     * @param MessageQueueGateway $gateway
+     * @Inject("@MessageQueue.Gateway")
+     * @param Gateway $gateway
      */
-    public function __construct(MessageQueueGateway $gateway)
+    public function __construct(Gateway $gateway)
     {
-        $this->messageQueueGateway = $gateway;
+        $this->Gateway = $gateway;
     }
 
     /**
@@ -38,9 +38,9 @@ class Controller
     public function index()
     {
         return [
-            'jobs' => $this->messageQueueGateway->getEventsByType(),
+            'jobs' => $this->Gateway->getEventsByType(),
             'stats' => [
-                'Queue Len' => $this->messageQueueGateway->countJobs()
+                'Queue Len' => $this->Gateway->countJobs()
             ],
         ];
     }
@@ -53,7 +53,7 @@ class Controller
     public function deleteJob(Request $request)
     {
         $jobId = $request->request->get('job_id');
-        $this->messageQueueGateway->deleteEvent($jobId);
+        $this->Gateway->deleteEvent($jobId);
 
         return true;
     }
