@@ -7,7 +7,7 @@ use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Util\TimeParser;
-use BrainExe\MessageQueue\MessageQueueJob;
+use BrainExe\MessageQueue\Job;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -56,7 +56,7 @@ class Controller
 
     /**
      * @param Request $request
-     * @return MessageQueueJob[]
+     * @return Job[]
      * @Route("/espeak/speak/", methods="POST")
      */
     public function speak(Request $request)
