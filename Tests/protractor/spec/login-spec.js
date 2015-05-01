@@ -7,7 +7,7 @@ describe('Login into raspberry app', function() {
     var submit = $('.form-signin button[type="submit"]');
 
     it('Click "login" in menu', function () {
-        browser.get('http://localhost:8080');
+        browser.get(process.env.RASPBERRY_HOST);
 
         var link = $('a[href="/#login"]');
         expect(link.isPresent()).toBe(true);
