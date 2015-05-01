@@ -3,9 +3,9 @@
 namespace Raspberry\Espeak;
 
 use BrainExe\Core\EventDispatcher\AbstractEvent;
-use BrainExe\Core\EventDispatcher\PushViaWebsocketInterface;
+use BrainExe\Core\EventDispatcher\PushViaWebsocket;
 
-class EspeakEvent extends AbstractEvent implements PushViaWebsocketInterface
+class EspeakEvent extends AbstractEvent implements PushViaWebsocket
 {
 
     const SPEAK = 'espeak.speak';

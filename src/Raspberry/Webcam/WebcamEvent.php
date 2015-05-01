@@ -3,9 +3,9 @@
 namespace Raspberry\Webcam;
 
 use BrainExe\Core\EventDispatcher\AbstractEvent;
-use BrainExe\Core\EventDispatcher\PushViaWebsocketInterface;
+use BrainExe\Core\EventDispatcher\PushViaWebsocket;
 
-class WebcamEvent extends AbstractEvent implements PushViaWebsocketInterface
+class WebcamEvent extends AbstractEvent implements PushViaWebsocket
 {
 
     const TAKE_PHOTO = 'webcam.take_photo';

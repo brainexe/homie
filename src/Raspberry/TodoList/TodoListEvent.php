@@ -3,10 +3,10 @@
 namespace Raspberry\TodoList;
 
 use BrainExe\Core\EventDispatcher\AbstractEvent;
-use BrainExe\Core\EventDispatcher\PushViaWebsocketInterface;
+use BrainExe\Core\EventDispatcher\PushViaWebsocket;
 use Raspberry\TodoList\VO\TodoItemVO;
 
-class TodoListEvent extends AbstractEvent implements PushViaWebsocketInterface
+class TodoListEvent extends AbstractEvent implements PushViaWebsocket
 {
     const ADD    = 'todo.add';
     const REMOVE = 'todo.remove';

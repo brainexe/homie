@@ -3,10 +3,10 @@
 namespace Raspberry\Sensors;
 
 use BrainExe\Core\EventDispatcher\AbstractEvent;
-use BrainExe\Core\EventDispatcher\PushViaWebsocketInterface;
+use BrainExe\Core\EventDispatcher\PushViaWebsocket;
 use Raspberry\Sensors\Interfaces\Sensor;
 
-class SensorValueEvent extends AbstractEvent implements PushViaWebsocketInterface
+class SensorValueEvent extends AbstractEvent implements PushViaWebsocket
 {
 
     const VALUE = 'sensor.value';
