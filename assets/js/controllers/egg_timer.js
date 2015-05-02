@@ -19,18 +19,13 @@ App.ng.controller('EggTimerController', ['$scope', function($scope) {
 	});
 
 	$scope.addTimer = function() {
-		var payload = {
-			time: $scope.time,
-			text: $scope.text
-		};
-
-		$scope.time = '';
-		$scope.text = '';
-
         App.EggTimer.setTimer($scope.time, $scope.text).then(function(new_jobs) {
             $scope.jobs = new_jobs;
             $scope.$apply();
         });
+
+		$scope.time = '';
+		$scope.text = '';
 	};
 
 	/**
