@@ -19,7 +19,7 @@ services:
 
 before_install:
   - composer update --no-dev
-  - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - if [ "`phpenv version-name`" != "hhvm" ]; then echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
 
 script:
   - phpunit --coverage-clover build/logs/clover.xml
