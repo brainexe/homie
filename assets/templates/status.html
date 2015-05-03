@@ -11,21 +11,28 @@
 	<thead>
 		<tr>
 			<th translate>Event-ID</th>
+			<th translate>Type</th>
 			<th translate>Date</th>
 			<th translate>Delete</th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="job in jobs">
-			<th>
-				<span title="{{ job.event }}" class="tip">{{ job.eventId }}</span>
-				<br />
-				<small>{{ job.event }}</small>
-			</th>
-			<th>{{ job.timestamp|timeAgo }}</th>
+		<tr ng-repeat="job in jobs" ng-mouseover="job.detail=true" ng-mouseleave="job.detail=false">
+			<td ng-mouseover="job.detail=true">
+				{{ job.eventId|split:':':1 }}
+			</td>
+			<td>
+				{{ job.eventId|split:':':0 }}
+			</td>
+			<td>{{ job.timestamp|timeAgo }}</td>
 			<td>
                 <a ng-click="deleteEvent(job.eventId)" class="glyphicon glyphicon-remove"></a>
             </td>
+		</tr>
+		<tr ng-repeat="job in jobs">
+			<td colspan="4" ng-show="job.detail">
+				{{ job.event }}
+			</td>
 		</tr>
 	</tbody>
 </table>

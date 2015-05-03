@@ -4,7 +4,7 @@ App.ng.controller('StatusController', ['$scope', function($scope) {
 	$scope.jobs     = {};
 
     $scope.update = function() {
-        $.get('/status/', function(data) {
+        $.get('/stats/', function(data) {
             $scope.stats = data.stats;
             $scope.jobs  = data.jobs;
             $scope.$apply();
@@ -15,21 +15,21 @@ App.ng.controller('StatusController', ['$scope', function($scope) {
 
     setInterval(function() {
         $scope.update();
-    }, 2500);
+    }, 1000);
 
 	$scope.startUpdate = function() {
 		if (!confirm('Do you want to start self update? This may take some time...')) {
 			return false;
 		}
 
-		$.post('/status/self_update/');
+		$.post('/stats/self_update/');
 	};
 
 	/**
 	 * @param {String} event_id
 	 */
 	$scope.deleteEvent = function(event_id) {
-		$.post('/status/event/delete/', {job_id:event_id}, function() {
+		$.post('/stats/event/delete/', {job_id:event_id}, function() {
 			delete $scope.jobs[event_id];
 			$scope.$apply();
 		});
