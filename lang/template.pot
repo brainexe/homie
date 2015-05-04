@@ -15,6 +15,7 @@ msgid "Actions"
 msgstr ""
 
 #. add radio
+#: assets/templates/expression.html:146
 #: assets/templates/new_sensor.html:18
 #: assets/templates/radio.html:122
 #: assets/templates/radio.html:205
@@ -90,7 +91,7 @@ msgstr ""
 msgid "Dashboard"
 msgstr ""
 
-#: assets/templates/status.html:14
+#: assets/templates/status.html:23
 msgid "Date"
 msgstr ""
 
@@ -98,12 +99,12 @@ msgstr ""
 msgid "Delay"
 msgstr ""
 
-#: assets/templates/egg_timer.html:23
+#: assets/templates/egg_timer.html:37
 #: assets/templates/espeak.html:83
 #: assets/templates/expression.html:100
 #: assets/templates/radio.html:50
 #: assets/templates/radio.html:8
-#: assets/templates/status.html:15
+#: assets/templates/status.html:24
 msgid "Delete"
 msgstr ""
 
@@ -142,7 +143,7 @@ msgstr ""
 msgid "Egg Timer"
 msgstr ""
 
-#: assets/templates/admin/users.html:21
+#: assets/templates/admin/users.html:22
 #: assets/templates/admin/users.html:6
 msgid "Email"
 msgstr ""
@@ -151,7 +152,7 @@ msgstr ""
 msgid "Enable"
 msgstr ""
 
-#: assets/templates/status.html:13
+#: assets/templates/status.html:21
 msgid "Event-ID"
 msgstr ""
 
@@ -187,8 +188,13 @@ msgstr ""
 msgid "Id"
 msgstr ""
 
+#: assets/templates/expression.html:136
 #: assets/templates/expression.html:99
 msgid "Interval"
+msgstr ""
+
+#: assets/templates/status.html:4
+msgid "Key"
 msgstr ""
 
 #: assets/js/controllers/controllers.js:23
@@ -200,7 +206,7 @@ msgid "Logout"
 msgstr ""
 
 #: assets/templates/blog.html:24
-#: assets/templates/blog.html:65
+#: assets/templates/blog.html:61
 msgid "Mood"
 msgstr ""
 
@@ -230,6 +236,7 @@ msgstr ""
 msgid "One Time Token"
 msgstr ""
 
+#: assets/templates/admin/users.html:7
 #: assets/templates/user/change_password.html:15
 #: assets/templates/user/change_password.html:20
 #: assets/templates/user/change_password.html:7
@@ -281,8 +288,11 @@ msgstr ""
 msgid "Requet One Time Secret"
 msgstr ""
 
-#: assets/templates/admin/users.html:25
-#: assets/templates/admin/users.html:7
+#: assets/templates/status.html:6
+msgid "Reset"
+msgstr ""
+
+#: assets/templates/admin/users.html:8
 msgid "Roles"
 msgstr ""
 
@@ -300,7 +310,7 @@ msgstr ""
 msgid "Secret:"
 msgstr ""
 
-#: assets/templates/status.html:34
+#: assets/templates/status.html:49
 msgid "Self update"
 msgstr ""
 
@@ -339,7 +349,11 @@ msgstr ""
 msgid "Speed"
 msgstr ""
 
-#: assets/templates/status.html:36
+#: assets/templates/expression.html:127
+msgid "Start Time"
+msgstr ""
+
+#: assets/templates/status.html:51
 msgid "Start self update in background"
 msgstr ""
 
@@ -349,7 +363,7 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: assets/templates/blog.html:49
+#: assets/templates/blog.html:45
 #: assets/templates/espeak.html:68
 msgid "Submit"
 msgstr ""
@@ -367,17 +381,18 @@ msgid "Take Photo"
 msgstr ""
 
 #: assets/templates/blog.html:34
-#: assets/templates/blog.html:66
-#: assets/templates/egg_timer.html:22
+#: assets/templates/blog.html:62
+#: assets/templates/egg_timer.html:11
 #: assets/templates/egg_timer.html:3
+#: assets/templates/egg_timer.html:36
 #: assets/templates/espeak.html:3
 #: assets/templates/espeak.html:82
 #: assets/templates/widgets/speak.html:4
 msgid "Text"
 msgstr ""
 
-#: assets/templates/blog.html:64
-#: assets/templates/egg_timer.html:21
+#: assets/templates/blog.html:60
+#: assets/templates/egg_timer.html:35
 #: assets/templates/espeak.html:81
 #: assets/templates/radio.html:47
 #: assets/templates/radio.html:91
@@ -392,6 +407,7 @@ msgstr ""
 msgid "Timespan"
 msgstr ""
 
+#: assets/templates/expression.html:119
 #: assets/templates/expression.html:97
 msgid "Timing-ID"
 msgstr ""
@@ -416,10 +432,11 @@ msgstr ""
 
 #: assets/templates/admin/sensors.html:18
 #: assets/templates/new_sensor.html:10
+#: assets/templates/status.html:22
 msgid "Type"
 msgstr ""
 
-#: assets/templates/status.html:32
+#: assets/templates/status.html:47
 msgid "Update"
 msgstr ""
 
@@ -442,6 +459,7 @@ msgstr ""
 
 #: assets/templates/admin/sensors.html:20
 #: assets/templates/gpio.html:7
+#: assets/templates/status.html:5
 msgid "Value"
 msgstr ""
 
@@ -453,7 +471,7 @@ msgstr ""
 msgid "Webcam"
 msgstr ""
 
-#: assets/templates/egg_timer.html:12
+#: assets/templates/egg_timer.html:26
 #: assets/templates/espeak.html:19
 msgid "e.g. 10s, 30m, 1h"
 msgstr ""

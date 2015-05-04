@@ -25,6 +25,14 @@ App.ng.controller('StatusController', ['$scope', function($scope) {
 		$.post('/stats/self_update/');
 	};
 
+	$scope.resetStats = function(key) {
+		var url = '/stats/reset/'.format(key);
+		$.post(url, {key:key}).then(function() {
+			$scope.stats[key] = 0;
+			$scope.$apply();
+		});
+	};
+
 	/**
 	 * @param {String} event_id
 	 */
