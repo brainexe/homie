@@ -1,13 +1,13 @@
 var helper = require('../helper');
 
-describe('Register at raspberry app', function() {
+describe('Register at homie app', function() {
     var username = element(by.model('username'));
     var password = element(by.model('password'));
 
     var submit = $('.form-signin button[type="submit"]');
 
     it('Click "login" in menu', function () {
-        browser.get(process.env.RASPBERRY_HOST);
+        browser.get(process.envHOMIE_HOST);
 
         var link = $('a[href="/#register"]');
         expect(link.isPresent()).toBe(true);

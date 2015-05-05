@@ -1,5 +1,5 @@
 {
-  "name": "raspberry",
+  "name": "homie",
   "version": "0.0.1",
   "description": "",
   "dependencies": {
@@ -14,6 +14,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@mdoetsch.de:matze/raspberry.git"
+    "url": "git@githum.com:brainexe/homie.git"
   }
 }

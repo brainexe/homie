@@ -29,7 +29,7 @@ var App = {
     debug: null, // TODO
     user: null,
 
-	ng: angular.module('raspberry', [
+	ng: angular.module('homie', [
 		'ngDragDrop',
 		'autocomplete',
         'ngRoute',
@@ -51,9 +51,8 @@ var App = {
         gettextCatalog.debugPrefix = '?';
     }),
 
-	init: function (debug, user, socketUrl) {
+	init: function (debug, socketUrl) {
         App.debug  = debug;
-        App.user   = user;
 
 		if (socketUrl) {
 			App.SocketServer.connect(socketUrl);

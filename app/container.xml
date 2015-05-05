@@ -2,7 +2,7 @@
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <parameters>
         <parameter key="logger.sensor.log">logs/sensor.log</parameter>
-		<parameter key="application.name">raspberry</parameter>
+		<parameter key="application.name">homie</parameter>
 		<parameter key="application.registration_enabled">false</parameter>
         <parameter key="application.allowed_private_ips">true</parameter>
 
@@ -22,7 +22,7 @@
         <parameter key="remote_filesystem.password"></parameter>
     </parameters>
 	<services>
-		<service id="RaspberryClient" alias="RaspberryClient.Local" public="false"/>
+		<service id="HomieClient" alias="HomieClient.Local" public="false"/>
 
         <service id="RemoteFilesystem" class="League\Flysystem\Filesystem" public="true">
             <argument type="service">

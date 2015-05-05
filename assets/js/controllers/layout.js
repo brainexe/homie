@@ -9,7 +9,12 @@ App.ng.controller('LayoutController', ['$scope', 'gettextCatalog', function ($sc
         'EN': 'English'
     };
 
-    $scope.current_user = App.user;
+    $scope.current_user = {};
+
+    $.get('/user/current/').then(function(user){
+        $scope.current_user = user;
+        $scope.$apply();
+    });
 
     $scope.changeLanguage = function(lang) {
         gettextCatalog.setCurrentLanguage(lang);

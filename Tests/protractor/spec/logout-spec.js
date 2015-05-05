@@ -1,6 +1,6 @@
 var helper = require('../helper');
 
-describe('Logout of raspberry app', function() {
+describe('Logout of homie app', function() {
     it('Click on username in upper-right corner', function () {
         // open user menu (upper right corner)
         var userLink = $('.user-menu');

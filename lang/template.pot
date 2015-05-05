@@ -176,14 +176,6 @@ msgstr ""
 msgid "GPIO"
 msgstr ""
 
-#: templates/content.html:81
-msgid "Hello {{ current_user.username }}!"
-msgstr ""
-
-#: templates/content.html:2
-msgid "HomeControl"
-msgstr ""
-
 #: assets/templates/admin/users.html:4
 msgid "Id"
 msgstr ""
@@ -258,10 +250,6 @@ msgstr ""
 msgid "Pin"
 msgstr ""
 
-#: templates/content.html:52
-msgid "Profile"
-msgstr ""
-
 #: assets/js/controllers/todo.js:8
 msgid "Progress"
 msgstr ""
@@ -301,17 +289,9 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: templates/content.html:85
-msgid "Search..."
-msgstr ""
-
 #. otp
 #: assets/templates/user/otp.html:7
 msgid "Secret:"
-msgstr ""
-
-#: assets/templates/status.html:49
-msgid "Self update"
 msgstr ""
 
 #: assets/templates/user/login.html:30
@@ -332,10 +312,6 @@ msgstr ""
 msgid "Sign in"
 msgstr ""
 
-#: templates/content.html:63
-msgid "Sign out"
-msgstr ""
-
 #: assets/js/controllers/controllers.js:9
 #: assets/templates/widgets/speak.html:9
 msgid "Speak"
@@ -351,10 +327,6 @@ msgstr ""
 
 #: assets/templates/expression.html:127
 msgid "Start Time"
-msgstr ""
-
-#: assets/templates/status.html:51
-msgid "Start self update in background"
 msgstr ""
 
 #: assets/js/controllers/controllers.js:17
@@ -434,10 +406,6 @@ msgstr ""
 #: assets/templates/new_sensor.html:10
 #: assets/templates/status.html:22
 msgid "Type"
-msgstr ""
-
-#: assets/templates/status.html:47
-msgid "Update"
 msgstr ""
 
 #: assets/templates/user/user.html:1

@@ -8,6 +8,7 @@ App.ng.controller('MenuController', ['$scope', '$route', '$location', 'controlle
         }
     });
 
+	var translated = false;
 	$scope.$parent.$watch('current_user', function(user) {
 		var is_logged_in = $scope.$parent.isLoggedIn();
 
@@ -16,7 +17,9 @@ App.ng.controller('MenuController', ['$scope', '$route', '$location', 'controlle
 				return false;
 			}
 
-            item.name = gettextCatalog.getString(item.name);
+			if (!translated) {
+				item.name = gettextCatalog.getString(item.name);
+			}
 
 			if (!is_logged_in && !item.is_public) {
 				return false;
@@ -33,6 +36,8 @@ App.ng.controller('MenuController', ['$scope', '$route', '$location', 'controlle
 
 			return true;
 		});
+
+		translated = true;
 	});
 }]);
 

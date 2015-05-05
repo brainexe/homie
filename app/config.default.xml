@@ -15,7 +15,7 @@
         <parameter key="serial.baud">57600</parameter>
 
         <parameter key="filesystem.remote.url">https://owncloud.exaple.com/webdav/</parameter>
-        <parameter key="filesystem.remote.username">raspberry</parameter>
-        <parameter key="filesystem.remote.password">raspberry</parameter>
+        <parameter key="filesystem.remote.username">homie</parameter>
+        <parameter key="filesystem.remote.password">homie</parameter>
     </parameters>
 </container>

@@ -1,6 +1,6 @@
 {
-  "name": "brainexe/raspberry",
-  "description": "HomeControl via RaspberryPi",
+  "name": "brainexe/homie",
+  "description": "HomeControl via RaspberryPi etc",
   "homepage": "https://mdoetsch.de",
   "minimum-stability": "dev",
   "license": "MIT",
@@ -12,12 +12,11 @@
   ],
   "autoload": {
     "psr-0": {
-      "Raspberry": "src/"
+      "Homie": "src/"
     }
   },
   "require": {
     "brainexe/core": "dev-master",
-    "brainexe/template": "dev-master",
     "brainexe/assets": "dev-master",
     "brainexe/totp": "dev-master",
     "brainexe/input-control": "dev-master",
@@ -27,8 +26,7 @@
     "league/flysystem-cached-adapter": "dev-master"
   },
   "require-dev": {
-    "phpunit/phpunit": "~4.6",
-    "satooshi/php-coveralls": "dev-master"
+    "phpunit/phpunit": "~4.6"
   },
   "config": {
     "bin-dir": "bin/"

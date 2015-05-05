@@ -3,7 +3,7 @@
 // create test user:
 // php console user:create testuser testpassword
 
-process.env.RASPBERRY_HOST = process.env.RASPBERRY_HOST || 'https://raspberry.mdoetsch.de';
+process.envHOMIE_HOST = process.envHOMIE_HOST || 'https://homie.mdoetsch.de';
 
 exports.config = {
     sauceUser: process.env.SAUCE_USERNAME,
