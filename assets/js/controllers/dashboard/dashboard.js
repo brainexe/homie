@@ -64,13 +64,13 @@ App.ng.controller('DashboardController', ['$scope', '$modal', function($scope, $
     };
 
 	/**
-     * @param dashboard_id
-     * @param {Number} widget_id
+     * @param dashboardId
+     * @param {Number} widgetId
 	 */
-	$scope.deleteWidget = function(dashboard_id, widget_id) {
+	$scope.deleteWidget = function(dashboardId, widgetId) {
 		var payload = {
-            dashboard_id: dashboard_id,
-			widget_id:    widget_id
+            dashboard_id: dashboardId,
+			widget_id:    widgetId
 		};
 
 		$.post('/dashboard/widget/delete/', payload, function(data) {

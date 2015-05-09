@@ -102,7 +102,7 @@ class Cron extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $now = $this->now();
-        $sensors = $this->sensorGateway->getSensors($this->nodeId);
+        $sensors = $this->sensorGateway->getSensors();
 
         foreach ($sensors as $sensorData) {
             $sensorVo = $this->sensorVoBuilder->buildFromArray($sensorData);

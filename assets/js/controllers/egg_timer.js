@@ -19,8 +19,8 @@ App.ng.controller('EggTimerController', ['$scope', function($scope) {
 	});
 
 	$scope.addTimer = function() {
-        App.EggTimer.setTimer($scope.time, $scope.text).then(function(new_jobs) {
-            $scope.jobs = new_jobs;
+        App.EggTimer.setTimer($scope.time, $scope.text).then(function(newJobs) {
+            $scope.jobs = newJobs;
             $scope.$apply();
         });
 
@@ -29,11 +29,11 @@ App.ng.controller('EggTimerController', ['$scope', function($scope) {
 	};
 
 	/**
-	 * @param {String} job_id
+	 * @param {String} jobId
 	 */
-	$scope.deleteTimer = function(job_id) {
-		job_id = job_id.split(':')[1];
-		$.post('/egg_timer/delete/{0}/'.format(job_id), function(new_jobs) {
+	$scope.deleteTimer = function(jobId) {
+		jobId = jobId.split(':')[1];
+		$.post('/egg_timer/delete/{0}/'.format(jobId), function(new_jobs) {
 			$scope.jobs = new_jobs;
 			$scope.$apply();
 		});

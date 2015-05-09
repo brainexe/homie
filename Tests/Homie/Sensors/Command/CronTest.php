@@ -106,9 +106,9 @@ class CronTest extends PHPUnit_Framework_TestCase
 
         $sensor = new SensorVO();
         $sensor->sensorId = 10;
-        $sensor->type = $type = 'type';
-        $sensor->pin = $pin = 12;
-        $sensor->name = 'name';
+        $sensor->type     = $type = 'type';
+        $sensor->pin      = $pin = 12;
+        $sensor->name     = 'name';
 
         $currentSensorValue = null;
 
@@ -126,7 +126,6 @@ class CronTest extends PHPUnit_Framework_TestCase
         $this->gateway
             ->expects($this->once())
             ->method('getSensors')
-            ->with($this->nodeId)
             ->willReturn($sensors);
 
         $this->voBuilder
@@ -176,9 +175,9 @@ class CronTest extends PHPUnit_Framework_TestCase
 
         $sensor = new SensorVO();
         $sensor->sensorId = 10;
-        $sensor->type = $type = 'type';
-        $sensor->pin = $pin = 12;
-        $sensor->name = 'name';
+        $sensor->type     = $type = 'type';
+        $sensor->pin      = $pin = 12;
+        $sensor->name     = 'name';
 
         $currentSensorValue = 1000;
         $formattedSensorValue = "1000 grad";
@@ -216,7 +215,6 @@ class CronTest extends PHPUnit_Framework_TestCase
         $this->gateway
             ->expects($this->once())
             ->method('getSensors')
-            ->with($this->nodeId)
             ->willReturn($sensors);
 
         $this->voBuilder

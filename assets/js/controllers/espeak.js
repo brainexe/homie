@@ -17,12 +17,12 @@ App.ng.controller('EspeakController', ['$scope', function($scope) {
 	});
 
 	/**
-	 * @param {String} event_id
+	 * @param {String} eventId
 	 */
-	$scope.deleteEvent = function(event_id) {
-		var job_id = event_id.split(':')[1];
-		$.post('/espeak/job/delete/', {job_id:job_id}, function() {
-			delete $scope.jobs[event_id];
+	$scope.deleteEvent = function(eventId) {
+		var jobId = eventId.split(':')[1];
+		$.post('/espeak/job/delete/', {job_id:jobId}, function() {
+			delete $scope.jobs[eventId];
 			$scope.$apply();
 		});
 	};
@@ -37,9 +37,9 @@ App.ng.controller('EspeakController', ['$scope', function($scope) {
 			speaker: $scope.speaker
 		};
 
-        App.Speak.speak(payload).then(function(new_jobs) {
+        App.Speak.speak(payload).then(function(newJobs) {
             $scope.pending  = false;
-            $scope.jobs = new_jobs;
+            $scope.jobs     = newJobs;
             $scope.$apply();
         });
 	}

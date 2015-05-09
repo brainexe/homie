@@ -27,9 +27,14 @@ class ControllerTest extends TestCase
 
     public function testIndex()
     {
-        $this->markTestIncomplete();
+        if (!is_dir(ROOT . 'web')) {
+            mkdir(ROOT . 'web');
+        }
+        if (!is_file(ROOT . 'web/index.html')) {
+            file_put_contents(ROOT . 'web/index.html', '');
+        }
+
         $user = new UserVO();
-        $text = 'text';
 
         $request = new Request();
         $request->attributes->set('user', $user);

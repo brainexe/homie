@@ -6,7 +6,7 @@ use BrainExe\Annotations\Annotations\Service;
 use InvalidArgumentException;
 
 /**
- * @Service(public=false)
+ * @Service(public=true)
  */
 class WidgetFactory
 {

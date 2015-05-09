@@ -2,8 +2,9 @@
 
 namespace Tests\Homie\Sensors\Command;
 
+use Homie\Sensors\Interfaces\Searchable;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use Homie\Sensors\Command\Add;
 use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\Interfaces\Sensor;
@@ -21,11 +22,12 @@ use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Tester\CommandTester;
 
 abstract class TestSensor implements Sensor, Parameterized {}
+abstract class SearchableTestSensor implements Sensor, Searchable {}
 
 /**
  * @covers Homie\Sensors\Command\Add
  */
-class AddTest extends PHPUnit_Framework_TestCase
+class AddTest extends TestCase
 {
 
     /**
@@ -239,5 +241,69 @@ class AddTest extends PHPUnit_Framework_TestCase
             "Sensor is supported\nSensor returned invalid data.\n",
             $display
         );
+    }
+
+    public function testAddNoParametrized()
+    {
+        /** @var Sensor $sensor */
+        $sensor = $this->getMock(Sensor::class);
+
+        $actual = $this->subject->getParameter($sensor);
+
+        $this->assertNull($actual);
+    }
+
+    public function testAddWithInput()
+    {
+        $parameter = 'parameter';
+        /** @var TestSensor $sensor */
+        $sensor    = $this->getMock(TestSensor::class);
+
+        /** @var OutputInterface|MockObject $output */
+        $output = $this->getMock(OutputInterface::class);
+        /** @var InputInterface|MockObject $input */
+        $input  = $this->getMock(InputInterface::class);
+
+        $input
+            ->expects($this->exactly(2))
+            ->method('getArgument')
+            ->with('parameter')
+            ->willReturn($parameter);
+
+        $this->subject->setInputOutput($input, $output);
+
+        $actual = $this->subject->getParameter($sensor);
+
+        $this->assertEquals($parameter, $actual);
+    }
+
+    /**
+     * @expectedException Exception
+     * @expectedExceptionMessage No possible sensor found
+     */
+    public function testAddWithoutSearch()
+    {
+        /** @var SearchableTestSensor|MockObject $sensor */
+        $sensor    = $this->getMock(SearchableTestSensor::class);
+
+        /** @var OutputInterface|MockObject $output */
+        $output = $this->getMock(OutputInterface::class);
+        /** @var InputInterface|MockObject $input */
+        $input  = $this->getMock(InputInterface::class);
+
+        $sensor
+            ->expects($this->once())
+            ->method('search')
+            ->willReturn([]);
+
+        $input
+            ->expects($this->once())
+            ->method('getArgument')
+            ->with('parameter')
+            ->willReturn(null);
+
+        $this->subject->setInputOutput($input, $output);
+
+        $this->subject->getParameter($sensor);
     }
 }

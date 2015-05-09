@@ -82,11 +82,11 @@ $(function () {
 
 		//If window is small enough, enable sidebar push menu
 		if ($(window).width() <= 992) {
-			var row_offcanvas = $('.row-offcanvas');
-			row_offcanvas.toggleClass('active');
+			var rowOffcanvas = $('.row-offcanvas');
+			rowOffcanvas.toggleClass('active');
 			$('.left-side').removeClass("collapse-left");
 			$(".right-side").removeClass("strech");
-			row_offcanvas.toggleClass("relative");
+			rowOffcanvas.toggleClass("relative");
 		} else {
 			//Else, enable content streching
 			$('.left-side').toggleClass("collapse-left");

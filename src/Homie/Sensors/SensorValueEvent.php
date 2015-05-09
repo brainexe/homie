@@ -50,11 +50,12 @@ class SensorValueEvent extends AbstractEvent implements PushViaWebsocket
         $valueFormatted,
         $timestamp
     ) {
-        $this->event_name = self::VALUE;
-        $this->sensorVo = $sensorVo;
-        $this->value = $value;
-        $this->sensor = $sensor;
+        parent::__construct(self::VALUE);
+
+        $this->sensorVo       = $sensorVo;
+        $this->value          = $value;
+        $this->sensor         = $sensor;
         $this->valueFormatted = $valueFormatted;
-        $this->timestamp = $timestamp;
+        $this->timestamp      = $timestamp;
     }
 }

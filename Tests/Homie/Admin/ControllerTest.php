@@ -53,7 +53,7 @@ class ControllerTest extends TestCase
         $this->userProvider
             ->expects($this->once())
             ->method('loadUserById')
-            ->willReturn(42)
+            ->with(42)
             ->willReturn($userVo);
 
         $actualResult = $this->subject->index($request);
@@ -76,5 +76,53 @@ class ControllerTest extends TestCase
         ];
 
         $this->assertEquals($expectedResult, $actualResult);
+    }
+
+    public function testSave()
+    {
+        $request = new Request();
+        $request->request->set('userId', $userId = 42);
+        $request->request->set('email', $email = 'newEmail');
+        $request->request->set('roles', $roles = ['newRoles']);
+        $request->request->set('password', $password = 'newPassword');
+
+        $userVo = new UserVO();
+
+        $this->userProvider
+            ->expects($this->at(0))
+            ->method('loadUserById')
+            ->with($userId)
+            ->willReturn($userVo);
+        $this->userProvider
+            ->expects($this->at(1))
+            ->method('setUserProperty')
+            ->with($userVo, 'email');
+        $this->userProvider
+            ->expects($this->at(2))
+            ->method('setUserProperty')
+            ->with($userVo, 'roles');
+        $this->userProvider
+            ->expects($this->at(3))
+            ->method('changePassword')
+            ->with($userVo, $password);
+
+        $actualResult = $this->subject->save($request);
+
+        $this->assertEquals($userVo, $actualResult);
+    }
+
+    public function testDelete()
+    {
+        $request = new Request();
+        $request->request->set('userId', $userId = 42);
+
+        $this->userProvider
+            ->expects($this->once())
+            ->method('deleteUser')
+            ->with($userId);
+
+        $actualResult = $this->subject->delete($request);
+
+        $this->assertTrue($actualResult);
     }
 }

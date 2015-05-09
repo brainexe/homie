@@ -136,13 +136,11 @@ class Add extends Command
      * @return string
      * @throws Exception
      */
-    protected function getParameter(Sensor $sensor)
+    public function getParameter(Sensor $sensor)
     {
         if (!$sensor instanceof Parameterized) {
             return null;
         }
-
-        $parameter = null;
 
         if ($this->input->getArgument('parameter')) {
             return $this->input->getArgument('parameter');
@@ -212,6 +210,16 @@ class Add extends Command
         );
 
         return $name;
+    }
+
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
+    public function setInputOutput(InputInterface $input, OutputInterface $output)
+    {
+        $this->input  = $input;
+        $this->output = $output;
     }
 
     /**

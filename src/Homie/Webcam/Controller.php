@@ -92,7 +92,7 @@ class Controller implements ControllerInterface
     /**
      * @Route("/webcam/image/", name="webcam.image")
      * @param Request $request
-     * @return boolean
+     * @return Response
      */
     public function getImage(Request $request)
     {

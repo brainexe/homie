@@ -15,7 +15,7 @@ class PinGateway
     use RedisTrait;
 
     /**
-     * @return array[]
+     * @return string[]
      */
     public function getPinDescriptions()
     {

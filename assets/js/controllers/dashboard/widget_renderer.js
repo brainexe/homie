@@ -50,10 +50,10 @@ App.ng.directive('contentItem', function ($compile) {
 });
 
 App.ng.controller('WidgetController', ['$scope', function ($scope) {
-    var widget_payload = $scope.$parent.widget;
-    var widget_meta    = App.Widgets[widget_payload.type];
+    var widgetPayload = $scope.$parent.widget;
+    var widgetMeta    = App.Widgets[widgetPayload.type];
 
     // todo use name from widgets definition
-    $scope.title  = widget_meta.title || widget_payload.name;
-    $scope.widget = widget_payload;
+    $scope.title  = widgetMeta.title || widgetPayload.name;
+    $scope.widget = widgetPayload;
 }]);

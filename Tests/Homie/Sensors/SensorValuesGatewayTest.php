@@ -5,7 +5,7 @@ namespace Tests\Homie\Sensors;
 use BrainExe\Core\Redis\Predis;
 use BrainExe\Core\Util\Time;
 use BrainExe\Tests\RedisMockTrait;
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorValuesGateway;
@@ -13,7 +13,7 @@ use Homie\Sensors\SensorValuesGateway;
 /**
  * @covers Homie\Sensors\SensorValuesGateway
  */
-class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
+class SensorValuesGatewayTest extends TestCase
 {
 
     use RedisMockTrait;
@@ -51,7 +51,7 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('multi')
+            ->method('pipeline')
             ->willReturn($this->redis);
 
         $this->redis

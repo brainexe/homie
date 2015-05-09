@@ -25,10 +25,7 @@ class InputControl implements InputControlInterface
         ];
     }
 
-    /**
-     * @param Event $event
-     */
-    public function takeShot(Event $event)
+    public function takeShot()
     {
         $name  = microtime(true);
         $event = new WebcamEvent($name, WebcamEvent::TAKE_PHOTO);

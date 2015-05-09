@@ -2,15 +2,14 @@
 
 namespace Tests\Homie\Sensors\Sensors;
 
-use PHPUnit_Framework_TestCase;
-
+use PHPUnit_Framework_TestCase as TestCase;
 use Homie\Sensors\Sensors\Load;
 use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 
 /**
  * @covers Homie\Sensors\Sensors\Load
  */
-class LoadTest extends PHPUnit_Framework_TestCase
+class LoadTest extends TestCase
 {
 
     /**

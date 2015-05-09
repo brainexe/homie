@@ -448,4 +448,43 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($expectedValue, $actualResult);
     }
+
+    public function testSensors()
+    {
+        $sensors = ['sensors'];
+        $types   = ['sensorsBuilder'];
+
+        $this->gateway
+            ->expects($this->once())
+            ->method('getSensors')
+            ->willReturn($sensors);
+        $this->builder
+            ->expects($this->once())
+            ->method('getSensors')
+            ->willReturn($types);
+
+        $actualResult = $this->subject->sensors();
+
+        $expectedValue = [
+            'types'   => $types,
+            'sensors' => $sensors
+        ];
+
+        $this->assertEquals($expectedValue, $actualResult);
+    }
+
+    public function testDelete()
+    {
+        $request = new Request();
+        $request->request->set('sensorId', $sensorId = 12);
+
+        $this->gateway
+            ->expects($this->once())
+            ->method('deleteSensor')
+            ->willReturn($sensorId);
+
+        $actualResult = $this->subject->delete($request);
+
+        $this->assertTrue($actualResult);
+    }
 }

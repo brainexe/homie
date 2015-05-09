@@ -82,7 +82,6 @@ class Controller
     }
 
     /**
-     * @todo cleanup
      * @param Request $request
      * @param string $activeSensorIds
      * @return string
@@ -111,24 +110,9 @@ class Controller
 
         $activeSensorIds = array_unique(array_map('intval', explode(':', $activeSensorIds)));
 
-        $sensorValues = [];
-
         $sensorsRaw    = $this->gateway->getSensors();
         $sensorObjects = $this->builder->getSensors();
-
-        foreach ($sensorsRaw as &$sensor) {
-            $sensorId = $sensor['sensorId'];
-
-            if (!empty($sensor['lastValue'])) {
-                $formatter = $this->builder->getFormatter($sensor['type']);
-                $sensor['lastValue'] = $formatter->formatValue($sensor['lastValue']);
-            }
-
-            if ($activeSensorIds && !in_array($sensorId, $activeSensorIds)) {
-                continue;
-            }
-            $sensorValues[$sensorId] = $this->valuesGateway->getSensorValues($sensorId, $from);
-        }
+        $sensorValues  = $this->addValues($activeSensorIds, $sensorsRaw, $from);
 
         $json = $this->chart->formatJsonData($sensorsRaw, $sensorValues);
 
@@ -269,5 +253,31 @@ class Controller
             'sensor_obj'             => $sensorObj,
             'refresh_interval'       => 60
         ];
+    }
+
+    /**
+     * @param int[] $activeSensorIds
+     * @param array $sensorsRaw
+     * @param int $from
+     * @return array
+     */
+    protected function addValues(array $activeSensorIds, array &$sensorsRaw, $from)
+    {
+        $sensorValues = [];
+        foreach ($sensorsRaw as &$sensor) {
+            $sensorId = $sensor['sensorId'];
+
+            if (!empty($sensor['lastValue'])) {
+                $formatter           = $this->builder->getFormatter($sensor['type']);
+                $sensor['lastValue'] = $formatter->formatValue($sensor['lastValue']);
+            }
+
+            if ($activeSensorIds && !in_array($sensorId, $activeSensorIds)) {
+                continue;
+            }
+            $sensorValues[$sensorId] = $this->valuesGateway->getSensorValues($sensorId, $from);
+        }
+
+        return $sensorValues;
     }
 }

@@ -20,7 +20,7 @@ class TemperatureDS18 extends AbstractSensor implements Searchable
     const TYPE = 'temp_ds18';
 
     /**
-     * @var Filesystem
+     * @var FileSystem
      */
     private $fileSystem;
 
@@ -34,7 +34,7 @@ class TemperatureDS18 extends AbstractSensor implements Searchable
      * @param FileSystem $filesystem
      * @param Glob $glob
      */
-    public function __construct(Filesystem $filesystem, Glob $glob)
+    public function __construct(FileSystem $filesystem, Glob $glob)
     {
         $this->fileSystem = $filesystem;
         $this->glob       = $glob;
@@ -53,7 +53,7 @@ class TemperatureDS18 extends AbstractSensor implements Searchable
         $content = $this->fileSystem->fileGetContents($path);
 
         if (strpos($content, 'YES') === false) {
-         // invalid response :(
+            // invalid response :(
             return null;
         }
 
@@ -96,7 +96,7 @@ class TemperatureDS18 extends AbstractSensor implements Searchable
      */
     public function search()
     {
-        return $this->glob->glob('/sys/bus/w1/devices/*/w1_slave');
+        return $this->glob->execGlob('/sys/bus/w1/devices/*/w1_slave');
     }
 
     /**

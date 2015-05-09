@@ -23,6 +23,7 @@ use BrainExe\Core\Annotations\Command as CommandAnnotation;
 
 /**
  * @CommandAnnotation("Command.Sensor.Crawl")
+ * @codeCoverageIgnore
  */
 class Crawl extends Command
 {
@@ -36,6 +37,11 @@ class Crawl extends Command
      * @var array[]
      */
     private $sensorsRaw;
+
+    /**
+     * @var SensorGateway
+     */
+    private $gateway;
 
     /**
      * {@inheritdoc}

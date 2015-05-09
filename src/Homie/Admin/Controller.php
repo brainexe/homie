@@ -19,6 +19,11 @@ class Controller
 {
 
     /**
+     * @var DatabaseUserProvider
+     */
+    private $userProvider;
+
+    /**
      * @Inject("@DatabaseUserProvider")
      * @param DatabaseUserProvider $userProvider
      */
@@ -94,7 +99,7 @@ class Controller
 
     /**
      * @param Request $request
-     * @return Response
+     * @return bool
      * @Route("/admin/user/delete/", name="admin.user.delete")
      * @Role("admin")
      */

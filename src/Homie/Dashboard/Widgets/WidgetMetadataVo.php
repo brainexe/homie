@@ -23,7 +23,7 @@ class WidgetMetadataVo
     /**
      * @param string $widgetId
      * @param string $name
-     * @param string[] $parameters
+     * @param array[] $parameters
      */
     public function __construct($widgetId, $name, array $parameters = [])
     {

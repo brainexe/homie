@@ -6,7 +6,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Homie\Sensors\Formatter\Load;
 
 /**
- * @covers Homie\Sensors\Formatter\Barometer
+ * @covers Homie\Sensors\Formatter\Load
  */
 class LoadTest extends TestCase
 {

@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Homie\Webcam\Webcam;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Core\Util\IdGenerator;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @covers Homie\Webcam\Controller
@@ -118,5 +119,30 @@ class ControllerTest extends TestCase
         $actualResult = $this->subject->delete($request);
 
         $this->assertTrue($actualResult);
+    }
+
+
+    public function testGetImage()
+    {
+        $request = new Request();
+        $request->query->set('file', $file = 'file');
+        $stream = fopen(__FILE__, 'r');
+        $mime   = 'mime';
+
+        $this->filesystem
+            ->expects($this->once())
+            ->method('readStream')
+            ->with($file)
+            ->willReturn($stream);
+        $this->filesystem
+            ->expects($this->once())
+            ->method('getMimeType')
+            ->with($file)
+            ->willReturn($mime);
+
+        $actualResult = $this->subject->getImage($request);
+
+        $this->assertEquals($mime, $actualResult->headers->get('Content-Type'));
+        $this->assertNotEmpty($actualResult->getContent());
     }
 }
