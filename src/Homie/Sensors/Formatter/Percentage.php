@@ -27,7 +27,7 @@ class Percentage implements Formatter
      */
     public function getEspeakText($value)
     {
-        return sprintf(_('%d Percent'), $value);
+        return sprintf(gettext('%d Percent'), $value);
     }
 
     /**

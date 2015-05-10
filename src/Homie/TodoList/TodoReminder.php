@@ -43,11 +43,11 @@ class TodoReminder
     }
 
     /**
-     * @param $issuesPerState
+     * @param array $issuesPerState
      */
     private function doSendNotification($issuesPerState)
     {
-        $text = _('Erinnerung');
+        $text = gettext('Erinnerung');
         $text .= ': ';
 
         foreach ($issuesPerState as $state => $issuesPerStatus) {
@@ -96,10 +96,10 @@ class TodoReminder
 
         switch ($state) {
             case TodoItemVO::STATUS_PROGRESS:
-                return sprintf(ngettext('%s Aufgabe in Arbeit', '%s offene Aufgaben in Arbeit', $count), $stringCount);
+                return sprintf(ngettext('%d task in progress', '%d tasks in progress', $count), $stringCount);
             case TodoItemVO::STATUS_PENDING:
             default:
-                return sprintf(ngettext('%s offene Aufgabe', '%s offene Aufgaben', $count), $stringCount);
+                return sprintf(ngettext('%d open task', '%d open tasks', $count), $stringCount);
         }
     }
 
@@ -111,7 +111,7 @@ class TodoReminder
     {
         switch ($count) {
             case 1:
-                return _('eine');
+                return gettext('one');
             default:
                 return $count;
         }

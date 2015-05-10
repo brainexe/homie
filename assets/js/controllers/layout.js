@@ -5,8 +5,8 @@ App.ng.controller('LayoutController', ['$scope', 'gettextCatalog', function ($sc
 
     $scope.flashBag = [];
     $scope.languages = {
-        'DE': 'Deutsch',
-        'EN': 'English'
+        'de_DE': 'Deutsch',
+        'en_US': 'English'
     };
 
     $scope.currentUser = {};

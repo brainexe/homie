@@ -55,10 +55,10 @@ class SensorWidget extends AbstractWidget
 
         return new WidgetMetadataVo(
             $this->getId(),
-            _('Sensor'),
+            gettext('Sensor'),
             [
                 'sensor_id' => [
-                    'name'   => _('Sensor ID'),
+                    'name'   => gettext('Sensor ID'),
                     'values' => $sensors
                 ]
             ]

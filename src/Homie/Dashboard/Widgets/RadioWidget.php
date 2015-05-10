@@ -43,10 +43,10 @@ class RadioWidget extends AbstractWidget
 
         return new WidgetMetadataVo(
             $this->getId(),
-            _('Radio'),
+            gettext('Radio'),
             [
                 'radioId' => [
-                    'name'   => _('Radio ID'),
+                    'name'   => gettext('Radio ID'),
                     'values' => $values
                 ]
             ]

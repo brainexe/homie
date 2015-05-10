@@ -45,7 +45,7 @@ class Barometer extends AbstractSensor implements Parameterized
     public function getDefinition()
     {
         $definition            = new Definition();
-        $definition->name      = _('Barometer');
+        $definition->name      = gettext('Barometer');
         $definition->type      = Definition::TYPE_BAROMETER;
         $definition->formatter = None::TYPE;
 

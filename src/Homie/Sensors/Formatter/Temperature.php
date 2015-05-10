@@ -26,7 +26,7 @@ class Temperature implements Formatter
      */
     public function getEspeakText($value)
     {
-        return str_replace('.', ',', sprintf(_('%0.1f Degree'), $value));
+        return str_replace('.', ',', sprintf(gettext('%0.1f Degree'), $value));
     }
 
     /**

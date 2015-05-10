@@ -26,6 +26,14 @@
 
         <service id="RemoteFilesystem" class="League\Flysystem\Filesystem" public="true">
             <argument type="service">
+                <service class="League\Flysystem\Adapter\Local">
+                    <argument>%cache.dir%filesystem/</argument>
+                </service>
+            </argument>
+        </service>
+
+        <service id="WebdavRemoteFilesystem" class="League\Flysystem\Filesystem" public="false">
+            <argument type="service">
                 <service class="League\Flysystem\WebDAV\WebDAVAdapter">
                     <argument type="service">
                         <service class="Sabre\DAV\Client">
@@ -33,7 +41,7 @@
                                 <argument key="userName">%filesystem.remote.username%</argument>
                                 <argument key="password">%filesystem.remote.password%</argument>
                                 <argument key="baseUri">%filesystem.remote.url%</argument>
-                                <argument key="authType" type="constant">Sabre\DAV\Client::AUTH_BASIC</argument>
+                                <argument key="authType">1</argument>
                             </argument>
                             <call method="addCurlSetting">
                                 <argument type="constant">CURLOPT_SSL_VERIFYHOST</argument>
@@ -48,34 +56,13 @@
                 </service>
             </argument>
         </service>
-        <service id="CachedRemoteFilesystem" class="League\Flysystem\Filesystem" public="true">
+        <service id="CachedRemoteFilesystem" class="League\Flysystem\Filesystem" public="false">
             <argument type="service">
                 <service class="League\Flysystem\Cached\CachedAdapter">
-                    <argument type="service">
-                        <service class="League\Flysystem\WebDAV\WebDAVAdapter">
-                            <argument type="service">
-                                <service class="Sabre\DAV\Client">
-                                    <argument type="collection">
-                                        <argument key="userName">%filesystem.remote.username%</argument>
-                                        <argument key="password">%filesystem.remote.password%</argument>
-                                        <argument key="baseUri">%filesystem.remote.url%</argument>
-                                        <argument key="authType" type="constant">Sabre\DAV\Client::AUTH_BASIC</argument>
-                                    </argument>
-                                    <call method="addCurlSetting">
-                                        <argument type="constant">CURLOPT_SSL_VERIFYHOST</argument>
-                                        <argument>0</argument>
-                                    </call>
-                                    <call method="addCurlSetting">
-                                        <argument type="constant">CURLOPT_SSL_VERIFYPEER</argument>
-                                        <argument>0</argument>
-                                    </call>
-                                </service>
-                            </argument>
-                        </service>
-                    </argument>
+                    <argument type="service" id="RemoteFilesystem"/>
                     <argument type="service">
                         <service class="League\Flysystem\Cached\Storage\Predis">
-                            <argument type="service" id="redis"></argument>
+                            <argument type="service" id="redis"/>
                         </service>
                     </argument>
                 </service>

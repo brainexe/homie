@@ -39,7 +39,7 @@ class Load extends AbstractSensor
     public function getDefinition()
     {
         $definition = new Definition();
-        $definition->name = _('Load');
+        $definition->name = gettext('Load');
         $definition->type = Definition::TYPE_LOAD;
         $definition->formatter = Formatter::TYPE;
 

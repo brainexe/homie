@@ -20,7 +20,7 @@ class TimeWidget extends AbstractWidget
     {
         return new WidgetMetadataVo(
             $this->getId(),
-            _('Time')
+            gettext('Time')
         );
     }
 }

@@ -45,7 +45,7 @@ class MemoryUsed extends AbstractSensor
     public function getDefinition()
     {
         $definition            = new Definition();
-        $definition->name      = _('Memory');
+        $definition->name      = gettext('Memory');
         $definition->type      = Definition::TYPE_MEMORY;
         $definition->formatter = Bytes::TYPE;
 

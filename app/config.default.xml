@@ -8,13 +8,12 @@
         <parameter key="socket.url">http://localhost:8081/socket</parameter>
 
         <parameter key="rc_switch.command">sudo /opt/rcswitch-pi/send</parameter>
-
         <parameter key="adafruit.path">/opt/Adafruit-Raspberry-Pi-Python-Code/Adafruit_DHT_Driver/</parameter>
 
         <parameter key="serial.port">ttyACM*</parameter>
         <parameter key="serial.baud">57600</parameter>
 
-        <parameter key="filesystem.remote.url">https://owncloud.exaple.com/webdav/</parameter>
+        <parameter key="filesystem.remote.url">https://owncloud.example.com/webdav/</parameter>
         <parameter key="filesystem.remote.username">homie</parameter>
         <parameter key="filesystem.remote.password">homie</parameter>
     </parameters>
