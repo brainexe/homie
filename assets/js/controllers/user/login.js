@@ -19,7 +19,7 @@ App.ng.controller('LoginController', ['$scope', function ($scope) {
 			if (!result) {
 				return;
 			}
-			App.Layout.$scope.current_user = result;
+			App.Layout.$scope.currentUser = result;
 			App.Layout.$scope.$apply();
 
 			window.location.href = '#dashboard';

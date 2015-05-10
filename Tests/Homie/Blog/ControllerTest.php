@@ -76,8 +76,8 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $expectedResult = [
                 'posts' => $posts,
                 'users' => $userNames,
-                'active_user_id' => $userId,
-                'current_user_id' => $userId,
+                'activeUserId' => $userId,
+                'currentUserId' => $userId,
         ];
 
         $this->assertEquals($expectedResult, $actualResult);
@@ -137,8 +137,8 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $expectedResult = [
                 'posts' => $posts,
                 'users' => $userNames,
-                'active_user_id' => $userId,
-                'current_user_id' => $userId,
+                'activeUserId' => $userId,
+                'currentUserId' => $userId,
         ];
 
         $this->assertEquals($expectedResult, $actualResult);

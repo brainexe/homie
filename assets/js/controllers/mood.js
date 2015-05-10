@@ -32,10 +32,10 @@ App.ng.controller('MoodController', ['$scope', function ($scope) {
 			lastTime = 0,
 			changed = false;
 
-		var r = 0, g = 0, b = 0, color_states = {}, color, i, diff;
-		color_states[100] = {r: 0, g: 200, b: 0, next: null};
-		color_states[50]  = {r: 255, g: 210, b: 0, next: color_states[100]};
-		color_states[0]   = {r: 180, g: 30, b: 0, next: color_states[50]};
+		var r = 0, g = 0, b = 0, colorStates = {}, color, i, diff;
+		colorStates[100] = {r: 0, g: 200, b: 0, next: null};
+		colorStates[50]  = {r: 255, g: 210, b: 0, next: colorStates[100]};
+		colorStates[0]   = {r: 180, g: 30, b: 0, next: colorStates[50]};
 
 		function rgbToHex(r, g, b) {
 			r = r <= 0 ? '00' : r.toString('16');
@@ -51,7 +51,7 @@ App.ng.controller('MoodController', ['$scope', function ($scope) {
 
 		function getColorForMood(mood) {
 			for (i = 0; i <= 100; i += 50) {
-				color = color_states[i];
+				color = colorStates[i];
 
 				if (mood <= (i + 50)) {
 					diff = mood - i;
@@ -68,7 +68,7 @@ App.ng.controller('MoodController', ['$scope', function ($scope) {
 		}
 
 		function Smiley(mood) {
-			var mood_color = getColorForMood(mood);
+			var moodColor = getColorForMood(mood);
 			this.background = new Head(mood_color, INITIAL_SMILEY_RADIUS);
 
 			this.left_eye = new Eye();
@@ -99,8 +99,8 @@ App.ng.controller('MoodController', ['$scope', function ($scope) {
 		Smiley.prototype = new createjs.Container();
 
 		Smiley.prototype.setMood = function (mood) {
-			var mood_color = getColorForMood(mood);
-			this.background.setColor(mood_color);
+			var moodColor = getColorForMood(mood);
+			this.background.setColor(moodColor);
 
 			this.mouth.changeShape(mood);
 		};
@@ -115,27 +115,27 @@ App.ng.controller('MoodController', ['$scope', function ($scope) {
 		Smiley.prototype.update = function (time, lastTime) {
 			// mood transition ( change color + mouth of the smiley )
 			if (mood.target != mood.currentValue) {
-				var new_mood;
+				var newMood;
 
 				var val = Math.floor(time - lastTime) / 500 * (50 - (Math.abs(mood.target - mood.currentValue) / 100 * 40));
 				if (mood.target > mood.currentValue) {
-					new_mood = Math.min(mood.currentValue + val, mood.target);
+					newMood = Math.min(mood.currentValue + val, mood.target);
 				} else if (mood.target < mood.currentValue) {
-					new_mood = Math.max(mood.currentValue - val, mood.target);
+					newMood = Math.max(mood.currentValue - val, mood.target);
 				}
 
-				mood.currentValue = new_mood;
-				this.setMood(new_mood);
+				mood.currentValue = newMood;
+				this.setMood(newMood);
 			}
 
 			this.left_tear.update(time, lastTime, mood.currentValue);
 			this.right_tear.update(time, lastTime, mood.currentValue);
 
 			if ((time >= this.left_eye.next_blink || time >= this.right_eye.next_blink) && (mood.currentValue >= 30 || this.state == 'closed')) {
-				var next_blink = this.left_eye.state == 'open' ? time + 200 : time + 100 + Math.floor(Math.random() * 6000);
+				var nextBlink = this.left_eye.state == 'open' ? time + 200 : time + 100 + Math.floor(Math.random() * 6000);
 
-				this.left_eye.blink(next_blink);
-				this.right_eye.blink(next_blink);
+				this.left_eye.blink(nextBlink);
+				this.right_eye.blink(nextBlink);
 			}
 
 			this.hand.update(time);
@@ -173,17 +173,17 @@ App.ng.controller('MoodController', ['$scope', function ($scope) {
 
 			mood.object = new Smiley(mood.currentValue);
 
-			var scale_factor = Math.min(window.innerWidth / (INITIAL_SMILEY_RADIUS * 2), window.innerHeight / (INITIAL_SMILEY_RADIUS * 2));
-			mood.object.scaleY = mood.object.scaleX = scale_factor;
+			var scaleFactor = Math.min(window.innerWidth / (INITIAL_SMILEY_RADIUS * 2), window.innerHeight / (INITIAL_SMILEY_RADIUS * 2));
+			mood.object.scaleY = mood.object.scaleX = scaleFactor;
 
-			mood.object.x = window.innerWidth / 2 - INITIAL_SMILEY_RADIUS * scale_factor;
-			mood.object.y = window.innerHeight / 2 - INITIAL_SMILEY_RADIUS * scale_factor;
+			mood.object.x = window.innerWidth / 2 - INITIAL_SMILEY_RADIUS * scaleFactor;
+			mood.object.y = window.innerHeight / 2 - INITIAL_SMILEY_RADIUS * scaleFactor;
 			stage.addChild(mood.object);
 
 			thought.object = new ThoughtBubble(data.thought);
-			thought.object.scaleX = thought.object.scaleY = scale_factor;
-			thought.object.x = window.innerWidth / 2 + INITIAL_SMILEY_RADIUS * 0.75 * scale_factor;
-			thought.object.y = window.innerHeight / 2 - INITIAL_SMILEY_RADIUS * scale_factor;
+			thought.object.scaleX = thought.object.scaleY = scaleFactor;
+			thought.object.x = window.innerWidth / 2 + INITIAL_SMILEY_RADIUS * 0.75 * scaleFactor;
+			thought.object.y = window.innerHeight / 2 - INITIAL_SMILEY_RADIUS * scaleFactor;
 
 			stage.addChild(thought.object);
 
@@ -206,14 +206,14 @@ App.ng.controller('MoodController', ['$scope', function ($scope) {
 			canvas.width = window.innerWidth;
 			canvas.height = window.innerHeight;
 
-			var scale_factor = Math.min(window.innerWidth / (INITIAL_SMILEY_RADIUS * 2), window.innerHeight / (INITIAL_SMILEY_RADIUS * 2));
-			mood.object.scaleY = mood.object.scaleX = scale_factor;
-			mood.object.x = window.innerWidth / 2 - INITIAL_SMILEY_RADIUS * scale_factor;
-			mood.object.y = window.innerHeight / 2 - INITIAL_SMILEY_RADIUS * scale_factor;
+			var scaleFactor = Math.min(window.innerWidth / (INITIAL_SMILEY_RADIUS * 2), window.innerHeight / (INITIAL_SMILEY_RADIUS * 2));
+			mood.object.scaleY = mood.object.scaleX = scaleFactor;
+			mood.object.x = window.innerWidth / 2 - INITIAL_SMILEY_RADIUS * scaleFactor;
+			mood.object.y = window.innerHeight / 2 - INITIAL_SMILEY_RADIUS * scaleFactor;
 
-			thought.object.scaleX = thought.object.scaleY = scale_factor;
-			thought.object.x = window.innerWidth / 2 + INITIAL_SMILEY_RADIUS * 0.75 * scale_factor;
-			thought.object.y = window.innerHeight / 2 - INITIAL_SMILEY_RADIUS * scale_factor;
+			thought.object.scaleX = thought.object.scaleY = scaleFactor;
+			thought.object.x = window.innerWidth / 2 + INITIAL_SMILEY_RADIUS * 0.75 * scaleFactor;
+			thought.object.y = window.innerHeight / 2 - INITIAL_SMILEY_RADIUS * scaleFactor;
 		};
 	});
 

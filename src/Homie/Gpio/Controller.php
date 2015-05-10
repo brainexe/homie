@@ -52,7 +52,7 @@ class Controller
     {
         unset($request);
 
-        $pin = $this->manager->setPin($sensorId, $status, $value);
+        $pin = $this->manager->setPin($sensorId, $status, (bool)$value);
 
         return $pin;
     }

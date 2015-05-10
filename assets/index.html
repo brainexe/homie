@@ -52,14 +52,14 @@
                     <li class="dropdown user user-menu" dropdown>
                         <a href="#/user/" class="dropdown-toggle" dropdown-toggle>
                             <i class="glyphicon glyphicon-user"></i>
-                            <span>{{ current_user.username }} <i class="caret"></i></span>
+                            <span>{{ currentUser.username }} <i class="caret"></i></span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header bg-light-blue">
                                 <div class="profile_avatar img-circle"></div>
                                 <p>
-                                    {{ current_user.username }}
+                                    {{ currentUser.username }}
                                 </p>
                             </li>
                             <!-- Menu Footer-->
@@ -94,7 +94,7 @@
                         <div class="user_avatar img-circle"></div>
                     </div>
                     <div ng-if="isLoggedIn()" class="pull-left info">
-                        <p translate>Hello {{ current_user.username }}!</p>
+                        <p translate>Hello {{ currentUser.username }}!</p>
                     </div>
                     <form action="#" method="get" class="sidebar-form">
                         <div class="input-group">
@@ -120,7 +120,7 @@
 
         <aside class="right-side">
             <section class="content-header">
-                <div ng-repeat="flash in flash_bag" class="alert alert-{{ flash.type }} alert-dismissable">
+                <div ng-repeat="flash in flashBag" class="alert alert-{{ flash.type }} alert-dismissable">
                     <button type="button" class="close" ng-click="removeFlash($index)">&times;</button>
                     {{ flash.message }}
                 </div>

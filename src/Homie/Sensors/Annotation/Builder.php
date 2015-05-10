@@ -3,7 +3,7 @@
 namespace Homie\Sensors\Annotation;
 
 use BrainExe\Annotations\Loader\Annotation\ServiceDefinitionBuilder;
-use Homie\Sensors\CompilerPass;
+use Homie\Sensors\CompilerPass\Sensor as CompilerPass;
 use ReflectionClass;
 use Symfony\Component\DependencyInjection\Definition;
 

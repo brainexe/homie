@@ -85,7 +85,7 @@ class Controller
      * @param Request $request
      * @param string $activeSensorIds
      * @return string
-     * @Route("/sensors/load/{active_sensor_ids}")
+     * @Route("/sensors/load/{activeSensorIds}")
      */
     public function indexSensor(Request $request, $activeSensorIds)
     {
@@ -118,10 +118,10 @@ class Controller
 
         return [
             'sensors' => $sensorsRaw,
-            'active_sensor_ids' => array_values($activeSensorIds),
+            'activeSensorIds' => array_values($activeSensorIds),
             'json' => $json,
-            'current_from' => $from,
-            'available_sensors' => $sensorObjects,
+            'currentFrom' => $from,
+            'availableSensors' => $sensorObjects,
             'fromIntervals' => [
                 0 => 'All',
                 3600 => 'Last Hour',

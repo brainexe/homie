@@ -8,8 +8,8 @@ use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Controller\ControllerInterface;
 use BrainExe\Core\Traits\AddFlashTrait;
 use BrainExe\Core\Traits\EventDispatcherTrait;
+use BrainExe\MessageQueue\Job;
 use Homie\Radio\VO\RadioVO;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -44,7 +44,7 @@ class Controller implements ControllerInterface
 
     /**
      * @return array
-     * @Route("/radio/", name="radio.index")
+     * @Route("/radios/", name="radio.index")
      */
     public function index()
     {
@@ -52,9 +52,9 @@ class Controller implements ControllerInterface
         $jobs            = $this->radioJob->getJobs();
 
         return [
-            'radios'     => $radiosFormatted,
-            'radio_jobs' => $jobs,
-            'pins'       => Radios::$radioPins,
+            'radios'    => $radiosFormatted,
+            'radioJobs' => $jobs,
+            'pins'      => Radios::$radioPins,
         ];
     }
 
@@ -62,8 +62,8 @@ class Controller implements ControllerInterface
      * @param Request $request
      * @param integer $radioId
      * @param integer $status
-     * @return JsonResponse
-     * @Route("/radio/status/{radioId}/{status}/", name="radio.set_status", methods="POST")
+     * @return bool
+     * @Route("/radios/{radioId}/status/{status}/", name="radio.set_status", methods="POST")
      */
     public function setStatus(Request $request, $radioId, $status)
     {
@@ -71,19 +71,16 @@ class Controller implements ControllerInterface
 
         $radioVo = $this->radios->getRadio($radioId);
 
-        $event = new RadioChangeEvent($radioVo, $status);
+        $event = new RadioChangeEvent($radioVo, (bool)$status);
         $this->dispatchInBackground($event);
 
-        $response = new JsonResponse(true);
-        $this->addFlash($response, self::ALERT_SUCCESS, _('Set Radio'));
-
-        return $response;
+        return true;
     }
 
     /**
      * @param Request $request
      * @return RadioVO
-     * @Route("/radio/add/", methods="POST")
+     * @Route("/radios/", methods="POST")
      */
     public function addRadio(Request $request)
     {
@@ -109,7 +106,7 @@ class Controller implements ControllerInterface
      * @param Request $request
      * @param integer $radioId
      * @return boolean
-     * @Route("/radio/delete/{radioId}/", name="radio.delete", methods="POST")
+     * @Route("/radios/{radioId}/", name="radio.delete", methods="DELETE")
      */
     public function deleteRadio(Request $request, $radioId)
     {
@@ -122,30 +119,27 @@ class Controller implements ControllerInterface
 
     /**
      * @param Request $request
-     * @return JsonResponse
-     * @Route("/radio/job/add/", name="radiojob.add", methods="POST")
+     * @return Job[]
+     * @Route("/radios/jobs/", name="radiojob.add", methods="POST")
      */
     public function addRadioJob(Request $request)
     {
         $radioId     = $request->request->get('radioId');
-        $status      = $request->request->getInt('status');
+        $status      = (bool)$request->request->getInt('status');
         $timeString  = $request->request->get('time');
 
         $radioVo = $this->radios->getRadio($radioId);
 
         $this->radioJob->addRadioJob($radioVo, $timeString, $status);
 
-        $response = new JsonResponse($this->radioJob->getJobs());
-        $this->addFlash($response, self::ALERT_SUCCESS, _('The job was sored successfully'));
-
-        return $response;
+        return $this->radioJob->getJobs();
     }
 
     /**
      * @param Request $request
      * @param string $jobId
      * @return boolean
-     * @Route("/radio/job/delete/{job_id}/", methods="POST")
+     * @Route("/radios/jobs/{job_id}/", methods="DELETE")
      */
     public function deleteRadioJob(Request $request, $jobId)
     {

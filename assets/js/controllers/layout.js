@@ -3,16 +3,16 @@ App.Layout = {};
 App.ng.controller('LayoutController', ['$scope', 'gettextCatalog', function ($scope, gettextCatalog) {
     App.Layout.$scope = $scope;
 
-    $scope.flash_bag = [];
+    $scope.flashBag = [];
     $scope.languages = {
         'DE': 'Deutsch',
         'EN': 'English'
     };
 
-    $scope.current_user = {};
+    $scope.currentUser = {};
 
     $.get('/user/current/').then(function(user){
-        $scope.current_user = user;
+        $scope.currentUser = user;
         $scope.$apply();
     });
 
@@ -24,11 +24,11 @@ App.ng.controller('LayoutController', ['$scope', 'gettextCatalog', function ($sc
      * @returns {Boolean}
      */
     $scope.isLoggedIn = function () {
-        return $scope.current_user && $scope.current_user.id > 0;
+        return $scope.currentUser && $scope.currentUser.id > 0;
     };
 
     $scope.removeFlash = function(index) {
-        $scope.flash_bag.splice(index, 1);
+        $scope.flashBag.splice(index, 1);
     };
 
     /**
@@ -43,13 +43,13 @@ App.ng.controller('LayoutController', ['$scope', 'gettextCatalog', function ($sc
             message: message
         };
 
-        $scope.flash_bag.push(item);
+        $scope.flashBag.push(item);
 
         window.setTimeout(function () {
-            var index = $scope.flash_bag.indexOf(item);
+            var index = $scope.flashBag.indexOf(item);
 
             if (index > -1) {
-                $scope.flash_bag.splice(index, 1);
+                $scope.flashBag.splice(index, 1);
                 $scope.$apply();
             }
         }, 5000);
@@ -65,7 +65,7 @@ App.ng.controller('LayoutController', ['$scope', 'gettextCatalog', function ($sc
             });
     };
 
-    $scope.$on('sensor.value', function (event_name, event) {
+    $scope.$on('sensor.value', function (eventName, event) {
         var text = '{0}: {1}'.format(event.sensorVo.name, event.valueFormatted);
         App.Notification.show(text);
     });

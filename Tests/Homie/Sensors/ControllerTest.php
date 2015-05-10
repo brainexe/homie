@@ -156,10 +156,10 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 
         $expectedResult = [
             'sensors' => $sensorsRaw,
-            'active_sensor_ids' => $sensorIds,
+            'activeSensorIds' => $sensorIds,
             'json' => $json,
-            'current_from' => $from,
-            'available_sensors' => $sensorsObj,
+            'currentFrom' => $from,
+            'availableSensors' => $sensorsObj,
             'fromIntervals' => [
                 0 => 'All',
                 3600 => 'Last Hour',
@@ -223,10 +223,10 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 
         $expectedResult = [
             'sensors' => $sensorsRaw,
-            'active_sensor_ids' => [13],
+            'activeSensorIds' => [13],
             'json' => $json,
-            'current_from' => Chart::DEFAULT_TIME,
-            'available_sensors' => $sensorsObj,
+            'currentFrom' => Chart::DEFAULT_TIME,
+            'availableSensors' => $sensorsObj,
             'fromIntervals' => [
                 0 => 'All',
                 3600 => 'Last Hour',

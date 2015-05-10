@@ -5,6 +5,7 @@ namespace Tests\Homie\Sensors\Sensors;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\Sensors\TemperatureDHT11;
+use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
@@ -102,5 +103,37 @@ class TemperatureDHT11Test extends TestCase
         $actualResult = $this->subject->getValue($pin);
 
         $this->assertEquals($temp, $actualResult);
+    }
+
+    public function testIsSupportedExisting()
+    {
+        $output    = new DummyOutput();
+        $parameter = 'parameter';
+
+        $this->fileSystem
+            ->expects($this->once())
+            ->method('exists')
+            ->with($parameter)
+            ->willReturn(true);
+
+        $actual = $this->subject->isSupported($parameter, $output);
+
+        $this->assertTrue($actual);
+    }
+
+    public function testIsSupportedNotExisting()
+    {
+        $output    = new DummyOutput();
+        $parameter = 'parameter';
+
+        $this->fileSystem
+            ->expects($this->once())
+            ->method('exists')
+            ->with($parameter)
+            ->willReturn(false);
+
+        $actual = $this->subject->isSupported($parameter, $output);
+
+        $this->assertFalse($actual);
     }
 }

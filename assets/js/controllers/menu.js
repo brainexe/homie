@@ -9,7 +9,7 @@ App.ng.controller('MenuController', ['$scope', '$route', '$location', 'controlle
     });
 
 	var translated = false;
-	$scope.$parent.$watch('current_user', function(user) {
+	$scope.$parent.$watch('currentUser', function(user) {
 		var is_logged_in = $scope.$parent.isLoggedIn();
 
 		$scope.menu = $scope.controllers.filter(function(item) {

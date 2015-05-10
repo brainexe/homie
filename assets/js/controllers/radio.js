@@ -9,7 +9,7 @@ App.Radios = {
 				return;
 			}
 
-			$.get('/radio/', function (data) {
+			$.get('/radios/', function (data) {
 				resolve(data.radios);
 				self._radios = data;
 			});
@@ -17,20 +17,20 @@ App.Radios = {
 	},
 
     setRadio: function (radioId, status) {
-        return $.post('/radio/status/{0}/{1}/'.format(radioId, status));
+        return $.post('/radios/{0}/status/{1}/'.format(radioId, status));
     }
 };
 
 App.ng.controller('RadioController', ['$scope', function ($scope) {
 	$scope.radios     = {};
-	$scope.radio_jobs = {};
+	$scope.radioJobs  = {};
 	$scope.pins       = {};
-	$scope.new_job    = {};
+	$scope.newJob    = {};
 	$scope.editMode   = false;
 
-	$.get('/radio/', function(data) {
+	$.get('/radios/', function(data) {
 		$scope.radios = data.radios;
-		$scope.radio_jobs = data.radio_jobs;
+		$scope.radioJobs = data.radioJobs;
 		$scope.pins = data.pins;
 		$scope.$apply();
 	});
@@ -54,28 +54,28 @@ App.ng.controller('RadioController', ['$scope', function ($scope) {
 			return;
 		}
 
-		$.post('/radio/delete/{0}/'.format(radioId), function () {
+		$.ajax_delete('/radios/{0}/'.format(radioId), function () {
 			delete $scope.radios[radioId];
 			$scope.$apply();
 		});
 	};
 
 	$scope.highlight = function(radio) {
-		$scope.new_job.radioId = radio.radioId;
-        document.getElementById('new_radio_job_time').focus();
+		$scope.newJob.radioId = radio.radioId;
+        document.getElementById('new_radioJob_time').focus();
 	};
 
 	$scope.addRadio = function(newRadio) {
-		$.post('/radio/add/', newRadio, function(data) {
+		$.post('/radios/', newRadio, function(data) {
             $scope.radios[data.radioId] = data;
 			$scope.$apply();
 		});
 	};
 
-	$scope.new_radio = {};
+	$scope.newRadio = {};
 	$scope.addRadioJob = function(newJob) {
-		$.post('/radio/job/add/', newJob, function(data) {
-			$scope.radio_jobs = data;
+		$.post('/radios/jobs/', newJob, function(data) {
+			$scope.radioJobs = data;
 			$scope.job_time   = '';
 			$scope.$apply();
 		});
@@ -83,8 +83,8 @@ App.ng.controller('RadioController', ['$scope', function ($scope) {
 
 	$scope.deleteRadioJob = function(jobId) {
 		var eventId = jobId.split(':')[1];
-		$.post('/radio/job/delete/{0}/'.format(eventId), function() {
-			delete $scope.radio_jobs[jobId];
+		$.ajax_delete('/radios/jobs/{0}/'.format(eventId), function() {
+			delete $scope.radioJobs[jobId];
 			$scope.$apply();
 		});
 	}

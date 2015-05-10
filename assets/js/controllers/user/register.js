@@ -12,7 +12,7 @@ App.ng.controller('RegisterController', ['$scope', function ($scope) {
 		};
 
 		$.post('/register/', payload, function(user_vo) {
-			App.Layout.$scope.current_user = user_vo;
+			App.Layout.$scope.currentUser = user_vo;
 			App.Layout.$scope.$apply();
 		})
 	}

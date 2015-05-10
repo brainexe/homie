@@ -260,7 +260,7 @@ class Add extends Command
     protected function getSensorDescription()
     {
         if ($this->input->getArgument('description')) {
-            return (int)$this->input->getArgument('description');
+            return $this->input->getArgument('description');
         }
 
         $description = $this->helper->ask(

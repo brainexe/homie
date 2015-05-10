@@ -4,15 +4,15 @@ App.ng.controller('BlogController', ['$scope', function($scope) {
 	$scope.posts = {};
 	$scope.post = {};
 	$scope.users = {};
-	$scope.current_user_id = null;
-	$scope.active_user_id  = null;
+	$scope.currentUserId = null;
+	$scope.activeUserId  = null;
     $scope.pending = false;
 
 	$.get('/blog/', function(data) {
 		$scope.posts = data.posts;
 		$scope.users = data.users;
-		$scope.current_user_id = data.current_user_id;
-		$scope.active_user_id  = data.active_user_id;
+		$scope.currentUserId = data.currentUserId;
+		$scope.activeUserId  = data.activeUserId;
 		$scope.$apply();
 	});
 

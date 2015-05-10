@@ -1,10 +1,10 @@
 
 App.ng.controller('SensorController', ['$scope', '$modal', function($scope, $modal) {
-	$scope.sensors           = {};
-	$scope.active_sensor_ids = '';
-	$scope.current_from      = 0;
-	$scope.fromIntervals     = {}; // todo sorting in angular is fuzzy
-	$scope.available_sensors = {};
+	$scope.sensors          = {};
+	$scope.activeSensorIds  = '';
+	$scope.currentFrom      = 0;
+	$scope.fromIntervals    = {}; // todo sorting in angular is fuzzy
+	$scope.availableSensors = {};
 
     $scope.openModal = function() {
         $modal.open({
@@ -14,11 +14,11 @@ App.ng.controller('SensorController', ['$scope', '$modal', function($scope, $mod
     };
 
 	$.get('/sensors/load/0', function(data) {
-		$scope.sensors           = data.sensors;
-		$scope.active_sensor_ids = data.active_sensor_ids;
-		$scope.current_from      = data.current_from;
-		$scope.fromIntervals     = data.fromIntervals;
-		$scope.available_sensors = data.available_sensors;
+		$scope.sensors         = data.sensors;
+		$scope.activeSensorIds = data.activeSensorIds;
+		$scope.currentFrom     = data.currentFrom;
+		$scope.fromIntervals   = data.fromIntervals;
+		$scope.availableSensors = data.availableSensors;
 
 		require(['sensor'], function() {
 			$scope.graph = new Rickshaw.Graph({
@@ -33,11 +33,11 @@ App.ng.controller('SensorController', ['$scope', '$modal', function($scope, $mod
 
 			new Rickshaw.Graph.Axis.Time({ graph: $scope.graph });
 
-			var y_axis = new Rickshaw.Graph.Axis.Y({
+			var yAxis = new Rickshaw.Graph.Axis.Y({
 				graph: $scope.graph,
 				orientation: 'left',
 				tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
-				element: document.getElementById('y_axis')
+				element: document.getElementById('yAxis')
 			});
 
 			$scope.graph.render();
@@ -56,32 +56,32 @@ App.ng.controller('SensorController', ['$scope', '$modal', function($scope, $mod
 	});
 
 	/**
-	 * @param {Number} sensor_id
+	 * @param {Number} sensorId
 	 * @returns {boolean}
 	 */
-	$scope.isSensorActive = function(sensor_id) {
-		return $scope.active_sensor_ids && $scope.active_sensor_ids.indexOf(~~sensor_id) > -1;
+	$scope.isSensorActive = function(sensorId) {
+		return $scope.activeSensorIds && $scope.activeSensorIds.indexOf(~~sensorId) > -1;
 	};
 
 	/**
-	 * @param {Number} sensor_id
+	 * @param {Number} sensorId
 	 * @param {Number} from
 	 */
-	$scope.sensorView = function(sensor_id, from) {
-		sensor_id = ~~sensor_id;
-		$scope.current_from = from = from || $scope.current_from;
+	$scope.sensorView = function(sensorId, from) {
+		sensorId = ~~sensorId;
+		$scope.currentFrom = from = from || $scope.currentFrom;
 
-		if (sensor_id) {
-			if ($scope.isSensorActive(sensor_id)) {
-				var index = $scope.active_sensor_ids.indexOf(sensor_id);
-				$scope.active_sensor_ids.splice(index, 1);
+		if (sensorId) {
+			if ($scope.isSensorActive(sensorId)) {
+				var index = $scope.activeSensorIds.indexOf(sensorId);
+				$scope.activeSensorIds.splice(index, 1);
 			} else {
-				$scope.active_sensor_ids.push(sensor_id);
+				$scope.activeSensorIds.push(sensorId);
 			}
 		}
 
-		var active_ids = $scope.active_sensor_ids.join(':') || "0";
-		var url = "/sensors/load/{0}?from={1}".format(active_ids, $scope.current_from);
+		var activeIds = $scope.activeSensorIds.join(':') || "0";
+		var url = "/sensors/load/{0}?from={1}".format(activeIds, $scope.currentFrom);
 		$.get(url, function(data){
 			updateGraph(data.json);
 		});
@@ -97,12 +97,12 @@ App.ng.controller('SensorController', ['$scope', '$modal', function($scope, $mod
     };
 
 	/**
-	 * @param sensor_values
+	 * @param sensorValues
 	 */
-	function updateGraph(sensor_values) {
-		var old_active = $scope.graph.series.active;
-		sensor_values.active = old_active;
-		$scope.graph.series = sensor_values;
+	function updateGraph(sensorValues) {
+		var oldActive = $scope.graph.series.active;
+		sensorValues.active = oldActive;
+		$scope.graph.series = sensorValues;
 		$scope.graph.update();
 
 		var legend = document.querySelector('#legend');

@@ -90,8 +90,8 @@ class Controller implements ControllerInterface
         return [
             'posts' => $posts,
             'users' => $users,
-            'active_user_id' => $userId,
-            'current_user_id' => $currentUserId,
+            'activeUserId' => $userId,
+            'currentUserId' => $currentUserId,
         ];
     }
 

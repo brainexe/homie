@@ -100,13 +100,16 @@ class TodoList
     /**
      * @param int $itemId
      * @param array $changes
-     * @return TodoItemVO
+     * @return TodoItemVO|null
      */
     public function editItem($itemId, array $changes)
     {
-        $this->gateway->editItem($itemId, $changes);
-
         $itemVo = $this->getItem($itemId);
+        if (empty($itemVo)) {
+            return null;
+        }
+
+        $this->gateway->editItem($itemId, $changes);
 
         $event = new TodoListEvent($itemVo, TodoListEvent::EDIT);
         $this->dispatchEvent($event);
@@ -120,6 +123,10 @@ class TodoList
     public function deleteItem($itemId)
     {
         $itemVo = $this->getItem($itemId);
+
+        if (empty($itemVo)) {
+            return;
+        }
 
         $this->gateway->deleteItem($itemId);
 

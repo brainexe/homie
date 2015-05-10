@@ -31,8 +31,8 @@ class RadioChangeEvent extends AbstractEvent
      */
     public function __construct(RadioVO $radioVo, $status)
     {
-        $this->event_name = self::CHANGE_RADIO;
-        $this->radioVo = $radioVo;
+        parent::__construct(self::CHANGE_RADIO);
+        $this->radioVo    = $radioVo;
         $this->status     = $status;
     }
 }

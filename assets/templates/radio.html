@@ -41,7 +41,7 @@
 
 <hr />
 
-<table ng-if="radio_jobs|notEmpty" class="table table-bordered table-striped table-hover">
+<table ng-if="radioJobs|notEmpty" class="table table-bordered table-striped table-hover">
 	<thead>
 		<tr>
 			<th translate>Time</th>
@@ -51,20 +51,20 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="radio_job in radio_jobs">
-			<td>{{ radio_job.timestamp|timeAgo }}</td>
-			<td>{{ radios[radio_job.event.radio_vo.radioId].name }}</td>
+		<tr ng-repeat="radioJob in radioJobs">
+			<td>{{ radioJob.timestamp|timeAgo }}</td>
+			<td>{{ radios[radioJob.event.radio_vo.radioId].name }}</td>
 			<td>
 				<a
-                        ng-click="setStatus(radio_job.radioId, 1); deleteRadioJob(radio_job.event_id)"
+                        ng-click="setStatus(radioJob.radioId, 1); deleteRadioJob(radioJob.event_id)"
                         class="btn"
-                        ng-class="{'btn-danger':!radio_job.event.status, 'btn-success':radio_job.event.status}"
+                        ng-class="{'btn-danger':!radioJob.event.status, 'btn-success':radioJob.event.status}"
                 >
-                    {{ radio_job.event.status ? "ON" : "OFF" }}
+                    {{ radioJob.event.status ? "ON" : "OFF" }}
                 </a>
 			</td>
 			<td>
-				<a ng-click="deleteRadioJob(radio_job.eventId)" class="glyphicon glyphicon-remove"></a>
+				<a ng-click="deleteRadioJob(radioJob.eventId)" class="glyphicon glyphicon-remove"></a>
 			</td>
 		</tr>
 	</tbody>
@@ -73,12 +73,12 @@
 <div ng-if="radios|notEmpty" class="panel panel-primary">
 	<div class="panel-heading">Add Job</div>
 	<div class="panel-body">
-		<form ng-submit="addRadioJob(new_job)" class="navbar-forms navbar-lefts ">
+		<form ng-submit="addRadioJob(newJob)" class="navbar-forms navbar-lefts ">
 			<div class="row">
 				<div class="col-lg-3">
 					<div class="input-group">
 						<div class="input-group-addon" translate>Switch</div>
-						<ui-select ng-model="new_job.radioId">
+						<ui-select ng-model="newJob.radioId">
 							<ui-select-match placeholder="Select Radio...">{{$select.selected.name}}</ui-select-match>
 							<ui-select-choices repeat="radio.radioId as radio in radios|toArray|propsFilter:{name: $select.search, description: $select.search}">
 								<span ng-bind-html="radio.name|highlight:$select.search"></span> d<span class="small" ng-bind-html="radio.description|highlight:$select.search"></span>
@@ -97,7 +97,7 @@
                         </span>
 						<input
                                 type="text"
-                                ng-model="new_job.time"
+                                ng-model="newJob.time"
                                 id="new_radio_job_time"
                                 required
                                 class="form-control"
@@ -110,7 +110,7 @@
 						<span class="input-group-addon" translate>Status</span>
 						<input
                                 type="checkbox"
-                                ng-model="new_job.status"
+                                ng-model="newJob.status"
                                 class="form-control"
                                 value="1"
                         />

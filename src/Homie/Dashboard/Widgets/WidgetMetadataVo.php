@@ -11,7 +11,7 @@ class WidgetMetadataVo
     public $name;
 
     /**
-     * @var string[]
+     * @var array[]
      */
     public $parameters = [];
 

@@ -73,7 +73,7 @@ class PinLoader
             $pin->setID((int)$matches[1]);
             $pin->setName($matches[4]);
             $pin->setDirection($matches[5]);
-            $pin->setValue((int)('High' === $matches[6]));
+            $pin->setValue((bool)('High' === $matches[6]));
 
             $this->pins->add($pin);
         }

@@ -11,7 +11,7 @@
 
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li ng-repeat="(user_name, user_id) in users" class="btn-group" ng-class="{active:active_user_id==user_id}">
+				<li ng-repeat="(user_name, user_id) in users" class="btn-group" ng-class="{active:activeUserId==user_id}">
 					<a href="#blog/{{ user_id }}/">
 						{{ user_name }}
 					</a>
@@ -24,7 +24,7 @@
 <a class="btn btn-primary" href="#mood" translate>Mood</a>
 <hr/>
 
-<form ng-if="active_user_id == current_user_id" style="width: 400px;" role="form">
+<form ng-if="activeUserId == currentUserId" style="width: 400px;" role="form">
 	<h2 translate>Add Post</h2>
 	<input
             type="text"

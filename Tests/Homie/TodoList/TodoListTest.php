@@ -251,6 +251,26 @@ class TodoListTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($itemVo, $actualResult);
     }
 
+    public function testEditItemWithEmpty()
+    {
+        $itemId  = 10;
+        $changes = [];
+
+        $this->gateway
+            ->expects($this->never())
+            ->method('editItem');
+
+        $this->gateway
+            ->expects($this->once())
+            ->method('getRawItem')
+            ->with($itemId)
+            ->willReturn(null);
+
+        $actualResult = $this->subject->editItem($itemId, $changes);
+
+        $this->assertNull($actualResult);
+    }
+
     public function testDeleteItem()
     {
         $itemId = 10;
@@ -292,6 +312,24 @@ class TodoListTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('dispatchEvent')
             ->with($event);
+
+        $this->subject->deleteItem($itemId);
+    }
+
+    public function testDeleteItemWithEmpty()
+    {
+        $itemId = 10;
+
+        $this->gateway
+            ->expects($this->never())
+            ->method('deleteItem')
+            ->with($itemId);
+
+        $this->gateway
+            ->expects($this->once())
+            ->method('getRawItem')
+            ->with($itemId)
+            ->willReturn(null);
 
         $this->subject->deleteItem($itemId);
     }
