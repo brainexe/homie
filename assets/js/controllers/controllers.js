@@ -8,7 +8,6 @@ var controllers = [
     {controller:'GpioController', name: gettext('GPIO'), url: 'gpio', icon:'flash', templateUrl: asset('/templates/gpio.html')},
     {controller:'EspeakController', name: gettext('Speak'), url: 'speak', icon:'bullhorn', templateUrl: asset('/templates/espeak.html')},
     {controller:'FlowerController', name: gettext('Flowers'), url: 'flower', icon:'leaf', templateUrl: asset('/templates/flower.html')},
-    {controller:'BlogController', name: gettext('Blog'), url: 'blog', icon:'paperclip', templateUrl: asset('/templates/blog.html')},
     {controller:'EggTimerController', name: gettext('Egg Timer'), url: 'egg_timer', icon:'time', templateUrl: asset('/templates/egg_timer.html')},
     {controller:'TodoController', name: gettext('ToDo List'), url: 'todo', icon:'list', templateUrl: asset('/templates/todo.html')},
     {controller:'ShoppingListController', name: gettext('Shopping List'), url: 'shopping', icon:'list', templateUrl: asset('/templates/shopping_list.html')},
@@ -24,8 +23,7 @@ var controllers = [
     {controller:'RegisterController', name: gettext('Register'), url: 'register', icon: 'user', is_public: true, templateUrl: asset('/templates/user/register.html')},
 
     // hidden controllers
-    {url: 'mood', templateUrl: "/templates/mood.html", controller: "MoodController"},
-    {url: 'logout', templateUrl: "/templates/mood.html", controller: "LogoutController"},
+    {url: 'logout', templateUrl: "/templates/index.html", controller: "LogoutController"},
     {url: 'user/change_password', templateUrl: "/templates/user/change_password.html", controller: "ChangePasswordController"},
     {url: 'user/otp', templateUrl: "/templates/user/otp.html", controller: "OtpController"},
     {url: 'index', templateUrl: "/templates/index.html", controller: "IndexController"}

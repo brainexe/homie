@@ -62,7 +62,6 @@ var App = {
 
 require.config({
 	paths: {
-		'mood': asset('mood.js').replace('.js', ''),
 		'sensor': asset('sensor.js').replace('.js', '')
 	}
 });

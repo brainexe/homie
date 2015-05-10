@@ -23,10 +23,6 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
-#: assets/templates/blog.html:28
-msgid "Add Post"
-msgstr ""
-
 #: assets/templates/new_sensor.html:4
 msgid "Add Sensor"
 msgstr ""
@@ -49,10 +45,6 @@ msgstr ""
 
 #: assets/templates/shopping_list.html:21
 msgid "Add an item"
-msgstr ""
-
-#: assets/js/controllers/controllers.js:11
-msgid "Blog"
 msgstr ""
 
 #: assets/templates/user/change_password.html:18
@@ -139,7 +131,7 @@ msgstr ""
 msgid "Edit Mode"
 msgstr ""
 
-#: assets/js/controllers/controllers.js:12
+#: assets/js/controllers/controllers.js:11
 msgid "Egg Timer"
 msgstr ""
 
@@ -168,10 +160,6 @@ msgstr ""
 msgid "Flowers"
 msgstr ""
 
-#: assets/templates/mood.html:3
-msgid "Full-Screen"
-msgstr ""
-
 #: assets/js/controllers/controllers.js:8
 msgid "GPIO"
 msgstr ""
@@ -189,17 +177,12 @@ msgstr ""
 msgid "Key"
 msgstr ""
 
-#: assets/js/controllers/controllers.js:23
+#: assets/js/controllers/controllers.js:22
 msgid "Login"
 msgstr ""
 
 #: assets/templates/user/user.html:5
 msgid "Logout"
-msgstr ""
-
-#: assets/templates/blog.html:24
-#: assets/templates/blog.html:61
-msgid "Mood"
 msgstr ""
 
 #: assets/templates/admin/sensors.html:19
@@ -262,13 +245,13 @@ msgstr ""
 msgid "Radio"
 msgstr ""
 
-#: assets/js/controllers/controllers.js:24
+#: assets/js/controllers/controllers.js:23
 #: assets/templates/user/register.html:18
 #: assets/templates/user/register.html:2
 msgid "Register"
 msgstr ""
 
-#: assets/js/controllers/radio.js:54
+#: assets/js/controllers/radio.js:53
 msgid "Remove this Radio-Job?"
 msgstr ""
 
@@ -303,7 +286,7 @@ msgstr ""
 msgid "Sensors"
 msgstr ""
 
-#: assets/js/controllers/controllers.js:14
+#: assets/js/controllers/controllers.js:13
 #: assets/templates/shopping_list.html:2
 msgid "Shopping List"
 msgstr ""
@@ -329,13 +312,12 @@ msgstr ""
 msgid "Start Time"
 msgstr ""
 
-#: assets/js/controllers/controllers.js:17
+#: assets/js/controllers/controllers.js:16
 #: assets/templates/radio.html:110
 #: assets/templates/radio.html:49
 msgid "Status"
 msgstr ""
 
-#: assets/templates/blog.html:45
 #: assets/templates/espeak.html:68
 msgid "Submit"
 msgstr ""
@@ -352,8 +334,6 @@ msgstr ""
 msgid "Take Photo"
 msgstr ""
 
-#: assets/templates/blog.html:34
-#: assets/templates/blog.html:62
 #: assets/templates/egg_timer.html:11
 #: assets/templates/egg_timer.html:3
 #: assets/templates/egg_timer.html:36
@@ -363,7 +343,6 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
-#: assets/templates/blog.html:60
 #: assets/templates/egg_timer.html:35
 #: assets/templates/espeak.html:81
 #: assets/templates/radio.html:47
@@ -388,11 +367,10 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: assets/js/controllers/controllers.js:13
+#: assets/js/controllers/controllers.js:12
 msgid "ToDo List"
 msgstr ""
 
-#: assets/templates/blog.html:5
 #: assets/templates/sensor.html:6
 msgid "Toggle navigation"
 msgstr ""
@@ -412,7 +390,7 @@ msgstr ""
 msgid "User"
 msgstr ""
 
-#: assets/js/controllers/controllers.js:16
+#: assets/js/controllers/controllers.js:15
 msgid "User Settings"
 msgstr ""
 
@@ -421,7 +399,7 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-#: assets/js/controllers/controllers.js:20
+#: assets/js/controllers/controllers.js:19
 msgid "Users"
 msgstr ""
 
@@ -435,7 +413,7 @@ msgstr ""
 msgid "Volume"
 msgstr ""
 
-#: assets/js/controllers/controllers.js:15
+#: assets/js/controllers/controllers.js:14
 msgid "Webcam"
 msgstr ""
 

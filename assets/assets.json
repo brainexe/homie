@@ -10,13 +10,6 @@
       ]
     },
     {
-      "name": "mood.js",
-      "files": [
-        "^bower_components\/EaselJS\/lib\/easeljs-0.8.0.min.js",
-        "^js\/controllers\/mood\/.*"
-      ]
-    },
-    {
       "name": "vendor.js",
       "files": [
         "^bower_components\/jquery\/dist/jquery.min.js",
