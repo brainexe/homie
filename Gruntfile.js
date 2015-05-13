@@ -6,7 +6,13 @@ module.exports = function(grunt) {
     grunt.registerTask('extract_lang', ['nggettext_extract']);
     grunt.registerTask('compile_lang', ['nggettext_compile']);
 
-    grunt.registerTask('console', function(task) {
+    grunt.registerTask('console', function() {
+        var args = arguments;
+        var task = Object.keys(args).map(function (key) {
+            return args[key];
+        });
+
+        task = task.join(':');
         var child = grunt.util.spawn({
             cmd: 'php',
             args: ['console', task],
@@ -14,8 +20,6 @@ module.exports = function(grunt) {
         });
         child.stdout.pipe(process.stdout);
         child.stderr.pipe(process.stderr);
-
-        console.log('php console ' +  task);
     });
 
     grunt.initConfig({
@@ -40,11 +44,24 @@ module.exports = function(grunt) {
         watch: {
             assets: {
                 files: ['assets/**'],
-                tasks: ['console:cc']
+                tasks: ['console:assets:dump'],
+                options: {
+                    livereload: true
+                }
+            },
+            lang: {
+                files: ['lang/*.po'],
+                tasks: ['compile_lang', 'console:assets:dump'],
+                options: {
+                    livereload: true
+                }
             },
             src: {
                 files: ['src/**'],
-                tasks: ['console:cc']
+                tasks: ['console:cc'],
+                options: {
+                    debounceDelay: 3000
+                }
             }
         }
     });

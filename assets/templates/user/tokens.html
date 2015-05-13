@@ -1,0 +1,27 @@
+<h2 translate>Tokens</h2>
+
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <th translate>Token</th>
+            <th translate>Roles</th>
+            <th translate>Revoke</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="(token, roles) in tokens">
+            <td>{{token}}</td>
+            <td>{{roles}}</td>
+            <td><a class="btn btn-danger" ng-click="revoke(token)" translate>Revoke</a></td>
+        </tr>
+    </tbody>
+</table>
+
+<h2 translate>Add new token</h2>
+<ui-select multiple ng-model="roles">
+    <ui-select-match placeholder="Select roles...">{{$item}}</ui-select-match>
+    <ui-select-choices repeat="role in availableRoles">
+        <div ng-bind="role"></div>
+    </ui-select-choices>
+</ui-select>
+<input type="button" ng-click="add(roles)" value="{{'Add'|translate}}"/>

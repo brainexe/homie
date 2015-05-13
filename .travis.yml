@@ -21,4 +21,4 @@ script:
   - phpunit --coverage-clover build/logs/clover.xml --coverage-clover=coverage.clover
 
 after_script:
-  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+  - if [ $TRAVIS_TEST_RESULT == 0 ]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
