@@ -3,7 +3,6 @@
 namespace Tests\Homie\Radio;
 
 use BrainExe\Core\Redis\Predis;
-use BrainExe\Core\Redis\RedisInterface;
 use BrainExe\Tests\RedisMockTrait;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;

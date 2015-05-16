@@ -47,7 +47,7 @@ class EspeakListener implements EventSubscriberInterface
             $espeakVo->text,
             $espeakVo->volume ?: 100,
             $espeakVo->speed ?: 100,
-            $espeakVo->speaker ?: Espeak::DEFAULT_SPEAKER
+            $espeakVo->speaker
         );
     }
 }

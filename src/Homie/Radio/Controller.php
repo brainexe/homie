@@ -44,7 +44,7 @@ class Controller implements ControllerInterface
 
     /**
      * @return array
-     * @Route("/radios/", name="radio.index")
+     * @Route("/radios/", name="radio.index", methods="GET")
      */
     public function index()
     {
@@ -124,7 +124,7 @@ class Controller implements ControllerInterface
      */
     public function addRadioJob(Request $request)
     {
-        $radioId     = $request->request->get('radioId');
+        $radioId     = $request->request->getAlnum('radioId');
         $status      = (bool)$request->request->getInt('status');
         $timeString  = $request->request->get('time');
 

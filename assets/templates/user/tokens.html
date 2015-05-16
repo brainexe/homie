@@ -1,6 +1,6 @@
 <h2 translate>Tokens</h2>
 
-<table class="table table-bordered table-striped table-hover">
+<table ng-if="tokens|notEmpty" class="table table-bordered table-striped table-hover">
     <thead>
         <tr>
             <th translate>Token</th>
@@ -9,9 +9,17 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="(token, roles) in tokens">
+        <tr ng-repeat="(token, tokenRoles) in tokens">
             <td>{{token}}</td>
-            <td>{{roles}}</td>
+            <td>
+                {{tokenRoles}}
+                <ui-select multiple ng-model="tokenRoles">
+                    <ui-select-match placeholder="Select roles...">{{$item}}</ui-select-match>
+                    <ui-select-choices repeat="role in availableRoles">
+                        <div ng-bind="role"></div>
+                    </ui-select-choices>
+                </ui-select>
+            </td>
             <td><a class="btn btn-danger" ng-click="revoke(token)" translate>Revoke</a></td>
         </tr>
     </tbody>
@@ -24,4 +32,5 @@
         <div ng-bind="role"></div>
     </ui-select-choices>
 </ui-select>
+{{roles}}
 <input type="button" ng-click="add(roles)" value="{{'Add'|translate}}"/>

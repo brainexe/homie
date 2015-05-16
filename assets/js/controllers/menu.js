@@ -21,9 +21,9 @@ App.ng.controller('MenuController', ['$scope', '$route', '$location', 'controlle
 				item.name = gettextCatalog.getString(item.name);
 			}
 
-			if (!is_logged_in && !item.is_public) {
+			if (!is_logged_in && !item.isPublic) {
 				return false;
-			} else if (is_logged_in && item.is_public === true) {
+			} else if (is_logged_in && item.isPublic === true) {
 				return false;
 			} else if (item.role) {
                 for (var i = 0; i < user.roles.length; i++) {

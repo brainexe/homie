@@ -35,7 +35,7 @@ class Controller implements ControllerInterface
     public function index()
     {
         $dashboards = $this->dashboard->getDashboards();
-        $widgets = $this->dashboard->getAvailableWidgets();
+        $widgets    = $this->dashboard->getAvailableWidgets();
 
         return [
             'dashboards' => $dashboards,
@@ -52,7 +52,7 @@ class Controller implements ControllerInterface
     {
         $type        = $request->request->get('type');
         $payload     = (array)$request->request->get('payload');
-        $dashboardId = $request->request->get('dashboard_id');
+        $dashboardId = $request->request->getInt('dashboardId');
 
         return $this->dashboard->addWidget($dashboardId, $type, $payload);
     }
@@ -63,7 +63,7 @@ class Controller implements ControllerInterface
      */
     public function updateDashboard(Request $request)
     {
-        $dashboardId = $request->request->get('dashboard_id');
+        $dashboardId = $request->request->getAlnum('dashboardId');
         $payload     = (array)$request->request->get('payload');
 
         return $this->dashboard->updateDashboard($dashboardId, $payload);
@@ -76,7 +76,7 @@ class Controller implements ControllerInterface
      */
     public function updateWidget(Request $request)
     {
-        $dashboardId = $request->request->get('dashboard_id');
+        $dashboardId = $request->request->getAlnum('dashboardId');
         $widgetId    = $request->request->get('widget_id');
         $payload     = (array)$request->request->get('payload');
 
@@ -93,7 +93,7 @@ class Controller implements ControllerInterface
     public function deleteWidget(Request $request)
     {
         $widgetId    = $request->request->getInt('widget_id');
-        $dashboardId = $request->request->getInt('dashboard_id');
+        $dashboardId = $request->request->getInt('dashboardId');
 
         $this->dashboard->deleteWidget($dashboardId, $widgetId);
 
@@ -108,7 +108,7 @@ class Controller implements ControllerInterface
      */
     public function deleteDashboard(Request $request)
     {
-        $dashboardId = $request->request->getInt('dashboard_id');
+        $dashboardId = $request->request->getInt('dashboardId');
 
         $this->dashboard->delete($dashboardId);
 

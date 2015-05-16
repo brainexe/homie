@@ -19,7 +19,7 @@
             </td>
             <td>
                 <span ng-if="!user.edit">{{ user.email }}</span>
-                <input ng-if="user.edit" ng-model="user.email" placeholder="{{'Email'|translate}}"/>
+                <input type="email" ng-if="user.edit" ng-model="user.email" placeholder="{{'Email'|translate}}"/>
             </td>
             <td>
                 <a ng-click="newPassword(user)" class="glyphicon glyphicon-lock"></a>

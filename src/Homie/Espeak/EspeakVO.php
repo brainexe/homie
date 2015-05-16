@@ -23,7 +23,7 @@ class EspeakVO
     /**
      * @var string
      */
-    public $speaker;
+    public $speaker = Espeak::DEFAULT_SPEAKER;
 
     /**
      * @param string $text

@@ -86,7 +86,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $dashboard   = 'dashboard';
 
         $request = new Request();
-        $request->request->set('dashboard_id', $dashboardId);
+        $request->request->set('dashboardId', $dashboardId);
         $request->request->set('payload', $payload);
 
         $this->dashboard
@@ -133,7 +133,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $dashboardId = 0;
 
         $request = new Request();
-        $request->request->set('dashboard_id', $dashboardId);
+        $request->request->set('dashboardId', $dashboardId);
 
         $this->dashboard
             ->expects($this->once())
@@ -152,7 +152,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $dashboard   = ['dashboard'];
 
         $request = new Request();
-        $request->request->set('dashboard_id', $dashboardId);
+        $request->request->set('dashboardId', $dashboardId);
         $request->request->set('widget_id', $widgetId);
         $request->request->set('payload', $payload);
 

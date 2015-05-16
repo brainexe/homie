@@ -9,7 +9,7 @@ App.Radios = {
 				return;
 			}
 
-			$.get('/radios/', function (data) {
+			$http.get('/radios/').success(function (data) {
 				resolve(data.radios);
 				self._radios = data;
 			});
@@ -21,18 +21,17 @@ App.Radios = {
     }
 };
 
-App.ng.controller('RadioController', ['$scope', function ($scope) {
+App.ng.controller('RadioController', ['$scope', '$http', function ($scope, $http) {
 	$scope.radios     = {};
 	$scope.radioJobs  = {};
 	$scope.pins       = {};
 	$scope.newJob    = {};
 	$scope.editMode   = false;
 
-	$.get('/radios/', function(data) {
+	$http.get('/radios/').success(function(data) {
 		$scope.radios = data.radios;
 		$scope.radioJobs = data.radioJobs;
 		$scope.pins = data.pins;
-		$scope.$apply();
 	});
 
 	/**
@@ -54,9 +53,8 @@ App.ng.controller('RadioController', ['$scope', function ($scope) {
 			return;
 		}
 
-		$.ajax_delete('/radios/{0}/'.format(radioId), function () {
+		$http.delete('/radios/{0}/'.format(radioId)).success(function () {
 			delete $scope.radios[radioId];
-			$scope.$apply();
 		});
 	};
 
@@ -66,26 +64,23 @@ App.ng.controller('RadioController', ['$scope', function ($scope) {
 	};
 
 	$scope.addRadio = function(newRadio) {
-		$.post('/radios/', newRadio, function(data) {
+		$http.post('/radios/', newRadio).success(function(data) {
             $scope.radios[data.radioId] = data;
-			$scope.$apply();
 		});
 	};
 
 	$scope.newRadio = {};
 	$scope.addRadioJob = function(newJob) {
-		$.post('/radios/jobs/', newJob, function(data) {
+		$http.post('/radios/jobs/', newJob).success(function(data) {
 			$scope.radioJobs = data;
-			$scope.job_time   = '';
-			$scope.$apply();
+			$scope.job_time  = '';
 		});
 	};
 
 	$scope.deleteRadioJob = function(jobId) {
 		var eventId = jobId.split(':')[1];
-		$.ajax_delete('/radios/jobs/{0}/'.format(eventId), function() {
+		$http.delete('/radios/jobs/{0}/'.format(eventId)).success(function() {
 			delete $scope.radioJobs[jobId];
-			$scope.$apply();
 		});
 	}
 }]);

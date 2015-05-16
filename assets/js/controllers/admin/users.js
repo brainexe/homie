@@ -1,26 +1,23 @@
 
-App.ng.controller('AdminUsersController', ['$scope', function ($scope) {
+App.ng.controller('AdminUsersController', ['$scope', '$http', function ($scope, $http) {
 
     $scope.rights = [];
     $scope.users  = [];
 
-    $.get('/admin/users/', function(data) {
+    $http.get('/admin/users/').success(function(data) {
         $scope.rights = data.rights;
         $scope.users  = data.users;
-        $scope.$apply();
     });
 
     $scope.save = function(user) {
-        $.post('/admin/users/edit/', user, function(newUser) {
+        $http.post('/admin/users/edit/', user).success(function(newUser) {
             user.edit = false;
-            $scope.$apply();
         });
     };
 
     $scope.newPassword = function(user) {
         var password = prompt('Password');
         user.password = password;
-        $.post('/admin/users/edit/', user, function() {
-        });
+        $http.post('/admin/users/edit/', user);
     }
 }]);

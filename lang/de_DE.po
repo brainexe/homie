@@ -24,13 +24,9 @@ msgstr "Aktionen"
 #. add radio
 #: assets/templates/expression.html:146 assets/templates/new_sensor.html:18
 #: assets/templates/radio.html:122 assets/templates/radio.html:205
-#: assets/templates/shopping_list.html:24
+#: assets/templates/shopping_list.html:24 assets/templates/user/tokens.html:27
 msgid "Add"
 msgstr "Hinzufgen"
-
-#: assets/templates/blog.html:28
-msgid "Add Post"
-msgstr "Neuer Post"
 
 #: assets/templates/new_sensor.html:4
 msgid "Add Sensor"
@@ -56,9 +52,9 @@ msgstr "Neuer Task"
 msgid "Add an item"
 msgstr "Neuer Eintrag"
 
-#: assets/js/controllers/controllers.js:11
-msgid "Blog"
-msgstr "Blog"
+#: assets/templates/user/tokens.html:20
+msgid "Add new token"
+msgstr "Neuer Token"
 
 #: assets/templates/user/change_password.html:18
 msgid "Change"
@@ -90,6 +86,10 @@ msgstr "Bedingung"
 #: assets/templates/expression.html:58
 msgid "Counter"
 msgstr "Zähler"
+
+#: assets/js/controllers/dashboard/widgets/time.js:4
+msgid "Current Time"
+msgstr "Aktuelle Zeit"
 
 #: assets/js/controllers/controllers.js:4
 msgid "Dashboard"
@@ -138,7 +138,8 @@ msgstr "Editieren"
 msgid "Edit Mode"
 msgstr "Editieren"
 
-#: assets/js/controllers/controllers.js:12
+#: assets/js/controllers/controllers.js:11
+#: assets/js/controllers/dashboard/widgets/egg_timer.js:3
 msgid "Egg Timer"
 msgstr "Eieruhr"
 
@@ -166,10 +167,6 @@ msgstr "Blumen"
 msgid "Flowers"
 msgstr "Blumen"
 
-#: assets/templates/mood.html:3
-msgid "Full-Screen"
-msgstr "Vollbild"
-
 #: assets/js/controllers/controllers.js:8
 msgid "GPIO"
 msgstr "GPIO"
@@ -187,17 +184,13 @@ msgstr "Intervall"
 msgid "Key"
 msgstr "Key"
 
-#: assets/js/controllers/controllers.js:23
+#: assets/js/controllers/controllers.js:22
 msgid "Login"
 msgstr "Login"
 
 #: assets/templates/user/user.html:5
 msgid "Logout"
 msgstr "Logout"
-
-#: assets/templates/blog.html:24 assets/templates/blog.html:61
-msgid "Mood"
-msgstr "Stimmung"
 
 #: assets/templates/admin/sensors.html:19 assets/templates/admin/users.html:5
 #: assets/templates/dashboard.html:42 assets/templates/gpio.html:6
@@ -255,7 +248,7 @@ msgstr "QR-Code"
 msgid "Radio"
 msgstr "Schalter"
 
-#: assets/js/controllers/controllers.js:24
+#: assets/js/controllers/controllers.js:23
 #: assets/templates/user/register.html:18
 #: assets/templates/user/register.html:2
 msgid "Register"
@@ -273,7 +266,11 @@ msgstr "One Time Secret anfordern"
 msgid "Reset"
 msgstr "Zurücksetzen"
 
-#: assets/templates/admin/users.html:8
+#: assets/templates/user/tokens.html:15 assets/templates/user/tokens.html:8
+msgid "Revoke"
+msgstr "Zurückziehen"
+
+#: assets/templates/admin/users.html:8 assets/templates/user/tokens.html:7
 msgid "Roles"
 msgstr "Rollen"
 
@@ -295,7 +292,11 @@ msgstr "Token per Mail schicken"
 msgid "Sensors"
 msgstr "Sensoren"
 
-#: assets/js/controllers/controllers.js:14
+#: assets/js/controllers/dashboard/widgets/egg_timer.js:19
+msgid "Set Time"
+msgstr "Zeit setzen"
+
+#: assets/js/controllers/controllers.js:13
 #: assets/templates/shopping_list.html:2
 msgid "Shopping List"
 msgstr "Einkaufsliste"
@@ -305,6 +306,7 @@ msgid "Sign in"
 msgstr "Login"
 
 #: assets/js/controllers/controllers.js:9
+#: assets/js/controllers/dashboard/widgets/speak.js:5
 #: assets/templates/widgets/speak.html:9
 msgid "Speak"
 msgstr "Sprechen"
@@ -321,12 +323,12 @@ msgstr "Geschwindigkeit"
 msgid "Start Time"
 msgstr "Startzeit"
 
-#: assets/js/controllers/controllers.js:17 assets/templates/radio.html:110
+#: assets/js/controllers/controllers.js:16 assets/templates/radio.html:110
 #: assets/templates/radio.html:49
 msgid "Status"
 msgstr "Status"
 
-#: assets/templates/blog.html:45 assets/templates/espeak.html:68
+#: assets/templates/espeak.html:68
 msgid "Submit"
 msgstr "Abschicken"
 
@@ -342,16 +344,14 @@ msgstr "Schalter"
 msgid "Take Photo"
 msgstr "Foto machen"
 
-#: assets/templates/blog.html:34 assets/templates/blog.html:62
 #: assets/templates/egg_timer.html:11 assets/templates/egg_timer.html:3
 #: assets/templates/egg_timer.html:36 assets/templates/espeak.html:3
 #: assets/templates/espeak.html:82 assets/templates/widgets/speak.html:4
 msgid "Text"
 msgstr "Text"
 
-#: assets/templates/blog.html:60 assets/templates/egg_timer.html:35
-#: assets/templates/espeak.html:81 assets/templates/radio.html:47
-#: assets/templates/radio.html:91
+#: assets/templates/egg_timer.html:35 assets/templates/espeak.html:81
+#: assets/templates/radio.html:47 assets/templates/radio.html:91
 msgid "Time"
 msgstr "Zeit"
 
@@ -371,13 +371,21 @@ msgstr "Timing-ID"
 msgid "Title"
 msgstr "Titel"
 
-#: assets/js/controllers/controllers.js:13
+#: assets/js/controllers/controllers.js:12
 msgid "ToDo List"
 msgstr "ToDo-Liste"
 
-#: assets/templates/blog.html:5 assets/templates/sensor.html:6
+#: assets/templates/sensor.html:6
 msgid "Toggle navigation"
 msgstr "Navigation klappen"
+
+#: assets/templates/user/tokens.html:6
+msgid "Token"
+msgstr "Token"
+
+#: assets/templates/user/tokens.html:1 assets/templates/user/user.html:14
+msgid "Tokens"
+msgstr "Tokens"
 
 #: assets/templates/user/otp.html:1 assets/templates/user/user.html:11
 msgid "Two Factor Authentication"
@@ -392,7 +400,7 @@ msgstr "Typ"
 msgid "User"
 msgstr "Benutzer"
 
-#: assets/js/controllers/controllers.js:16
+#: assets/js/controllers/controllers.js:15
 msgid "User Settings"
 msgstr "Einstellungen"
 
@@ -400,7 +408,7 @@ msgstr "Einstellungen"
 msgid "Username"
 msgstr "Benutzername"
 
-#: assets/js/controllers/controllers.js:20
+#: assets/js/controllers/controllers.js:19
 msgid "Users"
 msgstr "Benutzer"
 
@@ -413,7 +421,7 @@ msgstr "Wert"
 msgid "Volume"
 msgstr "Lautstärke"
 
-#: assets/js/controllers/controllers.js:15
+#: assets/js/controllers/controllers.js:14
 msgid "Webcam"
 msgstr "Webcam"
 
@@ -424,6 +432,18 @@ msgstr "z.B. 10s, 30m, 1h"
 #: assets/js/controllers/todo.js:35
 msgid "name can not be empty"
 msgstr "Der Name darf nicht leer sein"
+
+#~ msgid "Add Post"
+#~ msgstr "Neuer Post"
+
+#~ msgid "Blog"
+#~ msgstr "Blog"
+
+#~ msgid "Full-Screen"
+#~ msgstr "Vollbild"
+
+#~ msgid "Mood"
+#~ msgstr "Stimmung"
 
 # Generated by grunt-gettext on Sun May 10 2015 21:38:55 GMT+0200 (CEST)
 #~ msgid "Erinnerung"

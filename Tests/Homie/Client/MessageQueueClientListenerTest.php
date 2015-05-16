@@ -2,7 +2,7 @@
 
 namespace Tests\Homie\Client\MessageQueueClientListener;
 
-use BrainExe\Core\Redis\RedisInterface;
+use BrainExe\Core\Redis\Predis;
 use BrainExe\Tests\RedisMockTrait;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
@@ -24,20 +24,20 @@ class MessageQueueClientListenerTest extends PHPUnit_Framework_TestCase
     /**
      * @var LocalClient|MockObject
      */
-    private $mockLocalClient;
+    private $client;
 
     /**
-     * @var RedisInterface|MockObject
+     * @var Predis|MockObject
      */
-    private $mockRedis;
+    private $redis;
 
     public function setUp()
     {
-        $this->mockLocalClient = $this->getMock(LocalClient::class, [], [], '', false);
-        $this->mockRedis = $this->getRedisMock();
+        $this->client = $this->getMock(LocalClient::class, [], [], '', false);
+        $this->redis  = $this->getRedisMock();
 
-        $this->subject = new MessageQueueClientListener($this->mockLocalClient);
-        $this->subject->setRedis($this->mockRedis);
+        $this->subject = new MessageQueueClientListener($this->client);
+        $this->subject->setRedis($this->redis);
     }
 
     public function testGetSubscribedEvents()
@@ -54,12 +54,12 @@ class MessageQueueClientListenerTest extends PHPUnit_Framework_TestCase
 
         $output = 'output';
 
-        $this->mockRedis
+        $this->redis
             ->expects($this->once())
             ->method('lPush')
             ->with(MessageQueueClient::RETURN_CHANNEL, $output);
 
-        $this->mockLocalClient
+        $this->client
             ->expects($this->once())
             ->method('executeWithReturn')
             ->with($command)

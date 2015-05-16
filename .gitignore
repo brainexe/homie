@@ -11,3 +11,4 @@ lang/*.mo
 node_modules
 npm-debug.log
 /cache/annotated.xml
+bower_components

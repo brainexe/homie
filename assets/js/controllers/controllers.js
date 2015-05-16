@@ -19,8 +19,8 @@ var controllers = [
     {controller:'AdminUsersController', name: gettext('Users'), url: 'admin/users', icon:'stats', templateUrl: asset('/templates/admin/users.html'), role: 'admin'},
 
     // private
-    {controller:'LoginController', name: gettext('Login'), url: 'login', icon: 'user', is_public: true, templateUrl: asset('/templates/user/login.html')},
-    {controller:'RegisterController', name: gettext('Register'), url: 'register', icon: 'user', is_public: true, templateUrl: asset('/templates/user/register.html')},
+    {controller:'LoginController', name: gettext('Login'), url: 'login', icon: 'user', isPublic: true, templateUrl: asset('/templates/user/login.html')},
+    {controller:'RegisterController', name: gettext('Register'), url: 'register', icon: 'user', isPublic: true, templateUrl: asset('/templates/user/register.html')},
 
     // hidden controllers
     {url: 'logout', templateUrl: "/templates/index.html", controller: "LogoutController"},

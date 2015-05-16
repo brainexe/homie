@@ -40,7 +40,7 @@ App.ng.controller('DashboardController', ['$scope', '$modal', function($scope, $
 
     $scope.deleteDashboard = function(dashboardId) {
         var payload = {
-            dashboard_id: dashboardId
+            dashboardId: dashboardId
         };
 
         $.post('/dashboard/delete/', payload, function() {
@@ -51,7 +51,7 @@ App.ng.controller('DashboardController', ['$scope', '$modal', function($scope, $
 
     $scope.saveDashboard = function(dashboard) {
         var payload = {
-            dashboard_id: dashboard.dashboardId,
+            dashboardId: dashboard.dashboardId,
             payload: {
                 name: dashboard.name
             }
@@ -69,7 +69,7 @@ App.ng.controller('DashboardController', ['$scope', '$modal', function($scope, $
 	 */
 	$scope.deleteWidget = function(dashboardId, widgetId) {
 		var payload = {
-            dashboard_id: dashboardId,
+            dashboardId: dashboardId,
 			widget_id:    widgetId
 		};
 

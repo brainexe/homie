@@ -2,7 +2,7 @@
 
 namespace Tests\Homie\Client;
 
-use BrainExe\Core\Redis\RedisInterface;
+use BrainExe\Core\Redis\Predis;
 use BrainExe\Tests\RedisMockTrait;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
@@ -24,7 +24,7 @@ class MessageQueueClientTest extends PHPUnit_Framework_TestCase
     private $subject;
 
     /**
-     * @var RedisInterface|MockObject
+     * @var Predis|MockObject
      */
     private $redis;
 

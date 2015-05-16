@@ -1,0 +1,59 @@
+swagger: '2.0'
+info:
+  title: Homie
+  description: Homie API
+  version: "1.0.0"
+host: homie
+
+schemes:
+  - http
+
+produces:
+  - application/json
+
+paths:
+  /user/tokens/:
+    get:
+      summary: Get user tokens
+      responses:
+        200:
+          description: An array of roles
+          schema:
+            type: string
+  /radios/:
+    get:
+      summary: Get defined radio switches
+      responses:
+        200:
+          description: An array radios and radio jobs
+    post:
+      summary: Add a new radio
+      responses:
+        200:
+          description: An array radios and radio jobs
+  /radios/{radioId}/:
+    delete:
+      summary: Delete a radio switch
+      parameters:
+        - name: "radioId"
+          in: "path"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: Success
+  /radios/jobs/:
+    get:
+      summary: Get defined radio jobs
+      responses:
+        200:
+          description: An array radio jobs
+definitions:
+  User:
+    properties:
+      userId:
+        type: integer
+        description: unique numeric user id
+      user_name:
+        type: string
+        description: Name of User

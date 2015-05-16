@@ -16,6 +16,7 @@ before_install:
   - composer update --no-dev
   - if [ "`phpenv version-name`" != "hhvm" ]; then echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
   - wget https://scrutinizer-ci.com/ocular.phar
+  - npm install
 
 script:
   - phpunit --coverage-clover build/logs/clover.xml --coverage-clover=coverage.clover

@@ -20,6 +20,7 @@ msgstr ""
 #: assets/templates/radio.html:122
 #: assets/templates/radio.html:205
 #: assets/templates/shopping_list.html:24
+#: assets/templates/user/tokens.html:27
 msgid "Add"
 msgstr ""
 
@@ -45,6 +46,10 @@ msgstr ""
 
 #: assets/templates/shopping_list.html:21
 msgid "Add an item"
+msgstr ""
+
+#: assets/templates/user/tokens.html:20
+msgid "Add new token"
 msgstr ""
 
 #: assets/templates/user/change_password.html:18
@@ -77,6 +82,10 @@ msgstr ""
 
 #: assets/templates/expression.html:58
 msgid "Counter"
+msgstr ""
+
+#: assets/js/controllers/dashboard/widgets/time.js:4
+msgid "Current Time"
 msgstr ""
 
 #: assets/js/controllers/controllers.js:4
@@ -132,6 +141,7 @@ msgid "Edit Mode"
 msgstr ""
 
 #: assets/js/controllers/controllers.js:11
+#: assets/js/controllers/dashboard/widgets/egg_timer.js:3
 msgid "Egg Timer"
 msgstr ""
 
@@ -263,7 +273,13 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
+#: assets/templates/user/tokens.html:15
+#: assets/templates/user/tokens.html:8
+msgid "Revoke"
+msgstr ""
+
 #: assets/templates/admin/users.html:8
+#: assets/templates/user/tokens.html:7
 msgid "Roles"
 msgstr ""
 
@@ -286,6 +302,10 @@ msgstr ""
 msgid "Sensors"
 msgstr ""
 
+#: assets/js/controllers/dashboard/widgets/egg_timer.js:19
+msgid "Set Time"
+msgstr ""
+
 #: assets/js/controllers/controllers.js:13
 #: assets/templates/shopping_list.html:2
 msgid "Shopping List"
@@ -296,6 +316,7 @@ msgid "Sign in"
 msgstr ""
 
 #: assets/js/controllers/controllers.js:9
+#: assets/js/controllers/dashboard/widgets/speak.js:5
 #: assets/templates/widgets/speak.html:9
 msgid "Speak"
 msgstr ""
@@ -373,6 +394,15 @@ msgstr ""
 
 #: assets/templates/sensor.html:6
 msgid "Toggle navigation"
+msgstr ""
+
+#: assets/templates/user/tokens.html:6
+msgid "Token"
+msgstr ""
+
+#: assets/templates/user/tokens.html:1
+#: assets/templates/user/user.html:14
+msgid "Tokens"
 msgstr ""
 
 #: assets/templates/user/otp.html:1

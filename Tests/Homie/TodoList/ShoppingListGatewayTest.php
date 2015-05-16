@@ -2,7 +2,7 @@
 
 namespace Tests\Homie\TodoList;
 
-use BrainExe\Core\Redis\RedisInterface;
+use BrainExe\Core\Redis\Predis;
 use BrainExe\Tests\RedisMockTrait;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
@@ -22,22 +22,22 @@ class ShoppingListGatewayTest extends PHPUnit_Framework_TestCase
     private $subject;
 
     /**
-     * @var RedisInterface|MockObject
+     * @var Predis|MockObject
      */
-    private $mockRedis;
+    private $redis;
 
     public function setUp()
     {
-        $this->mockRedis = $this->getRedisMock();
+        $this->redis = $this->getRedisMock();
         $this->subject = new ShoppingListGateway();
-        $this->subject->setRedis($this->mockRedis);
+        $this->subject->setRedis($this->redis);
     }
 
     public function testGetShoppingListItems()
     {
         $items = [];
 
-        $this->mockRedis
+        $this->redis
             ->expects($this->once())
             ->method('sMembers')
             ->with(ShoppingListGateway::REDIS_KEY)
@@ -52,7 +52,7 @@ class ShoppingListGatewayTest extends PHPUnit_Framework_TestCase
     {
         $name = 'name';
 
-        $this->mockRedis
+        $this->redis
             ->expects($this->once())
             ->method('sAdd')
             ->with(ShoppingListGateway::REDIS_KEY, $name);
@@ -64,7 +64,7 @@ class ShoppingListGatewayTest extends PHPUnit_Framework_TestCase
     {
         $name = 'name';
 
-        $this->mockRedis
+        $this->redis
             ->expects($this->once())
             ->method('sRem')
             ->with(ShoppingListGateway::REDIS_KEY, $name);
