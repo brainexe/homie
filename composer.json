@@ -17,7 +17,6 @@
     "brainexe/totp": "dev-master",
     "brainexe/input-control": "dev-master",
     "brainexe/expression": "dev-master",
-    "brainexe/search": "dev-master",
     "league/flysystem": "~1.1@dev",
     "league/flysystem-cached-adapter": "dev-master"
   },
