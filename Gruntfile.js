@@ -4,6 +4,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-htmlmin');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
 
     grunt.registerTask('extract_lang', ['nggettext_extract']);
     grunt.registerTask('compile_lang', ['nggettext_compile']);
@@ -40,8 +42,9 @@ module.exports = function (grunt) {
         child.stderr.pipe(process.stderr);
     });
 
-    grunt.registerTask('build', ['clean', 'copy', 'compile_lang', 'concat']);
+    grunt.registerTask('build', ['compile_lang', 'clean', 'copy', 'uglify', 'htmlmin', 'concat']);
     grunt.registerTask('buildAll', ['bower', 'build']);
+    grunt.registerTask('default', ['build']);
 
     grunt.initConfig({
         nggettext_extract: {
@@ -50,7 +53,7 @@ module.exports = function (grunt) {
                     'lang/template.pot': [
                         'assets/templates/**/*.html',
                         'assets/js/**/*.js',
-                        'templates/**/*.html'
+                        'assets/**/*.html'
                     ]
                 }
             }
@@ -86,48 +89,13 @@ module.exports = function (grunt) {
             },
             static: {
                 files: [
-                    {expand: true, src: ['**/*.html', '**/*.ico', '**/*.png', '**/*.jpg'], cwd: 'assets/', dest: 'web/', filter: 'isFile'},
+                    {expand: true, src: ['**/*.ico', '**/*.png', '**/*.jpg'], cwd: 'assets/', dest: 'web/', filter: 'isFile'},
                     {expand: true, src: ['**/*.woff', '**/*.woff2'], cwd: 'bower_components/bootstrap', dest: 'web/', filter: 'isFile'}
                 ]
             }
         },
         clean: ["web/**"],
         concat: {
-            'sensor.js': {
-                src: [
-                    'bower_components/rickshaw/vendor/d3.v3.js',
-                    'bower_components/rickshaw/rickshaw.js'
-                ],
-                dest: 'web/sensor.js',
-                nonull: true
-            },
-            'vendor.js': {
-                src: [
-                    'bower_components/jquery/dist/jquery.min.js',
-                    'bower_components/sockjs-client/dist/sockjs.js',
-                    'bower_components/angular/angular.min.js',
-                    'bower_components/angular-route/angular-route.min.js',
-                    'bower_components/angular-gettext/dist/angular-gettext.min.js',
-                    'bower_components/ui-select/dist/select.min.js',
-                    'bower_components/angular-sanitize/angular-sanitize.min.js',
-                    'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-                    'bower_components/allmighty-autocomplete/script/autocomplete.js',
-                    'bower_components/requirejs/require.js',
-                    'assets/js/vendor/**'
-                ],
-                dest: 'web/vendor.js',
-                nonull: true
-            },
-            'common.js': {
-                src: [
-                    'assets/js/app.js',
-                    'assets/js/util/**',
-                    'assets/js/controllers/**',
-                    'assets/lang/*js'
-                ],
-                dest: 'web/common.js',
-                nonull: true
-            },
             'common.css': {
                 src: [
                     'bower_components/bootstrap/dist/css/bootstrap.min.css',
@@ -138,6 +106,62 @@ module.exports = function (grunt) {
                 ],
                 dest: 'web/common.css',
                 nonull: true
+            }
+        },
+        htmlmin: {
+            templates: {
+                options: {
+                    removeComments: true,
+                    collapseWhitespace: true
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'assets',
+                    src: '**/*.html',
+                    dest: 'web'
+                }]
+            }
+        },
+        uglify: {
+            app: {
+                options: {
+                    beautify: true,
+                    compress: false,
+                    mangle: false
+                },
+                files: {
+                    'web/app.js': [
+                        'assets/js/app.js',
+                        'assets/js/util/**/*.js',
+                        'assets/js/controllers/**/*.js',
+                        'assets/lang/*js'
+                    ]
+                }
+            },
+            vendor: {
+                options: {
+                    compress: false,
+                    mangle: false
+                },
+                files: {
+                    'web/vendor.js': [
+                        'bower_components/jquery/dist/jquery.min.js',
+                        'bower_components/sockjs-client/dist/sockjs.js',
+                        'bower_components/angular/angular.min.js',
+                        'bower_components/angular-route/angular-route.min.js',
+                        'bower_components/angular-gettext/dist/angular-gettext.min.js',
+                        'bower_components/angular-sanitize/angular-sanitize.min.js',
+                        'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+                        'bower_components/ui-select/dist/select.min.js',
+                        'bower_components/allmighty-autocomplete/script/autocomplete.js',
+
+                        // sensor app
+                        'bower_components/rickshaw/vendor/d3.v3.js',
+                        'bower_components/rickshaw/rickshaw.js',
+
+                        'assets/js/vendor/**/*js'
+                    ]
+                }
             }
         }
     });

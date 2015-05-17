@@ -57,14 +57,6 @@ App.ng.controller('LayoutController', ['$scope', 'gettextCatalog', function ($sc
         $scope.$apply();
     };
 
-    $scope.search = function(query) {
-        $
-            .get('/search/', {query: query})
-            .then(function (data) {
-                console.log(data);
-            });
-    };
-
     $scope.$on('sensor.value', function (eventName, event) {
         var text = '{0}: {1}'.format(event.sensorVo.name, event.valueFormatted);
         App.Notification.show(text);

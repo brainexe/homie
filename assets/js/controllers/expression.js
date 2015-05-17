@@ -16,7 +16,7 @@ App.ng.controller('ExpressionController', ['$scope', function ($scope) {
         'setProperty("test", eventNae)'
     ];
 
-    $scope.suggestionsCondion = [];
+    $scope.suggestionsCondition = [];
     $scope.suggestionsActions = [];
 
     $scope.autocompleteAction = function(typed) {
@@ -32,7 +32,7 @@ App.ng.controller('ExpressionController', ['$scope', function ($scope) {
     };
 
     $scope.autocompleteCondition = function(typed) {
-        $scope.suggestionsCondion = [].concat(
+        $scope.suggestionsCondition = [].concat(
             $scope.eventNames.map(function(eventname) {
                 return 'eventName == "' + eventname + '"';
             }),

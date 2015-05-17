@@ -20,39 +20,37 @@ App.ng.controller('SensorController', ['$scope', '$modal', function($scope, $mod
 		$scope.fromIntervals   = data.fromIntervals;
 		$scope.availableSensors = data.availableSensors;
 
-		require(['sensor'], function() {
-			$scope.graph = new Rickshaw.Graph({
-				element: document.getElementById("chart"),
-				width: $('.content').width(),
-				interpolation: 'basis',
-				height: 500,
-				min: 'auto',
-				renderer: 'line',
-				series: data.json
-			});
-
-			new Rickshaw.Graph.Axis.Time({ graph: $scope.graph });
-
-			var yAxis = new Rickshaw.Graph.Axis.Y({
-				graph: $scope.graph,
-				orientation: 'left',
-				tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
-				element: document.getElementById('yAxis')
-			});
-
-			$scope.graph.render();
-
-			new Rickshaw.Graph.HoverDetail({
-				graph: $scope.graph
-			});
-
-			new Rickshaw.Graph.Legend( {
-				element: document.querySelector('#legend'),
-				graph: $scope.graph
-			} );
-
-			$scope.$apply();
+		$scope.graph = new Rickshaw.Graph({
+			element: document.getElementById("chart"),
+			width: $('.content').width(),
+			interpolation: 'basis',
+			height: 500,
+			min: 'auto',
+			renderer: 'line',
+			series: data.json
 		});
+
+		new Rickshaw.Graph.Axis.Time({ graph: $scope.graph });
+
+		var yAxis = new Rickshaw.Graph.Axis.Y({
+			graph: $scope.graph,
+			orientation: 'left',
+			tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
+			element: document.getElementById('yAxis')
+		});
+
+		$scope.graph.render();
+
+		new Rickshaw.Graph.HoverDetail({
+			graph: $scope.graph
+		});
+
+		new Rickshaw.Graph.Legend( {
+			element: document.querySelector('#legend'),
+			graph: $scope.graph
+		} );
+
+		$scope.$apply();
 	});
 
 	/**

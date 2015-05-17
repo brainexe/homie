@@ -9,9 +9,9 @@
             attrInputClass="form-control"
             on-type="autocompleteCondition"
             ng-enter="saveExpression(editExpression)"
-            data="suggestionsCondion"
+            data="suggestionsCondition"
             placeholder="{{'Condition'|translate}}"
-        </autocomplete>
+        />
     </div>
 
     <div class="form-group">
@@ -20,7 +20,7 @@
             <label class="pull-left">{{ $index + 1 }}.) </label>
             <autocomplete
                     ng-model="editExpression.actions[$index]"
-                    attrInputClass="form-cpmtrol"
+                    attrInputClass="form-control"
                     on-type="autocompleteAction"
                     placeholder="{{'Action'|translate}}"
                     required
@@ -36,7 +36,7 @@
                     class="pull-left form-control glyphicon glyphicon-minus"
                     ng-click="deleteAction($index)"
             ></a>
-            <span class="clearfix"/>
+            <span class="clearfix"></span>
         </div>
     </div>
 
@@ -113,37 +113,39 @@
         </tr>
     </tbody>
     <tfoot>
-        <th>
-            <input
-                    type="text"
-                    placeholder="{{'Timing-ID'|translate}}"
-                    ng-enter="addTimer(timer)"
-                    ng-model="timer.timingId"
-                    class="form-control"/>
-        </th>
-        <th>
-            <input
-                    type="text"
-                    placeholder="{{'Start Time'|translate}}"
-                    ng-enter="addTimer(timer)"
-                    ng-model="timer.startTime"
-                    class="form-control"/>
-        </th>
-        <th>
-            <input
-                    type="number"
-                    min="1"
-                    placeholder="{{'Interval'|translate}}"
-                    ng-enter="addTimer(timer)"
-                    ng-model="timer.interval"
-                    class="form-control"/>
-        </th>
-        <th>
-            <input
-                    type="button"
-                    ng-click="addTimer(timer)"
-                    class="btn btn-primary"
-                    value="{{'Add'|translate}}" />
-        </th>
+        <tr>
+            <th>
+                <input
+                        type="text"
+                        placeholder="{{'Timing-ID'|translate}}"
+                        ng-enter="addTimer(timer)"
+                        ng-model="timer.timingId"
+                        class="form-control"/>
+            </th>
+            <th>
+                <input
+                        type="text"
+                        placeholder="{{'Start Time'|translate}}"
+                        ng-enter="addTimer(timer)"
+                        ng-model="timer.startTime"
+                        class="form-control"/>
+            </th>
+            <th>
+                <input
+                        type="number"
+                        min="1"
+                        placeholder="{{'Interval'|translate}}"
+                        ng-enter="addTimer(timer)"
+                        ng-model="timer.interval"
+                        class="form-control"/>
+            </th>
+            <th>
+                <input
+                        type="button"
+                        ng-click="addTimer(timer)"
+                        class="btn btn-primary"
+                        value="{{'Add'|translate}}" />
+            </th>
+        </tr>
     </tfoot>
 </table>

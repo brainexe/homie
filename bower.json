@@ -26,7 +26,6 @@
     "angular-gettext": "2.0.*",
     "rickshaw": "1.5.*",
     "jquery": "2.1.*",
-    "requirejs": "2.1.*",
     "allmighty-autocomplete": "*",
     "ui-select": "https://github.com/angular-ui/ui-select.git#~0.11.2"
   }

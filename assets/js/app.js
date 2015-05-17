@@ -60,12 +60,6 @@ var App = {
 	}
 };
 
-require.config({
-	paths: {
-		'sensor': asset('sensor.js').replace('.js', '')
-	}
-});
-
 $(document).ajaxComplete(function (event, request) {
 	var flash = request.getResponseHeader('X-Flash');
 	if (flash) {

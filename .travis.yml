@@ -17,6 +17,9 @@ before_install:
   - if [ "`phpenv version-name`" != "hhvm" ]; then echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
   - wget https://scrutinizer-ci.com/ocular.phar
   - npm install
+  - npm install -g bower grunt
+  - bower install
+  - grunt buildAll
 
 script:
   - phpunit --coverage-clover build/logs/clover.xml --coverage-clover=coverage.clover
