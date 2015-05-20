@@ -2,12 +2,12 @@
 
 namespace Homie\Sensors\CompilerPass\Annotation;
 
-use BrainExe\Annotations\Loader\Annotation\ServiceDefinitionBuilder;
+use BrainExe\Annotations\Builder\ServiceDefinition;
 use Homie\Sensors\CompilerPass\SensorFormatter as CompilerPass;
 use ReflectionClass;
 use Symfony\Component\DependencyInjection\Definition;
 
-class FormatterBuilder extends ServiceDefinitionBuilder
+class FormatterBuilder extends ServiceDefinition
 {
     /**
      * {@inheritdoc}

@@ -12,7 +12,7 @@ use Homie\Client\ClientInterface;
 /**
  * @Service(public=false)
  */
-class Espeak implements SpeakOutputInterface
+class Espeak
 {
 
     use TimeTrait;

@@ -20,9 +20,9 @@ class MessageQueueClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function execute($command)
+    public function execute($command, array $arguments = [])
     {
-        $event = new ExecuteCommandEvent($command, false);
+        $event = new ExecuteCommandEvent($command, $arguments, false);
 
         $this->dispatchInBackground($event);
     }
@@ -30,9 +30,9 @@ class MessageQueueClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function executeWithReturn($command)
+    public function executeWithReturn($command, array $arguments = [])
     {
-        $event = new ExecuteCommandEvent($command, true);
+        $event = new ExecuteCommandEvent($command, $arguments, true);
 
         $this->dispatchInBackground($event);
 

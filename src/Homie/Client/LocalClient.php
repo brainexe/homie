@@ -32,15 +32,15 @@ class LocalClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function execute($command)
+    public function execute($command, array $arguments = [])
     {
-        $this->executeWithReturn($command);
+        $this->executeWithReturn($command, $arguments);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function executeWithReturn($command)
+    public function executeWithReturn($command, array $arguments = [])
     {
         $process = $this->processBuilder
             ->add('')

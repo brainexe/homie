@@ -11,6 +11,7 @@ use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorValueEvent;
 use Homie\Sensors\SensorValuesGateway;
 use Homie\Sensors\Builder;
+use Homie\Sensors\SensorVO;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -111,43 +112,55 @@ class Cron extends Command
             $delta    = $now - $lastRun;
 
             if ($delta > $interval * 60 || $input->getOption('force')) {
-                $sensor     = $this->builder->build($sensorVo->type);
-                $formatter  = $this->builder->getFormatter($sensorVo->type);
-                $definition = $this->builder->getDefinition($sensorVo->type);
-
-                $currentSensorValue = $sensor->getValue($sensorVo->pin);
-                if ($currentSensorValue === null) {
-                    $output->writeln(sprintf(
-                        '<error>Invalid sensor value: #%d %s (%s)</error>',
-                        $sensorVo->sensorId,
-                        $sensorVo->type,
-                        $sensorVo->name
-                    ));
-                    continue;
-                }
-
-                $formattedSensorValue = $formatter->formatValue($currentSensorValue);
-                $event = new SensorValueEvent(
-                    $sensorVo,
-                    $sensor,
-                    $currentSensorValue,
-                    $formattedSensorValue,
-                    $now
-                );
-                $this->dispatcher->dispatchEvent($event);
-
-                $this->gateway->addValue($sensorVo->sensorId, $currentSensorValue);
-
-                $output->writeln(
-                    sprintf(
-                        '#%d: <info>%s</info> (<info>%s</info>): <info>%s</info>',
-                        $sensorVo->sensorId,
-                        $definition->name,
-                        $sensorVo->name,
-                        $formattedSensorValue
-                    )
-                );
+                $this->getValue($output, $sensorVo, $now);
             }
         }
+    }
+
+    /**
+     * @param OutputInterface $output
+     * @param SensorVO $sensorVo
+     * @param int $now
+     */
+    protected function getValue(OutputInterface $output, $sensorVo, $now)
+    {
+        $sensor     = $this->builder->build($sensorVo->type);
+        $formatter  = $this->builder->getFormatter($sensorVo->type);
+        $definition = $this->builder->getDefinition($sensorVo->type);
+
+        $currentSensorValue = $sensor->getValue($sensorVo->pin);
+        if ($currentSensorValue === null) {
+            $output->writeln(
+                sprintf(
+                    '<error>Invalid sensor value: #%d %s (%s)</error>',
+                    $sensorVo->sensorId,
+                    $sensorVo->type,
+                    $sensorVo->name
+                )
+            );
+            return;
+        }
+
+        $formattedSensorValue = $formatter->formatValue($currentSensorValue);
+        $event = new SensorValueEvent(
+            $sensorVo,
+            $sensor,
+            $currentSensorValue,
+            $formattedSensorValue,
+            $now
+        );
+        $this->dispatcher->dispatchEvent($event);
+
+        $this->gateway->addValue($sensorVo->sensorId, $currentSensorValue);
+
+        $output->writeln(
+            sprintf(
+                '#%d: <info>%s</info> (<info>%s</info>): <info>%s</info>',
+                $sensorVo->sensorId,
+                $definition->name,
+                $sensorVo->name,
+                $formattedSensorValue
+            )
+        );
     }
 }

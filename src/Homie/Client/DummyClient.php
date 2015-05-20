@@ -14,20 +14,19 @@ class DummyClient implements ClientInterface
     use LoggerTrait;
 
     /**
-     * @param string $command
+     * {@inheritdoc}
      */
-    public function execute($command)
+    public function execute($command, array $arguments = [])
     {
-        $this->info($command);
+        $this->info(sprintf('%s %s', $command, implode(' ', $arguments)));
     }
 
     /**
-     * @param string $command
-     * @return string
+     * {@inheritdoc}
      */
-    public function executeWithReturn($command)
+    public function executeWithReturn($command, array $arguments = [])
     {
-        $this->info($command);
+        $this->info(sprintf('%s %s', $command, implode(' ', $arguments)));
 
         return '';
     }

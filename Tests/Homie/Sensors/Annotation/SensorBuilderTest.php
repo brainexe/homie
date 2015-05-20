@@ -4,7 +4,7 @@ namespace Tests\Homie\Sensors\Command;
 
 use Doctrine\Common\Annotations\Reader;
 use Homie\Sensors\Annotation\Sensor;
-use Homie\Sensors\CompilerPass\Annotation\SensorBuilder;
+use Homie\Sensors\Annotation\SensorBuilder;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use ReflectionClass;

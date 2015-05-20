@@ -40,6 +40,6 @@ class EspeakVO
         $this->text    = $text;
         $this->volume  = $volume;
         $this->speed   = $speed;
-        $this->speaker = $speaker;
+        $this->speaker = $speaker ?: Espeak::DEFAULT_SPEAKER;
     }
 }

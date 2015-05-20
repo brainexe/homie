@@ -2,7 +2,7 @@
 
 namespace Tests\Homie\Client\DummyClient;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Client\DummyClient;
 use Monolog\Logger;
@@ -10,7 +10,7 @@ use Monolog\Logger;
 /**
  * @covers Homie\Client\DummyClient
  */
-class DummyClientTest extends PHPUnit_Framework_TestCase
+class DummyClientTest extends TestCase
 {
 
     /**
@@ -21,24 +21,24 @@ class DummyClientTest extends PHPUnit_Framework_TestCase
     /**
      * @var Logger|MockObject
      */
-    private $mockLogger;
+    private $logger;
 
     public function setUp()
     {
-        $this->mockLogger = $this->getMock(Logger::class, [], [], '', false);
+        $this->logger = $this->getMock(Logger::class, [], [], '', false);
 
         $this->subject = new DummyClient();
-        $this->subject->setLogger($this->mockLogger);
+        $this->subject->setLogger($this->logger);
     }
 
     public function testExecute()
     {
         $command = 'test';
 
-        $this->mockLogger
+        $this->logger
             ->expects($this->once())
             ->method('log')
-            ->with('info', $command);
+            ->with('info', 'test ');
 
         $this->subject->execute($command);
     }
@@ -47,10 +47,10 @@ class DummyClientTest extends PHPUnit_Framework_TestCase
     {
         $command = 'test';
 
-        $this->mockLogger
+        $this->logger
             ->expects($this->once())
             ->method('log')
-            ->with('info', $command);
+            ->with('info', 'test ');
 
         $actualResult = $this->subject->executeWithReturn($command);
 

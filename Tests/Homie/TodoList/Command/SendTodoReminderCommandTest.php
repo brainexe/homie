@@ -2,7 +2,7 @@
 
 namespace Tests\Homie\TodoList\Command\SendTodoReminderCommand;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\TodoList\Command\SendTodoReminderCommand;
 use Homie\TodoList\TodoReminder;
@@ -12,7 +12,7 @@ use Symfony\Component\Console\Tester\CommandTester;
 /**
  * @covers Homie\TodoList\Command\SendTodoReminderCommand
  */
-class SendTodoReminderCommandTest extends PHPUnit_Framework_TestCase
+class SendTodoReminderCommandTest extends TestCase
 {
 
     /**
@@ -23,12 +23,12 @@ class SendTodoReminderCommandTest extends PHPUnit_Framework_TestCase
     /**
      * @var TodoReminder|MockObject
      */
-    private $mockTodoReminder;
+    private $todoReminder;
 
     public function setUp()
     {
-        $this->mockTodoReminder = $this->getMock(TodoReminder::class, [], [], '', false);
-        $this->subject = new SendTodoReminderCommand($this->mockTodoReminder);
+        $this->todoReminder = $this->getMock(TodoReminder::class, [], [], '', false);
+        $this->subject = new SendTodoReminderCommand($this->todoReminder);
     }
 
     public function testExecute()
@@ -39,7 +39,7 @@ class SendTodoReminderCommandTest extends PHPUnit_Framework_TestCase
         $command = $application->find('todo:reminder');
         $commandTester = new CommandTester($command);
 
-        $this->mockTodoReminder
+        $this->todoReminder
             ->expects($this->once())
             ->method('sendNotification');
 

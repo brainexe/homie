@@ -3,7 +3,7 @@
 namespace Tests\Homie\Sensors\Annotation;
 
 use Doctrine\Common\Annotations\Reader;
-use Homie\Sensors\Annotation\Builder;
+use Homie\Sensors\Annotation\SensorBuilder;
 use Homie\Sensors\Annotation\Sensor;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
@@ -19,7 +19,7 @@ class BuilderTest extends TestCase
         /** @var Reader $reader */
         $reader = $this->getMock(Reader::class);
 
-        $subject = new Builder($reader);
+        $subject = new SensorBuilder($reader);
 
         $data = [];
         $annotation = new Sensor($data);

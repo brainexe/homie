@@ -3,16 +3,16 @@
 namespace Homie\TodoList\Command;
 
 use BrainExe\Annotations\Annotations\Inject;
-use BrainExe\Core\Annotations\Command;
-use BrainExe\Core\Console\AbstractCommand;
+use BrainExe\Core\Annotations\Command as CommandAnnotation;
 use Homie\TodoList\TodoReminder;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * @Command
+ * @CommandAnnotation
  */
-class SendTodoReminderCommand extends AbstractCommand
+class SendTodoReminderCommand extends Command
 {
 
     /**
@@ -43,7 +43,7 @@ class SendTodoReminderCommand extends AbstractCommand
     /**
      * {@inheritdoc}
      */
-    protected function doExecute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->todoReminder->sendNotification();
     }

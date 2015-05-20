@@ -2,9 +2,8 @@
 
 namespace Homie\Sensors\Sensors;
 
-use Homie\Sensors\CompilerPass\Annotation\Sensor;
+use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Definition;
-use Homie\Sensors\Formatter\Formatter;
 use Homie\Sensors\Formatter\None;
 use Homie\Sensors\Interfaces\Parameterized;
 use Symfony\Component\Console\Output\OutputInterface;

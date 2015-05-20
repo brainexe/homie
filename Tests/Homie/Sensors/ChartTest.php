@@ -57,4 +57,13 @@ class ChartTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expectedResult, $actualResult);
     }
+
+    public function testFormatEmpty()
+    {
+        $actualResult = $this->subject->formatJsonData([], []);
+
+        $expectedResult = [];
+
+        $this->assertEquals($expectedResult, $actualResult);
+    }
 }

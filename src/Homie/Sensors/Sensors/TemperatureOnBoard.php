@@ -5,7 +5,7 @@ namespace Homie\Sensors\Sensors;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Util\FileSystem;
 use BrainExe\Core\Util\Glob;
-use Homie\Sensors\CompilerPass\Annotation\Sensor;
+use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\Temperature;
 use Homie\Sensors\Interfaces\Searchable;

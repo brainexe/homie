@@ -46,7 +46,7 @@ class MessageQueueClientTest extends PHPUnit_Framework_TestCase
     {
         $command = 'command';
 
-        $event = new ExecuteCommandEvent($command, false);
+        $event = new ExecuteCommandEvent($command, [], false);
 
         $this->dispatcher
             ->expects($this->once())
@@ -60,7 +60,7 @@ class MessageQueueClientTest extends PHPUnit_Framework_TestCase
     {
         $command = 'command';
 
-        $event = new ExecuteCommandEvent($command, true);
+        $event = new ExecuteCommandEvent($command, [], true);
 
         $this->dispatcher
             ->expects($this->once())

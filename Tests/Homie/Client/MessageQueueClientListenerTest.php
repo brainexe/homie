@@ -50,7 +50,7 @@ class MessageQueueClientListenerTest extends PHPUnit_Framework_TestCase
     {
         $command = 'command';
 
-        $event = new ExecuteCommandEvent($command, true);
+        $event = new ExecuteCommandEvent($command, [], true);
 
         $output = 'output';
 

@@ -1,13 +1,13 @@
 <?php
 
-namespace Homie\Sensors\CompilerPass\Annotation;
+namespace Homie\Sensors\Annotation;
 
-use BrainExe\Annotations\Loader\Annotation\ServiceDefinitionBuilder;
+use BrainExe\Annotations\Builder\ServiceDefinition;
 use Homie\Sensors\CompilerPass\Sensor as CompilerPass;
 use ReflectionClass;
 use Symfony\Component\DependencyInjection\Definition;
 
-class SensorBuilder extends ServiceDefinitionBuilder
+class SensorBuilder extends ServiceDefinition
 {
     /**
      * {@inheritdoc}

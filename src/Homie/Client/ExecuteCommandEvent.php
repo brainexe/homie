@@ -20,13 +20,20 @@ class ExecuteCommandEvent extends AbstractEvent
     public $returnNeeded;
 
     /**
-     * @param string $command
-     * @param boolean $returnNeeded
+     * @var string[]
      */
-    public function __construct($command, $returnNeeded)
+    private $arguments;
+
+    /**
+     * @param string $command
+     * @param string[] $arguments
+     * @param bool $returnNeeded
+     */
+    public function __construct($command, array $arguments, $returnNeeded)
     {
-        $this->event_name   = self::EXECUTE;
+        parent::__construct(self::EXECUTE);
         $this->command      = $command;
         $this->returnNeeded = $returnNeeded;
+        $this->arguments    = $arguments;
     }
 }

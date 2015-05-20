@@ -15,6 +15,6 @@ class Sensor extends Service
      */
     public static function getBuilder(Reader $reader)
     {
-        return new Builder($reader);
+        return new SensorBuilder($reader);
     }
 }
