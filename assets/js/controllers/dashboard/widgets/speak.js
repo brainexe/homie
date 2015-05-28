@@ -1,26 +1,24 @@
 
-App.Widgets = App.Widgets || {}; // @TODO
+App.ng.service('Widget.speak', ['Speak', '_', function(Speak, _) {
+    return {
+        title: _('Speak'),
 
-App.Widgets.speak = {
-    title: gettext('Speak'),
+        init: function ($scope) {
+            $scope.pending = false;
+            $scope.speak = function (text) {
+                $scope.pending = true;
+                text = text || prompt('Text?');
+                var payload = {
+                    text: text
+                };
 
-    init: function($scope) {
-        $scope.pending = false;
-        $scope.speak = function(text) {
-            $scope.pending = true;
-            text = text || prompt('Text?');
-            var payload = {
-                text: text
+                Speak.speak(payload).success(function () {
+                    $scope.text    = '';
+                    $scope.pending = false;
+                });
             };
-
-            App.Speak.speak(payload).then(function() {
-                $scope.text = '';
-                $scope.pending = false;
-                $scope.$apply();
-            });
-        };
-    },
-    render: function ($scope, widget) {
-        $scope.$apply();
+        },
+        render: function ($scope, widget) {
+        }
     }
-};
+}]);

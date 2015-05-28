@@ -16,7 +16,7 @@ msgstr ""
 msgid "Action"
 msgstr "Aktion"
 
-#: assets/js/controllers/controllers.js:7 assets/templates/expression.html:18
+#: assets/js/controllers/controllers.js:8 assets/templates/expression.html:18
 #: assets/templates/expression.html:61
 msgid "Actions"
 msgstr "Aktionen"
@@ -74,7 +74,7 @@ msgstr "Schließen"
 msgid "Code"
 msgstr "Code"
 
-#: assets/js/controllers/todo.js:9
+#: assets/js/controllers/todo.js:8
 msgid "Completed"
 msgstr "Abgeschlossen"
 
@@ -91,7 +91,7 @@ msgstr "Zähler"
 msgid "Current Time"
 msgstr "Aktuelle Zeit"
 
-#: assets/js/controllers/controllers.js:4
+#: assets/js/controllers/controllers.js:5
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -99,7 +99,7 @@ msgstr "Dashboard"
 msgid "Date"
 msgstr "Datum"
 
-#: assets/templates/espeak.html:9
+#: assets/templates/egg_timer.html:16 assets/templates/espeak.html:9
 msgid "Delay"
 msgstr "Verzögerung"
 
@@ -109,7 +109,7 @@ msgstr "Verzögerung"
 msgid "Delete"
 msgstr "Löschen"
 
-#: assets/js/controllers/user/tokens.js:24
+#: assets/js/controllers/user/tokens.js:21
 msgid "Delete this token?"
 msgstr "Diesen Token löschen?"
 
@@ -142,14 +142,18 @@ msgstr "Editieren"
 msgid "Edit Mode"
 msgstr "Editieren"
 
-#: assets/js/controllers/controllers.js:11
-#: assets/js/controllers/dashboard/widgets/egg_timer.js:3
+#: assets/js/controllers/controllers.js:12
+#: assets/js/controllers/dashboard/widgets/egg_timer.js:4
 msgid "Egg Timer"
 msgstr "Eieruhr"
 
 #: assets/templates/admin/users.html:22 assets/templates/admin/users.html:6
 msgid "Email"
 msgstr "Email"
+
+#: assets/js/controllers/user/login.js:46
+msgid "Email was sent"
+msgstr "Email wurde gesendet"
 
 #: assets/templates/radio.html:5
 msgid "Enable"
@@ -167,19 +171,19 @@ msgstr "Ausdruck"
 msgid "Flower"
 msgstr "Blumen"
 
-#: assets/js/controllers/controllers.js:10
+#: assets/js/controllers/controllers.js:11
 msgid "Flowers"
 msgstr "Blumen"
 
-#: assets/js/controllers/controllers.js:8
+#: assets/js/controllers/controllers.js:9
 msgid "GPIO"
 msgstr "GPIO"
 
-#: assets/index.html:98
+#: assets/index.html:95
 msgid "Hello {{ currentUser.username }}!"
 msgstr "Hallo {{ currentUser.username }}!"
 
-#: assets/index.html:19
+#: assets/index.html:16 assets/index.html:7
 msgid "Homie"
 msgstr "Homie"
 
@@ -195,7 +199,7 @@ msgstr "Intervall"
 msgid "Key"
 msgstr "Key"
 
-#: assets/js/controllers/controllers.js:22
+#: assets/js/controllers/controllers.js:23
 msgid "Login"
 msgstr "Login"
 
@@ -238,7 +242,7 @@ msgstr "Passwort"
 msgid "Payload"
 msgstr "Payload"
 
-#: assets/js/controllers/todo.js:7
+#: assets/js/controllers/todo.js:6
 msgid "Pending"
 msgstr "Offen"
 
@@ -247,11 +251,11 @@ msgstr "Offen"
 msgid "Pin"
 msgstr "Pin"
 
-#: assets/index.html:69
+#: assets/index.html:66
 msgid "Profile"
 msgstr "Profil"
 
-#: assets/js/controllers/todo.js:8
+#: assets/js/controllers/todo.js:7
 msgid "Progress"
 msgstr "In Arbeit"
 
@@ -263,13 +267,13 @@ msgstr "QR-Code"
 msgid "Radio"
 msgstr "Schalter"
 
-#: assets/js/controllers/controllers.js:23
+#: assets/js/controllers/controllers.js:24
 #: assets/templates/user/register.html:18
 #: assets/templates/user/register.html:2
 msgid "Register"
 msgstr "Registrieren"
 
-#: assets/js/controllers/radio.js:52
+#: assets/js/controllers/radio.js:29
 msgid "Remove this Radio-Job?"
 msgstr "Diesen Job löschen?"
 
@@ -293,7 +297,7 @@ msgstr "Rollen"
 msgid "Save"
 msgstr "Speichern"
 
-#: assets/index.html:102
+#: assets/index.html:99
 msgid "Search..."
 msgstr "Suchen..."
 
@@ -306,16 +310,16 @@ msgstr "Secret"
 msgid "Send Token via Mail"
 msgstr "Token per Mail schicken"
 
-#: assets/js/controllers/controllers.js:6
+#: assets/js/controllers/controllers.js:7
 #: assets/templates/admin/sensors.html:12
 msgid "Sensors"
 msgstr "Sensoren"
 
-#: assets/js/controllers/dashboard/widgets/egg_timer.js:19
+#: assets/js/controllers/dashboard/widgets/egg_timer.js:20
 msgid "Set Time"
 msgstr "Zeit setzen"
 
-#: assets/js/controllers/controllers.js:13
+#: assets/js/controllers/controllers.js:14
 #: assets/templates/shopping_list.html:2
 msgid "Shopping List"
 msgstr "Einkaufsliste"
@@ -324,12 +328,12 @@ msgstr "Einkaufsliste"
 msgid "Sign in"
 msgstr "Login"
 
-#: assets/index.html:80
+#: assets/index.html:77
 msgid "Sign out"
 msgstr "Log-Out"
 
-#: assets/js/controllers/controllers.js:9
-#: assets/js/controllers/dashboard/widgets/speak.js:5
+#: assets/js/controllers/controllers.js:10
+#: assets/js/controllers/dashboard/widgets/speak.js:4
 #: assets/templates/widgets/speak.html:9
 msgid "Speak"
 msgstr "Sprechen"
@@ -346,7 +350,7 @@ msgstr "Geschwindigkeit"
 msgid "Start Time"
 msgstr "Startzeit"
 
-#: assets/js/controllers/controllers.js:16 assets/templates/radio.html:110
+#: assets/js/controllers/controllers.js:17 assets/templates/radio.html:110
 #: assets/templates/radio.html:49
 msgid "Status"
 msgstr "Status"
@@ -359,7 +363,7 @@ msgstr "Abschicken"
 msgid "Switch"
 msgstr "Schalter"
 
-#: assets/js/controllers/controllers.js:5
+#: assets/js/controllers/controllers.js:6
 msgid "Switches"
 msgstr "Schalter"
 
@@ -394,7 +398,7 @@ msgstr "Timing-ID"
 msgid "Title"
 msgstr "Titel"
 
-#: assets/js/controllers/controllers.js:12
+#: assets/js/controllers/controllers.js:13
 msgid "ToDo List"
 msgstr "ToDo-Liste"
 
@@ -423,7 +427,7 @@ msgstr "Typ"
 msgid "User"
 msgstr "Benutzer"
 
-#: assets/js/controllers/controllers.js:15
+#: assets/js/controllers/controllers.js:16
 msgid "User Settings"
 msgstr "Einstellungen"
 
@@ -431,7 +435,7 @@ msgstr "Einstellungen"
 msgid "Username"
 msgstr "Benutzername"
 
-#: assets/js/controllers/controllers.js:19
+#: assets/js/controllers/controllers.js:20
 msgid "Users"
 msgstr "Benutzer"
 
@@ -444,15 +448,23 @@ msgstr "Wert"
 msgid "Volume"
 msgstr "Lautstärke"
 
-#: assets/js/controllers/controllers.js:14
+#: assets/js/controllers/controllers.js:15
 msgid "Webcam"
 msgstr "Webcam"
+
+#: assets/js/controllers/user/login.js:18
+msgid "Welcome back {0}!"
+msgstr "Willkommen zurück {0}!"
+
+#: assets/js/controllers/user/register.js:15
+msgid "Welcome {0}!"
+msgstr "Willkommen {0}!"
 
 #: assets/templates/egg_timer.html:26 assets/templates/espeak.html:19
 msgid "e.g. 10s, 30m, 1h"
 msgstr "z.B. 10s, 30m, 1h"
 
-#: assets/js/controllers/todo.js:35
+#: assets/js/controllers/todo.js:29
 msgid "name can not be empty"
 msgstr "Der Name darf nicht leer sein"
 

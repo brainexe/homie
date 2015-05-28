@@ -1,16 +1,15 @@
 
-App.ng.controller('FlowerController', ['$scope', function ($scope) {
-	$.get('/flower/', function(data) {
-		$scope.humidity     = data.humidity;
-		$scope.waterEnabled = data.humidity <= 50;
-		$scope.$apply();
-	});
+App.ng.controller('FlowerController', ['$scope', 'Flower', function ($scope, Flower) {
+    Flower.getData().success(function (data) {
+        $scope.humidity     = data.humidity;
+        $scope.waterEnabled = data.humidity <= 50;
+    });
 
-	$scope.water = function() {
-		$scope.waterEnabled = false;
+    $scope.water = function () {
+        $scope.waterEnabled = false;
 
-		$.post('/flower/water/', function(data) {
-			$scope.waterEnabled = true;
-		});
-	};
+        Flower.water().success(function (data) {
+            $scope.waterEnabled = true;
+        });
+    };
 }]);

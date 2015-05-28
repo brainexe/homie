@@ -5,13 +5,12 @@ namespace Homie\Dashboard;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
-use BrainExe\Core\Controller\ControllerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @ControllerAnnotation("DashboardController")
  */
-class Controller implements ControllerInterface
+class Controller
 {
 
     /**
@@ -30,7 +29,7 @@ class Controller implements ControllerInterface
 
     /**
      * @return array
-     * @Route("/dashboard/", name="dashboard.index")
+     * @Route("/dashboard/", name="dashboard.index", methods="GET")
      */
     public function index()
     {
@@ -46,7 +45,7 @@ class Controller implements ControllerInterface
     /**
      * @param Request $request
      * @return DashboardVo
-     * @Route("/dashboard/add/", methods="POST")
+     * @Route("/dashboard/", methods="POST")
      */
     public function addWidget(Request $request)
     {
@@ -56,15 +55,16 @@ class Controller implements ControllerInterface
 
         return $this->dashboard->addWidget($dashboardId, $type, $payload);
     }
+
     /**
      * @param Request $request
+     * @param int $dashboardId
+     * @Route("/dashboard/{dashboardId}/", methods="PUT", name="dashboard.update")
      * @return array
-     * @Route("/dashboard/update/", methods="POST")
      */
-    public function updateDashboard(Request $request)
+    public function updateDashboard(Request $request, $dashboardId)
     {
-        $dashboardId = $request->request->getAlnum('dashboardId');
-        $payload     = (array)$request->request->get('payload');
+        $payload = (array)$request->request->get('payload');
 
         return $this->dashboard->updateDashboard($dashboardId, $payload);
     }
@@ -72,7 +72,8 @@ class Controller implements ControllerInterface
     /**
      * @param Request $request
      * @return array
-     * @Route("/dashboard/widget/update/", methods="POST")
+     *
+     * @Route("/dashboard/widget/", methods="POST", name="dashboard.widget.update", methods="PUT")
      */
     public function updateWidget(Request $request)
     {
@@ -87,13 +88,14 @@ class Controller implements ControllerInterface
 
     /**
      * @param Request $request
+     * @param int $dashboardId
+     * @param int $widgetId
+     * @Route("/dashboard/{dashboardId}/{widgetId}/", methods="DELETE", name="dashboard.widget.delete")
      * @return array
-     * @Route("/dashboard/widget/delete/", methods="POST")
      */
-    public function deleteWidget(Request $request)
+    public function deleteWidget(Request $request, $dashboardId, $widgetId)
     {
-        $widgetId    = $request->request->getInt('widget_id');
-        $dashboardId = $request->request->getInt('dashboardId');
+        unset($request);
 
         $this->dashboard->deleteWidget($dashboardId, $widgetId);
 
@@ -101,14 +103,16 @@ class Controller implements ControllerInterface
 
         return $dashboard;
     }
+
     /**
      * @param Request $request
+     * @param int $dashboardId
+     * @Route("/dashboard/{dashboardId}/", methods="DELETE", name="dashboard.delete")
      * @return bool
-     * @Route("/dashboard/delete/", methods="POST")
      */
-    public function deleteDashboard(Request $request)
+    public function deleteDashboard(Request $request, $dashboardId)
     {
-        $dashboardId = $request->request->getInt('dashboardId');
+        unset($request);
 
         $this->dashboard->delete($dashboardId);
 

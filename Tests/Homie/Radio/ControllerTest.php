@@ -2,13 +2,11 @@
 
 namespace Tests\Homie\Radio;
 
-use BrainExe\Core\Controller\ControllerInterface;
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Radio\Controller;
 use Homie\Radio\RadioChangeEvent;
 use Homie\Radio\VO\RadioVO;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Homie\Radio\Radios;
 use Homie\Radio\RadioJob;
@@ -17,7 +15,7 @@ use BrainExe\Core\EventDispatcher\EventDispatcher;
 /**
  * @covers Homie\Radio\Controller
  */
-class ControllerTest extends PHPUnit_Framework_TestCase
+class ControllerTest extends TestCase
 {
 
     /**

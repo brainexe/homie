@@ -37,7 +37,7 @@
 	</tbody>
 </table>
 
-<button class="btn btn-primary" ng-click="editMode = !editMode">Edit Mode</button>
+<button class="btn btn-primary" ng-click="editMode = !editMode" translate>Edit Mode</button>
 
 <hr />
 
@@ -71,7 +71,7 @@
 </table>
 
 <div ng-if="radios|notEmpty" class="panel panel-primary">
-	<div class="panel-heading">Add Job</div>
+	<div class="panel-heading" translate>Add Job</div>
 	<div class="panel-body">
 		<form ng-submit="addRadioJob(newJob)" class="navbar-forms navbar-lefts ">
 			<div class="row">
@@ -98,7 +98,7 @@
 						<input
                                 type="text"
                                 ng-model="newJob.time"
-                                id="new_radio_job_time"
+                                id="newRadioJobTime"
                                 required
                                 class="form-control"
                                 value="1h"

@@ -1,19 +1,18 @@
 
-App.ng.controller('NewWidgetController', ['$scope', '$modalInstance', 'widgets', 'dashboards', function($scope, $modalInstance, widgets, dashboards) {
-    $scope.widgets   = widgets;
+App.ng.controller('NewWidgetController', ['$scope', '$modalInstance', 'widgets', 'Dashboard', 'dashboards', function($scope, $modalInstance, widgets, Dashboard, dashboards) {
+    $scope.widgets    = widgets;
     $scope.dashboards = dashboards;
-    $scope.payload   = {};
+    $scope.payload    = {};
 
     $scope.addWidget = function(dashboardId, widget) {
         var payload = {
-            type:         widget.widgetId,
+            type:        widget.widgetId,
             dashboardId: dashboardId,
-            payload:      $scope.payload
+            payload:     $scope.payload
         };
 
-        $.post('/dashboard/add/', payload, function(data) {
+        Dashboard.add(payload).success(function(data) {
             App.Dashboard.$scope.dashboards[data.dashboardId] = data;
-            App.Dashboard.$scope.$apply();
         });
         $modalInstance.close();
     };

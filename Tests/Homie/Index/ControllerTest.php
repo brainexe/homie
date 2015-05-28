@@ -22,7 +22,7 @@ class ControllerTest extends TestCase
 
     public function setUp()
     {
-        $this->subject = new Controller();
+        $this->subject = new Controller(true, null);
     }
 
     public function testIndex()
@@ -34,13 +34,18 @@ class ControllerTest extends TestCase
             file_put_contents(ROOT . 'web/index.html', '');
         }
 
-        $user = new UserVO();
-
-        $request = new Request();
-        $request->attributes->set('user', $user);
-
-        $actualResult = $this->subject->index($request);
+        $actualResult = $this->subject->index();
 
         $this->assertEquals(200, $actualResult->getStatusCode());
+    }
+
+    public function testConfig() {
+        $actual   = $this->subject->config();
+        $expected = [
+            'debug' => true,
+            'socketUrl' => null
+        ];
+
+        $this->assertEquals($expected, $actual);
     }
 }

@@ -1,8 +1,7 @@
 
-App.ng.controller('LogoutController', ['$scope', function($scope) {
-	$.post('/logout/', function(user_vo) {
-		App.Layout.$scope.currentUser = user_vo;
-		App.Layout.$scope.$apply();
+App.ng.controller('LogoutController', ['$scope', 'UserManagement', function($scope, UserManagement) {
+	UserManagement.logout().success(function(userVo) {
+		App.Layout.$scope.currentUser = userVo;
 
 		window.location.href = '#index';
 	})

@@ -1,23 +1,13 @@
 
-App.ng.controller('ExpressionController', ['$scope', function ($scope) {
+App.ng.controller('ExpressionController', ['$scope', 'Expression', function ($scope, Expression) {
 	$scope.input_control  = [];
 	$scope.expressions    = {};
     $scope.editExpression = {actions:['']};
     $scope.eventNames     = [];
     $scope.timers         = [];
 
-    var variables = [
-        'event',
-        'eventName'
-    ];
-
-    var actions = [
-        'input("say foo")',
-        'setProperty("test", eventNae)'
-    ];
-
     $scope.suggestionsCondition = [];
-    $scope.suggestionsActions = [];
+    $scope.suggestionsActions   = [];
 
     $scope.autocompleteAction = function(typed) {
         $scope.suggestionsActions = [].concat(
@@ -43,25 +33,22 @@ App.ng.controller('ExpressionController', ['$scope', function ($scope) {
         );
     };
 
-    $.get('/expressions/', function(data) {
+    Expression.getData().success(function(data) {
 		$scope.expressions   = data.expressions;
 		$scope.input_control = data.input_control;
 		$scope.eventNames    = data.events;
 		$scope.timers        = data.timers;
-		$scope.$apply();
 	});
 
     $scope.save = function(expression) {
-        $.post('/expressions/save/', expression, function(data) {
+        Expression.save(expression).success(function(data) {
             $scope.expressions[data.expressionId] = data;
-            $scope.$apply();
         });
     };
 
     $scope.delete = function(expressionId) {
-        $.post('/expressions/delete/', {expressionId:expressionId}, function() {
+       Expression.deleteExpression(expressionId).success(function() {
             delete $scope.expressions[expressionId];
-            $scope.$apply();
         });
     };
 
@@ -81,10 +68,8 @@ App.ng.controller('ExpressionController', ['$scope', function ($scope) {
     };
 
     $scope.addTimer = function(timer) {
-        $.post('/expressions/timer/', timer, function(data) {
+        Expression.addTimer(timer).success(function(data) {
             $scope.timers = data.timers;
-            $scope.$apply();
         });
-    }
-
+    };
 }]);

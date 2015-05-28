@@ -1,12 +1,14 @@
 
-App.Widgets.sensor = {
-    interval: 60 * 5 * 1000,
-    render: function ($scope, widget) {
-        $.get('/sensors/value/', {sensor_id: widget.sensor_id}, function(sensorData) {
-            $scope.setTitle("{0} ({1})".format(sensorData.sensor.name, sensorData.sensor.type));
+App.ng.service('Widget.sensor', ['Sensor', function(Sensor) {
+    return {
+        interval: 60 * 5 * 1000,
+        render: function ($scope, widget) {
+            Sensor.getSensorData(widget.sensor_id).success(function(sensorData) {
+                $scope.setTitle("{0} ({1})".format(sensorData.sensor.name, sensorData.sensor.type));
 
-            $scope.sensor = sensorData.sensor;
-            $scope.$apply();
-        });
-    }
-};
+                $scope.sensor = sensorData.sensor;
+            });
+        }
+    };
+}]);
+

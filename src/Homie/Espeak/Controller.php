@@ -81,12 +81,13 @@ class Controller
 
     /**
      * @param Request $request
-     * @return boolean
-     * @Route("/espeak/job/delete/", name="espeak.delete", methods="POST")
+     * @Route("/espeak/job/{jobId}/", name="espeak.job.delete", methods="DELETE")
+     * @param int $jobId
+     * @return bool
      */
-    public function deleteJob(Request $request)
+    public function deleteJob(Request $request, $jobId)
     {
-        $jobId = $request->request->get('job_id');
+        unset($request);
 
         $this->espeak->deleteJob($jobId);
 

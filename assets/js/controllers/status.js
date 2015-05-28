@@ -1,36 +1,35 @@
-App.ng.controller('StatusController', ['$scope', function($scope) {
-	$scope.stats    = {};
-	$scope.jobs     = {};
 
-    $scope.update = function() {
-        $.get('/stats/', function(data) {
+App.ng.controller('StatusController', ['$scope', 'Status', function ($scope, Status) {
+    var REFRESH_INTERVAL = 2000;
+
+    $scope.stats = {};
+    $scope.jobs  = {};
+
+    $scope.update = function () {
+        Status.getData().success(function (data) {
             $scope.stats = data.stats;
             $scope.jobs  = data.jobs;
-            $scope.$apply();
         });
     };
 
     $scope.update();
 
-    setInterval(function() {
+    setInterval(function () {
         $scope.update();
-    }, 1000);
+    }, REFRESH_INTERVAL);
 
-	$scope.resetStats = function(key) {
-		var url = '/stats/reset/'.format(key);
-		$.post(url, {key:key}).then(function() {
-			$scope.stats[key] = 0;
-			$scope.$apply();
-		});
-	};
+    $scope.resetStats = function (key) {
+       Status.reset(key).success(function () {
+            $scope.stats[key] = 0;
+        });
+    };
 
-	/**
-	 * @param {String} event_id
-	 */
-	$scope.deleteEvent = function(event_id) {
-		$.post('/stats/event/delete/', {job_id:event_id}, function() {
-			delete $scope.jobs[event_id];
-			$scope.$apply();
-		});
-	};
+    /**
+     * @param {String} eventId
+     */
+    $scope.deleteEvent = function (eventId) {
+       Status.deleteEvent(eventId).success(function () {
+            delete $scope.jobs[eventId];
+        });
+    };
 }]);

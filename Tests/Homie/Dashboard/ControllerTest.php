@@ -2,7 +2,7 @@
 
 namespace Tests\Homie\Dashboard;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Dashboard\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,7 +11,7 @@ use Homie\Dashboard\Dashboard;
 /**
  * @covers Homie\Dashboard\Controller
  */
-class ControllerTest extends PHPUnit_Framework_TestCase
+class ControllerTest extends TestCase
 {
 
     /**
@@ -45,8 +45,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
             ->method('getAvailableWidgets')
             ->willReturn($widgets);
 
-        $request = new Request();
-        $actualResult = $this->subject->index($request);
+        $actualResult = $this->subject->index();
 
         $expectedResult = [
             'dashboards' => $dashboards,
@@ -86,7 +85,6 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $dashboard   = 'dashboard';
 
         $request = new Request();
-        $request->request->set('dashboardId', $dashboardId);
         $request->request->set('payload', $payload);
 
         $this->dashboard
@@ -95,7 +93,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
             ->with($dashboardId, $payload)
             ->willReturn($dashboard);
 
-        $actualResult = $this->subject->updateDashboard($request);
+        $actualResult = $this->subject->updateDashboard($request, $dashboardId);
 
         $this->assertEquals($dashboard, $actualResult);
     }
@@ -103,12 +101,11 @@ class ControllerTest extends PHPUnit_Framework_TestCase
     public function testDeleteWidget()
     {
         $widgetId    = 12;
-        $dashboardId = 0;
+        $dashboardId = 1;
 
         $dashboard = ['dashboard'];
 
         $request = new Request();
-        $request->request->set('widget_id', $widgetId);
 
         $this->dashboard
             ->expects($this->once())
@@ -122,28 +119,27 @@ class ControllerTest extends PHPUnit_Framework_TestCase
             ->with($dashboardId)
             ->willReturn($dashboard);
 
-        $actualResult = $this->subject->deleteWidget($request);
+        $actualResult = $this->subject->deleteWidget($request, $dashboardId, $widgetId);
 
-        $expectedResult = $dashboard;
-        $this->assertEquals($expectedResult, $actualResult);
+        $this->assertEquals($dashboard, $actualResult);
     }
 
     public function testDelete()
     {
-        $dashboardId = 0;
+        $dashboardId = 12;
 
         $request = new Request();
-        $request->request->set('dashboardId', $dashboardId);
 
         $this->dashboard
             ->expects($this->once())
             ->method('delete')
             ->with($dashboardId);
 
-        $actualResult = $this->subject->deleteDashboard($request);
+        $actualResult = $this->subject->deleteDashboard($request, $dashboardId);
 
         $this->assertEquals(true, $actualResult);
     }
+
     public function testUpdateWidget()
     {
         $dashboardId = 100;

@@ -1,21 +1,17 @@
-App.ng.controller('AdminSensorsController', ['$scope', '$modalInstance', function($scope, $modalInstance) {
 
+App.ng.controller('AdminSensorsController', ['$scope', '$modalInstance', 'Sensor', function($scope, $modalInstance, Sensor) {
     $scope.sensors = [];
     $scope.types   = {};
 
-    $.get('/sensors/', function(data) {
+    Sensor.getAll().success(function(data) {
         $scope.sensors = data.sensors;
         $scope.types   = data.types;
-        $scope.$apply();
     });
 
 	$scope.deleteSensor = function(sensor) {
-        $.post('/sensors/delete/', {
-            'sensorId': sensor.sensorId
-        }, function() {
+        return Sensor.deleteSensor(sensor.sensorId).success(function() {
             var index = $scope.sensors.indexOf(sensor);
             $scope.sensors.splice(index, 1);
-            $scope.$apply();
         });
 	};
 

@@ -1,19 +1,22 @@
 
-App.ng.controller('RegisterController', ['$scope', function ($scope) {
-    if (App.Layout.$scope.isLoggedIn()) {
-        window.location.href = '#/dashboard';
-        return
-    }
+App.ng.controller('RegisterController', ['$scope', 'UserManagement', function ($scope, UserManagement) {
+        if (App.Layout.$scope.isLoggedIn()) {
+            window.location.href = '#/dashboard';
+            return
+        }
 
-	$scope.register = function() {
-		var payload = {
-			username: $scope.username,
-			password: $scope.password
-		};
+        $scope.register = function () {
+            var payload = {
+                username: $scope.username,
+                password: $scope.password
+            };
 
-		$.post('/register/', payload, function(user_vo) {
-			App.Layout.$scope.currentUser = user_vo;
-			App.Layout.$scope.$apply();
-		})
-	}
-}]);
+            UserManagement.register(payload).success(function (userVo) {
+                var message = _("Welcome {0}!").format(userVo.username);
+
+                App.Layout.$scope.addFlash(message, 'success');
+                App.Layout.$scope.currentUser = userVo;
+            });
+        }
+    }]
+);

@@ -1,22 +1,21 @@
 
-App.ng.directive('contentItem', function ($compile) {
-    var templates = new App.TemplateLoader();
-
+App.ng.directive('contentItem', ['$compile', 'TemplateLoader', 'WidgetFactory', function ($compile, TemplateLoader, WidgetFactory) {
     var linker = function(scope, element) {
         var widget = scope.widget;
 
         scope.setTitle = function (title) {
             scope.$parent.title = title;
-            scope.$parent.$apply();
         };
-        var template = templates.load('/templates/widgets/' + widget.type + '.html');
-        template.then(function(html) {
+
+        var template = TemplateLoader('/templates/widgets/' + widget.type + '.html');
+
+        template.success(function(html) {
             // set template first
             element.html(html).show();
             $compile(element.contents())(scope);
 
             // init...
-            var renderer = App.Widgets[widget.type];
+            var renderer = WidgetFactory(widget.type);
             if (renderer.init) {
                 renderer.init(scope, widget)
             }
@@ -33,8 +32,6 @@ App.ng.directive('contentItem', function ($compile) {
                     scope.$apply();
                 }, renderer.interval);
             }
-
-            scope.$apply();
         });
     };
 
@@ -47,11 +44,11 @@ App.ng.directive('contentItem', function ($compile) {
             type:     '='
         }
     };
-});
+}]);
 
-App.ng.controller('WidgetController', ['$scope', function ($scope) {
+App.ng.controller('WidgetController', ['$scope', 'WidgetFactory', function ($scope, WidgetFactory) {
     var widgetPayload = $scope.$parent.widget;
-    var widgetMeta    = App.Widgets[widgetPayload.type];
+    var widgetMeta    = WidgetFactory(widgetPayload.type);
 
     // todo use name from widgets definition
     $scope.title  = widgetMeta.title || widgetPayload.name;

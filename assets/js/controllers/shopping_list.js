@@ -1,33 +1,31 @@
 
-App.ng.controller('ShoppingListController', ['$scope', function($scope) {
-	$scope.shoppingList = [];
+App.ng.controller('ShoppingListController', ['$scope', 'ShoppingList', function ($scope, ShoppingList) {
+    $scope.shoppingList = [];
 
-	$.get('/todo/shopping/', function(data) {
-		$scope.shoppingList = data.shoppingList.map(function(text) {
-			return {text:text, done:false};
-		});
+    ShoppingList.getData().success(function (data) {
+        $scope.shoppingList = data.shoppingList.map(function (text) {
+            return {text: text, done: false};
+        });
+    });
 
-		$scope.$apply();
-	});
+    $scope.addShoppingItem = function () {
+        var name = $scope.todoText;
 
-	$scope.addShoppingItem = function() {
-		var name = $scope.todoText;
+        if (!name) {
+            return;
+        }
 
-		if (!name) {
-			return;
-		}
+        ShoppingList.add({name: name});
 
-		$.post('/todo/shopping/add/', {name: name});
+        $scope.shoppingList.push({text: name, done: false});
+        $scope.todoText = '';
+    };
 
-		$scope.shoppingList.push({text: name, done:false});
-		$scope.todoText = '';
-	};
-
-	$scope.change = function(item) {
-		if (item.done) {
-			$.post('/todo/shopping/remove/', {name: item.text});
-		} else {
-			$.post('/todo/shopping/add/', {name: item.text});
-		}
-	};
+    $scope.change = function (item) {
+        if (item.done) {
+            ShoppingList.remove(item.text);
+        } else {
+            ShoppingList.add(item.text);
+        }
+    };
 }]);

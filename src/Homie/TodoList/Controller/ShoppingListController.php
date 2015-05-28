@@ -31,7 +31,7 @@ class ShoppingListController
     }
 
     /**
-     * @Route("/todo/shopping/", name="todo.shopping.index")
+     * @Route("/todo/shopping/", name="todo.shopping.index", methods="GET")
      * @return JsonResponse
      */
     public function index()
@@ -45,7 +45,7 @@ class ShoppingListController
 
     /**
      * @param Request $request
-     * @Route("/todo/shopping/add/", name="todo.shopping.add")
+     * @Route("/todo/shopping/", name="todo.shopping.add", methods="POST")
      * @return JsonResponse
      */
     public function addShoppingListItem(Request $request)
@@ -59,7 +59,7 @@ class ShoppingListController
 
     /**
      * @param Request $request
-     * @Route("/todo/shopping/remove/", name="todo.shopping.remove")
+     * @Route("/todo/shopping/", name="todo.shopping.remove", methods="DELETE")
      * @return JsonResponse
      */
     public function removeShoppingListItem(Request $request)

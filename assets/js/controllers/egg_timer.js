@@ -1,41 +1,28 @@
 
-App.EggTimer = {
-    setTimer: function(time, text) {
-        var payload = {
-            time: time,
-            text: text
-        };
+App.ng.controller('EggTimerController', ['$scope', 'EggTimer', function ($scope, EggTimer) {
+    $scope.jobs = {};
 
-        return $.post('/egg_timer/add/', payload);
-    }
-};
+    EggTimer.getJobs().success(function (data) {
+        $scope.jobs = data.jobs;
+    });
 
-App.ng.controller('EggTimerController', ['$scope', function($scope) {
-	$scope.jobs = {};
-
-	$.get('/egg_timer/', function(data) {
-		$scope.jobs = data.jobs;
-		$scope.$apply();
-	});
-
-	$scope.addTimer = function() {
-        App.EggTimer.setTimer($scope.time, $scope.text).then(function(newJobs) {
+    $scope.addTimer = function () {
+        EggTimer.setTimer($scope.time, $scope.text).success(function (newJobs) {
             $scope.jobs = newJobs;
-            $scope.$apply();
         });
 
-		$scope.time = '';
-		$scope.text = '';
-	};
+        $scope.time = '';
+        $scope.text = '';
+    };
 
-	/**
-	 * @param {String} jobId
-	 */
-	$scope.deleteTimer = function(jobId) {
-		jobId = jobId.split(':')[1];
-		$.post('/egg_timer/delete/{0}/'.format(jobId), function(newJobs) {
-			$scope.jobs = newJobs;
-			$scope.$apply();
-		});
-	};
+    /**
+     * @param {String} jobId
+     */
+    $scope.deleteTimer = function (jobId) {
+        jobId = jobId.split(':')[1];
+
+        EggTimer.delete(jobId).success(function (newJobs) {
+            $scope.jobs = newJobs;
+        });
+    };
 }]);

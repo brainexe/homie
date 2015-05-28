@@ -4,12 +4,11 @@ namespace Homie\Flower;
 
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
-use BrainExe\Core\Controller\ControllerInterface;
 
 /**
  * @ControllerAnnotation("FlowerController")
  */
-class Controller implements ControllerInterface
+class Controller
 {
 
     /**

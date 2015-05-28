@@ -5,22 +5,17 @@ namespace Homie\Webcam;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
-use BrainExe\Core\Controller\ControllerInterface;
-use BrainExe\Core\Traits\AddFlashTrait;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Traits\IdGeneratorTrait;
 use League\Flysystem\Filesystem;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @ControllerAnnotation("WebcamController")
  */
-class Controller implements ControllerInterface
+class Controller
 {
-
-    use AddFlashTrait;
     use EventDispatcherTrait;
     use IdGeneratorTrait;
 
@@ -59,6 +54,7 @@ class Controller implements ControllerInterface
     }
 
     /**
+     * @return bool
      * @Route("/webcam/take/", name="webcam.take", csrf=true)
      */
     public function takePhoto()
@@ -68,11 +64,7 @@ class Controller implements ControllerInterface
         $event = new WebcamEvent($name, WebcamEvent::TAKE_PHOTO);
         $this->dispatchInBackground($event);
 
-        $response = new JsonResponse(true);
-
-        $this->addFlash($response, self::ALERT_INFO, 'Cheese...');
-
-        return $response;
+        return true;
     }
 
     /**

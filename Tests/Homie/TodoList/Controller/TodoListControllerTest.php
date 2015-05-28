@@ -175,14 +175,13 @@ class TodoListControllerTest extends TestCase
         $itemId = 42;
 
         $request = new Request();
-        $request->request->set('id', $itemId);
 
         $this->todoList
             ->expects($this->once())
             ->method('deleteItem')
             ->with($itemId);
 
-        $actualResult = $this->subject->deleteItem($request);
+        $actualResult = $this->subject->deleteItem($request, $itemId);
 
         $expectedResult = new JsonResponse(true);
         $this->assertEquals($expectedResult, $actualResult);

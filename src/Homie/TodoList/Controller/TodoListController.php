@@ -42,7 +42,7 @@ class TodoListController
     }
 
     /**
-     * @Route("/todo/", name="todo.index")
+     * @Route("/todo/", name="todo.index", methods="GET")
      * @return JsonResponse
      */
     public function index()
@@ -69,7 +69,7 @@ class TodoListController
 
     /**
      * @param Request $request
-     * @Route("/todo/add/", name="todo.add")
+     * @Route("/todo/", name="todo.add", methods="POST")
      * @return JsonResponse
      */
     public function addItem(Request $request)
@@ -88,12 +88,12 @@ class TodoListController
 
     /**
      * @param Request $request
-     * @Route("/todo/edit/", name="todo.edit")
+     * @Route("/todo/", name="todo.edit", methods="PUT")
      * @return JsonResponse
      */
     public function setItemStatus(Request $request)
     {
-        $itemId = $request->request->getInt('id');
+        $itemId  = $request->request->getInt('id');
         $changes = $request->request->get('changes');
 
         $itemVo = $this->todo->editItem($itemId, $changes);
@@ -103,7 +103,7 @@ class TodoListController
 
     /**
      * @param Request $request
-     * @Route("/todo/assign/", name="todo.assign")
+     * @Route("/todo/assign/", name="todo.assign", methods="POST")
      * @return JsonResponse
      */
     public function setAssignee(Request $request)
@@ -122,12 +122,13 @@ class TodoListController
 
     /**
      * @param Request $request
-     * @Route("/todo/delete/", name="todo.delete")
+     * @param int $itemId
+     * @Route("/todo/{itemId}/", name="todo.delete")
      * @return JsonResponse
      */
-    public function deleteItem(Request $request)
+    public function deleteItem(Request $request, $itemId)
     {
-        $itemId = $request->request->getInt('id');
+        unset($request);
 
         $this->todo->deleteItem($itemId);
 

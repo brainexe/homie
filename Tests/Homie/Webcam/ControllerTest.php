@@ -2,18 +2,15 @@
 
 namespace Tests\Homie\Webcam;
 
-use BrainExe\Core\Controller\ControllerInterface;
 use League\Flysystem\Filesystem;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Webcam\Controller;
 use Homie\Webcam\WebcamEvent;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Homie\Webcam\Webcam;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Core\Util\IdGenerator;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @covers Homie\Webcam\Controller
@@ -94,14 +91,7 @@ class ControllerTest extends TestCase
 
         $actualResult = $this->subject->takePhoto();
 
-        $expectedResult = new JsonResponse(true);
-        // todo this->anything()
-        $expectedResult->headers->set(
-            'X-Flash',
-            json_encode([ControllerInterface::ALERT_INFO, 'Cheese...'])
-        );
-
-        $this->assertEquals($expectedResult, $actualResult);
+        $this->assertEquals(true, $actualResult);
     }
 
     public function testDelete()

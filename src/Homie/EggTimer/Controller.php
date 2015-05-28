@@ -5,14 +5,13 @@ namespace Homie\EggTimer;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
-use BrainExe\Core\Controller\ControllerInterface;
 use BrainExe\MessageQueue\Job;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @ControllerAnnotation("EggTimerController")
  */
-class Controller implements ControllerInterface
+class Controller
 {
 
     /**
@@ -31,7 +30,7 @@ class Controller implements ControllerInterface
 
     /**
      * @return array
-     * @Route("/egg_timer/", name="egg_timer.index")
+     * @Route("/egg_timer/", name="egg_timer.index", methods="GET")
      */
     public function index()
     {
@@ -45,7 +44,7 @@ class Controller implements ControllerInterface
     /**
      * @param Request $request
      * @return Job[]
-     * @Route("/egg_timer/add/", name="egg_timer.add", methods="POST")
+     * @Route("/egg_timer/", name="egg_timer.add", methods="POST")
      */
     public function add(Request $request)
     {
@@ -63,7 +62,7 @@ class Controller implements ControllerInterface
      * @param Request $request
      * @param string $jobId
      * @return Job[]
-     * @Route("/egg_timer/delete/{job_id}/", name="egg_timer.delete", methods="POST")
+     * @Route("/egg_timer/{job_id}/", name="egg_timer.delete", methods="DELETE")
      */
     public function deleteEggTimer(Request $request, $jobId)
     {

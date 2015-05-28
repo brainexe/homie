@@ -6,6 +6,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-manifest');
 
     grunt.registerTask('extract_lang', ['nggettext_extract']);
     grunt.registerTask('compile_lang', ['nggettext_compile']);
@@ -42,7 +43,7 @@ module.exports = function (grunt) {
         child.stderr.pipe(process.stderr);
     });
 
-    grunt.registerTask('build', ['compile_lang', 'clean', 'copy', 'uglify', 'htmlmin', 'concat']);
+    grunt.registerTask('build', ['compile_lang', 'clean', 'copy', 'uglify', 'htmlmin', 'concat', 'manifest']);
     grunt.registerTask('buildAll', ['bower', 'build']);
     grunt.registerTask('default', ['build']);
 
@@ -55,8 +56,11 @@ module.exports = function (grunt) {
                         'assets/js/**/*.js',
                         'assets/**/*.html'
                     ]
+                },
+                options: {
+                    markerNames: ['_']
                 }
-            }
+            },
         },
         nggettext_compile: {
             all: {
@@ -102,7 +106,7 @@ module.exports = function (grunt) {
                     'bower_components/rickshaw/rickshaw.css',
                     'bower_components/allmighty-autocomplete/style/autocomplete.css',
                     'bower_components/ui-select/dist/select.min.css',
-                    'assets/css/*.css'
+                    'assets/css/**/*.css'
                 ],
                 dest: 'web/common.css',
                 nonull: true
@@ -125,14 +129,16 @@ module.exports = function (grunt) {
         uglify: {
             app: {
                 options: {
+                    // todo compress in prod mode
                     beautify: true,
                     compress: false,
-                    mangle: false
+                    mangle:   false
                 },
                 files: {
                     'web/app.js': [
                         'assets/js/app.js',
                         'assets/js/util/**/*.js',
+                        'assets/js/models/**/*.js',
                         'assets/js/controllers/**/*.js',
                         'assets/lang/*js'
                     ]
@@ -141,7 +147,7 @@ module.exports = function (grunt) {
             vendor: {
                 options: {
                     compress: false,
-                    mangle: false
+                    mangle:   false
                 },
                 files: {
                     'web/vendor.js': [
@@ -155,13 +161,39 @@ module.exports = function (grunt) {
                         'bower_components/ui-select/dist/select.min.js',
                         'bower_components/allmighty-autocomplete/script/autocomplete.js',
 
-                        // sensor app
+                        // needed for sensor module
                         'bower_components/rickshaw/vendor/d3.v3.js',
                         'bower_components/rickshaw/rickshaw.js',
 
                         'assets/js/vendor/**/*js'
                     ]
                 }
+            }
+        },
+        manifest: {
+            generate: {
+                cwd: 'web/',
+                options: {
+                    network: ['http://*', 'https://*'],
+                    fallback: ['/ /index.html'],
+                    exclude: ['manifest.appcache'],
+                    preferOnline: true,
+                    basePath: 'web',
+                    verbose: true,
+                    timestamp: true,
+                    hash: true,
+                    master: ['index.html']
+                },
+                src: [
+                    '**/*.html',
+                    '**/*.js',
+                    '**/*.css',
+                    '**/*.png',
+                    '**/*.jpg',
+                    '**/*.woff',
+                    '**/*.woff2'
+                ],
+                dest: 'web/manifest.appcache'
             }
         }
     });

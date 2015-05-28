@@ -5,8 +5,6 @@ namespace Homie\Radio;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
-use BrainExe\Core\Controller\ControllerInterface;
-use BrainExe\Core\Traits\AddFlashTrait;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\MessageQueue\Job;
 use Homie\Radio\VO\RadioVO;
@@ -15,10 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * @ControllerAnnotation("RadioController")
  */
-class Controller implements ControllerInterface
+class Controller
 {
-
-    use AddFlashTrait;
     use EventDispatcherTrait;
 
     /**

@@ -1,43 +1,35 @@
-
-App.ng.controller('MenuController', ['$scope', '$route', '$location', 'controllers', 'gettextCatalog', function ($scope, $route, $location, controllers, gettextCatalog) {
+App.ng.controller('MenuController', ['$scope', '$rootScope', '$route', '$location', 'controllers', '_', function ($scope, $rootScope, $route, $location, controllers, _) {
     $scope.controllers = controllers;
-
+    console.log($rootScope);
     $scope.$on('$routeChangeSuccess', function (event, current) {
         if (current.$$route && current.$$route.name) {
             document.title = current.$$route.name;
         }
     });
 
-	var translated = false;
-	$scope.$parent.$watch('currentUser', function(user) {
-		var is_logged_in = $scope.$parent.isLoggedIn();
+    $scope.$parent.$watch('currentUser', function (user) {
+        var isLoggedIn = $scope.$parent.isLoggedIn();
 
-		$scope.menu = $scope.controllers.filter(function(item) {
-			if (!item.name) {
-				return false;
-			}
+        $scope.menu = $scope.controllers.filter(function (item) {
+            if (!item.name) {
+                return false;
+            }
 
-			if (!translated) {
-				item.name = gettextCatalog.getString(item.name);
-			}
-
-			if (!is_logged_in && !item.isPublic) {
-				return false;
-			} else if (is_logged_in && item.isPublic === true) {
-				return false;
-			} else if (item.role) {
+            if (!isLoggedIn && !item.isPublic) {
+                return false;
+            } else if (isLoggedIn && item.isPublic === true) {
+                return false;
+            } else if (item.role) {
                 for (var i = 0; i < user.roles.length; i++) {
                     if (user.roles[i] == item.role) {
                         return true;
                     }
                 }
                 return false;
-			}
+            }
 
-			return true;
-		});
-
-		translated = true;
-	});
+            return true;
+        });
+    });
 }]);
 

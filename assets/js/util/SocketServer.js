@@ -1,10 +1,10 @@
 
-App.SocketServer = {
+App.ng.service('SocketServer', ['Config', function(Config) {
+    Config.get('socketUrl', 'debug', function(socketUrl, debug) {
+        if (!socketUrl) {
+            return;
+        }
 
-    /**
-     * @param {String} socketUrl
-     */
-    connect: function (socketUrl) {
         var sockjs = new SockJS(socketUrl);
 
         sockjs.onmessage = function (message) {
@@ -13,9 +13,9 @@ App.SocketServer = {
 
             App.Layout.$scope.$broadcast(event_name, event);
 
-            if (App.Layout.debug) {
+            if (debug) {
                 console.log("socket server: " + event.event_name, event)
             }
         };
-    }
-};
+    })
+}]);

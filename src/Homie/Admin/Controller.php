@@ -35,7 +35,7 @@ class Controller
     /**
      * @param Request $request
      * @return Response
-     * @Route("/admin/users/", name="admin.users")
+     * @Route("/admin/users/", name="admin.users", methods="GET")
      * @Role("admin")
      */
     public function index(Request $request)
@@ -68,7 +68,7 @@ class Controller
     /**
      * @param Request $request
      * @return Response
-     * @Route("/admin/users/edit/", name="admin.users.save")
+     * @Route("/admin/users/", name="admin.users.save", methods="PUT")
      * @Role("admin")
      */
     public function save(Request $request)

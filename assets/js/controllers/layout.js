@@ -1,19 +1,18 @@
 App.Layout = {};
 
-App.ng.controller('LayoutController', ['$scope', 'gettextCatalog', function ($scope, gettextCatalog) {
+App.ng.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gettextCatalog', 'BrowserNotification', function ($scope, UserManagement, Config, gettextCatalog, BrowserNotification) {
     App.Layout.$scope = $scope;
 
     $scope.flashBag = [];
     $scope.languages = {
-        'de_DE': 'Deutsch',
-        'en_US': 'English'
+        'de': 'Deutsch',
+        'en': 'English'
     };
 
     $scope.currentUser = {};
 
-    $.get('/user/current/').then(function(user){
+    UserManagement.getCurrentUser().success(function(user){
         $scope.currentUser = user;
-        $scope.$apply();
     });
 
     $scope.changeLanguage = function(lang) {
@@ -32,8 +31,8 @@ App.ng.controller('LayoutController', ['$scope', 'gettextCatalog', function ($sc
     };
 
     /**
-     * @param {String} type
      * @param {String} message
+     * @param {String} type (success, warning, info, danger)
      */
     $scope.addFlash = function (message, type) {
         type = type || 'success';
@@ -53,13 +52,27 @@ App.ng.controller('LayoutController', ['$scope', 'gettextCatalog', function ($sc
                 $scope.$apply();
             }
         }, 5000);
-
-        $scope.$apply();
     };
+
+    Config.get('debug').then(function(debug) {
+        if (debug) {
+            console.log('hey dev :-)');
+
+            // live reload via "grunt watch"
+            var s  = document.createElement('script');
+            s.type = 'text/javascript';
+            s.src  =' //localhost:35729/livereload.js';
+            document.body.appendChild(s);
+
+            // gettext debug mode
+            gettextCatalog.debug       = true;
+            gettextCatalog.debugPrefix = '?';
+        }
+    });
 
     $scope.$on('sensor.value', function (eventName, event) {
         var text = '{0}: {1}'.format(event.sensorVo.name, event.valueFormatted);
-        App.Notification.show(text);
+        BrowserNotification.show(text);
     });
 }]);
 

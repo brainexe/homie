@@ -1,27 +1,27 @@
+App.ng.controller('WebcamController', ['$scope', 'Webcam', function ($scope, Webcam) {
+    $scope.shots = [];
 
-App.ng.controller('WebcamController', ['$scope', function($scope) {
-	$scope.shots = [];
+    Webcam.getData().success(function (data) {
+        $scope.shots = data.shots;
+    });
 
-	$.get('/webcam/', function(data) {
-		$scope.shots = data.shots;
-		$scope.$apply();
-	});
+    $scope.takeShot = function () {
+        Webcam.takeShot().success(function() {
+            App.Layout.$scope.addFlash('Cheese...', 'info');
+        });
+    };
 
-	$scope.takeShot = function() {
-		$.post('/webcam/take/');
-	};
+    $scope.removeShot = function (index) {
+        var shot = $scope.shots[index];
 
-	$scope.removeShot = function(index) {
-		var shot = $scope.shots[index];
-		shot.deleting = true;
-		$.post('/webcam/delete/', {shotId:shot.webPath}, function() {
-			$scope.shots.slice(index, 1);
-			$scope.$apply();
-		});
-	};
+        shot.deleting = true;
+        Webcam.remove(shot.webPath).success(function () {
+            $scope.shots.slice(index, 1);
+        });
+    };
 
-	$scope.$on('webcam.took_photo', function(data) {
-		$scope.shots.push(data);
-		$scope.$apply();
-	});
+    $scope.$on('webcam.took_photo', function (data) {
+        $scope.shots.push(data);
+        $scope.$apply();
+    });
 }]);

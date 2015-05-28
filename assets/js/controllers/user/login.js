@@ -1,52 +1,49 @@
-
-App.ng.controller('LoginController', ['$scope', function ($scope) {
+App.ng.controller('LoginController', ['$scope', 'UserManagement', 'UserManagement.TOTP', '_', function ($scope, UserManagement, TOTP, _) {
 
     if (App.Layout.$scope.isLoggedIn()) {
         window.location.href = '#/dashboard';
         return
     }
 
-	$scope.needsOneTimeToken = false;
+    $scope.needsOneTimeToken = false;
 
-	$scope.login = function() {
-		var payload = {
-			username: $scope.username,
-			password: $scope.password,
-			one_time_token: $scope.one_time_token
-		};
+    $scope.login = function () {
+        var payload = {
+            username: $scope.username,
+            password: $scope.password,
+            one_time_token: $scope.one_time_token
+        };
 
-		$.post('/login/', payload, function(result) {
-			if (!result) {
-				return;
-			}
-			App.Layout.$scope.currentUser = result;
-			App.Layout.$scope.$apply();
+        UserManagement.login(payload).success(function (result) {
+            var message = _("Welcome back {0}!").format(result.username);
 
-			window.location.href = '#dashboard';
-		})
-	};
+            App.Layout.$scope.addFlash(message, 'success');
+            App.Layout.$scope.currentUser = result;
 
-	$scope.usernameBlur = function() {
-		var username = $scope.username;
-		if (!username) {
-			$scope.needsOneTimeToken = false;
-			return;
-		}
-		$.get('/login/needsOneTimeToken', {username: username}, function(data) {
-			$scope.needsOneTimeToken = data;
-			$scope.$apply();
-		});
-	};
+            window.location.href = '#dashboard';
+        });
+    };
 
-	$scope.sendToken = function() {
-		if (!$scope.username) {
-			return;
-		}
+    $scope.usernameBlur = function () {
+        var username = $scope.username;
 
-		$.post('/one_time_password/mail/', {
-			user_name: $scope.username
-		}, function() {
-			alert('Email was sent');
-		});
-	};
+        if (!username) {
+            $scope.needsOneTimeToken = false;
+            return;
+        }
+
+        TOTP.needsToken(username).success(function (data) {
+            $scope.needsOneTimeToken = data;
+        });
+    };
+
+    $scope.sendToken = function () {
+        if (!$scope.username) {
+            return;
+        }
+
+        TOTP.sendMail($scope.username).success(function () {
+            alert(_('Email was sent'));
+        });
+    };
 }]);

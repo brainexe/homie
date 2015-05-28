@@ -119,15 +119,13 @@ class ControllerTest extends TestCase
     {
         $jobId = 10;
         $request = new Request();
-        $request->request->set('job_id', $jobId);
 
         $this->espeak
             ->expects($this->once())
             ->method('deleteJob')
             ->willReturn($jobId);
 
-
-        $actualResult = $this->subject->deleteJob($request);
+        $actualResult = $this->subject->deleteJob($request, $jobId);
 
         $this->assertTrue($actualResult);
     }
