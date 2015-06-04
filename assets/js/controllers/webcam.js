@@ -1,4 +1,4 @@
-App.ng.controller('WebcamController', ['$scope', 'Webcam', function ($scope, Webcam) {
+App.controller('WebcamController', ['$scope', 'Webcam', function ($scope, Webcam) {
     $scope.shots = [];
 
     Webcam.getData().success(function (data) {
@@ -7,7 +7,7 @@ App.ng.controller('WebcamController', ['$scope', 'Webcam', function ($scope, Web
 
     $scope.takeShot = function () {
         Webcam.takeShot().success(function() {
-            App.Layout.$scope.addFlash('Cheese...', 'info');
+            $scope.$broadcast('flash', ['Cheese...', 'info']);
         });
     };
 

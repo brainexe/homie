@@ -1,5 +1,5 @@
 
-App.ng.service('Dashboard', ['$http', function($http) {
+App.service('Dashboard', ['$http', function($http) {
     return {
         getData: function() {
             return $http.get('/dashboard/');

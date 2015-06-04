@@ -1,5 +1,5 @@
 
-App.ng.service('Todo', ['$http', function($http) {
+App.service('Todo', ['$http', function($http) {
     return {
         getData: function() {
             return $http.get('/todo/');

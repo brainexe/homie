@@ -1,5 +1,5 @@
 
-App.ng.controller('RadioController', ['$scope', 'Radios', '_', function ($scope, Radios, _) {
+App.controller('RadioController', ['$scope', 'Radios', '_', function ($scope, Radios, _) {
     $scope.radios    = {};
     $scope.radioJobs = {};
     $scope.pins      = {};

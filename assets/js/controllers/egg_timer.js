@@ -1,5 +1,5 @@
 
-App.ng.controller('EggTimerController', ['$scope', 'EggTimer', function ($scope, EggTimer) {
+App.controller('EggTimerController', ['$scope', 'EggTimer', function ($scope, EggTimer) {
     $scope.jobs = {};
 
     EggTimer.getJobs().success(function (data) {

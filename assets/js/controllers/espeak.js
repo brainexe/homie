@@ -1,5 +1,5 @@
 
-App.ng.controller('EspeakController', ['$scope', 'Speak', function ($scope, Speak) {
+App.controller('EspeakController', ['$scope', 'Speak', function ($scope, Speak) {
     $scope.jobs     = {};
     $scope.speakers = {};
     $scope.pending  = true;

@@ -1,5 +1,5 @@
 
-App.ng.service('ShoppingList', ['$http', function($http) {
+App.service('ShoppingList', ['$http', function($http) {
     return {
         getData: function() {
             return $http.get('/todo/shopping/');

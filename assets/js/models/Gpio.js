@@ -1,5 +1,5 @@
 
-App.ng.service('Gpio', ['$http', function($http) {
+App.service('Gpio', ['$http', function($http) {
     return {
         getData: function() {
             return $http.get('/gpio/');

@@ -42,7 +42,7 @@ class Controller
 
     /**
      * @return array
-     * @Route("/webcam/", name="webcam.index")
+     * @Route("/webcam/", name="webcam.index", methods="GET")
      */
     public function index()
     {
@@ -55,7 +55,7 @@ class Controller
 
     /**
      * @return bool
-     * @Route("/webcam/take/", name="webcam.take", csrf=true)
+     * @Route("/webcam/", name="webcam.take", methods="POST")
      */
     public function takePhoto()
     {
@@ -68,7 +68,7 @@ class Controller
     }
 
     /**
-     * @Route("/webcam/delete/", name="webcam.delete", csrf=true)
+     * @Route("/webcam/", name="webcam.delete", methods="DELETE")
      * @param Request $request
      * @return boolean
      */

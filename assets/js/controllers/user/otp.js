@@ -1,4 +1,4 @@
-App.ng.controller('OtpController', ['$scope', 'UserManagement.TOTP', function ($scope, TOTP) {
+App.controller('OtpController', ['$scope', 'UserManagement.TOTP', function ($scope, TOTP) {
     $scope.oneTimePassword = null;
 
     TOTP.getData().success(function (result) {

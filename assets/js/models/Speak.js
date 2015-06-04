@@ -1,5 +1,5 @@
 
-App.ng.service('Speak', ['$http', function($http) {
+App.service('Speak', ['$http', function($http) {
     return {
         getData: function() {
             return $http.get('/espeak/');

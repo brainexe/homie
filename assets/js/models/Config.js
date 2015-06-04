@@ -1,5 +1,5 @@
 
-App.ng.service('Config', ['$q', '$http', function($q, $http) {
+App.service('Config', ['$q', '$http', function($q, $http) {
     var CACHE_KEY = 'config';
     var cache     = null;
 

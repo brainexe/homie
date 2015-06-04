@@ -1,4 +1,4 @@
-App.ng.controller('TodoController', ['$scope', '_', 'Todo', function ($scope, _, Todo) {
+App.controller('TodoController', ['$scope', '_', 'Todo', function ($scope, _, Todo) {
     $scope.todos     = [];
     $scope.userNames = [];
 

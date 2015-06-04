@@ -1,5 +1,5 @@
 
-App.ng.service('BrowserNotification', ['$q', function($q) {
+App.service('BrowserNotification', ['$q', function($q) {
     function request(callback) {
         return $q(function(resolve, reject) {
             if (!("Notification" in window)) {

@@ -1,5 +1,5 @@
 
-App.ng.service('WidgetFactory', [
+App.service('WidgetFactory', [
     'Widget.time',
     'Widget.speak',
     'Widget.egg_timer',

@@ -1,12 +1,12 @@
 
-App.ng.service('Status', ['$http', function($http) {
+App.service('Status', ['$http', function($http) {
     return {
         getData: function() {
             return  $http.get('/stats/');
         },
 
         deleteEvent: function(eventId) {
-            return $http.post('/stats/event/delete/', {job_id: eventId});
+            return $http.delete('/stats/event/', {job_id: eventId});
         },
 
         reset: function(key) {

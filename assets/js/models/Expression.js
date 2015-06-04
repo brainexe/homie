@@ -1,5 +1,5 @@
 
-App.ng.service('Expression', ['$http', function($http) {
+App.service('Expression', ['$http', function($http) {
     return {
         getData: function() {
             return $http.get('/expressions/');

@@ -85,7 +85,7 @@ class Controller
      * @param Request $request
      * @param string $activeSensorIds
      * @return string
-     * @Route("/sensors/load/{activeSensorIds}")
+     * @Route("/sensors/load/{activeSensorIds}/", name="sensor.index")
      */
     public function indexSensor(Request $request, $activeSensorIds)
     {
@@ -135,7 +135,7 @@ class Controller
     /**
      * @param Request $request
      * @return SensorVO
-     * @Route("/sensors/add/", name="sensors.add", methods="POST", csrf=true)
+     * @Route("/sensors/", name="sensors.add", methods="POST")
      */
     public function addSensor(Request $request)
     {
@@ -165,14 +165,14 @@ class Controller
      * @param Request $request
      * @param integer $sensorId
      * @return boolean
-     * @Route("/sensors/espeak/{sensor_id}/", name="sensor.espeak", csrf=true)
+     * @Route("/sensors/{sensor_id}/espeak/", name="sensor.espeak", methods="POST")
      */
     public function espeak(Request $request, $sensorId)
     {
         unset($request);
-        $sensor     = $this->gateway->getSensor($sensorId);
-        $formatter  = $this->builder->getFormatter($sensor['type']);
-        $text       = $formatter->getEspeakText($sensor['lastValue']);
+        $sensor    = $this->gateway->getSensor($sensorId);
+        $formatter = $this->builder->getFormatter($sensor['type']);
+        $text      = $formatter->getEspeakText($sensor['lastValue']);
 
         $espeakVo  = new EspeakVO($text);
         $event     = new EspeakEvent($espeakVo);
@@ -182,7 +182,7 @@ class Controller
     }
 
     /**
-     * @Route("/sensors/slim/{sensor_id}/", name="sensor.slim")
+     * @Route("/sensors/{sensor_id}/slim/", name="sensor.slim", methods="GET")
      * @param Request $request
      * @param integer $sensorId
      * @return array
@@ -202,13 +202,14 @@ class Controller
     }
 
     /**
-     * @Route("/sensors/delete/", name="sensor.delete")
+     * @Route("/sensors/{sensorId}/", name="sensor.delete")
+     * @param int $sensorId
      * @param Request $request
      * @return bool
      */
-    public function delete(Request $request)
+    public function delete(Request $request, $sensorId)
     {
-        $sensorId = $request->request->getInt('sensorId');
+        unset($request);
 
         $this->gateway->deleteSensor($sensorId);
 
@@ -235,13 +236,15 @@ class Controller
     }
 
     /**
-     * @Route("/sensors/value/", name="sensor.value")
      * @param Request $request
+     * @param int $sensorId
+     * @Route("/sensors/{sensorId}/value/", name="sensor.value", methods="GET")
      * @return array
      */
-    public function getValue(Request $request)
+    public function getValue(Request $request, $sensorId)
     {
-        $sensorId       = $request->query->getInt('sensor_id');
+        unset($request);
+
         $sensor         = $this->gateway->getSensor($sensorId);
         $sensorObj      = $this->builder->build($sensor['type']);
         $formatter      = $this->builder->getFormatter($sensor['type']);

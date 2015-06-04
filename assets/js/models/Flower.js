@@ -1,5 +1,5 @@
 
-App.ng.service('Flower', ['$http', function($http) {
+App.service('Flower', ['$http', function($http) {
     return {
         getData: function() {
             return $http.get('/flower/');

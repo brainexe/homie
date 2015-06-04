@@ -1,4 +1,4 @@
-App.ng.service('Widget.time', ['_', function(_) {
+App.service('Widget.time', ['_', function(_) {
     return {
         interval: 1000,
         title: _('Current Time'),

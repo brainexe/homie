@@ -1,5 +1,5 @@
 
-App.ng.service('UserManagement.Admin', ['$http', function($http) {
+App.service('UserManagement.Admin', ['$http', function($http) {
     return {
         getUsers: function() {
             return $http.get('/admin/users/');

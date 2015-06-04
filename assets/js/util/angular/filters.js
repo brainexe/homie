@@ -1,4 +1,4 @@
-App.ng.filter('notEmpty', function () {
+App.filter('notEmpty', function () {
     return function (input) {
         if (!input) {
             return false;
@@ -8,7 +8,7 @@ App.ng.filter('notEmpty', function () {
     };
 });
 
-App.ng.filter('orderObjectBy', function(){
+App.filter('orderObjectBy', function(){
     return function(input, attribute) {
         if (!angular.isObject(input)) return input;
 
@@ -29,7 +29,7 @@ App.ng.filter('orderObjectBy', function(){
 /**
  * http://stackoverflow.com/questions/17635866/get-values-from-object-in-javascript
  */
-App.ng.filter('toArray', function(){
+App.filter('toArray', function(){
     return function(input, attribute) {
         if (!input) {
             return [];
@@ -41,7 +41,7 @@ App.ng.filter('toArray', function(){
     }
 });
 
-app.filter('propsFilter', function() {
+App.filter('propsFilter', function() {
     return function(items, props) {
         var out = [];
 
@@ -76,7 +76,7 @@ app.filter('propsFilter', function() {
 /**
  * http://stackoverflow.com/questions/17448100/how-to-split-a-string-with-angularjs
  */
-App.ng.filter('split', function() {
+App.filter('split', function() {
     return function(input, splitChar, splitIndex) {
         // do some bounds checking here to ensure it has that index
         return input.split(splitChar)[splitIndex];

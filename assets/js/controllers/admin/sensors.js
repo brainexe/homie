@@ -1,5 +1,5 @@
 
-App.ng.controller('AdminSensorsController', ['$scope', '$modalInstance', 'Sensor', function($scope, $modalInstance, Sensor) {
+App.controller('AdminSensorsController', ['$scope', '$modalInstance', 'Sensor', function($scope, $modalInstance, Sensor) {
     $scope.sensors = [];
     $scope.types   = {};
 

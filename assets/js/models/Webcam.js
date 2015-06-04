@@ -1,16 +1,16 @@
 
-App.ng.service('Webcam', ['$http', function($http) {
+App.service('Webcam', ['$http', function($http) {
     return {
         getData: function() {
             return $http.get('/webcam/');
         },
 
         takeShot: function() {
-            return $http.post('/webcam/take/', {});
+            return $http.post('/webcam/', {});
         },
 
         remove: function(shotId) {
-           return $http.post('/webcam/delete/', {shotId: shotId});
+           return $http.delete('/webcam/', {shotId: shotId});
         }
     }
 }]);

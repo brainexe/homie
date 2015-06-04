@@ -1,6 +1,8 @@
 
-var App = {
-    ng: angular.module('homie', [
+/**
+ * @private
+ */
+var App = angular.module('homie', [
         'ngDragDrop',
         'ngRoute',
         'ngSanitize',
@@ -18,7 +20,8 @@ var App = {
         // show error messages as flash
         $httpProvider.defaults.transformResponse.push(function(response, headers, code) {
             if (headers('X-Flash-Type')) {
-                App.Layout.$scope.addFlash(headers('X-Flash-Message'), headers('X-Flash-Type'));
+                //todo fix
+                //$rootScope.addFlash(headers('X-Flash-Message'), headers('X-Flash-Type'));
             }
 
             return response;
@@ -34,5 +37,4 @@ var App = {
         }
 
         $routeProvider.otherwise({redirectTo: '/index'});
-    }])
-};
+    }]);

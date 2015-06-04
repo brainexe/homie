@@ -1,5 +1,5 @@
 
-App.ng.service('EggTimer', ['$http', function($http) {
+App.service('EggTimer', ['$http', function($http) {
     return {
         getJobs: function() {
             return $http.get('/egg_timer/');

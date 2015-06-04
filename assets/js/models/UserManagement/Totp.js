@@ -1,5 +1,5 @@
 
-App.ng.service('UserManagement.TOTP', ['$http', function($http) {
+App.service('UserManagement.TOTP', ['$http', function($http) {
     return {
         getData: function () {
             return $http.get('/one_time_password/');

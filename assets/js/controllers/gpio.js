@@ -1,5 +1,5 @@
 
-App.ng.controller('GpioController', ['$scope', 'Gpio', function ($scope, Gpio) {
+App.controller('GpioController', ['$scope', 'Gpio', function ($scope, Gpio) {
 
     $scope.gpios    = {};
     $scope.editMode = false;

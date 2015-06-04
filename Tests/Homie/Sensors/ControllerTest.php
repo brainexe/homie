@@ -378,7 +378,6 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $type                 = 'sensor type';
 
         $request = new Request();
-        $request->query->set('sensor_id', $sensorId);
 
         $sensorRaw = [
             'type'       => $type,
@@ -411,7 +410,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
             ->with($sensorValue)
             ->willReturn($sensorValueFormatted);
 
-        $actualResult = $this->subject->getValue($request);
+        $actualResult = $this->subject->getValue($request, $sensorId);
 
         $expectedValue = [
             'sensor' => $sensorRaw,
@@ -475,15 +474,15 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 
     public function testDelete()
     {
+        $sensorId = 12;
         $request = new Request();
-        $request->request->set('sensorId', $sensorId = 12);
 
         $this->gateway
             ->expects($this->once())
             ->method('deleteSensor')
             ->willReturn($sensorId);
 
-        $actualResult = $this->subject->delete($request);
+        $actualResult = $this->subject->delete($request, $sensorId);
 
         $this->assertTrue($actualResult);
     }

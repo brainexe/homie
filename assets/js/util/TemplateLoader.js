@@ -1,5 +1,5 @@
 
-App.ng.service('TemplateLoader', ['$http', function ($http) {
+App.service('TemplateLoader', ['$http', function ($http) {
     return function (file) {
         return $http.get(file, {cache: true});
     };

@@ -1,5 +1,5 @@
 
-App.ng.directive('contentItem', ['$compile', 'TemplateLoader', 'WidgetFactory', function ($compile, TemplateLoader, WidgetFactory) {
+App.directive('contentItem', ['$compile', 'TemplateLoader', 'WidgetFactory', function ($compile, TemplateLoader, WidgetFactory) {
     var linker = function(scope, element) {
         var widget = scope.widget;
 
@@ -46,7 +46,7 @@ App.ng.directive('contentItem', ['$compile', 'TemplateLoader', 'WidgetFactory', 
     };
 }]);
 
-App.ng.controller('WidgetController', ['$scope', 'WidgetFactory', function ($scope, WidgetFactory) {
+App.controller('WidgetController', ['$scope', 'WidgetFactory', function ($scope, WidgetFactory) {
     var widgetPayload = $scope.$parent.widget;
     var widgetMeta    = WidgetFactory(widgetPayload.type);
 

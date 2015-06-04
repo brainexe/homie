@@ -1,5 +1,5 @@
 
-App.ng.service('controllers', ['_', function(_) {
+App.service('controllers', ['_', function(_) {
     return [
         // menu
         {controller:'DashboardController', name: _('Dashboard'), url: 'dashboard', icon:'th-large', templateUrl: asset('/templates/dashboard.html')},
@@ -28,6 +28,7 @@ App.ng.service('controllers', ['_', function(_) {
         {url: 'user/change_password', templateUrl: "/templates/user/change_password.html", controller: "ChangePasswordController"},
         {url: 'user/otp', templateUrl: "/templates/user/otp.html", controller: "OtpController"},
         {url: 'user/tokens', templateUrl: "/templates/user/tokens.html", controller: "UserTokensController"},
-        {url: 'index', templateUrl: "/templates/index.html", controller: "IndexController"}
+        {url: 'index', templateUrl: "/templates/index.html", controller: "IndexController"},
+        {url: 'help/:type/', templateUrl: "/templates/help.html", controller: "HelpController"}
     ]
 }]);

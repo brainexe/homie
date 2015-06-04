@@ -1,4 +1,4 @@
-App.ng.controller('MenuController', ['$scope', '$rootScope', '$route', '$location', 'controllers', '_', function ($scope, $rootScope, $route, $location, controllers, _) {
+App.controller('MenuController', ['$scope', '$rootScope', '$route', '$location', 'controllers', 'UserManagement', '_', function ($scope, $rootScope, $route, $location, controllers, UserManagement, _) {
     $scope.controllers = controllers;
     console.log($rootScope);
     $scope.$on('$routeChangeSuccess', function (event, current) {
@@ -7,8 +7,10 @@ App.ng.controller('MenuController', ['$scope', '$rootScope', '$route', '$locatio
         }
     });
 
-    $scope.$parent.$watch('currentUser', function (user) {
-        var isLoggedIn = $scope.$parent.isLoggedIn();
+    $scope.$watch(function() {
+        return UserManagement.getCurrentUser();
+    }, function (user) {
+        var isLoggedIn = UserManagement.isLoggedIn();
 
         $scope.menu = $scope.controllers.filter(function (item) {
             if (!item.name) {
@@ -19,7 +21,7 @@ App.ng.controller('MenuController', ['$scope', '$rootScope', '$route', '$locatio
                 return false;
             } else if (isLoggedIn && item.isPublic === true) {
                 return false;
-            } else if (item.role) {
+            } else if (item.role && user.roles) {
                 for (var i = 0; i < user.roles.length; i++) {
                     if (user.roles[i] == item.role) {
                         return true;

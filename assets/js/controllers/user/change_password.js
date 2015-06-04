@@ -1,4 +1,4 @@
-App.ng.controller('ChangePasswordController', ['$scope', 'UserManagement', function ($scope, UserManagement) {
+App.controller('ChangePasswordController', ['$scope', 'UserManagement', function ($scope, UserManagement) {
 
     $scope.changePassword = function () {
         if (!$scope.password) {

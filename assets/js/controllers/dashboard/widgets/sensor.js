@@ -1,5 +1,5 @@
 
-App.ng.service('Widget.sensor', ['Sensor', function(Sensor) {
+App.service('Widget.sensor', ['Sensor', function(Sensor) {
     return {
         interval: 60 * 5 * 1000,
         render: function ($scope, widget) {

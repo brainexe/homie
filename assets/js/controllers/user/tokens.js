@@ -1,5 +1,5 @@
 
-App.ng.controller('UserTokensController', ['$scope', 'UserManagement.Tokens', '_', function ($scope, Tokens, _) {
+App.controller('UserTokensController', ['$scope', 'UserManagement.Tokens', '_', function ($scope, Tokens, _) {
     $scope.tokens         = {};
     $scope.roles          = ['login'];
     $scope.availableRoles = [

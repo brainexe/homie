@@ -1,5 +1,5 @@
 
-App.ng.controller('AdminUsersController', ['$scope', 'UserManagement.Admin', function ($scope, Admin) {
+App.controller('AdminUsersController', ['$scope', 'UserManagement.Admin', function ($scope, Admin) {
 
     $scope.rights = [];
     $scope.users  = [];

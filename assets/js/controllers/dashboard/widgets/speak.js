@@ -1,5 +1,5 @@
 
-App.ng.service('Widget.speak', ['Speak', '_', function(Speak, _) {
+App.service('Widget.speak', ['Speak', '_', function(Speak, _) {
     return {
         title: _('Speak'),
 

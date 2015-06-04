@@ -1,5 +1,5 @@
 
-App.ng.controller('ShoppingListController', ['$scope', 'ShoppingList', function ($scope, ShoppingList) {
+App.controller('ShoppingListController', ['$scope', 'ShoppingList', function ($scope, ShoppingList) {
     $scope.shoppingList = [];
 
     ShoppingList.getData().success(function (data) {

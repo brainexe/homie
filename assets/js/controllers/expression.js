@@ -1,5 +1,5 @@
 
-App.ng.controller('ExpressionController', ['$scope', 'Expression', function ($scope, Expression) {
+App.controller('ExpressionController', ['$scope', 'Expression', function ($scope, Expression) {
 	$scope.input_control  = [];
 	$scope.expressions    = {};
     $scope.editExpression = {actions:['']};

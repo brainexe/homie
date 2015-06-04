@@ -1,5 +1,5 @@
 
-App.ng.service('Widget.radio', ['Radios', function(Radios) {
+App.service('Widget.radio', ['Radios', function(Radios) {
     return {
         render: function ($scope, widget) {
            Radios.getDataCached().success(function(radios) {

@@ -1,5 +1,5 @@
 
-App.ng.controller('SensorController', ['$scope', '$modal', 'Sensor', function ($scope, $modal, Sensor) {
+App.controller('SensorController', ['$scope', '$modal', 'Sensor', function ($scope, $modal, Sensor) {
     $scope.sensors           = {};
     $scope.activeSensorIds   = '';
     $scope.currentFrom       = 0;

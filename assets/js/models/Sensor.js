@@ -1,23 +1,20 @@
 
-App.ng.service('Sensor', ['$http', function($http) {
+App.service('Sensor', ['$http', function($http) {
     return {
-
         getAll: function() {
             return $http.get('/sensors/');
         },
 
         getValues: function(parameters) {
-            return $http.get('/sensors/load/{0}'.format(parameters))
+            return $http.get('/sensors/load/{0}/'.format(parameters))
         },
 
         getSensorData: function(sensorId) {
-            return $http.get('/sensors/value/', {sensor_id: sensorId});
+            return $http.get('/sensors/{0}/value/'.format(sensorId));
         },
 
         deleteSensor: function(sensorId) {
-            return $http.post('/sensors/delete/', {
-                sensorId: sensorId
-            });
+            return $http.delete('/sensors/{0}/'.format(sensorId));
         }
     };
 }]);

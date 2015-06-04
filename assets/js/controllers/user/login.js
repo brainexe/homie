@@ -1,6 +1,6 @@
-App.ng.controller('LoginController', ['$scope', 'UserManagement', 'UserManagement.TOTP', '_', function ($scope, UserManagement, TOTP, _) {
+App.controller('LoginController', ['$scope', 'UserManagement', 'UserManagement.TOTP', '_', function ($scope, UserManagement, TOTP, _) {
 
-    if (App.Layout.$scope.isLoggedIn()) {
+    if (UserManagement.isLoggedIn()) {
         window.location.href = '#/dashboard';
         return
     }
@@ -17,8 +17,8 @@ App.ng.controller('LoginController', ['$scope', 'UserManagement', 'UserManagemen
         UserManagement.login(payload).success(function (result) {
             var message = _("Welcome back {0}!").format(result.username);
 
-            App.Layout.$scope.addFlash(message, 'success');
-            App.Layout.$scope.currentUser = result;
+            $scope.$broadcast('flash', [message, 'success']);
+            UserManagement.setCurrentUser(result);
 
             window.location.href = '#dashboard';
         });

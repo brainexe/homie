@@ -1,5 +1,5 @@
 
-App.ng.service('Widget.egg_timer', ['EggTimer', '_', function(EggTimer, _) {
+App.service('Widget.egg_timer', ['EggTimer', '_', function(EggTimer, _) {
     return {
         title: _('Egg Timer'),
 

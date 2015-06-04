@@ -1,4 +1,4 @@
 
-App.ng.controller('UserController', ['$scope', function ($scope) {
+App.controller('UserController', ['$scope', function ($scope) {
 
 }]);

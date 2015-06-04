@@ -1,9 +1,6 @@
-App.Layout = {};
 
-App.ng.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gettextCatalog', 'BrowserNotification', function ($scope, UserManagement, Config, gettextCatalog, BrowserNotification) {
-    App.Layout.$scope = $scope;
-
-    $scope.flashBag = [];
+App.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gettextCatalog', 'BrowserNotification', function ($scope, UserManagement, Config, gettextCatalog, BrowserNotification) {
+    $scope.flashBag  = [];
     $scope.languages = {
         'de': 'Deutsch',
         'en': 'English'
@@ -11,12 +8,19 @@ App.ng.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'ge
 
     $scope.currentUser = {};
 
-    UserManagement.getCurrentUser().success(function(user){
+    UserManagement.loadCurrentUser().success(function(user){
+        $scope.currentUser = user;
+    });
+
+    $scope.$watch(function() {
+        return UserManagement.getCurrentUser();
+    }, function (user) {
         $scope.currentUser = user;
     });
 
     $scope.changeLanguage = function(lang) {
         gettextCatalog.setCurrentLanguage(lang);
+        window.location.reload();
     };
 
     /**
@@ -30,6 +34,10 @@ App.ng.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'ge
         $scope.flashBag.splice(index, 1);
     };
 
+    $scope.$on('flash', function (type, args) {
+        $scope.addFlash(args[0], args[1]);
+    });
+
     /**
      * @param {String} message
      * @param {String} type (success, warning, info, danger)
@@ -38,7 +46,7 @@ App.ng.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'ge
         type = type || 'success';
 
         var item = {
-            type: type,
+            type:    type,
             message: message
         };
 

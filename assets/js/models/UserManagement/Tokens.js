@@ -1,5 +1,5 @@
 
-App.ng.service('UserManagement.Tokens', ['$http', function($http) {
+App.service('UserManagement.Tokens', ['$http', function($http) {
     return {
         getData: function () {
             return $http.get('/user/tokens/');
@@ -10,7 +10,7 @@ App.ng.service('UserManagement.Tokens', ['$http', function($http) {
         },
 
         deleteToken: function(token) {
-            return $http.delete('/user/tokens/{0}'.format(token));
+            return $http.delete('/user/tokens/{0}/'.format(token));
         }
     };
 }]);

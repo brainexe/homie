@@ -1,5 +1,5 @@
 
-App.ng.controller('NewWidgetController', ['$scope', '$modalInstance', 'widgets', 'Dashboard', 'dashboards', function($scope, $modalInstance, widgets, Dashboard, dashboards) {
+App.controller('NewWidgetController', ['$scope', '$modalInstance', 'widgets', 'Dashboard', 'dashboards', function($scope, $modalInstance, widgets, Dashboard, dashboards) {
     $scope.widgets    = widgets;
     $scope.dashboards = dashboards;
     $scope.payload    = {};
@@ -12,7 +12,7 @@ App.ng.controller('NewWidgetController', ['$scope', '$modalInstance', 'widgets',
         };
 
         Dashboard.add(payload).success(function(data) {
-            App.Dashboard.$scope.dashboards[data.dashboardId] = data;
+            $scope.$parent.dashboards[data.dashboardId] = data;
         });
         $modalInstance.close();
     };

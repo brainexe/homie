@@ -1,9 +1,5 @@
 
-App.Dashboard = {};
-
-App.ng.controller('DashboardController', ['$scope', '$modal', 'Dashboard', 'WidgetFactory', function($scope, $modal, Dashboard, WidgetFactory) {
-	App.Dashboard.$scope = $scope; // todo scope needed?
-
+App.controller('DashboardController', ['$scope', '$modal', 'Dashboard', 'WidgetFactory', function($scope, $modal, Dashboard, WidgetFactory) {
     $scope.editMode = false;
 
 	Dashboard.getData().success(function(data) {

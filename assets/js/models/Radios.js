@@ -1,5 +1,5 @@
 
-App.ng.service('Radios', ['$http', function($http) {
+App.service('Radios', ['$http', function($http) {
     return {
         getData: function() {
             return $http.get('/radios/');

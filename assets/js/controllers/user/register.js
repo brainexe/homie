@@ -1,6 +1,6 @@
 
-App.ng.controller('RegisterController', ['$scope', 'UserManagement', function ($scope, UserManagement) {
-        if (App.Layout.$scope.isLoggedIn()) {
+App.controller('RegisterController', ['$scope', 'UserManagement', function ($scope, UserManagement) {
+        if (UserManagement.isLoggedIn()) {
             window.location.href = '#/dashboard';
             return
         }
@@ -14,8 +14,8 @@ App.ng.controller('RegisterController', ['$scope', 'UserManagement', function ($
             UserManagement.register(payload).success(function (userVo) {
                 var message = _("Welcome {0}!").format(userVo.username);
 
-                App.Layout.$scope.addFlash(message, 'success');
-                App.Layout.$scope.currentUser = userVo;
+                $scope.$broadcast('flash', [message, 'success']);
+                UserManagement.setCurrentUser(userVo);
             });
         }
     }]

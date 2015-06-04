@@ -1,5 +1,5 @@
 
-App.ng.controller('StatusController', ['$scope', 'Status', function ($scope, Status) {
+App.controller('StatusController', ['$scope', 'Status', function ($scope, Status) {
     var REFRESH_INTERVAL = 2000;
 
     $scope.stats = {};
