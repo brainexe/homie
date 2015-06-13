@@ -29,6 +29,7 @@ App.service('controllers', ['_', function(_) {
         {url: 'user/otp', templateUrl: "/templates/user/otp.html", controller: "OtpController"},
         {url: 'user/tokens', templateUrl: "/templates/user/tokens.html", controller: "UserTokensController"},
         {url: 'index', templateUrl: "/templates/index.html", controller: "IndexController"},
-        {url: 'help/:type/', templateUrl: "/templates/help.html", controller: "HelpController"}
+        {url: 'help/:type/', templateUrl: "/templates/help.html", controller: "HelpController"},
+        {url: 'help/', templateUrl: "/templates/help.html", controller: "HelpController"}
     ]
 }]);

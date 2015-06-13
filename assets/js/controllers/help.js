@@ -5,4 +5,9 @@ App.controller('HelpController', ['$scope', '$routeParams', 'Help', function ($s
     Help.getAll().success(function (data) {
         $scope.help = data;
     });
+
+    $scope.save = function(type, content) {
+        $scope[type] = content;
+        Help.save(type, content);
+    };
 }]);

@@ -6,7 +6,7 @@ App.service('Help', ['$http', function($http) {
         },
 
         save: function(type, value) {
-            return $http.post('/help/{0}/'.format(type), value);
+            return $http.post('/help/{0}/'.format(type), {content:value});
         },
 
         delete: function(type) {

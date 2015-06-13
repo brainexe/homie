@@ -5,6 +5,8 @@ namespace Homie\Help;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Guest;
 use BrainExe\Core\Annotations\Route;
+use BrainExe\Core\Traits\RedisTrait;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @ControllerAnnotation("HelpController")
@@ -12,15 +14,47 @@ use BrainExe\Core\Annotations\Route;
 class Controller
 {
 
+    use RedisTrait;
+
+    const KEY = 'help';
+
     /**
      * @return string[]
-     * @Route("/help/", name="help.all")
+     * @Route("/help/", name="help.all", methods="GET")
      * @Guest
      */
-    public function get()
+    public function all()
     {
-        return [
-            'index' => 'foobar'
-        ];
+        return $this->getRedis()->hgetall(self::KEY);
+    }
+
+    /**
+     * @param Request $request
+     * @param string $type
+     * @Route("/help/{type}/", name="help.save", methods="POST")
+     * @return string[]
+     * @Guest
+     */
+    public function save(Request $request, $type)
+    {
+        $content = (string)$request->request->get('content');
+        $this->getRedis()->hset(self::KEY, $type, $content);
+
+        return true;
+    }
+    /**
+     * @param Request $request
+     * @return string[]
+     * @param string $type
+     * @Route("/help/{type}/", name="help.delete", methods="DELETE")
+     * @Guest
+     */
+    public function delete(Request $request, $type)
+    {
+        unset($request);
+
+        $this->getRedis()->hdel(self::KEY, $type);
+
+        return true;
     }
 }

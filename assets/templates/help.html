@@ -1,2 +1,33 @@
-{{help}}
-{{routeParams}}
+<help type="foobar"></help>
+
+<table ng-if="help|notEmpty" class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <th translate>Type</th>
+            <th translate>Content</th>
+            <th translate>Save</th>
+        </tr>
+    </thead>
+    <tbody ng-repeat="(type, content) in help">
+        <tr>
+            <td>{{ type }}</td>
+            <td>
+                <textarea ng-model="content"></textarea>
+            </td>
+            <td>
+                <a ng-click="save(type, content)" class="btn btn-info">
+                    {{ 'Save' | translate }}
+                </a>
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <th><input type="text" ng-model="type"/></th>
+            <th><input type="text" ng-model="content"/></th>
+            <th>
+                <input type="submit" class="btn btn-info" ng-click="save(type, content)" value="save"/>
+            </th>
+        </tr>
+    </tfoot>
+</table>

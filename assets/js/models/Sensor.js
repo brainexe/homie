@@ -5,8 +5,10 @@ App.service('Sensor', ['$http', function($http) {
             return $http.get('/sensors/');
         },
 
-        getValues: function(parameters) {
-            return $http.get('/sensors/load/{0}/'.format(parameters))
+        getValues: function(sesnorsIds, parameters) {
+            parameters = parameters || '';
+
+            return $http.get('/sensors/load/{0}/{1}'.format(sesnorsIds, parameters))
         },
 
         getSensorData: function(sensorId) {

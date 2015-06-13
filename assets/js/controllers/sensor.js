@@ -20,6 +20,8 @@ App.controller('SensorController', ['$scope', '$modal', 'Sensor', function ($sco
         $scope.fromIntervals    = data.fromIntervals;
         $scope.availableSensors = data.availableSensors;
 
+        console.log(data.json)
+
         $scope.graph = new Rickshaw.Graph({
             element : document.getElementById("chart"),
             width   : document.getElementsByClassName('content')[0].offsetWidth - 30,
@@ -77,9 +79,9 @@ App.controller('SensorController', ['$scope', '$modal', 'Sensor', function ($sco
         }
 
         var activeIds  = $scope.activeSensorIds.join(':') || "0";
-        var parameters = '{0}?from={1}'.format(activeIds, $scope.currentFrom);
+        var parameters = '?from={0}'.format($scope.currentFrom);
 
-        Sensor.getValues(parameters).success(function (data) {
+        Sensor.getValues(activeIds, parameters).success(function (data) {
             updateGraph(data.json);
         });
 
@@ -99,6 +101,7 @@ App.controller('SensorController', ['$scope', '$modal', 'Sensor', function ($sco
     function updateGraph(sensorValues) {
         var oldActive = $scope.graph.series.active;
         sensorValues.active = oldActive;
+        console.log(sensorValues);
         $scope.graph.series = sensorValues;
         $scope.graph.update();
 
