@@ -6,6 +6,7 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Guest;
 use BrainExe\Core\Annotations\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -28,7 +29,7 @@ class Controller
 
     /**
      * @return Response
-     * @Route("/", name="index")
+     * @Route("/", name="index", methods="GET")
      * @Guest
      */
     public function index()

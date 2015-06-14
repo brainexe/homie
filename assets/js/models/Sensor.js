@@ -17,6 +17,10 @@ App.service('Sensor', ['$http', function($http) {
 
         deleteSensor: function(sensorId) {
             return $http.delete('/sensors/{0}/'.format(sensorId));
+        },
+
+        edit: function(sensor) {
+            return $http.put('/sensors/{0}/'.format(sensor.sensorId), sensor);
         }
     };
 }]);

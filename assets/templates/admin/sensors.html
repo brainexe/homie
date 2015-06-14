@@ -24,15 +24,26 @@
             <tr ng-repeat="sensor in sensors">
                 <td title="{{ sensor.sensorId }}">
                     {{ types[sensor.type].name }}
-                    <span class="small" ng-if="sensor.pin">({{ sensor.pin }})</span>
+                    <div ng-if="!sensor.edit">
+                        <span class="small" ng-if="sensor.pin">({{ sensor.pin }})</span>
+                    </div>
+                    <div ng-if="sensor.edit">
+                        <input type="text" placeholder="Pin" ng-model="sensor.pin" />
+                    </div>
                 </td>
                 <td>
-                    {{ sensor.name }}
-                    <span ng-if="sensor.description">({{ sensor.description }})</span>
+                    <div ng-if="!sensor.edit">
+                        {{ sensor.name }}
+                        <span ng-if="sensor.description">({{ sensor.description }})</span>
+                    </div>
+                    <div ng-if="sensor.edit">
+                        <input type="text" placeholder="Name" ng-model="sensor.name" />
+                        <input type="text" placeholder="Description" ng-model="sensor.description" />
+                    </div>
                 </td>
                 <td>{{ sensor.lastValue }}</td>
                 <td>
-                    <a ng-click="sensor.edit = !sensor.edit" class="glyphicon glyphicon-edit"></a>
+                    <a ng-click="edit(sensor)" class="glyphicon glyphicon-edit"></a>
                     <a ng-click="deleteSensor(sensor)" class="glyphicon glyphicon-remove"></a>
                 </td>
             </tr>

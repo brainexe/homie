@@ -36,8 +36,23 @@ App.filter('toArray', function(){
         }
 
         return Object.keys(input).map(function(key){
-            return input[key]}
-        );
+            return input[key]
+        });
+    }
+});
+
+App.filter('toObjectArray', function(){
+    return function(input, attribute) {
+        if (!input) {
+            return [];
+        }
+
+        return Object.keys(input).map(function(key){
+            return {
+                key :  key,
+                value: input[key]
+            }
+        });
     }
 });
 

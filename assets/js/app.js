@@ -6,6 +6,7 @@ var App = angular.module('homie', [
         'ngDragDrop',
         'ngRoute',
         'ngSanitize',
+        'LocalStorageModule',
         'autocomplete',
         'ui.bootstrap',
         'ui.select',

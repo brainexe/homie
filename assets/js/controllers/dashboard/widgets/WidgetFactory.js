@@ -5,7 +5,8 @@ App.service('WidgetFactory', [
     'Widget.egg_timer',
     'Widget.radio',
     'Widget.sensor',
-    function(TimeWidget, SpeakWidget, EggTimerWidget, RadioWidget, SensorWidget) {
+    'Widget.sensor_graph',
+    function(TimeWidget, SpeakWidget, EggTimerWidget, RadioWidget, SensorWidget, SensorGraphWidget) {
         return function(type) {
             switch (type) {
                 case 'time':
@@ -18,6 +19,8 @@ App.service('WidgetFactory', [
                     return RadioWidget;
                 case 'sensor':
                     return SensorWidget;
+                case 'sensor_graph':
+                    return SensorGraphWidget;
             }
         };
     }

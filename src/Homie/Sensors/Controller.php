@@ -202,7 +202,7 @@ class Controller
     }
 
     /**
-     * @Route("/sensors/{sensorId}/", name="sensor.delete")
+     * @Route("/sensors/{sensorId}/", name="sensor.delete", methods="DELETE")
      * @param int $sensorId
      * @param Request $request
      * @return bool
@@ -214,6 +214,25 @@ class Controller
         $this->gateway->deleteSensor($sensorId);
 
         return true;
+    }
+
+    /**
+     * @Route("/sensors/{sensorId}/", name="sensor.edit", methods="PUT")
+     * @param int $sensorId
+     * @param Request $request
+     * @return SensorVO
+     */
+    public function edit(Request $request, $sensorId)
+    {
+        $sensor   = $this->gateway->getSensor($sensorId);
+        $sensorVo = $this->voBuilder->buildFromArray($sensor);
+        $sensorVo->name        = $request->request->get('name');
+        $sensorVo->description = $request->request->get('description');
+        $sensorVo->pin         = $request->get('pin');
+
+        $this->gateway->save($sensorVo);
+
+        return $sensorVo;
     }
 
     /**

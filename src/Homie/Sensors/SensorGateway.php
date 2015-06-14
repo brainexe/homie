@@ -96,6 +96,15 @@ class SensorGateway
     }
 
     /**
+     * @param SensorVO $sensorVO
+     */
+    public function save(SensorVO $sensorVO) {
+        $key = $this->getKey($sensorVO->sensorId);
+
+        $this->getRedis()->hmset($key, (array)$sensorVO);
+    }
+
+    /**
      * @param integer $sensorId
      */
     public function deleteSensor($sensorId)
