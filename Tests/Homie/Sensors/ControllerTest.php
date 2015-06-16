@@ -2,7 +2,7 @@
 
 namespace Tests\Homie\Sensors;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Espeak\EspeakEvent;
 use Homie\Espeak\EspeakVO;
@@ -23,7 +23,7 @@ use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 /**
  * @covers Homie\Sensors\Controller
  */
-class ControllerTest extends PHPUnit_Framework_TestCase
+class ControllerTest extends TestCase
 {
 
     /**
@@ -450,8 +450,14 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 
     public function testSensors()
     {
-        $sensors = ['sensors'];
+        $sensors = [0 => ['sensor']];
         $types   = ['sensorsBuilder'];
+
+        $this->voBuilder
+            ->expects($this->once())
+            ->method('buildFromArray')
+            ->with($sensors[0])
+            ->willReturn($sensors[0]);
 
         $this->gateway
             ->expects($this->once())

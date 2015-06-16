@@ -14,10 +14,6 @@ use Symfony\Component\Process\ProcessBuilder;
  */
 abstract class AbstractDHT11 extends AbstractSensor implements Parameterized
 {
-
-    // todo use $pin only
-    const ADAFRUIT_SCRIPT = 'Adafruit_DHT';
-
     /**
      * @var ProcessBuilder
      */
@@ -50,25 +46,12 @@ abstract class AbstractDHT11 extends AbstractSensor implements Parameterized
     }
 
     /**
-     * @todo use Client
      * @param integer $pin
      * @return string
      */
     protected function getContent($pin)
     {
-        $command = sprintf('sudo %s 11 %d', self::ADAFRUIT_SCRIPT, $pin);
-
-        $process = $this->processBuilder
-            ->setArguments([$command])
-            ->getProcess();
-
-        $process->run();
-
-        if (!$process->isSuccessful()) {
-            return '';
-        }
-
-        return $process->getOutput();
+        return exec($pin, $result);
     }
 
     /**

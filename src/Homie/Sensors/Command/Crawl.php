@@ -128,13 +128,20 @@ class Crawl extends Command
         /** @var QuestionHelper $helper */
         $helper = $this->getHelperSet()->get('question');
 
-        $question = new ConfirmationQuestion(
-            sprintf(
+        if ($sensor instanceof Parameterized) {
+            $text = sprintf(
                 'Do you want to add sensor "<info>%s</info>" with parameter "%s" (y/n)',
                 $type,
                 $parameter
-            )
-        );
+            );
+        } else {
+            $text = sprintf(
+                'Do you want to add sensor "<info>%s</info>" (y/n)',
+                $type
+            );
+        }
+
+        $question = new ConfirmationQuestion($text);
 
         if ($helper->ask($input, $output, $question)) {
             $arrayInput = new ArrayInput([

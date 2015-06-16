@@ -24,7 +24,7 @@ App.controller('SensorController', ['$scope', '$modal', 'Sensor', function ($sco
 
         $scope.graph = new Rickshaw.Graph({
             element : document.getElementById("chart"),
-            width   : document.getElementsByClassName('content')[0].offsetWidth - 70,
+            width   : document.getElementsByClassName('content')[0].offsetWidth - 100,
             interpolation: 'basis',
             height  : 500,
             min     : 'auto',
@@ -44,7 +44,16 @@ App.controller('SensorController', ['$scope', '$modal', 'Sensor', function ($sco
         $scope.graph.render();
 
         new Rickshaw.Graph.HoverDetail({
-            graph: $scope.graph
+            graph: $scope.graph,
+            formatter: function(series, x, y) {
+                var date = new Date(x * 1000);
+                var dateString = '<span class="date">{0} {1}:{2}</span><br />'.format(date.toDateString(), date.getHours(), parseInt(date.getMinutes()));
+                var content = dateString + series.name + ": " + y;
+                return content;
+            },
+            xFormatter: function(x) {
+                return new Date(x * 1000).toDateString();
+            },
         });
 
         new Rickshaw.Graph.Legend({
@@ -91,7 +100,8 @@ App.controller('SensorController', ['$scope', '$modal', 'Sensor', function ($sco
     $scope.editModal = function () {
         $modal.open({
             templateUrl: asset('/templates/admin/sensors.html'),
-            controller: 'AdminSensorsController'
+            controller : 'AdminSensorsController',
+            windowClass: 'dialog_800'
         });
     };
 
@@ -101,7 +111,6 @@ App.controller('SensorController', ['$scope', '$modal', 'Sensor', function ($sco
     function updateGraph(sensorValues) {
         var oldActive = $scope.graph.series.active;
         sensorValues.active = oldActive;
-        console.log(sensorValues);
         $scope.graph.series = sensorValues;
         $scope.graph.update();
 

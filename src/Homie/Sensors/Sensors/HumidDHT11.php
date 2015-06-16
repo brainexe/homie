@@ -8,6 +8,8 @@ use Homie\Sensors\Formatter\Percentage;
 
 /**
  * @Sensor("Sensor.HumidDHT11")
+ * @source https://klenzel.de/1827
+ * @source http://www.messtechniklabor.de/artikel-h0000-temperatur_und_luftfeuchtigkeit_messen.html
  */
 class HumidDHT11 extends AbstractDHT11
 {
@@ -22,11 +24,11 @@ class HumidDHT11 extends AbstractDHT11
     {
         $output = $this->getContent($parameter);
 
-        if (!preg_match('/Hum = (\d+) %/', $output, $matches)) {
+        if (!preg_match('/(Hum|Humidity) = ([\d\.]+) %/', $output, $matches)) {
             return null;
         }
 
-        return (double)$matches[1];
+        return (double)$matches[2];
     }
 
     /**

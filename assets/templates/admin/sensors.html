@@ -18,6 +18,8 @@
                     <th translate>Type</th>
                     <th translate>Name</th>
                     <th translate>Value</th>
+                    <th translate>Interval</th>
+                    <th translate>Next run</th>
                     <th translate>Edit</th>
                 </tr>
             </thead>
@@ -42,6 +44,18 @@
                     </div>
                 </td>
                 <td>{{ sensor.lastValue }}</td>
+                <td>
+                    <div ng-if="!sensor.edit">
+                        {{ sensor.interval }} minutes
+                    </div>
+                    <div ng-if="sensor.edit">
+                        <input type="number" min="1" max="86400" placeholder="Interval" ng-model="sensor.interval" />
+                    </div>
+                </td>                <td>
+                    <small>
+                        {{ (sensor.lastValueTimestamp + sensor.interval * 60)| timeAgoShort}}
+                    <small>
+                </td>
                 <td>
                     <a ng-click="edit(sensor)" class="glyphicon glyphicon-edit"></a>
                     <a ng-click="deleteSensor(sensor)" class="glyphicon glyphicon-remove"></a>

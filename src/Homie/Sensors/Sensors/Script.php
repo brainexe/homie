@@ -9,13 +9,14 @@ use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\None;
 use Homie\Sensors\Formatter\Temperature;
+use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\Interfaces\Searchable;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @Sensor("Sensor.Script")
  */
-class Script extends AbstractSensor
+class Script extends AbstractSensor implements Parameterized
 {
 
     const TYPE = 'script';

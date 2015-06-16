@@ -146,7 +146,7 @@ class AddTest extends TestCase
         $this->subject->setHelperSet($helperSet);
 
         $sensor2
-            ->expects($this->exactly(2))
+            ->expects($this->exactly(3))
             ->method('getSensorType')
             ->willReturn('type_2');
 
@@ -187,7 +187,7 @@ class AddTest extends TestCase
         $helper
             ->expects($this->at(2))
             ->method('ask')
-            ->with($input, $output, new Question("Sensor name?\n", $sensorType2))
+            ->with($input, $output, new Question("Sensor name? (default: Type_2)\n", $sensorType2))
             ->willReturn($name);
 
         $helper
@@ -199,13 +199,13 @@ class AddTest extends TestCase
         $helper
             ->expects($this->at(4))
             ->method('ask')
-            ->with($input, $output, new Question("Interval in minutes\n", 5))
+            ->with($input, $output, new Question("Interval in minutes (default: 5)\n", 5))
             ->willReturn($interval);
 
         $helper
             ->expects($this->at(5))
             ->method('ask')
-            ->with($input, $output, new Question("Node\n"))
+            ->with($input, $output, new Question("Node? (only for advanced users needed)\n"))
             ->willReturn($node);
 
         $sensor2

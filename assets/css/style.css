@@ -73,3 +73,7 @@
 .autocomplete ul {
 	padding-left: 0;
 }
+
+.dialog_800 .modal-dialog {
+	width: 800px;
+}

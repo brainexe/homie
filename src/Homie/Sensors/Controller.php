@@ -77,7 +77,7 @@ class Controller
     {
         return [
             'types'   => $this->builder->getSensors(),
-            'sensors' => $this->gateway->getSensors()
+            'sensors' => array_map([$this->voBuilder, 'buildFromArray'], $this->gateway->getSensors())
         ];
     }
 
@@ -228,7 +228,8 @@ class Controller
         $sensorVo = $this->voBuilder->buildFromArray($sensor);
         $sensorVo->name        = $request->request->get('name');
         $sensorVo->description = $request->request->get('description');
-        $sensorVo->pin         = $request->get('pin');
+        $sensorVo->pin         = $request->request->get('pin');
+        $sensorVo->interval    = $request->request->getInt('interval');
 
         $this->gateway->save($sensorVo);
 

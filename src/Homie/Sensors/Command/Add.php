@@ -203,10 +203,12 @@ class Add extends Command
             return $this->input->getArgument('name');
         }
 
+        $default = ucfirst($sensor->getSensorType());
+
         $name = $this->helper->ask(
             $this->input,
             $this->output,
-            new Question("Sensor name?\n", $sensor->getSensorType())
+            new Question(sprintf("Sensor name? (default: %s)\n", $default), $sensor->getSensorType())
         );
 
         return $name;
@@ -234,7 +236,7 @@ class Add extends Command
         return (int)$this->helper->ask(
             $this->input,
             $this->output,
-            new Question("Interval in minutes\n", 5)
+            new Question("Interval in minutes (default: 5)\n", 5)
         );
     }
 
@@ -250,7 +252,7 @@ class Add extends Command
         return (int)$this->helper->ask(
             $this->input,
             $this->output,
-            new Question("Node\n")
+            new Question("Node? (only for advanced users needed)\n")
         );
     }
 
