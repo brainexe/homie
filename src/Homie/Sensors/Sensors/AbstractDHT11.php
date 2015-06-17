@@ -3,10 +3,10 @@
 namespace Homie\Sensors\Sensors;
 
 use BrainExe\Annotations\Annotations\Inject;
+use Homie\Client\ClientInterface;
 use Homie\Sensors\Interfaces\Parameterized;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Process\ProcessBuilder;
 
 /**
  * @link http://www.adafruit.com/product/386
@@ -15,9 +15,9 @@ use Symfony\Component\Process\ProcessBuilder;
 abstract class AbstractDHT11 extends AbstractSensor implements Parameterized
 {
     /**
-     * @var ProcessBuilder
+     * @var ClientInterface
      */
-    private $processBuilder;
+    private $client;
 
     /**
      * @var Filesystem
@@ -25,24 +25,16 @@ abstract class AbstractDHT11 extends AbstractSensor implements Parameterized
     private $filesystem;
 
     /**
-     * @var
-     */
-    private $adafruit;
-
-    /**
-     * @Inject({"@ProcessBuilder", "@FileSystem", "%adafruit.path%"})
-     * @param ProcessBuilder $processBuilder
+     * @Inject({"@HomieClient", "@FileSystem"})
+     * @param ClientInterface $client
      * @param Filesystem $filesystem
-     * @param string $adafruit
      */
     public function __construct(
-        ProcessBuilder $processBuilder,
-        Filesystem $filesystem,
-        $adafruit
+        ClientInterface $client,
+        Filesystem $filesystem
     ) {
-        $this->processBuilder = $processBuilder;
-        $this->filesystem     = $filesystem;
-        $this->adafruit       = $adafruit;
+        $this->client     = $client;
+        $this->filesystem = $filesystem;
     }
 
     /**
@@ -51,7 +43,7 @@ abstract class AbstractDHT11 extends AbstractSensor implements Parameterized
      */
     protected function getContent($pin)
     {
-        return exec($pin, $result);
+        return $this->client->executeWithReturn($pin);
     }
 
     /**
@@ -59,9 +51,11 @@ abstract class AbstractDHT11 extends AbstractSensor implements Parameterized
      */
     public function isSupported($parameter, OutputInterface $output)
     {
-        if (!$this->filesystem->exists($parameter)) {
+        $file = explode(' ', $parameter)[0];
+
+        if (!$this->filesystem->exists($file)) {
             $output->writeln(sprintf(
-                '<error>%s: ada script not exists: %s</error>',
+                '<error>%s: Script not exists: %s</error>',
                 $this->getSensorType(),
                 $parameter
             ));

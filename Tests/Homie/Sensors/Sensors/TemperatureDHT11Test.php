@@ -2,6 +2,7 @@
 
 namespace Tests\Homie\Sensors\Sensors;
 
+use Homie\Client\ClientInterface;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\Sensors\TemperatureDHT11;
@@ -19,9 +20,9 @@ class TemperatureDHT11Test extends TestCase
     private $subject;
 
     /**
-     * @var ProcessBuilder|MockObject
+     * @var ClientInterface|MockObject
      */
-    private $processBuilder;
+    private $client;
 
     /**
      * @var Filesystem|MockObject
@@ -30,10 +31,10 @@ class TemperatureDHT11Test extends TestCase
 
     public function setUp()
     {
-        $this->processBuilder = $this->getMock(ProcessBuilder::class, [], [], '', false);
-        $this->fileSystem     = $this->getMock(Filesystem::class, [], [], '', false);
+        $this->client     = $this->getMock(ClientInterface::class, [], [], '', false);
+        $this->fileSystem = $this->getMock(Filesystem::class, [], [], '', false);
 
-        $this->subject = new TemperatureDHT11($this->processBuilder, $this->fileSystem, '/ada/');
+        $this->subject = new TemperatureDHT11($this->client, $this->fileSystem);
     }
 
     public function testGetSensorType()
@@ -42,65 +43,19 @@ class TemperatureDHT11Test extends TestCase
 
         $this->assertEquals(TemperatureDHT11::TYPE, $actualResult);
     }
-    public function testGetValueWitInvalidOutput()
-    {
-        $pin = 3;
-
-        $process = $this->getMock(Process::class, [], [], '', false);
-
-        $this->processBuilder
-            ->expects($this->once())
-            ->method('setArguments')
-            ->willReturn($this->processBuilder);
-
-        $this->processBuilder
-            ->expects($this->once())
-            ->method('getProcess')
-            ->willReturn($process);
-
-        $process->expects($this->once())
-            ->method('run');
-
-        $process->expects($this->once())
-            ->method('isSuccessful')
-            ->willReturn(false);
-
-        $actualResult = $this->subject->getValue($pin);
-
-        $this->assertNull($actualResult);
-    }
 
     public function testGetValueWitValidOutput()
     {
-        $temp = 70;
-        $pin   = 3;
+        $temp      = 70;
+        $parameter = 3;
+        $output    = "Temp = $temp %";
 
-        $output = "Temp = $temp %";
-
-        $process = $this->getMock(Process::class, [], [], '', false);
-
-        $this->processBuilder
+        $this->client
             ->expects($this->once())
-            ->method('setArguments')
-            ->willReturn($this->processBuilder);
-
-        $this->processBuilder
-            ->expects($this->once())
-            ->method('getProcess')
-            ->willReturn($process);
-
-        $process->expects($this->once())
-            ->method('run');
-
-        $process->expects($this->once())
-            ->method('isSuccessful')
-            ->willReturn(true);
-
-        $process->expects($this->once())
-            ->method('getOutput')
+            ->method('executeWithReturn')
             ->willReturn($output);
 
-        $actualResult = $this->subject->getValue($pin);
+        $actualResult = $this->subject->getValue($parameter);
 
         $this->assertEquals($temp, $actualResult);
     }

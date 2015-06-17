@@ -157,7 +157,7 @@ class Add extends Command
             $parameter = $this->helper->ask(
                 $this->input,
                 $this->output,
-                new Question("Parameter (Optional)?\n")
+                new Question("Parameter?\n")
             );
         }
 

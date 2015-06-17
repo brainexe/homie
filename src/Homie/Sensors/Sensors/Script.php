@@ -5,6 +5,7 @@ namespace Homie\Sensors\Sensors;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Util\FileSystem;
 use BrainExe\Core\Util\Glob;
+use Homie\Client\ClientInterface;
 use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\None;
@@ -22,20 +23,27 @@ class Script extends AbstractSensor implements Parameterized
     const TYPE = 'script';
 
     /**
-     * @Inject({})
+     * @var ClientInterface
      */
-    public function __construct()
-    {
+    private $client;
+
+    /**
+     * @Inject({"@HomieClient"})
+     * @param ClientInterface $client
+     */
+    public function __construct(
+        ClientInterface $client
+    ) {
+        $this->client     = $client;
     }
 
     /**
-     * {@inheritdoc}
+     * @param integer $parameter
+     * @return string
      */
     public function getValue($parameter)
     {
-        exec($parameter, $output);
-
-        return implode(PHP_EOL, $output);
+        return $this->client->executeWithReturn($parameter);
     }
 
     /**

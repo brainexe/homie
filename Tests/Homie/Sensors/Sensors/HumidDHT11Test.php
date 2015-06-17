@@ -2,6 +2,7 @@
 
 namespace Tests\Homie\Sensors\Sensors;
 
+use Homie\Client\ClientInterface;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\Sensors\AbstractDHT11;
@@ -23,9 +24,9 @@ class HumidDHT11Test extends PHPUnit_Framework_TestCase
     private $subject;
 
     /**
-     * @var ProcessBuilder|MockObject
+     * @var ClientInterface|MockObject
      */
-    private $processBuilder;
+    private $client;
 
     /**
      * @var Filesystem|MockObject
@@ -34,10 +35,10 @@ class HumidDHT11Test extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->processBuilder = $this->getMock(ProcessBuilder::class, [], [], '', false);
+        $this->client     = $this->getMock(ClientInterface::class, [], [], '', false);
         $this->fileSystem = $this->getMock(Filesystem::class, [], [], '', false);
 
-        $this->subject = new HumidDHT11($this->processBuilder, $this->fileSystem, '/ada/');
+        $this->subject = new HumidDHT11($this->client, $this->fileSystem, '/ada/');
     }
 
     public function testGetSensorType()
@@ -47,65 +48,18 @@ class HumidDHT11Test extends PHPUnit_Framework_TestCase
         $this->assertEquals(HumidDHT11::TYPE, $actualResult);
     }
 
-    public function testGetValueWitInvalidOutput()
-    {
-        $pin = 3;
-
-        $process = $this->getMock(Process::class, [], [], '', false);
-
-        $this->processBuilder
-            ->expects($this->once())
-            ->method('setArguments')
-            ->willReturn($this->processBuilder);
-
-        $this->processBuilder
-            ->expects($this->once())
-            ->method('getProcess')
-            ->willReturn($process);
-
-        $process->expects($this->once())
-            ->method('run');
-
-        $process->expects($this->once())
-            ->method('isSuccessful')
-            ->willReturn(false);
-
-        $actualResult = $this->subject->getValue($pin);
-
-        $this->assertNull($actualResult);
-    }
-
     public function testGetValueWitValidOutput()
     {
-        $humid = 70;
-        $pin   = 3;
+        $humid     = 70;
+        $parameter = 3;
+        $output    = "Hum = $humid %";
 
-        $output = "Hum = $humid %";
-
-        $process = $this->getMock(Process::class, [], [], '', false);
-
-        $this->processBuilder
+        $this->client
             ->expects($this->once())
-            ->method('setArguments')
-            ->willReturn($this->processBuilder);
-
-        $this->processBuilder
-            ->expects($this->once())
-            ->method('getProcess')
-            ->willReturn($process);
-
-        $process->expects($this->once())
-            ->method('run');
-
-        $process->expects($this->once())
-            ->method('isSuccessful')
-            ->willReturn(true);
-
-        $process->expects($this->once())
-            ->method('getOutput')
+            ->method('executeWithReturn')
             ->willReturn($output);
 
-        $actualResult = $this->subject->getValue($pin);
+        $actualResult = $this->subject->getValue($parameter);
 
         $this->assertEquals($humid, $actualResult);
     }

@@ -109,7 +109,7 @@ class AddTest extends TestCase
         $questionHelper
             ->expects($this->at(1))
             ->method('ask')
-            ->with($input, $output, new Question("Parameter (Optional)?\n"))
+            ->with($input, $output, new Question("Parameter?\n"))
             ->willReturn($parameter);
 
         $sensor1
@@ -181,7 +181,7 @@ class AddTest extends TestCase
         $helper
             ->expects($this->at(1))
             ->method('ask')
-            ->with($input, $output, new Question("Parameter (Optional)?\n"))
+            ->with($input, $output, new Question("Parameter?\n"))
             ->willReturn($parameter);
 
         $helper
