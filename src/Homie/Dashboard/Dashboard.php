@@ -63,7 +63,7 @@ class Dashboard
         if (!$dashboardId) {
             $dashboardId = $this->generateRandomNumericId();
             $this->gateway->addDashboard($dashboardId, [
-                'name' => gettext('Dashboard')
+                'name' => gettext('Dashboard') . ' - ' . $dashboardId
             ]);
         }
 

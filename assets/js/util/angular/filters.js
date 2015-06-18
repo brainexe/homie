@@ -30,7 +30,7 @@ App.filter('orderObjectBy', function(){
  * http://stackoverflow.com/questions/17635866/get-values-from-object-in-javascript
  */
 App.filter('toArray', function(){
-    return function(input, attribute) {
+    return function(input) {
         if (!input) {
             return [];
         }
@@ -41,13 +41,16 @@ App.filter('toArray', function(){
     }
 });
 
-App.filter('toObjectArray', function(){
-    return function(input, attribute) {
+App.filter('toObjectArray', function() {
+    return function(input) {
         if (!input) {
             return [];
         }
+        if (input.$$toObjectArray) {
+            return input.$$toObjectArray;
+        }
 
-        return Object.keys(input).map(function(key){
+        return input.$$toObjectArray = Object.keys(input).map(function(key){
             return {
                 key :  key,
                 value: input[key]

@@ -20,8 +20,6 @@ App.controller('SensorController', ['$scope', '$modal', 'Sensor', function ($sco
         $scope.fromIntervals    = data.fromIntervals;
         $scope.availableSensors = data.availableSensors;
 
-        console.log(data.json)
-
         $scope.graph = new Rickshaw.Graph({
             element : document.getElementById("chart"),
             width   : document.getElementsByClassName('content')[0].offsetWidth - 100,

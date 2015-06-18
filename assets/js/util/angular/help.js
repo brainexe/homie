@@ -1,6 +1,5 @@
 
 App.controller('HelpModalController', function ($scope, $modalInstance, Help, type, content) {
-    console.log(arguments);
     $scope.type    = type;
     $scope.content = content;
 
@@ -20,7 +19,6 @@ App.directive('help', ['$modal', 'Help', function ($modal, Help) {
         link: function ($scope, element, attrs) {
             $scope.type = attrs.type;
             $scope.open = function (type) {
-                console.log(type);
                 Help.getAll().success(function(data) {
                     $modal.open({
                         templateUrl: '/templates/modal/help.html',

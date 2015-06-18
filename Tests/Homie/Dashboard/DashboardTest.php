@@ -137,7 +137,7 @@ class DashboardTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('addDashboard')
             ->with($dashboardId, [
-                'name' => 'Dashboard'
+                'name' => 'Dashboard - 11880'
             ]);
 
         $this->subject->addWidget(null, $type, $payload);

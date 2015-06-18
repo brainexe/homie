@@ -50,14 +50,14 @@
                     <li class="dropdown user user-menu" dropdown>
                         <a href="#/user/" class="dropdown-toggle" dropdown-toggle>
                             <i class="glyphicon glyphicon-user"></i>
-                            <span>{{ currentUser.username }} <i class="caret"></i></span>
+                            <span ng-bind="currentUser.username"></span> <i class="caret"></i>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header bg-light-blue">
                                 <div class="profile_avatar img-circle"></div>
                                 <p>
-                                    {{ currentUser.username }}
+                                    <span ng-bind="currentUser.username"></span>
                                 </p>
                             </li>
                             <!-- Menu Footer-->
@@ -69,8 +69,8 @@
                                             ng-click="changeLanguage(lang)"
                                             ng-repeat="(lang, lang_string) in languages"
                                             class="btn btn-default btn-flat"
+                                            ng-bind="lang"
                                             >
-                                        {{lang}}
                                     </a>
                                 </div>
                                 <div class="pull-right">
@@ -108,7 +108,7 @@
                         <li ng-repeat="item in menu">
                             <a href="/#{{ item.url }}">
                                 <i class="glyphicon glyphicon-{{ item.icon }}"></i>
-                                {{ item.name }}
+                                <span ng-bind="item.name"></span>
                             </a>
                         </li>
                     </ul>
@@ -120,7 +120,7 @@
             <section class="content-header">
                 <div ng-repeat="flash in flashBag" class="alert alert-{{ flash.type }} alert-dismissable">
                     <button type="button" class="close" ng-click="removeFlash($index)">&times;</button>
-                    {{ flash.message }}
+                    <span ng-bind="flash.message"></span>
                 </div>
             </section>
             <section class="content" ng-cloak>

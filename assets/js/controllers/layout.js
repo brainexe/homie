@@ -64,8 +64,6 @@ App.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gette
 
     Config.get('debug').then(function(debug) {
         if (debug) {
-            console.log('hey dev :-)');
-
             // live reload via "grunt watch"
             var s  = document.createElement('script');
             s.type = 'text/javascript';

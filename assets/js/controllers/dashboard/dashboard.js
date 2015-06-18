@@ -27,6 +27,9 @@ App.controller('DashboardController', ['$scope', '$modal', 'Dashboard', 'WidgetF
 				},
                 dashboards: function () {
                     return dashboards;
+                },
+                currentDashboard: function () {
+                    return $scope.dashboard
                 }
             }
 		});

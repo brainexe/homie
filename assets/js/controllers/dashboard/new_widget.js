@@ -1,8 +1,9 @@
 
-App.controller('NewWidgetController', ['$scope', '$modalInstance', 'widgets', 'Dashboard', 'dashboards', function($scope, $modalInstance, widgets, Dashboard, dashboards) {
+App.controller('NewWidgetController', ['$scope', '$modalInstance', 'widgets', 'Dashboard', 'dashboards', 'currentDashboard', function($scope, $modalInstance, widgets, Dashboard, dashboards, currentDashboard) {
     $scope.widgets    = widgets;
     $scope.dashboards = dashboards;
     $scope.payload    = {};
+    $scope.dashboardId = currentDashboard && currentDashboard.dashboardId;
 
     $scope.addWidget = function(dashboardId, widget) {
         var payload = {

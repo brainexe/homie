@@ -1,6 +1,5 @@
 App.controller('MenuController', ['$scope', '$rootScope', '$route', '$location', 'controllers', 'UserManagement', '_', function ($scope, $rootScope, $route, $location, controllers, UserManagement, _) {
     $scope.controllers = controllers;
-    console.log($rootScope);
     $scope.$on('$routeChangeSuccess', function (event, current) {
         if (current.$$route && current.$$route.name) {
             document.title = current.$$route.name;

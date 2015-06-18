@@ -81,7 +81,8 @@
 						<ui-select ng-model="newJob.radioId">
 							<ui-select-match placeholder="Select Radio...">{{$select.selected.name}}</ui-select-match>
 							<ui-select-choices repeat="radio.radioId as radio in radios|toArray|propsFilter:{name: $select.search, description: $select.search}">
-								<span ng-bind-html="radio.name|highlight:$select.search"></span> d<span class="small" ng-bind-html="radio.description|highlight:$select.search"></span>
+								<span ng-bind-html="radio.name|highlight:$select.search"></span>
+								<span class="small" ng-bind-html="radio.description|highlight:$select.search"></span>
 							</ui-select-choices>
 						</ui-select>
 					</div>

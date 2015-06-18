@@ -6,7 +6,7 @@
                 class="close"
                 data-dismiss="modal"
                 aria-hidden="true">&times;</button>
-		<h4 class="modal-title">Add Widget</h4>
+		<h4 class="modal-title" translate>Add Widget</h4>
 	</div>
 	<div class="modal-body navbar-forms navbar-lefts">
 		<div class="row">
@@ -14,7 +14,7 @@
 				<div class="input-group">
 					<span class="input-group-addon" translate>Dashboard</span>
 					<select
-							ng-options="dashboard.dashboardId as dashboardId for (dashboardId, dashboard) in dashboards"
+							ng-options="dashboard.dashboardId as dashboard.name for dashboard in dashboards"
 							ng-model="dashboardId"
                             class="form-control">
 					</select>
@@ -32,33 +32,26 @@
 			</div>
 			<div class="col-lg-5">
 				<div class="input-group">
-                    obj:
-{{parameter.values|toObjectArray}}
-					objend
                     <div ng-repeat="(type, parameter) in widget.parameters">
                         <div ng-if="parameter.type == 'array' && parameter.values">
-                            <ui-select multiple ng-model="payload[type]">
-                                <ui-select-match placeholder="Select...">..</ui-select-match>
+                            <ui-select multiple ng-model="payload[type]" style="width: 300px">
+                                <ui-select-match placeholder="Select...">
+                                    {{$item.value}}
+                                </ui-select-match>
                                 <ui-select-choices repeat="element.key as element in parameter.values|toObjectArray">
-                                    {{element.value}} {{element.key}}
+                                    {{element.value}}
                                 </ui-select-choices>
                             </ui-select>
                         </div>
-                        {{payload[type]}}
-                    </div>
-                    <!--<input disabled="disabled"-->
-                           <!--ng-repeat="(type, value) in widget.parameters"-->
-                           <!--type="text"-->
-                           <!--ng-model="payload[type]"-->
-                           <!--class="form-control"-->
-                           <!--placeholder="{{value.name}}" />-->
-                    <!--<select-->
-                            <!--ng-repeat="(type, value) in widget.parameters"-->
-                            <!--ng-options="type as value for (type, value) in parameter.values"-->
-                            <!--ng-model="payload[type]"-->
-                            <!--required="required"-->
-                            <!--class="form-control input-sm">-->
-                    <!--</select>-->
+						<select
+								ng-if="parameter.type != 'array' && parameter.values"
+								ng-options="type as value for (type, value) in parameter.values"
+								ng-model="payload[type]"
+								required="required"
+								class="form-control input-sm">
+						</select>
+						{{payload[type]}}
+					</div>
 				</div>
 			</div>
 		</div>
