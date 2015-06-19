@@ -28,7 +28,6 @@ class SensorWidgetTest extends TestCase
     {
         $this->gateway = $this->getMock(SensorGateway::class);
         $this->subject = new SensorWidget($this->gateway);
-
     }
 
     public function testGetId()
@@ -84,10 +83,7 @@ class SensorWidgetTest extends TestCase
             ->willReturn($sensors);
 
         $actualResult = json_encode($this->subject);
-
-        $expectedResult =
-            '{"name":"Sensor","parameters":{"sensor_id":'.
-            '{"name":"Sensor ID","values":{"12":"sensor name"}}},"widgetId":"sensor"}';
+        $expectedResult = '{"name":"Sensor","parameters":{"sensor_id":{"name":"Sensor ID","values":{"12":"sensor name"},"type":"single_select"}},"widgetId":"sensor"}';
         $this->assertEquals($expectedResult, $actualResult);
     }
 }

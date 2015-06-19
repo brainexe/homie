@@ -47,7 +47,8 @@ class RadioWidget extends AbstractWidget
             [
                 'radioId' => [
                     'name'   => gettext('Radio ID'),
-                    'values' => $values
+                    'values' => $values,
+                    'type'   => 'single_select'
                 ]
             ]
         );

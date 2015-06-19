@@ -1,0 +1,16 @@
+
+.widget_sensor_graph .chart_container {
+    /*width: 960px;*/
+}
+
+.widget_sensor_graph .legend {
+    text-align: center;
+}
+
+.widget_sensor_graph .y_axis {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+    margin-top: 187px;
+}

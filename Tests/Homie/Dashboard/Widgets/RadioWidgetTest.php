@@ -69,8 +69,7 @@ class RadioWidgetTest extends TestCase
             ]);
 
         $actualResult = json_encode($this->subject);
-
-        $expectedResult = '{"name":"Radio","parameters":{"radioId":{"name":"Radio ID","values":{"122":"radio"}}},"widgetId":"radio"}';
+        $expectedResult = '{"name":"Radio","parameters":{"radioId":{"name":"Radio ID","values":{"122":"radio"},"type":"single_select"}},"widgetId":"radio"}';
         $this->assertEquals($expectedResult, $actualResult);
     }
 }

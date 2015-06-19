@@ -58,9 +58,13 @@ class SensorGraphWidget extends AbstractWidget
             gettext('Sensor Graph'),
             [
                 'sensor_ids' => [
-                    'type'   => 'array',
+                    'type'   => 'multi_select',
                     'name'   => gettext('Sensor ID'),
                     'values' => $sensors
+                ],
+                'title' => [
+                    'type' => 'text',
+                    'name' => gettext('Name')
                 ]
             ]
         );

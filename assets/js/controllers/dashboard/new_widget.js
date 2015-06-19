@@ -1,8 +1,8 @@
 
 App.controller('NewWidgetController', ['$scope', '$modalInstance', 'widgets', 'Dashboard', 'dashboards', 'currentDashboard', function($scope, $modalInstance, widgets, Dashboard, dashboards, currentDashboard) {
-    $scope.widgets    = widgets;
-    $scope.dashboards = dashboards;
-    $scope.payload    = {};
+    $scope.widgets     = widgets;
+    $scope.dashboards  = dashboards;
+    $scope.payload     = {};
     $scope.dashboardId = currentDashboard && currentDashboard.dashboardId;
 
     $scope.addWidget = function(dashboardId, widget) {
@@ -13,7 +13,7 @@ App.controller('NewWidgetController', ['$scope', '$modalInstance', 'widgets', 'D
         };
 
         Dashboard.add(payload).success(function(data) {
-            $scope.$parent.dashboards[data.dashboardId] = data;
+            dashboards[data.dashboardId] = data;
         });
         $modalInstance.close();
     };

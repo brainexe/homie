@@ -59,7 +59,8 @@ class SensorWidget extends AbstractWidget
             [
                 'sensor_id' => [
                     'name'   => gettext('Sensor ID'),
-                    'values' => $sensors
+                    'values' => $sensors,
+                    'type'   => 'single_select'
                 ]
             ]
         );

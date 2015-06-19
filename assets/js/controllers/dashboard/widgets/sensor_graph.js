@@ -1,22 +1,35 @@
 
-App.service('Widget.sensor_graph', ['Sensor', function(Sensor) {
+App.service('Widget.sensor_graph', ['Sensor', '_', function(Sensor, _) {
     return {
         interval: 60 * 5 * 1000,
         render: function ($scope, widget) {
-            $scope.data = widget.sensorIds;
-            $scope.setTitle("Sensors");
+            var sensorIds = widget.sensor_ids.map(function(i) {
+                return parseInt(i);
+            });
 
-            Sensor.getValues('0').success(function (data) {
-                $scope.sensors = data.sensors;
-                $scope.activeSensorIds = data.activeSensorIds;
-                $scope.currentFrom = data.currentFrom;
-                $scope.fromIntervals = data.fromIntervals;
+            Sensor.getAll().success(function(data) {
+                var names = [];
+                for (var i in data.sensors) {
+                    if (sensorIds.indexOf(data.sensors[i].sensorId) >= 0) {
+                        names.push(data.sensors[i].name);
+                    }
+                }
+                var name = widget.title || _('Sensors');
+
+                $scope.setTitle(name + ' - ' + names.join(', '));
+            });
+
+            Sensor.getValues(sensorIds.join(':')).success(function (data) {
+                $scope.sensors          = data.sensors;
+                $scope.activeSensorIds  = data.activeSensorIds;
+                $scope.currentFrom      = data.currentFrom;
+                $scope.fromIntervals    = data.fromIntervals;
                 $scope.availableSensors = data.availableSensors;
 
                 $scope.graph = new Rickshaw.Graph({
-                    element: document.getElementById("chart"),
+                    element: document.getElementById("widget_" + widget.id),
                     width: 500,
-                    height: 500,
+                    height: 150,
                     interpolation: 'basis',
                     min: 'auto',
                     renderer: 'line',
@@ -44,13 +57,13 @@ App.service('Widget.sensor_graph', ['Sensor', function(Sensor) {
                     },
                     xFormatter: function (x) {
                         return new Date(x * 1000).toDateString();
-                    },
+                    }
                 });
 
-                new Rickshaw.Graph.Legend({
-                    element: document.querySelector('#legend'),
-                    graph: $scope.graph
-                });
+                //new Rickshaw.Graph.Legend({
+                //    element: document.querySelector('#legend'),
+                //    graph: $scope.graph
+                //});
             });
 
             //Sensor.getSensorData(widget.sensor_id).success(function(sensorData) {

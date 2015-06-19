@@ -6,6 +6,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-manifest');
 
     grunt.registerTask('extract_lang', ['nggettext_extract']);
@@ -43,7 +44,7 @@ module.exports = function (grunt) {
         child.stderr.pipe(process.stderr);
     });
 
-    grunt.registerTask('build', ['compile_lang', 'clean', 'copy', 'uglify', 'htmlmin', 'concat', 'manifest']);
+    grunt.registerTask('build', ['compile_lang', 'clean', 'copy', 'uglify', 'htmlmin', 'concat', 'manifest', 'compress']);
     grunt.registerTask('buildAll', ['bower', 'build']);
     grunt.registerTask('default', ['build']);
 
@@ -60,7 +61,7 @@ module.exports = function (grunt) {
                 options: {
                     markerNames: ['_']
                 }
-            },
+            }
         },
         nggettext_compile: {
             all: {
@@ -129,7 +130,7 @@ module.exports = function (grunt) {
         uglify: {
             app: {
                 options: {
-                    //beautify: false,
+                    beautify: true,
                     compress: false,
                     mangle:   false
                 },
@@ -194,6 +195,19 @@ module.exports = function (grunt) {
                     '**/*.woff2'
                 ],
                 dest: 'web/manifest.appcache'
+            }
+        },
+        compress: {
+            main: {
+                cwd: 'web/',
+                options: {
+                    mode: 'gzip'
+                },
+                files: [
+                    {expand: true, src: ['web/**/*.js'], dest: '.', ext: '.js.gz'},
+                    {expand: true, src: ['web/**/*.html'], dest: '.', ext: '.html.gz'},
+                    {expand: true, src: ['web/**/*.css'], dest: '.', ext: '.css.gz'}
+                ]
             }
         }
     });

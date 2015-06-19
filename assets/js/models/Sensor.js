@@ -1,8 +1,19 @@
 
-App.service('Sensor', ['$http', function($http) {
+App.service('Sensor', ['$http', '$q', function($http, $q) {
     return {
         getAll: function() {
             return $http.get('/sensors/');
+        },
+
+        /**
+         * @returns Array
+         */
+        getAllMetadata: function() {
+            return $q(function(resolve, reject) {
+                $http.get('/sensors/', {cache:true}).success(function(data) {
+                    resolve(data.types);
+                });
+            });
         },
 
         getValues: function(sesnorsIds, parameters) {
