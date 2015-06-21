@@ -6,12 +6,11 @@
 
 #chart {
     position: relative;
-    left: 40px;
 }
 
 #y_axis {
-    position: relative;
-    top: 0;
+    position: absolute;
+    top: 200px;
     bottom: 0;
     width: 40px;
 }

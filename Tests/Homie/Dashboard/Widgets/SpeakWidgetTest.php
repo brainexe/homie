@@ -39,7 +39,7 @@ class SpeakWidgetTest extends TestCase
     {
         $actualResult = json_encode($this->subject);
 
-        $expectedResult = '{"name":"Speak","parameters":[],"widgetId":"speak"}';
+        $expectedResult = '{"name":"Speak","description":"Speaks a given text.","parameters":[],"widgetId":"speak"}';
         $this->assertEquals($expectedResult, $actualResult);
     }
 }

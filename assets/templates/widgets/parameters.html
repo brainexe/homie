@@ -1,0 +1,35 @@
+
+<div ng-repeat="(type, parameter) in widget.parameters">
+    <label>{{parameter.name}}</label>
+
+    <ui-select theme="bootstrap" ng-if="parameter.type == 'multi_select'" multiple ng-model="payload[type]" style="width: 300px">
+        <ui-select-match placeholder="Select...">
+            {{$item.value}}
+        </ui-select-match>
+        <ui-select-choices repeat="element.key as element in parameter.values|toObjectArray">
+            {{element.value}}
+        </ui-select-choices>
+    </ui-select>
+
+    <ui-select
+            ng-if="parameter.type == 'single_select'"
+            ng-model="payload[type]"
+            style="width: 300px"
+            theme="bootstrap"
+            >
+        <ui-select-match placeholder="Select...">
+            {{$select.selected.value}}
+        </ui-select-match>
+        <ui-select-choices repeat="element.key as element in parameter.values|toObjectArray">
+            {{element.value}}
+        </ui-select-choices>
+    </ui-select>
+
+    <input
+            ng-if="parameter.type == 'text'"
+            ng-model="payload[type]"
+            type="text"
+            class="form-control input-sm" />
+
+    Debug only: {{payload[type]}}
+</div>

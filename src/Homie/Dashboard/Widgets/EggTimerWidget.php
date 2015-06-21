@@ -23,6 +23,7 @@ class EggTimerWidget extends AbstractWidget
         return new WidgetMetadataVo(
             $this->getId(),
             gettext('Egg Timer'),
+            gettext('Simple egg timer'),
             []
         );
     }

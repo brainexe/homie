@@ -44,6 +44,7 @@ class RadioWidget extends AbstractWidget
         return new WidgetMetadataVo(
             $this->getId(),
             gettext('Radio'),
+            gettext('Control your radio switches.'),
             [
                 'radioId' => [
                     'name'   => gettext('Radio ID'),

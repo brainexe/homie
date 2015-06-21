@@ -158,13 +158,13 @@ module.exports = function (grunt) {
                         'bower_components/angular-gettext/dist/angular-gettext.min.js',
                         'bower_components/angular-sanitize/angular-sanitize.min.js',
                         'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-                        'bower_components/angular-local-storage/dist/angular-local-storage.min.js',
-                        'bower_components/ui-select/dist/select.js',
+                        // 'bower_components/angular-local-storage/dist/angular-local-storage.min.js',
+                        'bower_components/ui-select/dist/select.min.js',
                         'bower_components/allmighty-autocomplete/script/autocomplete.js',
 
                         // needed for sensor module
                         'bower_components/rickshaw/vendor/d3.v3.js',
-                        'bower_components/rickshaw/rickshaw.js',
+                        'bower_components/rickshaw/rickshaw.min.js',
 
                         'assets/js/vendor/**/*js'
                     ]

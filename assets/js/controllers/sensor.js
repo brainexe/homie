@@ -32,14 +32,12 @@ App.controller('SensorController', ['$scope', '$modal', 'Sensor', function ($sco
 
         new Rickshaw.Graph.Axis.Time({graph: $scope.graph});
 
-        var yAxis = new Rickshaw.Graph.Axis.Y({
+        new Rickshaw.Graph.Axis.Y({
             graph      : $scope.graph,
-            orientation: 'left',
+            orientation: 'right',
             tickFormat : Rickshaw.Fixtures.Number.formatKMBT,
-            element    : document.getElementById('yAxis')
+            element    : document.getElementById('y_axis')
         });
-
-        $scope.graph.render();
 
         new Rickshaw.Graph.HoverDetail({
             graph: $scope.graph,
@@ -51,13 +49,15 @@ App.controller('SensorController', ['$scope', '$modal', 'Sensor', function ($sco
             },
             xFormatter: function(x) {
                 return new Date(x * 1000).toDateString();
-            },
+            }
         });
 
         new Rickshaw.Graph.Legend({
             element: document.querySelector('#legend'),
             graph: $scope.graph
         });
+
+        $scope.graph.render();
     });
 
     /**
@@ -86,7 +86,7 @@ App.controller('SensorController', ['$scope', '$modal', 'Sensor', function ($sco
         }
 
         var activeIds  = $scope.activeSensorIds.join(':') || "0";
-        var parameters = '?from={0}'.format($scope.currentFrom);
+        var parameters = '?from={0}&save=1'.format($scope.currentFrom);
 
         Sensor.getValues(activeIds, parameters).success(function (data) {
             updateGraph(data.json);

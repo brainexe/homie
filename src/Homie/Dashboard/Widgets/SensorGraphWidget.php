@@ -38,9 +38,11 @@ class SensorGraphWidget extends AbstractWidget
     public function create(array $payload)
     {
         if (empty($payload['sensor_ids'])) {
-            // todo check sensor id
             throw new UserException("No sensor_id passed");
         }
+
+        $validSensorIds = $this->gateway->getSensorIds();
+        // todo check sensor id
     }
 
     /**
@@ -56,6 +58,7 @@ class SensorGraphWidget extends AbstractWidget
         return new WidgetMetadataVo(
             $this->getId(),
             gettext('Sensor Graph'),
+            gettext('Displays a Sensor Graph of given sensors'),
             [
                 'sensor_ids' => [
                     'type'   => 'multi_select',

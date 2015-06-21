@@ -105,8 +105,10 @@ class Controller
             $from = Chart::DEFAULT_TIME;
         }
 
-        $session->set(self::SESSION_LAST_VIEW, $activeSensorIds);
-        $session->set(self::SESSION_LAST_TIMESPAN, $from);
+        if ($request->query->get('save')) {
+            $session->set(self::SESSION_LAST_VIEW, $activeSensorIds);
+            $session->set(self::SESSION_LAST_TIMESPAN, $from);
+        }
 
         $activeSensorIds = array_unique(array_map('intval', explode(':', $activeSensorIds)));
 
@@ -121,6 +123,7 @@ class Controller
             'activeSensorIds' => array_values($activeSensorIds),
             'json' => $json,
             'currentFrom' => $from,
+            // todo not needed
             'availableSensors' => $sensorObjects,
             'fromIntervals' => [
                 0 => 'All',

@@ -4,22 +4,6 @@
 	text-align: center;
 }
 
-#chart_container {
-	width: 960px;
-}
-
-#legend {
-	text-align: center;
-}
-
-#y_axis {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	width: 40px;
-	margin-top: 187px;
-}
-
 .form-signin {
 	max-width: 330px;
 	padding: 15px;

@@ -23,8 +23,9 @@ App.service('UserManagement', ['$http', function($http) {
             return current;
         },
 
-        isLoggedIn: function() {
-            return current && current.id > 0;
+        isLoggedIn: function(user) {
+            user = user || current;
+            return user && user.id > 0;
         },
 
         loadCurrentUser: function () {

@@ -6,7 +6,7 @@ var App = angular.module('homie', [
         'ngDragDrop',
         'ngRoute',
         'ngSanitize',
-        'LocalStorageModule',
+        //'LocalStorageModule',
         'autocomplete',
         'ui.bootstrap',
         'ui.select',
@@ -17,18 +17,11 @@ var App = angular.module('homie', [
         $provide.factory('$routeProvider', function () {
             return $routeProvider;
         });
-
-        // show error messages as flash
-        $httpProvider.defaults.transformResponse.push(function(response, headers, code) {
-            if (headers('X-Flash-Type')) {
-                //todo fix
-                //$rootScope.addFlash(headers('X-Flash-Message'), headers('X-Flash-Type'));
-            }
-
-            return response;
+        $provide.factory('$httpProvider', function () {
+            return $httpProvider;
         });
-    }]).run(['gettextCatalog', '$routeProvider', 'controllers', 'SocketServer', function (gettextCatalog, $routeProvider, controllers, SocketServer) {
-        // TODO: store in cookies etc
+    }]).run(['gettextCatalog', '$routeProvider', '$httpProvider', 'controllers', '$rootScope', function (gettextCatalog, $routeProvider, $httpProvider, controllers, $rootScope) {
+        // TODO: store in cookies  or user setting
         gettextCatalog.setCurrentLanguage('de');
 
         // init routing
@@ -36,6 +29,16 @@ var App = angular.module('homie', [
             var metadata = controllers[i];
             $routeProvider.when('/' + metadata.url, metadata);
         }
+
+        // show error messages as flash
+        $httpProvider.defaults.transformResponse.push(function(response, headers, code) {
+        if (headers('X-Flash-Type')) {
+            console.log(response);
+            $rootScope.$broadcast('flash', [headers('X-Flash-Message'), headers('X-Flash-Type')]);
+        }
+
+        return response;
+    });
 
         $routeProvider.otherwise({redirectTo: '/index'});
     }]);

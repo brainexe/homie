@@ -52,7 +52,7 @@ class TimeWidgetTest extends PHPUnit_Framework_TestCase
     {
         $actualResult = json_encode($this->subject);
 
-        $expectedResult = '{"name":"Time","parameters":[],"widgetId":"time"}';
+        $expectedResult = '{"name":"Time","description":"Displays the current time","parameters":[],"widgetId":"time"}';
         $this->assertEquals($expectedResult, $actualResult);
     }
 }
