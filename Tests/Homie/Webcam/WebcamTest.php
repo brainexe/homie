@@ -4,6 +4,7 @@ namespace Tests\Homie\Webcam\Webcam;
 
 use ArrayIterator;
 use BrainExe\Core\Util\FileUploader;
+use Homie\Client\ClientInterface;
 use League\Flysystem\Filesystem;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
@@ -27,38 +28,37 @@ class WebcamTest extends PHPUnit_Framework_TestCase
     /**
      * @var Filesystem|MockObject
      */
-    private $mockFilesystem;
+    private $filesystem;
 
     /**
-     * @var ProcessBuilder|MockObject
+     * @var ClientInterface|MockObject
      */
-    private $mockProcessBuilder;
+    private $client;
 
     /**
      * @var EventDispatcher|MockObject
      */
-    private $mockEventDispatcher;
+    private $dispatcher;
 
     public function setUp()
     {
-        $this->mockFilesystem      = $this->getMock(Filesystem::class, [], [], '', false);
-        $this->mockProcessBuilder  = $this->getMock(ProcessBuilder::class, [], [], '', false);
-        $this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->filesystem = $this->getMock(Filesystem::class, [], [], '', false);
+        $this->client     = $this->getMock(ClientInterface::class, [], [], '', false);
+        $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
         $this->subject = new Webcam(
-            $this->mockProcessBuilder,
-            $this->mockFilesystem
+            $this->client,
+            $this->filesystem,
+            'command %s'
         );
-        $this->subject->setEventDispatcher($this->mockEventDispatcher);
+        $this->subject->setEventDispatcher($this->dispatcher);
     }
 
     public function testGetPhotos()
     {
-        $directory = ROOT . Webcam::ROOT;
-
-        $filePath         = '/www/something/relative.ext';
-        $fileBaseName     = 'relative.ext';
-        $fileCTime        = 10;
+        $filePath     = '/www/something/relative.ext';
+        $fileBaseName = 'relative.ext';
+        $fileCTime    = 10;
 
         $files = [
             [
@@ -68,7 +68,7 @@ class WebcamTest extends PHPUnit_Framework_TestCase
             ]
         ];
 
-        $this->mockFilesystem
+        $this->filesystem
             ->expects($this->once())
             ->method('listContents')
             ->with(Webcam::ROOT)
@@ -90,38 +90,20 @@ class WebcamTest extends PHPUnit_Framework_TestCase
     public function testTakePhoto()
     {
         $name = 'name';
-        $path = ROOT . Webcam::ROOT . $name . '.' . Webcam::EXTENSION;
 
-        $process = $this->getMock(Process::class, [], [], '', false);
-
-        $this->mockProcessBuilder
+        $this->client
             ->expects($this->once())
-            ->method('setArguments')
-//            ->with([Webcam::EXECUTABLE, '-d', '/dev/video0', ])
-            ->willReturn($this->mockProcessBuilder);
-
-        $this->mockProcessBuilder
-            ->expects($this->once())
-            ->method('setTimeout')
-            ->with(Webcam::TIMEOUT)
-            ->willReturn($this->mockProcessBuilder);
-
-        $this->mockProcessBuilder
-            ->expects($this->once())
-            ->method('getProcess')
-            ->willReturn($process);
-
-        $process->expects($this->once())
-            ->method('run');
+            ->method('execute')
+            ->with($this->stringStartsWith("command /tmp/web"));
 
         $event = new WebcamEvent($name, WebcamEvent::TOOK_PHOTO);
 
-        $this->mockEventDispatcher
+        $this->dispatcher
             ->expects($this->once())
             ->method('dispatchEvent')
             ->with($event);
 
-        $this->mockFilesystem
+        $this->filesystem
             ->expects($this->once())
             ->method('writeStream')
             ->with(Webcam::ROOT . $name . '.jpg');
@@ -133,7 +115,7 @@ class WebcamTest extends PHPUnit_Framework_TestCase
     {
         $filename = 'id';
 
-        $this->mockFilesystem
+        $this->filesystem
             ->expects($this->once())
             ->method('delete')
             ->with($filename);

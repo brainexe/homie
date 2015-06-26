@@ -43,7 +43,11 @@ App.controller('SensorController', ['$scope', '$modal', 'Sensor', function ($sco
             graph: $scope.graph,
             formatter: function(series, x, y) {
                 var date = new Date(x * 1000);
-                var dateString = '<span class="date">{0} {1}:{2}</span><br />'.format(date.toDateString(), date.getHours(), parseInt(date.getMinutes()));
+                var dateString = '<span class="date">{0} {1}:{2}</span><br />'.format(
+                    ("0" + date.toDateString()).slice(-2),
+                    ("0" + date.getHours()).slice(-2),
+                    parseInt(date.getMinutes())
+                );
                 var content = dateString + series.name + ": " + y;
                 return content;
             },

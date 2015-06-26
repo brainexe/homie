@@ -7,6 +7,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-compress');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-manifest');
 
     grunt.registerTask('extract_lang', ['nggettext_extract']);
@@ -23,6 +24,36 @@ module.exports = function (grunt) {
         });
         child.stdout.pipe(process.stdout);
         child.stderr.pipe(process.stderr);
+    });
+
+    grunt.registerTask('websocket', function(option) {
+        option = option || 'start';
+        var forever = require('forever');
+
+        function start() {
+            console.log('start...');
+            forever.startDaemon("./node_modules/websocket/server.js");
+        }
+
+        function stop() {
+            console.log('stop...');
+            forever.stopAll();
+        }
+
+        switch (option) {
+            case 'start':
+                start();
+                break;
+            case 'stop':
+                stop();
+                break;
+            case 'restart':
+                stop();
+                start();
+                break;
+            default:
+                throw "use: (start|stop|restart)";
+        }
     });
 
     grunt.registerTask('console', function () {
@@ -44,7 +75,7 @@ module.exports = function (grunt) {
         child.stderr.pipe(process.stderr);
     });
 
-    grunt.registerTask('build', ['compile_lang', 'clean', 'copy', 'uglify', 'htmlmin', 'concat', 'manifest', 'compress']);
+    grunt.registerTask('build', ['compile_lang', 'clean', 'copy', 'uglify', 'htmlmin', 'concat', 'cssmin', 'manifest', 'compress']);
     grunt.registerTask('buildAll', ['bower', 'build']);
     grunt.registerTask('default', ['build']);
 
@@ -111,6 +142,17 @@ module.exports = function (grunt) {
                 ],
                 dest: 'web/common.css',
                 nonull: true
+            }
+        },
+        cssmin: {
+            target: {
+                files: [{
+                    expand: true,
+                    cwd: 'web/',
+                    src: ['*.css', '!*.min.css'],
+                    dest: 'web/',
+                    ext: '.min.css'
+                }]
             }
         },
         htmlmin: {

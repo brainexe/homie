@@ -51,8 +51,8 @@ class RadioController
         $command = sprintf(
             '%s %s %d %d',
             $this->rcSwitchCommand,
-            $radioVO->code,
-            $radioVO->pin,
+            escapeshellarg($radioVO->code),
+            (int)$radioVO->pin,
             (int)$status
         );
         $radioVO->status = (bool)$status;

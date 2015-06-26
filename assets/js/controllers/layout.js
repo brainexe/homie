@@ -1,5 +1,5 @@
 
-App.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gettextCatalog', 'BrowserNotification', function ($scope, UserManagement, Config, gettextCatalog, BrowserNotification) {
+App.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gettextCatalog', 'BrowserNotification', 'SocketServer', function ($scope, UserManagement, Config, gettextCatalog, BrowserNotification, SocketServer) {
     $scope.flashBag  = [];
     $scope.languages = {
         'de': 'Deutsch',

@@ -1,3 +1,17 @@
-<a ng-repeat="time in times" ng-click="start(time)" class="btn btn-warning">{{ time }}</a>
+<a
+        ng-repeat="time in times"
+        ng-click="start(time)"
+        class="btn btn-warning"
+        >
+    {{ time }}
+</a>
+<a ng-click="prompt()" class="btn btn-warning">
+    <span class="glyphicon glyphicon-question-sign"></span>
+</a>
 
-<a ng-click="prompt()" class="btn btn-warning">?</a>
+<div ng-if="job">
+    {{job.timestamp|timeAgo}}
+    <a ng-click="stop(job)" class="btn btn-warning">
+        <span class="glyphicon glyphicon-remove-sign"></span>
+    </a>
+</div>

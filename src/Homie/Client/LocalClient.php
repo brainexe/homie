@@ -8,6 +8,7 @@ use RuntimeException;
 use Symfony\Component\Process\ProcessBuilder;
 
 /**
+ * @todo cleanup
  * @Service("HomieClient.Local", public=false)
  */
 class LocalClient implements ClientInterface

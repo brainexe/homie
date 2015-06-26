@@ -1,6 +1,5 @@
 
 .widget_sensor_graph .chart_container {
-    /*width: 960px;*/
 }
 
 .widget_sensor_graph .legend {
@@ -11,6 +10,6 @@
     position: absolute;
     top: 0;
     bottom: 0;
+    left:-15px;
     width: 40px;
-    margin-top: 187px;
 }

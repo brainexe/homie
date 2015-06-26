@@ -97,7 +97,11 @@ class Serial
 
         $filename = $file->getPathname();
 
-        $command = sprintf('sudo stty -F %s %d', $filename, $this->serialBaud);
+        $command = sprintf(
+            'sudo stty -F %s %d',
+            escapeshellarg($filename),
+            $this->serialBaud
+        );
         $this->client->execute($command);
 
         $this->fileHandle = fopen($filename, 'w+');

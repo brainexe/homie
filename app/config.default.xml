@@ -5,6 +5,10 @@
         <parameter key="piwik.site"/>
         <parameter key="piwik.id"/>
         <parameter key="node.id">0</parameter>
+
+        <parameter key="webcam.executable">fswebcam -d /dev/video0 %s</parameter>
+        <!--<parameter key="webcam.executable">raspistill -o %s</parameter>-->
+
         <parameter key="socket.url">http://localhost:8081/socket</parameter>
 
         <parameter key="rc_switch.command">sudo /opt/rcswitch-pi/send</parameter>

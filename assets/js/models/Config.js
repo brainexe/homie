@@ -32,7 +32,7 @@ App.service('Config', ['$q', '$http', function($q, $http) {
                         values.push(all[keys[i]])
                     }
 
-                    resolve(values);
+                    resolve.apply(this, values);
                 });
             });
         },

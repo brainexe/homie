@@ -80,11 +80,11 @@ class Espeak
         }
 
         $command = sprintf(
-            'espeak "%s" -s "%d" -a "%d" -v%ss --stdout | aplay',
-            $text,
-            $speed,
-            $volume,
-            $speaker
+            'espeak %s -s %d -a %d -v%ss --stdout | aplay',
+            escapeshellarg($text),
+            escapeshellarg($speed),
+            escapeshellarg($volume),
+            escapeshellarg($speaker)
         );
 
         $this->client->execute($command);

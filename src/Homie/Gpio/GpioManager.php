@@ -101,7 +101,18 @@ class GpioManager
     {
         $pinValue = Pin::VALUE_HIGH == $pin->isHighValue() ? 1 : 0;
 
-        $this->client->execute(sprintf(self::GPIO_COMMAND_DIRECTION, $pin->getID(), $pin->getDirection()));
-        $this->client->execute(sprintf(self::GPIO_COMMAND_VALUE, $pin->getID(), $pinValue));
+        $command = sprintf(
+            self::GPIO_COMMAND_DIRECTION,
+            $pin->getID(),
+            escapeshellarg($pin->getDirection())
+        );
+        $this->client->execute($command);
+
+        $command = sprintf(
+            self::GPIO_COMMAND_VALUE,
+            $pin->getID(),
+            $pinValue
+        );
+        $this->client->execute($command);
     }
 }

@@ -112,7 +112,7 @@ class SerialTest extends TestCase
         $this->client
             ->expects($this->once())
             ->method('execute')
-            ->with("sudo stty -F $file 57600");
+            ->with("sudo stty -F '$file' 57600");
 
         $event = new SerialEvent($action, $pin, $value);
 

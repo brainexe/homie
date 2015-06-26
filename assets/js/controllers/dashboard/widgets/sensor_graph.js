@@ -26,8 +26,9 @@ App.service('Widget.sensor_graph', ['Sensor', '_', function(Sensor, _) {
                 $scope.fromIntervals    = data.fromIntervals;
                 $scope.availableSensors = data.availableSensors;
 
+                var element = document.querySelector("#widget_" + widget.id + ' .chart_container');
                 $scope.graph = new Rickshaw.Graph({
-                    element: document.getElementById("widget_" + widget.id),
+                    element: element,
                     width: 500,
                     height: 150,
                     interpolation: 'basis',
@@ -37,15 +38,12 @@ App.service('Widget.sensor_graph', ['Sensor', '_', function(Sensor, _) {
                 });
 
                 new Rickshaw.Graph.Axis.Time({graph: $scope.graph});
-
-                var yAxis = new Rickshaw.Graph.Axis.Y({
+                new Rickshaw.Graph.Axis.Y({
                     graph: $scope.graph,
                     orientation: 'left',
                     tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
-                    element: document.getElementById('yAxis')
+                    element: element.getElementsByClassName('y_axis')[0]
                 });
-
-                $scope.graph.render();
 
                 new Rickshaw.Graph.HoverDetail({
                     graph: $scope.graph,
@@ -61,16 +59,11 @@ App.service('Widget.sensor_graph', ['Sensor', '_', function(Sensor, _) {
                 });
 
                 //new Rickshaw.Graph.Legend({
-                //    element: document.querySelector('#legend'),
+                //    element: element.getElementsByClassName('legend')[0],
                 //    graph: $scope.graph
                 //});
+                $scope.graph.render();
             });
-
-            //Sensor.getSensorData(widget.sensor_id).success(function(sensorData) {
-            //    $scope.setTitle("{0} ({1})".format(sensorData.sensor.name, sensorData.sensor.type));
-            //
-            //    $scope.sensor = sensorData.sensor;
-            //});
         }
     };
 }]);

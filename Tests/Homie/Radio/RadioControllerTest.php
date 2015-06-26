@@ -53,12 +53,7 @@ class RadioControllerTest extends PHPUnit_Framework_TestCase
         $this->client
             ->expects($this->once())
             ->method('execute')
-            ->with('/opt/rc_switch 0101 2 1');
-
-        $this->client
-            ->expects($this->once())
-            ->method('execute')
-            ->with('/opt/rc_switch 0101 2 1');
+            ->with("/opt/rc_switch '0101' 2 1");
 
         $this->subject->setStatus($radioVo, $status);
     }

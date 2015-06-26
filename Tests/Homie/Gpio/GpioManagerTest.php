@@ -91,12 +91,12 @@ class GpioManagerTest extends PHPUnit_Framework_TestCase
         $this->client
             ->expects($this->at(0))
             ->method('execute')
-            ->with(sprintf(GpioManager::GPIO_COMMAND_DIRECTION, $gpioId, 'out'));
+            ->with("gpio mode 10 'out'");
 
         $this->client
             ->expects($this->at(1))
             ->method('execute')
-            ->with(sprintf(GpioManager::GPIO_COMMAND_VALUE, $gpioId, 1));
+            ->with("gpio write 10 1");
 
         $actualResult = $this->subject->setPin($gpioId, $status, $value);
 

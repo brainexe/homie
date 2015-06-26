@@ -5,26 +5,23 @@ namespace Homie\Webcam;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\EventDispatcherTrait;
+use Homie\Client\ClientInterface;
 use League\Flysystem\Filesystem;
-use Symfony\Component\Process\ProcessBuilder;
 
 /**
  * @Service(public=false)
  */
 class Webcam
 {
-
     const ROOT       = 'Webcam/';
     const EXTENSION  = 'jpg';
-    const TIMEOUT    = 10000;
-    const EXECUTABLE = 'fswebcam';
 
     use EventDispatcherTrait;
 
     /**
-     * @var ProcessBuilder
+     * @var ClientInterface
      */
-    private $processBuilder;
+    private $client;
 
     /**
      * @var Filesystem
@@ -32,16 +29,19 @@ class Webcam
     private $remoteFilesystem;
 
     /**
-     * @Inject({"@ProcessBuilder", "@RemoteFilesystem"})
-     * @param ProcessBuilder $processBuilder
+     * @Inject({"@HomieClient", "@Filesystem", "%webcam.executable%"})
+     * @param ClientInterface $client
      * @param Filesystem $fileUploader
+     * @param string $command
      */
     public function __construct(
-        ProcessBuilder $processBuilder,
-        Filesystem $fileUploader
+        ClientInterface $client,
+        Filesystem $fileUploader,
+        $command
     ) {
-        $this->processBuilder   = $processBuilder;
+        $this->client   = $client;
         $this->remoteFilesystem = $fileUploader;
+        $this->command = $command;
     }
 
     /**
@@ -72,12 +72,9 @@ class Webcam
         $path = $this->getFilename($name);
 
         $temp = tempnam(sys_get_temp_dir(), 'webcam');
-        $process = $this->processBuilder
-            ->setArguments([self::EXECUTABLE, '-d', '/dev/video0', $temp])
-            ->setTimeout(self::TIMEOUT)
-            ->getProcess();
 
-        $process->run();
+        $command = sprintf($this->command, $temp);
+        $this->client->execute($command);
 
         $event = new WebcamEvent($name, WebcamEvent::TOOK_PHOTO);
         $this->dispatchEvent($event);

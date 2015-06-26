@@ -57,7 +57,9 @@ class PinLoader
         $this->pins = new PinsCollection();
 
         try {
-            $results = $this->client->executeWithReturn(GpioManager::GPIO_COMMAND_READALL);
+            $results = $this->client->executeWithReturn(
+                GpioManager::GPIO_COMMAND_READALL
+            );
         } catch (Exception $e) {
             $results = file_get_contents(__DIR__ . '/gpio.txt');
         }

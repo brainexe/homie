@@ -72,4 +72,8 @@ App.controller('ExpressionController', ['$scope', 'Expression', function ($scope
             $scope.timers = data.timers;
         });
     };
+
+    $scope.deleteTimer = function(eventId) {
+        // TODO
+    };
 }]);

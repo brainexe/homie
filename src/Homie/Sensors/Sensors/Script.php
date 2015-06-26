@@ -34,7 +34,7 @@ class Script extends AbstractSensor implements Parameterized
     public function __construct(
         ClientInterface $client
     ) {
-        $this->client     = $client;
+        $this->client = $client;
     }
 
     /**

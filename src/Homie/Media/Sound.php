@@ -4,7 +4,7 @@ namespace Homie\Media;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
-use Symfony\Component\Process\ProcessBuilder;
+use Homie\Client\ClientInterface;
 
 /**
  * @Service(public=false)
@@ -15,17 +15,17 @@ class Sound
     const COMMAND = 'mplayer %s';
 
     /**
-     * @var ProcessBuilder
+     * @var ClientInterface
      */
-    private $processBuilder;
+    private $client;
 
     /**
-     * @Inject("@ProcessBuilder")
-     * @param ProcessBuilder $processBuilder
+     * @Inject("@HomieClient")
+     * @param ClientInterface $client
      */
-    public function __construct(ProcessBuilder $processBuilder)
+    public function __construct(ClientInterface $client)
     {
-        $this->processBuilder = $processBuilder;
+        $this->client = $client;
     }
 
     /**
@@ -33,11 +33,7 @@ class Sound
      */
     public function playSound($file)
     {
-        $process = $this->processBuilder
-            ->add('')
-            ->getProcess();
-
-        $process->setCommandLine(sprintf(self::COMMAND, $file));
-        $process->run();
+        $command = sprintf(self::COMMAND, escapeshellarg($file));
+        $this->client->execute($command);
     }
 }
