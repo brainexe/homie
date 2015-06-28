@@ -7,7 +7,7 @@ use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Traits\IdGeneratorTrait;
-use League\Flysystem\Filesystem;
+use League\Flysystem\Filesystem as RemoteFilesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -25,18 +25,18 @@ class Controller
     private $webcam;
 
     /**
-     * @var Filesystem
+     * @var RemoteFilesystem
      */
     private $filesystem;
 
     /**
      * @Inject({"@Webcam", "@RemoteFilesystem"})
      * @param Webcam $webcam
-     * @param Filesystem $filesystem
+     * @param RemoteFilesystem $filesystem
      */
-    public function __construct(Webcam $webcam, Filesystem $filesystem)
+    public function __construct(Webcam $webcam, RemoteFilesystem $filesystem)
     {
-        $this->webcam = $webcam;
+        $this->webcam     = $webcam;
         $this->filesystem = $filesystem;
     }
 
@@ -74,7 +74,7 @@ class Controller
      */
     public function delete(Request $request)
     {
-        $filename = $request->request->get('shotId');
+        $filename = $request->query->get('shotId');
 
         $this->webcam->delete($filename);
 
@@ -99,5 +99,4 @@ class Controller
 
         return $response;
     }
-
 }

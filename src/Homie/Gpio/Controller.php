@@ -36,7 +36,8 @@ class Controller
         $pins = $this->manager->getPins();
 
         return [
-            'pins' => $pins->getAll()
+            'pins' => $pins->getAll(),
+            'type' => $pins->getType()
         ];
     }
 

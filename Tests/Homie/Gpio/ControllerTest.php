@@ -36,7 +36,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
     public function testIndex()
     {
         $pin  = new Pin();
-        $pins = new PinsCollection();
+        $pins = new PinsCollection('Type');
         $pins->add($pin);
 
         $this->manager
@@ -44,13 +44,13 @@ class ControllerTest extends PHPUnit_Framework_TestCase
             ->method('getPins')
             ->willReturn($pins);
 
-        $actualResult = $this->subject->index();
-
-        $expectedResult = [
-                'pins' => $pins->getAll()
+        $actual = $this->subject->index();
+        $expected = [
+            'pins' => $pins->getAll(),
+            'type' => 'Type'
         ];
 
-        $this->assertEquals($expectedResult, $actualResult);
+        $this->assertEquals($expected, $actual);
     }
 
     public function testSetStatus()

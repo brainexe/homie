@@ -52,7 +52,7 @@ class GpioManagerTest extends PHPUnit_Framework_TestCase
         ];
 
         $pin = new Pin();
-        $pin->setID($pinId);
+        $pin->setWiringId($pinId);
 
         $collection = new PinsCollection();
         $collection->add($pin);
@@ -80,7 +80,7 @@ class GpioManagerTest extends PHPUnit_Framework_TestCase
         $value  = true;
 
         $pin = new Pin();
-        $pin->setID($gpioId);
+        $pin->setWiringId($gpioId);
 
         $this->pinLoader
             ->expects($this->once())
@@ -91,7 +91,7 @@ class GpioManagerTest extends PHPUnit_Framework_TestCase
         $this->client
             ->expects($this->at(0))
             ->method('execute')
-            ->with("gpio mode 10 'out'");
+            ->with("gpio mode 10 'OUT'");
 
         $this->client
             ->expects($this->at(1))

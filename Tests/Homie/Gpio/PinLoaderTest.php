@@ -35,16 +35,13 @@ class PinLoaderTest extends PHPUnit_Framework_TestCase
 
     public function testGetPins()
     {
-        $pinId     = 12;
-        $name      = 'name';
-        $direction = 'IN';
-        $value     = 'Low';
-
-        $gpioResult = "+----------+-Rev2-+------+--------+------+-------+
-| wiringPi | GPIO | Phys | Name   | Mode | Value |
-+----------+------+------+--------+------+-------+
-|      $pinId   |  17  |  11  | $name | $direction   | $value   |
-+----------+------+------+--------+------+-------+\n";
+        $gpioResult = " +-----+-----+---------+------+---+---Unknown+---+------+---------+-----+-----+
+ | BCM | wPi |   Name  | Mode | V | Physical | V | Mode | Name    | wPi | BCM |
+ +-----+-----+---------+------+---+----++----+---+------+---------+-----+-----+
+ |  17 |   1 | GPIO. 0 |   IN | 0 | 11 || 12 | 0 | IN   | GPIO. 1 | 2   | 18  |
+ +-----+-----+---------+------+---+----++----+---+------+---------+-----+-----+
+ | BCM | wPi |   Name  | Mode | V | Physical | V | Mode | Name    | wPi | BCM |
+ +-----+-----+---------+------+---+---Pi 2---+---+------+---------+-----+-----+\n";
 
         $this->client
             ->expects($this->once())
@@ -54,23 +51,32 @@ class PinLoaderTest extends PHPUnit_Framework_TestCase
 
         $actualResult = $this->subject->loadPins();
 
-        $expectedPin = new Pin();
-        $expectedPin->setID($pinId);
-        $expectedPin->setName($name);
-        $expectedPin->setDirection($direction);
-        $expectedPin->setValue(0);
+        $expected = new PinsCollection('Unknown');
 
-        $expectedCollection = new PinsCollection();
-        $expectedCollection->add($expectedPin);
+        $pin = new Pin();
+        $pin->setPhysicalId(11);
+        $pin->setWiringId(1);
+        $pin->setName('GPIO. 0');
+        $pin->setMode('IN');
+        $pin->setValue(false);
+        $expected->add($pin);
 
-        $this->assertEquals($expectedCollection, $actualResult);
-        $this->assertEquals($direction, $expectedPin->getDirection());
-        $this->assertEquals(0, $expectedPin->isHighValue());
+        $pin = new Pin();
+        $pin->setPhysicalId(12);
+        $pin->setWiringId(2);
+        $pin->setName('GPIO. 1');
+        $pin->setMode('IN');
+        $pin->setValue(false);
+        $expected->add($pin);
+
+        $this->assertEquals($expected, $actualResult);
+        $this->assertEquals('IN', $pin->getMode());
+        $this->assertEquals(0, $pin->getValue());
 
         $actualResult = $this->subject->loadPins();
-        $this->assertEquals($expectedCollection, $actualResult);
+        $this->assertEquals($expected, $actualResult);
 
-        $this->assertEquals($expectedPin, $this->subject->loadPin($pinId));
+        $this->assertEquals($pin, $this->subject->loadPin(2));
     }
 
     public function testGetPinsFallback()
@@ -83,6 +89,6 @@ class PinLoaderTest extends PHPUnit_Framework_TestCase
 
         $actualResult = $this->subject->loadPins();
 
-        $this->assertCount(21, $actualResult->getAll());
+        $this->assertCount(40, $actualResult->getAll());
     }
 }

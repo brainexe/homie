@@ -10,7 +10,7 @@ App.service('Webcam', ['$http', function($http) {
         },
 
         remove: function(shotId) {
-           return $http.delete('/webcam/', {shotId: shotId});
+           return $http.delete('/webcam/?shotId={0}'.format(shotId));
         }
     }
 }]);

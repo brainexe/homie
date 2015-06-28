@@ -6,12 +6,14 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Guest;
 use BrainExe\Core\Annotations\Route;
+use BrainExe\Core\Authentication\Settings\Settings;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Homie\Espeak\EspeakEvent;
 use Homie\Espeak\EspeakVO;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
+ * @todo split into second controller for sensor values
  * @ControllerAnnotation("SensorsController")
  */
 class Controller
@@ -19,8 +21,8 @@ class Controller
 
     use EventDispatcherTrait;
 
-    const SESSION_LAST_VIEW     = 'last_sensor_view';
-    const SESSION_LAST_TIMESPAN = 'last_sensor_timespan';
+    const SETTINGS_ACTIVE_SENSORS = 'sensors:active_sensors';
+    const SETTINGS_TIMESPAN       = 'sensors:timespan';
 
     /**
      * @var SensorGateway
@@ -48,25 +50,39 @@ class Controller
     private $chart;
 
     /**
-     * @Inject({"@SensorGateway", "@SensorValuesGateway", "@Chart", "@SensorBuilder", "@Sensor.VOBuilder"})
+     * @var Settings
+     */
+    private $settings;
+
+    /**
+     * @Inject({
+     *  "@SensorGateway",
+     *  "@SensorValuesGateway",
+     *  "@Chart", "@SensorBuilder",
+     *  "@Sensor.VOBuilder",
+     *  "@User.Settings"
+     * })
      * @param SensorGateway $gateway
      * @param SensorValuesGateway $valuesGateway
      * @param Chart $chart
      * @param SensorBuilder $builder
      * @param Builder $voBuilder
+     * @param Settings $settings
      */
     public function __construct(
         SensorGateway $gateway,
         SensorValuesGateway $valuesGateway,
         Chart $chart,
         SensorBuilder $builder,
-        Builder $voBuilder
+        Builder $voBuilder,
+        Settings $settings
     ) {
         $this->gateway        = $gateway;
         $this->valuesGateway  = $valuesGateway;
         $this->chart          = $chart;
         $this->builder        = $builder;
         $this->voBuilder      = $voBuilder;
+        $this->settings       = $settings;
     }
 
     /**
@@ -89,10 +105,9 @@ class Controller
      */
     public function indexSensor(Request $request, $activeSensorIds)
     {
-        $session = $request->getSession();
-
+        $userId = $request->attributes->get('userId');
         if (empty($activeSensorIds)) {
-            $activeSensorIds = $session->get(self::SESSION_LAST_VIEW) ?: '0';
+            $activeSensorIds = $this->settings->get($userId, self::SETTINGS_ACTIVE_SENSORS) ?: '0';
         }
 
         $availableSensorIds = $this->gateway->getSensorIds();
@@ -106,8 +121,8 @@ class Controller
         }
 
         if ($request->query->get('save')) {
-            $session->set(self::SESSION_LAST_VIEW, $activeSensorIds);
-            $session->set(self::SESSION_LAST_TIMESPAN, $from);
+            $this->settings->set($userId, self::SETTINGS_ACTIVE_SENSORS, $activeSensorIds);
+            $this->settings->set($userId, self::SETTINGS_TIMESPAN, $from);
         }
 
         $activeSensorIds = array_unique(array_map('intval', explode(':', $activeSensorIds)));
@@ -126,11 +141,11 @@ class Controller
             // todo not needed
             'availableSensors' => $sensorObjects,
             'fromIntervals' => [
-                0 => 'All',
-                3600 => 'Last Hour',
-                86400 => 'Last Day',
-                86400 * 7 => 'Last Week',
-                86400 * 30 => 'Last Month'
+                0 => _('All'),
+                3600 => _('Last Hour'),
+                86400 => _('Last Day'),
+                86400 * 7 => _('Last Week'),
+                86400 * 30 => _('Last Month')
             ]
         ];
     }
@@ -142,7 +157,7 @@ class Controller
      */
     public function addSensor(Request $request)
     {
-        $sensorType = $request->request->get('type');
+        $sensorType  = $request->request->get('type');
         $name        = $request->request->get('name');
         $description = $request->request->get('description');
         $pin         = $request->request->get('pin');

@@ -3,10 +3,15 @@ App.controller('GpioController', ['$scope', 'Gpio', function ($scope, Gpio) {
 
     $scope.gpios    = {};
     $scope.editMode = false;
+    $scope.orderBy  = 'wiringId';
 
     Gpio.getData().success(function (data) {
         $scope.gpios = data.pins;
     });
+
+    $scope.setOrderBy = function(key) {
+        $scope.orderBy = key;
+    };
 
     /**
      * @param {Object} pin
@@ -35,8 +40,9 @@ App.controller('GpioController', ['$scope', 'Gpio', function ($scope, Gpio) {
     /**
      * @param {Object} pin
      */
-    $scope.changeDirection = function (pin) {
-        pin.direction = pin.direction ? 0 : 1;
+    $scope.changeMode = function (pin) {
+        // todo IN|OUT
+        pin.mode = pin.mode ? 0 : 1;
         savePin(pin);
     };
 }]);

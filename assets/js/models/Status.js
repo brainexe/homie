@@ -6,7 +6,7 @@ App.service('Status', ['$http', function($http) {
         },
 
         deleteEvent: function(eventId) {
-            return $http.delete('/stats/event/', {job_id: eventId});
+            return $http.delete('/stats/event/?job_id={0}'.format(eventId));
         },
 
         reset: function(key) {

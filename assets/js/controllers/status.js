@@ -1,9 +1,9 @@
 
 App.controller('StatusController', ['$scope', 'Status', function ($scope, Status) {
-    var REFRESH_INTERVAL = 2000;
+    var REFRESH_INTERVAL = 5000;
 
-    $scope.stats = {};
-    $scope.jobs  = {};
+    $scope.stats   = {};
+    $scope.jobs    = {};
 
     $scope.update = function () {
         Status.getData().success(function (data) {

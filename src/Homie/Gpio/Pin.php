@@ -7,18 +7,18 @@ use JsonSerializable;
 class Pin implements JsonSerializable
 {
 
-    const DIRECTION_IN  = 'in';
-    const DIRECTION_OUT = 'out';
-
-    const VALUE_LOW  = 'LOW';
-    const VALUE_HIGH = 'HIGH';
+    const DIRECTION_IN  = 'IN';
+    const DIRECTION_OUT = 'OUT';
 
     /**
-     * wiringPi ID.
-     *
-     * @var integer
+     * @var int
      */
-    private $sensorId;
+    private $wiringId;
+
+    /**
+     * @var int
+     */
+    private $physicalId;
 
     /**
      * @var string
@@ -33,7 +33,7 @@ class Pin implements JsonSerializable
     /**
      * @var string
      */
-    private $direction;
+    private $mode;
 
     /**
      * @var boolean
@@ -42,31 +42,24 @@ class Pin implements JsonSerializable
 
     /**
      * Get ID value.
-     *
-     * @return integer
+     * @return int
      */
-    public function getID()
+    public function getWiringId()
     {
-        return $this->sensorId;
+        return $this->wiringId;
     }
 
     /**
      * Set ID value.
-     *
-     * @param integer $pinId ID
-     *
-     * @return Pin
+     * @param int $pinId ID
      */
-    public function setID($pinId)
+    public function setWiringId($pinId)
     {
-        $this->sensorId = $pinId;
-
-        return $this;
+        $this->wiringId = $pinId;
     }
 
     /**
      * Get Name value.
-     *
      * @return string
      */
     public function getName()
@@ -76,16 +69,11 @@ class Pin implements JsonSerializable
 
     /**
      * Set Name value.
-     *
      * @param string $name Name
-     *
-     * @return Pin
      */
     public function setName($name)
     {
         $this->name = $name;
-
-        return $this;
     }
 
     /**
@@ -93,47 +81,39 @@ class Pin implements JsonSerializable
      *
      * @return string
      */
-    public function getDirection()
+    public function getMode()
     {
-        return $this->direction;
+        return $this->mode;
     }
 
     /**
      * Set Direction value.
      *
-     * @param string $direction Direction
+     * @param string $mode Direction
      *
      * @return Pin
      */
-    public function setDirection($direction)
+    public function setMode($mode)
     {
-        $this->direction = $direction;
+        $this->mode = $mode;
 
         return $this;
     }
 
     /**
-     * Get Value value.
-     *
-     * @return boolean
+     * @return int
      */
-    public function isHighValue()
+    public function getValue()
     {
         return $this->value;
     }
 
     /**
-     * Set Value value.
-     *
      * @param boolean $value Value
-     *
-     * @return Pin
      */
     public function setValue($value)
     {
         $this->value = $value;
-
-        return $this;
     }
 
     /**
@@ -153,16 +133,33 @@ class Pin implements JsonSerializable
     }
 
     /**
+     * @return int
+     */
+    public function getPhysicalId()
+    {
+        return $this->physicalId;
+    }
+
+    /**
+     * @param int $physicalId
+     */
+    public function setPhysicalId($physicalId)
+    {
+        $this->physicalId = $physicalId;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function jsonSerialize()
     {
         return [
-        'id' => $this->sensorId,
-        'value' => $this->value,
-        'name' => $this->name,
-        'description' => $this->description,
-        'direction' => $this->direction == 'OUT' ? 1 : 0,
+            'wiringId'    => $this->wiringId,
+            'physicalId'  => $this->physicalId,
+            'value'       => $this->value,
+            'name'        => $this->name,
+            'description' => $this->description,
+            'mode'        => $this->mode == 'OUT' ? 1 : 0,
         ];
     }
 }

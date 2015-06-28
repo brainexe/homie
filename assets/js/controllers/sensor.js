@@ -20,9 +20,10 @@ App.controller('SensorController', ['$scope', '$modal', 'Sensor', function ($sco
         $scope.fromIntervals    = data.fromIntervals;
         $scope.availableSensors = data.availableSensors;
 
+        var element = document.getElementById("chart");
         $scope.graph = new Rickshaw.Graph({
-            element : document.getElementById("chart"),
-            width   : document.getElementsByClassName('content')[0].offsetWidth - 100,
+            element : element,
+            width   : element.offsetWidth - 25,
             interpolation: 'basis',
             height  : 500,
             min     : 'auto',
@@ -44,12 +45,11 @@ App.controller('SensorController', ['$scope', '$modal', 'Sensor', function ($sco
             formatter: function(series, x, y) {
                 var date = new Date(x * 1000);
                 var dateString = '<span class="date">{0} {1}:{2}</span><br />'.format(
-                    ("0" + date.toDateString()).slice(-2),
+                    date.toDateString(),
                     ("0" + date.getHours()).slice(-2),
-                    parseInt(date.getMinutes())
+                    ("0" + parseInt(date.getMinutes())).slice(-2)
                 );
-                var content = dateString + series.name + ": " + y;
-                return content;
+                return dateString + series.name + ": " + y;
             },
             xFormatter: function(x) {
                 return new Date(x * 1000).toDateString();

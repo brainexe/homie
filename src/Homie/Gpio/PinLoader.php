@@ -41,7 +41,7 @@ class PinLoader
     {
         $pins = $this->loadPins();
 
-        return $pins->get($pin);
+        return $pins->getByWiringId($pin);
     }
 
     /**
@@ -54,28 +54,42 @@ class PinLoader
             return $this->pins;
         }
 
-        $this->pins = new PinsCollection();
-
         try {
-            $results = $this->client->executeWithReturn(
+            $file = $this->client->executeWithReturn(
                 GpioManager::GPIO_COMMAND_READALL
             );
         } catch (Exception $e) {
-            $results = file_get_contents(__DIR__ . '/gpio.txt');
+            $file = file_get_contents(__DIR__ . '/gpio.txt');
         }
 
-        $results = explode("\n", $results);
-        $results = array_slice($results, 3, -2);
+        $lines = explode("\n", $file);
 
-        foreach ($results as $r) {
-            $matches = explode('|', $r);
-            $matches = array_map('trim', $matches);
+        $type = trim($lines[0], ' +-');
+        $this->pins = new PinsCollection($type);
+
+        $lines = array_slice($lines, 3, -4);
+
+        $pins = [];
+        foreach ($lines as $line) {
+            $line = substr($line, 2, -1);
+
+            list($part1, $part2) = explode('||', $line);
+            $part1 = explode('|', $part1);
+            $part2 = array_reverse(explode('|', $part2));
+
+            $pins[] = $part1;
+            $pins[] = $part2;
+        }
+
+        foreach ($pins as $r) {
+            $matches = array_map('trim', $r);
 
             $pin = new Pin();
-            $pin->setID((int)$matches[1]);
-            $pin->setName($matches[4]);
-            $pin->setDirection($matches[5]);
-            $pin->setValue((bool)('High' === $matches[6]));
+            $pin->setWiringId((int)$matches[1]);
+            $pin->setName($matches[2]);
+            $pin->setMode($matches[3]);
+            $pin->setValue((bool)$matches[4]);
+            $pin->setPhysicalId((int)$matches[5]);
 
             $this->pins->add($pin);
         }

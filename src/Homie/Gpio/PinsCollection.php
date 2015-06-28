@@ -12,11 +12,24 @@ class PinsCollection
     private $pins = [];
 
     /**
+     * @var string
+     */
+    private $type;
+
+    /**
+     * @param string $type
+     */
+    public function __construct($type = '')
+    {
+        $this->type = $type;
+    }
+
+    /**
      * @param Pin $pin
      */
     public function add(Pin $pin)
     {
-        $pinId = $pin->getID();
+        $pinId = $pin->getPhysicalId();
         $this->pins[$pinId] = $pin;
     }
 
@@ -25,7 +38,7 @@ class PinsCollection
      * @return Pin
      * @throws InvalidArgumentException
      */
-    public function get($pinId)
+    public function getByPhysicalId($pinId)
     {
         if (empty($this->pins[$pinId])) {
             throw new InvalidArgumentException(sprintf('Pin #%s does not exist', $pinId));
@@ -35,10 +48,33 @@ class PinsCollection
     }
 
     /**
+     * @param integer $pinId
+     * @return Pin
+     * @throws InvalidArgumentException
+     */
+    public function getByWiringId($pinId)
+    {
+        foreach ($this->pins as $pin) {
+            if ($pin->getWiringId() === $pinId) {
+                return $pin;
+            }
+        }
+        throw new InvalidArgumentException(sprintf('Pin #%s does not exist', $pinId));
+    }
+
+    /**
      * @return Pin[]
      */
     public function getAll()
     {
         return $this->pins;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 }

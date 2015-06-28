@@ -2,15 +2,29 @@
 <table ng-if="gpios|notEmpty" class="table table-bordered table-striped table-hover">
 	<thead>
 		<tr>
-			<th width="30">#</th>
-			<th translate>Name</th>
-			<th translate>Value</th>
-			<th translate>Direction</th>
+			<th width="30">
+				<a ng-click="setOrderBy('wiringId')">
+					#wiring
+				</a>
+			</th>
+			<th width="30">
+				<a ng-click="setOrderBy('physicalId')">
+					#phy
+				</a>
+			</th>
+			<th translate>
+				<a ng-click="setOrderBy('name')" translate>
+					Name
+				</a>
+			</th>
+			<th translate translate>Mode</th>
+			<th translate translate>Value</th>
 		</tr>
 	</thead>
-	<tbody ng-repeat="pin in gpios">
+	<tbody ng-repeat="pin in gpios|orderObjectBy:orderBy">
 		<tr>
-			<td>#{{ pin.id }}</td>
+			<td>#{{ pin.wiringId }}</td>
+			<td>#{{ pin.physicalId }}</td>
 			<td>
 				{{ pin.name }} <span ng-if="pin.description">({{ pin.description }})</span>
 
@@ -20,13 +34,13 @@
                 </div>
             </td>
 			<td>
-				<a ng-click="changeValue(pin)" class="btn btn-{{ pin.value ? 'success' : 'danger'}}">
-					{{ pin.value ? 'OFF' : 'ON' }}
+				<a ng-click="changeMode(pin)" class="btn btn-{{ pin.mode ? 'success' : 'info'}}">
+					{{ pin.mode ? 'OUT' : 'IN'}}
 				</a>
 			</td>
 			<td>
-				<a ng-click="changeDirection(pin)" class="btn btn-{{ pin.direction ? 'success' : 'info'}}">
-					{{ pin.direction ? 'OUT' : 'IN'}}
+				<a ng-click="changeValue(pin)" class="btn btn-{{ pin.value ? 'success' : 'danger'}}">
+					{{ pin.value ? 'OFF' : 'ON' }}
 				</a>
 			</td>
 		</tr>

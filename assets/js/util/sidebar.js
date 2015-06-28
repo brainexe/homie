@@ -1,4 +1,4 @@
-
+// todo migrate to pure css
 $(function () {
     var width = window.innerWidth;
 

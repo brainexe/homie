@@ -2,6 +2,7 @@
 
 namespace Tests\Homie\Sensors;
 
+use BrainExe\Core\Authentication\Settings\Settings;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Espeak\EspeakEvent;
@@ -17,8 +18,6 @@ use Homie\Sensors\SensorValuesGateway;
 use Homie\Sensors\Chart;
 use Homie\Sensors\SensorBuilder;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 
 /**
  * @covers Homie\Sensors\Controller
@@ -61,6 +60,11 @@ class ControllerTest extends TestCase
      */
     private $voBuilder;
 
+    /**
+     * @var Settings|MockObject
+     */
+    private $settings;
+
     public function setUp()
     {
         $this->gateway       = $this->getMock(SensorGateway::class, [], [], '', false);
@@ -69,13 +73,15 @@ class ControllerTest extends TestCase
         $this->builder       = $this->getMock(SensorBuilder::class, [], [], '', false);
         $this->dispatcher    = $this->getMock(EventDispatcher::class, [], [], '', false);
         $this->voBuilder     = $this->getMock(Builder::class, [], [], '', false);
+        $this->settings      = $this->getMock(Settings::class, [], [], '', false);
 
         $this->subject = new Controller(
             $this->gateway,
             $this->valuesGateway,
             $this->chart,
             $this->builder,
-            $this->voBuilder
+            $this->voBuilder,
+            $this->settings
         );
         $this->subject->setEventDispatcher($this->dispatcher);
     }
@@ -90,9 +96,6 @@ class ControllerTest extends TestCase
 
         $request = new Request();
         $request->query->set('from', $from);
-
-        $session = new Session(new MockArraySessionStorage());
-        $request->setSession($session);
 
         $sensorsRaw = [
             [
@@ -180,9 +183,6 @@ class ControllerTest extends TestCase
 
         $request = new Request();
         $request->query->set('from', $from);
-
-        $session = new Session(new MockArraySessionStorage());
-        $request->setSession($session);
 
         $sensorsRaw = [
             [

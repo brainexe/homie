@@ -1,6 +1,10 @@
 
 App.service('BrowserNotification', ['$q', function($q) {
-    function request(callback) {
+    var TIMEOUT = 10000; // 10s
+    var notification,
+        timeout;
+
+    function request() {
         return $q(function(resolve, reject) {
             if (!("Notification" in window)) {
                 reject();
@@ -22,15 +26,27 @@ App.service('BrowserNotification', ['$q', function($q) {
         });
     }
 
+    function startTimer() {
+        timeout = window.setTimeout(function () {
+            timeout = null;
+            notification.close();
+            notification = null;
+        }, TIMEOUT);
+    }
     return {
         show: function(content) {
             request().then(function() {
-                var notification = new Notification(content, {
-                    icon: asset('favicon.ico')
-                });
-                window.setTimeout(function () {
-                    notification.close();
-                }, 10000);
+                if (false && notification) { // TODO extend existing?!
+                    // extend!
+                    window.clearTimeout(timeout);
+                    startTimer();
+                    notification.title += content;
+                } else {
+                    notification = new Notification(content, {
+                        icon: asset('favicon.ico')
+                    });
+                    startTimer()
+                }
             });
         }
     }

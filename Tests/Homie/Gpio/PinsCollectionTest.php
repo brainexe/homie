@@ -13,12 +13,23 @@ class PinsCollectionTest extends PHPUnit_Framework_TestCase
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Pin #10 does not exist
      */
-    public function testGetInvalidPin()
+    public function testGetInvalidPinWiring()
     {
         $pinId = 10;
 
         $pinCollection = new PinsCollection();
-        $pinCollection->get($pinId);
+        $pinCollection->getByWiringId($pinId);
+    }
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Pin #10 does not exist
+     */
+    public function testGetInvalidPinPysical()
+    {
+        $pinId = 10;
+
+        $pinCollection = new PinsCollection();
+        $pinCollection->getByPhysicalId($pinId);
     }
 
     public function testGetPin()
@@ -27,18 +38,18 @@ class PinsCollectionTest extends PHPUnit_Framework_TestCase
         $pinName = 'name';
 
         $pin = new Pin();
-        $pin->setID($pinId);
+        $pin->setWiringId($pinId);
         $pin->setName($pinName);
 
         $collection = new PinsCollection();
         $collection->add($pin);
 
-        $actualResult = $collection->get($pinId);
+        $actualResult = $collection->getByWiringId($pinId);
         $jsonResult = $pin->jsonSerialize();
 
         $this->assertEquals($pin, $actualResult);
         $this->assertInternalType('array', $jsonResult);
-        $this->assertEquals($pinId, $jsonResult['id']);
+        $this->assertEquals($pinId, $jsonResult['wiringId']);
         $this->assertEquals($pinName, $actualResult->getName());
         $this->assertEquals($pinName, $jsonResult['name']);
     }

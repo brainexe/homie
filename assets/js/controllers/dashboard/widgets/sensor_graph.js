@@ -1,4 +1,5 @@
 
+// todo width
 App.service('Widget.sensor_graph', ['Sensor', '_', function(Sensor, _) {
     return {
         interval: 60 * 5 * 1000,
@@ -29,8 +30,6 @@ App.service('Widget.sensor_graph', ['Sensor', '_', function(Sensor, _) {
                 var element = document.querySelector("#widget_" + widget.id + ' .chart_container');
                 $scope.graph = new Rickshaw.Graph({
                     element: element,
-                    width: 500,
-                    height: 150,
                     interpolation: 'basis',
                     min: 'auto',
                     renderer: 'line',

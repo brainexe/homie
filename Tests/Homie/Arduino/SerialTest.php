@@ -2,15 +2,13 @@
 
 namespace Tests\Homie\Arduino;
 
+use BrainExe\Core\Util\Glob;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Homie\Arduino\Serial;
 use Homie\Arduino\SerialEvent;
 use Homie\Client\ClientInterface;
 use RuntimeException;
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
-use Symfony\Component\Finder\Tests\Iterator\Iterator;
 
 /**
  * @covers Homie\Arduino\Serial
@@ -25,9 +23,9 @@ class SerialTest extends TestCase
     private $subject;
 
     /**
-     * @var Finder|MockObject
+     * @var Glob|MockObject
      */
-    private $finder;
+    private $glob;
 
     /**
      * @var ClientInterface|MockObject
@@ -36,9 +34,9 @@ class SerialTest extends TestCase
 
     public function setUp()
     {
-        $this->finder  = $this->getMock(Finder::class, [], [], '', false);
+        $this->glob  = $this->getMock(Glob::class, [], [], '', false);
         $this->client  = $this->getMock(ClientInterface::class, [], [], '', false);
-        $this->subject = new Serial($this->finder, $this->client, 'ttyACM*', 57600);
+        $this->subject = new Serial($this->glob, $this->client, '/dev/ttyACM*', 57600);
     }
 
     public function tearDown()
@@ -51,7 +49,7 @@ class SerialTest extends TestCase
 
     /**
      * @expectedException RuntimeException
-     * @expectedExceptionMessage No file found matching ttyACM*
+     * @expectedExceptionMessage No file found matching /dev/ttyACM*
      */
     public function testSendSerialNotFound()
     {
@@ -59,21 +57,11 @@ class SerialTest extends TestCase
         $pin    = 12;
         $value  = 2;
 
-        $result = new Iterator();
-
-        $this->finder
+        $this->glob
             ->expects($this->once())
-            ->method('in')
-            ->with('/dev')
-            ->willReturnSelf();
-        $this->finder
-            ->expects($this->once())
-            ->method('name')
-            ->willReturnSelf();
-        $this->finder
-            ->expects($this->once())
-            ->method('getIterator')
-            ->willReturn($result);
+            ->method('execGlob')
+            ->with('/dev/ttyACM*')
+            ->willReturn([]);
 
         $event = new SerialEvent($action, $pin, $value);
 
@@ -92,22 +80,11 @@ class SerialTest extends TestCase
 
         $file = __DIR__ . self::FILE;
 
-        $result = new Iterator();
-        $result->attach(new SplFileInfo($file, $file, $file));
-
-        $this->finder
+        $this->glob
             ->expects($this->once())
-            ->method('in')
-            ->with('/dev')
-            ->willReturnSelf();
-        $this->finder
-            ->expects($this->once())
-            ->method('name')
-            ->willReturnSelf();
-        $this->finder
-            ->expects($this->once())
-            ->method('getIterator')
-            ->willReturn($result);
+            ->method('execGlob')
+            ->with('/dev/ttyACM*')
+            ->willReturn([$file]);
 
         $this->client
             ->expects($this->once())

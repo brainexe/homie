@@ -26,10 +26,10 @@ class Webcam
     /**
      * @var Filesystem
      */
-    private $remoteFilesystem;
+    private $filesystem;
 
     /**
-     * @Inject({"@HomieClient", "@Filesystem", "%webcam.executable%"})
+     * @Inject({"@HomieClient", "@RemoteFilesystem", "%webcam.executable%"})
      * @param ClientInterface $client
      * @param Filesystem $fileUploader
      * @param string $command
@@ -39,9 +39,9 @@ class Webcam
         Filesystem $fileUploader,
         $command
     ) {
-        $this->client   = $client;
-        $this->remoteFilesystem = $fileUploader;
-        $this->command = $command;
+        $this->client     = $client;
+        $this->filesystem = $fileUploader;
+        $this->command    = $command;
     }
 
     /**
@@ -49,7 +49,7 @@ class Webcam
      */
     public function getPhotos()
     {
-        $files = $this->remoteFilesystem->listContents(self::ROOT, true);
+        $files = $this->filesystem->listContents(self::ROOT, true);
 
         $vos = [];
         foreach ($files as $file) {
@@ -79,7 +79,7 @@ class Webcam
         $event = new WebcamEvent($name, WebcamEvent::TOOK_PHOTO);
         $this->dispatchEvent($event);
 
-        $this->remoteFilesystem->writeStream(self::ROOT . basename($path), fopen($temp, 'r'));
+        $this->filesystem->writeStream(self::ROOT . basename($path), fopen($temp, 'r'));
 
         unlink($temp);
     }
@@ -89,7 +89,7 @@ class Webcam
      */
     public function delete($filename)
     {
-        $this->remoteFilesystem->delete($filename);
+        $this->filesystem->delete($filename);
     }
 
     /**

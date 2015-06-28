@@ -4,10 +4,9 @@ namespace Homie\Arduino;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Util\Glob;
 use Homie\Client\ClientInterface;
 use RuntimeException;
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
 
 /**
  * @Service("Arduino.Serial", public=false)
@@ -31,9 +30,9 @@ class Serial
     private $fileHandle;
 
     /**
-     * @var Finder
+     * @var Glob
      */
-    private $finder;
+    private $glob;
 
     /**
      * @var ClientInterface
@@ -41,14 +40,14 @@ class Serial
     private $client;
 
     /**
-     * @Inject({"@Finder", "@HomieClient", "%serial.port%", "%serial.baud%"})
-     * @param Finder $finder
+     * @Inject({"@Glob", "@HomieClient", "%serial.port%", "%serial.baud%"})
+     * @param Glob $glob
      * @param ClientInterface $client
      * @param string $serialPort
      * @param int $serialBaud
      */
     public function __construct(
-        Finder $finder,
+        Glob $glob,
         ClientInterface $client,
         $serialPort,
         $serialBaud
@@ -56,7 +55,7 @@ class Serial
         $this->serialBaud     = $serialBaud;
         $this->client         = $client;
         $this->serialPort     = $serialPort;
-        $this->finder         = $finder;
+        $this->glob           = $glob;
     }
 
     /**
@@ -80,22 +79,15 @@ class Serial
 
     private function initSerial()
     {
-        $iterator = $this
-            ->finder
-            ->in('/dev')
-            ->name($this->serialPort)
-            ->getIterator();
+        $files = $this->glob->execGlob($this->serialPort);
 
-        /** @var SplFileInfo $file */
-        $file = $iterator->current();
-
-        if (!$file instanceof SplFileInfo) {
+        if (!$files) {
             throw new RuntimeException(
                 sprintf("No file found matching %s", $this->serialPort)
             );
         }
 
-        $filename = $file->getPathname();
+        $filename = current($files);
 
         $command = sprintf(
             'sudo stty -F %s %d',

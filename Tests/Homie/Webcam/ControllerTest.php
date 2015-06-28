@@ -99,7 +99,7 @@ class ControllerTest extends TestCase
         $photoId = 12;
 
         $request = new Request();
-        $request->request->set('shotId', $photoId);
+        $request->query->set('shotId', $photoId);
 
         $this->webcam
             ->expects($this->once())

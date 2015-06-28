@@ -59,8 +59,8 @@ class GpioManager
 
         foreach ($pins->getAll() as $pin) {
             /** @var Pin $pin */
-            if (!empty($descriptions[$pin->getId()])) {
-                $pin->setDescription($descriptions[$pin->getId()]);
+            if (!empty($descriptions[$pin->getWiringId()])) {
+                $pin->setDescription($descriptions[$pin->getWiringId()]);
             }
         }
 
@@ -77,8 +77,8 @@ class GpioManager
     {
         $pin = $this->loader->loadPin($pinId);
 
-        $pin->setDirection($status ? Pin::DIRECTION_OUT : Pin::DIRECTION_IN);
-        $pin->setValue($value ? Pin::VALUE_HIGH : Pin::VALUE_LOW);
+        $pin->setMode($status ? Pin::DIRECTION_OUT : Pin::DIRECTION_IN);
+        $pin->setValue($value ? 1 : 0);
 
         $this->updatePin($pin);
 
@@ -99,18 +99,18 @@ class GpioManager
      */
     private function updatePin(Pin $pin)
     {
-        $pinValue = Pin::VALUE_HIGH == $pin->isHighValue() ? 1 : 0;
+        $pinValue = (bool)$pin->getValue();
 
         $command = sprintf(
             self::GPIO_COMMAND_DIRECTION,
-            $pin->getID(),
-            escapeshellarg($pin->getDirection())
+            $pin->getWiringId(),
+            escapeshellarg($pin->getMode())
         );
         $this->client->execute($command);
 
         $command = sprintf(
             self::GPIO_COMMAND_VALUE,
-            $pin->getID(),
+            $pin->getWiringId(),
             $pinValue
         );
         $this->client->execute($command);
