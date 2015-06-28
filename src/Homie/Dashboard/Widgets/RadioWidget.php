@@ -51,7 +51,8 @@ class RadioWidget extends AbstractWidget
                     'values' => $values,
                     'type'   => 'single_select'
                 ]
-            ]
+            ],
+            4
         );
     }
 }

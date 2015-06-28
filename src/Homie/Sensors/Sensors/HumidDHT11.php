@@ -28,7 +28,7 @@ class HumidDHT11 extends AbstractDHT11
             return null;
         }
 
-        return (double)$matches[2];
+        return round($matches[2], 1);
     }
 
     /**

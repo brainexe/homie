@@ -49,11 +49,21 @@
                         {{ sensor.interval }} minutes
                     </div>
                     <div ng-if="sensor.edit">
-                        <input type="number" min="1" max="86400" placeholder="Interval" ng-model="sensor.interval" />
+                        <input
+                                type="number"
+                                min="-1"
+                                max="86400"
+                                placeholder="Interval"
+                                ng-model="sensor.interval"
+                                />
                     </div>
-                </td>                <td>
-                    <small>
+                </td>
+                <td>
+                    <small ng-if="sensor.interval > 0">
                         {{ (sensor.lastValueTimestamp + sensor.interval * 60)| timeAgoShort}}
+                    <small>
+                    <small ng-if="sensor.interval <= 0" translate>
+                       disabled
                     <small>
                 </td>
                 <td>

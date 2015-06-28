@@ -138,6 +138,7 @@ module.exports = function (grunt) {
                     'bower_components/rickshaw/rickshaw.css',
                     'bower_components/allmighty-autocomplete/style/autocomplete.css',
                     'bower_components/ui-select/dist/select.min.css',
+                    //'bower_components/ng-sortable/dist/ng-sortable.style.min.css', // todo
                     'assets/css/**/*.css'
                 ],
                 dest: 'web/common.css',
@@ -200,6 +201,7 @@ module.exports = function (grunt) {
                         'bower_components/angular-gettext/dist/angular-gettext.min.js',
                         'bower_components/angular-sanitize/angular-sanitize.min.js',
                         'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+                        'bower_components/ng-sortable/dist/ng-sortable.min.js',
                         // 'bower_components/angular-local-storage/dist/angular-local-storage.min.js',
                         'bower_components/ui-select/dist/select.min.js',
                         'bower_components/allmighty-autocomplete/script/autocomplete.js',

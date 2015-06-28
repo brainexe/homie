@@ -21,7 +21,9 @@ class SpeakWidget extends AbstractWidget
         return new WidgetMetadataVo(
             $this->getId(),
             gettext('Speak'),
-            gettext('Speaks a given text.')
+            gettext('Speaks a given text.'),
+            [],
+            4
         );
     }
 }

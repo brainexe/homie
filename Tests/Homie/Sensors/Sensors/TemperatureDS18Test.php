@@ -155,7 +155,7 @@ class TemperatureDS18Test extends TestCase
             ['YES t=0', null],
             ['YES t=85000', null],
             ['YES t=70000', 70],
-            ['YES t=70001', 70.001],
+            ['YES t=70001', 70.0],
         ];
     }
 }

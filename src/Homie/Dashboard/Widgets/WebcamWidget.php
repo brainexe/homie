@@ -20,7 +20,9 @@ class WebcamWidget extends AbstractWidget
         return new WidgetMetadataVo(
             $this->getId(),
             gettext('Webcam'),
-            gettext('Take shots')
+            gettext('Take shots'),
+            [],
+            4
         );
     }
 }

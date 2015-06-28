@@ -63,7 +63,8 @@ class SensorWidget extends AbstractWidget
                     'values' => $sensors,
                     'type'   => 'single_select'
                 ]
-            ]
+            ],
+            4
         );
     }
 }

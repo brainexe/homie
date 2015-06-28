@@ -26,7 +26,7 @@ class TemperatureDHT11 extends AbstractDHT11
             return null;
         }
 
-        return (double)$matches[1];
+        return round($matches[1], 1);
     }
 
     /**

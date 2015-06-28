@@ -55,25 +55,32 @@
                 tooltip="Delete">
         </span>
     </div>
-	<div class="row">
-		<div class="col-xs-6" ng-repeat="widget in dashboard.widgets">
-			<div class="panel panel-default widget" ng-controller="WidgetController">
-				<div class="panel-heading" ng-click="widget.open = !widget.open">
-					{{ title }}
-					<span
-                            ng-if="editMode"
-                            ng-click="deleteWidget(dashboard.dashboardId, widget.id)"
-                            class="delete glyphicon glyphicon-remove cursor"
-                            tooltip="Delete"
-                            >
-                    </span>
-				</div>
-				<div class="panel-body widget_{{widget.type}}" id="widget_{{widget.id}}" ng-show="widget.open">
-                    <content-item widget="widget"></content-item>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="container-fluid">
+        <div class="row" as-sortable="dragControlListeners" ng-model="dashboard.widgets">
+            <div
+                    class="col-xs-{{metadata(widget.type, 'width')}} as-sortable-item"
+                    ng-repeat="widget in dashboard.widgets"
+                    as-sortable-item
+                    ng-click="widget.open = !widget.open"
+                    >
+                <div class="panel panel-default widget" ng-controller="WidgetController">
+                    <div class="panel-heading as-sortable-item-handle" as-sortable-item-handle>
+                        {{ title }}
+                        <span
+                                ng-if="editMode"
+                                ng-click="deleteWidget(dashboard.dashboardId, widget.id)"
+                                class="delete glyphicon glyphicon-remove cursor"
+                                tooltip="Delete"
+                                >
+                        </span>
+                    </div>
+                    <div class="panel-body widget_{{widget.type}}" id="widget_{{widget.id}}" ng-show="widget.open">
+                        <content-item widget="widget"></content-item>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div ng-if="editMode" class="panel panel-primary">

@@ -111,6 +111,10 @@ class Cron extends Command
             $lastRun  = $sensorVo->lastValueTimestamp;
             $delta    = $now - $lastRun;
 
+            if ($interval < 0) {
+                continue;
+            }
+
             if ($delta > $interval * 60 || $input->getOption('force')) {
                 $this->getValue($output, $sensorVo, $now);
             }

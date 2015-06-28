@@ -21,7 +21,9 @@ class TimeWidget extends AbstractWidget
         return new WidgetMetadataVo(
             $this->getId(),
             gettext('Time'),
-            gettext('Displays the current time')
+            gettext('Displays the current time'),
+            [],
+            4
         );
     }
 }

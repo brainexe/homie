@@ -10,6 +10,7 @@ var App = angular.module('homie', [
         'autocomplete',
         'ui.bootstrap',
         'ui.select',
+        'ui.sortable',
         'yaru22.angular-timeago',
         'gettext'
     ]).config(['$routeProvider', '$httpProvider', '$provide', function ($routeProvider, $httpProvider, $provide) {
