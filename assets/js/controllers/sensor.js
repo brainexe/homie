@@ -23,7 +23,7 @@ App.controller('SensorController', ['$scope', '$modal', 'Sensor', function ($sco
         var element = document.getElementById("chart");
         $scope.graph = new Rickshaw.Graph({
             element : element,
-            width   : element.offsetWidth - 25,
+            width   : element.offsetWidth - 50,
             interpolation: 'basis',
             height  : 500,
             min     : 'auto',

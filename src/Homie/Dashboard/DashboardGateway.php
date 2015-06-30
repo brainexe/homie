@@ -48,7 +48,6 @@ class DashboardGateway
 
         foreach ($widgetsRaw as $widgetRaw) {
             $widget = json_decode($widgetRaw, true);
-            $widget['open'] = true;
             $dashboard->widgets[] = $widget;
         }
 
@@ -66,7 +65,8 @@ class DashboardGateway
     public function addWidget($dashboardId, array $payload)
     {
         $newId = $this->generateRandomNumericId();
-        $payload['id'] = $newId;
+        $payload['id']   = $newId;
+        $payload['open'] = true;
 
         $this->updateWidget($dashboardId, $newId, $payload);
     }

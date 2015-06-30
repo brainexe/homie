@@ -1,7 +1,10 @@
 
-App.service('BrowserNotification', ['$q', function($q) {
-    var TIMEOUT = 10000; // 10s
-    var notification,
+App.service('BrowserNotification', ['$q', '_', function($q, _) {
+    var TIMEOUT = 10000;
+
+    var currentNotification,
+        currentContent,
+        notification,
         timeout;
 
     function request() {
@@ -26,27 +29,35 @@ App.service('BrowserNotification', ['$q', function($q) {
         });
     }
 
-    function startTimer() {
-        timeout = window.setTimeout(function () {
-            timeout = null;
+    var queue = [];
+
+    function show(content) {
+        var notification = new Notification(_('Homie'), {
+            body: content,
+            icon: asset('favicon.ico')
+        });
+        notification.$content = content;
+
+        setTimeout(function() {
             notification.close();
-            notification = null;
         }, TIMEOUT);
+
+        queue.push(notification);
     }
+
     return {
         show: function(content) {
             request().then(function() {
-                if (false && notification) { // TODO extend existing?!
-                    // extend!
-                    window.clearTimeout(timeout);
-                    startTimer();
-                    notification.title += content;
-                } else {
-                    notification = new Notification(content, {
-                        icon: asset('favicon.ico')
-                    });
-                    startTimer()
+                if (queue.length) {
+                    var notification;
+
+                    while(notification = queue.pop()) {
+                        content += "\n" + notification.$content;
+
+                        notification.close();
+                    }
                 }
+                show(content);
             });
         }
     }

@@ -61,8 +61,8 @@
                     class="col-xs-{{metadata(widget.type, 'width')}} as-sortable-item"
                     ng-repeat="widget in dashboard.widgets"
                     as-sortable-item
-                    ng-click="widget.open = !widget.open"
-                    >
+                    ng-click="toggleWidget(widget, dashboard)"
+            >
                 <div class="panel panel-default widget" ng-controller="WidgetController">
                     <div class="panel-heading as-sortable-item-handle" as-sortable-item-handle>
                         {{ title }}

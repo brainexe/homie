@@ -81,16 +81,17 @@ class ControllerTest extends TestCase
     public function testUpdateDashboard()
     {
         $dashboardId = 1212;
-        $payload     = ['payload'];
         $dashboard   = 'dashboard';
 
         $request = new Request();
-        $request->request->set('payload', $payload);
+        $request->request->set('foo', 'bar');
 
         $this->dashboard
             ->expects($this->once())
             ->method('updateDashboard')
-            ->with($dashboardId, $payload)
+            ->with($dashboardId, [
+                'foo' => 'bar'
+            ])
             ->willReturn($dashboard);
 
         $actualResult = $this->subject->updateDashboard($request, $dashboardId);
@@ -127,7 +128,6 @@ class ControllerTest extends TestCase
     public function testDelete()
     {
         $dashboardId = 12;
-
         $request = new Request();
 
         $this->dashboard
@@ -144,27 +144,19 @@ class ControllerTest extends TestCase
     {
         $dashboardId = 100;
         $widgetId    = 222;
-        $payload     = ['payload'];
-        $dashboard   = ['dashboard'];
 
         $request = new Request();
-        $request->request->set('dashboardId', $dashboardId);
-        $request->request->set('widget_id', $widgetId);
-        $request->request->set('payload', $payload);
+        $request->request->set('foo', 'bar');
 
         $this->dashboard
             ->expects($this->once())
             ->method('updateWidget')
-            ->with($dashboardId, $widgetId, $payload);
+            ->with($dashboardId, $widgetId, [
+                'foo' => 'bar'
+            ]);
 
-        $this->dashboard
-            ->expects($this->once())
-            ->method('getDashboard')
-            ->with($dashboardId)
-            ->willReturn($dashboard);
+        $actual = $this->subject->updateWidget($request, $dashboardId, $widgetId);
 
-        $actualResult = $this->subject->updateWidget($request);
-
-        $this->assertEquals($dashboard, $actualResult);
+        $this->assertTrue($actual);
     }
 }

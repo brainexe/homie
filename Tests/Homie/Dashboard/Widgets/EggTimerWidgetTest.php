@@ -40,7 +40,7 @@ class EggTimerWidgetTest extends TestCase
 
         $actualResult = json_encode($this->subject);
 
-        $expectedResult = '{"name":"Egg Timer","description":"Simple egg timer","parameters":[],"widgetId":"egg_timer"}';
+        $expectedResult = '{"name":"Egg Timer","description":"Simple egg timer","parameters":[],"widgetId":"egg_timer","width":4}';
         $this->assertEquals($expectedResult, $actualResult);
     }
 }

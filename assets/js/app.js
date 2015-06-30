@@ -34,7 +34,6 @@ var App = angular.module('homie', [
         // show error messages as flash
         $httpProvider.defaults.transformResponse.push(function(response, headers, code) {
         if (headers('X-Flash-Type')) {
-            console.log(response);
             $rootScope.$broadcast('flash', [headers('X-Flash-Message'), headers('X-Flash-Type')]);
         }
 

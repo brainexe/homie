@@ -2,26 +2,43 @@
 App.controller('DashboardController', ['$scope', '$modal', 'Dashboard', 'WidgetFactory', function($scope, $modal, Dashboard, WidgetFactory) {
     $scope.editMode = false;
 
+    function selectDashboard(dashboard) {
+        var order = [];
+
+        if (dashboard.order) {
+            order = dashboard.order.split(',').map(function(id) {
+                return ~~id;
+            });
+        }
+
+        dashboard.widgets.sort(function(a, b) {
+            var index_a = order.indexOf(a.id);
+            var index_b = order.indexOf(b.id);
+            return index_a > index_b;
+        });
+        $scope.dashboard = dashboard;
+    }
+
     Dashboard.getData().success(function (data) {
         var selectedId = Object.keys(data.dashboards)[0];
 
         $scope.dashboards = data.dashboards;
-        $scope.widgets = data.widgets;
+        $scope.widgets    = data.widgets;
 
         if (selectedId) {
-            $scope.dashboard = data.dashboards[selectedId]
+            selectDashboard(data.dashboards[selectedId]);
         }
     });
 
     $scope.dragControlListeners = {
-        //accept: function (sourceItemHandleScope, destSortableScope) {
-        //    return true;
-        //},
-        //itemMoved: function (event) {
-        //},
-        //orderChanged: function (event) {
-        //},
-        containment: '#sortable-container'
+        orderChanged: function (event) {
+            var order = [];
+            var items = event.dest.sortableScope.modelValue;
+            for (var idx in items) {
+                order.push(items[idx].id);
+            }
+            Dashboard.saveOrder($scope.dashboard.dashboardId, order);
+        }
     };
 
     $scope.metadata = function(type, key) {
@@ -38,8 +55,13 @@ App.controller('DashboardController', ['$scope', '$modal', 'Dashboard', 'WidgetF
         return null;
     };
 
+	$scope.toggleWidget = function(widget, dashboard) {
+        var open = widget.open = !widget.open;
+        Dashboard.updateWidget(dashboard.dashboardId, widget);
+    };
+
 	$scope.selectDashboard = function(dashboard) {
-        $scope.dashboard = $scope.dashboards[dashboard.dashboardId];
+        selectDashboard($scope.dashboards[dashboard.dashboardId]);
     };
 
     $scope.openModal = function(dashboards) {
@@ -68,7 +90,7 @@ App.controller('DashboardController', ['$scope', '$modal', 'Dashboard', 'WidgetF
 
     $scope.saveDashboard = function(dashboard) {
         Dashboard.saveDashboard(dashboard).success(function(data) {
-            $scope.dashboard = data;
+            selectDashboard(data);
         });
     };
 
@@ -78,7 +100,7 @@ App.controller('DashboardController', ['$scope', '$modal', 'Dashboard', 'WidgetF
 	 */
 	$scope.deleteWidget = function(dashboardId, widgetId) {
 		Dashboard.deleteWidget(dashboardId, widgetId).success(function(data) {
-            $scope.dashboard = data;
+            selectDashboard(data); // todo what to show?
 		});
 
 		return false;

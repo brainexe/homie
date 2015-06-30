@@ -76,7 +76,6 @@ class DashboardGatewayTest extends TestCase
         $dashboard = new DashboardVo();
 
         $widget = [];
-        $widget['open']    = true;
         $widget['payload'] = 'payload';
 
         $dashboard->widgets     = [$widget];
@@ -125,7 +124,6 @@ class DashboardGatewayTest extends TestCase
         $dashboard = new DashboardVo();
 
         $widget = [];
-        $widget['open']    = true;
         $widget['payload'] = 'payload';
 
         $dashboard->widgets = [$widget];
@@ -144,6 +142,7 @@ class DashboardGatewayTest extends TestCase
         $payload         = [];
         $payload['type'] = $type;
         $payload['id']   = $newId;
+        $payload['open'] = true;
 
         $this->idGenerator
             ->expects($this->once())

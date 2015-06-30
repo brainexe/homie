@@ -59,31 +59,30 @@ class Controller
     /**
      * @param Request $request
      * @param int $dashboardId
+     * @return DashboardVo
      * @Route("/dashboard/{dashboardId}/", methods="PUT", name="dashboard.update")
-     * @return array
      */
     public function updateDashboard(Request $request, $dashboardId)
     {
-        $payload = (array)$request->request->get('payload');
+        $payload = (array)$request->request->all();
 
         return $this->dashboard->updateDashboard($dashboardId, $payload);
     }
 
     /**
      * @param Request $request
-     * @return array
-     *
-     * @Route("/dashboard/widget/", methods="POST", name="dashboard.widget.update", methods="PUT")
+     * @return bool
+     * @param int $dashboardId
+     * @param int $widgetId
+     * @Route("/dashboard/widget/{dashboardId}/{widgetId}/", name="dashboard.widget.update", methods="PUT")
      */
-    public function updateWidget(Request $request)
+    public function updateWidget(Request $request, $dashboardId, $widgetId)
     {
-        $dashboardId = $request->request->getAlnum('dashboardId');
-        $widgetId    = $request->request->get('widget_id');
-        $payload     = (array)$request->request->get('payload');
+        $payload = $request->request->all();
 
         $this->dashboard->updateWidget($dashboardId, $widgetId, $payload);
 
-        return $this->dashboard->getDashboard($dashboardId);
+        return true;
     }
 
     /**
@@ -91,7 +90,7 @@ class Controller
      * @param int $dashboardId
      * @param int $widgetId
      * @Route("/dashboard/{dashboardId}/{widgetId}/", methods="DELETE", name="dashboard.widget.delete")
-     * @return array
+     * @return DashboardVo
      */
     public function deleteWidget(Request $request, $dashboardId, $widgetId)
     {
@@ -99,9 +98,7 @@ class Controller
 
         $this->dashboard->deleteWidget($dashboardId, $widgetId);
 
-        $dashboard = $this->dashboard->getDashboard($dashboardId);
-
-        return $dashboard;
+        return $this->dashboard->getDashboard($dashboardId);
     }
 
     /**

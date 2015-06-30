@@ -1,6 +1,6 @@
 
 App.controller('StatusController', ['$scope', 'Status', function ($scope, Status) {
-    var REFRESH_INTERVAL = 5000;
+    var REFRESH_INTERVAL = 15000;
 
     $scope.stats   = {};
     $scope.jobs    = {};
@@ -20,7 +20,7 @@ App.controller('StatusController', ['$scope', 'Status', function ($scope, Status
 
     $scope.resetStats = function (key) {
        Status.reset(key).success(function () {
-            $scope.stats[key] = 0;
+            delete $scope.stats[key];
         });
     };
 
