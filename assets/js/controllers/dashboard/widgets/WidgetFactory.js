@@ -6,7 +6,8 @@ App.service('WidgetFactory', [
     'Widget.radio',
     'Widget.sensor',
     'Widget.sensor_graph',
-    function(TimeWidget, SpeakWidget, EggTimerWidget, RadioWidget, SensorWidget, SensorGraphWidget) {
+    'Widget.status',
+    function(TimeWidget, SpeakWidget, EggTimerWidget, RadioWidget, SensorWidget, SensorGraphWidget, StatusWidget) {
         return function(type) {
             switch (type) {
                 case 'time':
@@ -21,6 +22,8 @@ App.service('WidgetFactory', [
                     return SensorWidget;
                 case 'sensor_graph':
                     return SensorGraphWidget;
+                case 'status':
+                    return StatusWidget;
             }
         };
     }

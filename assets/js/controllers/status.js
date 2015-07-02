@@ -4,11 +4,13 @@ App.controller('StatusController', ['$scope', 'Status', function ($scope, Status
 
     $scope.stats   = {};
     $scope.jobs    = {};
+    $scope.redisSections = {};
 
     $scope.update = function () {
         Status.getData().success(function (data) {
             $scope.stats = data.stats;
             $scope.jobs  = data.jobs;
+            $scope.redis = data.redis;
         });
     };
 
