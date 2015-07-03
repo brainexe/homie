@@ -27,11 +27,6 @@ class CleanCron extends Command
     private $gateway;
 
     /**
-     * @var array
-     */
-    private $deleteSensorValues;
-
-    /**
      * {@inheritdoc}
      */
     protected function configure()
@@ -42,18 +37,15 @@ class CleanCron extends Command
     }
 
     /**
-     * @Inject({"@SensorValuesGateway", "@SensorGateway", "%delete_sensor_values%"})
+     * @Inject({"@SensorValuesGateway", "@SensorGateway"})
      * @param SensorValuesGateway $valuesGateway
      * @param SensorGateway $gateway
-     * @param integer[] $deleteValues
      */
     public function __construct(
         SensorValuesGateway $valuesGateway,
-        SensorGateway $gateway,
-        $deleteValues
+        SensorGateway $gateway
     ) {
         $this->valuesGateway      = $valuesGateway;
-        $this->deleteSensorValues = $deleteValues;
         $this->gateway            = $gateway;
 
         parent::__construct();
@@ -79,15 +71,7 @@ class CleanCron extends Command
      */
     private function deleteOldValues(OutputInterface $output, $sensorId)
     {
-        $deletedRows = 0;
-
-        foreach ($this->deleteSensorValues as $delete) {
-            $deletedRows += $this->valuesGateway->deleteOldValues(
-                $sensorId,
-                $delete['days'],
-                $delete['percentage']
-            );
-        }
+        $deletedRows = $this->valuesGateway->deleteOldValues($sensorId);
 
         $output->writeln(
             sprintf(

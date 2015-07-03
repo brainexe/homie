@@ -2,7 +2,7 @@
 
 namespace Tests\Homie\Sensors\Command;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\Command\CleanCron;
 use Homie\Sensors\SensorValuesGateway;
@@ -13,7 +13,7 @@ use Symfony\Component\Console\Tester\CommandTester;
 /**
  * @covers Homie\Sensors\Command\CleanCron
  */
-class CleanCronTest extends PHPUnit_Framework_TestCase
+class CleanCronTest extends TestCase
 {
 
     /**
@@ -31,11 +31,6 @@ class CleanCronTest extends PHPUnit_Framework_TestCase
      */
     private $gateway;
 
-    /**
-     * @var array
-     */
-    private $deleteSensorValues = [];
-
     public function setUp()
     {
         $this->valuesGateway = $this->getMock(SensorValuesGateway::class, [], [], '', false);
@@ -43,17 +38,7 @@ class CleanCronTest extends PHPUnit_Framework_TestCase
 
         $this->subject = new CleanCron(
             $this->valuesGateway,
-            $this->gateway,
-            $this->deleteSensorValues = [
-                [
-                    'days'       => 7,
-                    'percentage' => 10,
-                ],
-                [
-                    'days'       => 10,
-                    'percentage' => 80,
-                ]
-            ]
+            $this->gateway
         );
     }
 
@@ -76,19 +61,13 @@ class CleanCronTest extends PHPUnit_Framework_TestCase
         $this->valuesGateway
             ->expects($this->at(0))
             ->method('deleteOldValues')
-            ->with($sensorId, 7, 10)
+            ->with($sensorId)
             ->willReturn(5);
-
-        $this->valuesGateway
-            ->expects($this->at(1))
-            ->method('deleteOldValues')
-            ->with($sensorId, 10, 80)
-            ->willReturn(8);
 
         $commandTester->execute([]);
 
         $output = $commandTester->getDisplay();
 
-        $this->assertEquals("sensor #10, deleted 13 rows\ndone\n", $output);
+        $this->assertEquals("sensor #10, deleted 5 rows\ndone\n", $output);
     }
 }

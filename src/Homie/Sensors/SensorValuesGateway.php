@@ -65,28 +65,27 @@ class SensorValuesGateway
 
     /**
      * @param integer $sensorId
-     * @param integer $days
-     * @param integer $deletedPercent
      * @return integer $deleted_rows
      */
-    public function deleteOldValues($sensorId, $days, $deletedPercent)
+    public function deleteOldValues($sensorId)
     {
-        $deleted = 0;
-
         $redis = $this->getRedis();
 
-        $untilTimestamp = $this->now() - $days * 86400;
+        $untilTimestamp = $this->now() - 86400;
         $key            = $this->getKey($sensorId);
-        $oldValues      = $redis->ZRANGEBYSCORE($key, 0, $untilTimestamp);
+        $oldValues      = $redis->ZRANGEBYSCORE($key, 0, $untilTimestamp, ['withscores' => true]);
 
-        foreach ($oldValues as $result) {
-            $crc32 = crc32(md5($result));
-
-            if ($crc32 % 100 < $deletedPercent) {
-                $redis->ZREM($key, $result);
+        $deleted       = 0;
+        $lastTimestamp = 0;
+        foreach ($oldValues as $score => $timestamp) {
+            if ($lastTimestamp + (60 * 30) > $timestamp) {
+                $redis->ZREM($key, $score);
 
                 $deleted += 1;
+                continue;
             }
+
+            $lastTimestamp = $timestamp;
         }
 
         return $deleted;

@@ -49,7 +49,7 @@ class TemperatureOnBoardTest extends TestCase
 
     public function testGetValue()
     {
-        $value     = 12200;
+        $value     = 12201;
         $parameter = 'mockParameter';
 
         $this->fileSystem

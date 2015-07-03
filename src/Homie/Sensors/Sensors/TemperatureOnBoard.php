@@ -47,7 +47,7 @@ class TemperatureOnBoard extends AbstractSensor implements Searchable
     {
         $content = $this->fileSystem->fileGetContents($parameter);
 
-        return round($content / 1000, 1);
+        return $this->round($content / 1000, 0.05);
     }
 
     /**

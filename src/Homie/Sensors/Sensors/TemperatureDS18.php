@@ -69,7 +69,7 @@ class TemperatureDS18 extends AbstractSensor implements Searchable
             return null;
         }
 
-        return round($temperature, 1);
+        return $this->round($temperature, 0.05);
     }
 
     /**

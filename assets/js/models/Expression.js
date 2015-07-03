@@ -13,8 +13,8 @@ App.service('Expression', ['$http', function($http) {
             return  $http.delete('/expressions/', {expressionId:expressionId});
         },
 
-        addTimer: function(timer) {
-            return $http.post('/expressions/timer/', timer);
+        addCron: function(cron) {
+            return $http.post('/expressions/cron/', cron);
         }
     }
 }]);

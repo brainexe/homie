@@ -38,7 +38,7 @@ class SensorGraphWidget extends AbstractWidget
     public function create(array $payload)
     {
         if (empty($payload['sensor_ids'])) {
-            throw new UserException("No sensor_id passed");
+            throw new UserException("No sensor_ids passed");
         }
 
         $validSensorIds = $this->gateway->getSensorIds();

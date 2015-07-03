@@ -25,4 +25,14 @@ abstract class AbstractSensor implements Sensor
     {
         return $this->getDefinition();
     }
+
+    /**
+     * @param float $value
+     * @param int $multiplier
+     * @return float
+     */
+    protected function round($value, $multiplier = 1)
+    {
+        return (int)($value / $multiplier) * $multiplier;
+    }
 }

@@ -113,9 +113,7 @@ class SensorValuesGatewayTest extends TestCase
     public function testDeleteOldValues()
     {
         $sensorId = 10;
-        $days = 1;
-        $now = 86410;
-        $deletedPercent = 80;
+        $now      = 86410;
 
         $this->time
             ->expects($this->once())
@@ -123,28 +121,24 @@ class SensorValuesGatewayTest extends TestCase
             ->willReturn($now);
 
         $oldValues = [
-            "701-100",
-            "702-101",
+            "701-100" => 10000,
+            "702-101" => 10001,
+            "702-103" => 2330000,
         ];
 
         $this->redis
-            ->expects($this->at(0))
+            ->expects($this->once())
             ->method('ZRANGEBYSCORE')
-            ->with("sensor_values:$sensorId", 0, 10)
+            ->with("sensor_values:$sensorId", 0, $now - 86400, ['withscores' => true])
             ->willReturn($oldValues);
 
         $this->redis
-            ->expects($this->at(1))
-            ->method('ZREM')
-            ->with("sensor_values:$sensorId", "701-100");
-
-        $this->redis
-            ->expects($this->at(2))
+            ->expects($this->once())
             ->method('ZREM')
             ->with("sensor_values:$sensorId", "702-101");
 
-        $actualResult = $this->subject->deleteOldValues($sensorId, $days, $deletedPercent);
+        $actual = $this->subject->deleteOldValues($sensorId);
 
-        $this->assertEquals(2, $actualResult);
+        $this->assertEquals(1, $actual);
     }
 }

@@ -4,7 +4,7 @@ App.controller('ExpressionController', ['$scope', 'Expression', function ($scope
 	$scope.expressions    = {};
     $scope.editExpression = {actions:['']};
     $scope.eventNames     = [];
-    $scope.timers         = [];
+    $scope.crons          = [];
 
     $scope.suggestionsCondition = [];
     $scope.suggestionsActions   = [];
@@ -14,9 +14,9 @@ App.controller('ExpressionController', ['$scope', 'Expression', function ($scope
             $scope.input_control.map(function(regexp) {
                 return 'input("' + regexp.substr(2, regexp.length - 4) + '")';
             }),
-            Object.keys($scope.timers).map(function(key) {
-                var timer = $scope.timers[key];
-                return 'isTiming("' + timer.event.event.timingId + '")';
+            Object.keys($scope.crons).map(function(key) {
+                var cron = $scope.crons[key];
+                return 'isCron("' + cron.event.event.cronId + '")';
             })
         );
     };
@@ -37,7 +37,7 @@ App.controller('ExpressionController', ['$scope', 'Expression', function ($scope
 		$scope.expressions   = data.expressions;
 		$scope.input_control = data.input_control;
 		$scope.eventNames    = data.events;
-		$scope.timers        = data.timers;
+		$scope.crons         = data.crons;
 	});
 
     $scope.save = function(expression) {
@@ -67,13 +67,13 @@ App.controller('ExpressionController', ['$scope', 'Expression', function ($scope
         }
     };
 
-    $scope.addTimer = function(timer) {
-        Expression.addTimer(timer).success(function(data) {
-            $scope.timers = data.timers;
+    $scope.addCron = function(cron) {
+        Expression.addCron(cron).success(function(data) {
+            $scope.crons = data.crons;
         });
     };
 
-    $scope.deleteTimer = function(eventId) {
+    $scope.deleteCron = function(eventId) {
         // TODO
     };
 }]);
