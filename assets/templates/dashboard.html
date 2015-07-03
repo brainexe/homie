@@ -25,9 +25,14 @@
                         {{ tmp_dashboard.name }}
                     </a>
                 </li>
-                <li class="btn-group active">
-                    <a ng-click="openModal(dashboards)" tooltip="New Dashboard">
+                <li class="btn-group">
+                    <a ng-click="openModal(dashboards, dashboard)" tooltip="{{'New Widget'|translate}}">
                         <span class="glyphicon glyphicon-plus cursor"></span>
+                    </a>
+                </li>
+                <li class="btn-group">
+                    <a ng-click="editMode = !editMode" tooltip="{{'Edit'|translate}}">
+                        <span class="glyphicon glyphicon-edit cursor"></span>
                     </a>
                 </li>
             </ul>
@@ -61,10 +66,13 @@
                     class="col-xs-{{metadata(widget.type, 'width')}} as-sortable-item"
                     ng-repeat="widget in dashboard.widgets"
                     as-sortable-item
-                    ng-click="toggleWidget(widget, dashboard)"
             >
                 <div class="panel panel-default widget" ng-controller="WidgetController">
-                    <div class="panel-heading as-sortable-item-handle" as-sortable-item-handle>
+                    <div
+                            class="panel-heading as-sortable-item-handle"
+                            as-sortable-item-handle
+                            ng-click="toggleWidget(widget, dashboard)"
+                    >
                         {{ title }}
                         <span
                                 ng-if="editMode"
@@ -82,10 +90,3 @@
         </div>
     </div>
 </div>
-
-<div ng-if="editMode" class="panel panel-primary">
-    <div class="panel-heading" ng-click="openModal(dashboards, dashboard)" translate>Add Widget</div>
-</div>
-
-<button class="btn btn-primary" ng-click="editMode = !editMode" translate>Edit Mode</button>
-

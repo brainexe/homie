@@ -47,7 +47,9 @@ class SensorValuesGateway
     {
         $now = $this->now();
 
-        if ($from) {
+        if ($from === -1) {
+            $from = 0;
+        } elseif ($from) {
             $from = $now - $from;
         }
 

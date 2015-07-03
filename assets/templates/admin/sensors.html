@@ -62,7 +62,7 @@
                     <small ng-if="sensor.interval > 0">
                         {{ (sensor.lastValueTimestamp + sensor.interval * 60)| timeAgoShort}}
                     <small>
-                    <small ng-if="sensor.interval <= 0" translate>
+                    <small ng-if="sensor.interval <= 0">
                        disabled
                     <small>
                 </td>

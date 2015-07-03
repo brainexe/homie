@@ -141,10 +141,10 @@ class Controller
             // todo not needed
             'availableSensors' => $sensorObjects,
             'fromIntervals' => [
-                0 => _('All'),
-                3600 => _('Last Hour'),
-                86400 => _('Last Day'),
-                86400 * 7 => _('Last Week'),
+                -1         => _('All'),
+                3600       => _('Last Hour'),
+                86400      => _('Last Day'),
+                86400 * 7  => _('Last Week'),
                 86400 * 30 => _('Last Month')
             ]
         ];

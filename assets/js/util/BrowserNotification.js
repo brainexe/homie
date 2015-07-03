@@ -29,7 +29,7 @@ App.service('BrowserNotification', ['$q', '_', function($q, _) {
         });
     }
 
-    var queue = [];
+    var openNotifications = [];
 
     function show(content) {
         var notification = new Notification(_('Homie'), {
@@ -42,22 +42,40 @@ App.service('BrowserNotification', ['$q', '_', function($q, _) {
             notification.close();
         }, TIMEOUT);
 
-        queue.push(notification);
+        openNotifications.push(notification);
     }
+
+    var contentQueue = [];
 
     return {
         show: function(content) {
             request().then(function() {
-                if (queue.length) {
-                    var notification;
-
-                    while(notification = queue.pop()) {
-                        content += "\n" + notification.$content;
-
-                        notification.close();
+                window.setTimeout(function() {
+                    console.log('show!');
+                    if (contentQueue.length == 0) {
+                        // content already shown
+                        return;
                     }
+
+                    // close all other open notification and replace by extended one
+                    if (openNotifications.length) {
+                        console.log('close');
+                        var notification;
+
+                        while(notification = openNotifications.pop()) {
+                            if (notification.$content) {
+                                contentQueue.push(notification.$content);
+                                notification.$content = '';
+                            }
+                            notification.close();
+                        }
+                    }
+                    show(contentQueue.join("\n"));
+                    contentQueue = [];
+                }, 3000);
+                if (contentQueue) {
+                    contentQueue.push(content);
                 }
-                show(content);
             });
         }
     }

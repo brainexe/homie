@@ -164,10 +164,10 @@ class ControllerTest extends TestCase
             'currentFrom' => $from,
             'availableSensors' => $sensorsObj,
             'fromIntervals' => [
-                0 => 'All',
-                3600 => 'Last Hour',
-                86400 => 'Last Day',
-                86400 * 7 => 'Last Week',
+                -1         => 'All',
+                3600       => 'Last Hour',
+                86400      => 'Last Day',
+                86400 * 7  => 'Last Week',
                 86400 * 30 => 'Last Month'
             ]
         ];
@@ -228,10 +228,10 @@ class ControllerTest extends TestCase
             'currentFrom' => Chart::DEFAULT_TIME,
             'availableSensors' => $sensorsObj,
             'fromIntervals' => [
-                0 => 'All',
-                3600 => 'Last Hour',
-                86400 => 'Last Day',
-                86400 * 7 => 'Last Week',
+                -1         => 'All',
+                3600       => 'Last Hour',
+                86400      => 'Last Day',
+                86400 * 7  => 'Last Week',
                 86400 * 30 => 'Last Month'
             ]
         ];

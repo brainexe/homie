@@ -19,7 +19,7 @@ msgid "Actions"
 msgstr ""
 
 #. add radio
-#: assets/templates/expression.html:146
+#: assets/templates/expression.html:137
 #: assets/templates/new_sensor.html:17
 #: assets/templates/radio.html:123
 #: assets/templates/radio.html:206
@@ -44,7 +44,6 @@ msgstr ""
 msgid "Add Task"
 msgstr ""
 
-#: assets/templates/dashboard.html:81
 #: assets/templates/widgets/new.html:9
 msgid "Add Widget"
 msgstr ""
@@ -70,7 +69,7 @@ msgstr ""
 msgid "Change Password"
 msgstr ""
 
-#: assets/templates/admin/sensors.html:67
+#: assets/templates/admin/sensors.html:77
 msgid "Close"
 msgstr ""
 
@@ -97,6 +96,10 @@ msgstr ""
 msgid "Counter"
 msgstr ""
 
+#: assets/templates/expression.html:96
+msgid "Cron-ID"
+msgstr ""
+
 #: assets/js/controllers/dashboard/widgets/time.js:4
 msgid "Current Time"
 msgstr ""
@@ -106,7 +109,7 @@ msgstr ""
 msgid "Dashboard"
 msgstr ""
 
-#: assets/templates/status.html:23
+#: assets/templates/status.html:24
 msgid "Date"
 msgstr ""
 
@@ -120,7 +123,7 @@ msgstr ""
 #: assets/templates/expression.html:99
 #: assets/templates/radio.html:50
 #: assets/templates/radio.html:8
-#: assets/templates/status.html:24
+#: assets/templates/status.html:25
 msgid "Delete"
 msgstr ""
 
@@ -132,10 +135,6 @@ msgstr ""
 #: assets/templates/radio.html:162
 #: assets/templates/todo.html:16
 msgid "Description"
-msgstr ""
-
-#: assets/templates/gpio.html:8
-msgid "Direction"
 msgstr ""
 
 #: assets/templates/radio.html:6
@@ -151,12 +150,12 @@ msgid "Drag Here to Delete"
 msgstr ""
 
 #: assets/templates/admin/sensors.html:23
+#: assets/templates/dashboard.html:34
 #: assets/templates/sensor.html:29
 msgid "Edit"
 msgstr ""
 
-#: assets/templates/dashboard.html:84
-#: assets/templates/gpio.html:35
+#: assets/templates/gpio.html:49
 #: assets/templates/radio.html:40
 msgid "Edit Mode"
 msgstr ""
@@ -179,11 +178,13 @@ msgstr ""
 msgid "Enable"
 msgstr ""
 
-#: assets/templates/status.html:21
+#: assets/templates/status.html:22
 msgid "Event-ID"
 msgstr ""
 
+#: assets/templates/expression.html:127
 #: assets/templates/expression.html:3
+#: assets/templates/expression.html:98
 msgid "Expression"
 msgstr ""
 
@@ -205,6 +206,7 @@ msgstr ""
 
 #: assets/index.html:16
 #: assets/index.html:7
+#: assets/js/util/BrowserNotification.js:35
 msgid "Homie"
 msgstr ""
 
@@ -213,12 +215,11 @@ msgid "Id"
 msgstr ""
 
 #: assets/templates/admin/sensors.html:21
-#: assets/templates/expression.html:136
-#: assets/templates/expression.html:98
 msgid "Interval"
 msgstr ""
 
 #: assets/templates/status.html:4
+#: assets/templates/status.html:57
 msgid "Key"
 msgstr ""
 
@@ -230,10 +231,18 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
+#: assets/templates/status.html:18
+msgid "Message-Queue"
+msgstr ""
+
+#: assets/templates/gpio.html:20
+msgid "Mode"
+msgstr ""
+
 #: assets/templates/admin/sensors.html:19
 #: assets/templates/admin/users.html:5
-#: assets/templates/dashboard.html:42
-#: assets/templates/gpio.html:6
+#: assets/templates/dashboard.html:47
+#: assets/templates/gpio.html:16
 #: assets/templates/radio.html:146
 #: assets/templates/radio.html:151
 #: assets/templates/radio.html:4
@@ -242,6 +251,10 @@ msgstr ""
 
 #: assets/templates/widgets/new.html:20
 msgid "New Dashboard"
+msgstr ""
+
+#: assets/templates/dashboard.html:29
+msgid "New Widget"
 msgstr ""
 
 #: assets/templates/expression.html:97
@@ -302,6 +315,10 @@ msgstr ""
 msgid "Radio"
 msgstr ""
 
+#: assets/templates/status.html:49
+msgid "Redis Stats"
+msgstr ""
+
 #: assets/js/models/Controllers.js:24
 #: assets/templates/user/register.html:18
 #: assets/templates/user/register.html:2
@@ -330,7 +347,7 @@ msgstr ""
 msgid "Roles"
 msgstr ""
 
-#: assets/templates/dashboard.html:49
+#: assets/templates/dashboard.html:54
 #: assets/templates/expression.html:43
 #: assets/templates/help.html:19
 #: assets/templates/help.html:8
@@ -350,7 +367,7 @@ msgstr ""
 msgid "Send Token via Mail"
 msgstr ""
 
-#: assets/js/controllers/dashboard/widgets/sensor_graph.js:17
+#: assets/js/controllers/dashboard/widgets/sensor_graph.js:18
 #: assets/js/models/Controllers.js:7
 #: assets/templates/admin/sensors.html:12
 msgid "Sensors"
@@ -387,10 +404,7 @@ msgstr ""
 msgid "Speed"
 msgstr ""
 
-#: assets/templates/expression.html:127
-msgid "Start Time"
-msgstr ""
-
+#: assets/js/controllers/dashboard/widgets/status.js:12
 #: assets/js/models/Controllers.js:17
 #: assets/templates/radio.html:111
 #: assets/templates/radio.html:49
@@ -437,11 +451,6 @@ msgstr ""
 msgid "Timespan"
 msgstr ""
 
-#: assets/templates/expression.html:119
-#: assets/templates/expression.html:96
-msgid "Timing-ID"
-msgstr ""
-
 #: assets/templates/todo.html:10
 msgid "Title"
 msgstr ""
@@ -471,7 +480,7 @@ msgstr ""
 #: assets/templates/admin/sensors.html:18
 #: assets/templates/help.html:6
 #: assets/templates/new_sensor.html:10
-#: assets/templates/status.html:22
+#: assets/templates/status.html:23
 #: assets/templates/widgets/new.html:26
 msgid "Type"
 msgstr ""
@@ -494,8 +503,9 @@ msgid "Users"
 msgstr ""
 
 #: assets/templates/admin/sensors.html:20
-#: assets/templates/gpio.html:7
+#: assets/templates/gpio.html:21
 #: assets/templates/status.html:5
+#: assets/templates/status.html:58
 msgid "Value"
 msgstr ""
 
@@ -518,6 +528,10 @@ msgstr ""
 #: assets/templates/egg_timer.html:26
 #: assets/templates/espeak.html:19
 msgid "e.g. 10s, 30m, 1h"
+msgstr ""
+
+#: assets/templates/expression.html:119
+msgid "e.g. @daily, or 2 * * * *"
 msgstr ""
 
 #: assets/js/controllers/todo.js:29
