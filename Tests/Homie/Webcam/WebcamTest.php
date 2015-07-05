@@ -31,11 +31,6 @@ class WebcamTest extends PHPUnit_Framework_TestCase
     private $filesystem;
 
     /**
-     * @var ClientInterface|MockObject
-     */
-    private $client;
-
-    /**
      * @var EventDispatcher|MockObject
      */
     private $dispatcher;
@@ -43,14 +38,9 @@ class WebcamTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->filesystem = $this->getMock(Filesystem::class, [], [], '', false);
-        $this->client     = $this->getMock(ClientInterface::class, [], [], '', false);
         $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-        $this->subject = new Webcam(
-            $this->client,
-            $this->filesystem,
-            'command %s'
-        );
+        $this->subject = new Webcam($this->filesystem);
         $this->subject->setEventDispatcher($this->dispatcher);
     }
 
@@ -87,30 +77,6 @@ class WebcamTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($fileBaseName, $expectedWebcam->getWebcamId());
     }
 
-    public function testTakePhoto()
-    {
-        $name = 'name';
-
-        $this->client
-            ->expects($this->once())
-            ->method('execute')
-            ->with($this->stringStartsWith("command /tmp/web"));
-
-        $event = new WebcamEvent($name, WebcamEvent::TOOK_PHOTO);
-
-        $this->dispatcher
-            ->expects($this->once())
-            ->method('dispatchEvent')
-            ->with($event);
-
-        $this->filesystem
-            ->expects($this->once())
-            ->method('writeStream')
-            ->with(Webcam::ROOT . $name . '.jpg');
-
-        $this->subject->takePhoto($name);
-    }
-
     public function testDelete()
     {
         $filename = 'id';
@@ -121,13 +87,5 @@ class WebcamTest extends PHPUnit_Framework_TestCase
             ->with($filename);
 
         $this->subject->delete($filename);
-    }
-
-    public function testGetFilename()
-    {
-        $webcamId = '5';
-
-        $actualResult = $this->subject->getFilename($webcamId);
-        $this->assertEquals(ROOT . Webcam::ROOT . $webcamId  . '.' . Webcam::EXTENSION, $actualResult);
     }
 }

@@ -6,14 +6,21 @@
 
         <parameter key="socket.url">http://localhost:8081/socket</parameter>
 
+        <!-- todo -->
         <parameter key="rc_switch.command">sudo /opt/rcswitch-pi/send</parameter>
-        <parameter key="adafruit.path">/opt/Adafruit-Raspberry-Pi-Python-Code/Adafruit_DHT_Driver/</parameter>
-        <parameter key="webcam.executable">fswebcam %s</parameter>
-        <!--<parameter key="webcam.executable">raspistill -o %s</parameter>-->
 
+        <!-- todo -->
+        <parameter key="adafruit.path">/opt/Adafruit-Raspberry-Pi-Python-Code/Adafruit_DHT_Driver/</parameter>
+        <parameter key="webcam.executable.photo">fswebcam %s</parameter>
+        <parameter key="webcam.executable.sound">arecord -f cd -t raw | lame -x -r – %s</parameter>
+        <parameter key="webcam.executable.video">streamer -t 0:0:2 -f rgb24 -r 3 -o %s</parameter>
+        <!--<parameter key="webcam.executable.photo">raspistill -o %s</parameter>-->
+
+        <!-- Connect an Arduino -->
         <parameter key="serial.port">/dev/ttyACM*</parameter>
         <parameter key="serial.baud">57600</parameter>
 
+        <!-- Remote storage for webcam images ...-->
         <parameter key="filesystem.remote.url">https://owncloud.example.com/webdav/</parameter>
         <parameter key="filesystem.remote.username">homie</parameter>
         <parameter key="filesystem.remote.password">homie</parameter>

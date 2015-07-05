@@ -11,10 +11,10 @@ use Homie\Radio\Radios;
 /**
  * @Service(public=false, tags={{"name" = "widget"}})
  */
-class RadioWidget extends AbstractWidget
+class SwitchWidget extends AbstractWidget
 {
 
-    const TYPE = 'radio';
+    const TYPE = 'switch';
 
     /**
      * @var Radios
@@ -37,22 +37,25 @@ class RadioWidget extends AbstractWidget
     {
         $values = [];
 
-        foreach ($this->radios->getRadios() as $radioId => $radio) {
-            $values[$radioId] = $radio->name;
+        foreach ($this->radios->getRadios() as $switchId => $radio) {
+            $values[$switchId] = $radio->name;
         }
 
-        return new WidgetMetadataVo(
+        $metadata = new WidgetMetadataVo(
             $this->getId(),
-            gettext('Radio'),
-            gettext('Control your radio switches.'),
+            gettext('Switch'),
+            gettext('Control your switches.'),
             [
-                'radioId' => [
-                    'name'   => gettext('Radio ID'),
+                'switchIds' => [
+                    'name'   => gettext('Switch'),
                     'values' => $values,
-                    'type'   => 'single_select'
+                    'type'   => 'text'
                 ]
             ],
             4
         );
+        $metadata->addTitle();
+
+        return $metadata;
     }
 }

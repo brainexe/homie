@@ -8,9 +8,7 @@ App.service('Widget.egg_timer', ['EggTimer', '_', function(EggTimer, _) {
     }
 
     return {
-        title: _('Egg Timer'),
-
-        init: function($scope) {
+        render: function($scope) {
             $scope.times = [
                 '2m',
                 '5m',
@@ -44,8 +42,6 @@ App.service('Widget.egg_timer', ['EggTimer', '_', function(EggTimer, _) {
                     updateJobs($scope, jobs);
                 });
             }
-        },
-        render: function ($scope, widget) {
         }
     };
 }]);

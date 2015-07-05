@@ -213,8 +213,7 @@ class Controller
 
         return [
             'sensor'                 => $sensor,
-            'sensor_value_formatted' => $formattedValue,
-            'refresh_interval'       => 60
+            'sensor_value_formatted' => $formattedValue
         ];
     }
 
@@ -289,10 +288,9 @@ class Controller
         $formattedValue = $formatter->getEspeakText($sensor['lastValue']);
 
         return [
-            'sensor'                 => $sensor,
-            'sensor_value_formatted' => $formattedValue,
-            'sensor_obj'             => $sensorObj,
-            'refresh_interval'       => 60
+            'sensor'               => $sensor,
+            'sensorValueFormatted' => $formattedValue,
+            'sensorObj'            => $sensorObj,
         ];
     }
 

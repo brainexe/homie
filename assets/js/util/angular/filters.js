@@ -4,6 +4,10 @@ App.filter('notEmpty', function () {
             return false;
         }
 
+        if (Array.isArray(input)) {
+            return input.length;
+        }
+
         return Object.keys(input).length > 0;
     };
 });
@@ -28,7 +32,7 @@ App.filter('orderObjectBy', function(){
             b = parseInt(b[attribute]);
             return a - b;
         });
-        
+
         if (reversed) {
             array = array.reverse();
         }

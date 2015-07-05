@@ -2,36 +2,9 @@
 App.controller('ExpressionController', ['$scope', 'Expression', function ($scope, Expression) {
 	$scope.input_control  = [];
 	$scope.expressions    = {};
-    $scope.editExpression = {actions:['']};
+    $scope.editExpression = {actions:[''], conditions:['']};
     $scope.eventNames     = [];
     $scope.crons          = [];
-
-    $scope.suggestionsCondition = [];
-    $scope.suggestionsActions   = [];
-
-    $scope.autocompleteAction = function(typed) {
-        $scope.suggestionsActions = [].concat(
-            $scope.input_control.map(function(regexp) {
-                return 'input("' + regexp.substr(2, regexp.length - 4) + '")';
-            }),
-            Object.keys($scope.crons).map(function(key) {
-                var cron = $scope.crons[key];
-                return 'isCron("' + cron.event.event.cronId + '")';
-            })
-        );
-    };
-
-    $scope.autocompleteCondition = function(typed) {
-        $scope.suggestionsCondition = [].concat(
-            $scope.eventNames.map(function(eventname) {
-                return 'eventName == "' + eventname + '"';
-            }),
-            Object.keys($scope.timers).map(function(key) {
-                var timer = $scope.timers[key];
-                return 'isTiming("' + timer.event.event.timingId + '")';
-            })
-        );
-    };
 
     Expression.getData().success(function(data) {
 		$scope.expressions   = data.expressions;
@@ -53,6 +26,7 @@ App.controller('ExpressionController', ['$scope', 'Expression', function ($scope
     };
 
     $scope.edit = function(expression) {
+        expression.conditions = expression.conditions || [''];
         $scope.editExpression = expression;
     };
 
@@ -66,6 +40,16 @@ App.controller('ExpressionController', ['$scope', 'Expression', function ($scope
             expression.actions.push('');
         }
     };
+    $scope.deleteCondition = function(index) {
+        $scope.editExpression.conditions.splice(index, 1);
+    };
+
+    $scope.addCondition = function(expression) {
+        expression.conditions = expression.conditions || [];
+        if (expression.conditions.indexOf('') == -1) {
+            expression.conditions.push('');
+        }
+    };
 
     $scope.addCron = function(cron) {
         Expression.addCron(cron).success(function(data) {
@@ -74,6 +58,6 @@ App.controller('ExpressionController', ['$scope', 'Expression', function ($scope
     };
 
     $scope.deleteCron = function(eventId) {
-        // TODO
+        // TODO delete cron
     };
 }]);

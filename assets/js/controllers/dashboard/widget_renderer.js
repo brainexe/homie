@@ -10,28 +10,11 @@ App.directive('contentItem', ['$compile', 'TemplateLoader', 'WidgetFactory', fun
         var template = TemplateLoader('/templates/widgets/' + widget.type + '.html');
 
         template.success(function(html) {
-            // set template first
-            element.html(html).show();
+            element[0].innerHTML = html;
             $compile(element.contents())(scope);
 
-            // init...
             var renderer = WidgetFactory(widget.type);
-            if (renderer.init) {
-                renderer.init(scope, widget)
-            }
-
-            // update...
-            function update() {
-                renderer.render(scope, widget);
-            }
-            update();
-
-            if (renderer.interval) {
-                window.setInterval(function() {
-                    update();
-                    scope.$apply();
-                }, renderer.interval);
-            }
+            renderer.render(scope, widget);
         });
     };
 
@@ -46,11 +29,13 @@ App.directive('contentItem', ['$compile', 'TemplateLoader', 'WidgetFactory', fun
     };
 }]);
 
-App.controller('WidgetController', ['$scope', 'WidgetFactory', function ($scope, WidgetFactory) {
-    var widgetPayload = $scope.$parent.widget;
-    var widgetMeta    = WidgetFactory(widgetPayload.type);
+App.controller('WidgetController', ['$scope', 'Dashboard', function ($scope, Dashboard) {
+    var widgetPayload  = $scope.$parent.widget;
 
-    // todo use name from widgets definition
-    $scope.title  = widgetMeta.title || widgetPayload.name;
-    $scope.widget = widgetPayload;
+    Dashboard.getCachedMetadata().success(function(data) {
+        var metadata = data.widgets[widgetPayload.type];
+
+        $scope.title  = widgetPayload.title || metadata.name || widgetPayload.name;
+        $scope.widget = widgetPayload;
+    });
 }]);

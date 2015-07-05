@@ -33,7 +33,7 @@ class Controller
      */
     public function metadata()
     {
-        $widgets    = $this->dashboard->getAvailableWidgets();
+        $widgets = $this->dashboard->getAvailableWidgets();
 
         return [
             'widgets' => $widgets

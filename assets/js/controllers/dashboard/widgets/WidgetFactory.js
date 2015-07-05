@@ -3,11 +3,12 @@ App.service('WidgetFactory', [
     'Widget.time',
     'Widget.speak',
     'Widget.egg_timer',
-    'Widget.radio',
+    'Widget.switch',
     'Widget.sensor',
     'Widget.sensor_graph',
     'Widget.status',
-    function(TimeWidget, SpeakWidget, EggTimerWidget, RadioWidget, SensorWidget, SensorGraphWidget, StatusWidget) {
+    'Widget.webcam',
+    function(TimeWidget, SpeakWidget, EggTimerWidget, SwitchWidget, SensorWidget, SensorGraphWidget, StatusWidget, WebcamWidget) {
         return function(type) {
             switch (type) {
                 case 'time':
@@ -16,14 +17,16 @@ App.service('WidgetFactory', [
                     return SpeakWidget;
                 case 'egg_timer':
                     return EggTimerWidget;
-                case 'radio':
-                    return RadioWidget;
+                case 'switch':
+                    return SwitchWidget;
                 case 'sensor':
                     return SensorWidget;
                 case 'sensor_graph':
                     return SensorGraphWidget;
                 case 'status':
                     return StatusWidget;
+                case 'webcam':
+                    return WebcamWidget;
             }
         };
     }

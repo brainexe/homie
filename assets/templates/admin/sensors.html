@@ -25,12 +25,12 @@
             </thead>
             <tr ng-repeat="sensor in sensors">
                 <td title="{{ sensor.sensorId }}">
-                    {{ types[sensor.type].name }}
+                    <b>{{ types[sensor.type].name }}</b>
                     <div ng-if="!sensor.edit">
                         <span class="small" ng-if="sensor.pin">({{ sensor.pin }})</span>
                     </div>
                     <div ng-if="sensor.edit">
-                        <input type="text" placeholder="Pin" ng-model="sensor.pin" />
+                        <input type="text" class="form-control" placeholder="Pin" ng-model="sensor.pin" />
                     </div>
                 </td>
                 <td>
@@ -39,8 +39,8 @@
                         <span ng-if="sensor.description">({{ sensor.description }})</span>
                     </div>
                     <div ng-if="sensor.edit">
-                        <input type="text" placeholder="Name" ng-model="sensor.name" />
-                        <input type="text" placeholder="Description" ng-model="sensor.description" />
+                        <input type="text"  class="form-control" placeholder="Name" ng-model="sensor.name" />
+                        <input type="text"  class="form-control" placeholder="Description" ng-model="sensor.description" />
                     </div>
                 </td>
                 <td>{{ sensor.lastValue }}</td>
@@ -53,6 +53,8 @@
                                 type="number"
                                 min="-1"
                                 max="86400"
+                                size="2"
+                                class="form-control"
                                 placeholder="Interval"
                                 ng-model="sensor.interval"
                                 />

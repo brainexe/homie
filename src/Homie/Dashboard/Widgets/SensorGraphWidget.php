@@ -55,18 +55,18 @@ class SensorGraphWidget extends AbstractWidget
             $sensors[$sensor['sensorId']] = $sensor['name'];
         }
 
-        return new WidgetMetadataVo(
+        $metadata = new WidgetMetadataVo(
             $this->getId(),
             gettext('Sensor Graph'),
             gettext('Displays a Sensor Graph of given sensors'),
             [
                 'sensor_ids' => [
-                    'type'   => 'multi_select',
+                    'type'   => WidgetMetadataVo::MULTI_SELECT,
                     'name'   => gettext('Sensor ID'),
                     'values' => $sensors
                 ],
                 'from' => [
-                    'type'   => 'select',
+                    'type'   => WidgetMetadataVo::SINGLE_SELECT,
                     'name'   => gettext('From'),
                     'values' => [
                         3600        => _('Last Hour'),
@@ -74,13 +74,14 @@ class SensorGraphWidget extends AbstractWidget
                         86400 * 7   => _('Last Week'),
                         86400 * 30  => _('Last Month'),
                         -1          => _('All'),
-                    ]
-                ],
-                'title' => [
-                    'type' => 'text',
-                    'name' => gettext('Name')
+                    ],
+                    'default' => 86400
                 ]
             ]
         );
+
+        $metadata->addTitle();
+
+        return $metadata;
     }
 }

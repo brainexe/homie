@@ -1,9 +1,7 @@
 
-App.service('Widget.speak', ['Speak', '_', function(Speak, _) {
+App.service('Widget.speak', ['Speak', function(Speak) {
     return {
-        title: _('Speak'),
-
-        init: function ($scope) {
+        render: function ($scope) {
             $scope.pending = false;
             $scope.speak = function (text) {
                 $scope.pending = true;
@@ -17,8 +15,6 @@ App.service('Widget.speak', ['Speak', '_', function(Speak, _) {
                     $scope.pending = false;
                 });
             };
-        },
-        render: function ($scope, widget) {
         }
     }
 }]);

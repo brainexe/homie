@@ -14,7 +14,7 @@ use League\Flysystem\Filesystem;
 class Webcam
 {
     const ROOT       = 'Webcam/';
-    const EXTENSION  = 'jpg';
+    const PICTURE_EXTENSION  = 'jpg';
 
     use EventDispatcherTrait;
 
@@ -29,22 +29,16 @@ class Webcam
     private $filesystem;
 
     /**
-     * @Inject({"@HomieClient", "@RemoteFilesystem", "%webcam.executable%"})
-     * @param ClientInterface $client
+     * @Inject({"@RemoteFilesystem"})
      * @param Filesystem $fileUploader
-     * @param string $command
      */
-    public function __construct(
-        ClientInterface $client,
-        Filesystem $fileUploader,
-        $command
-    ) {
-        $this->client     = $client;
+    public function __construct(Filesystem $fileUploader)
+    {
         $this->filesystem = $fileUploader;
-        $this->command    = $command;
     }
 
     /**
+     * @todo get all files
      * @return WebcamVO[]
      */
     public function getPhotos()
@@ -65,39 +59,10 @@ class Webcam
     }
 
     /**
-     * @param string $name
-     */
-    public function takePhoto($name)
-    {
-        $path = $this->getFilename($name);
-
-        $temp = tempnam(sys_get_temp_dir(), 'webcam');
-
-        $command = sprintf($this->command, $temp);
-        $this->client->execute($command);
-
-        $event = new WebcamEvent($name, WebcamEvent::TOOK_PHOTO);
-        $this->dispatchEvent($event);
-
-        $this->filesystem->writeStream(self::ROOT . basename($path), fopen($temp, 'r'));
-
-        unlink($temp);
-    }
-
-    /**
      * @param string $filename
      */
     public function delete($filename)
     {
         $this->filesystem->delete($filename);
-    }
-
-    /**
-     * @param string $shotId
-     * @return string
-     */
-    public function getFilename($shotId)
-    {
-        return sprintf('%s%s%s.%s', ROOT, self::ROOT, $shotId, self::EXTENSION);
     }
 }

@@ -1,19 +1,20 @@
 
-App.service('Widget.radio', ['Radios', function(Radios) {
+App.service('Widget.switch', ['Radios', function(Radios) {
     return {
         render: function ($scope, widget) {
-           Radios.getDataCached().success(function(radios) {
-               // todo pass multiple switches
-                var radio = radios.radios[widget.radioId];
-                if (radio) {
-                    $scope.setTitle(radio.name);
-                }
+            $scope.switches = [];
 
-                $scope.setStatus = function(radio, status) {
-                    Radios.setRadio(radio.radioId, status);
-                };
+            $scope.setStatus = function(radio, status) {
+                Radios.setRadio(radio.radioId, status);
+            };
 
-                $scope.radio = radio;
+            Radios.getDataCached().success(function(switches) {
+               for (var i in widget.switchIds) {
+                   var currentSwitch = switches.radios[widget.switchIds[i]];
+                   if (currentSwitch) {
+                       $scope.switches.push(currentSwitch);
+                   }
+               }
             });
         }
     };

@@ -1,19 +1,24 @@
-<table class="table table-striped table-bordered table-hover">
-	<thead>
-        <tr>
-            <th translate>Key</th>
-            <th translate>Value</th>
-            <th translate>Reset</th>
-        </tr>
-    </thead>
-    <tbody>
-		<tr ng-repeat="(key, value) in stats">
-			<th>{{ key }}</th>
-			<td>{{ value }}</td>
-			<td><a ng-click="resetStats(key)" class="glyphicon glyphicon-remove"></a></td>
-		</tr>
-	</tbody>
-</table>
+<h1 translate>Stats</h1>
+<accordion>
+	<accordion-group ng-repeat="(section, values) in statsGroup" heading="{{section}}">
+		<table class="table table-striped table-bordered table-hover">
+			<thead>
+			<tr>
+				<th translate>Key</th>
+				<th translate>Value</th>
+				<th translate>Reset</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr ng-repeat="(key, value) in values">
+				<th>{{ key }}</th>
+				<td>{{ value }}</td>
+				<td><a ng-click="resetStats(key)" class="glyphicon glyphicon-remove"></a></td>
+			</tr>
+			</tbody>
+		</table>
+	</accordion-group>
+</accordion>
 
 <h1 translate>Message-Queue</h1>
 <table ng-if="jobs|notEmpty" class="table table-striped table-bordered table-hover">
@@ -47,22 +52,21 @@
 </table>
 
 <h1 translate>Redis Stats</h1>
-<div ng-repeat="(section, values) in redis">
-	<h3>
-		<a ng-click="redisSections[section] = !redisSections[section]">{{section}}</a>
-	</h3>
-	<table ng-show="redisSections[section]" class="table table-striped table-bordered table-hover">
-		<thead>
-		<tr>
-			<th translate>Key</th>
-			<th translate>Value</th>
-		</tr>
-		</thead>
-		<tbody>
-		<tr ng-repeat="(key, value) in values">
-			<th>{{ key }}</th>
-			<td>{{ value }}</td>
-		</tr>
-		</tbody>
-	</table>
-</div>
+<accordion>
+	<accordion-group ng-repeat="(section, values) in redis" heading="{{section}}">
+		<table class="table table-striped table-bordered table-hover">
+			<thead>
+			<tr>
+				<th translate>Key</th>
+				<th translate>Value</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr ng-repeat="(key, value) in values">
+				<th>{{ key }}</th>
+				<td>{{ value }}</td>
+			</tr>
+			</tbody>
+		</table>
+	</accordion-group>
+</accordion>

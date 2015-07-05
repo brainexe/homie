@@ -65,11 +65,11 @@
     <div class="container-fluid">
         <div class="row" as-sortable="dragControlListeners" ng-model="dashboard.widgets">
             <div
-                    class="col-xs-{{metadata(widget.type, 'width')}} as-sortable-item"
+                    class="col-md-{{metadata(widget.type, 'width')}} as-sortable-item"
                     ng-repeat="widget in dashboard.widgets"
                     as-sortable-item
             >
-                <div class="panel panel-default widget" ng-controller="WidgetController">
+                <div class="panel panel-default widget" ng-controller="WidgetController" ng-init="widgetMetadata = metadata(widget.type)">
                     <div
                             class="panel-heading as-sortable-item-handle"
                             as-sortable-item-handle
@@ -78,7 +78,7 @@
                         {{ title }}
                         <span
                                 ng-if="editMode"
-                                ng-click="deleteWidget(dashboard.dashboardId, widget.id)"
+                                ng-click="deleteWidget(dashboard.dashboardId, widget.id); $event.stopPropagation()"
                                 class="delete glyphicon glyphicon-remove cursor"
                                 tooltip="Delete"
                                 >

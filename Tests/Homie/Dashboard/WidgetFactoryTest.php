@@ -44,6 +44,6 @@ class WidgetFactoryTest extends TestCase
     {
         $actualResult = $this->subject->getAvailableWidgets();
 
-        $this->assertEquals([new TimeWidget()], $actualResult);
+        $this->assertEquals(['time' => new TimeWidget()], $actualResult);
     }
 }

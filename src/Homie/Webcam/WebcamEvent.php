@@ -7,9 +7,13 @@ use BrainExe\Core\EventDispatcher\PushViaWebsocket;
 
 class WebcamEvent extends AbstractEvent implements PushViaWebsocket
 {
-
     const TAKE_PHOTO = 'webcam.take_photo';
+    const TAKE_VIDEO = 'webcam.take_video';
+    const TAKE_SOUND = 'webcam.take_sound';
+
     const TOOK_PHOTO = 'webcam.took_photo';
+    const TOOK_VIDEO = 'webcam.took_video';
+    const TOOK_SOUND = 'webcam.took_sound';
 
     /**
      * @var string
@@ -17,12 +21,19 @@ class WebcamEvent extends AbstractEvent implements PushViaWebsocket
     public $name;
 
     /**
-     * @param string $name
-     * @param string $eventType self::*
+     * @var int
      */
-    public function __construct($name, $eventType)
+    public $duration;
+
+    /**
+     * @param string $name
+     * @param string $eventType self::
+     * @param int $duration
+     */
+    public function __construct($name, $eventType, $duration = 0)
     {
         parent::__construct($eventType);
-        $this->name       = $name;
+        $this->name     = $name;
+        $this->duration = $duration;
     }
 }

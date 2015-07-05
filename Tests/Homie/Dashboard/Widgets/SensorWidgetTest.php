@@ -83,7 +83,7 @@ class SensorWidgetTest extends TestCase
             ->willReturn($sensors);
 
         $actualResult = json_encode($this->subject);
-        $expectedResult = '{"name":"Sensor","description":"Displays the current value of a given sensor","parameters":{"sensor_id":{"name":"Sensor ID","values":{"12":"sensor name"},"type":"single_select"}},"widgetId":"sensor","width":4}';
+        $expectedResult = '{"name":"Sensor","description":"Displays the current value of a given sensor","parameters":{"title":{"name":"Title","type":"text","default":"Sensor"},"sensor_id":{"name":"Sensor ID","values":{"12":"sensor name"},"type":"single_select"}},"widgetId":"sensor","width":4}';
         $this->assertEquals($expectedResult, $actualResult);
     }
 }

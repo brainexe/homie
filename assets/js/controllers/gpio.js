@@ -3,7 +3,7 @@ App.controller('GpioController', ['$scope', 'Gpio', function ($scope, Gpio) {
 
     $scope.gpios    = {};
     $scope.editMode = false;
-    $scope.orderBy  = 'wiringId';
+    $scope.orderBy  = 'physicalId';
 
     Gpio.getData().success(function (data) {
         $scope.gpios = data.pins;

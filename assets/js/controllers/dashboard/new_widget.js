@@ -13,9 +13,8 @@ App.controller('NewWidgetController', ['$scope', '$modalInstance', 'widgets', 'D
         };
 
         Dashboard.add(payload).success(function(data) {
-            dashboards[data.dashboardId] = data;
+            $modalInstance.close(data);
         });
-        $modalInstance.close();
     };
 
     $scope.close = function() {

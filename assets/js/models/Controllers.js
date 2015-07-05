@@ -5,7 +5,7 @@ App.service('controllers', ['_', function(_) {
         {controller:'DashboardController', name: _('Dashboard'), url: 'dashboard', icon:'th-large', templateUrl: asset('/templates/dashboard.html')},
         {controller:'RadioController', name: _('Switches'), url: 'radio', icon:'home', templateUrl: asset('/templates/radio.html')},
         {controller:'SensorController', name: _('Sensors'), url: 'sensor', icon:'stats', templateUrl: asset('/templates/sensor.html')},
-        {controller:'ExpressionController', name: _('Actions'), url: 'expression', icon:'link', templateUrl: asset('/templates/expression.html')},
+        {controller:'ExpressionController', name: _('Actions'), url: 'expression', icon:'link', templateUrl: asset('/templates/expression/expression.html')},
         {controller:'GpioController', name: _('GPIO'), url: 'gpio', icon:'flash', templateUrl: asset('/templates/gpio.html')},
         {controller:'EspeakController', name: _('Speak'), url: 'speak', icon:'bullhorn', templateUrl: asset('/templates/espeak.html')},
         {controller:'FlowerController', name: _('Flowers'), url: 'flower', icon:'leaf', templateUrl: asset('/templates/flower.html')},

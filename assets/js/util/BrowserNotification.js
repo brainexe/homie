@@ -1,4 +1,5 @@
 
+// todo refactor
 App.service('BrowserNotification', ['$q', '_', function($q, _) {
     var TIMEOUT = 5000;
 

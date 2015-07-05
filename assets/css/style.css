@@ -61,3 +61,9 @@
 .dialog_800 .modal-dialog {
 	width: 800px;
 }
+.dialog_900 .modal-dialog {
+	width: 900px;
+}
+.dialog_1000 .modal-dialog {
+	width: 1000px;
+}

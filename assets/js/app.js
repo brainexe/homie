@@ -7,7 +7,6 @@ var App = angular.module('homie', [
         'ngRoute',
         'ngSanitize',
         'angular-cache',
-        'autocomplete',
         'ui.bootstrap',
         'ui.select',
         'ui.sortable',

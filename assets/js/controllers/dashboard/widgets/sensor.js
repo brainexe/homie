@@ -1,13 +1,19 @@
 
-App.service('Widget.sensor', ['Sensor', function(Sensor) {
-    return {
-        interval: 60 * 5 * 1000,
-        render: function ($scope, widget) {
-            Sensor.getSensorData(widget.sensor_id).success(function(sensorData) {
-                $scope.setTitle("{0})".format(sensorData.sensor.name));
+App.service('Widget.sensor', ['Sensor', 'SensorFormatter', function(Sensor, SensorFormatter) {
+    function update($scope, widget) {
+        Sensor.getSensorData(widget.sensor_id).success(function(sensorData) {
+            var formatter = SensorFormatter.getFormatter(sensorData.sensorObj.formatter);
 
-                $scope.sensor = sensorData.sensor;
-            });
+            $scope.setTitle("{0}".format(sensorData.sensor.name));
+
+            $scope.sensor = sensorData.sensor;
+            $scope.value  = formatter(sensorData.sensor.lastValue);
+        });
+    }
+
+    return {
+        render: function ($scope, widget) {
+            update($scope, widget);
         }
     };
 }]);

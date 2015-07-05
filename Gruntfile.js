@@ -136,7 +136,6 @@ module.exports = function (grunt) {
                 src: [
                     'bower_components/bootstrap/dist/css/bootstrap.min.css',
                     'bower_components/rickshaw/rickshaw.css',
-                    'bower_components/allmighty-autocomplete/style/autocomplete.css',
                     'bower_components/ui-select/dist/select.min.css',
                     //'bower_components/ng-sortable/dist/ng-sortable.style.min.css', // todo
                     'assets/css/**/*.css'
@@ -194,17 +193,15 @@ module.exports = function (grunt) {
                 },
                 files: {
                     'web/vendor.js': [
-                        'bower_components/jquery/dist/jquery.min.js',
                         'bower_components/sockjs-client/dist/sockjs.js',
                         'bower_components/angular/angular.min.js',
                         'bower_components/angular-route/angular-route.min.js',
                         'bower_components/angular-gettext/dist/angular-gettext.min.js',
                         'bower_components/angular-sanitize/angular-sanitize.min.js',
                         'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-                        'bower_components/ng-sortable/dist/ng-sortable.min.js',
                         'bower_components/angular-cache/dist/angular-cache.min.js',
+                        'bower_components/ng-sortable/dist/ng-sortable.min.js',
                         'bower_components/ui-select/dist/select.min.js',
-                        'bower_components/allmighty-autocomplete/script/autocomplete.js',
 
                         // needed for sensor module
                         'bower_components/rickshaw/vendor/d3.v3.js',

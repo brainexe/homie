@@ -6,10 +6,14 @@
     text-align: center;
 }
 
+.widget_sensor_graph .chart {
+    position: relative;
+}
+
 .widget_sensor_graph .y_axis {
     position: absolute;
-    top: 0;
+    top: 50px;
     bottom: 0;
-    left:-15px;
+    left: 30px;
     width: 40px;
 }

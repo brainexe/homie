@@ -4,19 +4,19 @@ namespace Tests\Homie\Dashboard\Widgets;
 
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
-use Homie\Dashboard\Widgets\RadioWidget;
+use Homie\Dashboard\Widgets\SwitchWidget;
 use Homie\Dashboard\Widgets\WidgetMetadataVo;
 use Homie\Radio\Radios;
 use Homie\Radio\VO\RadioVO;
 
 /**
- * @covers Homie\Dashboard\Widgets\RadioWidget
+ * @covers Homie\Dashboard\Widgets\SwitchWidget
  */
-class RadioWidgetTest extends TestCase
+class SwitchWidgetTest extends TestCase
 {
 
     /**
-     * @var RadioWidget
+     * @var SwitchWidget
      */
     private $subject;
 
@@ -28,13 +28,13 @@ class RadioWidgetTest extends TestCase
     public function setUp()
     {
         $this->radios  = $this->getMock(Radios::class, [], [], '', false);
-        $this->subject = new RadioWidget($this->radios);
+        $this->subject = new SwitchWidget($this->radios);
     }
 
     public function testGetId()
     {
         $actualResult = $this->subject->getId();
-        $this->assertEquals(RadioWidget::TYPE, $actualResult);
+        $this->assertEquals(SwitchWidget::TYPE, $actualResult);
     }
 
     public function testSerialize()
@@ -69,7 +69,7 @@ class RadioWidgetTest extends TestCase
             ]);
 
         $actualResult = json_encode($this->subject);
-        $expected = '{"name":"Radio","description":"Control your radio switches.","parameters":{"radioId":{"name":"Radio ID","values":{"122":"radio"},"type":"single_select"}},"widgetId":"radio","width":4}';
+        $expected = '{"name":"Switch","description":"Control your switches.","parameters":{"title":{"name":"Title","type":"text","default":"Switch"},"switchIds":{"name":"Switch","values":{"122":"radio"},"type":"text"}},"widgetId":"switch","width":4}';
         $this->assertEquals($expected, $actualResult);
     }
 }

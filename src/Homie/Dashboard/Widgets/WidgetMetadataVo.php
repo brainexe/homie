@@ -4,6 +4,9 @@ namespace Homie\Dashboard\Widgets;
 
 class WidgetMetadataVo
 {
+    const MULTI_SELECT  = 'multi_select';
+    const SINGLE_SELECT = 'single_select';
+    const TEXT          = 'text';
 
     /**
      * @var string
@@ -44,5 +47,15 @@ class WidgetMetadataVo
         $this->description = $description;
         $this->parameters  = $parameters;
         $this->width       = $width;
+    }
+
+    public function addTitle()
+    {
+        $new = ['title' => [
+            'name'    => gettext('Title'),
+            'type'    => self::TEXT,
+            'default' => $this->name
+        ]];
+        $this->parameters = $new + $this->parameters;
     }
 }

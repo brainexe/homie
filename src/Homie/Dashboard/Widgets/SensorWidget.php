@@ -53,7 +53,7 @@ class SensorWidget extends AbstractWidget
             $sensors[$sensor['sensorId']] = $sensor['name'];
         }
 
-        return new WidgetMetadataVo(
+        $metadata = new WidgetMetadataVo(
             $this->getId(),
             gettext('Sensor'),
             gettext('Displays the current value of a given sensor'),
@@ -66,5 +66,8 @@ class SensorWidget extends AbstractWidget
             ],
             4
         );
+        $metadata->addTitle();
+
+        return $metadata;
     }
 }

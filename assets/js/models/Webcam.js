@@ -6,7 +6,14 @@ App.service('Webcam', ['$http', function($http) {
         },
 
         takeShot: function() {
-            return $http.post('/webcam/', {});
+            return $http.post('/webcam/photo/', {});
+        },
+        takeVideo: function(duration) {
+            return $http.post('/webcam/video/', {duration:duration});
+        },
+
+        takeSound: function(duration) {
+            return $http.post('/webcam/sound/', {duration:duration});
         },
 
         remove: function(shotId) {

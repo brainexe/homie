@@ -54,14 +54,28 @@ class Controller
     }
 
     /**
+     * @param Request $request
+     * @param string $type
      * @return bool
-     * @Route("/webcam/", name="webcam.take", methods="POST")
+     * @Route("/webcam/{type}/", name="webcam.take", methods="POST")
      */
-    public function takePhoto()
+    public function take(Request $request, $type)
     {
         $name = $this->generateRandomId();
 
-        $event = new WebcamEvent($name, WebcamEvent::TAKE_PHOTO);
+        $duration = (int)$request->request->get('duration');
+
+        switch($type) {
+            case 'video':
+                $event = new WebcamEvent($name, WebcamEvent::TAKE_VIDEO, $duration);
+                break;
+            case 'sound':
+                $event = new WebcamEvent($name, WebcamEvent::TAKE_SOUND, $duration);
+                break;
+            default:
+                $event = new WebcamEvent($name, WebcamEvent::TAKE_PHOTO);
+
+        }
         $this->dispatchInBackground($event);
 
         return true;

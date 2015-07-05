@@ -23,7 +23,7 @@ class Controller
      */
     public function __construct($debug, $socketUrl)
     {
-        $this->config['debug'] = $debug;
+        $this->config['debug']     = $debug;
         $this->config['socketUrl'] = $socketUrl;
     }
 

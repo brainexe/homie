@@ -2,6 +2,8 @@
 <div ng-repeat="(type, parameter) in widget.parameters">
     <label>{{parameter.name}}</label>
 
+    <div ng-if="parameter.default" ng-init="payload[type] = parameter.default"></div>
+
     <ui-select theme="bootstrap" ng-if="parameter.type == 'multi_select'" multiple ng-model="payload[type]" style="width: 300px">
         <ui-select-match placeholder="Select...">
             {{$item.value}}
@@ -31,5 +33,8 @@
             type="text"
             class="form-control input-sm" />
 
-    Debug only: {{payload[type]}}
+    <!-- todo config derivate -->
+    <div>
+        Debug only: {{payload[type]}}
+    </div>
 </div>

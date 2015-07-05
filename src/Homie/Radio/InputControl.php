@@ -27,7 +27,7 @@ class InputControl implements InputControlInterface
     public static function getSubscribedEvents()
     {
         return [
-            '/^radio (on|off) (\d)$/i' => 'setRadio'
+            '/^radio (on|off) (\s+)$/i' => 'setRadio'
         ];
     }
 

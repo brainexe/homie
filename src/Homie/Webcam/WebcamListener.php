@@ -13,17 +13,17 @@ class WebcamListener implements EventSubscriberInterface
 {
 
     /**
-     * @var Webcam
+     * @var Recorder
      */
-    private $webcam;
+    private $recorder;
 
     /**
-     * @Inject("@Webcam")
-     * @param Webcam $webcam
+     * @Inject("@Webcam.Recorder")
+     * @param Recorder $recorder
      */
-    public function __construct(Webcam $webcam)
+    public function __construct(Recorder $recorder)
     {
-        $this->webcam = $webcam;
+        $this->recorder = $recorder;
     }
 
     /**
@@ -32,15 +32,33 @@ class WebcamListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            WebcamEvent::TAKE_PHOTO => 'handleWebcamEvent'
+            WebcamEvent::TAKE_PHOTO => 'handlePictureEvent',
+            WebcamEvent::TAKE_VIDEO => 'handleVideoEvent',
+            WebcamEvent::TAKE_SOUND => 'handleSoundEvent',
         ];
     }
 
     /**
      * @param WebcamEvent $event
      */
-    public function handleWebcamEvent(WebcamEvent $event)
+    public function handlePictureEvent(WebcamEvent $event)
     {
-        $this->webcam->takePhoto($event->name);
+        $this->recorder->takePhoto($event->name);
+    }
+
+    /**
+     * @param WebcamEvent $event
+     */
+    public function handleVideoEvent(WebcamEvent $event)
+    {
+        $this->recorder->takeVideo($event->name, $event->duration);
+    }
+
+    /**
+     * @param WebcamEvent $event
+     */
+    public function handleSoundEvent(WebcamEvent $event)
+    {
+        $this->recorder->takeSound($event->name, $event->duration);
     }
 }

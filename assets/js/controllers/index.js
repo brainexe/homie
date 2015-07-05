@@ -1,10 +1,10 @@
 
-App.controller('IndexController', ['$scope', 'UserManagement', function ($scope, UserManagement) {
+App.controller('IndexController', ['$scope', '$location', 'UserManagement', function ($scope, $location, UserManagement) {
 	UserManagement.loadCurrentUser().success(function(user) {
 		if (UserManagement.isLoggedIn(user)) {
-			window.location.href = '#/dashboard';
+			$location.path("/dashboard");
 		} else {
-			window.location.href = '#/login';
+			$location.path("/login");
 		}
 	});
 }]);

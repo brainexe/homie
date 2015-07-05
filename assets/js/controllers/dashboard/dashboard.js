@@ -24,8 +24,8 @@ App.controller('DashboardController', ['$scope', '$modal', '$q', 'Dashboard', 'W
         Dashboard.getDashboards()
     ]).then(function(data) {
         var metadata   = data[0].data,
-            dashboards = data[1].data;
-        var selectedId = Object.keys(dashboards.dashboards)[0];
+            dashboards = data[1].data,
+            selectedId = Object.keys(dashboards.dashboards)[0];
 
         $scope.dashboards = dashboards.dashboards;
         $scope.widgets    = metadata.widgets;
@@ -47,21 +47,16 @@ App.controller('DashboardController', ['$scope', '$modal', '$q', 'Dashboard', 'W
     };
 
     $scope.metadata = function(type, key) {
-        for (var i in $scope.widgets) {
-            if ($scope.widgets[i].widgetId == type) {
-                var widget = $scope.widgets[i];
+        var metadata = $scope.widgets[type];
 
-                if (key) {
-                    return widget[key];
-                }
-                return widget;
-            }
+        if (key) {
+            return metadata[key];
         }
-        return null;
+        return metadata;
     };
 
 	$scope.toggleWidget = function(widget, dashboard) {
-        var open = widget.open = !widget.open;
+        widget.open = !widget.open;
         Dashboard.updateWidget(dashboard.dashboardId, widget);
     };
 
@@ -70,7 +65,7 @@ App.controller('DashboardController', ['$scope', '$modal', '$q', 'Dashboard', 'W
     };
 
     $scope.openModal = function(dashboards) {
-        $modal.open({
+        var modal = $modal.open({
 			templateUrl: asset('/templates/widgets/new.html'),
 			controller: 'NewWidgetController',
 			resolve: {
@@ -85,11 +80,16 @@ App.controller('DashboardController', ['$scope', '$modal', '$q', 'Dashboard', 'W
                 }
             }
 		});
+        modal.result.then(function(data) {
+            $scope.dashboards[data.dashboardId] = data;
+            selectDashboard(data);
+        });
 	};
 
     $scope.deleteDashboard = function(dashboardId) {
         Dashboard.deleteDashboard(dashboardId).success(function() {
             delete $scope.dashboards[dashboardId];
+            // todo what to show?
         });
     };
 
@@ -105,7 +105,7 @@ App.controller('DashboardController', ['$scope', '$modal', '$q', 'Dashboard', 'W
 	 */
 	$scope.deleteWidget = function(dashboardId, widgetId) {
 		Dashboard.deleteWidget(dashboardId, widgetId).success(function(data) {
-            selectDashboard(data); // todo what to show?
+            selectDashboard(data);
 		});
 
 		return false;

@@ -36,12 +36,12 @@
                 </div>
             </td>
 			<td>
-				<a ng-click="changeMode(pin)" class="btn btn-{{ pin.mode ? 'success' : 'info'}}">
+				<a ng-click="changeMode(pin)" ng-if="pin.wiringId" class="btn btn-{{ pin.mode ? 'success' : 'info'}}">
 					{{ pin.mode ? 'OUT' : 'IN'}}
 				</a>
 			</td>
 			<td>
-				<a ng-click="changeValue(pin)" class="btn btn-{{ pin.value ? 'success' : 'danger'}}">
+				<a ng-click="changeValue(pin)"  ng-if="pin.wiringId" class="btn btn-{{ pin.value ? 'success' : 'danger'}}">
 					{{ pin.value ? 'OFF' : 'ON' }}
 				</a>
 			</td>

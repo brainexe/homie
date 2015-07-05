@@ -1,4 +1,4 @@
-{{ sensor.lastValue }} ({{ sensor.lastValueTimestamp|timeAgo }})
+{{ value }} <small>({{ sensor.lastValueTimestamp|timeAgo }})</small>
 
 <a ng-click="reload()" class="glyphicon glyphicon-repeat"></a>
 

@@ -1,7 +1,7 @@
 
 App.service('Widget.status', ['Status', '_', function(Status, _) {
     function update($scope) {
-        Status.getData().success(function (data) {
+        Status.getData().success(function(data) {
             $scope.stats = data.stats;
             $scope.jobs  = data.jobs;
             $scope.redis = data.redis;
@@ -9,8 +9,6 @@ App.service('Widget.status', ['Status', '_', function(Status, _) {
     }
 
     return {
-        title: _('Status'),
-
         render: function ($scope, widget) {
             update($scope);
 

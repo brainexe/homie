@@ -351,8 +351,7 @@ class ControllerTest extends TestCase
 
         $expectedValue = [
             'sensor' => $sensorRaw,
-            'sensor_value_formatted' => $sensorValueFormatted,
-            'refresh_interval' => 60
+            'sensor_value_formatted' => $sensorValueFormatted
         ];
 
         $this->assertEquals($expectedValue, $actualResult);
@@ -398,16 +397,15 @@ class ControllerTest extends TestCase
             ->with($sensorValue)
             ->willReturn($sensorValueFormatted);
 
-        $actualResult = $this->subject->getValue($request, $sensorId);
+        $actual = $this->subject->getValue($request, $sensorId);
 
         $expectedValue = [
             'sensor' => $sensorRaw,
-            'sensor_value_formatted' => $sensorValueFormatted,
-            'refresh_interval' => 60,
-            'sensor_obj' => $sensorObject
+            'sensorValueFormatted' => $sensorValueFormatted,
+            'sensorObj' => $sensorObject
         ];
 
-        $this->assertEquals($expectedValue, $actualResult);
+        $this->assertEquals($expectedValue, $actual);
     }
 
     public function testApi()

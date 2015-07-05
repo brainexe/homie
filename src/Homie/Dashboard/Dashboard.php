@@ -29,8 +29,10 @@ class Dashboard
      * @param DashboardGateway $dashboardGateway
      * @param WidgetFactory    $widgetFactory
      */
-    public function __construct(DashboardGateway $dashboardGateway, WidgetFactory $widgetFactory)
-    {
+    public function __construct(
+        DashboardGateway $dashboardGateway,
+        WidgetFactory $widgetFactory
+    ) {
         $this->widgetFactory = $widgetFactory;
         $this->gateway = $dashboardGateway;
     }

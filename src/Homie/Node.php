@@ -12,7 +12,7 @@ class Node
 {
 
     /**
-     * @var integer
+     * @var int
      */
     private $nodeId;
 

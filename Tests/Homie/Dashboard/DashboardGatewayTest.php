@@ -71,7 +71,7 @@ class DashboardGatewayTest extends TestCase
             ->with("dashboard:meta:$dashboardId")
             ->willReturn($meta);
 
-        $actualResult = $this->subject->getDashboard($dashboardId);
+        $actual = $this->subject->getDashboard($dashboardId);
 
         $dashboard = new DashboardVo();
 
@@ -82,7 +82,7 @@ class DashboardGatewayTest extends TestCase
         $dashboard->dashboardId = $dashboardId;
         $dashboard->name        = 'mockName';
 
-        $this->assertEquals($dashboard, $actualResult);
+        $this->assertEquals($dashboard, $actual);
     }
 
     public function testGetDashboards()
@@ -119,7 +119,7 @@ class DashboardGatewayTest extends TestCase
             ->with("dashboard:meta:$dashboardId")
             ->willReturn($meta);
 
-        $actualResult = $this->subject->getDashboards();
+        $actual = $this->subject->getDashboards();
 
         $dashboard = new DashboardVo();
 
@@ -130,7 +130,7 @@ class DashboardGatewayTest extends TestCase
         $dashboard->dashboardId = $dashboardId;
         $dashboard->name = 'mockName';
 
-        $this->assertEquals([$dashboardId => $dashboard], $actualResult);
+        $this->assertEquals([$dashboardId => $dashboard], $actual);
     }
 
     public function testAddWidget()

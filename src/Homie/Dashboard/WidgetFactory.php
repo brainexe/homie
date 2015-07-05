@@ -43,6 +43,6 @@ class WidgetFactory
      */
     public function getAvailableWidgets()
     {
-        return array_values($this->widgets);
+        return $this->widgets;
     }
 }

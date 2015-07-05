@@ -77,6 +77,8 @@ class ControllerTest extends TestCase
     {
         $randomId = 11880;
 
+        $request = new Request();
+
         $this->idGenerator
             ->expects($this->once())
             ->method('generateRandomId')
@@ -89,7 +91,7 @@ class ControllerTest extends TestCase
             ->method('dispatchInBackground')
             ->with($event);
 
-        $actualResult = $this->subject->takePhoto();
+        $actualResult = $this->subject->take($request, 'photo');
 
         $this->assertEquals(true, $actualResult);
     }

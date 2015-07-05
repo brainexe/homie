@@ -21,6 +21,11 @@ class BMP085Barometer extends AbstractSensor implements Parameterized
     const TYPE = 'bmp085_barometer';
 
     /**
+     * @var ClientInterface
+     */
+    private $client;
+
+    /**
      * @Inject("@HomieClient")
      * @param ClientInterface $client
      */
