@@ -51,6 +51,7 @@ class Script extends AbstractSensor implements Parameterized
      */
     public function isSupported($parameter, OutputInterface $output)
     {
+        // todo exec script
         return true;
     }
 

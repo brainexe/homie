@@ -1,5 +1,5 @@
 
-App.service('Dashboard', ['$http', function($http) {
+App.service('Dashboard', ['$http', 'Cache', function($http, Cache) {
 
     function updateDashboard(dashboardId, payload) {
         var url = '/dashboard/{0}/'.format(dashboardId);
@@ -8,7 +8,11 @@ App.service('Dashboard', ['$http', function($http) {
     }
 
     return {
-        getData: function() {
+        getCachedMetadata: function() {
+            return $http.get('/dashboard/metadata/', {cache:Cache});
+        },
+
+        getDashboards: function() {
             return $http.get('/dashboard/');
         },
 

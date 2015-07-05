@@ -105,16 +105,7 @@ class ControllerTest extends TestCase
             ]
         ];
 
-        $sensorsObj = [
-            $type => $this->getMock(Sensor::class)
-        ];
-
         $formatter = $this->getMock(Formatter::class);
-
-        $this->builder
-            ->expects($this->once())
-            ->method('getSensors')
-            ->willReturn($sensorsObj);
 
         $this->builder
             ->expects($this->once())
@@ -162,14 +153,6 @@ class ControllerTest extends TestCase
             'activeSensorIds' => $sensorIds,
             'json' => $json,
             'currentFrom' => $from,
-            'availableSensors' => $sensorsObj,
-            'fromIntervals' => [
-                -1         => 'All',
-                3600       => 'Last Hour',
-                86400      => 'Last Day',
-                86400 * 7  => 'Last Week',
-                86400 * 30 => 'Last Month'
-            ]
         ];
 
         $this->assertEquals($expectedResult, $actualResult);
@@ -177,9 +160,9 @@ class ControllerTest extends TestCase
 
     public function testIndexSensorWithoutFromAndLastValue()
     {
-        $from              = null;
-        $lastValue         = null;
-        $type              = 'sensor_type';
+        $from        = null;
+        $lastValue   = null;
+        $type        = 'sensor_type';
 
         $request = new Request();
         $request->query->set('from', $from);
@@ -191,21 +174,6 @@ class ControllerTest extends TestCase
                 'type' => $type,
             ]
         ];
-
-        $sensorsObj = [
-            $type => $this->getMock(Sensor::class)
-        ];
-
-        $this->builder
-            ->expects($this->once())
-            ->method('getSensors')
-            ->willReturn($sensorsObj);
-
-        $sensorIds = [$sensorId];
-        $this->gateway
-            ->expects($this->once())
-            ->method('getSensorIds')
-            ->willReturn($sensorIds);
 
         $this->gateway
             ->expects($this->once())
@@ -222,18 +190,10 @@ class ControllerTest extends TestCase
         $actualResult = $this->subject->indexSensor($request, "13");
 
         $expectedResult = [
-            'sensors' => $sensorsRaw,
+            'sensors'     => $sensorsRaw,
             'activeSensorIds' => [13],
-            'json' => $json,
+            'json'        => $json,
             'currentFrom' => Chart::DEFAULT_TIME,
-            'availableSensors' => $sensorsObj,
-            'fromIntervals' => [
-                -1         => 'All',
-                3600       => 'Last Hour',
-                86400      => 'Last Day',
-                86400 * 7  => 'Last Week',
-                86400 * 30 => 'Last Month'
-            ]
         ];
 
         $this->assertEquals($expectedResult, $actualResult);
@@ -323,6 +283,34 @@ class ControllerTest extends TestCase
         $actualResult = $this->subject->espeak($request, $sensorId);
 
         $this->assertTrue($actualResult);
+    }
+
+    public function testEdit()
+    {
+        $sensorId = 12;
+
+        $request = new Request();
+
+        $sensorRaw = ['raw'];
+        $sensorVo = new SensorVO();
+        $this->gateway
+            ->expects($this->once())
+            ->method('getSensor')
+            ->with($sensorId)
+            ->willReturn($sensorRaw);
+        $this->voBuilder
+            ->expects($this->once())
+            ->method('buildFromArray')
+            ->with($sensorRaw)
+            ->willReturn($sensorVo);
+
+        $expected = new SensorVO();
+        $this->gateway
+            ->expects($this->once())
+            ->method('save')
+            ->with($expected);
+
+        $this->subject->edit($request, $sensorId);
     }
 
     public function testSlim()
@@ -472,7 +460,14 @@ class ControllerTest extends TestCase
 
         $expectedValue = [
             'types'   => $types,
-            'sensors' => $sensors
+            'sensors' => $sensors,
+            'fromIntervals' => [
+                -1         => 'All',
+                3600       => 'Last Hour',
+                86400      => 'Last Day',
+                86400 * 7  => 'Last Week',
+                86400 * 30 => 'Last Month'
+            ]
         ];
 
         $this->assertEquals($expectedValue, $actualResult);

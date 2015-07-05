@@ -195,6 +195,19 @@ class SensorGatewayTest extends TestCase
         $this->assertEquals($sensor, $actualResult);
     }
 
+    public function testSave()
+    {
+        $sensorVo = new SensorVO();
+        $sensorVo->sensorId = 12;
+
+        $this->redis
+            ->expects($this->once())
+            ->method('hmset')
+            ->with("sensor:12");
+
+        $this->subject->save($sensorVo);
+    }
+
     public function testDeleteSensor()
     {
         $sensorId = 10;

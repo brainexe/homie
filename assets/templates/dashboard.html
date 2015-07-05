@@ -41,9 +41,11 @@
 </nav>
 
 <div ng-if="dashboard" class="span-9 dashboard">
-    <h2>{{ dashboard.name }}</h2>
+    <h2 ng-if="!editMode">
+        {{ dashboard.name }}
+    </h2>
     <div ng-if="editMode">
-        <div class="input-group">
+        <div class="input-group" style="width: 400px">
             <span class="input-group-addon" translate>Name</span>
             <input
                    type="text"

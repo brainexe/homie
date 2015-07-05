@@ -5,6 +5,9 @@ namespace Homie\Sensors\Sensors;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Interfaces\Sensor;
 
+/**
+ * @todo check if package is installed via apt-cache policy bridge-utils
+ */
 abstract class AbstractSensor implements Sensor
 {
 

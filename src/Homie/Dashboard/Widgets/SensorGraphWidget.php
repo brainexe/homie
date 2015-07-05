@@ -65,6 +65,17 @@ class SensorGraphWidget extends AbstractWidget
                     'name'   => gettext('Sensor ID'),
                     'values' => $sensors
                 ],
+                'from' => [
+                    'type'   => 'select',
+                    'name'   => gettext('From'),
+                    'values' => [
+                        3600        => _('Last Hour'),
+                        86400       => _('Last Day'),
+                        86400 * 7   => _('Last Week'),
+                        86400 * 30  => _('Last Month'),
+                        -1          => _('All'),
+                    ]
+                ],
                 'title' => [
                     'type' => 'text',
                     'name' => gettext('Name')

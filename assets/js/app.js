@@ -6,7 +6,7 @@ var App = angular.module('homie', [
         'ngDragDrop',
         'ngRoute',
         'ngSanitize',
-        //'LocalStorageModule',
+        'angular-cache',
         'autocomplete',
         'ui.bootstrap',
         'ui.select',
@@ -21,7 +21,7 @@ var App = angular.module('homie', [
         $provide.factory('$httpProvider', function () {
             return $httpProvider;
         });
-    }]).run(['gettextCatalog', '$routeProvider', '$httpProvider', 'controllers', '$rootScope', function (gettextCatalog, $routeProvider, $httpProvider, controllers, $rootScope) {
+    }]).run(['gettextCatalog', '$routeProvider', '$httpProvider', 'controllers', '$rootScope', '$http', 'CacheFactory', function (gettextCatalog, $routeProvider, $httpProvider, controllers, $rootScope, $http, CacheFactory) {
         // TODO: store in cookies  or user setting
         gettextCatalog.setCurrentLanguage('de');
 
@@ -30,15 +30,13 @@ var App = angular.module('homie', [
             var metadata = controllers[i];
             $routeProvider.when('/' + metadata.url, metadata);
         }
+        $routeProvider.otherwise({redirectTo: '/index'});
 
         // show error messages as flash
         $httpProvider.defaults.transformResponse.push(function(response, headers, code) {
-        if (headers('X-Flash-Type')) {
-            $rootScope.$broadcast('flash', [headers('X-Flash-Message'), headers('X-Flash-Type')]);
-        }
-
-        return response;
-    });
-
-        $routeProvider.otherwise({redirectTo: '/index'});
+            if (headers('X-Flash-Type')) {
+                $rootScope.$broadcast('flash', [headers('X-Flash-Message'), headers('X-Flash-Type')]);
+            }
+            return response;
+        });
     }]);

@@ -1,11 +1,6 @@
 
 App.service('BrowserNotification', ['$q', '_', function($q, _) {
-    var TIMEOUT = 10000;
-
-    var currentNotification,
-        currentContent,
-        notification,
-        timeout;
+    var TIMEOUT = 5000;
 
     function request() {
         return $q(function(resolve, reject) {
@@ -51,7 +46,6 @@ App.service('BrowserNotification', ['$q', '_', function($q, _) {
         show: function(content) {
             request().then(function() {
                 window.setTimeout(function() {
-                    console.log('show!');
                     if (contentQueue.length == 0) {
                         // content already shown
                         return;
@@ -59,7 +53,6 @@ App.service('BrowserNotification', ['$q', '_', function($q, _) {
 
                     // close all other open notification and replace by extended one
                     if (openNotifications.length) {
-                        console.log('close');
                         var notification;
 
                         while(notification = openNotifications.pop()) {

@@ -1,24 +1,7 @@
 
-App.service('Config', ['$q', '$http', function($q, $http) {
-    var CACHE_KEY = 'config';
-    var cache     = null;
-
-    if (localStorage.getItem(CACHE_KEY)) {
-        cache = JSON.parse(localStorage.getItem(CACHE_KEY));
-    }
-
+App.service('Config', ['$q', '$http', 'Cache', function($q, $http, Cache) {
     function getAll() {
-        return $q(function(resolve, reject) {
-            if (cache != null) {
-                resolve(cache);
-            }
-
-            $http.get('/config/', {cache:true}).success(function(config) {
-                resolve(config);
-                cache = config;
-                localStorage.setItem(CACHE_KEY, JSON.stringify(config));
-            })
-        });
+        return $http.get('/config/', {cache:Cache});
     }
 
     return {

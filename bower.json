@@ -28,8 +28,8 @@
     "jquery": "2.1.*",
     "allmighty-autocomplete": "*",
     "ui-select": "https://github.com/angular-ui/ui-select.git#~0.11.2",
-    "angular-local-storage": "~0.2.2",
-    "ng-sortable": "~1.2.2"
+    "ng-sortable": "~1.2.2",
+    "angular-cache": "~4.2.2"
   },
   "resolutions": {
     "angular": "1.4.*"

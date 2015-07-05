@@ -38,7 +38,7 @@ class Brightness extends AbstractSensor
     public function getValue($path)
     {
         $command = sprintf(
-            "fswebcam -d /dev/video0 /tmp/brightness.jpg;".
+            "fswebcam /tmp/brightness.jpg;".
             "convert /tmp/brightness.jpg  -colorspace gray  -resize 1x1  txt:-"
         );
 
@@ -48,7 +48,7 @@ class Brightness extends AbstractSensor
             return 0;
         }
 
-        return (int)$matches[1];
+        return $this->round($matches[1], 0.1);
     }
 
     /**
@@ -69,6 +69,10 @@ class Brightness extends AbstractSensor
         $definition->name      = gettext('Brightness');
         $definition->type      = Definition::TYPE_NONE;
         $definition->formatter = None::TYPE;
+        $definition->neededPackages = [
+            'fswebcam',
+            'imagemagick'
+        ];
 
         return $definition;
     }

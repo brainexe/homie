@@ -32,24 +32,35 @@ class ControllerTest extends TestCase
 
     public function testIndex()
     {
-        $dashboards = ['dashboards'];
         $widgets    = ['widgets'];
-
-        $this->dashboard
-            ->expects($this->once())
-            ->method('getDashboards')
-            ->willReturn($dashboards);
 
         $this->dashboard
             ->expects($this->once())
             ->method('getAvailableWidgets')
             ->willReturn($widgets);
 
-        $actualResult = $this->subject->index();
+        $actualResult = $this->subject->metadata();
+
+        $expectedResult = [
+            'widgets'   => $widgets
+        ];
+
+        $this->assertEquals($expectedResult, $actualResult);
+    }
+
+    public function testDashboards()
+    {
+        $dashboards = ['dashboards'];
+
+        $this->dashboard
+            ->expects($this->once())
+            ->method('getDashboards')
+            ->willReturn($dashboards);
+
+        $actualResult = $this->subject->dashboard();
 
         $expectedResult = [
             'dashboards' => $dashboards,
-            'widgets'   => $widgets
         ];
 
         $this->assertEquals($expectedResult, $actualResult);

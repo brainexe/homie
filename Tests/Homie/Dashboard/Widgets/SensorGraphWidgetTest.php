@@ -84,7 +84,7 @@ class SensorGraphWidgetTest extends TestCase
             ->willReturn($sensors);
 
         $actualResult = json_encode($this->subject);
-        $expectedResult = '{"name":"Sensor Graph","description":"Displays a Sensor Graph of given sensors","parameters":{"sensor_ids":{"type":"multi_select","name":"Sensor ID","values":{"12":"sensor name"}},"title":{"type":"text","name":"Name"}},"widgetId":"sensor_graph","width":6}';
+        $expectedResult = '{"name":"Sensor Graph","description":"Displays a Sensor Graph of given sensors","parameters":{"sensor_ids":{"type":"multi_select","name":"Sensor ID","values":{"12":"sensor name"}},"from":{"type":"select","name":"From","values":{"3600":"Last Hour","86400":"Last Day","604800":"Last Week","2592000":"Last Month","-1":"All"}},"title":{"type":"text","name":"Name"}},"widgetId":"sensor_graph","width":6}';
         $this->assertEquals($expectedResult, $actualResult);
     }
 }

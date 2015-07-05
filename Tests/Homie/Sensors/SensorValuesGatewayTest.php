@@ -110,6 +110,30 @@ class SensorValuesGatewayTest extends TestCase
         $this->assertEquals($expectedResult, $actualResult);
     }
 
+    public function testGetAllSensorValuesWithEmptySet()
+    {
+        $sensorId = 10;
+        $from     = -1;
+        $now      = 1000;
+
+        $this->time
+            ->expects($this->once())
+            ->method('now')
+            ->willReturn($now);
+
+        $this->redis
+            ->expects($this->once())
+            ->method('ZRANGEBYSCORE')
+            ->with("sensor_values:$sensorId", 0, $now)
+            ->willReturn([]);
+
+        $actualResult = $this->subject->getSensorValues($sensorId, $from);
+
+        $expectedResult = [];
+
+        $this->assertEquals($expectedResult, $actualResult);
+    }
+
     public function testDeleteOldValues()
     {
         $sensorId = 10;

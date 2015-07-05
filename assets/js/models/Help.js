@@ -1,8 +1,8 @@
 
-App.service('Help', ['$http', function($http) {
+App.service('Help', ['$http', 'Cache', function($http, Cache) {
     return {
         getAll: function() {
-            return $http.get('/help/');
+            return $http.get('/help/', {cache: Cache});
         },
 
         save: function(type, value) {

@@ -73,6 +73,10 @@ class Db extends AbstractSensor
         $definition->name      = gettext('DB');
         $definition->type      = Definition::TYPE_NONE;
         $definition->formatter = None::TYPE;
+        $definition->neededPackages = [
+            'arecord',
+            'sox'
+        ];
 
         return $definition;
     }

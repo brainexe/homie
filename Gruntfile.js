@@ -202,7 +202,7 @@ module.exports = function (grunt) {
                         'bower_components/angular-sanitize/angular-sanitize.min.js',
                         'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
                         'bower_components/ng-sortable/dist/ng-sortable.min.js',
-                        // 'bower_components/angular-local-storage/dist/angular-local-storage.min.js',
+                        'bower_components/angular-cache/dist/angular-cache.min.js',
                         'bower_components/ui-select/dist/select.min.js',
                         'bower_components/allmighty-autocomplete/script/autocomplete.js',
 

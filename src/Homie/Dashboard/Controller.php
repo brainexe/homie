@@ -29,16 +29,26 @@ class Controller
 
     /**
      * @return array
-     * @Route("/dashboard/", name="dashboard.index", methods="GET")
+     * @Route("/dashboard/metadata/", name="dashboard.metadata", methods="GET")
      */
-    public function index()
+    public function metadata()
     {
-        $dashboards = $this->dashboard->getDashboards();
         $widgets    = $this->dashboard->getAvailableWidgets();
 
         return [
+            'widgets' => $widgets
+        ];
+    }
+    /**
+     * @return array
+     * @Route("/dashboard/", name="dashboard.index", methods="GET")
+     */
+    public function dashboard()
+    {
+        $dashboards = $this->dashboard->getDashboards();
+
+        return [
             'dashboards' => $dashboards,
-            'widgets'   => $widgets
         ];
     }
 

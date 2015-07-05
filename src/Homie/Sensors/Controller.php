@@ -93,6 +93,13 @@ class Controller
     {
         return [
             'types'   => $this->builder->getSensors(),
+            'fromIntervals' => [
+                3600        => _('Last Hour'),
+                86400       => _('Last Day'),
+                86400 * 7   => _('Last Week'),
+                86400 * 30  => _('Last Month'),
+                -1          => _('All'),
+            ],
             'sensors' => array_map([$this->voBuilder, 'buildFromArray'], $this->gateway->getSensors())
         ];
     }
@@ -110,14 +117,14 @@ class Controller
             $activeSensorIds = $this->settings->get($userId, self::SETTINGS_ACTIVE_SENSORS) ?: '0';
         }
 
-        $availableSensorIds = $this->gateway->getSensorIds();
         if (empty($activeSensorIds)) {
+            $availableSensorIds = $this->gateway->getSensorIds();
             $activeSensorIds = implode(':', $availableSensorIds);
         }
 
         $from = (int)$request->query->get('from');
         if (!$from) {
-            $from = Chart::DEFAULT_TIME;
+            $from = (int)$this->settings->get($userId, self::SETTINGS_TIMESPAN) ?: Chart::DEFAULT_TIME;
         }
 
         if ($request->query->get('save')) {
@@ -126,31 +133,21 @@ class Controller
         }
 
         $activeSensorIds = array_unique(array_map('intval', explode(':', $activeSensorIds)));
-
-        $sensorsRaw    = $this->gateway->getSensors();
-        $sensorObjects = $this->builder->getSensors();
-        $sensorValues  = $this->addValues($activeSensorIds, $sensorsRaw, $from);
+        $sensorsRaw      = $this->gateway->getSensors();
+        $sensorValues    = $this->addValues($activeSensorIds, $sensorsRaw, $from);
 
         $json = $this->chart->formatJsonData($sensorsRaw, $sensorValues);
 
         return [
-            'sensors' => $sensorsRaw,
+            'sensors'       => $sensorsRaw,
             'activeSensorIds' => array_values($activeSensorIds),
-            'json' => $json,
-            'currentFrom' => $from,
-            // todo not needed
-            'availableSensors' => $sensorObjects,
-            'fromIntervals' => [
-                -1         => _('All'),
-                3600       => _('Last Hour'),
-                86400      => _('Last Day'),
-                86400 * 7  => _('Last Week'),
-                86400 * 30 => _('Last Month')
-            ]
+            'json'          => $json,
+            'currentFrom'   => $from
         ];
     }
 
     /**
+     * @todo frontend missing
      * @param Request $request
      * @return SensorVO
      * @Route("/sensors/", name="sensors.add", methods="POST")
@@ -180,6 +177,7 @@ class Controller
     }
 
     /**
+     * @todo frontend missing -> remove?
      * @param Request $request
      * @param integer $sensorId
      * @return boolean
@@ -200,6 +198,7 @@ class Controller
     }
 
     /**
+     * @todo frontend missing -> remove?
      * @Route("/sensors/{sensor_id}/slim/", name="sensor.slim", methods="GET")
      * @param Request $request
      * @param integer $sensorId
@@ -274,6 +273,7 @@ class Controller
     }
 
     /**
+     * @todo frontend missing -> remove?
      * @param Request $request
      * @param int $sensorId
      * @Route("/sensors/{sensorId}/value/", name="sensor.value", methods="GET")
@@ -302,7 +302,7 @@ class Controller
      * @param int $from
      * @return array
      */
-    protected function addValues(array $activeSensorIds, array &$sensorsRaw, $from)
+    private function addValues(array $activeSensorIds, array &$sensorsRaw, $from)
     {
         $sensorValues = [];
         foreach ($sensorsRaw as &$sensor) {

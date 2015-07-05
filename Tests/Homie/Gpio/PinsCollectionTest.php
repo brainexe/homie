@@ -40,6 +40,7 @@ class PinsCollectionTest extends PHPUnit_Framework_TestCase
         $pin = new Pin();
         $pin->setWiringId($pinId);
         $pin->setName($pinName);
+        $pin->setPhysicalId(11880);
 
         $collection = new PinsCollection();
         $collection->add($pin);
@@ -52,5 +53,6 @@ class PinsCollectionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($pinId, $jsonResult['wiringId']);
         $this->assertEquals($pinName, $actualResult->getName());
         $this->assertEquals($pinName, $jsonResult['name']);
+        $this->assertEquals(11880, $pin->getPhysicalId());
     }
 }

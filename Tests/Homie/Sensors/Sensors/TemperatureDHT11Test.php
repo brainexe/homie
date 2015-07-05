@@ -60,6 +60,21 @@ class TemperatureDHT11Test extends TestCase
         $this->assertEquals($temp, $actualResult);
     }
 
+    public function testGetValueWitInvalidOutput()
+    {
+        $parameter = 3;
+        $output    = "Temp = ERROR %";
+
+        $this->client
+            ->expects($this->once())
+            ->method('executeWithReturn')
+            ->willReturn($output);
+
+        $actual = $this->subject->getValue($parameter);
+
+        $this->assertEquals(null, $actual);
+    }
+
     public function testIsSupportedExisting()
     {
         $output    = new DummyOutput();

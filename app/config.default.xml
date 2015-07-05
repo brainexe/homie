@@ -8,7 +8,7 @@
 
         <parameter key="rc_switch.command">sudo /opt/rcswitch-pi/send</parameter>
         <parameter key="adafruit.path">/opt/Adafruit-Raspberry-Pi-Python-Code/Adafruit_DHT_Driver/</parameter>
-        <parameter key="webcam.executable">fswebcam -d /dev/video0 %s</parameter>
+        <parameter key="webcam.executable">fswebcam %s</parameter>
         <!--<parameter key="webcam.executable">raspistill -o %s</parameter>-->
 
         <parameter key="serial.port">/dev/ttyACM*</parameter>

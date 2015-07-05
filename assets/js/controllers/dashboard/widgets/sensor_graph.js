@@ -8,7 +8,7 @@ App.service('Widget.sensor_graph', ['Sensor', '_', function(Sensor, _) {
                 return parseInt(i);
             });
 
-            Sensor.getAll().success(function(data) {
+            Sensor.getCachedData().success(function(data) {
                 var names = [];
                 for (var i in data.sensors) {
                     if (sensorIds.indexOf(data.sensors[i].sensorId) >= 0) {
@@ -24,8 +24,6 @@ App.service('Widget.sensor_graph', ['Sensor', '_', function(Sensor, _) {
                 $scope.sensors          = data.sensors;
                 $scope.activeSensorIds  = data.activeSensorIds;
                 $scope.currentFrom      = data.currentFrom;
-                $scope.fromIntervals    = data.fromIntervals;
-                $scope.availableSensors = data.availableSensors;
 
                 var element = document.querySelector("#widget_" + widget.id + ' .chart_container');
                 $scope.graph = new Rickshaw.Graph({

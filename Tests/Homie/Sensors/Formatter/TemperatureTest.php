@@ -70,10 +70,8 @@ class TemperatureTest extends TestCase
     public function provideValues()
     {
         return [
-            ['12', "12.0°"],
-            ['12.22', "12.2°"],
-            [12.22, "12.2°"],
-            [12.9999, "13.0°"],
+            ['12', "12°"],
+            ['12.22', "12.22°"]
         ];
     }
 }

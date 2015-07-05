@@ -1,5 +1,5 @@
 
-App.controller('DashboardController', ['$scope', '$modal', 'Dashboard', 'WidgetFactory', function($scope, $modal, Dashboard, WidgetFactory) {
+App.controller('DashboardController', ['$scope', '$modal', '$q', 'Dashboard', 'WidgetFactory', function($scope, $modal, $q, Dashboard, WidgetFactory) {
     $scope.editMode = false;
 
     function selectDashboard(dashboard) {
@@ -19,14 +19,19 @@ App.controller('DashboardController', ['$scope', '$modal', 'Dashboard', 'WidgetF
         $scope.dashboard = dashboard;
     }
 
-    Dashboard.getData().success(function (data) {
-        var selectedId = Object.keys(data.dashboards)[0];
+    $q.all([
+        Dashboard.getCachedMetadata(),
+        Dashboard.getDashboards()
+    ]).then(function(data) {
+        var metadata   = data[0].data,
+            dashboards = data[1].data;
+        var selectedId = Object.keys(dashboards.dashboards)[0];
 
-        $scope.dashboards = data.dashboards;
-        $scope.widgets    = data.widgets;
+        $scope.dashboards = dashboards.dashboards;
+        $scope.widgets    = metadata.widgets;
 
         if (selectedId) {
-            selectDashboard(data.dashboards[selectedId]);
+            selectDashboard(dashboards.dashboards[selectedId]);
         }
     });
 

@@ -3,8 +3,9 @@
 namespace Tests\Homie\Sensors;
 
 use Homie\Sensors\Chart;
+use PHPUnit_Framework_TestCase as TestCase;
 
-class ChartTest extends \PHPUnit_Framework_TestCase
+class ChartTest extends TestCase
 {
 
     /**
@@ -21,10 +22,11 @@ class ChartTest extends \PHPUnit_Framework_TestCase
     {
         $sensors = [
             [
-                'sensorId' => $sensorId = 'sensor_id',
+                'sensorId' => $sensorId = 1212,
                 'name' => $sensorName = 'name',
                 'description' => $sensorDescription = 'description',
                 'pin' => $sensorPin = 'pin',
+                'type' => 'mockType',
             ],
             [
                 'sensorId' => 'sensor_id_2',
@@ -44,8 +46,8 @@ class ChartTest extends \PHPUnit_Framework_TestCase
                 'sensor_id' => $sensorId,
                 'name' => $sensorName,
                 'description' => $sensorDescription,
-                'color' => '#d96d86',
-                'pin' => $sensorPin,
+                'color' => '#a01610',
+                'type' => 'mockType',
                 'data' => [
                     [
                          'x' => $timestamp,

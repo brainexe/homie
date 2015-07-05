@@ -17,11 +17,22 @@ App.filter('orderObjectBy', function(){
             array.push(input[objectKey]);
         }
 
+        var reversed = false;
+        if (attribute.charAt(0) == '-') {
+            attribute = attribute.substring(1);
+            reversed = true;
+        }
+
         array.sort(function(a, b){
             a = parseInt(a[attribute]);
             b = parseInt(b[attribute]);
             return a - b;
         });
+        
+        if (reversed) {
+            array = array.reverse();
+        }
+
         return array;
     }
 });

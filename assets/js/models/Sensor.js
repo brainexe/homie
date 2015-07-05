@@ -1,25 +1,18 @@
 
-App.service('Sensor', ['$http', '$q', function($http, $q) {
+App.service('Sensor', ['$http', 'Cache', function($http, Cache) {
     return {
         getAll: function() {
             return $http.get('/sensors/');
         },
 
-        /**
-         * @returns Array
-         */
-        getAllMetadata: function() {
-            return $q(function(resolve, reject) {
-                $http.get('/sensors/', {cache:true}).success(function(data) {
-                    resolve(data.types);
-                });
-            });
+        getCachedData: function() {
+            return $http.get('/sensors/', {cache: Cache});
         },
 
-        getValues: function(sesnorsIds, parameters) {
+        getValues: function(sensorsIds, parameters) {
             parameters = parameters || '';
 
-            return $http.get('/sensors/load/{0}/{1}'.format(sesnorsIds, parameters))
+            return $http.get('/sensors/load/{0}/{1}'.format(sensorsIds, parameters))
         },
 
         getSensorData: function(sensorId) {

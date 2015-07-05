@@ -10,6 +10,10 @@ App.controller('GpioController', ['$scope', 'Gpio', function ($scope, Gpio) {
     });
 
     $scope.setOrderBy = function(key) {
+        if ($scope.orderBy == key) {
+            key = '-' + key;
+        }
+
         $scope.orderBy = key;
     };
 

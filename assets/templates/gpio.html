@@ -23,7 +23,9 @@
 	</thead>
 	<tbody ng-repeat="pin in gpios|orderObjectBy:orderBy">
 		<tr>
-			<td>#{{ pin.wiringId }}</td>
+			<td>
+				<span ng-if="pin.wiringId">#{{ pin.wiringId }}</span>
+			</td>
 			<td>#{{ pin.physicalId }}</td>
 			<td>
 				{{ pin.name }} <span ng-if="pin.description">({{ pin.description }})</span>
