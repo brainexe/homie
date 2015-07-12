@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 
 /**
- * @ControllerAnnotation("DashboardController")
+ * @ControllerAnnotation("DisplayController")
  */
 class Controller
 {
