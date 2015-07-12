@@ -1,0 +1,28 @@
+<form ng-submit="add(newScreen)" class="form-horizontal">
+	<div class="form-group">
+		<div class="col-sm-3">
+			<input
+					ng-model="newScreen.lines"
+					type="number"
+					class="form-control input-lg"
+					placeholder="{{'Lines'|translate}}"
+					/>
+		</div>
+		<div class="col-sm-3">
+			<input
+					ng-model="newScreen.columns"
+					type="number"
+					class="form-control input-lg"
+					placeholder="{{'Columns'|translate}}"
+					/>
+		</div>
+	</div>
+	<h3 translate>Lines</h3>
+	<div class="form-inline" ng-repeat="line in newScreen.content track by $index">
+		<label class="pull-left">{{ key }}:&nbsp</label>
+		<input ng-model="newScreen.content[$index]" class="form-control" type="text"/>
+	</div>
+	<a ng-click="newScreen.content.push('')" class="glyphicon glyphicon-plus"></a>
+
+	<button type="submit" class="btn btn-primary btn-lg">Submit</button>
+</form>

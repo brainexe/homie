@@ -3,22 +3,22 @@
 namespace Homie\Sensors\Command;
 
 use BrainExe\Annotations\Annotations\Inject;
-use Exception;
+
 use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\Interfaces\Searchable;
 use Homie\Sensors\Interfaces\Sensor;
 use Homie\Sensors\SensorBuilder;
 use Homie\Sensors\SensorGateway;
-use Homie\Sensors\SensorVO;
+
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Input\InputArgument;
+
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Question\ChoiceQuestion;
+
 use Symfony\Component\Console\Question\ConfirmationQuestion;
-use Symfony\Component\Console\Question\Question;
+
 use BrainExe\Core\Annotations\Command as CommandAnnotation;
 
 /**

@@ -19,11 +19,6 @@ class Webcam
     use EventDispatcherTrait;
 
     /**
-     * @var ClientInterface
-     */
-    private $client;
-
-    /**
      * @var Filesystem
      */
     private $filesystem;

@@ -8,6 +8,10 @@ App.service('SensorFormatter', [function() {
         return value +'%';
     }
 
+    function barometer(value) {
+        return value +'hPa';
+    }
+
     function noop(value) {
         return value;
     }
@@ -37,6 +41,8 @@ App.service('SensorFormatter', [function() {
                     return temperatre;
                 case 'percentage':
                     return percentage;
+                case 'barometer':
+                    return barometer;
                 case 'bytes':
                     return bytes;
                 default:

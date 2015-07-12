@@ -3,7 +3,6 @@
 namespace Homie\Sensors\Formatter;
 
 use Homie\Sensors\CompilerPass\Annotation\SensorFormatter;
-use Homie\Sensors\Definition;
 
 /**
  * @SensorFormatter("Formatter.None")

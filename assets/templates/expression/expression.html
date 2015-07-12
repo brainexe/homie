@@ -43,7 +43,7 @@
     <div class="form-group" ng-if="editExpression.payload|notEmpty">
         <label translate>Payload</label>
         <div class="form-inline" ng-repeat="(key, value) in editExpression.payload">
-            <label class="pull-left">{{ key }}.)&nbsp</label>
+            <label class="pull-left">{{ key }}:&nbsp</label>
             <input ng-model="value" class="form-control" type="text"/>
         </div>
     </div>

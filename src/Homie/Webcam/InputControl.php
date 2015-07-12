@@ -4,7 +4,7 @@ namespace Homie\Webcam;
 
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\InputControl\Annotations\InputControlInterface;
-use BrainExe\InputControl\Event;
+
 use BrainExe\InputControl\Annotations\InputControl as InputControlAnnotation;
 
 /**

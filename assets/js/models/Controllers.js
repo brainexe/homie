@@ -7,6 +7,7 @@ App.service('controllers', ['_', function(_) {
         {controller:'SensorController', name: _('Sensors'), url: 'sensor', icon:'stats', templateUrl: asset('/templates/sensor.html')},
         {controller:'ExpressionController', name: _('Actions'), url: 'expression', icon:'link', templateUrl: asset('/templates/expression/expression.html')},
         {controller:'GpioController', name: _('GPIO'), url: 'gpio', icon:'flash', templateUrl: asset('/templates/gpio.html')},
+        {controller:'DisplaysController', name: _('Displays'), url: 'displays', icon:'display', templateUrl: asset('/templates/displays.html')},
         {controller:'EspeakController', name: _('Speak'), url: 'speak', icon:'bullhorn', templateUrl: asset('/templates/espeak.html')},
         {controller:'FlowerController', name: _('Flowers'), url: 'flower', icon:'leaf', templateUrl: asset('/templates/flower.html')},
         {controller:'EggTimerController', name: _('Egg Timer'), url: 'egg_timer', icon:'time', templateUrl: asset('/templates/egg_timer.html')},
@@ -21,7 +22,7 @@ App.service('controllers', ['_', function(_) {
 
         // private
         {controller:'LoginController', name: _('Login'), url: 'login', icon: 'user', isPublic: true, templateUrl: asset('/templates/user/login.html')},
-        {controller:'RegisterController', name: _('Register'), url: 'register', icon: 'user', isPublic: true, templateUrl: asset('/templates/user/register.html')},
+        //{controller:'RegisterController', name: _('Register'), url: 'register', icon: 'user', isPublic: true, templateUrl: asset('/templates/user/register.html')},
 
         // hidden controllers
         {url: 'logout', templateUrl: "/templates/index.html", controller: "LogoutController"},

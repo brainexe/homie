@@ -2,7 +2,7 @@
 App.service('Status', ['$http', function($http) {
     return {
         getData: function() {
-            return  $http.get('/stats/');
+            return $http.get('/stats/');
         },
 
         deleteEvent: function(eventId) {
@@ -10,7 +10,7 @@ App.service('Status', ['$http', function($http) {
         },
 
         reset: function(key) {
-            var url = '/stats/reset/'.format(key);
+            var url = '/stats/reset/';
 
             return $http.post(url, {key: key})
         }

@@ -2,12 +2,15 @@
 
 namespace Homie\Display;
 
+use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Expression\Language;
 
+/**
+ * @Service("Display.Renderer", public=false)
+ */
 class Renderer
 {
-
     /**
      * @var Language
      */

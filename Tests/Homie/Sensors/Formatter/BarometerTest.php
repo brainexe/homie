@@ -57,10 +57,10 @@ class BarometerTest extends TestCase
     public function provideEspeak()
     {
         return [
-            ['12', "12"],
-            ['12.22', "12.22"],
-            [12.22, "12.22"],
-            [12.9999, "12.9999"],
+            ['12', "12hPa"],
+            ['12.22', "12.22hPa"],
+            [12.22, "12.22hPa"],
+            [12.9999, "12.9999hPa"],
         ];
     }
 
@@ -70,10 +70,10 @@ class BarometerTest extends TestCase
     public function provideValues()
     {
         return [
-            ['12', "12"],
-            ['12.22', "12.22"],
-            [12.22, "12.22"],
-            [12.9999, "12.9999"],
+            ['12', "12hPa"],
+            ['12.22', "12.22hPa"],
+            [12.22, "12.22hPa"],
+            [12.9999, "12.9999hPa"],
         ];
     }
 }

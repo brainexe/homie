@@ -35,7 +35,7 @@ class SerialEvent extends AbstractEvent
      */
     public function __construct($action, $pin, $value = 0)
     {
-        $this->event_name = self::SERIAL;
+        parent::__construct(self::SERIAL);
         $this->action     = $action;
         $this->pin        = $pin;
         $this->value      = $value;

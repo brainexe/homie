@@ -39,6 +39,12 @@ class Language implements ExpressionFunctionProviderInterface
             return $this->gateway->getSensor($value)['lastValue'];
         });
 
-        return [$sensorValue];
+        $sensor = new ExpressionFunction('getSensor', function () {
+            throw new InvalidArgumentException('getSensor not implemented');
+        }, function (array $variables, $value) {
+            return $this->gateway->getSensor($value);
+        });
+
+        return [$sensorValue, $sensor];
     }
 }

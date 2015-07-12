@@ -9,9 +9,6 @@ use Homie\Dashboard\Widgets\SensorWidget;
 use Homie\Dashboard\Widgets\WidgetMetadataVo;
 use Homie\Sensors\SensorGateway;
 
-/**
- * @covers Homie\Dashboard\Widgets\SensorGraphWidget
- */
 class SensorGraphWidgetTest extends TestCase
 {
 

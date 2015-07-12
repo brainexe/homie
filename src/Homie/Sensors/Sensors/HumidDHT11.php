@@ -38,8 +38,8 @@ class HumidDHT11 extends AbstractDHT11
     {
         $definition            = new Definition();
         $definition->name      = gettext('Humidity');
-        $definition->type      = Definition::TYPE_HUMIDITY;
         $definition->formatter = Percentage::TYPE;
+        $definition->type      = Definition::TYPE_HUMIDITY;
 
         return $definition;
     }

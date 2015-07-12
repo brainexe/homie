@@ -108,7 +108,11 @@ class TemperatureDS18Test extends TestCase
     {
         $file = 'mockFile';
 
-        $this->fileSystem->expects($this->once())->method('exists')->with($file)->willReturn(false);
+        $this->fileSystem
+            ->expects($this->once())
+            ->method('exists')
+            ->with($file)
+            ->willReturn(false);
 
         $output       = new DummyOutput();
         $actualResult = $this->subject->isSupported($file, $output);
