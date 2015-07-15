@@ -4,6 +4,7 @@ App.controller('DashboardController', ['$scope', '$modal', '$q', 'Dashboard', 'W
 
     function selectDashboard(dashboard) {
         var order = [];
+        localStorage['selectedDashboardId'] = dashboard.dashboardId;
 
         if (dashboard.order) {
             order = dashboard.order.split(',').map(function(id) {
@@ -23,12 +24,18 @@ App.controller('DashboardController', ['$scope', '$modal', '$q', 'Dashboard', 'W
         Dashboard.getCachedMetadata(),
         Dashboard.getDashboards()
     ]).then(function(data) {
-        var metadata   = data[0].data,
-            dashboards = data[1].data,
-            selectedId = Object.keys(dashboards.dashboards)[0];
+        var metadata     = data[0].data,
+            dashboards   = data[1].data,
+            dashboardIds = Object.keys(dashboards.dashboards),
+            selectedId;
 
         $scope.dashboards = dashboards.dashboards;
         $scope.widgets    = metadata.widgets;
+
+        selectedId = localStorage['selectedDashboardId'];
+        if (!selectedId || dashboardIds.indexOf(selectedId) == -1) {
+            selectedId = dashboardIds[0];
+        }
 
         if (selectedId) {
             selectDashboard(dashboards.dashboards[selectedId]);
@@ -46,10 +53,15 @@ App.controller('DashboardController', ['$scope', '$modal', '$q', 'Dashboard', 'W
         }
     };
 
-    $scope.metadata = function(type, key) {
+    $scope.metadata = function(widget, key) {
+        var type = widget.type;
+
         var metadata = $scope.widgets[type];
 
         if (key) {
+            if (widget[key]) {
+                return widget[key];
+            }
             return metadata[key];
         }
         return metadata;
@@ -81,8 +93,10 @@ App.controller('DashboardController', ['$scope', '$modal', '$q', 'Dashboard', 'W
             }
 		});
         modal.result.then(function(data) {
-            $scope.dashboards[data.dashboardId] = data;
-            selectDashboard(data);
+            if (data) {
+                $scope.dashboards[data.dashboardId] = data;
+                selectDashboard(data);
+            }
         });
 	};
 
@@ -109,5 +123,23 @@ App.controller('DashboardController', ['$scope', '$modal', '$q', 'Dashboard', 'W
 		});
 
 		return false;
+	};
+
+	$scope.editWidget = function(dashboardId, widget) {
+        var modal = $modal.open({
+            templateUrl: asset('/templates/widgets/edit.html'),
+            controller: 'EditWidgetController',
+            resolve: {
+                widget: function() {
+                    return widget;
+                },
+                dashboardId: function () {
+                    return dashboardId;
+                }
+            }
+        });
+        modal.result.then(function(data) {
+            selectDashboard(data);
+        });
 	}
 }]);

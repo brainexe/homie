@@ -50,7 +50,9 @@
 				>
 			<div class="task-header">{{item.name}}</div>
 			<div class="task-description" ng-if="item.description">{{item.description}}</div>
-			<div class="task-deadline" ng-if="item.deadline > 0">{{item.deadline|timeAgo}}</div>
+			<div class="task-deadline" ng-if="item.deadline > 0">
+				<time-ago from-time="item.deadline" overdue="true"></time-ago>
+			</div>
 			<select
 					ng-change="assign(item.todoId, item.userId)"
 					ng-model="item.userId"

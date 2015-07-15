@@ -1,41 +1,44 @@
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button
-                    type="button"
-                    class="navbar-toggle"
-                    data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1"
-            >
-                <span class="sr-only">Toggle navigation</span>
+            <button type="button" class="navbar-toggle" ng-click="isCollapsed = !isCollapsed">
+                <span class="sr-only" translate>Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-        </div>
-
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li
-                        ng-repeat="(dashboardId, tmp_dashboard) in dashboards"
-                        class="btn-group cursor"
-                        ng-class="{active:tmp_dashboard==dashboard}"
-                >
-                    <a ng-click="selectDashboard(tmp_dashboard)">
-                        {{ tmp_dashboard.name }}
-                    </a>
-                </li>
-                <li class="btn-group">
-                    <a ng-click="openModal(dashboards, dashboard)" tooltip="{{'New Widget'|translate}}">
-                        <span class="glyphicon glyphicon-plus cursor"></span>
-                    </a>
-                </li>
-                <li class="btn-group">
-                    <a ng-click="editMode = !editMode" tooltip="{{'Edit'|translate}}">
-                        <span class="glyphicon glyphicon-edit cursor"></span>
-                    </a>
-                </li>
-            </ul>
+            <div class="navbar-collapse" ng-class="{collapse:!isCollapsed}">
+                <ul class="nav navbar-nav">
+                    <li
+                            ng-repeat="(dashboardId, tmp_dashboard) in dashboards"
+                            class="btn-group cursor"
+                            ng-class="{active:tmp_dashboard==dashboard}"
+                            >
+                        <a ng-click="selectDashboard(tmp_dashboard)">
+                            {{ tmp_dashboard.name }}
+                            <span
+                                    ng-if="editMode"
+                                    confirm="deleteDashboard(dashboard.dashboardId)"
+                                    confirm-text="{{'Are you sure?'|translate}}"
+                                    class="btn btn-danger btn-xs delete glyphicon glyphicon-remove cursor"
+                                    tooltip="Delete">
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <div class="btn-group">
+                            <a class="btn btn-sm btn-default" ng-click="openModal(dashboards, dashboard)"
+                               tooltip="{{'New Widget'|translate}}">
+                                <span class="glyphicon glyphicon-plus cursor"></span>
+                            </a>
+                            <a class="btn btn-sm btn-default" ng-click="editMode = !editMode"
+                               tooltip="{{'Edit'|translate}}">
+                                <span class="glyphicon glyphicon-edit cursor"></span>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </nav>
@@ -44,49 +47,65 @@
     <h2 ng-if="!editMode">
         {{ dashboard.name }}
     </h2>
+
     <div ng-if="editMode">
         <div class="input-group" style="width: 400px">
             <span class="input-group-addon" translate>Name</span>
             <input
-                   type="text"
-                   ng-model="dashboard.name"
-                   class="form-control"
+                    type="text"
+                    ng-model="dashboard.name"
+                    class="form-control"
                     />
             <span class="input-group-addon">
                 <a ng-click="saveDashboard(dashboard)" class="cursor" translate>Save</a>
             </span>
         </div>
-        <span
-                ng-click="deleteDashboard(dashboard.dashboardId)"
-                class="delete glyphicon glyphicon-remove cursor"
-                tooltip="Delete">
-        </span>
+        <br/>
     </div>
-    <div class="container-fluid">
-        <div class="row" as-sortable="dragControlListeners" ng-model="dashboard.widgets">
-            <div
-                    class="col-md-{{metadata(widget.type, 'width')}} as-sortable-item"
-                    ng-repeat="widget in dashboard.widgets"
-                    as-sortable-item
-            >
-                <div class="panel panel-default widget" ng-controller="WidgetController" ng-init="widgetMetadata = metadata(widget.type)">
-                    <div
-                            class="panel-heading as-sortable-item-handle"
-                            as-sortable-item-handle
-                            ng-click="toggleWidget(widget, dashboard)"
-                    >
-                        {{ title }}
-                        <span
-                                ng-if="editMode"
-                                ng-click="deleteWidget(dashboard.dashboardId, widget.id); $event.stopPropagation()"
-                                class="delete glyphicon glyphicon-remove cursor"
-                                tooltip="Delete"
-                                >
-                        </span>
+    <div class="container" ui-sortable="{ 'ui-floating': true }" is-disabled="!editMode"
+         as-sortable="dragControlListeners" ng-model="dashboard.widgets">
+        <div
+                class="col-md-{{metadata(widget, 'width')}} as-sortable-item"
+                ng-repeat="widget in dashboard.widgets"
+                as-sortable-item
+                >
+            <div class="panel panel-default widget" ng-controller="WidgetController"
+                 ng-init="widgetMetadata = metadata(widget)">
+                <div
+                        class="panel-heading as-sortable-item-handle"
+                        as-sortable-item-handle
+                        ng-click="toggleWidget(widget, dashboard)"
+                        >
+                    {{ title }}
+
+                    <div class="btn-group btn-group-xs pull-right" role="group" ng-if="editMode">
+                        <a
+                                class="btn btn-default"
+                                ng-click="editWidget(dashboard.dashboardId, widget); $event.stopPropagation()"
+                                tooltip="{{'Edit'|translate}}">
+                                <span
+                                        class="glyphicon glyphicon-edit cursor"
+                                        >
+                                </span>
+                        </a>
+                        <a
+                                class="btn btn-danger"
+                                confirm="deleteWidget(dashboard.dashboardId, widget.id); $event.stopPropagation()"
+                                confirm-text="{{'Are you sure?'|translate}}"
+                                tooltip="{{'Delete'|translate}}">
+                                <span
+                                        class="glyphicon glyphicon-remove cursor"
+                                        >
+                                </span>
+                        </a>
                     </div>
-                    <div class="panel-body widget_{{widget.type}}" id="widget_{{widget.id}}" ng-show="widget.open">
-                        <content-item widget="widget"></content-item>
-                    </div>
+                </div>
+                <div
+                        class="panel-body widget_{{widget.type}}"
+                        id="widget_{{widget.id}}"
+                        style="min-height:{{metadata(widget, 'height')*30+'px'}}"
+                        ng-show="widget.open">
+                    <content-item widget="widget"></content-item>
                 </div>
             </div>
         </div>

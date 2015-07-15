@@ -22,9 +22,9 @@ class Gateway
      */
     public function addDisplay(Settings $setting)
     {
-        $setting->id = $this->generateRandomNumericId();
+        $setting->displayId = $this->generateRandomNumericId();
 
-        $this->getRedis()->hset(self::KEY, $setting->id, serialize($setting));
+        $this->getRedis()->hset(self::KEY, $setting->displayId, serialize($setting));
     }
 
     /**

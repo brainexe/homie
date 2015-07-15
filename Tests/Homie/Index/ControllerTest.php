@@ -22,7 +22,7 @@ class ControllerTest extends TestCase
 
     public function setUp()
     {
-        $this->subject = new Controller(true, null);
+        $this->subject = new Controller(true, null, ['en', 'de']);
     }
 
     public function testIndex()
@@ -39,11 +39,13 @@ class ControllerTest extends TestCase
         $this->assertEquals(200, $actualResult->getStatusCode());
     }
 
-    public function testConfig() {
+    public function testConfig()
+    {
         $actual   = $this->subject->config();
         $expected = [
-            'debug' => true,
-            'socketUrl' => null
+            'debug'     => true,
+            'socketUrl' => null,
+            'locales'   => ['en', 'de']
         ];
 
         $this->assertEquals($expected, $actual);

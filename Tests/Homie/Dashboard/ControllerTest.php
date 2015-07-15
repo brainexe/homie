@@ -148,13 +148,14 @@ class ControllerTest extends TestCase
 
         $actualResult = $this->subject->deleteDashboard($request, $dashboardId);
 
-        $this->assertEquals(true, $actualResult);
+        $this->assertTrue($actualResult);
     }
 
     public function testUpdateWidget()
     {
         $dashboardId = 100;
         $widgetId    = 222;
+        $dashboard   = ['dashboard'];
 
         $request = new Request();
         $request->request->set('foo', 'bar');
@@ -166,8 +167,14 @@ class ControllerTest extends TestCase
                 'foo' => 'bar'
             ]);
 
+        $this->dashboard
+            ->expects($this->once())
+            ->method('getDashboard')
+            ->with($dashboardId)
+            ->willReturn($dashboard);
+
         $actual = $this->subject->updateWidget($request, $dashboardId, $widgetId);
 
-        $this->assertTrue($actual);
+        $this->assertEquals($dashboard, $actual);
     }
 }

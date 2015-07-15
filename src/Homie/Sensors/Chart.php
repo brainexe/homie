@@ -51,6 +51,21 @@ class Chart
     }
 
     /**
+     * @return array
+     */
+    public static function getTimeSpans()
+    {
+        return [
+            3600        => _('Last hour'),
+            10800       => _('Last 3 hours'),
+            86400       => _('Last day'),
+            86400 * 7   => _('Last week'),
+            86400 * 30  => _('Last month'),
+            -1          => _('All time'),
+        ];
+    }
+
+    /**
      * @param int $sensorId
      * @return string
      */

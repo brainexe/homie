@@ -6,10 +6,10 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Core\Traits\LoggerTrait;
 use BrainExe\Core\Traits\TimeTrait;
+use Homie\Sensors\GetValue\Event;
 use Homie\Sensors\SensorBuilder;
 use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorValueEvent;
-use Homie\Sensors\SensorValuesGateway;
 use Homie\Sensors\Builder;
 use Homie\Sensors\SensorVO;
 use Symfony\Component\Console\Command\Command;
@@ -23,19 +23,12 @@ use BrainExe\Core\Annotations\Command as CommandAnnotation;
  */
 class Cron extends Command
 {
-
-    use LoggerTrait;
     use TimeTrait;
 
     /**
      * @var SensorGateway
      */
     private $sensorGateway;
-
-    /**
-     * @var SensorValuesGateway
-     */
-    private $gateway;
 
     /**
      * @var SensorBuilder
@@ -58,6 +51,11 @@ class Cron extends Command
     private $dispatcher;
 
     /**
+     * @var OutputInterface
+     */
+    private $output;
+
+    /**
      * {@inheritdoc}
      */
     protected function configure()
@@ -69,11 +67,13 @@ class Cron extends Command
 
     /**
      * @Inject({
-     *  "@SensorGateway", "@SensorValuesGateway","@SensorBuilder",
-     *  "@Sensor.VOBuilder", "@EventDispatcher", "%node.id%"
+     *  "@SensorGateway",
+     *  "@SensorBuilder",
+     *  "@Sensor.VOBuilder",
+     *  "@EventDispatcher",
+     *  "%node.id%"
      * })
      * @param SensorGateway $gateway
-     * @param SensorValuesGateway $valuesGateway
      * @param SensorBuilder $builder
      * @param Builder $voBuilder
      * @param EventDispatcher $dispatcher
@@ -81,7 +81,6 @@ class Cron extends Command
      */
     public function __construct(
         SensorGateway $gateway,
-        SensorValuesGateway $valuesGateway,
         SensorBuilder $builder,
         Builder $voBuilder,
         EventDispatcher $dispatcher,
@@ -89,7 +88,6 @@ class Cron extends Command
     ) {
         $this->builder         = $builder;
         $this->sensorGateway   = $gateway;
-        $this->gateway         = $valuesGateway;
         $this->sensorVoBuilder = $voBuilder;
         $this->dispatcher      = $dispatcher;
         $this->nodeId          = $nodeId;
@@ -102,69 +100,71 @@ class Cron extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $now = $this->now();
+        $this->output = $output;
+
+        $now     = $this->now();
         $sensors = $this->sensorGateway->getSensors();
+
+        $this->dispatcher->addListener(SensorValueEvent::VALUE, [$this, 'handleEvent']);
+        $this->dispatcher->addListener(SensorValueEvent::ERROR, [$this, 'handleErrorEvent']);
 
         foreach ($sensors as $sensorData) {
             $sensorVo = $this->sensorVoBuilder->buildFromArray($sensorData);
             $interval = $sensorVo->interval ?: 1;
-            $lastRun  = $sensorVo->lastValueTimestamp;
-            $delta    = $now - $lastRun;
 
             if ($interval < 0) {
                 continue;
             }
 
+            $lastRun = $sensorVo->lastValueTimestamp;
+            $delta   = $now - $lastRun;
+
             if ($delta > $interval * 60 || $input->getOption('force')) {
-                $this->getValue($output, $sensorVo, $now);
+                $this->getValue($sensorVo);
             }
         }
     }
 
     /**
-     * @param OutputInterface $output
-     * @param SensorVO $sensorVo
-     * @param int $now
+     * @param SensorValueEvent $event
      */
-    protected function getValue(OutputInterface $output, $sensorVo, $now)
+    public function handleEvent(SensorValueEvent $event)
     {
-        $sensor     = $this->builder->build($sensorVo->type);
-        $formatter  = $this->builder->getFormatter($sensorVo->type);
-        $definition = $this->builder->getDefinition($sensorVo->type);
+        $definition = $this->builder->getDefinition($event->sensorVo->type);
 
-        $currentSensorValue = $sensor->getValue($sensorVo->pin);
-        if ($currentSensorValue === null) {
-            $output->writeln(
-                sprintf(
-                    '<error>Invalid sensor value: #%d %s (%s)</error>',
-                    $sensorVo->sensorId,
-                    $sensorVo->type,
-                    $sensorVo->name
-                )
-            );
-            return;
-        }
-
-        $formattedSensorValue = $formatter->formatValue($currentSensorValue);
-        $event = new SensorValueEvent(
-            $sensorVo,
-            $sensor,
-            $currentSensorValue,
-            $formattedSensorValue,
-            $now
-        );
-        $this->dispatcher->dispatchEvent($event);
-
-        $this->gateway->addValue($sensorVo->sensorId, $currentSensorValue);
-
-        $output->writeln(
+        $this->output->writeln(
             sprintf(
                 '#%d: <info>%s</info> (<info>%s</info>): <info>%s</info>',
-                $sensorVo->sensorId,
+                $event->sensorVo->sensorId,
                 $definition->name,
-                $sensorVo->name,
-                $formattedSensorValue
+                $event->sensorVo->name,
+                $event->valueFormatted
             )
         );
+    }
+    /**
+     * @param SensorValueEvent $event
+     */
+    public function handleErrorEvent(SensorValueEvent $event)
+    {
+        $definition = $this->builder->getDefinition($event->sensorVo->type);
+
+        $this->output->writeln(
+            sprintf(
+                '#%d: <error>Error while fetching value of sensor %s</error> (<info>%s</info>)</info>',
+                $event->sensorVo->sensorId,
+                $definition->name,
+                $event->sensorVo->name
+            )
+        );
+    }
+
+    /**
+     * @param SensorVO $sensorVo
+     */
+    protected function getValue($sensorVo)
+    {
+        $event = new Event($sensorVo);
+        $this->dispatcher->dispatchEvent($event);
     }
 }

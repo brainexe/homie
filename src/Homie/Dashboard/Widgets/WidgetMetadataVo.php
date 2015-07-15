@@ -4,9 +4,13 @@ namespace Homie\Dashboard\Widgets;
 
 class WidgetMetadataVo
 {
-    const MULTI_SELECT  = 'multi_select';
-    const SINGLE_SELECT = 'single_select';
-    const TEXT          = 'text';
+    const MULTI_SELECT   = 'multi_select';
+    const SINGLE_SELECT  = 'single_select';
+    const TEXT           = 'text';
+    const NUMBER         = 'number';
+    const TEXT_AREA      = 'text_area';
+    const KEY_VALUE_LIST = 'key_value_list';
+    const KEY_BOOLEAN    = 'boolean';
 
     /**
      * @var string
@@ -34,21 +38,57 @@ class WidgetMetadataVo
     public $width;
 
     /**
+     * @var int
+     */
+    public $height;
+
+    /**
      * @param string $widgetId
      * @param string $name
      * @param string $description
      * @param array[] $parameters
-     * @param int $width
      */
-    public function __construct($widgetId, $name, $description, array $parameters = [], $width = 6)
+    public function __construct($widgetId, $name, $description, array $parameters = [])
     {
         $this->widgetId    = $widgetId;
         $this->name        = $name;
         $this->description = $description;
         $this->parameters  = $parameters;
-        $this->width       = $width;
+
+        $this->setSize(4, 2);
     }
 
+    /**
+     * @param int $width
+     * @param int $height
+     * @return $this
+     */
+    public function setSize($width, $height)
+    {
+        $this->width  = $width;
+        $this->height = $height;
+
+        $this->parameters['width'] = [
+            'name'    => gettext('Width'),
+            'type'    => self::NUMBER,
+            'min'     => 1,
+            'max'     => 12,
+            'default' => $width
+        ];
+        $this->parameters['height'] = [
+            'name'    => gettext('Height'),
+            'type'    => self::NUMBER,
+            'min'     => 1,
+            'max'     => 12,
+            'default' => $height
+        ];
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
     public function addTitle()
     {
         $new = ['title' => [
@@ -57,5 +97,7 @@ class WidgetMetadataVo
             'default' => $this->name
         ]];
         $this->parameters = $new + $this->parameters;
+
+        return $this;
     }
 }

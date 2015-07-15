@@ -1,0 +1,27 @@
+<ul class="unstyled">
+    <li ng-repeat="todo in shoppingList|orderBy:'text'">
+        <input
+                type="checkbox"
+                ng-change="change(todo)"
+                ng-model="todo.done"
+                />
+			<span ng-class="{completed: todo.done}">
+                {{todo.text}}
+            </span>
+    </li>
+</ul>
+<form>
+    <div class="input-group">
+        <input
+                type="text"
+                ng-model="todoText"
+                class="form-control"
+                size="30"
+                placeholder="{{'Add an item'|translate}}"
+                ng-enter="addShoppingItem()"
+                />
+        <a ng-click="addShoppingItem()" tooltip="{{'Add'|translate}}" class="input-group-addon">
+            <span class="glyphicon glyphicon-plus"></span>
+        </a>
+    </div>
+</form>

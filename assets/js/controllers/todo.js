@@ -3,9 +3,10 @@ App.controller('TodoController', ['$scope', '_', 'Todo', function ($scope, _, To
     $scope.userNames = [];
 
     $scope.stati = {
-        "pending": {id: 'pending', name: _("Pending"), tasks: [], prio: 1},
-        "progress": {id: 'progress', name: _("Progress"), tasks: [], prio: 2},
-        "completed": {id: 'completed', name: _("Completed"), tasks: [], prio: 3}
+        "open":      {id: 'open', name: _("Open"), tasks: []},
+        "pending":   {id: 'pending', name: _("Pending"), tasks: []},
+        "progress":  {id: 'progress', name: _("Progress"), tasks: []},
+        "completed": {id: 'completed', name: _("Completed"), tasks: []}
     };
 
     Todo.getData().success(function (data) {
@@ -26,11 +27,11 @@ App.controller('TodoController', ['$scope', '_', 'Todo', function ($scope, _, To
     };
 
     $scope.addTodo = function () {
-        var errorMessage = _("name can not be empty"),
+        var errorMessage = _("Name must not be empty"),
             name, description, date, tempData;
 
-        name = $scope.newTitle;
         description = $scope.newDescription;
+        name = $scope.newTitle;
         date = $scope.newDateline;
 
         if (!name) {
@@ -41,11 +42,12 @@ App.controller('TodoController', ['$scope', '_', 'Todo', function ($scope, _, To
         tempData = {
             name: name,
             deadline: date,
-            description: description
+            description: description,
+            status: 'open'
         };
 
         Todo.add(tempData).success(function (result) {
-            $scope.stati['pending'].tasks.push(result);
+            $scope.stati[result.status].tasks.push(result);
             $scope.newTitle = $scope.newDescription = $scope.newDateline = '';
         });
     };

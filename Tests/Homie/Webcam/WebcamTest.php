@@ -52,9 +52,10 @@ class WebcamTest extends PHPUnit_Framework_TestCase
 
         $files = [
             [
-                'path' => $filePath,
-                'basename' => $fileBaseName,
-                'timestamp' => $fileCTime
+                'path'      => $filePath,
+                'basename'  => $fileBaseName,
+                'timestamp' => $fileCTime,
+                'extension' => 'ext'
             ]
         ];
 
@@ -70,8 +71,9 @@ class WebcamTest extends PHPUnit_Framework_TestCase
         $expectedWebcam->name      = $fileBaseName;
         $expectedWebcam->webPath   = 'Webcam/relative.ext';
         $expectedWebcam->timestamp = $fileCTime;
+        $expectedWebcam->extension = 'ext';
 
-        $actualResult = $this->subject->getPhotos();
+        $actualResult = $this->subject->getFiles();
 
         $this->assertEquals([$expectedWebcam], $actualResult);
         $this->assertEquals($fileBaseName, $expectedWebcam->getWebcamId());

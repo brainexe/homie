@@ -20,15 +20,6 @@ class Controller
     private $timer;
 
     /**
-     * @Inject({"@EggTimer"})
-     * @param EggTimer $timer
-     */
-    public function __construct(EggTimer $timer)
-    {
-        $this->timer = $timer;
-    }
-
-    /**
      * @return array
      * @Route("/egg_timer/", name="egg_timer.index", methods="GET")
      */

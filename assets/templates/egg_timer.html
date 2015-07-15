@@ -40,7 +40,9 @@
 
 	<tbody>
 		<tr ng-repeat="(job_id, job) in jobs">
-			<td>{{ job.timestamp|timeAgo }}</td>
+			<td>
+				<time-ago from-time="job.timestamp" overdue="true"></time-ago>
+			</td>
 			<td>{{ job.event.espeak.text || "--" }}</td>
 			<td><a ng-click="deleteTimer(job_id)" class="glyphicon glyphicon-remove"></a></td>
 		</tr>

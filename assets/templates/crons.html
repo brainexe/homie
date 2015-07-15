@@ -12,10 +12,12 @@
         <th>
             <span class="tip">{{ cron.event.event.timingId }}</span>
         </th>
-        <th>{{ cron.timestamp|timeAgo }}</th>
+        <th><time-ago from-time="cron.timestamp" overdue="true"></time-ago></th>
         <th>{{ cron.event.expression}}</th>
         <td>
-            <a ng-click="deleteTimer(cron.eventId)" class="glyphicon glyphicon-remove"></a>
+            <a ng-click="deleteCron(cron.eventId)" class="btn btn-danger btn-sm">
+                <span class="glyphicon glyphicon-remove"></span>
+            </a>
         </td>
     </tr>
     </tbody>

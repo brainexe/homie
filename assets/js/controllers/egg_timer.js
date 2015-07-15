@@ -1,8 +1,8 @@
 
-App.controller('EggTimerController', ['$scope', 'EggTimer', function ($scope, EggTimer) {
+App.controller('EggTimerController', ['$scope', 'EggTimer', 'MessageQueue', function ($scope, EggTimer, MessageQueue) {
     $scope.jobs = {};
 
-    EggTimer.getJobs().success(function (data) {
+    MessageQueue.getJobs(EggTimer.JOB_ID, true).success(function (data) {
         $scope.jobs = data.jobs;
     });
 
@@ -19,10 +19,10 @@ App.controller('EggTimerController', ['$scope', 'EggTimer', function ($scope, Eg
      * @param {String} jobId
      */
     $scope.deleteTimer = function (jobId) {
-        jobId = jobId.split(':')[1];
-
-        EggTimer.delete(jobId).success(function (newJobs) {
-            $scope.jobs = newJobs;
+        MessageQueue.deleteJob(jobId).then(function() {
+            MessageQueue.getJobs(EggTimer.JOB_ID, true).success(function(data) {
+                $scope.jobs = data;
+            });
         });
     };
 }]);

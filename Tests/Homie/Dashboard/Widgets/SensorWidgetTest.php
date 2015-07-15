@@ -36,17 +36,6 @@ class SensorWidgetTest extends TestCase
         $this->assertEquals(SensorWidget::TYPE, $actualResult);
     }
 
-    /**
-     * @expectedException \BrainExe\Core\Application\UserException
-     * @expectedExceptionMessage No sensor_id passe
-     */
-    public function testCreateWithoutSensorId()
-    {
-        $payload = [];
-
-        $this->subject->create($payload);
-    }
-
     public function testCreate()
     {
         $payload = [
@@ -82,8 +71,9 @@ class SensorWidgetTest extends TestCase
             ->method('getSensors')
             ->willReturn($sensors);
 
-        $actualResult = json_encode($this->subject);
-        $expectedResult = '{"name":"Sensor","description":"Displays the current value of a given sensor","parameters":{"title":{"name":"Title","type":"text","default":"Sensor"},"sensor_id":{"name":"Sensor ID","values":{"12":"sensor name"},"type":"single_select"}},"widgetId":"sensor","width":4}';
-        $this->assertEquals($expectedResult, $actualResult);
+        $actual   = json_encode($this->subject);
+        $expected = '{"name":"Sensor","description":"Displays the current value of a given sensor","parameters":{"title":{"name":"Title","type":"text","default":"Sensor"},"sensor_id":{"name":"Sensor","values":{"12":"sensor name"},"type":"single_select"},"from":{"type":"single_select","name":"From","values":{"3600":"Last hour","10800":"Last 3 hours","86400":"Last day","604800":"Last week","2592000":"Last month","-1":"All time"},"default":86400},"width":{"name":"Width","type":"number","min":1,"max":12,"default":4},"height":{"name":"Height","type":"number","min":1,"max":12,"default":3}},"widgetId":"sensor","width":4,"height":3}';
+
+        $this->assertEquals($expected, $actual);
     }
 }

@@ -17,12 +17,14 @@ class WebcamWidget extends AbstractWidget
      */
     public function getMetadata()
     {
-        return new WidgetMetadataVo(
+        $metadata = new WidgetMetadataVo(
             $this->getId(),
             gettext('Webcam'),
             gettext('Take shots'),
             [],
             4
         );
+
+        return $metadata->setSize(4, 3);
     }
 }

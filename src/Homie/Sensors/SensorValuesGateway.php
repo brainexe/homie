@@ -15,24 +15,29 @@ class SensorValuesGateway
 
     const REDIS_SENSOR_VALUES = 'sensor_values:%d';
 
+    const CLEAN_SINCE     = 172800 * 2; // start cleaning up values after 2 days
+    const CLEAN_THRESHOLD = 240; // try to keep values each 15 minutes
+
     use RedisTrait;
     use TimeTrait;
 
     /**
-     * @param integer $sensorId
+     * @param SensorVO $sensor
      * @param double $value
      */
-    public function addValue($sensorId, $value)
+    public function addValue(SensorVO $sensor, $value)
     {
+        $now = $this->now();
+        $sensor->lastValue = $value;
+        $sensor->lastValueTimestamp = $now;
+
         $redis = $this->getRedis()->pipeline();
-        $now   = $this->now();
-        $key   = $this->getKey($sensorId);
+        $key   = $this->getKey($sensor->sensorId);
 
         $redis->ZADD($key, $now, $now . '-' . $value);
-
-        $redis->HMSET(SensorGateway::REDIS_SENSOR_PREFIX . $sensorId, [
-            'lastValue' => $value,
-            'lastValueTimestamp' => $now
+        $redis->HMSET(SensorGateway::REDIS_SENSOR_PREFIX . $sensor->sensorId, [
+            'lastValue' => $sensor->lastValue,
+            'lastValueTimestamp' => $sensor->lastValueTimestamp
         ]);
 
         $redis->execute();
@@ -73,14 +78,14 @@ class SensorValuesGateway
     {
         $redis = $this->getRedis();
 
-        $untilTimestamp = $this->now() - 86400;
+        $untilTimestamp = $this->now() - self::CLEAN_SINCE;
         $key            = $this->getKey($sensorId);
         $oldValues      = $redis->ZRANGEBYSCORE($key, 0, $untilTimestamp, ['withscores' => true]);
+        $deleted        = 0;
+        $lastTimestamp  = 0;
 
-        $deleted       = 0;
-        $lastTimestamp = 0;
         foreach ($oldValues as $score => $timestamp) {
-            if ($lastTimestamp + (60 * 30) > $timestamp) {
+            if ($lastTimestamp + self::CLEAN_THRESHOLD > $timestamp) {
                 $redis->ZREM($key, $score);
 
                 $deleted += 1;

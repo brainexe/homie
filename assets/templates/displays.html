@@ -1,8 +1,8 @@
-<form ng-submit="add(newScreen)" class="form-horizontal">
+<form ng-submit="save(currentScreen)" class="form-horizontal">
 	<div class="form-group">
 		<div class="col-sm-3">
 			<input
-					ng-model="newScreen.lines"
+					ng-model="currentScreen.lines"
 					type="number"
 					class="form-control input-lg"
 					placeholder="{{'Lines'|translate}}"
@@ -10,7 +10,7 @@
 		</div>
 		<div class="col-sm-3">
 			<input
-					ng-model="newScreen.columns"
+					ng-model="currentScreen.columns"
 					type="number"
 					class="form-control input-lg"
 					placeholder="{{'Columns'|translate}}"
@@ -18,11 +18,22 @@
 		</div>
 	</div>
 	<h3 translate>Lines</h3>
-	<div class="form-inline" ng-repeat="line in newScreen.content track by $index">
-		<label class="pull-left">{{ key }}:&nbsp</label>
-		<input ng-model="newScreen.content[$index]" class="form-control" type="text"/>
+	<div class="form-inline" ng-repeat="line in currentScreen.content track by $index">
+		<label class="pull-left">{{ $index+1 }}:&nbsp</label>
+		<input ng-model="currentScreen.content[$index]" class="form-control" type="text"/>
 	</div>
-	<a ng-click="newScreen.content.push('')" class="glyphicon glyphicon-plus"></a>
+	<a ng-click="currentScreen.content.push('\'\'')" class="btn btn-primary glyphicon glyphicon-plus"></a>
 
-	<button type="submit" class="btn btn-primary btn-lg">Submit</button>
+	<button type="submit" class="btn btn-primary" translate>Submit</button>
 </form>
+
+<div ng-repeat="screen in screens">
+	<h2 translate>Screen {{screen.displayId}}</h2>
+	<textarea
+			cols="{{screen.columns}}"
+			rows="{{screen.lines}}"
+			style="font-family: monospace"
+	>{{screen.rendered|join}}</textarea>
+	<button type="button" class="btn btn-primary" ng-click="currentScreen = screen" translate>Edit</button>
+
+</div>

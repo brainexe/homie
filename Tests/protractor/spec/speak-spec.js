@@ -1,7 +1,7 @@
 var helper = require('../helper');
 
 describe('Test "Speak" component', function() {
-    var text = element(by.model('text'));
+    var text  = element(by.model('text'));
     var delay = element(by.model('delay'));
 
     var submit = $('.content button[type="submit"]');

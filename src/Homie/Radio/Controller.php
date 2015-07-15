@@ -76,7 +76,7 @@ class Controller
     /**
      * @param Request $request
      * @return RadioVO
-     * @Route("/radios/", methods="POST")
+     * @Route("/radios/", methods="POST", name="radio.add")
      */
     public function addRadio(Request $request)
     {
@@ -135,7 +135,7 @@ class Controller
      * @param Request $request
      * @param string $jobId
      * @return boolean
-     * @Route("/radios/jobs/{job_id}/", methods="DELETE")
+     * @Route("/radios/jobs/{job_id}/", methods="DELETE", name="radio.deleteJob")
      */
     public function deleteRadioJob(Request $request, $jobId)
     {

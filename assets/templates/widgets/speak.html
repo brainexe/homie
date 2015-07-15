@@ -1,16 +1,18 @@
-<input
-        ng-enter="speak(text)"
-        type="text"
-        placeholder="{{'Text'|translate}}"
-        ng-model="text"
-        class="form-control"
-/>
+<div class="input-group" role="group">
+        <input
+                ng-enter="speak(text)"
+                type="text"
+                placeholder="{{'Text'|translate}}"
+                ng-model="text"
+                class="form-control"
+                />
 
-<a
-        ng-click="speak(text)"
-        ng-disabled="pending"
-        class="btn btn-warning"
-        translate
->
-    Speak
-</a>
+        <a
+                ng-click="speak(text)"
+                ng-disabled="pending"
+                class="input-group-addon btn btn-default"
+                tooltip="{{'Speak'|translate}}"
+                >
+                <span class="glyphicon glyphicon-bullhorn"></span>
+        </a>
+</div>

@@ -2,7 +2,7 @@
 
 namespace Tests\Homie\TodoList;
 
-use Homie\TodoList\InputControl;
+use Homie\TodoList\InputControl\Reminder;
 use Homie\TodoList\TodoReminder;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
@@ -14,7 +14,7 @@ class InputControlTest extends TestCase
 {
 
     /**
-     * @var InputControl
+     * @var Reminder
      */
     private $subject;
 
@@ -26,7 +26,7 @@ class InputControlTest extends TestCase
     public function setUp()
     {
         $this->reminder = $this->getMock(TodoReminder::class, [], [], '', false);
-        $this->subject  = new InputControl($this->reminder);
+        $this->subject  = new Reminder($this->reminder);
     }
 
     public function testGetSubscribedEvents()

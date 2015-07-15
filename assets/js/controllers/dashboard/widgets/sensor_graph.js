@@ -1,5 +1,5 @@
 
-App.service('Widget.sensor_graph', ['Sensor', 'SensorGraph', '_', function(Sensor, SensorGraph, _) {
+App.service('Widget.sensor_graph', ['SensorGraph', function(SensorGraph) {
     return {
         render: function ($scope, widget) {
             var sensorIds = widget.sensor_ids.map(function(i) {
@@ -8,8 +8,7 @@ App.service('Widget.sensor_graph', ['Sensor', 'SensorGraph', '_', function(Senso
 
             var element = document.querySelector("#widget_" + widget.id + ' .chart_container');
 
-            SensorGraph.init($scope, element, 230, sensorIds.join(':'));
+            SensorGraph.init($scope, element, 230, sensorIds.join(':'), '?from={0}'.format(widget.from || 0));
         }
     };
 }]);
-

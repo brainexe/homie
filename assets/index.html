@@ -97,16 +97,6 @@
                         <div class="pull-left info">
                             <p translate>Hello {{ currentUser.username }}!</p>
                         </div>
-                        <form action="#" method="get" class="sidebar-form">
-                            <div class="input-group">
-                                <input type="text" ng-model="query" ng-keydown="search(query)" class="form-connsol" placeholder="{{'Search...'|translate}}"/>
-                            <span class="input-group-btn">
-                                <button type="submit" name="seach" id="search-btn" class="btn btn-flat">
-                                    <i class="glyphicon glyphicon-search"></i>
-                                </button>
-                            </span>
-                            </div>
-                        </form>
                     </div>
                     <ul class="sidebar-menu" ng-controller="MenuController">
                         <li ng-repeat="item in menu">

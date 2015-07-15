@@ -7,7 +7,6 @@ use Homie\Sensors\Formatter\None;
 class Definition
 {
 
-    // TODO move into classes
     const TYPE_TEMPERATURE = 'temperature';
     const TYPE_BAROMETER   = 'barometer';
     const TYPE_HUMIDITY    = 'humidity';

@@ -1,17 +1,19 @@
-<a
-        ng-repeat="time in times"
-        ng-click="start(time)"
-        class="btn btn-warning"
-        >
-    {{ time }}
-</a>
-<a ng-click="prompt()" class="btn btn-warning">
-    <span class="glyphicon glyphicon-question-sign"></span>
-</a>
 
-<div ng-if="job">
-    {{job.timestamp|timeAgo}}
-    <a ng-click="stop(job)" class="btn btn-warning">
-        <span class="glyphicon glyphicon-remove-sign"></span>
+<div class="btn-group" role="group">
+    <a
+            ng-repeat="time in times"
+            ng-click="start(time)"
+            class="btn btn-default"
+            >
+        {{ time }}
+    </a>
+    <a ng-click="prompt()" class="btn btn-default">
+        <span class="glyphicon glyphicon-question-sign"></span>
+    </a>
+
+    <a ng-if="job" ng-click="stop(job)" class="btn btn-default">
+        <span class="glyphicon glyphicon-remove-sign">
+            <span ng-include="job.timestamp" time-ago="job.timestamp"></span>
+        </span>
     </a>
 </div>

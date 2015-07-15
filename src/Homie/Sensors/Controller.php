@@ -10,6 +10,7 @@ use BrainExe\Core\Authentication\Settings\Settings;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Homie\Espeak\EspeakEvent;
 use Homie\Espeak\EspeakVO;
+use Homie\Sensors\GetValue\Event;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -87,19 +88,13 @@ class Controller
 
     /**
      * @return array
-     * @Route("/sensors/")
+     * @Route("/sensors/", name="sensor.index")
      */
     public function sensors()
     {
         return [
             'types'   => $this->builder->getSensors(),
-            'fromIntervals' => [
-                3600        => _('Last Hour'),
-                86400       => _('Last Day'),
-                86400 * 7   => _('Last Week'),
-                86400 * 30  => _('Last Month'),
-                -1          => _('All'),
-            ],
+            'fromIntervals' => Chart::getTimeSpans(),
             'sensors' => array_map([$this->voBuilder, 'buildFromArray'], $this->gateway->getSensors())
         ];
     }
@@ -108,7 +103,7 @@ class Controller
      * @param Request $request
      * @param string $activeSensorIds
      * @return string
-     * @Route("/sensors/load/{activeSensorIds}/", name="sensor.index")
+     * @Route("/sensors/load/{activeSensorIds}/", name="sensor.loadall")
      */
     public function indexSensor(Request $request, $activeSensorIds)
     {
@@ -190,8 +185,44 @@ class Controller
         $formatter = $this->builder->getFormatter($sensor['type']);
         $text      = $formatter->getEspeakText($sensor['lastValue']);
 
-        $espeakVo  = new EspeakVO($text);
-        $event     = new EspeakEvent($espeakVo);
+        $espeakVo = new EspeakVO($text);
+        $event    = new EspeakEvent($espeakVo);
+        $this->dispatchInBackground($event);
+
+        return true;
+    }
+
+    /**
+     * @param Request $request
+     * @param integer $sensorId
+     * @return boolean
+     * @Route("/sensors/{sensor_id}/value/", name="sensor.submitValue", methods="POST")
+     */
+    public function addValue(Request $request, $sensorId)
+    {
+        $value = $request->request->get('value');
+
+        $sensor    = $this->gateway->getSensor($sensorId);
+        $sensorVo = $this->voBuilder->buildFromArray($sensor);
+
+        $this->valuesGateway->addValue($sensorVo, $value);
+
+        return true;
+    }
+
+    /**
+     * @param Request $request
+     * @param integer $sensorId
+     * @return boolean
+     * @Route("/sensors/{sensor_id}/force/", name="sensor.forceGetValue", methods="POST")
+     */
+    public function forceGetValue(Request $request, $sensorId)
+    {
+        unset($request);
+        $sensor   = $this->gateway->getSensor($sensorId);
+        $sensorVo = $this->voBuilder->buildFromArray($sensor);
+
+        $event = new Event($sensorVo);
         $this->dispatchInBackground($event);
 
         return true;
@@ -242,6 +273,7 @@ class Controller
     {
         $sensor   = $this->gateway->getSensor($sensorId);
         $sensorVo = $this->voBuilder->buildFromArray($sensor);
+        $sensorVo->type        = $request->request->get('type');
         $sensorVo->name        = $request->request->get('name');
         $sensorVo->description = $request->request->get('description');
         $sensorVo->pin         = $request->request->get('pin');

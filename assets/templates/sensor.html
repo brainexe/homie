@@ -1,52 +1,46 @@
 <nav ng-if="sensors" class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<button type="button" collapse-toggle class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+			<button type="button" class="navbar-toggle" ng-click="isCollapsed = !isCollapsed">
 				<span class="sr-only" translate>Toggle navigation</span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-		</div>
-
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li ng-repeat="sensor in sensors" ng-class="{'active':isSensorActive(sensor.sensorId)}">
-					<a
-                        class="tip cursor"
-                        data-placement="bottom"
-                        tooltip="Latest: {{ sensor.lastValue }}"
-					    ng-click="sensorView(sensor.sensorId)"
-                    >
-						{{ sensor.name }}
-					</a>
-				</li>
-			</ul>
-
-			<ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a ng-click="editModal()">
-                        {{'Edit'|translate}}
-                        <b class="glyphicon glyphicon-pencil"></b>
-                    </a>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-				<li class="dropdown" dropdown>
-                    <a href class="dropdown-toggle" dropdown-toggle>
-                        {{'Timespan'|translate}}
-                        <span class="glyphicon glyphicon-time"></span>
-                        <b class="caret"></b>
-					</a>
-					<ul class="dropdown-menu">
-						<li ng-repeat="(interval, label) in fromIntervals" ng_class="{active:(interval == currentFrom)}">
-							<a ng-click="sensorView(null, interval)">
-								{{ label }}
-							</a>
-						</li>
-					</ul>
-				</li>
-			</ul>
+            <div class="navbar-collapse" ng-class="{collapse:!isCollapsed}">
+                <ul class="nav navbar-nav">
+                    <li ng-repeat="sensor in sensors" ng-class="{'active':isSensorActive(sensor.sensorId)}">
+                        <a
+                                class="tip cursor"
+                                data-placement="bottom"
+                                tooltip="Latest: {{ sensor.lastValue }}"
+                                ng-click="sensorView(sensor.sensorId)"
+                                >
+                            {{ sensor.name }}
+                        </a>
+                    </li>
+                    <li>
+                        <a ng-click="editModal()">
+                            {{'Edit'|translate}}
+                            <b class="glyphicon glyphicon-pencil"></b>
+                        </a>
+                    </li>
+                    <li class="dropdown" dropdown>
+                        <a href class="dropdown-toggle" dropdown-toggle>
+                            {{'Timespan'|translate}}
+                            <span class="glyphicon glyphicon-time"></span>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="(interval, label) in fromIntervals" ng_class="{active:(interval == currentFrom)}">
+                                <a ng-click="sensorView(null, interval)">
+                                    {{ label }}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
 		</div>
 	</div>
 </nav>

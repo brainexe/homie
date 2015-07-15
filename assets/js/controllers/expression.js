@@ -58,6 +58,8 @@ App.controller('ExpressionController', ['$scope', 'Expression', function ($scope
     };
 
     $scope.deleteCron = function(eventId) {
-        // TODO delete cron
+        Expression.deleteEvent(eventId).success(function() {
+            delete $scope.crons[eventId];
+        });
     };
 }]);

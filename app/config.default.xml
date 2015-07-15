@@ -11,9 +11,10 @@
 
         <!-- todo -->
         <parameter key="adafruit.path">/opt/Adafruit-Raspberry-Pi-Python-Code/Adafruit_DHT_Driver/</parameter>
-        <parameter key="webcam.executable.photo">fswebcam %s</parameter>
-        <parameter key="webcam.executable.sound">arecord -f cd -t raw | lame -x -r – %s</parameter>
-        <parameter key="webcam.executable.video">streamer -t 0:0:2 -f rgb24 -r 3 -o %s</parameter>
+
+        <parameter key="webcam.executable.photo">fswebcam {{file}}</parameter>
+        <parameter key="webcam.executable.sound">timeout $(({{duration}}+2)) arecord -f cd -d {{duration}} -t raw | lame -x -r - {{file}}</parameter>
+        <parameter key="webcam.executable.video">streamer -t 0:0:2 -f rgb24 -r {{duration}} -o {{file}}</parameter>
         <!--<parameter key="webcam.executable.photo">raspistill -o %s</parameter>-->
 
         <!-- Connect an Arduino -->

@@ -1,4 +1,55 @@
-{{ value }} <small>({{ sensor.lastValueTimestamp|timeAgo }})</small>
 
-<a ng-click="reload()" class="glyphicon glyphicon-repeat"></a>
 
+<table class="table table-bordered table-striped table-hover" style="width:100%">
+    <tr>
+        <th><b translate>Current</b></th>
+        <td>
+            {{ format(value) }}
+        </td>
+        <td>
+            <small>
+                <time-ago from-time="sensor.lastValueTimestamp"></time-ago>
+            </small>
+            <a
+                    ng-click="reload()"
+                    tooltip="{{'Reload'|translate}}"
+                    class="btn btn-default btn-sm glyphicon glyphicon-repeat"></a>
+        </td>
+    </tr>
+    <tr>
+        <th translate>Min</th>
+        <td>
+            {{format(stats.min.value)}}
+        </td>
+        <td>
+            <time-ago from-time="stats.min.timestamp"></time-ago>
+        </td>
+    </tr>
+    <tr>
+        <th translate>Max</th>
+        <td>
+            {{format(stats.max.value)}}
+        </td>
+        <td>
+            <time-ago from-time="stats.max.timestamp"></time-ago>
+        </td>
+    </tr>
+    <tr>
+        <th translate>Avg</th>
+        <td colspan="2">
+            {{format(stats.avg)}}
+        </td>
+    </tr>
+    <tr>
+        <th translate>Median</th>
+        <td colspan="2">
+            {{format(stats.median)}}
+        </td>
+    </tr>
+    <tr>
+        <th><b translate>Tend</b></th>
+        <td colspan="2">
+            <span class="glyphicon glyphicon-arrow-{{stats.lastChange == 0 ? 'right' : (stats.lastChange > 0 ? 'up' : 'down')}}" tooltip="{{format(stats.lastChange)}}"></span>
+        </td>
+    </tr>
+</table>

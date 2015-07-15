@@ -1,8 +1,23 @@
-<div ng-show="shots" class="container">
+<div ng-show="files" class="container">
 	<div class="row">
-		<div ng-repeat="shot in shots" class="col-xs-4">
-			<img ng-src="/webcam/image/?file={{ shot.webPath }}" class="img-thumbnail thumbnail"/>
-			<a ng-hide="shot.deleting" ng-click="removeShot($index)" title="Delete" class="tip glyphicon glyphicon-remove">
+		<div ng-repeat="file in files" class="col-xs-4">
+			<div ng-switch="file.extension">
+				<div ng-switch-when="mp3">
+					<a ng-href="/webcam/file/?file={{ file.webPath }}" class="img-thumbnail thumbnail">mp3</a>
+				</div>
+				<div ng-switch-when="avi">
+					<a ng-href="/webcam/file/?file={{ file.webPath }}" class="img-thumbnail thumbnail">avi</a>
+				</div>
+				<div ng-switch-when="jpg">
+					<img ng-src="/webcam/file/?file={{ file.webPath }}" class="img-thumbnail thumbnail"/>
+				</div>
+			</div>
+
+			<a
+					ng-hide="file.deleting"
+					ng-click="removeFile($index)"
+					title="{{'Delete'|translate}}"
+					class="tip glyphicon glyphicon-remove">
 				&nbsp;
 			</a>
 		</div>
@@ -10,5 +25,5 @@
 </div>
 
 <a class="btn btn-primary" ng-click="takeShot()" translate>Take Photo</a>
-<a class="btn btn-primary" ng-click="takeSound()" translate>Take Video</a>
-<a class="btn btn-primary" ng-click="takeVideo()" translate>Take Sound</a>
+<a class="btn btn-primary" ng-click="takeVideo()" translate>Take Video</a>
+<a class="btn btn-primary" ng-click="takeSound()" translate>Take Sound</a>

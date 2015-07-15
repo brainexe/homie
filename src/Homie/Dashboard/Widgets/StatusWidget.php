@@ -17,10 +17,14 @@ class StatusWidget extends AbstractWidget
      */
     public function getMetadata()
     {
-        return new WidgetMetadataVo(
+        $metadata = new WidgetMetadataVo(
             $this->getId(),
             gettext('Status'),
             gettext('Show internal information')
         );
+
+        return $metadata
+            ->addTitle()
+            ->setSize(4, 3);
     }
 }

@@ -57,7 +57,7 @@ class Controller
     /**
      * @param Request $request
      * @return Job[]
-     * @Route("/espeak/speak/", methods="POST")
+     * @Route("/espeak/speak/", methods="POST", name="espeak.speak")
      */
     public function speak(Request $request)
     {

@@ -15,7 +15,7 @@ App.controller('ShoppingListController', ['$scope', 'ShoppingList', function ($s
             return;
         }
 
-        ShoppingList.add({name: name});
+        ShoppingList.add(name);
 
         $scope.shoppingList.push({text: name, done: false});
         $scope.todoText = '';

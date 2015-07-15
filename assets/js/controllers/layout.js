@@ -1,10 +1,17 @@
 
 App.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gettextCatalog', 'BrowserNotification', 'SocketServer', 'Cache', function ($scope, UserManagement, Config, gettextCatalog, BrowserNotification, SocketServer, Cache) {
     $scope.flashBag  = [];
-    $scope.languages = {
+    $scope.languages = { // todo load from config
         'de': 'Deutsch',
         'en': 'English'
     };
+
+    if (localStorage.getItem('language')) {
+        var language = localStorage.getItem('language');
+        gettextCatalog.setCurrentLanguage(language);
+        gettextCatalog.cache = Cache;
+        gettextCatalog.loadRemote("/lang/" + language + ".json");
+    }
 
     $scope.currentUser = {};
 
@@ -20,11 +27,13 @@ App.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gette
 
     $scope.changeLanguage = function(lang) {
         gettextCatalog.setCurrentLanguage(lang);
-        window.location.reload();
+        localStorage.setItem('language', lang);
+        //window.location.reload();
     };
 
     $scope.flushCache = function() {
         Cache.destroy();
+        window.location.reload();
     };
 
     /**

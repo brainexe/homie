@@ -1,19 +1,24 @@
 
 App.service('SensorFormatter', [function() {
-    function temperatre(value) {
-        return value +'°';
+    function round(number, places) {
+        var factor = Math.pow(10, places);
+        return (~~Math.round(number * factor)) / factor;
+    }
+
+    function temperature(value) {
+        return round(value, 2) +'°';
     }
 
     function percentage(value) {
-        return value +'%';
+        return round(value, 2) +'%';
     }
 
     function barometer(value) {
-        return value +'hPa';
+        return round(value, 2) +'hPa';
     }
 
     function noop(value) {
-        return value;
+        return round(value, 3);
     }
 
     /**
@@ -38,7 +43,7 @@ App.service('SensorFormatter', [function() {
         getFormatter: function(type) {
             switch (type) {
                 case 'temperature':
-                    return temperatre;
+                    return temperature;
                 case 'percentage':
                     return percentage;
                 case 'barometer':

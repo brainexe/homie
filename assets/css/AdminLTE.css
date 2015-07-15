@@ -1,3 +1,6 @@
+/* @link https://angular-ui.github.io/bootstrap/ */
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
 /*!
  *   AdminLTE v1.0
  *   Author: AlmsaeedStudio.com
@@ -49,28 +52,28 @@ body > .header {
 /*right side - contins main content*/
 .right-side {
   background-color: #f9f9f9;
-  margin-left: 220px;
+  margin-left: 180px;
 }
 /*left side - contains sidebar*/
 .left-side {
   position: absolute;
-  width: 220px;
+  width: 180px;
   top: 0;
 }
 @media screen and (min-width: 992px) {
   .left-side {
-    top: 50px;
+    top: 40px;
   }
   /*Right side strech mode*/
   .right-side.strech {
     margin-left: 0;
   }
   .right-side.strech > .content-header {
-    margin-top: 0px;
+    margin-top: 0;
   }
   /* Left side collapse */
   .left-side.collapse-left {
-    left: -220px;
+    left: -180px;
   }
 }
 /*Give content full width on xs screens*/
@@ -133,7 +136,7 @@ h6,
 }
 /* All images should be responsive */
 img {
-  max-width: 100%important;
+  max-width: 100% important;
 }
 .sort-highlight {
   background: #f4f4f4;
@@ -321,9 +324,9 @@ body > .header {
   z-index: 1030;
 }
 body > .header .navbar {
-  height: 50px;
+  height: 40px;
   margin-bottom: 0;
-  margin-left: 220px;
+  margin-left: 180px;
 }
 body > .header .navbar .sidebar-toggle {
   float: left;
@@ -381,13 +384,13 @@ body > .header .navbar .nav > li > a:hover > .label {
 }
 body > .header .logo {
   float: left;
-  font-size: 28px;
+  font-size: 21px;
   line-height: 50px;
   text-align: center;
   padding: 0 10px;
-  width: 220px;
+  width: 180px;
   font-weight: 500;
-  height: 50px;
+  height: 40px;
   display: block;
 }
 body > .header .logo .icon {
@@ -499,7 +502,7 @@ body > .header .logo .icon {
 }
 .sidebar .sidebar-menu {
   list-style: none;
-  margin: 0;
+  margin-top: 58px;
   padding: 0;
 }
 .sidebar .sidebar-menu > li {
@@ -515,26 +518,6 @@ body > .header .logo .icon {
 .sidebar .sidebar-menu > li > a > .ion {
   width: 20px;
 }
-.sidebar .sidebar-menu .treeview-menu {
-  display: none;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.sidebar .sidebar-menu .treeview-menu > li {
-  margin: 0;
-}
-.sidebar .sidebar-menu .treeview-menu > li > a {
-  padding: 5px 5px 5px 15px;
-  display: block;
-  font-size: 14px;
-  margin: 0px 0px;
-}
-.sidebar .sidebar-menu .treeview-menu > li > a > .fa,
-.sidebar .sidebar-menu .treeview-menu > li > a > .glyphicon,
-.sidebar .sidebar-menu .treeview-menu > li > a > .ion {
-  width: 20px;
-}
 .user-panel {
   padding: 7px;
 }
@@ -546,29 +529,28 @@ body > .header .logo .icon {
 .user-panel:after {
   clear: both;
 }
-.user-panel > .image > img {
-  width: 45px;
-  height: 45px;
+.user-panel .image {
+  margin-bottom: 5px;
 }
-.user-panel > .info {
+.user-panel .info {
   font-weight: 600;
   padding: 5px 5px 5px 15px;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 1;
 }
-.user-panel > .info > p {
+.user-panel .info > p {
   margin-bottom: 9px;
 }
-.user-panel > .info > a {
+.user-panel .info > a {
   text-decoration: none;
   padding-right: 5px;
   margin-top: 3px;
   font-size: 11px;
   font-weight: normal;
 }
-.user-panel > .info > a > .fa,
-.user-panel > .info > a > .ion,
-.user-panel > .info > a > .glyphicon {
+.user-panel .info > a > .fa,
+.user-panel .info > a > .ion,
+.user-panel .info > a > .glyphicon {
   margin-right: 3px;
 }
 /*
@@ -581,30 +563,30 @@ body > .header .logo .icon {
     position: relative;
   }
   .row-offcanvas-right .sidebar-offcanvas {
-    right: -220px;
+    right: -180px;
   }
   .row-offcanvas-left .sidebar-offcanvas {
-    left: -220px;
+    left: -180px;
   }
   .row-offcanvas-right.active {
-    right: 220px;
+    right: 180px;
   }
   .row-offcanvas-left.active {
-    left: 220px;
+    left: 180px;
   }
   .sidebar-offcanvas {
     left: 0;
   }
   body.fixed .sidebar-offcanvas {
-    margin-top: 50px;
-    left: -220px;
+    margin-top: 40px;
+    left: -180px;
   }
   body.fixed .row-offcanvas-left.active .navbar {
-    left: 220px !important;
+    left: 180px !important;
     right: 0;
   }
   body.fixed .row-offcanvas-left.active .sidebar-offcanvas {
-    left: 0px;
+    left: 0;
   }
 }
 /*
@@ -1507,20 +1489,18 @@ body > .header .logo .icon {
 .logo > a {
   color: #f9f9f9;
 }
-.logo:hover {
-  background: #303030;
-}
 /* skin-black content header */
 .right-side > .content-header {
   background: transparent;
   box-shadow: none;
 }
 /* Skin-red user panel */
-.user-panel > .image > img {
+.user-panel .image > img {
   border: 1px solid #444;
+  margin-bottom: 4px;
 }
-.user-panel > .info,
-.user-panel > .info > a {
+.user-panel .info,
+.user-panel .info > a {
   color: #eee;
 }
 /* skin-black sidebar */
@@ -1529,13 +1509,13 @@ body > .header .logo .icon {
 }
 .sidebar > .sidebar-menu > li {
   border-top: 1px solid #333;
-  border-bottom: 0px solid #444;
+  border-bottom: 0 solid #444;
 }
 .sidebar > .sidebar-menu > li:first-of-type {
   border-top: 1px solid #444;
 }
 .sidebar > .sidebar-menu > li:first-of-type > a {
-  border-top: 0px solid #333;
+  border-top: 0 solid #333;
 }
 .sidebar > .sidebar-menu > li > a {
   margin-right: 1px;
@@ -1554,26 +1534,21 @@ body > .header .logo .icon {
   background: -moz-linear-gradient(left, rgba(51,51,51,1) 94%, rgba(51,51,51,1) 95%, rgba(51,51,51,0.65) 100%);
   background: -webkit-gradient(left top, right top, color-stop(94%, rgba(51,51,51,1)), color-stop(95%, rgba(51,51,51,1)), color-stop(100%, rgba(51,51,51,0.65)));
   background: -webkit-linear-gradient(left, rgba(51,51,51,1) 94%, rgba(51,51,51,1) 95%, rgba(51,51,51,0.65) 100%);
-  background: linear-gradient(to right, rgba(51,51,51,1) 94%, rgba(51,51,51,1) 95%, rgba(51,51,51,0.65) 100%);}
+  background: linear-gradient(to right, rgba(51,51,51,1) 94%, rgba(51,51,51,1) 95%, rgba(51,51,51,0.65) 100%);
+}
 .sidebar a {
   color: #eee;
 }
 .sidebar a:hover {
   text-decoration: none;
 }
-.treeview-menu > li > a {
-  color: #ccc;
-}
-.treeview-menu > li.active > a,
-.treeview-menu > li > a:hover {
-  color: #fff;
-}
+
 .sidebar-form {
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
-  border: 0px solid #555;
-  margin: 10px 10px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 0 solid #555;
+  margin: 2px;
 }
 .sidebar-form input[type="text"],
 .sidebar-form .btn {
@@ -1621,4 +1596,8 @@ body > .header .logo .icon {
   border-bottom-right-radius: 2px !important;
   border-bottom-left-radius: 0 !important;
   border-left: 0;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
 }

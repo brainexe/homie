@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
+ * @todo repeatable
  * @Controller("ToDoListController")
  */
 class TodoListController
@@ -47,8 +48,8 @@ class TodoListController
      */
     public function index()
     {
-        $list         = $this->todo->getList();
-        $userNames    = $this->userProvider->getAllUserNames();
+        $list      = $this->todo->getList();
+        $userNames = $this->userProvider->getAllUserNames();
 
         return new JsonResponse([
             'list' => $list,

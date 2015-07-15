@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @todo move into Core
  * @ControllerAnnotation("AdminController")
  */
 class Controller

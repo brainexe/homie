@@ -1,9 +1,10 @@
-App.service('Widget.time', ['_', function(_) {
+App.service('Widget.time', ['$interval', function($interval) {
     return {
         render: function ($scope, widget) {
-            window.setInterval(function() {
-                $scope.time = new Date().toString();
+            $interval(function() {
+                $scope.time = Date.now();
             }, 1000);
+            $scope.time = Date.now();
         }
     }
 }]);

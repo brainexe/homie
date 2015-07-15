@@ -61,13 +61,13 @@ class ControllerTest extends TestCase
 
         $this->webcam
             ->expects($this->once())
-            ->method('getPhotos')
+            ->method('getFiles')
             ->willReturn($photos);
 
         $actualResult = $this->subject->index();
 
         $expectedResult = [
-            'shots' => $photos
+            'files' => $photos
         ];
 
         $this->assertEquals($expectedResult, $actualResult);
@@ -114,7 +114,7 @@ class ControllerTest extends TestCase
     }
 
 
-    public function testGetImage()
+    public function testGetFile()
     {
         $request = new Request();
         $request->query->set('file', $file = 'file');
@@ -132,7 +132,7 @@ class ControllerTest extends TestCase
             ->with($file)
             ->willReturn($mime);
 
-        $actualResult = $this->subject->getImage($request);
+        $actualResult = $this->subject->getFile($request);
 
         $this->assertEquals($mime, $actualResult->headers->get('Content-Type'));
         $this->assertNotEmpty($actualResult->getContent());

@@ -31,6 +31,11 @@ class WebcamVO
     public $timestamp;
 
     /**
+     * @var string
+     */
+    public $extension;
+
+    /**
      * @return string
      */
     public function getWebcamId()

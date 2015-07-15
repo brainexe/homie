@@ -5,6 +5,7 @@ namespace Tests\Homie\Sensors;
 use BrainExe\Core\Redis\Predis;
 use BrainExe\Core\Util\Time;
 use BrainExe\Tests\RedisMockTrait;
+use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\SensorGateway;
@@ -76,7 +77,9 @@ class SensorValuesGatewayTest extends TestCase
             ->method('now')
             ->willReturn($now);
 
-        $this->subject->addValue($sensorId, $value);
+        $sensorVo = new SensorVO();
+        $sensorVo->sensorId = $sensorId;
+        $this->subject->addValue($sensorVo, $value);
     }
 
     public function testGetSensorValues()
@@ -137,7 +140,7 @@ class SensorValuesGatewayTest extends TestCase
     public function testDeleteOldValues()
     {
         $sensorId = 10;
-        $now      = 86410;
+        $now      = SensorValuesGateway::CLEAN_SINCE + 10;
 
         $this->time
             ->expects($this->once())
@@ -153,7 +156,7 @@ class SensorValuesGatewayTest extends TestCase
         $this->redis
             ->expects($this->once())
             ->method('ZRANGEBYSCORE')
-            ->with("sensor_values:$sensorId", 0, $now - 86400, ['withscores' => true])
+            ->with("sensor_values:$sensorId", 0, $now - SensorValuesGateway::CLEAN_SINCE, ['withscores' => true])
             ->willReturn($oldValues);
 
         $this->redis

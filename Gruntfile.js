@@ -10,6 +10,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-manifest');
 
+    // todo improve performance: https://www.npmjs.com/package/grunt-parallelize
     grunt.registerTask('extract_lang', ['nggettext_extract']);
     grunt.registerTask('compile_lang', ['nggettext_compile']);
 
@@ -75,10 +76,11 @@ module.exports = function (grunt) {
         child.stderr.pipe(process.stderr);
     });
 
-    grunt.registerTask('build', ['compile_lang', 'clean', 'copy', 'uglify', 'htmlmin', 'concat', 'cssmin', 'manifest', 'compress']);
+    grunt.registerTask('build', ['clean', 'compile_lang', 'copy', 'uglify', 'htmlmin', 'concat', 'cssmin', 'manifest', 'compress']);
     grunt.registerTask('buildAll', ['bower', 'build']);
     grunt.registerTask('default', ['build']);
 
+    var isProduction = process.env.ENVIRONMENT == 'production';
     grunt.initConfig({
         nggettext_extract: {
             pot: {
@@ -96,9 +98,19 @@ module.exports = function (grunt) {
         },
         nggettext_compile: {
             all: {
-                files: {
-                    'assets/lang/translations.js': ['lang/*.po']
-                }
+                options: {
+                    format: "json"
+                },
+                files: [
+                    {
+                        expand: true,
+                        dot: true,
+                        cwd: "lang",
+                        dest: "web/lang",
+                        src: ["*.po"],
+                        ext: ".json"
+                    }
+                ]
             }
         },
         watch: {
@@ -172,17 +184,26 @@ module.exports = function (grunt) {
         uglify: {
             app: {
                 options: {
-                    beautify: true,
-                    compress: false,
-                    mangle:   false
+                    beautify: !isProduction,
+                    compress: isProduction ? {
+                        unsafe:       true,
+                        unsafe_comps: true,
+                        screw_ie8:    true,
+                        angular:      true,
+                        pure_getters: true,
+                        hoist_vars:   true
+                    } : false,
+                    mangle: isProduction ? {
+                        toplevel: true
+                    } : false
                 },
                 files: {
                     'web/app.js': [
                         'assets/js/app.js',
                         'assets/js/util/**/*.js',
                         'assets/js/models/**/*.js',
-                        'assets/js/controllers/**/*.js',
-                        'assets/lang/*js'
+                        'assets/js/controllers/**/*.js'
+                        // todo lazy load controllers?
                     ]
                 }
             },
@@ -193,18 +214,18 @@ module.exports = function (grunt) {
                 },
                 files: {
                     'web/vendor.js': [
-                        'bower_components/sockjs-client/dist/sockjs.js',
                         'bower_components/angular/angular.min.js',
                         'bower_components/angular-route/angular-route.min.js',
                         'bower_components/angular-gettext/dist/angular-gettext.min.js',
-                        'bower_components/angular-sanitize/angular-sanitize.min.js',
+                        'bower_components/angular-sanitize/angular-sanitize.min.js', // needed?
                         'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
                         'bower_components/angular-cache/dist/angular-cache.min.js',
                         'bower_components/ng-sortable/dist/ng-sortable.min.js',
                         'bower_components/ui-select/dist/select.min.js',
+                        'bower_components/sockjs-client/dist/sockjs.min.js',
 
                         // needed for sensor module
-                        'bower_components/rickshaw/vendor/d3.v3.js',
+                        'bower_components/rickshaw/vendor/d3.min.js',
                         'bower_components/rickshaw/rickshaw.min.js',
 
                         'assets/js/vendor/**/*js'
@@ -242,7 +263,8 @@ module.exports = function (grunt) {
             main: {
                 cwd: 'web/',
                 options: {
-                    mode: 'gzip'
+                    mode: 'gzip',
+                    level: 9
                 },
                 files: [
                     {expand: true, src: ['web/**/*.js'], dest: '.', ext: '.js.gz'},

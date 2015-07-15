@@ -55,6 +55,13 @@ App.filter('toArray', function(){
         });
     }
 });
+App.filter('deleteKey', function() {
+    return function(array, key) {
+        delete array[key];
+
+        return array;
+    }
+});
 
 App.filter('toObjectArray', function() {
     return function(input) {
@@ -114,4 +121,22 @@ App.filter('split', function() {
         // do some bounds checking here to ensure it has that index
         return input.split(splitChar)[splitIndex];
     }
+});
+
+App.filter('join', function () {
+    return function (input, delimiter) {
+        if (!Array.isArray(input)) {
+            return input;
+        }
+        return input.join(delimiter || ' ');
+    };
+});
+
+App.filter('range', function () {
+    return function (input, total) {
+        for (var i = 0; i < ~~total; i++) {
+            input.push(i);
+        }
+        return input;
+    };
 });

@@ -86,7 +86,7 @@
 	<tbody>
 	<tr ng-repeat="job in jobs">
 		<td>
-			{{job.timestamp|timeAgo}}
+			<time-ago from-time="job.timestamp" overdue="true"></time-ago>
 		</td>
 		<td>{{ job.event.espeak.text }}</td>
 		<td>

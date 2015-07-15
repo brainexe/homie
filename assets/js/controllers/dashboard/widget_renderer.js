@@ -14,7 +14,7 @@ App.directive('contentItem', ['$compile', 'TemplateLoader', 'WidgetFactory', fun
             $compile(element.contents())(scope);
 
             var renderer = WidgetFactory(widget.type);
-            renderer.render(scope, widget);
+            renderer.render(scope, widget, element);
         });
     };
 

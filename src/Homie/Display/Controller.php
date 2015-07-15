@@ -59,10 +59,9 @@ class Controller
     public function add(Request $request)
     {
         $settings = new Settings();
-        $settings->lines   = $request->request->getInt('lines');
-        $settings->columns = $request->request->getInt('columns');
-        $settings->content = $request->request->get('content');
-
+        $settings->lines    = $request->request->getInt('lines');
+        $settings->columns  = $request->request->getInt('columns');
+        $settings->content  = $request->request->get('content');
         $settings->rendered = $this->renderer->render($settings);
 
         $this->gateway->addDisplay($settings);

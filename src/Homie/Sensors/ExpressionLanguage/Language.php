@@ -10,6 +10,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
 /**
+ * @todo public?
  * @Service("Sensor.ExpressionLanguage.Language", tags={{"name"="expression_language"}})
  */
 class Language implements ExpressionFunctionProviderInterface

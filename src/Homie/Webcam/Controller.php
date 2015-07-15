@@ -46,10 +46,10 @@ class Controller
      */
     public function index()
     {
-        $shots = $this->webcam->getPhotos();
+        $files = $this->webcam->getFiles();
 
         return [
-            'shots' => $shots
+            'files' => $files
         ];
     }
 
@@ -96,11 +96,12 @@ class Controller
     }
 
     /**
-     * @Route("/webcam/image/", name="webcam.image")
+     * @Route("/webcam/file/", name="webcam.getFile")
      * @param Request $request
      * @return Response
+     * @todo check security
      */
-    public function getImage(Request $request)
+    public function getFile(Request $request)
     {
         $file   = $request->query->get('file');
         $stream = $this->filesystem->readStream($file);

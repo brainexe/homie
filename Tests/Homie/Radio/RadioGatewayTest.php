@@ -124,7 +124,7 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
 
         $this->idGenerator
             ->expects($this->once())
-            ->method('generateRandomId')
+            ->method('generateRandomNumericId')
             ->willReturn($radioId);
 
         $this->redis

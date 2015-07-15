@@ -25,11 +25,19 @@
             </thead>
             <tr ng-repeat="sensor in sensors">
                 <td title="{{ sensor.sensorId }}">
-                    <b>{{ types[sensor.type].name }}</b>
                     <div ng-if="!sensor.edit">
+                        <b>{{ types[sensor.type].name }}</b>
+                        <br />
                         <span class="small" ng-if="sensor.pin">({{ sensor.pin }})</span>
                     </div>
                     <div ng-if="sensor.edit">
+                        <ui-select ng-model="sensor.type">
+                            <ui-select-match placeholder="{{'Select a type...'|translate}}">{{$select.selected.value.name}}</ui-select-match>
+                            <ui-select-choices group-by="'type.value.type'" groupBy="'type.value.type'" repeat="type.key as type in types|toObjectArray">
+                                <span ng-bind-html="type.value.name"></span>
+                                <span class="small">({{type.value.type}})</span>
+                            </ui-select-choices>
+                        </ui-select>
                         <input type="text" class="form-control" placeholder="Pin" ng-model="sensor.pin" />
                     </div>
                 </td>
@@ -43,7 +51,9 @@
                         <input type="text"  class="form-control" placeholder="Description" ng-model="sensor.description" />
                     </div>
                 </td>
-                <td>{{ sensor.lastValue }}</td>
+                <td>
+                    {{ formatValue(sensor.lastValue, types[sensor.type]) }}
+                </td>
                 <td>
                     <div ng-if="!sensor.edit">
                         {{ sensor.interval }} minutes
@@ -62,11 +72,12 @@
                 </td>
                 <td>
                     <small ng-if="sensor.interval > 0">
-                        {{ (sensor.lastValueTimestamp + sensor.interval * 60)| timeAgoShort}}
-                    <small>
-                    <small ng-if="sensor.interval <= 0">
+                        <time-ago from-time="sensor.lastValueTimestamp + sensor.interval * 60" short="true" overdue="true"></time-ago>
+                        <a ng-click="reload(sensor.sensorId)" class="btn btn-default btn-sm glyphicon glyphicon-repeat"></a>
+                    </small>
+                    <small ng-if="sensor.interval == -1" translate>
                        disabled
-                    <small>
+                    </small>
                 </td>
                 <td>
                     <a ng-click="edit(sensor)" class="glyphicon glyphicon-edit"></a>

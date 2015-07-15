@@ -2,7 +2,10 @@
     border: 1px #727272 solid;
 }
 
-.dashboard .widget .delete {
-	float: right;
-	display: block;
+.dashboard .widget .panel-heading {
+    font-weight: bold;
+}
+
+.dashboard .as-sortable-placeholder .panel-body {
+    font-weight: bold;
 }

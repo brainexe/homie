@@ -48,8 +48,8 @@ class SpeakWidget extends AbstractWidget
             ],
             4
         );
-        $metadata->addTitle();
-
-        return $metadata;
+        return $metadata
+            ->addTitle()
+            ->setSize(4, 3);
     }
 }

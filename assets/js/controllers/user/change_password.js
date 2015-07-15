@@ -1,5 +1,5 @@
-App.controller('ChangePasswordController', ['$scope', 'UserManagement', function ($scope, UserManagement) {
 
+App.controller('ChangePasswordController', ['$scope', 'UserManagement', function ($scope, UserManagement) {
     $scope.changePassword = function () {
         if (!$scope.password) {
             return;
@@ -9,7 +9,7 @@ App.controller('ChangePasswordController', ['$scope', 'UserManagement', function
             return;
         }
 
-        UserManagement.changePassword(password).success(function () {
+        UserManagement.changePassword($scope.password).success(function () {
             window.location.href = '#dashboard';
         })
     }

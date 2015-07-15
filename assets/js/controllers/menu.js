@@ -1,14 +1,19 @@
+
 App.controller('MenuController', ['$scope', '$rootScope', '$route', '$location', 'controllers', 'UserManagement', '_', function ($scope, $rootScope, $route, $location, controllers, UserManagement, _) {
-    $scope.controllers = controllers;
+    $scope.controllers = controllers();
     $scope.$on('$routeChangeSuccess', function (event, current) {
         if (current.$$route && current.$$route.name) {
             document.title = current.$$route.name;
         }
     });
 
-    $scope.$watch(function() {
-        return UserManagement.getCurrentUser();
-    }, function (user) {
+    $scope.$on('gettextLanguageChanged', function() {
+        $scope.controllers = controllers();
+        update();
+    });
+
+    function update() {
+        var user = UserManagement.getCurrentUser();
         var isLoggedIn = UserManagement.isLoggedIn();
 
         $scope.menu = $scope.controllers.filter(function (item) {
@@ -31,6 +36,10 @@ App.controller('MenuController', ['$scope', '$rootScope', '$route', '$location',
 
             return true;
         });
-    });
+    }
+
+    $scope.$watch(function() {
+        return UserManagement.getCurrentUser();
+    }, update);
 }]);
 

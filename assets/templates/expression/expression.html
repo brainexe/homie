@@ -92,11 +92,15 @@
             <td>
                 <a
                     ng-click="edit(expression)"
-                    class="glyphicon glyphicon-edit cursor"
-                ></a>
+                    class="cursor btn btn-default btn-sm"
+                >
+                    <span class="glyphicon glyphicon-edit"></span>
+                </a>
             </td>
             <td>
-				<a ng-click="delete(expressionId)" class="glyphicon glyphicon-remove"></a>
+				<a ng-click="delete(expressionId)" class="btn btn-danger btn-sm">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </a>
 			</td>
 		</tr>
 	</tbody>

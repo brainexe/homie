@@ -49,13 +49,14 @@ class SwitchWidget extends AbstractWidget
                 'switchIds' => [
                     'name'   => gettext('Switch'),
                     'values' => $values,
-                    'type'   => 'text'
+                    'type'   => WidgetMetadataVo::MULTI_SELECT
                 ]
             ],
             4
         );
-        $metadata->addTitle();
 
-        return $metadata;
+        return $metadata
+            ->addTitle()
+            ->setSize(4, 3);
     }
 }

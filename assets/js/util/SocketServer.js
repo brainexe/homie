@@ -4,6 +4,7 @@ App.service('SocketServer', ['Config', '$rootScope', function(Config, $rootScope
         if (!socketUrl) {
             return;
         }
+
         var sockjs = new SockJS(socketUrl);
 
         sockjs.onmessage = function(message) {
@@ -12,6 +13,7 @@ App.service('SocketServer', ['Config', '$rootScope', function(Config, $rootScope
 
             $rootScope.$broadcast(event_name, event);
 
+            // todo why is debug "undefined"?
             if (debug) {
                 console.log("socket server: " + event.event_name, event)
             }

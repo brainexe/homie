@@ -8,7 +8,7 @@ class Settings
     /**
      * @var int
      */
-    public $id;
+    public $displayId;
 
     /**
      * @var int

@@ -7,8 +7,9 @@ describe('Login into homie app', function() {
     var submit = $('.form-signin button[type="submit"]');
 
     it('Click "login" in menu', function () {
-        browser.get(process.envHOMIE_HOST);
+        //browser.get(process.envHOMIE_HOST);
 
+        console.log($);
         var link = $('a[href="/#login"]');
         expect(link.isPresent()).toBe(true);
 
@@ -43,13 +44,5 @@ describe('Login into homie app', function() {
         username.sendKeys("testuser");
         password.sendKeys("testpassword");
         submit.click();
-
-        helper.expectFlash('Welcome testuser');
-    });
-
-    it('Check layout after login', function () {
-        // todo check menu
-        var userName = element(by.binding('current_user.username'));
-        expect(userName.getText()).toBe('testuser');
     });
 });

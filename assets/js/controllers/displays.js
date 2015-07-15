@@ -1,18 +1,27 @@
 
 App.controller('DisplaysController', ['$scope', 'Displays', function ($scope, Displays) {
 
-    $scope.screens   = {};
-    $scope.newScreen = {content: ['']};
+    $scope.screens       = {};
+    $scope.currentScreen = {
+        content: ["''"],
+        lines: 4,
+        columns: 10
+    };
 
     Displays.getData().success(function (data) {
         $scope.screens = data.screens;
-
-        console.log(data);
     });
 
-    $scope.add = function(display) {
-        Displays.add(display).success(function(newScreen) {
-            $scope.screens[newScreen.displayId] = newScreen;
-        })
+    $scope.save = function(display) {
+        var result;
+        if (display.displayId) {
+            result = Displays.edit(display);
+        } else {
+            result = Displays.add(display);
+        }
+
+        result.success(function(screen) {
+            $scope.screens[screen.displayId] = screen;
+        });
     }
 }]);

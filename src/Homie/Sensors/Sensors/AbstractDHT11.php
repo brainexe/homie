@@ -43,7 +43,9 @@ abstract class AbstractDHT11 extends AbstractSensor implements Parameterized
      */
     protected function getContent($pin)
     {
-        return $this->client->executeWithReturn($pin);
+        $command = sprintf('timeout 3 %s', $pin);
+
+        return $this->client->executeWithReturn($command);
     }
 
     /**

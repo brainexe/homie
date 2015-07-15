@@ -62,26 +62,7 @@ class Recorder
     public function takePhoto($name)
     {
         $filename = sprintf('%s.jpg', $name);
-
-        $this->take($this->photoCommand, $filename);
-
-        $event = new WebcamEvent($name, WebcamEvent::TOOK_PHOTO);
-        $this->dispatchEvent($event);
-    }
-
-    /**
-     * @param string $command
-     * @param string $filename
-     */
-    private function take($command, $filename)
-    {
-        $temp = tempnam(sys_get_temp_dir(), 'webcam');
-
-        $this->client->execute(sprintf($command, $temp));
-
-        $this->filesystem->writeStream(Webcam::ROOT . $filename, fopen($temp, 'r'));
-
-        unlink($temp);
+        $this->take($this->photoCommand, $filename, WebcamEvent::TOOK_PHOTO);
     }
 
     /**
@@ -90,7 +71,9 @@ class Recorder
      */
     public function takeVideo($name, $duration)
     {
-        // todo implement
+        $filename = sprintf('%s.avi', $name);
+        $command = str_replace('{{duration}}', $duration, $this->videoCommand);
+        $this->take($command, $filename, WebcamEvent::TOOK_VIDEO);
     }
 
     /**
@@ -99,6 +82,29 @@ class Recorder
      */
     public function takeSound($name, $duration)
     {
-        // todo implement
+        echo "sound\n";
+
+        $filename = sprintf('%s.mp3', $name);
+        $command = str_replace('{{duration}}', $duration, $this->soundCommand);
+        $this->take($command, $filename, WebcamEvent::TOOK_SOUND);
+    }
+
+    /**
+     * @param string $command
+     * @param string $filename
+     * @param string $eventName
+     */
+    private function take($command, $filename, $eventName)
+    {
+        $temp = tempnam(sys_get_temp_dir(), 'webcam');
+
+        $this->client->execute(str_replace('{{file}}', $temp, $command));
+
+        $this->filesystem->writeStream(Webcam::ROOT . $filename, fopen($temp, 'r'));
+
+        unlink($temp);
+
+        $event = new WebcamEvent($filename, $eventName);
+        $this->dispatchEvent($event);
     }
 }

@@ -6,7 +6,7 @@ use Homie\Sensors\Definition;
 use Homie\Sensors\Interfaces\Sensor;
 
 /**
- * @todo check if package is installed via apt-cache policy bridge-utils
+ * @todo check if package is installed via "dpkg-query -W -f='${Status} ${Version}\n' $package"
  */
 abstract class AbstractSensor implements Sensor
 {

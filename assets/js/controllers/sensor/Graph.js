@@ -1,38 +1,7 @@
 
 App.service('SensorGraph', ['Sensor', 'SensorFormatter', function (Sensor, SensorFormatter) {
 
-    // todo implement stats somehow
-    function getStats(series) {
-        var max    = Number.MIN_VALUE,
-            min    = Number.MAX_VALUE,
-            count  = series.data.length,
-            sum    = 0,
-            values = [],
-            value;
-
-        for (var i in series.data) {
-            value = series.data[i].y;
-            values.push(value);
-            sum += value;
-            if (value < min) {
-                min = value;
-            }
-
-            if (value > max) {
-                max = value;
-            }
-        }
-
-        return {
-            count: count,
-            min: min,
-            max: max,
-            avg: sum / count,
-            median: values.sort()[~~(count/2)]
-        };
-    }
-
-    function init($scope, element, height, parameters) {
+    function init($scope, element, height, sensors, parameters) {
         /**
          * @param sensorValues
          */
@@ -53,7 +22,7 @@ App.service('SensorGraph', ['Sensor', 'SensorFormatter', function (Sensor, Senso
             $scope.types         = data.types;
             $scope.fromIntervals = data.fromIntervals;
 
-            Sensor.getValues(parameters).success(function (data) {
+            Sensor.getValues(sensors, parameters).success(function (data) {
                 $scope.sensors         = data.sensors;
                 $scope.activeSensorIds = data.activeSensorIds;
                 $scope.currentFrom     = data.currentFrom;
@@ -61,24 +30,14 @@ App.service('SensorGraph', ['Sensor', 'SensorFormatter', function (Sensor, Senso
 
                 $scope.graph = new Rickshaw.Graph({
                     element: element.querySelector('.chart'),
-                    width: element.offsetWidth - 20,
-                    interpolation: 'basis',
+                    width: element.clientWidth - 20,
+                    interpolation: 'cardinal',
                     height: height,
                     min: 'auto',
                     renderer: 'line',
                     series: data.json
                 });
-
-                /* todo show stats
-                for (var i in data.json) {
-                    if ('active' != i) {
-                        $scope.stats[data.sensorId] = getStats(data.json[i]);
-                    }
-                }
-                 */
-
                 new Rickshaw.Graph.Axis.Time({graph: $scope.graph});
-
                 new Rickshaw.Graph.Axis.Y({
                     graph: $scope.graph,
                     orientation: 'right',

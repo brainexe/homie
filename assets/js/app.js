@@ -1,7 +1,4 @@
 
-/**
- * @private
- */
 var App = angular.module('homie', [
         'ngDragDrop',
         'ngRoute',
@@ -9,8 +6,7 @@ var App = angular.module('homie', [
         'angular-cache',
         'ui.bootstrap',
         'ui.select',
-        'ui.sortable',
-        'yaru22.angular-timeago',
+        'as.sortable',
         'gettext'
     ]).config(['$routeProvider', '$httpProvider', '$provide', function ($routeProvider, $httpProvider, $provide) {
         // needed for translated routes
@@ -20,11 +16,33 @@ var App = angular.module('homie', [
         $provide.factory('$httpProvider', function () {
             return $httpProvider;
         });
-    }]).run(['gettextCatalog', '$routeProvider', '$httpProvider', 'controllers', '$rootScope', '$http', 'CacheFactory', function (gettextCatalog, $routeProvider, $httpProvider, controllers, $rootScope, $http, CacheFactory) {
-        // TODO: store in cookies  or user setting
-        gettextCatalog.setCurrentLanguage('de');
 
+        $httpProvider.interceptors.push(['$templateCache', 'Cache', function($templateCache, Cache) {
+            return {
+                request: function(request) {
+                    var url = request.url;
+                    if (url.match(/\.html/)) {
+                        var cached;
+                        if ((cached = $templateCache.get(url)) && !Cache.get(url)) {
+                            Cache.put(url, cached);
+                        }
+                        request.cacheKey = url;
+                        request.cache = Cache;
+                    }
+
+                    return request;
+                },
+                response: function(response) {
+                    if (response.config.cacheKey && !Cache.get(response.config.cacheKey)) {
+                        Cache.put(response.config.cacheKey, response.data);
+                    }
+                    return response;
+                }
+            };
+        }]);
+    }]).run(['$routeProvider', '$httpProvider', 'controllers', '$rootScope', '$http', 'CacheFactory', function ($routeProvider, $httpProvider, controllers, $rootScope, $http, CacheFactory) {
         // init routing
+        controllers = controllers();
         for (var i in controllers) {
             var metadata = controllers[i];
             $routeProvider.when('/' + metadata.url, metadata);
@@ -38,4 +56,5 @@ var App = angular.module('homie', [
             }
             return response;
         });
-    }]);
+    }]
+);

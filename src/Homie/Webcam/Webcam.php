@@ -13,7 +13,7 @@ use League\Flysystem\Filesystem;
  */
 class Webcam
 {
-    const ROOT       = 'Webcam/';
+    const ROOT = 'Webcam/';
     const PICTURE_EXTENSION  = 'jpg';
 
     use EventDispatcherTrait;
@@ -36,7 +36,7 @@ class Webcam
      * @todo get all files
      * @return WebcamVO[]
      */
-    public function getPhotos()
+    public function getFiles()
     {
         $files = $this->filesystem->listContents(self::ROOT, true);
 
@@ -46,6 +46,7 @@ class Webcam
             $webcamVo->filePath  = $file['path'];
             $webcamVo->name      = $file['basename'];
             $webcamVo->webcamId  = $file['basename'];
+            $webcamVo->extension  = $file['extension'];
             $webcamVo->webPath   = sprintf('%s%s', self::ROOT, $webcamVo->name);
             $webcamVo->timestamp = isset($file['timestamp']) ? $file['timestamp'] : null;
         }

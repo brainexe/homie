@@ -14,17 +14,22 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class Controller
 {
+    /**
+     * @var array
+     */
     private $config = [];
 
     /**
-     * @Inject({"%debug%", "%socket.url%"})
+     * @Inject({"%debug%", "%socket.url%", "%locales%"})
      * @param bool $debug
      * @param string $socketUrl
+     * @param string[] $locales
      */
-    public function __construct($debug, $socketUrl)
+    public function __construct($debug, $socketUrl, $locales)
     {
         $this->config['debug']     = $debug;
         $this->config['socketUrl'] = $socketUrl;
+        $this->config['locales']   = $locales;
     }
 
     /**

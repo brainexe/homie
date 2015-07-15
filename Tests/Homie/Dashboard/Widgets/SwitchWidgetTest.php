@@ -69,7 +69,7 @@ class SwitchWidgetTest extends TestCase
             ]);
 
         $actualResult = json_encode($this->subject);
-        $expected = '{"name":"Switch","description":"Control your switches.","parameters":{"title":{"name":"Title","type":"text","default":"Switch"},"switchIds":{"name":"Switch","values":{"122":"radio"},"type":"text"}},"widgetId":"switch","width":4}';
+        $expected = '{"name":"Switch","description":"Control your switches.","parameters":{"title":{"name":"Title","type":"text","default":"Switch"},"switchIds":{"name":"Switch","values":{"122":"radio"},"type":"multi_select"},"width":{"name":"Width","type":"number","min":1,"max":12,"default":4},"height":{"name":"Height","type":"number","min":1,"max":12,"default":3}},"widgetId":"switch","width":4,"height":3}';
         $this->assertEquals($expected, $actualResult);
     }
 }

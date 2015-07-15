@@ -1,9 +1,11 @@
 
-App.controller('StatusController', ['$scope', 'Status', function ($scope, Status) {
+App.controller('StatusController', ['$scope', 'Status', 'Cache', function ($scope, Status, Cache) {
     var REFRESH_INTERVAL = 15000;
 
     $scope.stats   = {};
     $scope.jobs    = {};
+    $scope.cache   = Cache;
+    $scope.cacheSize     = JSON.stringify(Cache.info().storageImpl).length / 1000;
     $scope.redisSections = {};
 
     $scope.update = function () {

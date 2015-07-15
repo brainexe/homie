@@ -4,36 +4,75 @@
 
     <div ng-if="parameter.default" ng-init="payload[type] = parameter.default"></div>
 
-    <ui-select theme="bootstrap" ng-if="parameter.type == 'multi_select'" multiple ng-model="payload[type]" style="width: 300px">
-        <ui-select-match placeholder="Select...">
-            {{$item.value}}
-        </ui-select-match>
-        <ui-select-choices repeat="element.key as element in parameter.values|toObjectArray">
-            {{element.value}}
-        </ui-select-choices>
-    </ui-select>
+    <div ng-switch="parameter.type">
+        <div ng-switch-when="multi_select">
+            <ui-select theme="bootstrap" multiple ng-model="payload[type]" style="width: 300px">
+                <ui-select-match placeholder="Select...">
+                    {{$item.value}}
+                </ui-select-match>
+                <ui-select-choices repeat="element.key as element in parameter.values|toObjectArray">
+                    {{element.value}}
+                </ui-select-choices>
+            </ui-select>
+        </div>
+        <div ng-switch-when="single_select">
+            <ui-select
+                    ng-if="parameter.type == 'single_select'"
+                    ng-model="payload[type]"
+                    style="width: 300px"
+                    theme="bootstrap"
+                    >
+                <ui-select-match placeholder="Select...">
+                    {{$select.selected.value}}
+                </ui-select-match>
+                <ui-select-choices repeat="element.key as element in parameter.values|toObjectArray">
+                    {{element.value}}
+                </ui-select-choices>
+            </ui-select>
+        </div>
+        <div ng-switch-when="text">
+            <input
+                    ng-model="payload[type]"
+                    type="text"
+                    class="form-control input-sm" />
+        </div>
+        <div ng-switch-when="text_area">
+            <textarea ng-model="payload[type]" cols="20", rows="5"></textarea>
+        </div>
+        <div ng-switch-when="boolean">
+            <input type="checkbox" ng-model="payload[type]"/>
+        </div>
+        <div ng-switch-when="key_value_list" >
+            <div ng-repeat="(key, value) in payload[type]" class="input-group">
+                <span class="input-group-addon" ng-bind="key"></span>
+                <input ng-model="payload[type][key]" type="text" class="form-control"/>
+                <a ng-click="payload[type]|deleteKey:key" class="input-group-addon">
+                    <span class="glyphicon glyphicon-minus"></span>
+                </a>
+            </div>
+            <a ng-click="payload[type][prompt('key')] = ''" class="btn btn-success">
+                <span class="glyphicon glyphicon-plus"></span>
+            </a>
+        </div>
+        <div ng-switch-when="number" class="input-group">
+            <input
+                    ng-model="payload[type]"
+                    type="number"
+                    size="3"
+                    min="{{parameter.min}}"
+                    max="{{parameter.max}}"
+                    class="form-control input-sm" />
 
-    <ui-select
-            ng-if="parameter.type == 'single_select'"
-            ng-model="payload[type]"
-            style="width: 300px"
-            theme="bootstrap"
-            >
-        <ui-select-match placeholder="Select...">
-            {{$select.selected.value}}
-        </ui-select-match>
-        <ui-select-choices repeat="element.key as element in parameter.values|toObjectArray">
-            {{element.value}}
-        </ui-select-choices>
-    </ui-select>
-
-    <input
-            ng-if="parameter.type == 'text'"
-            ng-model="payload[type]"
-            type="text"
-            class="form-control input-sm" />
-
-    <!-- todo config derivate -->
+                <a ng-click="payload[type] = payload[type] - 1" class="input-group-addon btn btn-danger btn-xs">
+                    <span class="glyphicon glyphicon-minus"></span>
+                </a>
+                <a ng-click="payload[type] = payload[type] + 1" class="input-group-addon btn btn-info btn-xs">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+        </div>
+        <div ng-switch-default>
+            <span class="alert-danger">Unkown parameter {{parameter.type}}</span>
+        </div>
     <div>
         Debug only: {{payload[type]}}
     </div>

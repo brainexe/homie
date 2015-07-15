@@ -1,9 +1,12 @@
 App.controller('WebcamController', ['$scope', 'Webcam', function ($scope, Webcam) {
-    $scope.shots = [];
+    $scope.files = [];
 
-    Webcam.getData().success(function (data) {
-        $scope.shots = data.shots;
-    });
+    function update() {
+        Webcam.getData().success(function (data) {
+            $scope.files = data.files;
+        });
+    }
+    update();
 
     $scope.takeShot = function () {
         Webcam.takeShot().success(function() {
@@ -13,29 +16,24 @@ App.controller('WebcamController', ['$scope', 'Webcam', function ($scope, Webcam
 
     $scope.takeVideo = function () {
         var duration = prompt('Duration');
-        Webcam.takeVideo(duration).success(function() {
-            $scope.$broadcast('flash', ['Cheese...', 'info']);
-        });
+        Webcam.takeVideo(duration);
     };
 
     $scope.takeSound = function () {
         var duration = prompt('Duration');
-        Webcam.takeSound(duration).success(function() {
-            $scope.$broadcast('flash', ['Cheese...', 'info']);
-        });
+        Webcam.takeSound(duration);
     };
 
-    $scope.removeShot = function (index) {
-        var shot = $scope.shots[index];
+    $scope.removeFile = function (index) {
+        var shot = $scope.files[index];
 
         shot.deleting = true;
         Webcam.remove(shot.webPath).success(function () {
-            $scope.shots.slice(index, 1);
+            $scope.files.slice(index, 1);
         });
     };
 
-    $scope.$on('webcam.took_photo', function (data) {
-        $scope.shots.push(data);
-        $scope.$apply();
-    });
+    $scope.$on('webcam.took_photo', update);
+    $scope.$on('webcam.took_video', update);
+    $scope.$on('webcam.took_sound', update);
 }]);

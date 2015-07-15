@@ -50,13 +50,12 @@ class RecorderTest extends PHPUnit_Framework_TestCase
         $this->subject = new Recorder(
             $this->client,
             $this->filesystem,
-            'photo command %s',
-            'video command %s',
-            'sound command %s'
+            'photo command {{file}}',
+            'video command {{file}}',
+            'sound command {{file}}'
         );
         $this->subject->setEventDispatcher($this->dispatcher);
     }
-
 
     public function testTakePhoto()
     {
@@ -67,7 +66,7 @@ class RecorderTest extends PHPUnit_Framework_TestCase
             ->method('execute')
             ->with($this->stringStartsWith("photo command /tmp/web"));
 
-        $event = new WebcamEvent($name, WebcamEvent::TOOK_PHOTO);
+        $event = new WebcamEvent($name.'.jpg', WebcamEvent::TOOK_PHOTO);
 
         $this->dispatcher
             ->expects($this->once())

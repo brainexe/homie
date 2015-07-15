@@ -18,12 +18,13 @@ class TimeWidget extends AbstractWidget
      */
     public function getMetadata()
     {
-        return new WidgetMetadataVo(
+        $metadata = new WidgetMetadataVo(
             $this->getId(),
             gettext('Time'),
             gettext('Displays the current time'),
-            [],
-            4
+            []
         );
+
+        return $metadata->setSize(3, 3);
     }
 }

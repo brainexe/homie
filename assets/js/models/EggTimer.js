@@ -1,8 +1,10 @@
 
-App.service('EggTimer', ['$http', function($http) {
+App.service('EggTimer', ['$http', 'Cache', function($http, Cache) {
     return {
-        getJobs: function() {
-            return $http.get('/egg_timer/');
+        JOB_ID: 'egg_timer.done',
+
+        getData: function() {
+            return $http.get('/egg_timer/', {cache: Cache});
         },
 
         setTimer: function (time, text) {
@@ -12,10 +14,6 @@ App.service('EggTimer', ['$http', function($http) {
             };
 
             return $http.post('/egg_timer/', payload);
-        },
-
-        deleteTimer: function(jobId) {
-            return $http.delete('/egg_timer/{0}/'.format(jobId));
         }
     }
 }]);

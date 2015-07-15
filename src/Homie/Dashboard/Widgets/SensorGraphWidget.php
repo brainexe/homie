@@ -6,6 +6,7 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Application\UserException;
 use Homie\Dashboard\AbstractWidget;
+use Homie\Sensors\Chart;
 use Homie\Sensors\SensorGateway;
 
 /**
@@ -31,21 +32,6 @@ class SensorGraphWidget extends AbstractWidget
     }
 
     /**
-     * @param array $payload
-     * @return mixed|void
-     * @throws UserException
-     */
-    public function create(array $payload)
-    {
-        if (empty($payload['sensor_ids'])) {
-            throw new UserException("No sensor_ids passed");
-        }
-
-        $validSensorIds = $this->gateway->getSensorIds();
-        // todo check sensor id
-    }
-
-    /**
      * @return WidgetMetadataVo
      */
     public function getMetadata()
@@ -62,26 +48,20 @@ class SensorGraphWidget extends AbstractWidget
             [
                 'sensor_ids' => [
                     'type'   => WidgetMetadataVo::MULTI_SELECT,
-                    'name'   => gettext('Sensor ID'),
+                    'name'   => gettext('Sensors'),
                     'values' => $sensors
                 ],
                 'from' => [
                     'type'   => WidgetMetadataVo::SINGLE_SELECT,
                     'name'   => gettext('From'),
-                    'values' => [
-                        3600        => _('Last Hour'),
-                        86400       => _('Last Day'),
-                        86400 * 7   => _('Last Week'),
-                        86400 * 30  => _('Last Month'),
-                        -1          => _('All'),
-                    ],
+                    'values' => Chart::getTimeSpans(),
                     'default' => 86400
                 ]
             ]
         );
 
-        $metadata->addTitle();
-
-        return $metadata;
+        return $metadata
+            ->addTitle()
+            ->setSize(4, 5);
     }
 }

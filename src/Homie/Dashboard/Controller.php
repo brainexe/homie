@@ -55,7 +55,7 @@ class Controller
     /**
      * @param Request $request
      * @return DashboardVo
-     * @Route("/dashboard/", methods="POST")
+     * @Route("/dashboard/", methods="POST", name="dashboard.addWidget")
      */
     public function addWidget(Request $request)
     {
@@ -92,7 +92,7 @@ class Controller
 
         $this->dashboard->updateWidget($dashboardId, $widgetId, $payload);
 
-        return true;
+        return $this->dashboard->getDashboard($dashboardId);
     }
 
     /**

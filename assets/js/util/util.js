@@ -1,4 +1,3 @@
-"use strict";
 
 /**
  * Pseudo function needed to mark asset links. during console assets:dump the links are replaced by hashed ones

@@ -13,14 +13,19 @@
             </span>
 		</li>
 	</ul>
-	<form ng-submit="addShoppingItem()">
-		<input
-                type="text"
-                ng-model="todoText"
-                size="30"
-                placeholder="{{'Add an item'|translate}}"
-                ng-enter="addShoppingItem()"
-        />
-		<input class="btn btn-primary" type="submit" value="{{'Add'|translate}}" />
+	<form>
+        <div class="input-group">
+            <input
+                    type="text"
+                    ng-model="todoText"
+                    class="form-control"
+                    size="30"
+                    placeholder="{{'Add an item'|translate}}"
+                    ng-enter="addShoppingItem()"
+            />
+            <a ng-click="addShoppingItem()" tooltip="{{'Add'|translate}}" class="input-group-addon">
+                <span class="glyphicon glyphicon-plus"></span>
+            </a>
+        </div>
 	</form>
 </div>

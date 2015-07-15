@@ -1,5 +1,5 @@
 
-App.service('Widget.egg_timer', ['EggTimer', '_', function(EggTimer, _) {
+App.service('Widget.egg_timer', ['EggTimer', 'MessageQueue', '_', function(EggTimer, MessageQueue, _) {
     function updateJobs($scope, jobs) {
         if (!jobs) {
             return;
@@ -12,13 +12,12 @@ App.service('Widget.egg_timer', ['EggTimer', '_', function(EggTimer, _) {
             $scope.times = [
                 '2m',
                 '5m',
-                '10m',
-                '20m',
+                '15m',
                 '30m'
             ];
 
-            EggTimer.getJobs().success(function(data) {
-                updateJobs($scope, data.jobs);
+            MessageQueue.getJobs(EggTimer.JOB_ID, true).success(function(data) {
+                updateJobs($scope, data);
             });
 
             $scope.start = function(time) {
@@ -33,13 +32,14 @@ App.service('Widget.egg_timer', ['EggTimer', '_', function(EggTimer, _) {
             };
 
             $scope.stop = function(job) {
-                if (!confirm(_('Abort job?'))) {
+                if (!confirm(_('Abort job?'))) { //todo ngConfirm
                     return;
                 }
 
-                var jobId = job.eventId.split(':')[1];
-                EggTimer.deleteTimer(jobId).success(function(jobs) {
-                    updateJobs($scope, jobs);
+                MessageQueue.deleteJob(job.eventId).then(function() {
+                    MessageQueue.getJobs(EggTimer.JOB_ID, true).success(function(data) {
+                        updateJobs($scope, data);
+                    });
                 });
             }
         }
