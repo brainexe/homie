@@ -20,16 +20,12 @@ class Controller
     private $timer;
 
     /**
-     * @return array
-     * @Route("/egg_timer/", name="egg_timer.index", methods="GET")
+     * @Inject("@EggTimer")
+     * @param EggTimer $timer
      */
-    public function index()
+    public function __construct(EggTimer $timer)
     {
-        $currentJobs = $this->timer->getJobs();
-
-        return [
-            'jobs' => $currentJobs
-        ];
+        $this->timer = $timer;
     }
 
     /**
