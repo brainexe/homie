@@ -11,8 +11,9 @@ App.service('SensorGraph', ['Sensor', 'SensorFormatter', function (Sensor, Senso
             $scope.graph.series = sensorValues;
             $scope.graph.update();
 
-            var legend = element.querySelector('.legend')[0];
+            var legend = element.querySelector('.legend');
             legend.innerHTML = '';
+            console.log('update');
             new Rickshaw.Graph.Legend({
                 element: legend,
                 graph: $scope.graph
@@ -21,9 +22,9 @@ App.service('SensorGraph', ['Sensor', 'SensorFormatter', function (Sensor, Senso
         Sensor.getCachedData().success(function(data) {
             $scope.types         = data.types;
             $scope.fromIntervals = data.fromIntervals;
+            $scope.sensors       = data.sensors;
 
             Sensor.getValues(sensors, parameters).success(function (data) {
-                $scope.sensors         = data.sensors;
                 $scope.activeSensorIds = data.activeSensorIds;
                 $scope.currentFrom     = data.currentFrom;
                 $scope.stats           = {};

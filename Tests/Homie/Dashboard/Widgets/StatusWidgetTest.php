@@ -2,30 +2,27 @@
 
 namespace Tests\Homie\Dashboard\Widgets;
 
-use Homie\Dashboard\Widgets\StatusWidget;
+use Homie\Dashboard\Widgets\Status;
 use PHPUnit_Framework_TestCase as TestCase;
 use Homie\Dashboard\Widgets\WidgetMetadataVo;
 
-/**
- * @covers Homie\Dashboard\Widgets\StatusWidget
- */
 class StatusWidgetTest extends TestCase
 {
 
     /**
-     * @var StatusWidget
+     * @var Status
      */
     private $subject;
 
     public function setUp()
     {
-        $this->subject = new StatusWidget();
+        $this->subject = new Status();
     }
 
     public function testGetId()
     {
         $actualResult = $this->subject->getId();
-        $this->assertEquals(StatusWidget::TYPE, $actualResult);
+        $this->assertEquals(Status::TYPE, $actualResult);
     }
 
     public function testSerialize()

@@ -3,18 +3,18 @@
 namespace Homie\Dashboard\Widgets;
 
 use BrainExe\Annotations\Annotations\Inject;
-use BrainExe\Annotations\Annotations\Service;
-use BrainExe\Core\Application\UserException;
+use Homie\Dashbaord\Annotation\Widget;
 use Homie\Dashboard\AbstractWidget;
+use Homie\Sensors\Chart;
 use Homie\Sensors\SensorGateway;
 
 /**
- * @Service(public=false, tags={{"name" = "widget"}})
+ * @Widget
  */
-class SensorInputWidget extends AbstractWidget
+class SensorGraph extends AbstractWidget
 {
 
-    const TYPE = 'sensor_input';
+    const TYPE = 'sensor_graph';
 
     /**
      * @var SensorGateway
@@ -31,18 +31,6 @@ class SensorInputWidget extends AbstractWidget
     }
 
     /**
-     * @param array $payload
-     * @return mixed|void
-     * @throws UserException
-     */
-    public function create(array $payload)
-    {
-        if (empty($payload['sensor_id'])) {
-            throw new UserException("No sensor_id passed");
-        }
-    }
-
-    /**
      * @return WidgetMetadataVo
      */
     public function getMetadata()
@@ -54,19 +42,25 @@ class SensorInputWidget extends AbstractWidget
 
         $metadata = new WidgetMetadataVo(
             $this->getId(),
-            gettext('Input sensor value'),
-            gettext('Displays the current value of a given sensor'),
+            gettext('Sensor Graph'),
+            gettext('Displays a Sensor Graph of given sensors'),
             [
-                'sensor_id' => [
-                    'name'   => gettext('Sensor'),
-                    'values' => $sensors,
-                    'type'   => 'single_select'
+                'sensor_ids' => [
+                    'type'   => WidgetMetadataVo::MULTI_SELECT,
+                    'name'   => gettext('Sensors'),
+                    'values' => $sensors
+                ],
+                'from' => [
+                    'type'   => WidgetMetadataVo::SINGLE_SELECT,
+                    'name'   => gettext('From'),
+                    'values' => Chart::getTimeSpans(),
+                    'default' => 86400
                 ]
             ]
         );
 
         return $metadata
             ->addTitle()
-            ->setSize(4, 3);
+            ->setSize(4, 5);
     }
 }

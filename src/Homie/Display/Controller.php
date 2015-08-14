@@ -61,7 +61,7 @@ class Controller
         $settings = new Settings();
         $settings->lines    = $request->request->getInt('lines');
         $settings->columns  = $request->request->getInt('columns');
-        $settings->content  = $request->request->get('content');
+        $settings->content  = (array)$request->request->get('content');
         $settings->rendered = $this->renderer->render($settings);
 
         $this->gateway->addDisplay($settings);
@@ -72,6 +72,7 @@ class Controller
     /**
      * @Route("/display/{displayId}/", name="display.delete", methods="DELETE")
      * @param Request $request
+     * @param int $displayId
      * @return bool
      */
     public function delete(Request $request, $displayId)
@@ -82,6 +83,7 @@ class Controller
     /**
      * @Route("/display/{displayId}", name="display.update", methods="PUT")
      * @param Request $request
+     * @param int $displayId
      * @return Settings
      */
     public function update(Request $request, $displayId)

@@ -2,22 +2,14 @@
 
 namespace Tests\Homie\Webcam\Webcam;
 
-use ArrayIterator;
-use BrainExe\Core\Util\FileUploader;
-use Homie\Client\ClientInterface;
 use League\Flysystem\Filesystem;
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Webcam\Webcam;
-use Homie\Webcam\WebcamEvent;
 use Homie\Webcam\WebcamVO;
-use Symfony\Component\Finder\SplFileInfo;
-use Symfony\Component\Process\Process;
-use Symfony\Component\Process\ProcessBuilder;
-use Symfony\Component\Finder\Finder;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 
-class WebcamTest extends PHPUnit_Framework_TestCase
+class WebcamTest extends TestCase
 {
 
     /**
@@ -77,6 +69,40 @@ class WebcamTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals([$expectedWebcam], $actualResult);
         $this->assertEquals($fileBaseName, $expectedWebcam->getWebcamId());
+    }
+
+    public function testRecent()
+    {
+        $filePath     = '/www/something/relative.ext';
+        $fileBaseName = 'relative.ext';
+        $fileCTime    = 10;
+
+        $files = [
+            [
+                'path'      => $filePath,
+                'basename'  => $fileBaseName,
+                'timestamp' => $fileCTime,
+                'extension' => 'ext'
+            ]
+        ];
+
+        $this->filesystem
+            ->expects($this->once())
+            ->method('listContents')
+            ->with(Webcam::ROOT)
+            ->willReturn($files);
+
+        $expected            = new WebcamVO();
+        $expected->filePath  = $filePath;
+        $expected->webcamId  = $fileBaseName;
+        $expected->name      = $fileBaseName;
+        $expected->webPath   = 'Webcam/relative.ext';
+        $expected->timestamp = $fileCTime;
+        $expected->extension = 'ext';
+
+        $actual = $this->subject->getRecentImage();
+
+        $this->assertEquals($expected, $actual);
     }
 
     public function testDelete()

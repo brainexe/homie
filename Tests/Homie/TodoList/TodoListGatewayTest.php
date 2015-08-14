@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Homie\TodoList\TodoListGateway;
+namespace Tests\Homie\TodoList;
 
 use BrainExe\Core\Redis\Predis;
 use BrainExe\Core\Util\Time;

@@ -8,7 +8,7 @@ App.service('Widget.expression', ['$compile', 'Expression', function($compile, E
 
                 for (var key in widget.variables) {
                     expression = widget.variables[key];
-                    Expression.evaluate(expression).success(function(result) {
+                    Expression.evaluate(expression, true).success(function(result) {
                         $scope[key] = result;
                     });
                 }
@@ -18,6 +18,7 @@ App.service('Widget.expression', ['$compile', 'Expression', function($compile, E
 
             load();
             $scope.reload = function() {
+                Expression.invalidate();
                 load();
             }
         }

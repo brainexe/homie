@@ -13,9 +13,7 @@
 </head>
 <body>
     <header class="header">
-        <!--todo-->
-        <a ng-if="true" ng-click="flushCache()" class="logo" translate>Homie</a>
-        <a ng-if="false" href="/#index" class="logo" translate>Homie</a>
+        <a href="/#index" class="logo" translate>Homie</a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
             <a href="#" class="navbar-btn sidebar-toggle" id="offcanvas" role="button">
@@ -69,9 +67,9 @@
 
                                     <a
                                             ng-click="changeLanguage(lang)"
-                                            ng-repeat="(lang, lang_string) in languages"
+                                            ng-repeat="locale in locales"
                                             class="btn btn-default btn-flat"
-                                            ng-bind="lang"
+                                            ng-bind="locale"
                                             >
                                     </a>
                                 </div>
@@ -92,7 +90,7 @@
                 <div class="user-panel">
                     <div ng-if="isLoggedIn()">
                         <div class="pull-left image">
-                            <div class="user_avatar img-circle"></div>
+                            <div ng-click="flushCache()" class="user_avatar img-circle"></div>
                         </div>
                         <div class="pull-left info">
                             <p translate>Hello {{ currentUser.username }}!</p>
@@ -109,7 +107,6 @@
                 </div>
             </section>
         </aside>
-
         <aside class="right-side">
             <section class="content-header">
                 <div ng-repeat="flash in flashBag" class="alert alert-{{ flash.type }} alert-dismissable">

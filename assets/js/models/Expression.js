@@ -1,14 +1,16 @@
 
 App.service('Expression', ['$http', 'Cache', function($http, Cache) {
+    Cache.intervalClear('^/expression/', 60);
+
     return {
         getData: function() {
             return $http.get('/expressions/');
         },
 
-        evaluate: function(expression, noCache) {
+        evaluate: function(expression, cached) {
             return $http.get('/expressions/evaluate/', {
                 params: {expression: expression},
-                cache: noCache ? false : Cache
+                cache: cached ? Cache : false
             });
         },
 
@@ -26,6 +28,10 @@ App.service('Expression', ['$http', 'Cache', function($http, Cache) {
 
         addCron: function(cron) {
             return $http.post('/expressions/cron/', cron);
+        },
+
+        invalidate: function() {
+            return Cache.clear('/expression/');
         }
     }
 }]);

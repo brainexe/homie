@@ -1,0 +1,33 @@
+<div ng-repeat="(statusId, status) in states" ng-if="items|toArray|filter:statusId|notEmpty">
+    <h4>{{ status.name }}</h4>
+    <ul>
+        <li ng-repeat="item in items|toArray|filter:statusId|orderBy:'name'" >
+            <span tooltip="item.description">{{item.name}}</span>
+            <div ng-if="item.deadline > 0">
+                <time-ago from-time="item.deadline" overdue="true"></time-ago>
+            </div>&nbsp;
+            <a
+                    ng-repeat="nextStatus in status.next"
+                    class="btn btn-xs btn-success status-change"
+                    ng-click="setStatus(item, nextStatus)">
+                {{states[nextStatus].name || 'Delete'|translate}}
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="input-group" role="group">
+    <input
+            ng-model="newTitle"
+            ng-enter="addTodo(newTitle)"
+            type="text"
+            class="form-control"
+            placeholder="{{'Title'|translate}}"
+            />
+    <a
+            ng-click="addTodo(newTitle)"
+            class="input-group-addon btn btn-default"
+            tooltip="{{'Add'|translate}}"
+            >
+        <span class="glyphicon glyphicon-plus"></span>
+    </a>
+</div>

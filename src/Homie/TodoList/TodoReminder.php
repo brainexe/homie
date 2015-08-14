@@ -97,7 +97,7 @@ class TodoReminder
         switch ($state) {
             case TodoItemVO::STATUS_PROGRESS:
                 return sprintf(ngettext('%d task in progress', '%d tasks in progress', $count), $stringCount);
-            case TodoItemVO::STATUS_PENDING:
+            case TodoItemVO::STATUS_OPEN:
             default:
                 return sprintf(ngettext('%d open task', '%d open tasks', $count), $stringCount);
         }

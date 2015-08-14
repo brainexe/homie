@@ -149,7 +149,7 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
         $this->redis
             ->expects($this->once())
             ->method('SADD')
-            ->with(RadioGateway::REDIS_RADIO_IDS, $radioId);
+            ->with(RadioGateway::REDIS_RADIO_IDS, [$radioId]);
 
         $this->redis
             ->expects($this->once())

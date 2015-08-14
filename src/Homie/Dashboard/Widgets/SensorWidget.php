@@ -3,14 +3,13 @@
 namespace Homie\Dashboard\Widgets;
 
 use BrainExe\Annotations\Annotations\Inject;
-use BrainExe\Annotations\Annotations\Service;
-use BrainExe\Core\Application\UserException;
+use Homie\Dashbaord\Annotation\Widget;
 use Homie\Dashboard\AbstractWidget;
 use Homie\Sensors\Chart;
 use Homie\Sensors\SensorGateway;
 
 /**
- * @Service(public=false, tags={{"name" = "widget"}})
+ * @Widget
  */
 class SensorWidget extends AbstractWidget
 {

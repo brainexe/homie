@@ -1,5 +1,6 @@
 
 App.service('Dashboard', ['$http', 'Cache', function($http, Cache) {
+    Cache.intervalClear('^/dashboard/', 60);
 
     function updateDashboard(dashboardId, payload) {
         var url = '/dashboard/{0}/'.format(dashboardId);

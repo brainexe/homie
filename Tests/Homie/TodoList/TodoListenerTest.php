@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Homie\TodoList\TodoListener;
+namespace Tests\Homie\TodoList;
 
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;

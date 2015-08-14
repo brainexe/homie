@@ -8,6 +8,11 @@ App.service('Webcam', ['$http', function($http) {
         takeShot: function() {
             return $http.post('/webcam/photo/', {});
         },
+
+        getRecent: function() {
+            return $http.get('/webcam/recent/');
+        },
+
         takeVideo: function(duration) {
             return $http.post('/webcam/video/', {duration:duration});
         },

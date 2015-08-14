@@ -24,7 +24,7 @@
 	<services>
 		<service id="HomieClient" alias="HomieClient.Local" public="false"/>
 
-        <service id="RemoteFilesystem" class="League\Flysystem\Filesystem" public="true">
+        <service id="RemoteFilesystem" class="League\Flysystem\Filesystem" public="false">
             <argument type="service">
                 <service class="League\Flysystem\Adapter\Local">
                     <argument>%cache.dir%filesystem/</argument>
@@ -59,7 +59,7 @@
         <service id="CachedRemoteFilesystem" class="League\Flysystem\Filesystem" public="false">
             <argument type="service">
                 <service class="League\Flysystem\Cached\CachedAdapter">
-                    <argument type="service" id="RemoteFilesystem"/>
+                    <argument type="service" id="WebdavRemoteFilesystem"/>
                     <argument type="service">
                         <service class="League\Flysystem\Cached\Storage\Predis">
                             <argument type="service" id="redis"/>

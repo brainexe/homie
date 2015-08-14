@@ -410,8 +410,6 @@ class ControllerTest extends TestCase
 
     public function testApi()
     {
-        $request = new Request();
-
         $sensors = [
             [
                 'type'       => 'mockType',
@@ -425,7 +423,7 @@ class ControllerTest extends TestCase
             ->method('getSensors')
             ->willReturn($sensors);
 
-        $actualResult = $this->subject->api($request);
+        $actualResult = $this->subject->api();
 
         $expectedValue = [
             'mockType_mockSensorId' => 'mockValue'

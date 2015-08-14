@@ -15,7 +15,7 @@ class SensorValuesGateway
 
     const REDIS_SENSOR_VALUES = 'sensor_values:%d';
 
-    const CLEAN_SINCE     = 172800 * 2; // start cleaning up values after 2 days
+    const CLEAN_SINCE     = 172800; // start cleaning up values after 2 days
     const CLEAN_THRESHOLD = 240; // try to keep values each 15 minutes
 
     use RedisTrait;

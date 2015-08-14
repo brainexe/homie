@@ -2,14 +2,13 @@
 
 namespace Homie\Dashboard\Widgets;
 
-use BrainExe\Annotations\Annotations\Service;
-
+use Homie\Dashbaord\Annotation\Widget;
 use Homie\Dashboard\AbstractWidget;
 
 /**
- * @Service(public=false, tags={{"name" = "widget"}})
+ * @Widget
  */
-class EggTimerWidget extends AbstractWidget
+class EggTimer extends AbstractWidget
 {
 
     const TYPE = 'egg_timer';

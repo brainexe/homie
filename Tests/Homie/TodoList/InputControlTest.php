@@ -8,7 +8,7 @@ use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 
 /**
- * @covers Homie\TodoList\InputControl
+ * @covers Homie\TodoList\InputControl\Reminder
  */
 class InputControlTest extends TestCase
 {

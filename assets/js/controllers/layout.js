@@ -1,10 +1,6 @@
 
 App.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gettextCatalog', 'BrowserNotification', 'SocketServer', 'Cache', function ($scope, UserManagement, Config, gettextCatalog, BrowserNotification, SocketServer, Cache) {
     $scope.flashBag  = [];
-    $scope.languages = { // todo load from config
-        'de': 'Deutsch',
-        'en': 'English'
-    };
 
     if (localStorage.getItem('language')) {
         var language = localStorage.getItem('language');
@@ -75,7 +71,8 @@ App.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gette
         }, 5000);
     };
 
-    Config.get('debug').then(function(debug) {
+    Config.get('debug', 'locales').then(function(debug, locales) {
+        $scope.locales = locales;
         if (debug) {
             // live reload via "grunt watch"
             var s  = document.createElement('script');

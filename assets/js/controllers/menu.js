@@ -39,7 +39,7 @@ App.controller('MenuController', ['$scope', '$rootScope', '$route', '$location',
     }
 
     $scope.$watch(function() {
-        return UserManagement.getCurrentUser();
+        return UserManagement.getCurrentUser(); // todo throw event
     }, update);
 }]);
 

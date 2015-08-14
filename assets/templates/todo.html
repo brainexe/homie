@@ -36,7 +36,7 @@
 
 	<div
 			class="task-list task-container"
-			ng-repeat="status in stati|orderObjectBy:'prio'"
+			ng-repeat="status in stati"
 			ng-model="status.id"
 			ui-on-Drop="onDrop(status.id,$event,$data,status.tasks)"
 	>

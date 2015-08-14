@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Homie\TodoList\ShoppingList;
+namespace Tests\Homie\TodoList;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\TodoList\ShoppingList;
 use Homie\TodoList\ShoppingListGateway;
@@ -10,7 +10,7 @@ use Homie\TodoList\ShoppingListGateway;
 /**
  * @covers Homie\TodoList\ShoppingList
  */
-class ShoppingListTest extends PHPUnit_Framework_TestCase
+class ShoppingListTest extends TestCase
 {
 
     /**

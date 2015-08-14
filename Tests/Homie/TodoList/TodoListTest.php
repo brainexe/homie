@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Homie\TodoList\TodoList;
+namespace Tests\Homie\TodoList;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\TodoList\Builder;
 use Homie\TodoList\TodoList;
@@ -14,7 +14,7 @@ use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Core\Util\IdGenerator;
 use BrainExe\Core\Util\Time;
 
-class TodoListTest extends PHPUnit_Framework_TestCase
+class TodoListTest extends TestCase
 {
 
     /**
@@ -83,27 +83,27 @@ class TodoListTest extends PHPUnit_Framework_TestCase
         $itemVo           = new TodoItemVO();
         $itemVo->deadline = 900;
 
-        $expectedItemVo            = clone $itemVo;
-        $expectedItemVo->todoId    = $todoId;
-        $expectedItemVo->userId    = $userId;
-        $expectedItemVo->userName  = $userName;
-        $expectedItemVo->createdAt = $expectedItemVo->lastChange = $now;
-        $expectedItemVo->status    = TodoItemVO::STATUS_PENDING;
-        $expectedItemVo->deadline  = 0;
+        $expected            = clone $itemVo;
+        $expected->todoId    = $todoId;
+        $expected->userId    = $userId;
+        $expected->userName  = $userName;
+        $expected->createdAt = $expected->lastChange = $now;
+        $expected->status    = TodoItemVO::STATUS_OPEN;
+        $expected->deadline  = 0;
 
         $this->gateway
             ->expects($this->once())
             ->method('addItem')
             ->with($itemVo);
 
-        $event = new TodoListEvent($expectedItemVo, TodoListEvent::ADD);
+        $event = new TodoListEvent($expected, TodoListEvent::ADD);
         $this->eventDispatcher
             ->expects($this->once())
             ->method('dispatchEvent')
             ->with($event);
 
-        $actualResult = $this->subject->addItem($user, $itemVo);
-        $this->assertEquals($expectedItemVo, $actualResult);
+        $actual = $this->subject->addItem($user, $itemVo);
+        $this->assertEquals($expected, $actual);
     }
 
     public function testGetList()

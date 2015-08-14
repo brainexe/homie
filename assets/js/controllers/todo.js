@@ -1,7 +1,8 @@
-App.controller('TodoController', ['$scope', '_', 'Todo', function ($scope, _, Todo) {
+App.controller('TodoController', ['$scope', '_', 'Todo', 'UserManagement', function ($scope, _, Todo, UserManagement) {
     $scope.todos     = [];
     $scope.userNames = [];
 
+    // todo from BE + cache + state maschine
     $scope.stati = {
         "open":      {id: 'open', name: _("Open"), tasks: []},
         "pending":   {id: 'pending', name: _("Pending"), tasks: []},
@@ -9,13 +10,15 @@ App.controller('TodoController', ['$scope', '_', 'Todo', function ($scope, _, To
         "completed": {id: 'completed', name: _("Completed"), tasks: []}
     };
 
-    Todo.getData().success(function (data) {
-        for (var userId in data.userNames) {
+    UserManagement.list().success(function (userNames) {
+        for (var userId in userNames) {
             $scope.userNames.push({
-                id: userId, name: data.userNames[userId]
+                id: userId, name: userNames[userId]
             });
         }
+    });
 
+    Todo.getData().success(function (data) {
         for (var id in data.list) {
             var item = data.list[id];
             $scope.stati[item.status].tasks.push(item);
@@ -68,7 +71,6 @@ App.controller('TodoController', ['$scope', '_', 'Todo', function ($scope, _, To
         }
 
         data.status = status;
-
-        Todo.edit(data.todoId, data);
+        Todo.edit(data);
     };
 }]);

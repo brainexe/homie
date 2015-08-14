@@ -6,7 +6,6 @@ use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Core\Util\Time;
 use Homie\Sensors\Formatter\Formatter;
 use Homie\Sensors\GetValue\Listener;
-use Homie\Sensors\Builder;
 use Homie\Sensors\GetValue\Event;
 use Homie\Sensors\Interfaces\Sensor;
 use Homie\Sensors\SensorBuilder;
@@ -30,11 +29,6 @@ class ListenerTest extends TestCase
     private $builder;
 
     /**
-     * @var Builder|MockObject
-     */
-    private $voBuilder;
-
-    /**
      * @var EventDispatcher|MockObject
      */
     private $dispatcher;
@@ -53,13 +47,11 @@ class ListenerTest extends TestCase
     {
         $this->valuesGateway = $this->getMock(SensorValuesGateway::class, [], [], '', false);
         $this->builder       = $this->getMock(SensorBuilder::class, [], [], '', false);
-        $this->voBuilder     = $this->getMock(Builder::class, [], [], '', false);
         $this->dispatcher    = $this->getMock(EventDispatcher::class, [], [], '', false);
         $this->time          = $this->getMock(Time::class, [], [], '', false);
 
         $this->subject = new Listener(
             $this->builder,
-            $this->voBuilder,
             $this->valuesGateway
         );
 

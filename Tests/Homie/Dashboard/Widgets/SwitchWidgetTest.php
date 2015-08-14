@@ -9,9 +9,6 @@ use Homie\Dashboard\Widgets\WidgetMetadataVo;
 use Homie\Radio\Radios;
 use Homie\Radio\VO\RadioVO;
 
-/**
- * @covers Homie\Dashboard\Widgets\SwitchWidget
- */
 class SwitchWidgetTest extends TestCase
 {
 

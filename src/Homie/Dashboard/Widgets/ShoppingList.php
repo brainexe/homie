@@ -2,15 +2,16 @@
 
 namespace Homie\Dashboard\Widgets;
 
-use BrainExe\Annotations\Annotations\Service;
+use Homie\Dashbaord\Annotation\Widget;
 use Homie\Dashboard\AbstractWidget;
 
 /**
- * @Service(public=false, tags={{"name" = "widget"}})
+ * @Widget
  */
-class StatusWidget extends AbstractWidget
+class ShoppingList extends AbstractWidget
 {
-    const TYPE = 'status';
+
+    const TYPE = 'shopping_list';
 
     /**
      * @return WidgetMetadataVo
@@ -19,10 +20,10 @@ class StatusWidget extends AbstractWidget
     {
         $metadata = new WidgetMetadataVo(
             $this->getId(),
-            gettext('Status'),
-            gettext('Show internal information')
+            gettext('Shopping List'),
+            gettext('Displays/manage current shopping list'),
+            []
         );
-
         return $metadata
             ->addTitle()
             ->setSize(4, 3);

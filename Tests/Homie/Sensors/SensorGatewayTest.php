@@ -168,7 +168,7 @@ class SensorGatewayTest extends TestCase
         $this->redis
             ->expects($this->once())
             ->method('sAdd')
-            ->with(SensorGateway::SENSOR_IDS, $newSensorId);
+            ->with(SensorGateway::SENSOR_IDS, [$newSensorId]);
 
         $this->redis
             ->expects($this->once())

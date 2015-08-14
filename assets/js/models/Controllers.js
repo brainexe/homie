@@ -15,7 +15,7 @@ App.service('controllers', ['_', function(_) {
             {controller:'ShoppingListController', name: _('Shopping List'), url: 'shopping', icon:'list', templateUrl: asset('/templates/shopping_list.html')},
             {controller:'WebcamController', name: _('Webcam'), url: 'camera', icon:'bullhorn', templateUrl: asset('/templates/webcam.html')},
             {controller:'UserController', name: _('User Settings'), url: 'user', icon:'user', templateUrl: asset('/templates/user/user.html')},
-            {controller:'StatusController', name: _('Status'), url: 'status', icon:'stats', templateUrl: asset('/templates/status.html')},
+            {controller:'StatusController', name: _('Status'), url: 'status', icon:'stats', templateUrl: asset('/templates/status.html'), role: 'admin'},
 
             // admin
             {controller:'AdminUsersController', name: _('Users'), url: 'admin/users', icon:'stats', templateUrl: asset('/templates/admin/users.html'), role: 'admin'},

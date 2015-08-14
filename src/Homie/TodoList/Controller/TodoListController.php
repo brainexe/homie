@@ -6,14 +6,13 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Authentication\DatabaseUserProvider;
-
 use Homie\TodoList\TodoList;
 use Homie\TodoList\VO\TodoItemVO;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @todo repeatable
+ * @todo repeatable tasks
  * @Controller("ToDoListController")
  */
 class TodoListController
@@ -44,28 +43,33 @@ class TodoListController
 
     /**
      * @Route("/todo/", name="todo.index", methods="GET")
-     * @return JsonResponse
+     * @return array
      */
     public function index()
     {
-        $list      = $this->todo->getList();
-        $userNames = $this->userProvider->getAllUserNames();
+        $list = $this->todo->getList();
+        $states = [
+            TodoItemVO::STATUS_PENDING => ['name' => _('Pending'), 'next' => [TodoItemVO::STATUS_OPEN, 'delete']],
+            TodoItemVO::STATUS_OPEN => ['name' => _('Open'), 'next' => [TodoItemVO::STATUS_PROGRESS, TodoItemVO::STATUS_COMPLETED, 'delete']],
+            TodoItemVO::STATUS_PROGRESS => ['name' => _('In Progress'), 'next' => [TodoItemVO::STATUS_COMPLETED, 'delete']],
+            TodoItemVO::STATUS_COMPLETED => ['name' => _('Completed'), 'next' => ['delete']],
+        ];
 
-        return new JsonResponse([
-            'list' => $list,
-            'userNames' => array_flip($userNames)
-        ]);
+        return [
+            'list'   => $list,
+            'states' => $states
+        ];
     }
 
     /**
      * @Route("/todo/list/", name="todo.list")
-     * @return JsonResponse
+     * @return array
      */
     public function fetchList()
     {
         $list = $this->todo->getList();
 
-        return new JsonResponse($list);
+        return $list;
     }
 
     /**
@@ -78,6 +82,7 @@ class TodoListController
         $itemVo              = new TodoItemVO();
         $itemVo->name        = $request->request->get('name');
         $itemVo->description = $request->request->get('description');
+        $itemVo->status      = $request->request->get('status');
         $itemVo->deadline    = strtotime($request->request->get('deadline'));
 
         $user = $request->attributes->get('user');
@@ -115,7 +120,7 @@ class TodoListController
         $user = $this->userProvider->loadUserById($userId);
 
         $itemVo = $this->todo->editItem($itemId, [
-            'userId' => $userId,
+            'userId'   => $userId,
             'userName' => $user->username,
         ]);
         return new JsonResponse($itemVo);

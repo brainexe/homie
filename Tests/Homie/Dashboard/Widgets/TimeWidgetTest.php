@@ -4,26 +4,26 @@ namespace Tests\Homie\Dashboard\Widgets\TimeWidget;
 
 use PHPUnit_Framework_TestCase;
 
-use Homie\Dashboard\Widgets\TimeWidget;
+use Homie\Dashboard\Widgets\Time;
 use Homie\Dashboard\Widgets\WidgetMetadataVo;
 
 class TimeWidgetTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var TimeWidget
+     * @var Time
      */
     private $subject;
 
     public function setUp()
     {
-        $this->subject = new TimeWidget();
+        $this->subject = new Time();
     }
 
     public function testGetId()
     {
         $actualResult = $this->subject->getId();
-        $this->assertEquals(TimeWidget::TYPE, $actualResult);
+        $this->assertEquals(Time::TYPE, $actualResult);
     }
 
     public function testValidate()

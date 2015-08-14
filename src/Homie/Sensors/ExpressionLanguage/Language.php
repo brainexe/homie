@@ -1,6 +1,6 @@
 <?php
 
-namespace Homie\Sensors\ExpressionLanguage\Language;
+namespace Homie\Sensors\ExpressionLanguage;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
@@ -10,8 +10,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
 /**
- * @todo public?
- * @Service("Sensor.ExpressionLanguage.Language", tags={{"name"="expression_language"}})
+ * @Service("Sensor.ExpressionLanguage.Language", tags={{"name"="expression_language"}}, public=false)
  */
 class Language implements ExpressionFunctionProviderInterface
 {

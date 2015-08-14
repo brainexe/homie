@@ -1,5 +1,5 @@
 
-App.service('UserManagement', ['$http', function($http) {
+App.service('UserManagement', ['$http', 'Cache', function($http, Cache) {
     var current = {};
 
     return {
@@ -13,6 +13,10 @@ App.service('UserManagement', ['$http', function($http) {
 
         login: function(payload) {
             return $http.post('/login/', payload);
+        },
+
+        list: function() {
+            return $http.get('/user/list/', {cache:Cache});
         },
 
         setCurrentUser: function (user) {

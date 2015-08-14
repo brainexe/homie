@@ -33,7 +33,7 @@ class Renderer
     {
         $result = [];
         foreach ($settings->content as $line) {
-            $result[] = $this->language->evaluate($line);
+            $result[] = $this->language->evaluate($line, []);
         }
 
         return $result;

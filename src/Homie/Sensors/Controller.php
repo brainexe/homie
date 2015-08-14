@@ -128,7 +128,7 @@ class Controller
         }
 
         $activeSensorIds = array_unique(array_map('intval', explode(':', $activeSensorIds)));
-        $sensorsRaw      = $this->gateway->getSensors();
+        $sensorsRaw      = $this->gateway->getSensors($activeSensorIds);
         $sensorValues    = $this->addValues($activeSensorIds, $sensorsRaw, $from);
 
         $json = $this->chart->formatJsonData($sensorsRaw, $sensorValues);

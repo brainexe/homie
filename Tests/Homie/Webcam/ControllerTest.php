@@ -64,13 +64,27 @@ class ControllerTest extends TestCase
             ->method('getFiles')
             ->willReturn($photos);
 
-        $actualResult = $this->subject->index();
+        $actual = $this->subject->index();
 
-        $expectedResult = [
+        $expected = [
             'files' => $photos
         ];
 
-        $this->assertEquals($expectedResult, $actualResult);
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testGetRecent()
+    {
+        $photos = [];
+
+        $this->webcam
+            ->expects($this->once())
+            ->method('getRecentImage')
+            ->willReturn($photos);
+
+        $actual = $this->subject->loadRecent();
+
+        $this->assertEquals($photos, $actual);
     }
 
     public function testTakePhoto()

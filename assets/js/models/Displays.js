@@ -20,7 +20,7 @@ App.service('Displays', ['$http', function($http) {
         redraw: function(displayId) {
             var url = '/display/{0}/redraw/'.format(displayId);
 
-            return $http.post(url);
+            return $http.post(url, {});
         }
     }
 }]);

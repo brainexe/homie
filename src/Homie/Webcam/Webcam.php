@@ -5,7 +5,7 @@ namespace Homie\Webcam;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\EventDispatcherTrait;
-use Homie\Client\ClientInterface;
+
 use League\Flysystem\Filesystem;
 
 /**
@@ -42,16 +42,21 @@ class Webcam
 
         $vos = [];
         foreach ($files as $file) {
-            $webcamVo = $vos[]   = new WebcamVO();
-            $webcamVo->filePath  = $file['path'];
-            $webcamVo->name      = $file['basename'];
-            $webcamVo->webcamId  = $file['basename'];
-            $webcamVo->extension  = $file['extension'];
-            $webcamVo->webPath   = sprintf('%s%s', self::ROOT, $webcamVo->name);
-            $webcamVo->timestamp = isset($file['timestamp']) ? $file['timestamp'] : null;
+            $vos[] = $this->formatFile($file);
         }
 
         return $vos;
+    }
+
+    /**
+     * @return WebcamVO
+     */
+    public function getRecentImage()
+    {
+        $files = $this->filesystem->listContents(self::ROOT, true);
+        $file  = array_pop($files);
+
+        return $this->formatFile($file);
     }
 
     /**
@@ -60,5 +65,22 @@ class Webcam
     public function delete($filename)
     {
         $this->filesystem->delete($filename);
+    }
+
+    /**
+     * @param array $file
+     * @return WebcamVO
+     */
+    private function formatFile(array $file)
+    {
+        $fileVo = new WebcamVO();
+        $fileVo->filePath  = $file['path'];
+        $fileVo->name      = $file['basename'];
+        $fileVo->webcamId  = $file['basename'];
+        $fileVo->extension = $file['extension'];
+        $fileVo->webPath   = sprintf('%s%s', self::ROOT, $fileVo->name);
+        $fileVo->timestamp = isset($file['timestamp']) ? $file['timestamp'] : null;
+
+        return $fileVo;
     }
 }

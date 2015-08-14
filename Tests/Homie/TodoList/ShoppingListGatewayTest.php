@@ -4,14 +4,14 @@ namespace Tests\Homie\TodoList;
 
 use BrainExe\Core\Redis\Predis;
 use BrainExe\Tests\RedisMockTrait;
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\TodoList\ShoppingListGateway;
 
 /**
  * @covers Homie\TodoList\ShoppingListGateway
  */
-class ShoppingListGatewayTest extends PHPUnit_Framework_TestCase
+class ShoppingListGatewayTest extends TestCase
 {
 
     use RedisMockTrait;

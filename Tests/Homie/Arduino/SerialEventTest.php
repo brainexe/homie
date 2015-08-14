@@ -5,8 +5,8 @@ namespace Tests\Homie\Arduino;
 use PHPUnit_Framework_TestCase as TestCase;
 use Homie\Arduino\SerialEvent;
 
-class SerialEventTest extends TestCase {
-
+class SerialEventTest extends TestCase
+{
     public function testAll()
     {
         $action = 'action';

@@ -54,6 +54,15 @@ class Controller
     }
 
     /**
+     * @return array
+     * @Route("/webcam/recent/", name="webcam.recent", methods="GET")
+     */
+    public function loadRecent()
+    {
+        return $this->webcam->getRecentImage();
+    }
+
+    /**
      * @param Request $request
      * @param string $type
      * @return bool

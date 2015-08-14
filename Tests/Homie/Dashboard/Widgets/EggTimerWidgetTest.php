@@ -3,29 +3,26 @@
 namespace Tests\Homie\Dashboard\Widgets;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Homie\Dashboard\Widgets\EggTimerWidget;
+use Homie\Dashboard\Widgets\EggTimer;
 use Homie\Dashboard\Widgets\WidgetMetadataVo;
 
-/**
- * @covers Homie\Dashboard\Widgets\EggTimerWidget
- */
 class EggTimerWidgetTest extends TestCase
 {
 
     /**
-     * @var EggTimerWidget
+     * @var EggTimer
      */
     private $subject;
 
     public function setUp()
     {
-        $this->subject = new EggTimerWidget();
+        $this->subject = new EggTimer();
     }
 
     public function testGetId()
     {
         $actualResult = $this->subject->getId();
-        $this->assertEquals(EggTimerWidget::TYPE, $actualResult);
+        $this->assertEquals(EggTimer::TYPE, $actualResult);
     }
 
     public function testSerialize()

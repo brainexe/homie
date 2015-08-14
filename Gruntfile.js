@@ -76,7 +76,7 @@ module.exports = function (grunt) {
         child.stderr.pipe(process.stderr);
     });
 
-    grunt.registerTask('build', ['clean', 'compile_lang', 'copy', 'uglify', 'htmlmin', 'concat', 'cssmin', 'manifest', 'compress']);
+    grunt.registerTask('build', ['compile_lang', 'copy', 'uglify', 'htmlmin', 'concat', 'cssmin', 'manifest', 'compress']);
     grunt.registerTask('buildAll', ['bower', 'build']);
     grunt.registerTask('default', ['build']);
 
@@ -114,9 +114,23 @@ module.exports = function (grunt) {
             }
         },
         watch: {
-            assets: {
-                files: ['assets/**', 'lang/*.po'],
-                tasks: ['build'],
+            js: {
+                files: ['assets/**/*.js'],
+                tasks: ['uglify'],
+                options: {
+                    livereload: true
+                }
+            },
+            css: {
+                files: ['assets/**/*.css'],
+                tasks: ['concat', 'cssmin'],
+                options: {
+                    livereload: true
+                }
+            },
+            templates: {
+                files: ['assets/**/*.html'],
+                tasks: ['htmlmin'],
                 options: {
                     livereload: true
                 }
@@ -195,7 +209,10 @@ module.exports = function (grunt) {
                     } : false,
                     mangle: isProduction ? {
                         toplevel: true
-                    } : false
+                    } : false,
+                    sourceMap: isProduction,
+                    sourceMapIncludeSources: true,
+                    sourceMapName: 'web/app.map'
                 },
                 files: {
                     'web/app.js': [
@@ -203,21 +220,23 @@ module.exports = function (grunt) {
                         'assets/js/util/**/*.js',
                         'assets/js/models/**/*.js',
                         'assets/js/controllers/**/*.js'
-                        // todo lazy load controllers?
                     ]
                 }
             },
             vendor: {
                 options: {
                     compress: false,
-                    mangle:   false
+                    mangle:   false,
+                    sourceMap: isProduction,
+                    sourceMapIncludeSources: true,
+                    sourceMapName: 'web/vendor.map'
                 },
                 files: {
                     'web/vendor.js': [
                         'bower_components/angular/angular.min.js',
                         'bower_components/angular-route/angular-route.min.js',
                         'bower_components/angular-gettext/dist/angular-gettext.min.js',
-                        'bower_components/angular-sanitize/angular-sanitize.min.js', // needed?
+                        'bower_components/angular-sanitize/angular-sanitize.min.js', // todo needed?
                         'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
                         'bower_components/angular-cache/dist/angular-cache.min.js',
                         'bower_components/ng-sortable/dist/ng-sortable.min.js',
@@ -268,6 +287,7 @@ module.exports = function (grunt) {
                 },
                 files: [
                     {expand: true, src: ['web/**/*.js'], dest: '.', ext: '.js.gz'},
+                    {expand: true, src: ['web/**/*.json'], dest: '.', ext: '.json.gz'},
                     {expand: true, src: ['web/**/*.html'], dest: '.', ext: '.html.gz'},
                     {expand: true, src: ['web/**/*.css'], dest: '.', ext: '.css.gz'}
                 ]

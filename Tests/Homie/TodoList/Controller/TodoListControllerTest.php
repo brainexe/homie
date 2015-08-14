@@ -46,28 +46,16 @@ class TodoListControllerTest extends TestCase
 
     public function testIndex()
     {
-        $list         = ['list'];
-        $userNames    = [$userId = 'user_id' => $userName = 'user_nam'];
+        $list = ['list'];
 
         $this->todoList
             ->expects($this->once())
             ->method('getList')
             ->willReturn($list);
 
-        $this->userProvider
-            ->expects($this->once())
-            ->method('getAllUserNames')
-            ->willReturn($userNames);
+        $actual = $this->subject->index();
 
-        $actualResult   = $this->subject->index();
-        $expectedResult = new JsonResponse(
-            [
-                'list' => $list,
-                'userNames' => [$userName => $userId]
-            ]
-        );
-
-        $this->assertEquals($expectedResult, $actualResult);
+        $this->assertEquals($list, $actual['list']);
     }
 
     public function testFetchList()
@@ -79,10 +67,9 @@ class TodoListControllerTest extends TestCase
             ->method('getList')
             ->willReturn($list);
 
-        $actualResult = $this->subject->fetchList();
+        $actual = $this->subject->fetchList();
 
-        $expectedResult = new JsonResponse($list);
-        $this->assertEquals($expectedResult, $actualResult);
+        $this->assertEquals($list, $actual);
     }
 
     public function testAddItem()

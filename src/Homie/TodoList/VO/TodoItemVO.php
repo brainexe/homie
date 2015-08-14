@@ -6,6 +6,7 @@ class TodoItemVO
 {
 
     const STATUS_PENDING   = 'pending';
+    const STATUS_OPEN      = 'open';
     const STATUS_PROGRESS  = 'progress';
     const STATUS_COMPLETED = 'completed';
 

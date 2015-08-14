@@ -3,7 +3,6 @@
 namespace Homie\Radio;
 
 use BrainExe\Annotations\Annotations\Service;
-use BrainExe\Core\Redis\PhpRedis;
 use BrainExe\Core\Traits\IdGeneratorTrait;
 use BrainExe\Core\Traits\RedisTrait;
 use Homie\Radio\VO\RadioVO;
@@ -69,15 +68,15 @@ class RadioGateway
 
         $key = $this->getRadioKey($newId);
         $pipeline->HMSET($key, [
-            'radioId' => $newId,
-            'name' => $radioVo->name,
+            'radioId'     => $newId,
+            'name'        => $radioVo->name,
             'description' => $radioVo->description,
-            'pin' => $radioVo->pin,
-            'code' => $radioVo->code,
-            'status' => $radioVo->status,
+            'pin'         => $radioVo->pin,
+            'code'        => $radioVo->code,
+            'status'      => $radioVo->status,
         ]);
 
-        $this->getRedis()->SADD(self::REDIS_RADIO_IDS, $newId);
+        $this->getRedis()->SADD(self::REDIS_RADIO_IDS, [$newId]);
 
         $pipeline->execute();
 

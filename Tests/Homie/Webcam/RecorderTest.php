@@ -2,23 +2,16 @@
 
 namespace Tests\Homie\Webcam\Webcam;
 
-use ArrayIterator;
-use BrainExe\Core\Util\FileUploader;
 use Homie\Client\ClientInterface;
 use Homie\Webcam\Recorder;
 use League\Flysystem\Filesystem;
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Webcam\Webcam;
 use Homie\Webcam\WebcamEvent;
-use Homie\Webcam\WebcamVO;
-use Symfony\Component\Finder\SplFileInfo;
-use Symfony\Component\Process\Process;
-use Symfony\Component\Process\ProcessBuilder;
-use Symfony\Component\Finder\Finder;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 
-class RecorderTest extends PHPUnit_Framework_TestCase
+class RecorderTest extends TestCase
 {
 
     /**
@@ -51,8 +44,8 @@ class RecorderTest extends PHPUnit_Framework_TestCase
             $this->client,
             $this->filesystem,
             'photo command {{file}}',
-            'video command {{file}}',
-            'sound command {{file}}'
+            'video command {{file}} {{duration}}',
+            'sound command {{file}} {{duration}}'
         );
         $this->subject->setEventDispatcher($this->dispatcher);
     }
@@ -79,5 +72,53 @@ class RecorderTest extends PHPUnit_Framework_TestCase
             ->with(Webcam::ROOT . $name . '.jpg');
 
         $this->subject->takePhoto($name);
+    }
+
+    public function testTakeVideo()
+    {
+        $name = 'name';
+
+        $this->client
+            ->expects($this->once())
+            ->method('execute')
+            ->with($this->stringStartsWith("video command /tmp/web"));
+
+        $event = new WebcamEvent($name.'.avi', WebcamEvent::TOOK_VIDEO);
+
+        $this->dispatcher
+            ->expects($this->once())
+            ->method('dispatchEvent')
+            ->with($event);
+
+        $this->filesystem
+            ->expects($this->once())
+            ->method('writeStream')
+            ->with(Webcam::ROOT . $name . '.avi');
+
+        $this->subject->takeVideo($name, 5);
+    }
+
+    public function testTakeSound()
+    {
+        $name = 'name';
+
+        $this->client
+            ->expects($this->once())
+            ->method('execute')
+            ->with($this->stringStartsWith("sound command /tmp/web"));
+
+        $event = new WebcamEvent($name.'.mp3', WebcamEvent::TOOK_SOUND);
+
+        $this->dispatcher
+            ->expects($this->once())
+            ->method('dispatchEvent')
+            ->with($event);
+
+        $this->filesystem
+            ->expects($this->once())
+            ->method('writeStream')
+            ->with(Webcam::ROOT . $name . '.mp3');
+
+        $this->subject->takeSound($name, 5);
     }
 }

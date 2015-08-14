@@ -2,12 +2,10 @@
 
 namespace Tests\Homie\Index;
 
-use BrainExe\Core\Authentication\UserVO;
+
 use PHPUnit_Framework_TestCase as TestCase;
-use PHPUnit_Framework_MockObject_MockObject as MockObject;
+
 use Homie\Index\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @covers Homie\Index\Controller

@@ -2,7 +2,7 @@
 
 namespace Tests\Homie\Dashboard\Widgets;
 
-use Homie\Dashboard\Widgets\SensorGraphWidget;
+use Homie\Dashboard\Widgets\SensorGraph;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Homie\Dashboard\Widgets\SensorWidget;
@@ -13,7 +13,7 @@ class SensorGraphWidgetTest extends TestCase
 {
 
     /**
-     * @var SensorGraphWidget
+     * @var SensorGraph
      */
     private $subject;
 
@@ -25,13 +25,13 @@ class SensorGraphWidgetTest extends TestCase
     public function setUp()
     {
         $this->gateway = $this->getMock(SensorGateway::class);
-        $this->subject = new SensorGraphWidget($this->gateway);
+        $this->subject = new SensorGraph($this->gateway);
     }
 
     public function testGetId()
     {
         $actualResult = $this->subject->getId();
-        $this->assertEquals(SensorGraphWidget::TYPE, $actualResult);
+        $this->assertEquals(SensorGraph::TYPE, $actualResult);
     }
 
     public function testCreate()

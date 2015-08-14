@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Homie\TodoList\TodoReminder;
+namespace Tests\Homie\TodoList;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as testCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\TodoList\TodoReminder;
 use Homie\TodoList\TodoList;
@@ -12,7 +12,7 @@ use Homie\TodoList\VO\TodoItemVO;
 /**
  * @covers Homie\TodoList\TodoReminder
  */
-class TodoReminderTest extends PHPUnit_Framework_TestCase
+class TodoReminderTest extends TestCase
 {
 
     /**
@@ -63,12 +63,12 @@ class TodoReminderTest extends PHPUnit_Framework_TestCase
         $todos = [];
 
         $todoPending = $todos[] = new TodoItemVO();
-        $todoPending->status = TodoItemVO::STATUS_PENDING;
+        $todoPending->status = TodoItemVO::STATUS_OPEN;
 
-        $todoProgress = $todos[] = new TodoItemVO();
-        $todoProgress->status = TodoItemVO::STATUS_PROGRESS;
+        $todoProgress = $todos[]  = new TodoItemVO();
+        $todoProgress->status     = TodoItemVO::STATUS_PROGRESS;
         $todoProgress2 = $todos[] = new TodoItemVO();
-        $todoProgress2->status = TodoItemVO::STATUS_PROGRESS;
+        $todoProgress2->status    = TodoItemVO::STATUS_PROGRESS;
 
         $todoUnknown = $todos[] = new TodoItemVO();
         $todoUnknown->status = 'unknown';

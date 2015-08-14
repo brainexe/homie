@@ -44,7 +44,6 @@ class Gateway
      */
     public function delete($displayId)
     {
-        $this->getRedis()->hdel(self::KEY, $displayId);
+        $this->getRedis()->hdel(self::KEY, [$displayId]);
     }
-
 }

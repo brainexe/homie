@@ -101,7 +101,7 @@ body.fixed .navbar {
   right: 0;
 }
 body.fixed .wrapper {
-  margin-top: 50px;
+  margin-top: 40px;
 }
 /* Content */
 .content {
@@ -385,7 +385,7 @@ body > .header .navbar .nav > li > a:hover > .label {
 body > .header .logo {
   float: left;
   font-size: 21px;
-  line-height: 50px;
+  line-height: 40px;
   text-align: center;
   padding: 0 10px;
   width: 180px;
@@ -447,9 +447,6 @@ body > .header .logo .icon {
   }
 }
 @media (max-width: 767px) {
-  .logo {
-    display: none !important;
-  }
   .navbar .navbar-nav > li {
     float: left;
   }
@@ -724,7 +721,7 @@ body > .header .logo .icon {
   font-size: 20px;
   width: 50px;
   text-align: center;
-  padding: 15px 0px;
+  padding: 15px 0;
   margin-right: 5px;
   /* Default background and font colors */
 
@@ -1600,4 +1597,8 @@ body > .header .logo .icon {
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
+}
+
+.container {
+  padding-left: 0;
 }

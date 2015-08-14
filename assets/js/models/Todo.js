@@ -17,12 +17,12 @@ App.service('Todo', ['$http', function($http) {
         },
 
         deleteItem: function(itemId) {
-            return $http.post('/todo/{0}/'.format(todoId), {});
+            return $http.post('/todo/{0}/'.format(itemId), {});
         },
 
-        edit: function(itemId, data) {
+        edit: function(data) {
             $http.put('/todo/', {
-                id: itemId,
+                id: data.todoId,
                 changes: data
             });
         }

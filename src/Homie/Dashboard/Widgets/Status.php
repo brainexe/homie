@@ -2,16 +2,15 @@
 
 namespace Homie\Dashboard\Widgets;
 
-use BrainExe\Annotations\Annotations\Service;
+use Homie\Dashbaord\Annotation\Widget;
 use Homie\Dashboard\AbstractWidget;
 
 /**
- * @Service(public=false, tags={{"name" = "widget"}})
+ * @Widget
  */
-class TodoListWidget extends AbstractWidget
+class Status extends AbstractWidget
 {
-
-    const TYPE = 'todo_list';
+    const TYPE = 'status';
 
     /**
      * @return WidgetMetadataVo
@@ -20,10 +19,10 @@ class TodoListWidget extends AbstractWidget
     {
         $metadata = new WidgetMetadataVo(
             $this->getId(),
-            gettext('Todo List'),
-            gettext('Displays/manage current todo list'),
-            []
+            gettext('Status'),
+            gettext('Show internal information')
         );
+
         return $metadata
             ->addTitle()
             ->setSize(4, 3);

@@ -6,7 +6,6 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\EventListener;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Traits\TimeTrait;
-use Homie\Sensors\Builder;
 use Homie\Sensors\SensorBuilder;
 use Homie\Sensors\SensorValueEvent;
 use Homie\Sensors\SensorValuesGateway;
@@ -32,19 +31,19 @@ class Listener implements EventSubscriberInterface
     private $gateway;
 
     /**
-     * @Inject({"@SensorBuilder","@Sensor.VOBuilder", "@SensorValuesGateway"})
+     * @Inject({
+     * "@SensorBuilder",
+     * "@SensorValuesGateway"
+     * })
      * @param SensorBuilder $builder
-     * @param Builder $voBuilder
      * @param SensorValuesGateway $valuesGateway
      */
     public function __construct(
         SensorBuilder $builder,
-        Builder $voBuilder,
         SensorValuesGateway $valuesGateway
     ) {
-        $this->builder         = $builder;
-        $this->gateway         = $valuesGateway;
-        $this->sensorVoBuilder = $voBuilder;
+        $this->builder = $builder;
+        $this->gateway = $valuesGateway;
     }
 
     /**

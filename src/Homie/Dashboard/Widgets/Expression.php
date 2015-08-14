@@ -2,13 +2,13 @@
 
 namespace Homie\Dashboard\Widgets;
 
-use BrainExe\Annotations\Annotations\Service;
+use Homie\Dashbaord\Annotation\Widget;
 use Homie\Dashboard\AbstractWidget;
 
 /**
- * @Service(public=false, tags={{"name" = "widget"}})
+ * @Widget
  */
-class ExpressionWidget extends AbstractWidget
+class Expression extends AbstractWidget
 {
     const TYPE = 'expression';
 

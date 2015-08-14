@@ -12,3 +12,15 @@
         <span class="glyphicon glyphicon-link"></span>
     </a>
 </div>
+
+<div ng-if="recent">
+    <img
+            ng-src="/webcam/file/?file={{ recent.webPath }}"
+            class="img-thumbnail thumbnail"/>
+    <span time-ago="recent.timestamp"></span>
+
+    <a
+            ng-click="loadRecentImage()"
+            tooltip="{{'Reload'|translate}}"
+            class="btn btn-default btn-sm glyphicon glyphicon-repeat"></a>
+</div>

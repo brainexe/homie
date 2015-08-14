@@ -19,11 +19,12 @@ class SensorGateway
     use IdGeneratorTrait;
 
     /**
+     * @param int[] $activeSensorIds
      * @return array[]
      */
-    public function getSensors()
+    public function getSensors(array $activeSensorIds = [])
     {
-        $sensorIds = $this->getSensorIds();
+        $sensorIds = $activeSensorIds ?: $this->getSensorIds();
 
         $redis = $this->getRedis()->pipeline();
         foreach ($sensorIds as $sensorId) {
@@ -75,7 +76,7 @@ class SensorGateway
 
         $data = (array)$sensorVo;
         $redis->HMSET($key, $data);
-        $redis->sAdd(self::SENSOR_IDS, $newId);
+        $redis->sAdd(self::SENSOR_IDS, [$newId]);
 
         $redis->execute();
 

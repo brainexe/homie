@@ -2,31 +2,28 @@
 
 namespace Tests\Homie\Dashboard\Widgets;
 
-use Homie\Dashboard\Widgets\StatusWidget;
-use Homie\Dashboard\Widgets\WebcamWidget;
+use Homie\Dashboard\Widgets\Status;
+use Homie\Dashboard\Widgets\Webcam;
 use PHPUnit_Framework_TestCase as TestCase;
 use Homie\Dashboard\Widgets\WidgetMetadataVo;
 
-/**
- * @covers Homie\Dashboard\Widgets\WebcamWidget
- */
 class WebcamWidgetTest extends TestCase
 {
 
     /**
-     * @var StatusWidget
+     * @var Status
      */
     private $subject;
 
     public function setUp()
     {
-        $this->subject = new WebcamWidget();
+        $this->subject = new Webcam();
     }
 
     public function testGetId()
     {
         $actualResult = $this->subject->getId();
-        $this->assertEquals(WebcamWidget::TYPE, $actualResult);
+        $this->assertEquals(Webcam::TYPE, $actualResult);
     }
 
     public function testSerialize()

@@ -2,13 +2,13 @@
 
 namespace Homie\Dashboard\Widgets;
 
-use BrainExe\Annotations\Annotations\Service;
+use Homie\Dashbaord\Annotation\Widget;
 use Homie\Dashboard\AbstractWidget;
 
 /**
- * @Service(public=false, tags={{"name" = "widget"}})
+ * @Widget
  */
-class WebcamWidget extends AbstractWidget
+class Webcam extends AbstractWidget
 {
     const TYPE = 'webcam';
 
@@ -20,10 +20,13 @@ class WebcamWidget extends AbstractWidget
         $metadata = new WidgetMetadataVo(
             $this->getId(),
             gettext('Webcam'),
-            gettext('Take shots'),
-            [],
-            4
+            gettext('Take shots')
         );
+
+        $metadata->parameters['showImage'] = [
+            'name'   => gettext('Show recent image'),
+            'type'   => WidgetMetadataVo::KEY_BOOLEAN
+        ];
 
         return $metadata->setSize(4, 3);
     }

@@ -3,13 +3,12 @@
 namespace Homie\Dashboard\Widgets;
 
 use BrainExe\Annotations\Annotations\Inject;
-use BrainExe\Annotations\Annotations\Service;
-
+use Homie\Dashbaord\Annotation\Widget;
 use Homie\Dashboard\AbstractWidget;
 use Homie\Radio\Radios;
 
 /**
- * @Service(public=false, tags={{"name" = "widget"}})
+ * @Widget
  */
 class SwitchWidget extends AbstractWidget
 {

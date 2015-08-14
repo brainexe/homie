@@ -53,7 +53,7 @@ class TodoList
         $itemVo->userId    = $user->id;
         $itemVo->userName  = $user->username;
         $itemVo->createdAt = $itemVo->lastChange = $now;
-        $itemVo->status    = TodoItemVO::STATUS_PENDING;
+        $itemVo->status    = TodoItemVO::STATUS_OPEN;
         if ($itemVo->deadline < $now) {
             $itemVo->deadline = 0;
         }

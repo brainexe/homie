@@ -38,7 +38,7 @@ class WebcamListenerTest extends TestCase
 
     public function testHandleWebcamEvent()
     {
-        $name = 'shoot 123';
+        $name  = 'shoot 123';
         $event = new WebcamEvent($name, WebcamEvent::TAKE_PHOTO);
 
         $this->recorder
@@ -47,5 +47,30 @@ class WebcamListenerTest extends TestCase
             ->with($name);
 
         $this->subject->handlePictureEvent($event);
+    }
+
+    public function testHandleVideoEvent()
+    {
+        $name  = 'shoot 123';
+        $event = new WebcamEvent($name, WebcamEvent::TAKE_VIDEO, 5);
+
+        $this->recorder
+            ->expects($this->once())
+            ->method('takeVideo')
+            ->with($name, 5);
+
+        $this->subject->handleVideoEvent($event);
+    }
+    public function testHandleSoundEvent()
+    {
+        $name  = 'shoot 123';
+        $event = new WebcamEvent($name, WebcamEvent::TAKE_SOUND, 5);
+
+        $this->recorder
+            ->expects($this->once())
+            ->method('takeSound')
+            ->with($name, 5);
+
+        $this->subject->handleSoundEvent($event);
     }
 }

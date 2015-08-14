@@ -12,7 +12,7 @@ use Homie\Sensors\Formatter\Temperature;
 use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 
 /**
- * @covers Homie\Sensors\Sensors\TemperatureDS18
+ * @covers Homie\Sensors\Sensors\Temperature\DS18
  */
 class DS18Test extends TestCase
 {

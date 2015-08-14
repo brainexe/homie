@@ -26,7 +26,7 @@ class Settings
     public $content;
 
     /**
-     * @var string
+     * @var string[]
      */
     public $rendered;
 }

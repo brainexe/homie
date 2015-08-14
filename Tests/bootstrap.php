@@ -7,4 +7,4 @@ include __DIR__ . '/../src/bootstrap.php';
 global $dic;
 
 $core = new Core();
-$dic = $core->boot();
+$dic  = $core->boot();

@@ -8,9 +8,6 @@ use Homie\Dashboard\Widgets\SensorWidget;
 use Homie\Dashboard\Widgets\WidgetMetadataVo;
 use Homie\Sensors\SensorGateway;
 
-/**
- * @covers Homie\Dashboard\Widgets\SensorWidget
- */
 class SensorWidgetTest extends TestCase
 {
 
