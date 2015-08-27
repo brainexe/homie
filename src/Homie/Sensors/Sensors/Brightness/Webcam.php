@@ -39,14 +39,14 @@ class Webcam extends AbstractSensor
     public function getValue($path)
     {
         $tmpFile = tempnam('/tmp', self::TYPE);
+        $this->client->executeWithReturn('fswebcam', [$tmpFile]);
         $command = sprintf(
-            "fswebcam %s; convert %s  -colorspace gray  -resize 1x1  txt:-; rm %s ",
-            $tmpFile,
-            $tmpFile,
+            "convert %s  -colorspace gray  -resize 1x1  txt:-",
             $tmpFile
         );
 
         $result = $this->client->executeWithReturn($command);
+        unlink($tmpFile);
 
         if (!preg_match('/gray\((\d+)\)/', $result, $matches)) {
             return 0;

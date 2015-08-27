@@ -9,9 +9,11 @@
 
         <parameter key="gpio.executable">gpio</parameter>
 
-        <parameter key="remote_filesystem.url"></parameter>
-        <parameter key="remote_filesystem.username"></parameter>
-        <parameter key="remote_filesystem.password"></parameter>
+        <parameter key="filesystem.remote.url"/>
+        <parameter key="filesystem.remote.username"/>
+        <parameter key="filesystem.remote.password"/>
+        <parameter key="filesystem.remote.pathPrefix"/>
+        <parameter key="filesystem.remote.cache">false</parameter>
     </parameters>
     <services>
         <service id="HomieClient" alias="HomieClient.Local" public="false"/>
@@ -45,13 +47,36 @@
                             </call>
                         </service>
                     </argument>
+                    <call method="setPathPrefix"><argument>%filesystem.remote.pathPrefix%</argument></call>
                 </service>
             </argument>
         </service>
         <service id="CachedRemoteFilesystem" class="League\Flysystem\Filesystem" public="false">
             <argument type="service">
                 <service class="League\Flysystem\Cached\CachedAdapter">
-                    <argument type="service" id="WebdavRemoteFilesystem"/>
+                    <argument type="service">
+                        <service class="League\Flysystem\WebDAV\WebDAVAdapter">
+                            <argument type="service">
+                                <service class="Sabre\DAV\Client">
+                                    <argument type="collection">
+                                        <argument key="userName">%filesystem.remote.username%</argument>
+                                        <argument key="password">%filesystem.remote.password%</argument>
+                                        <argument key="baseUri">%filesystem.remote.url%</argument>
+                                        <argument key="authType">1</argument>
+                                    </argument>
+                                    <call method="addCurlSetting">
+                                        <argument type="constant">CURLOPT_SSL_VERIFYHOST</argument>
+                                        <argument>0</argument>
+                                    </call>
+                                    <call method="addCurlSetting">
+                                        <argument type="constant">CURLOPT_SSL_VERIFYPEER</argument>
+                                        <argument>0</argument>
+                                    </call>
+                                </service>
+                            </argument>
+                            <call method="setPathPrefix"><argument>%filesystem.remote.pathPrefix%</argument></call>
+                        </service>
+                    </argument>
                     <argument type="service">
                         <service class="League\Flysystem\Cached\Storage\Predis">
                             <argument type="service" id="redis"/>

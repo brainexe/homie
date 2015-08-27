@@ -18,8 +18,7 @@
                     <th translate>Name</th>
                     <th translate>Color</th>
                     <th translate>Value</th>
-                    <th translate>Interval</th>
-                    <th translate>Next run</th>
+                    <th translate>Timing</th>
                     <th translate>Edit</th>
                 </tr>
             </thead>
@@ -62,6 +61,7 @@
                     {{ formatValue(sensor.lastValue, types[sensor.type]) }}
                 </td>
                 <td>
+                    <span translate>Interval:</span>
                     <div ng-if="!sensor.edit">
                         {{ sensor.interval }} minutes
                     </div>
@@ -76,8 +76,7 @@
                                 ng-model="sensor.interval"
                                 />
                     </div>
-                </td>
-                <td>
+                    <br />
                     <small ng-if="sensor.interval > 0">
                         <time-ago from-time="sensor.lastValueTimestamp + sensor.interval * 60" short="true" overdue="true"></time-ago>
                         <a ng-click="reload(sensor.sensorId)" class="btn btn-default btn-sm glyphicon glyphicon-repeat"></a>

@@ -35,7 +35,8 @@ App.controller('TodoController', ['$scope', '_', 'Todo', 'UserManagement', funct
             name: name,
             deadline: date,
             description: description,
-            status: 'open'
+            status: 'open',
+            cronExpression: $scope.cronExpression
         };
 
         Todo.add(tempData).success(function (result) {
@@ -54,6 +55,7 @@ App.controller('TodoController', ['$scope', '_', 'Todo', 'UserManagement', funct
         if (status == data.status) {
             return;
         }
+        data.status = status;
 
         $scope.items.forEach(function(current) {
             if (data.todoId == current.todoId) {

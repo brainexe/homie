@@ -1,20 +1,19 @@
 <h2 translate>Two Factor Authentication</h2>
 
 <div ng-if="oneTimePassword.secret">
-	<img src="{{oneTimePassword.qrLink}}" alt="{{'QR-code'|translate}}"/>
+	<qr-code data="oneTimePassword.url"></qr-code>
 
 	<hr />
-	<label translate translate-comment="otp">Secret:</label>
+	<label translate translate-comment="otp">Secret:</label>&nbsp;
     <input type="text" size="25" readonly autofocus="" value="{{oneTimePassword.secret}}" />
 
 	<hr />
 	<a href="{{oneTimePassword.url}}">{{oneTimePassword.url}}</a>
 
 	<hr />
-	<input type="button" value="{{'Disable One Time Secret'|translate}}" ng-click="deleteToken()"/>
-
+	<input class="btn btn-danger" type="button" value="{{'Disable One Time Secret'|translate}}" ng-click="deleteToken()"/>
 </div>
 
 <div ng-if="!oneTimePassword.secret">
-	<input type="button" value="{{'Requet One Time Secret'|translate}}" ng-click="requestToken()"/>
+	<input class="btn btn-success" type="button" value="{{'Requet One Time Secret'|translate}}" ng-click="requestToken()"/>
 </div>

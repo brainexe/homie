@@ -17,6 +17,13 @@
                     >
             </textarea>
 			<input
+					type="text"
+					placeholder="@daily"
+					ng-model="cronExpression"
+					ng-enter="addTodo()"
+					>
+			<!--todo fix datetime picker-->
+			<input
 					type="text" class="form-control"
                     datepicker-popup="dd-MMMM-yyyy"
 					ng-fodatepicker-popup="dd-MMMM-yyyy"

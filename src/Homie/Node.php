@@ -18,7 +18,7 @@ class Node
 
     /**
      * @Inject("%node.id%")
-     * @param $nodeId
+     * @param int $nodeId
      */
     public function __construct($nodeId)
     {

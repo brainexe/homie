@@ -41,5 +41,8 @@ App.controller('MenuController', ['$scope', '$rootScope', '$route', '$location',
     $scope.$watch(function() {
         return UserManagement.getCurrentUser(); // todo throw event
     }, update);
+    $scope.$on('currentuser.update', function() {
+        update();
+    });
 }]);
 

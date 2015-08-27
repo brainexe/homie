@@ -46,7 +46,7 @@ class TodoItemVO
     public $deadline;
 
     /**
-     * @var integer
+     * @var int
      */
     public $createdAt;
 
@@ -56,7 +56,7 @@ class TodoItemVO
     public $cronExpression;
 
     /**
-     * @var integer
+     * @var int
      */
     public $lastChange;
 }

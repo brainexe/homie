@@ -38,14 +38,13 @@ class Webcam extends AbstractSensor
      */
     public function getValue($path)
     {
-        // spt get install sox
         $tmp = sys_get_temp_dir();
 
+        $this->client->execute(sprintf('arecord -d 1 %s/tmp_rec.wav', $tmp));
+
         $command = sprintf(
-            "arecord -d 1 %s/tmp_rec.wav; " .
             "sox -t .wav %s/tmp_rec.wav -n stat 2>&1 " .
             "| grep \"Maximum amplitude\" | cut -d ':' -f 2",
-            $tmp,
             $tmp
         );
 

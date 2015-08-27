@@ -9,3 +9,8 @@
 .dashboard .as-sortable-placeholder .panel-body {
     font-weight: bold;
 }
+
+.dashboard > .container {
+    margin-left: 0;
+    margin-right: 0;
+}

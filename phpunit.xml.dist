@@ -12,8 +12,11 @@
          bootstrap="Tests/bootstrap.php"
         >
     <testsuites>
-        <testsuite>
-            <directory>./Tests/Homie</directory>
+        <testsuite name="unit">
+            <directory>./Tests/UnitTests</directory>
+        </testsuite>
+        <testsuite name="integration">
+            <directory>./Tests/IntegrationTests</directory>
         </testsuite>
     </testsuites>
 
