@@ -1,6 +1,5 @@
 .idea
 vendor
-composer.phar
 composer.lock
 app/config.xml
 web/*

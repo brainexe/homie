@@ -1,5 +1,7 @@
 
 App.service('UserManagement', ['$http', 'Cache', function($http, Cache) {
+    Cache.intervalClear('^/user/$', 60);
+
     var current = {};
 
     return {

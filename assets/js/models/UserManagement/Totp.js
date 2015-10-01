@@ -16,7 +16,9 @@ App.service('UserManagement.TOTP', ['$http', function($http) {
         needsToken: function (username) {
             return $http.get(
                 '/login/needsOneTimeToken',
-                {username: username}
+                {
+                    params: {username: username}
+                }
             );
         },
 

@@ -1,0 +1,19 @@
+{
+  "name": "homie_nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matthias Dötsch <matze@mdoetsch.de> (https://mdoetsch.de/)",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^1.4.2",
+    "gpio": "^0.2.7",
+    "hiredis": "^0.4.1",
+    "php-serialization": "0.0.1",
+    "redis": "^0.12.1",
+    "wiring-pi": "^2.1.0"
+  }
+}

@@ -52,4 +52,18 @@ class Controller
     {
         return $this->config;
     }
+
+    /**
+     * @return Response
+     * @Route("/robots.txt", name="robots.txt")
+     * @Guest
+     */
+    public function robotstxt()
+    {
+        $response = new Response();
+        $response->headers->set('Content-Type', 'text/plain');
+        $response->setContent("User-agent: *\nDisallow: /");
+
+        return $response;
+    }
 }
