@@ -9,8 +9,8 @@ Homie is a software to automate you home using low-budget hardware, like a Raspb
 Checkout [this installation executable](https://github.com/brainexe/homie_install)
 
 ##Requirements
-- PHP5.5+
-- npm
+- PHP5.6+
+- modejs 0.10+
 - redis server
 
 ##Supported hardware
