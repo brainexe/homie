@@ -38,13 +38,14 @@ class Controller
      */
     public function index()
     {
+        // todo ServeFileTrait
         $response = file_get_contents(ROOT . '/web/index.html');
 
         return new Response($response);
     }
 
     /**
-     * @return array
+     * @return mixed[]
      * @Route("/config/", name="config")
      * @Guest
      */

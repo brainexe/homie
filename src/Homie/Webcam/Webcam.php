@@ -14,7 +14,6 @@ use League\Flysystem\Filesystem;
 class Webcam
 {
     const ROOT = 'Webcam/';
-    const PICTURE_EXTENSION  = 'jpg';
 
     use EventDispatcherTrait;
 

@@ -9,6 +9,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-manifest');
+    grunt.loadNpmTasks('grunt-exec');
 
     // todo improve performance: https://www.npmjs.com/package/grunt-parallelize
     grunt.registerTask('extract_lang', ['nggettext_extract']);
@@ -306,6 +307,18 @@ module.exports = function (grunt) {
                     {expand: true, src: ['web/**/*.html'], dest: '.', ext: '.html.gz'},
                     {expand: true, src: ['web/**/*.css'], dest: '.', ext: '.css.gz'}
                 ]
+            }
+        },
+        exec: {
+            install: {
+                command: function() {
+                    return [
+                        'composer install',
+                        'grunt bower',
+                        'bower install',
+                        'php console cc'
+                    ].join(' && ');
+                }
             }
         }
     });

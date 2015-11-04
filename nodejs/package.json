@@ -9,12 +9,10 @@
   "author": "Matthias Dötsch <matze@mdoetsch.de>",
   "license": "MIT",
   "dependencies": {
-    "async": "^1.4.2",
     "duino": "0.0.9",
-    "gpio": "^0.2.7",
-    "hiredis": "^0.4.1",
+    "gpio": "~0.2",
     "php-serialization": "0.0.1",
-    "redis": "^0.12.1",
-    "wiring-pi": "^2.1.0"
+    "redis": "~0.12",
+    "wiring-pi": "~2.1"
   }
 }

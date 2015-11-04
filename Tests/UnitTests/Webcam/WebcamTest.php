@@ -68,7 +68,6 @@ class WebcamTest extends TestCase
         $actualResult = $this->subject->getFiles();
 
         $this->assertEquals([$expectedWebcam], $actualResult);
-        $this->assertEquals($fileBaseName, $expectedWebcam->getWebcamId());
     }
 
     public function testRecent()

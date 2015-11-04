@@ -34,12 +34,4 @@ class WebcamVO
      * @var string
      */
     public $extension;
-
-    /**
-     * @return string
-     */
-    public function getWebcamId()
-    {
-        return basename($this->name, '.' . Webcam::PICTURE_EXTENSION);
-    }
 }
