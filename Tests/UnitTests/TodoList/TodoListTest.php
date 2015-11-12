@@ -73,7 +73,7 @@ class TodoListTest extends TestCase
 
         $this->idGenerator
             ->expects($this->once())
-            ->method('generateRandomNumericId')
+            ->method('generateUniqueId')
             ->willReturn($todoId);
 
         $user           = new UserVO();

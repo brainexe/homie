@@ -6,12 +6,14 @@
             <div ng-if="item.deadline > 0">
                 <time-ago from-time="item.deadline" overdue="true"></time-ago>
             </div>&nbsp;
-            <a
-                    ng-repeat="nextStatus in status.next"
-                    class="btn btn-xs btn-success status-change"
-                    ng-click="setStatus(item, nextStatus)">
-                {{states[nextStatus].name || 'Delete'|translate}}
-            </a>
+            <div class="btn-group btn-group-xs">
+                <a
+                        ng-repeat="nextStatus in status.next"
+                        class="btn btn-xs btn-success status-change"
+                        ng-click="setStatus(item, nextStatus)">
+                    {{states[nextStatus].name || 'Delete'|translate}}
+                </a>
+            </div>
         </li>
     </ul>
 </div>

@@ -70,7 +70,7 @@ class Controller
      */
     public function take(Request $request, $type)
     {
-        $name = $this->generateRandomId();
+        $name = $this->generateUniqueId();
 
         $duration = (int)$request->request->get('duration');
 

@@ -120,7 +120,7 @@ class DashboardTest extends PHPUnit_Framework_TestCase
 
         $this->idGenerator
             ->expects($this->once())
-            ->method('generateRandomNumericId')
+            ->method('generateUniqueId')
             ->willReturn($dashboardId);
 
         $widget

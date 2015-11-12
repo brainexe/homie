@@ -53,7 +53,7 @@ class GatewayTest extends TestCase
 
         $this->idGenerator
             ->expects($this->once())
-            ->method('generateRandomNumericId')
+            ->method('generateUniqueId')
             ->willReturn($generatedId);
 
         $this->redis

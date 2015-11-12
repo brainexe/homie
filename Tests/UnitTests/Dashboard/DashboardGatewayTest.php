@@ -146,7 +146,7 @@ class DashboardGatewayTest extends TestCase
 
         $this->idGenerator
             ->expects($this->once())
-            ->method('generateRandomNumericId')
+            ->method('generateUniqueId')
             ->willReturn($newId);
 
         $this->redis

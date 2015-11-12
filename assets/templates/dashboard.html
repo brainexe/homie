@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-default dashboard-navbar" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" ng-click="isCollapsed = !isCollapsed">
@@ -14,23 +14,34 @@
                             class="btn-group cursor"
                             ng-class="{active:tmp_dashboard==dashboard}"
                             >
-                        <a ng-click="selectDashboard(tmp_dashboard)">
-                            {{ tmp_dashboard.name }}
-                            <span
-                                    ng-if="editMode"
-                                    confirm="deleteDashboard(dashboard.dashboardId)"
-                                    confirm-text="{{'Are you sure?'|translate}}"
-                                    class="btn btn-danger btn-xs delete glyphicon glyphicon-remove cursor"
-                                    tooltip="Delete">
-                            </span>
-                        </a>
+                        <div>
+                            <a
+                                    class="btn btn-sm btn-default dashboard-navbar-name"
+                                    ng-click="selectDashboard(tmp_dashboard)"
+                                >
+                                    {{ tmp_dashboard.name }}
+                                <span
+                                        ng-if="editMode"
+                                        confirm="deleteDashboard(dashboard.dashboardId)"
+                                        confirm-text="{{'Are you sure?'|translate}}"
+                                        class="btn btn-danger btn-xs delete glyphicon glyphicon-remove cursor"
+                                        tooltip="Delete">
+                                </span>
+                            </a>
+                        </div>
                     </li>
                     <li>
-                        <div class="btn-group">
-                            <a class="btn btn-sm btn-default" ng-click="openModal(dashboards, dashboard)"
-                               tooltip="{{'New Widget'|translate}}">
+                        <div>
+                            <a
+                                    class="btn btn-sm btn-default"
+                                    ng-click="openModal(dashboards, dashboard)"
+                                    tooltip="{{'New Widget'|translate}}">
                                 <span class="glyphicon glyphicon-plus cursor"></span>
                             </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
                             <a class="btn btn-sm btn-default" ng-click="editMode = !editMode"
                                tooltip="{{'Edit'|translate}}">
                                 <span class="glyphicon glyphicon-edit cursor"></span>

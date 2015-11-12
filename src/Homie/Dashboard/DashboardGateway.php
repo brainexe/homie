@@ -64,7 +64,7 @@ class DashboardGateway
      */
     public function addWidget($dashboardId, array $payload)
     {
-        $newId = $this->generateRandomNumericId();
+        $newId = $this->generateUniqueId();
         $payload['id']   = $newId;
         $payload['open'] = true;
 

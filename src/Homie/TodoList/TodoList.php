@@ -49,7 +49,7 @@ class TodoList
     {
         $now = $this->now();
 
-        $itemVo->todoId    = $this->generateRandomNumericId();
+        $itemVo->todoId    = $this->generateUniqueId();
         $itemVo->userId    = $user->id;
         $itemVo->userName  = $user->username;
         $itemVo->createdAt = $itemVo->lastChange = $now;

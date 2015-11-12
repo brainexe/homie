@@ -99,7 +99,7 @@ class ControllerTest extends TestCase
 
         $this->idGenerator
             ->expects($this->once())
-            ->method('generateRandomId')
+            ->method('generateUniqueId')
             ->willReturn($randomId);
 
         $this->eventDispatcher

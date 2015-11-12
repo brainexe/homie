@@ -62,7 +62,7 @@ class RadioGateway
      */
     public function addRadio(RadioVO $radioVo)
     {
-        $newId = $this->generateRandomNumericId();
+        $newId = $this->generateUniqueId();
 
         $pipeline = $this->getRedis()->pipeline();
 

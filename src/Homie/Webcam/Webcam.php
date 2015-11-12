@@ -58,9 +58,10 @@ class Webcam
         }
 
         usort($files, function (array $a, array $b) {
-            return $a['timestamp'] < $b['timestamp'];
+            // todo check via isset()
+            return @$a['timestamp'] < @$b['timestamp'];
         });
-        $file  = array_pop($files);
+        $file = array_pop($files);
 
         return $this->formatFile($file);
     }
@@ -83,7 +84,7 @@ class Webcam
         $fileVo->filePath  = $file['path'];
         $fileVo->name      = $file['basename'];
         $fileVo->webcamId  = $file['basename'];
-        $fileVo->extension = $file['extension'];
+        $fileVo->extension = isset($file['extension']) ? $file['extension'] : '';
         $fileVo->webPath   = sprintf('%s%s', self::ROOT, $fileVo->name);
         $fileVo->timestamp = isset($file['timestamp']) ? $file['timestamp'] : null;
 

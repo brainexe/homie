@@ -1,5 +1,5 @@
 {
-  "name": "homie",
+  "name": "brainexe/homie",
   "authors": [
     "Matthias Dötsch <matze@mdoetsch.de>"
   ],
@@ -28,8 +28,5 @@
     "ui-select": "https://github.com/angular-ui/ui-select.git#~0.12.*",
     "angular-native-dragdrop": "~1.1",
     "angular-bootstrap-colorpicker": "~3.0"
-  },
-  "resolutions": {
-    "angular": "1.4.*"
   }
 }
