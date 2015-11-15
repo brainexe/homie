@@ -23,7 +23,14 @@ class Gateway
     public function addDisplay(Settings $setting)
     {
         $setting->displayId = $this->generateUniqueId();
+        $this->update($setting);
+    }
 
+    /**
+     * @param Settings $setting
+     */
+    public function update(Settings $setting)
+    {
         $this->getRedis()->hset(self::KEY, $setting->displayId, serialize($setting));
     }
 

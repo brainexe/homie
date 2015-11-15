@@ -58,11 +58,7 @@ class Controller
      */
     public function add(Request $request)
     {
-        $settings = new Settings();
-        $settings->lines    = $request->request->getInt('lines');
-        $settings->columns  = $request->request->getInt('columns');
-        $settings->content  = (array)$request->request->get('content');
-        $settings->rendered = $this->renderer->render($settings);
+        $settings = $this->getSettingsFromRequest($request);
 
         $this->gateway->addDisplay($settings);
 
@@ -77,17 +73,27 @@ class Controller
      */
     public function delete(Request $request, $displayId)
     {
+        unset($request);
+
+        $this->gateway->delete($displayId);
+
         return true;
     }
 
     /**
-     * @Route("/display/{displayId}", name="display.update", methods="PUT")
+     * @Route("/display/{displayId}/", name="display.update", methods="PUT")
      * @param Request $request
      * @param int $displayId
      * @return Settings
      */
     public function update(Request $request, $displayId)
     {
+        $settings = $this->getSettingsFromRequest($request);
+        $settings->displayId = $displayId;
+
+        $this->gateway->update($settings);
+
+        return $settings;
     }
 
     /**
@@ -101,5 +107,20 @@ class Controller
         $this->dispatchInBackground($event);
 
         return true;
+    }
+
+    /**
+     * @param Request $request
+     * @return Settings
+     */
+    private function getSettingsFromRequest(Request $request)
+    {
+        $settings           = new Settings();
+        $settings->lines    = $request->request->getInt('lines');
+        $settings->columns  = $request->request->getInt('columns');
+        $settings->content  = (array)$request->request->get('content');
+        $settings->rendered = $this->renderer->render($settings);
+
+        return $settings;
     }
 }

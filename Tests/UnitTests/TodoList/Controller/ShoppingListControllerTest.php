@@ -28,7 +28,7 @@ class ShoppingListControllerTest extends TestCase
 
     public function setUp()
     {
-        $this->shoppingList         = $this->getMock(ShoppingList::class, [], [], '', false);
+        $this->shoppingList = $this->getMock(ShoppingList::class, [], [], '', false);
 
         $this->subject = new ShoppingListController(
             $this->shoppingList
@@ -41,7 +41,7 @@ class ShoppingListControllerTest extends TestCase
 
         $this->shoppingList
             ->expects($this->once())
-            ->method('getShoppingListItems')
+            ->method('getItems')
             ->willReturn($shoppingList);
 
         $actualResult   = $this->subject->index();
@@ -54,7 +54,7 @@ class ShoppingListControllerTest extends TestCase
         $this->assertEquals($expectedResult, $actualResult);
     }
 
-    public function testAddShoppingListItem()
+    public function testAddItem()
     {
         $name = 'name';
 
@@ -63,16 +63,16 @@ class ShoppingListControllerTest extends TestCase
 
         $this->shoppingList
             ->expects($this->once())
-            ->method('addShoppingListItem')
+            ->method('addItem')
             ->with($name);
 
-        $actualResult = $this->subject->addShoppingListItem($request);
+        $actualResult = $this->subject->addItem($request);
 
         $expectedResult = new JsonResponse(true);
         $this->assertEquals($expectedResult, $actualResult);
     }
 
-    public function testRemoveShoppingListItem()
+    public function testRemoveItem()
     {
         $name = 'name';
 
@@ -81,10 +81,10 @@ class ShoppingListControllerTest extends TestCase
 
         $this->shoppingList
             ->expects($this->once())
-            ->method('removeShoppingListItem')
+            ->method('removeItem')
             ->with($name);
 
-        $actualResult = $this->subject->removeShoppingListItem($request);
+        $actualResult = $this->subject->removeItem($request);
 
         $expectedResult = new JsonResponse(true);
         $this->assertEquals($expectedResult, $actualResult);

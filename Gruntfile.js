@@ -1,4 +1,6 @@
 module.exports = function (grunt) {
+    'use strict';
+
     grunt.loadNpmTasks('grunt-angular-gettext');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-copy');
@@ -10,6 +12,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-manifest');
     grunt.loadNpmTasks('grunt-exec');
+    grunt.loadNpmTasks('grunt-jslint');
 
     // todo improve performance: https://www.npmjs.com/package/grunt-parallelize
     grunt.registerTask('extract_lang', ['nggettext_extract']);
@@ -129,6 +132,7 @@ module.exports = function (grunt) {
                     livereload: true
                 }
             },
+            // todo po files
             templates: {
                 files: ['assets/**/*.html'],
                 tasks: ['htmlmin'],
@@ -272,7 +276,7 @@ module.exports = function (grunt) {
             generate: {
                 cwd: 'web/',
                 options: {
-                    network: ['http://*', 'https://*'],
+                    network: ['*'],
                     fallback: ['/ /index.html'],
                     exclude: ['manifest.appcache'],
                     preferOnline: true,
@@ -285,11 +289,13 @@ module.exports = function (grunt) {
                 src: [
                     '**/*.html',
                     '**/*.js',
+                    '**/*.json',
                     '**/*.css',
                     '**/*.png',
                     '**/*.jpg',
                     '**/*.woff',
-                    '**/*.woff2'
+                    '**/*.woff2',
+                    '**/*.ico'
                 ],
                 dest: 'web/manifest.appcache'
             }
@@ -302,16 +308,16 @@ module.exports = function (grunt) {
                     level: 9
                 },
                 files: [
-                    {expand: true, src: ['web/**/*.js'], dest: '.', ext: '.js.gz'},
+                    {expand: true, src: ['web/**/*.js'],   dest: '.', ext: '.js.gz'},
                     {expand: true, src: ['web/**/*.json'], dest: '.', ext: '.json.gz'},
                     {expand: true, src: ['web/**/*.html'], dest: '.', ext: '.html.gz'},
-                    {expand: true, src: ['web/**/*.css'], dest: '.', ext: '.css.gz'}
+                    {expand: true, src: ['web/**/*.css'],  dest: '.', ext: '.css.gz'}
                 ]
             }
         },
         exec: {
             install: {
-                command: function() {
+                command: function () {
                     return [
                         'composer install',
                         'grunt bower',
@@ -319,6 +325,27 @@ module.exports = function (grunt) {
                         'php console cc'
                     ].join(' && ');
                 }
+            }
+        },
+        jslint: { // configure the task
+            // lint your project's server code
+            server: {
+                src: [
+                    'assets/**/*.js'
+                ],
+                directives: {
+                    node: true,
+                    todo: true
+                }
+            },
+            options: {
+                edition: 'latest', // specify an edition of jslint or use 'dir/mycustom-jslint.js' for own path
+                junit: 'out/server-junit.xml', // write the output to a JUnit XML
+                log: 'out/server-lint.log',
+                jslintXml: 'out/server-jslint.xml',
+                errorsOnly: true, // only display errors
+                failOnError: false, // defaults to true
+                checkstyle: 'out/server-checkstyle.xml' // write a checkstyle-XML
             }
         }
     });

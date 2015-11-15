@@ -31,7 +31,7 @@ App.service('Expression', ['$http', 'Cache', function($http, Cache) {
         },
 
         invalidate: function() {
-            return Cache.clear('/expression/');
+            return Cache.clear('^/expression/');
         }
     }
 }]);

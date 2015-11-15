@@ -6,18 +6,18 @@ use BrainExe\Core\Redis\Predis;
 use BrainExe\Tests\RedisMockTrait;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Homie\TodoList\ShoppingListGateway;
+use Homie\TodoList\Gateway;
 
 /**
- * @covers Homie\TodoList\ShoppingListGateway
+ * @covers Homie\TodoList\Gateway
  */
-class ShoppingListGatewayTest extends TestCase
+class GatewayTest extends TestCase
 {
 
     use RedisMockTrait;
 
     /**
-     * @var ShoppingListGateway
+     * @var Gateway
      */
     private $subject;
 
@@ -29,46 +29,46 @@ class ShoppingListGatewayTest extends TestCase
     public function setUp()
     {
         $this->redis = $this->getRedisMock();
-        $this->subject = new ShoppingListGateway();
+        $this->subject = new Gateway();
         $this->subject->setRedis($this->redis);
     }
 
-    public function testGetShoppingListItems()
+    public function testGetItems()
     {
         $items = [];
 
         $this->redis
             ->expects($this->once())
             ->method('sMembers')
-            ->with(ShoppingListGateway::REDIS_KEY)
+            ->with(Gateway::REDIS_KEY)
             ->willReturn($items);
 
-        $actualResult = $this->subject->getShoppingListItems();
+        $actualResult = $this->subject->getItems();
 
         $this->assertEquals($items, $actualResult);
     }
 
-    public function testAddShoppingListItem()
+    public function testAddItem()
     {
         $name = 'name';
 
         $this->redis
             ->expects($this->once())
             ->method('sAdd')
-            ->with(ShoppingListGateway::REDIS_KEY, $name);
+            ->with(Gateway::REDIS_KEY, $name);
 
-        $this->subject->addShoppingListItem($name);
+        $this->subject->addItem($name);
     }
 
-    public function testRemoveShoppingListItem()
+    public function testRemoveItem()
     {
         $name = 'name';
 
         $this->redis
             ->expects($this->once())
             ->method('sRem')
-            ->with(ShoppingListGateway::REDIS_KEY, $name);
+            ->with(Gateway::REDIS_KEY, $name);
 
-        $this->subject->removeShoppingListItem($name);
+        $this->subject->removeItem($name);
     }
 }

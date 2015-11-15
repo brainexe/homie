@@ -3,7 +3,7 @@ App.controller('DisplaysController', ['$scope', 'Displays', function ($scope, Di
 
     $scope.screens       = {};
     $scope.currentScreen = {
-        content: ["''"],
+        content: ["''", "''", "''", "''"],
         lines: 4,
         columns: 10
     };
@@ -15,7 +15,7 @@ App.controller('DisplaysController', ['$scope', 'Displays', function ($scope, Di
     $scope.save = function(display) {
         var result;
         if (display.displayId) {
-            result = Displays.edit(display);
+            result = Displays.update(display);
         } else {
             result = Displays.add(display);
         }
@@ -23,5 +23,9 @@ App.controller('DisplaysController', ['$scope', 'Displays', function ($scope, Di
         result.success(function(screen) {
             $scope.screens[screen.displayId] = screen;
         });
+    };
+
+    $scope.setScreen = function(screen) {
+        $scope.currentScreen = screen;
     }
 }]);

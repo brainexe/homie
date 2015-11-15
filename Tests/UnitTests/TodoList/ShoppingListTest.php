@@ -5,7 +5,7 @@ namespace Tests\Homie\TodoList;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\TodoList\ShoppingList;
-use Homie\TodoList\ShoppingListGateway;
+use Homie\TodoList\Gateway;
 
 /**
  * @covers Homie\TodoList\ShoppingList
@@ -19,50 +19,50 @@ class ShoppingListTest extends TestCase
     private $subject;
 
     /**
-     * @var ShoppingListGateway|MockObject
+     * @var Gateway|MockObject
      */
     private $mockShoppingListGateway;
 
     public function setUp()
     {
-        $this->mockShoppingListGateway = $this->getMock(ShoppingListGateway::class, [], [], '', false);
+        $this->mockShoppingListGateway = $this->getMock(Gateway::class, [], [], '', false);
         $this->subject = new ShoppingList($this->mockShoppingListGateway);
     }
 
-    public function testGetShoppingListItems()
+    public function testGetItems()
     {
         $list = [];
 
         $this->mockShoppingListGateway
             ->expects($this->once())
-            ->method('getShoppingListItems')
+            ->method('getItems')
             ->willReturn($list);
 
-        $actualResult = $this->subject->getShoppingListItems();
+        $actualResult = $this->subject->getItems();
         $this->assertEquals($list, $actualResult);
     }
 
-    public function testAddShoppingListItem()
+    public function testAddItem()
     {
         $name = 'name';
 
         $this->mockShoppingListGateway
             ->expects($this->once())
-            ->method('addShoppingListItem')
+            ->method('addItem')
             ->with($name);
 
-        $this->subject->addShoppingListItem($name);
+        $this->subject->addItem($name);
     }
 
-    public function testRemoveShoppingListItem()
+    public function testRemoveItem()
     {
         $name = 'name';
 
         $this->mockShoppingListGateway
             ->expects($this->once())
-            ->method('removeShoppingListItem')
+            ->method('removeItem')
             ->with($name);
 
-        $this->subject->removeShoppingListItem($name);
+        $this->subject->removeItem($name);
     }
 }

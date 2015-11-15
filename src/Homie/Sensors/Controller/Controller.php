@@ -1,6 +1,6 @@
 <?php
 
-namespace Homie\Sensors;
+namespace Homie\Sensors\Controller;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
@@ -10,7 +10,13 @@ use BrainExe\Core\Authentication\Settings\Settings;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Homie\Espeak\EspeakEvent;
 use Homie\Espeak\EspeakVO;
+use Homie\Sensors\Builder;
+use Homie\Sensors\Chart;
 use Homie\Sensors\GetValue\Event;
+use Homie\Sensors\SensorBuilder;
+use Homie\Sensors\SensorGateway;
+use Homie\Sensors\SensorValuesGateway;
+use Homie\Sensors\SensorVO;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -59,7 +65,8 @@ class Controller
      * @Inject({
      *  "@SensorGateway",
      *  "@SensorValuesGateway",
-     *  "@Chart", "@SensorBuilder",
+     *  "@Chart",
+     *  "@SensorBuilder",
      *  "@Sensor.VOBuilder",
      *  "@User.Settings"
      * })
@@ -126,10 +133,10 @@ class Controller
         $json = $this->chart->formatJsonData($sensorsRaw, $sensorValues);
 
         return [
-            'sensors'       => $sensorsRaw,
+            'sensors'         => $sensorsRaw,
             'activeSensorIds' => array_values($activeSensorIds),
-            'json'          => $json,
-            'currentFrom'   => $from
+            'json'            => $json,
+            'currentFrom'     => $from
         ];
     }
 
@@ -163,27 +170,6 @@ class Controller
         $this->gateway->addSensor($sensorVo);
 
         return $sensorVo;
-    }
-
-    /**
-     * @todo frontend missing -> remove?
-     * @param Request $request
-     * @param integer $sensorId
-     * @return boolean
-     * @Route("/sensors/{sensor_id}/espeak/", name="sensor.espeak", methods="POST")
-     */
-    public function espeak(Request $request, $sensorId)
-    {
-        unset($request);
-        $sensor    = $this->gateway->getSensor($sensorId);
-        $formatter = $this->builder->getFormatter($sensor['type']);
-        $text      = $formatter->getEspeakText($sensor['lastValue']);
-
-        $espeakVo = new EspeakVO($text);
-        $event    = new EspeakEvent($espeakVo);
-        $this->dispatchInBackground($event);
-
-        return true;
     }
 
     /**
@@ -222,26 +208,6 @@ class Controller
     }
 
     /**
-     * @todo frontend missing -> remove?
-     * @Route("/sensors/{sensor_id}/slim/", name="sensor.slim", methods="GET")
-     * @param Request $request
-     * @param integer $sensorId
-     * @return array
-     */
-    public function slim(Request $request, $sensorId)
-    {
-        unset($request);
-        $sensor         = $this->gateway->getSensor($sensorId);
-        $formatter      = $this->builder->getFormatter($sensor['type']);
-        $formattedValue = $formatter->getEspeakText($sensor['lastValue']);
-
-        return [
-            'sensor'                 => $sensor,
-            'sensor_value_formatted' => $formattedValue
-        ];
-    }
-
-    /**
      * @Route("/sensors/{sensorId}/", name="sensor.delete", methods="DELETE")
      * @param int $sensorId
      * @param Request $request
@@ -276,48 +242,6 @@ class Controller
         $this->gateway->save($sensorVo);
 
         return $sensorVo;
-    }
-
-    /**
-     * @Route("/sensors/api/", name="sensor.api")
-     * @Guest
-     * @return array
-     */
-    public function api()
-    {
-        $sensors = $this->gateway->getSensors();
-
-        $values = [];
-
-        foreach ($sensors as $sensor) {
-            $key = sprintf('%s_%s', $sensor['type'], $sensor['sensorId']);
-            $values[$key] = $sensor['lastValue'];
-        }
-
-        return $values;
-    }
-
-    /**
-     * @todo frontend missing -> remove?
-     * @param Request $request
-     * @param int $sensorId
-     * @Route("/sensors/{sensorId}/value/", name="sensor.value", methods="GET")
-     * @return array
-     */
-    public function getValue(Request $request, $sensorId)
-    {
-        unset($request);
-
-        $sensor         = $this->gateway->getSensor($sensorId);
-        $sensorObj      = $this->builder->build($sensor['type']);
-        $formatter      = $this->builder->getFormatter($sensor['type']);
-        $formattedValue = $formatter->getEspeakText($sensor['lastValue']);
-
-        return [
-            'sensor'               => $sensor,
-            'sensorValueFormatted' => $formattedValue,
-            'sensorObj'            => $sensorObj,
-        ];
     }
 
     /**

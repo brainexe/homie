@@ -49,10 +49,23 @@ class TodoListController
     {
         $list = $this->todo->getList();
         $states = [
-            TodoItemVO::STATUS_PENDING => ['name' => _('Pending'), 'next' => [TodoItemVO::STATUS_OPEN, 'delete']],
-            TodoItemVO::STATUS_OPEN => ['name' => _('Open'), 'next' => [TodoItemVO::STATUS_PROGRESS, TodoItemVO::STATUS_COMPLETED, 'delete']],
-            TodoItemVO::STATUS_PROGRESS => ['name' => _('In Progress'), 'next' => [TodoItemVO::STATUS_COMPLETED, 'delete']],
-            TodoItemVO::STATUS_COMPLETED => ['name' => _('Completed'), 'next' => ['delete']],
+            TodoItemVO::STATUS_PENDING      => [
+                'name' => _('Pending'),
+                'next' => [TodoItemVO::STATUS_OPEN, 'delete']
+            ],
+            TodoItemVO::STATUS_OPEN         => [
+                'name' => _('Open'),
+                'next' => [TodoItemVO::STATUS_PROGRESS, TodoItemVO::STATUS_COMPLETED, 'delete']
+            ],
+            TodoItemVO::STATUS_PROGRESS     => [
+                'name' => _('In Progress'),
+                'next' => [TodoItemVO::STATUS_COMPLETED, 'delete']
+            ],
+            TodoItemVO::STATUS_COMPLETED    => [
+                'name' => _('Completed'),
+                'next' => ['delete'],
+                'hidden' => true
+            ],
         ];
 
         return [

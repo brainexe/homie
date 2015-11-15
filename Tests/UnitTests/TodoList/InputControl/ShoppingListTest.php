@@ -43,7 +43,7 @@ class ShoppingListTest extends TestCase
 
         $this->shoppingList
             ->expects($this->once())
-            ->method('addShoppingListItem')
+            ->method('addItem')
             ->with('match');
 
         $this->subject->add($event);
@@ -56,7 +56,7 @@ class ShoppingListTest extends TestCase
 
         $this->shoppingList
             ->expects($this->once())
-            ->method('removeShoppingListItem')
+            ->method('removeItem')
             ->with('match');
 
         // todo event dispatcher compiler pass: check method exists

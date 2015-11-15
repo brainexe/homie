@@ -57,5 +57,7 @@ var App = angular.module('homie', [
             }
             return response;
         });
+
+        $rootScope.prompt = prompt.bind(window);
     }]
 );

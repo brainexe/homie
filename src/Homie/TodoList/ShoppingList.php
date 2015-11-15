@@ -12,15 +12,15 @@ class ShoppingList
 {
 
     /**
-     * @var ShoppingListGateway
+     * @var Gateway
      */
     private $gateway;
 
     /**
      * @Inject("@ShoppingListGateway")
-     * @param ShoppingListGateway $gateway
+     * @param Gateway $gateway
      */
-    public function __construct(ShoppingListGateway $gateway)
+    public function __construct(Gateway $gateway)
     {
         $this->gateway = $gateway;
     }
@@ -28,24 +28,24 @@ class ShoppingList
     /**
      * @return string[]
      */
-    public function getShoppingListItems()
+    public function getItems()
     {
-        return $this->gateway->getShoppingListItems();
+        return $this->gateway->getItems();
     }
 
     /**
      * @param string $name
      */
-    public function addShoppingListItem($name)
+    public function addItem($name)
     {
-        $this->gateway->addShoppingListItem($name);
+        $this->gateway->addItem($name);
     }
 
     /**
      * @param string $name
      */
-    public function removeShoppingListItem($name)
+    public function removeItem($name)
     {
-        $this->gateway->removeShoppingListItem($name);
+        $this->gateway->removeItem($name);
     }
 }

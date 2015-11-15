@@ -44,7 +44,7 @@ class ShoppingList implements InputControlInterface
      */
     public function add(Event $event)
     {
-        $this->shoppingList->addShoppingListItem($event->match);
+        $this->shoppingList->addItem($event->match);
     }
 
     /**
@@ -52,6 +52,6 @@ class ShoppingList implements InputControlInterface
      */
     public function delete(Event $event)
     {
-        $this->shoppingList->removeShoppingListItem($event->match);
+        $this->shoppingList->removeItem($event->match);
     }
 }

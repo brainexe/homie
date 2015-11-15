@@ -9,9 +9,9 @@ use Homie\Espeak\EspeakVO;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * @EventListener
+ * @EventListener("TodoListener")
  */
-class TodoListener implements EventSubscriberInterface
+class Listener implements EventSubscriberInterface
 {
 
     use EventDispatcherTrait;

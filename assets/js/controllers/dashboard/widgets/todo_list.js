@@ -5,6 +5,8 @@ App.service('Widget.todo_list', ['Todo', "_", function(Todo, _) {
             $scope.newTitle = '';
             $scope.items    = [];
 
+            // todo put hidden states into widget settings
+
             Todo.getData().success(function (data) {
                 $scope.items  = data.list;
                 $scope.states = data.states;

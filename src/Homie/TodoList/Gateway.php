@@ -6,9 +6,9 @@ use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\RedisTrait;
 
 /**
- * @Service(public=false)
+ * @Service(name="ShoppingListGateway", public=false)
  */
-class ShoppingListGateway
+class Gateway
 {
     use RedisTrait;
 
@@ -17,7 +17,7 @@ class ShoppingListGateway
     /**
      * @return string[]
      */
-    public function getShoppingListItems()
+    public function getItems()
     {
         return $this->getRedis()->sMembers(self::REDIS_KEY);
     }
@@ -25,7 +25,7 @@ class ShoppingListGateway
     /**
      * @param string $name
      */
-    public function addShoppingListItem($name)
+    public function addItem($name)
     {
         $this->getRedis()->sAdd(self::REDIS_KEY, $name);
     }
@@ -33,7 +33,7 @@ class ShoppingListGateway
     /**
      * @param string $name
      */
-    public function removeShoppingListItem($name)
+    public function removeItem($name)
     {
         $this->getRedis()->sRem(self::REDIS_KEY, $name);
     }

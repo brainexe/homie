@@ -36,7 +36,7 @@ class ShoppingListController
      */
     public function index()
     {
-        $shoppingList = $this->shoppingList->getShoppingListItems();
+        $shoppingList = $this->shoppingList->getItems();
 
         return new JsonResponse([
             'shoppingList' => $shoppingList,
@@ -48,11 +48,11 @@ class ShoppingListController
      * @Route("/shopping/", name="todo.shopping.add", methods="POST")
      * @return JsonResponse
      */
-    public function addShoppingListItem(Request $request)
+    public function addItem(Request $request)
     {
         $name = $request->request->get('name');
 
-        $this->shoppingList->addShoppingListItem($name);
+        $this->shoppingList->addItem($name);
 
         return new JsonResponse(true);
     }
@@ -62,11 +62,11 @@ class ShoppingListController
      * @Route("/shopping/", name="todo.shopping.remove", methods="DELETE")
      * @return JsonResponse
      */
-    public function removeShoppingListItem(Request $request)
+    public function removeItem(Request $request)
     {
         $name = $request->request->get('name');
 
-        $this->shoppingList->removeShoppingListItem($name);
+        $this->shoppingList->removeItem($name);
 
         return new JsonResponse(true);
     }

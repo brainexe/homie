@@ -1,11 +1,12 @@
 <div ng-repeat="(statusId, status) in states" ng-if="items|toArray|filter:statusId|notEmpty">
-    <h4>{{ status.name }}</h4>
-    <ul>
+    <h4 ng-click="status.hidden = !status.hidden">{{ status.name }} ({{(items|filter:statusId).length}})</h4>
+    <ul ng-hide="status.hidden">
         <li ng-repeat="item in items|filter:statusId|orderBy:'name'" >
             <span tooltip="item.description">{{item.name}}</span>
             <div ng-if="item.deadline > 0">
                 <time-ago from-time="item.deadline" overdue="true"></time-ago>
             </div>&nbsp;
+            <br />
             <div class="btn-group btn-group-xs">
                 <a
                         ng-repeat="nextStatus in status.next"

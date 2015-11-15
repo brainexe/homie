@@ -28,7 +28,7 @@ App.directive('expressionParameter', [function() {
     }
 
     var conditions = {
-        'isCron': [['10Minutes', '20Minutes']]
+        'isTiming': [['10Minutes', '20Minutes']]
     };
 
     var actions = {

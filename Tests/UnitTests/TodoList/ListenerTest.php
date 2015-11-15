@@ -2,39 +2,37 @@
 
 namespace Tests\Homie\TodoList;
 
-use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-
-use Homie\TodoList\TodoListener;
+use Homie\TodoList\Listener;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Homie\TodoList\TodoListEvent;
 use Homie\TodoList\VO\TodoItemVO;
+use PHPUnit_Framework_TestCase as TestCase;
 
 /**
- * @covers Homie\TodoList\TodoListener
+ * @covers Homie\TodoList\Listener
  */
-class TodoListenerTest extends PHPUnit_Framework_TestCase
+class ListenerTest extends TestCase
 {
 
     /**
-     * @var TodoListener
+     * @var Listener
      */
     private $subject;
 
     /**
      * @var EventDispatcher|MockObject
      */
-    private $mockEventDispatcher;
-
+    private $dispatcher;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-        $this->subject = new TodoListener();
-        $this->subject->setEventDispatcher($this->mockEventDispatcher);
+        $this->subject = new Listener();
+        $this->subject->setEventDispatcher($this->dispatcher);
     }
 
     public function testGetSubscribedEvents()
@@ -50,7 +48,7 @@ class TodoListenerTest extends PHPUnit_Framework_TestCase
 
         $event = new TodoListEvent($itemVo, TodoListEvent::ADD);
 
-        $this->mockEventDispatcher
+        $this->dispatcher
             ->expects($this->never())
             ->method('dispatchInBackground');
 
@@ -64,7 +62,7 @@ class TodoListenerTest extends PHPUnit_Framework_TestCase
 
         $event = new TodoListEvent($itemVo, TodoListEvent::ADD);
 
-        $this->mockEventDispatcher
+        $this->dispatcher
             ->expects($this->once())
             ->method('dispatchInBackground')
             ->with($this->anything(), $deadline);

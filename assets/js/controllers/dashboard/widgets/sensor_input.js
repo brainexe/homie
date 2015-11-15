@@ -5,6 +5,7 @@ App.service('Widget.sensor_input', ['Sensor', function(Sensor) {
             $scope.value = '';
 
             Sensor.getSensorData(widget.sensor_id, true).success(function(data) {
+                $scope.sensor      = data.sensor;
                 $scope.placeholder = data.sensor.lastValue;
             });
 
