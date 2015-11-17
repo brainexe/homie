@@ -2,31 +2,35 @@
 App.service('Widget.sensor', ['Sensor', '$rootScope', 'SensorFormatter', function(Sensor, $rootScope, SensorFormatter) {
 
     function getStats(series) {
+        // TODO
         if (!series) {
             return {};
         }
         var result = {
-            count: series.data.length,
+            count: series.data.length / 2,
             min: {value:Number.MAX_VALUE, timestamp:null},
             max: {value:Number.MIN_VALUE, timestamp:null}
         };
 
         var sum    = 0,
             values = [],
-            value;
+            value,
+            timestamp;
 
-        for (var i in series.data) {
-            value = series.data[i].y;
+        for (var i; i < series.data; i += 2) {
+            timestamp = series.data[i];
+            value     = series.data[i +1];
+
             values.push(value);
             sum += value;
             if (value < result.min.value) {
                 result.min.value = value;
-                result.min.timestamp = series.data[i].x;
+                result.min.timestamp = timestamp;
             }
 
             if (value > result.max.value) {
                 result.max.value = value;
-                result.max.timestamp = series.data[i].x;
+                result.max.timestamp = timestamp;
             }
         }
 

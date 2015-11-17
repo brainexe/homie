@@ -6,7 +6,9 @@
   "dependencies": {
     "bluebird": "^3.0.5",
     "colors": "^1.1.2",
-    "redis": "~2.3"
+    "debug": "^2.2.0",
+    "redis": "~2.3",
+    "websocket-node": "brainexe/websocket-node"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -2,9 +2,11 @@
 
 namespace Tests\Homie\Sensors;
 
+use ArrayIterator;
 use BrainExe\Core\Authentication\Settings\Settings;
 use Homie\Sensors\Controller\Controller;
 use Homie\Sensors\GetValue\Event;
+use Homie\Sensors\Interfaces\Sensor;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\Formatter\Formatter;
@@ -142,18 +144,18 @@ class ControllerTest extends TestCase
             ->expects($this->once())
             ->method('formatJsonData')
             ->with($sensorsRaw, [$sensorId => $sensorValues])
-            ->willReturn($json);
+            ->willReturn(new ArrayIterator($json));
 
-        $actualResult = $this->subject->indexSensor($request, $activeSensorIds);
+        $actual = $this->subject->indexSensor($request, $activeSensorIds);
 
-        $expectedResult = [
+        $expected = [
             'sensors' => $sensorsRaw,
             'activeSensorIds' => $sensorIds,
             'json' => $json,
             'currentFrom' => $from,
         ];
 
-        $this->assertEquals($expectedResult, $actualResult);
+        $this->assertEquals($expected, $actual);
     }
 
     public function testIndexSensorWithoutFromAndLastValue()
@@ -183,7 +185,7 @@ class ControllerTest extends TestCase
             ->expects($this->once())
             ->method('formatJsonData')
             ->with($sensorsRaw, [])
-            ->willReturn($json);
+            ->willReturn(new ArrayIterator($json));
 
         $actualResult = $this->subject->indexSensor($request, "13");
 
@@ -381,5 +383,41 @@ class ControllerTest extends TestCase
         $actualResult = $this->subject->delete($request, $sensorId);
 
         $this->assertTrue($actualResult);
+    }
+
+    public function testGetValue()
+    {
+        $sensorId    = 12;
+        $sensorValue = '100 grad';
+        $type        = 'sensor type';
+
+        $request = new Request();
+
+        $sensorRaw = [
+            'type'       => $type,
+            'lastValue'  => $sensorValue
+        ];
+
+        $sensorObject = $this->getMock(Sensor::class);
+
+        $this->gateway
+            ->expects($this->once())
+            ->method('getSensor')
+            ->with($sensorId)
+            ->willReturn($sensorRaw);
+        $this->builder
+            ->expects($this->once())
+            ->method('build')
+            ->with($type)
+            ->willReturn($sensorObject);
+
+        $actual = $this->subject->getValue($request, $sensorId);
+
+        $expectedValue = [
+            'sensor'    => $sensorRaw,
+            'sensorObj' => $sensorObject
+        ];
+
+        $this->assertEquals($expectedValue, $actual);
     }
 }

@@ -15,7 +15,7 @@
     "grunt-jslint": "^1.1.14",
     "grunt-manifest": "^0.4.4"
   },
-  "devDependencies": {},
+  "license": "MIT",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -46,4 +46,12 @@ class ControllerTest extends TestCase
 
         $this->assertEquals($expected, $actual);
     }
+
+    public function testRobots()
+    {
+        $actual = $this->subject->robotstxt();
+
+        $this->assertEquals('text/plain', $actual->headers->get('Content-Type'));
+        $this->assertEquals("User-agent: *\nDisallow: /", $actual->getContent());
+    }
 }

@@ -15,7 +15,7 @@
         <th><time-ago from-time="cron.timestamp" overdue="true"></time-ago></th>
         <th>{{ cron.event.expression}}</th>
         <td>
-            <a ng-click="deleteCron(cron.eventId)" class="btn btn-danger btn-sm">
+            <a confirm="deleteCron(cron.jobId)" class="btn btn-danger btn-sm">
                 <span class="glyphicon glyphicon-remove"></span>
             </a>
         </td>

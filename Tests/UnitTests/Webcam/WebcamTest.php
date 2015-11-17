@@ -82,7 +82,13 @@ class WebcamTest extends TestCase
                 'basename'  => $fileBaseName,
                 'timestamp' => $fileCTime,
                 'extension' => 'ext'
-            ]
+            ],
+            [
+                'path'      => $filePath,
+                'basename'  => $fileBaseName,
+                'timestamp' => 2,
+                'extension' => 'ext'
+            ],
         ];
 
         $this->filesystem

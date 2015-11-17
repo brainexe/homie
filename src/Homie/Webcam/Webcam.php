@@ -59,7 +59,7 @@ class Webcam
 
         usort($files, function (array $a, array $b) {
             // todo check via isset()
-            return @$a['timestamp'] < @$b['timestamp'];
+            return @$a['timestamp'] > @$b['timestamp'];
         });
         $file = array_pop($files);
 

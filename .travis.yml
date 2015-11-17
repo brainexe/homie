@@ -13,9 +13,7 @@ services:
   - redis-server
 
 before_install:
-  - composer update --no-dev
-  - if [ "`phpenv version-name`" != "hhvm" ]; then echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
-  - if [ "`phpenv version-name`" != "hhvm" ]; then echo "extension = gettext.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
+  - composer install --no-dev
   - wget https://scrutinizer-ci.com/ocular.phar
   - npm install
   - npm install -g bower grunt
@@ -23,7 +21,7 @@ before_install:
   - grunt buildAll
 
 script:
-  - phpunit --testsuite unit --coverage-clover build/logs/clover.xml --coverage-clover=coverage.clover
+  - phpunit --coverage-clover build/logs/clover.xml --coverage-clover=coverage.clover
 
 after_script:
   - if [ $TRAVIS_TEST_RESULT == 0 ]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi

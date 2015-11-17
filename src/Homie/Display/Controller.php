@@ -103,7 +103,7 @@ class Controller
      */
     public function redraw(Request $request, $displayId)
     {
-        $event = new Redraw();
+        $event = new Redraw(); // todo add $displayId
         $this->dispatchInBackground($event);
 
         return true;

@@ -135,7 +135,7 @@ class Controller
         return [
             'sensors'         => $sensorsRaw,
             'activeSensorIds' => array_values($activeSensorIds),
-            'json'            => $json,
+            'json'            => iterator_to_array($json),
             'currentFrom'     => $from
         ];
     }
@@ -242,6 +242,26 @@ class Controller
         $this->gateway->save($sensorVo);
 
         return $sensorVo;
+    }
+
+    /**
+     * @todo all properties needed?
+     * @param Request $request
+     * @param int $sensorId
+     * @Route("/sensors/{sensorId}/value/", name="sensor.value", methods="GET")
+     * @return array
+     */
+    public function getValue(Request $request, $sensorId)
+    {
+        unset($request);
+
+        $sensor         = $this->gateway->getSensor($sensorId);
+        $sensorObj      = $this->builder->build($sensor['type']);
+
+        return [
+            'sensor'               => $sensor,
+            'sensorObj'            => $sensorObj,
+        ];
     }
 
     /**

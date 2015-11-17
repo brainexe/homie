@@ -2,6 +2,7 @@
 
 namespace Tests\Homie\Display;
 
+use ArrayIterator;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Core\Redis\Predis;
 use BrainExe\Core\Util\IdGenerator;
@@ -15,6 +16,9 @@ use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @todo more tests
+ */
 class ControllerTest extends TestCase
 {
 
@@ -92,6 +96,37 @@ class ControllerTest extends TestCase
             ->with($event);
 
         $actual = $this->subject->redraw($request, $displayId);
+
+        $this->assertTrue($actual);
+    }
+
+    public function testIndex()
+    {
+        $this->gateway
+            ->expects($this->once())
+            ->method('getAll')
+            ->willReturn(new ArrayIterator(['data']));
+
+        $actual = $this->subject->index();
+
+        $expected = [
+            'screens' => ['data']
+        ];
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testDelete()
+    {
+        $displayId = 11880;
+
+        $request = new Request();
+
+        $this->gateway
+            ->expects($this->once())
+            ->method('delete')
+            ->with($displayId);
+
+        $actual = $this->subject->delete($request, $displayId);
 
         $this->assertTrue($actual);
     }

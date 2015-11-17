@@ -37,7 +37,37 @@ module.exports = function (grunt) {
 
         function start() {
             console.log('start...');
-            forever.startDaemon("./node_modules/websocket/server.js");
+            forever.startDaemon("./nodejs/websocket.js");
+        }
+
+        function stop() {
+            console.log('stop...');
+            forever.stopAll();
+        }
+
+        switch (option) {
+            case 'start':
+                start();
+                break;
+            case 'stop':
+                stop();
+                break;
+            case 'restart':
+                stop();
+                start();
+                break;
+            default:
+                throw "use: (start|stop|restart)";
+        }
+    });
+    // todo refactor (merge with websocket)
+    grunt.registerTask('messageQueue', function (option) {
+        option = option || 'start';
+        var forever = require('forever');
+
+        function start() {
+            console.log('start...');
+            forever.startDaemon("./nodejs/message-queue.js");
         }
 
         function stop() {
