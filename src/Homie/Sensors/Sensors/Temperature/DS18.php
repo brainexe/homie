@@ -53,24 +53,7 @@ class DS18 extends AbstractSensor implements Searchable
 
         $content = $this->fileSystem->fileGetContents($path);
 
-        if (strpos($content, 'YES') === false) {
-            // invalid response :(
-            return null;
-        }
-
-        $matches = null;
-        if (!preg_match('/t=([\-\d]+)$/', $content, $matches)) {
-            return null;
-        }
-
-        $temperature = $matches[1] / 1000;
-
-        $invalidTemperatures = [0.0, 85.0];
-        if (in_array($temperature, $invalidTemperatures)) {
-            return null;
-        }
-
-        return $this->round($temperature, 0.01);
+        return $this->parseContent($content);
     }
 
     /**
@@ -111,5 +94,31 @@ class DS18 extends AbstractSensor implements Searchable
         $definition->formatter = Temperature::TYPE;
 
         return $definition;
+    }
+
+    /**
+     * @param string $content
+     * @return float|null
+     */
+    protected function parseContent($content)
+    {
+        if (strpos($content, 'YES') === false) {
+            // invalid response :(
+            return null;
+        }
+
+        $matches = null;
+        if (!preg_match('/t=([\-\d]+)$/', $content, $matches)) {
+            return null;
+        }
+
+        $temperature = $matches[1] / 1000;
+
+        $invalidTemperatures = [0.0, 85.0];
+        if (in_array($temperature, $invalidTemperatures)) {
+            return null;
+        }
+
+        return $this->round($temperature, 0.01);
     }
 }

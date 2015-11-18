@@ -31,6 +31,7 @@ class UpdateTasks extends Command
 
     /**
      * @var TodoListGateway
+     * @todo not used
      */
     private $gateway;
 
@@ -72,24 +73,29 @@ class UpdateTasks extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
-        $now = $this->now();
-
         $tasks = $this->todoList->getList();
 
         foreach ($tasks as $task) {
             if ($task->status = TodoItemVO::STATUS_PENDING && $task->cronExpression) {
-                $cron = CronExpression::factory($task->cronExpression);
-                $nextChange = $cron->getNextRunDate($task->lastChange);
-
-                if ($nextChange < $now) {
-                    $task->status = TodoItemVO::STATUS_OPEN;
-                    $this->todoList->editItem($task->todoId, [
-                        'status' => $task->status
-                    ]);
-                }
+                $this->handleTask($task);
             }
         }
+    }
 
+    /**
+     * @param TodoItemVO $task
+     */
+    protected function handleTask(TodoItemVO $task)
+    {
+        $cron       = CronExpression::factory($task->cronExpression);
+        $nextChange = $cron->getNextRunDate($task->lastChange);
+
+        $now = $this->now();
+        if ($nextChange->getTimestamp() < $now) {
+            $task->status = TodoItemVO::STATUS_OPEN;
+            $this->todoList->editItem($task->todoId, [
+                'status' => $task->status
+            ]);
+        }
     }
 }

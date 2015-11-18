@@ -67,19 +67,16 @@ class TodoList
     }
 
     /**
-     * @return TodoItemVO[]
+     * @return \Generator|TodoItemVO[]
      */
     public function getList()
     {
-        $list = [];
         $rawList = $this->gateway->getList();
 
         foreach ($rawList as $item) {
             $itemVo = $this->builder->build($item);
-            $list[] = $itemVo;
+            yield $itemVo;
         }
-
-        return $list;
     }
 
     /**

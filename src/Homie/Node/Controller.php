@@ -15,8 +15,8 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class Controller
 {
-
     use IdGeneratorTrait;
+
     /**
      * @var Node
      */

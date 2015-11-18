@@ -2,6 +2,7 @@
 
 namespace Tests\Homie\Radio;
 
+use ArrayIterator;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Radio\Controller;
@@ -56,22 +57,22 @@ class ControllerTest extends TestCase
         $this->radio
             ->expects($this->once())
             ->method('getRadios')
-            ->willReturn($radiosFormatted);
+            ->willReturn(new ArrayIterator($radiosFormatted));
 
         $this->radioJob
             ->expects($this->once())
             ->method('getJobs')
             ->willReturn($jobs);
 
-        $actualResult = $this->subject->index();
+        $actual = $this->subject->index();
 
-        $expectedResult = [
-                'radios'    => $radiosFormatted,
-                'radioJobs' => $jobs,
-                'pins'      => Radios::$radioPins,
+        $expected = [
+             'radios'    => $radiosFormatted,
+             'radioJobs' => $jobs,
+             'pins'      => Radios::$radioPins,
         ];
 
-        $this->assertEquals($expectedResult, $actualResult);
+        $this->assertEquals($expected, $actual);
     }
 
     public function testSetStatus()
@@ -93,9 +94,9 @@ class ControllerTest extends TestCase
             ->method('dispatchInBackground')
             ->with($event);
 
-        $actualResult = $this->subject->setStatus($request, $radioId, $status);
+        $actual = $this->subject->setStatus($request, $radioId, $status);
 
-        $this->assertEquals(true, $actualResult);
+        $this->assertEquals(true, $actual);
     }
 
     public function testAddRadio()
@@ -129,9 +130,9 @@ class ControllerTest extends TestCase
             ->with($pinRaw)
             ->willReturn($pin);
 
-        $actualResult = $this->subject->addRadio($request);
+        $actual = $this->subject->addRadio($request);
 
-        $this->assertEquals($radioVo, $actualResult);
+        $this->assertEquals($radioVo, $actual);
     }
 
     public function testDeleteRadio()
@@ -144,9 +145,9 @@ class ControllerTest extends TestCase
             ->method('deleteRadio')
             ->with($radioId);
 
-        $actualResult = $this->subject->deleteRadio($request, $radioId);
+        $actual = $this->subject->deleteRadio($request, $radioId);
 
-        $this->assertTrue($actualResult);
+        $this->assertTrue($actual);
     }
 
     public function testAddRadioJob()
@@ -178,9 +179,9 @@ class ControllerTest extends TestCase
             ->method('getJobs')
             ->willReturn([]);
 
-        $actualResult = $this->subject->addRadioJob($request);
+        $actual = $this->subject->addRadioJob($request);
 
-        $this->assertEquals([], $actualResult);
+        $this->assertEquals([], $actual);
     }
 
     public function testDeleteRadioJob()
@@ -193,8 +194,8 @@ class ControllerTest extends TestCase
             ->method('deleteJob')
             ->with($radioId);
 
-        $actualResult = $this->subject->deleteRadioJob($request, $radioId);
+        $actual = $this->subject->deleteRadioJob($request, $radioId);
 
-        $this->assertTrue($actualResult);
+        $this->assertTrue($actual);
     }
 }

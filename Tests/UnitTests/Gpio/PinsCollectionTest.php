@@ -24,12 +24,25 @@ class PinsCollectionTest extends PHPUnit_Framework_TestCase
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Pin #10 does not exist
      */
-    public function testGetInvalidPinPysical()
+    public function testGetInvalidPinPhysical()
     {
         $pinId = 10;
 
         $pinCollection = new PinsCollection();
         $pinCollection->getByPhysicalId($pinId);
+    }
+
+    public function testGetPinPhysical()
+    {
+        $pinId = 10;
+        $pin = new Pin();
+        $pin->setPhysicalId($pinId);
+
+        $pinCollection = new PinsCollection();
+        $pinCollection->add($pin);
+        $actual = $pinCollection->getByPhysicalId($pinId);
+
+        $this->assertEquals($pin, $actual);
     }
 
     public function testGetPin()
@@ -42,7 +55,7 @@ class PinsCollectionTest extends PHPUnit_Framework_TestCase
         $pin->setName($pinName);
         $pin->setPhysicalId(11880);
 
-        $collection = new PinsCollection();
+        $collection = new PinsCollection('type');
         $collection->add($pin);
 
         $actualResult = $collection->getByWiringId($pinId);
@@ -54,5 +67,6 @@ class PinsCollectionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($pinName, $actualResult->getName());
         $this->assertEquals($pinName, $jsonResult['name']);
         $this->assertEquals(11880, $pin->getPhysicalId());
+        $this->assertEquals('type', $collection->getType());
     }
 }

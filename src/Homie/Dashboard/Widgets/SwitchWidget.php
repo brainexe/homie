@@ -50,8 +50,7 @@ class SwitchWidget extends AbstractWidget
                     'values' => $values,
                     'type'   => WidgetMetadataVo::MULTI_SELECT
                 ]
-            ],
-            4
+            ]
         );
 
         return $metadata

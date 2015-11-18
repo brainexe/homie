@@ -45,8 +45,7 @@ class Speak extends AbstractWidget
                     'type'    => WidgetMetadataVo::SINGLE_SELECT,
                     'default' => Espeak::DEFAULT_SPEAKER
                 ]
-            ],
-            4
+            ]
         );
         return $metadata
             ->addTitle()

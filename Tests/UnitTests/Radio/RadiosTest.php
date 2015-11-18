@@ -60,7 +60,7 @@ class RadiosTest extends PHPUnit_Framework_TestCase
             ->method('getRadios')
             ->willReturn([$radio]);
 
-        $actualResult = $this->subject->getRadios();
+        $actual = $this->subject->getRadios();
 
         $expected              = new RadioVO();
         $expected->radioId     = $radio['radioId'];
@@ -69,7 +69,7 @@ class RadiosTest extends PHPUnit_Framework_TestCase
         $expected->pin         = $radio['pin'];
         $expected->code        = $radio['code'];
 
-        $this->assertEquals([$radio['radioId'] => $expected], $actualResult);
+        $this->assertEquals([$radio['radioId'] => $expected], iterator_to_array($actual));
     }
 
     public function testAddRadio()

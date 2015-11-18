@@ -110,7 +110,7 @@ class TodoListTest extends TestCase
     {
         $rawList = [
             [
-                  'todoId' => $todoId = 'id'
+                'todoId' => $todoId = 'id'
             ]
         ];
 
@@ -129,14 +129,12 @@ class TodoListTest extends TestCase
 
         $actual = $this->subject->getList();
 
-        $this->assertEquals([$expectedVo], $actual);
-
+        $this->assertEquals([$expectedVo], iterator_to_array($actual));
     }
 
     public function testGetItemWithEmptyResult()
     {
         $itemId = 10;
-
         $raw = [];
 
         $this->gateway

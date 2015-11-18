@@ -167,4 +167,12 @@ class Cron extends Command
         $event = new Event($sensorVo);
         $this->dispatcher->dispatchEvent($event);
     }
+
+    /**
+     * @param OutputInterface $output
+     */
+    public function setOutput(OutputInterface $output)
+    {
+        $this->output = $output;
+    }
 }

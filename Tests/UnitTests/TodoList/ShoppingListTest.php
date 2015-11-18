@@ -21,19 +21,19 @@ class ShoppingListTest extends TestCase
     /**
      * @var Gateway|MockObject
      */
-    private $mockShoppingListGateway;
+    private $gateway;
 
     public function setUp()
     {
-        $this->mockShoppingListGateway = $this->getMock(Gateway::class, [], [], '', false);
-        $this->subject = new ShoppingList($this->mockShoppingListGateway);
+        $this->gateway = $this->getMock(Gateway::class, [], [], '', false);
+        $this->subject = new ShoppingList($this->gateway);
     }
 
     public function testGetItems()
     {
         $list = [];
 
-        $this->mockShoppingListGateway
+        $this->gateway
             ->expects($this->once())
             ->method('getItems')
             ->willReturn($list);
@@ -46,7 +46,7 @@ class ShoppingListTest extends TestCase
     {
         $name = 'name';
 
-        $this->mockShoppingListGateway
+        $this->gateway
             ->expects($this->once())
             ->method('addItem')
             ->with($name);
@@ -58,7 +58,7 @@ class ShoppingListTest extends TestCase
     {
         $name = 'name';
 
-        $this->mockShoppingListGateway
+        $this->gateway
             ->expects($this->once())
             ->method('removeItem')
             ->with($name);

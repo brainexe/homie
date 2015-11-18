@@ -10,9 +10,6 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
-/**
- * @covers Homie\Sensors\Command\Aggregated
- */
 class AggregatedTest extends TestCase
 {
 

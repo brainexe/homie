@@ -48,7 +48,7 @@ class PinLoaderTest extends TestCase
             ->with('./gpio readall')
             ->willReturn($gpioResult);
 
-        $actualResult = $this->subject->loadPins();
+        $actual = $this->subject->loadPins();
 
         $expected = new PinsCollection('Unknown');
 
@@ -68,12 +68,12 @@ class PinLoaderTest extends TestCase
         $pin->setValue(false);
         $expected->add($pin);
 
-        $this->assertEquals($expected, $actualResult);
+        $this->assertEquals($expected, $actual);
         $this->assertEquals('IN', $pin->getMode());
         $this->assertEquals(0, $pin->getValue());
 
-        $actualResult = $this->subject->loadPins();
-        $this->assertEquals($expected, $actualResult);
+        $actual = $this->subject->loadPins();
+        $this->assertEquals($expected, $actual);
 
         $this->assertEquals($pin, $this->subject->loadPin(2));
     }
@@ -86,8 +86,8 @@ class PinLoaderTest extends TestCase
             ->with('./gpio readall')
             ->willThrowException(new Exception());
 
-        $actualResult = $this->subject->loadPins();
+        $actual = $this->subject->loadPins();
 
-        $this->assertCount(40, $actualResult->getAll());
+        $this->assertCount(40, $actual->getAll());
     }
 }

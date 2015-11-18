@@ -41,7 +41,12 @@ class SensorInputTest extends TestCase
         $this->gateway
             ->expects($this->once())
             ->method('getSensors')
-            ->willReturn([]);
+            ->willReturn([
+                [
+                    'sensorId' => '42',
+                    'name'     => 'myname',
+                ]
+            ]);
 
         $actualResult = $this->subject->getMetadata();
 

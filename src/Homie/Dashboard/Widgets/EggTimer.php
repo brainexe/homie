@@ -22,8 +22,7 @@ class EggTimer extends AbstractWidget
             $this->getId(),
             gettext('Egg Timer'),
             gettext('Simple egg timer'),
-            [],
-            4
+            []
         );
 
         return $metadata->setSize(4, 3);

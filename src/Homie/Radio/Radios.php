@@ -5,6 +5,7 @@ namespace Homie\Radio;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Application\UserException;
+use Generator;
 use InvalidArgumentException;
 use Homie\Radio\VO\RadioVO;
 
@@ -79,18 +80,15 @@ class Radios
     }
 
     /**
-     * @return RadioVO[]
+     * @return Generator|RadioVO[]
      */
     public function getRadios()
     {
-        $radios = [];
         $radiosRaw = $this->gateway->getRadios();
 
         foreach ($radiosRaw as $radio) {
-            $radios[$radio['radioId']] = $this->buildRadioVO($radio);
+            yield $radio['radioId'] => $this->buildRadioVO($radio);
         }
-
-        return $radios;
     }
 
     /**

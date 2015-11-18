@@ -29,7 +29,15 @@ class MemoryUsedTest extends TestCase
         $output = new DummyOutput();
 
         $actual = $this->subject->isSupported($parameter, $output);
-        $this->assertInternalType('bool', $actual);
+        $this->assertTrue($actual);
+    }
+
+    public function testGetValue()
+    {
+        $parameter = '12';
+
+        $actual = $this->subject->getValue($parameter);
+        $this->assertInternalType('int', $actual);
     }
 
     public function testGetDefinition()

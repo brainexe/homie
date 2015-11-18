@@ -48,7 +48,7 @@ class Controller
         $jobs            = $this->radioJob->getJobs();
 
         return [
-            'radios'    => $radiosFormatted,
+            'radios'    => iterator_to_array($radiosFormatted),
             'radioJobs' => $jobs,
             'pins'      => Radios::$radioPins,
         ];

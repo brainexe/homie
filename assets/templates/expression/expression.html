@@ -63,7 +63,6 @@
 <table ng-if="expressions|notEmpty" class="table table-bordered table-striped table-hover">
 	<thead>
 		<tr>
-            <th translate tooltip="{{'How often was it triggered?'|translate}}">Counter</th>
 			<th translate>Condition</th>
 			<th translate>Actions</th>
             <th translate>Payload</th>
@@ -73,7 +72,6 @@
 	</thead>
 	<tbody>
 		<tr ng-repeat="(expressionId, expression) in expressions">
-			<td>{{ expression.counter }}</td>
 			<td>
                 <ul>
                     <li ng-repeat="condition in expression.conditions">
