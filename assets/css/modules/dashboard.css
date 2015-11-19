@@ -19,10 +19,6 @@
     font-weight: bold;
 }
 
-.dashboard-navbar {
-    min-height: 25px;
-}
-
 .dashboard-navbar .container-fluid {
     padding-left: -5px;
 }

@@ -11,7 +11,7 @@ var clientImmediate = redis.getClient('mq-worker-immediate');
 
 module.exports = {
     run: function() {
-        var script = fs.readFileSync('lib/message-queue/script.lua');
+        var script = fs.readFileSync(__dirname + '/script.lua');
 
         client.scriptAsync('load', script).then(function(sha1) {
             function callJob(payload) {

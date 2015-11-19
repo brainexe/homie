@@ -1,7 +1,7 @@
 
 App.service('Cache', ['CacheFactory', '$interval', '$rootScope', function(CacheFactory, $interval, $rootScope) {
     var cache = CacheFactory('default', {
-        maxAge: 3600 * 1000, // 60 minutes
+        maxAge: 3600 * 1000, // 60 minutes TODO based on config.debug
         deleteOnExpire: 'aggressive',
         storageMode:    'localStorage',
         storagePrefix:  ''
@@ -21,7 +21,7 @@ App.service('Cache', ['CacheFactory', '$interval', '$rootScope', function(CacheF
     // do only store plain response in cache when successful
     var oldPut = cache.put.bind(cache);
     cache.put = function put(key, value, options) {
-        if ( value.length == 4 && value[0] == 200) {
+        if (value.length == 4 && value[0] == 200) {
             value = value[1];
         }
         oldPut(key, value, options);

@@ -2,6 +2,7 @@
 
 namespace Tests\Homie\TodoList\Controller;
 
+use ArrayIterator;
 use BrainExe\Core\Authentication\UserVO;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
@@ -51,7 +52,7 @@ class TodoListControllerTest extends TestCase
         $this->todoList
             ->expects($this->once())
             ->method('getList')
-            ->willReturn($list);
+            ->willReturn(new ArrayIterator($list));
 
         $actual = $this->subject->index();
 

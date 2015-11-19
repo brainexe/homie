@@ -69,7 +69,7 @@ class TodoListController
         ];
 
         return [
-            'list'   => $list,
+            'list'   => iterator_to_array($list),
             'states' => $states
         ];
     }

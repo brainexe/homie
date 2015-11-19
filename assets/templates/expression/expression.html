@@ -63,6 +63,7 @@
 <table ng-if="expressions|notEmpty" class="table table-bordered table-striped table-hover">
 	<thead>
 		<tr>
+			<th translate>Id</th>
 			<th translate>Condition</th>
 			<th translate>Actions</th>
             <th translate>Payload</th>
@@ -73,6 +74,9 @@
 	<tbody>
 		<tr ng-repeat="(expressionId, expression) in expressions">
 			<td>
+                {{expression.expressionId}}
+			</td>
+            <td>
                 <ul>
                     <li ng-repeat="condition in expression.conditions">
                         <code>{{ condition }}</code>
@@ -102,7 +106,7 @@
                 </a>
             </td>
             <td>
-				<a ng-click="delete(expressionId)" class="btn btn-danger btn-sm">
+				<a confirm="delete(expressionId)" class="btn btn-danger btn-sm">
                     <span class="glyphicon glyphicon-remove"></span>
                 </a>
 			</td>
@@ -110,4 +114,5 @@
 	</tbody>
 </table>
 
+<h2 translate>Crons</h2>
 <div ng-include="'/templates/crons.html'"></div>

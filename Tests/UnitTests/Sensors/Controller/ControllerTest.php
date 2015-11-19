@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Homie\Sensors;
+namespace Tests\Homie\Sensors\Controller;
 
 use ArrayIterator;
 use BrainExe\Core\Authentication\Settings\Settings;
@@ -149,7 +149,6 @@ class ControllerTest extends TestCase
         $actual = $this->subject->indexSensor($request, $activeSensorIds);
 
         $expected = [
-            'sensors' => $sensorsRaw,
             'activeSensorIds' => $sensorIds,
             'json' => $json,
             'currentFrom' => $from,
@@ -190,84 +189,12 @@ class ControllerTest extends TestCase
         $actualResult = $this->subject->indexSensor($request, "13");
 
         $expectedResult = [
-            'sensors'     => $sensorsRaw,
             'activeSensorIds' => [13],
             'json'        => $json,
             'currentFrom' => Chart::DEFAULT_TIME,
         ];
 
         $this->assertEquals($expectedResult, $actualResult);
-    }
-
-    public function testAddSensor()
-    {
-        $type        = 'type';
-        $name        = 'name';
-        $description = 'descritpion';
-        $pin         = 'pin';
-        $interval    = 12;
-        $node        = 1;
-
-        $request = new Request();
-        $request->request->set('type', $type);
-        $request->request->set('name', $name);
-        $request->request->set('description', $description);
-        $request->request->set('pin', $pin);
-        $request->request->set('interval', $interval);
-        $request->request->set('node', $node);
-
-        $sensorVo = new SensorVO();
-        $sensorVo->name = $name;
-
-        $this->voBuilder
-            ->expects($this->once())
-            ->method('build')
-            ->with(
-                null,
-                $name,
-                $description,
-                $interval,
-                $node,
-                $pin,
-                $type
-            )
-            ->willReturn($sensorVo);
-        $this->gateway
-            ->expects($this->once())
-            ->method('addSensor')
-            ->with($sensorVo);
-
-        $actual = $this->subject->addSensor($request);
-
-        $this->assertEquals($sensorVo, $actual);
-    }
-
-    public function testEdit()
-    {
-        $sensorId = 12;
-
-        $request = new Request();
-
-        $sensorRaw = ['raw'];
-        $sensorVo = new SensorVO();
-        $this->gateway
-            ->expects($this->once())
-            ->method('getSensor')
-            ->with($sensorId)
-            ->willReturn($sensorRaw);
-        $this->voBuilder
-            ->expects($this->once())
-            ->method('buildFromArray')
-            ->with($sensorRaw)
-            ->willReturn($sensorVo);
-
-        $expected = new SensorVO();
-        $this->gateway
-            ->expects($this->once())
-            ->method('save')
-            ->with($expected);
-
-        $this->subject->edit($request, $sensorId);
     }
 
     public function testAddValue()
@@ -368,21 +295,6 @@ class ControllerTest extends TestCase
         ];
 
         $this->assertEquals($expectedValue, $actualResult);
-    }
-
-    public function testDelete()
-    {
-        $sensorId = 12;
-        $request = new Request();
-
-        $this->gateway
-            ->expects($this->once())
-            ->method('deleteSensor')
-            ->willReturn($sensorId);
-
-        $actualResult = $this->subject->delete($request, $sensorId);
-
-        $this->assertTrue($actualResult);
     }
 
     public function testGetValue()

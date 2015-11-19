@@ -133,43 +133,10 @@ class Controller
         $json = $this->chart->formatJsonData($sensorsRaw, $sensorValues);
 
         return [
-            'sensors'         => $sensorsRaw,
             'activeSensorIds' => array_values($activeSensorIds),
             'json'            => iterator_to_array($json),
             'currentFrom'     => $from
         ];
-    }
-
-    /**
-     * @todo frontend missing
-     * @param Request $request
-     * @return SensorVO
-     * @Route("/sensors/", name="sensors.add", methods="POST")
-     */
-    public function addSensor(Request $request)
-    {
-        $sensorType  = $request->request->get('type');
-        $name        = $request->request->get('name');
-        $description = $request->request->get('description');
-        $pin         = $request->request->get('pin');
-        $interval    = $request->request->getInt('interval');
-        $node        = $request->request->getInt('node');
-        $color       = $request->request->get('color');
-
-        $sensorVo = $this->voBuilder->build(
-            null,
-            $name,
-            $description,
-            $interval,
-            $node,
-            $pin,
-            $sensorType,
-            $color
-        );
-
-        $this->gateway->addSensor($sensorVo);
-
-        return $sensorVo;
     }
 
     /**
@@ -208,43 +175,6 @@ class Controller
     }
 
     /**
-     * @Route("/sensors/{sensorId}/", name="sensor.delete", methods="DELETE")
-     * @param int $sensorId
-     * @param Request $request
-     * @return bool
-     */
-    public function delete(Request $request, $sensorId)
-    {
-        unset($request);
-
-        $this->gateway->deleteSensor($sensorId);
-
-        return true;
-    }
-
-    /**
-     * @Route("/sensors/{sensorId}/", name="sensor.edit", methods="PUT")
-     * @param int $sensorId
-     * @param Request $request
-     * @return SensorVO
-     */
-    public function edit(Request $request, $sensorId)
-    {
-        $sensor   = $this->gateway->getSensor($sensorId);
-        $sensorVo = $this->voBuilder->buildFromArray($sensor);
-        $sensorVo->type        = $request->request->get('type');
-        $sensorVo->name        = $request->request->get('name');
-        $sensorVo->description = $request->request->get('description');
-        $sensorVo->pin         = $request->request->get('pin');
-        $sensorVo->interval    = $request->request->getInt('interval');
-        $sensorVo->color       = $request->request->get('color');
-
-        $this->gateway->save($sensorVo);
-
-        return $sensorVo;
-    }
-
-    /**
      * @todo all properties needed?
      * @param Request $request
      * @param int $sensorId
@@ -255,12 +185,12 @@ class Controller
     {
         unset($request);
 
-        $sensor         = $this->gateway->getSensor($sensorId);
-        $sensorObj      = $this->builder->build($sensor['type']);
+        $sensor    = $this->gateway->getSensor($sensorId);
+        $sensorObj = $this->builder->build($sensor['type']);
 
         return [
-            'sensor'               => $sensor,
-            'sensorObj'            => $sensorObj,
+            'sensor'    => $sensor,
+            'sensorObj' => $sensorObj,
         ];
     }
 

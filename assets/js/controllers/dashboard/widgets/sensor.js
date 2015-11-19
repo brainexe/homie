@@ -17,7 +17,7 @@ App.service('Widget.sensor', ['Sensor', '$rootScope', 'SensorFormatter', functio
             value,
             timestamp;
 
-        for (var i; i < series.data; i += 2) {
+        for (var i = 0; i < series.data.length; i += 2) {
             timestamp = series.data[i];
             value     = series.data[i +1];
 

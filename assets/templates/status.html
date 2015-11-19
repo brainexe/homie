@@ -28,7 +28,7 @@
 <table ng-if="jobs|notEmpty" class="table table-striped table-bordered table-hover">
 	<thead>
 		<tr>
-			<th translate>Event-ID</th>
+			<th translate>Job-ID</th>
 			<th translate>Type</th>
 			<th translate>Date</th>
 			<th translate>Delete</th>
@@ -37,16 +37,16 @@
 	<tbody>
 		<tr ng-repeat="job in jobs" ng-mouseover="job.detail=true" ng-mouseleave="job.detail=false">
 			<td ng-mouseover="job.detail=true">
-				{{ job.eventId|split:':':1 }}
+				{{ job.jobId|split:':':1 }}
 			</td>
 			<td>
-				{{ job.eventId|split:':':0 }}
+				{{ job.jobId|split:':':0 }}
 			</td>
 			<td>
 				<time-ago from-time="job.timestamp" overdue="true"></time-ago>
 			</td>
 			<td>
-                <a ng-click="deleteEvent(job.eventId)" class="btn btn-danger">
+                <a ng-click="deleteEvent(job.jobId)" class="btn btn-danger">
 					<span class="glyphicon glyphicon-remove"></span>
 				</a>
             </td>

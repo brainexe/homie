@@ -4,8 +4,7 @@
     <parameters>
         <parameter key="logger.sensor.log">logs/sensor.log</parameter>
         <parameter key="application.name">homie</parameter>
-        <parameter key="application.registration_enabled">false</parameter>
-        <parameter key="application.allowed_private_ips">true</parameter>
+        <parameter key="application.registration_enabled">true</parameter>
 
         <parameter key="gpio.executable">gpio</parameter>
 

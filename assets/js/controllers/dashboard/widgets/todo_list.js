@@ -23,8 +23,8 @@ App.service('Widget.todo_list', ['Todo', "_", function(Todo, _) {
                 Todo.add({
                     name: name
                 }).success(function(newItem) {
-                    console.log(newItem);
                     $scope.items.push(newItem);
+                    $scope.newTitle = '';
                 });
             };
 

@@ -17,8 +17,8 @@ class CompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $host     = $container->getParameter('filesystem.remote.url');
-        $user     = $container->getParameter('filesystem.remote.username');
+        $host = $container->getParameter('filesystem.remote.url');
+        $user = $container->getParameter('filesystem.remote.username');
 
         if ($host && $user) {
             if ($container->getParameter('filesystem.remote.cache')) {
