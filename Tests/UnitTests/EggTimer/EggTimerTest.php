@@ -5,7 +5,7 @@ namespace Tests\Homie\EggTimer\EggTimer;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\EggTimer\EggTimer;
-use BrainExe\MessageQueue\Gateway;
+use BrainExe\Core\MessageQueue\Gateway;
 use BrainExe\Core\Util\TimeParser;
 use BrainExe\Core\Util\Time;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
@@ -98,18 +98,6 @@ class EggTimerTest extends TestCase
             ->with($event, $timestamp);
 
         $this->subject->addNewJob($time, $text);
-    }
-
-    public function testDeleteJob()
-    {
-        $jobId = 10;
-
-        $this->gateway
-            ->expects($this->once())
-            ->method('deleteEvent')
-            ->with($jobId, EggTimerEvent::DONE);
-
-        $this->subject->deleteJob($jobId);
     }
 
     public function testGetJobs()

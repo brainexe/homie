@@ -32,11 +32,7 @@ App.service('Widget.egg_timer', ['EggTimer', 'MessageQueue', '_', function(EggTi
             };
 
             $scope.stop = function(job) {
-                if (!confirm(_('Abort job?'))) { //todo ngConfirm
-                    return;
-                }
-
-                MessageQueue.deleteJob(job.eventId).then(function() {
+                MessageQueue.deleteJob(job.jobId).then(function() {
                     MessageQueue.getJobs(EggTimer.JOB_ID, true).success(function(data) {
                         updateJobs($scope, data);
                     });

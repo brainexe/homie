@@ -2,6 +2,15 @@
 <form style="width: 400px;" role="form">
 	<h2 translate>Expression</h2>
     <div class="form-group">
+        <div class="form-inline">
+            <label translate>Id</label>
+            <input type="text" class="form-control" ng-model="editExpression.expressionId"/>
+        </div>
+
+        <label translate>Enabled</label>
+        <input type="checkbox" ng-model="editExpression.enabled"/>
+    </div>
+    <div class="form-group">
         <label translate>Conditions</label>
         <div class="form-inline" ng-repeat="(key, condition) in editExpression.conditions track by $index">
             <label class="pull-left">{{ $index + 1 }}.)&nbsp;</label>
@@ -64,6 +73,7 @@
 	<thead>
 		<tr>
 			<th translate>Id</th>
+			<th translate>Enabled</th>
 			<th translate>Condition</th>
 			<th translate>Actions</th>
             <th translate>Payload</th>
@@ -75,6 +85,9 @@
 		<tr ng-repeat="(expressionId, expression) in expressions">
 			<td>
                 {{expression.expressionId}}
+			</td>
+            <td>
+                <input type="checkbox" ng-model="expression.enabled" ng-change="save(expression)"/>
 			</td>
             <td>
                 <ul>

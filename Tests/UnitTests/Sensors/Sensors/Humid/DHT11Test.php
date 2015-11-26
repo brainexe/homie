@@ -56,9 +56,24 @@ class DHT11Test extends TestCase
             ->method('executeWithReturn')
             ->willReturn($output);
 
-        $actualResult = $this->subject->getValue($parameter);
+        $actual = $this->subject->getValue($parameter);
 
-        $this->assertEquals($humid, $actualResult);
+        $this->assertEquals($humid, $actual);
+    }
+
+    public function testGetValueWitInvalidOutput()
+    {
+        $parameter = 3;
+        $output    = "Hum = %";
+
+        $this->client
+            ->expects($this->once())
+            ->method('executeWithReturn')
+            ->willReturn($output);
+
+        $actual = $this->subject->getValue($parameter);
+
+        $this->assertNull($actual);
     }
 
     public function testIsSupported()

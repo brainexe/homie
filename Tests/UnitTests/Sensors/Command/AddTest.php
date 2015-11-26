@@ -2,6 +2,7 @@
 
 namespace Tests\Homie\Sensors\Command;
 
+use Homie\Sensors\Formatter\Formatter;
 use Homie\Sensors\Interfaces\Searchable;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
@@ -21,7 +22,8 @@ use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Tester\CommandTester;
 
-abstract class TestSensor implements Sensor, Parameterized {}
+abstract class TestSensorParameterized implements Sensor, Parameterized {}
+abstract class TestSensor implements Sensor {}
 abstract class SearchableTestSensor implements Sensor, Searchable {}
 
 /**
@@ -66,8 +68,8 @@ class AddTest extends TestCase
         $application->add($this->subject);
         $tester = new CommandTester($this->subject);
 
-        $sensor1 = $this->getMock(TestSensor::class);
-        $sensor2 = $this->getMock(TestSensor::class);
+        $sensor1 = $this->getMock(TestSensorParameterized::class);
+        $sensor2 = $this->getMock(TestSensorParameterized::class);
 
         $sensors = [
             $sensorType1 = 'type_1' => $sensor1,
@@ -128,8 +130,8 @@ class AddTest extends TestCase
         $application->add($this->subject);
         $commandTester = new CommandTester($this->subject);
 
-        $sensor1 = $this->getMock(TestSensor::class);
-        $sensor2 = $this->getMock(TestSensor::class);
+        $sensor1 = $this->getMock(TestSensorParameterized::class);
+        $sensor2 = $this->getMock(TestSensorParameterized::class);
 
         $sensors = [
             'type_1' => $sensor1,
@@ -244,6 +246,99 @@ class AddTest extends TestCase
         );
     }
 
+    public function testExecute2()
+    {
+        $application = new Application();
+        $application->add($this->subject);
+        $commandTester = new CommandTester($this->subject);
+
+        $sensor1 = $this->getMock(TestSensorParameterized::class);
+        $sensor2 = $this->getMock(TestSensor::class);
+
+        $sensors = [
+            'type_1' => $sensor1,
+            $sensorType2 = 'type_2' => $sensor2,
+        ];
+
+        $this->builder
+            ->expects($this->once())
+            ->method('getSensors')
+            ->willReturn($sensors);
+
+        /** @var HelperSet|MockObject $helperSet */
+        $helperSet = $this->getMock(HelperSet::class);
+        $this->subject->setHelperSet($helperSet);
+
+        $sensor2
+            ->expects($this->exactly(1))
+            ->method('getSensorType')
+            ->willReturn('type_2');
+
+        /** @var QuestionHelper|MockObject $helper_set */
+        $helper = $this->getMock(QuestionHelper::class);
+
+        $name        = 'name';
+        $description = 'description';
+        $parameter   = null;
+        $interval    = 12;
+        $node        = 2;
+
+        $helperSet
+            ->expects($this->once())
+            ->method('get')
+            ->with('question')
+            ->willReturn($helper);
+
+        $sensor2
+            ->expects($this->once())
+            ->method('getValue')
+            ->with($parameter)
+            ->willReturn(12);
+
+        $formatter = $this->getMock(Formatter::class);
+        $formatter
+            ->expects($this->once())
+            ->method('formatValue')
+            ->with(12)
+            ->willReturn('12°');
+
+        $this->builder
+            ->expects($this->once())
+            ->method('getFormatter')
+            ->with($sensorType2)
+            ->willReturn($formatter);
+
+        $expectedVo              = new SensorVO();
+        $expectedVo->name        = $name;
+        $expectedVo->type        = $sensorType2;
+        $expectedVo->description = $description;
+        $expectedVo->pin         = null;
+        $expectedVo->interval    = $interval;
+        $expectedVo->node        = $node;
+        $expectedVo->color       = '#b06893';
+
+        $this->gateway
+            ->expects($this->once())
+            ->method('addSensor')
+            ->with($expectedVo);
+
+        $input = [
+            '--force',
+            'name'          => $name,
+            'type'          => $sensorType2,
+            'interval'      => $interval,
+            'node'          => $node,
+            'description'   => $description,
+        ];
+        $commandTester->execute($input);
+
+        $display = $commandTester->getDisplay();
+        $this->assertEquals(
+            "Sensor value: 12°\n",
+            $display
+        );
+    }
+
     public function testAddNoParametrized()
     {
         /** @var Sensor $sensor */
@@ -257,8 +352,8 @@ class AddTest extends TestCase
     public function testAddWithInput()
     {
         $parameter = 'parameter';
-        /** @var TestSensor $sensor */
-        $sensor    = $this->getMock(TestSensor::class);
+        /** @var TestSensorParameterized $sensor */
+        $sensor    = $this->getMock(TestSensorParameterized::class);
 
         /** @var OutputInterface|MockObject $output */
         $output = $this->getMock(OutputInterface::class);

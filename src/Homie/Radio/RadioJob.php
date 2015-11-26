@@ -4,8 +4,8 @@ namespace Homie\Radio;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
-use BrainExe\MessageQueue\Gateway;
-use BrainExe\MessageQueue\Job;
+use BrainExe\Core\MessageQueue\Gateway;
+use BrainExe\Core\MessageQueue\Job;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Util\TimeParser;
 use Homie\Radio\VO\RadioVO;

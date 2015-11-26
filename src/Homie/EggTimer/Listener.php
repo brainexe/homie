@@ -4,6 +4,7 @@ namespace Homie\EggTimer;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\EventListener;
+use BrainExe\Core\Annotations\Listen;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Homie\Espeak\EspeakEvent;
 use Homie\Media\Sound;
@@ -12,7 +13,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * @EventListener
  */
-class EggTimerListener implements EventSubscriberInterface
+class Listener
 {
 
     use EventDispatcherTrait;
@@ -32,16 +33,7 @@ class EggTimerListener implements EventSubscriberInterface
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedEvents()
-    {
-        return [
-            EggTimerEvent::DONE => 'handleEggTimerEvent'
-        ];
-    }
-
-    /**
+     * @Listen(EggTimerEvent::DONE)
      * @param EggTimerEvent $event
      */
     public function handleEggTimerEvent(EggTimerEvent $event)
@@ -50,7 +42,6 @@ class EggTimerListener implements EventSubscriberInterface
 
         if ($event->espeak) {
             $newEvent = new EspeakEvent($event->espeak);
-
             $this->dispatchEvent($newEvent);
         }
     }

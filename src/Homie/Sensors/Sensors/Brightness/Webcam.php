@@ -49,7 +49,7 @@ class Webcam extends AbstractSensor
         unlink($tmpFile);
 
         if (!preg_match('/gray\((\d+)\)/', $result, $matches)) {
-            return 0;
+            return null;
         }
 
         return $this->round($matches[1], 0.1);

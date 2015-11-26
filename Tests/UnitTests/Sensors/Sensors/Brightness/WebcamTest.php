@@ -46,6 +46,21 @@ class WebcamTest extends TestCase
         $this->assertEquals(3, $actual);
     }
 
+    public function testGetValueInvalid()
+    {
+        $this->client
+            ->expects($this->at(0))
+            ->method('executeWithReturn');
+        $this->client
+            ->expects($this->at(1))
+            ->method('executeWithReturn')
+            ->willReturn('black');
+
+        $actual = $this->subject->getValue(10);
+
+        $this->assertNull($actual);
+    }
+
     public function testIsSupported()
     {
         $parameter = null;

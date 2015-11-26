@@ -54,26 +54,4 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($jobs, $actualResult);
     }
-
-    public function testDeleteEggTimer()
-    {
-        $request = new Request();
-        $jobId = 10;
-
-        $jobs = [];
-
-        $this->timer
-            ->expects($this->once())
-            ->method('deleteJob')
-            ->with($jobId);
-
-        $this->timer
-            ->expects($this->once())
-            ->method('getJobs')
-            ->willReturn($jobs);
-
-        $actualResult = $this->subject->deleteEggTimer($request, $jobId);
-
-        $this->assertEquals($jobs, $actualResult);
-    }
 }

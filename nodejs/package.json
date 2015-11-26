@@ -4,9 +4,11 @@
   "author": "Matthias Dötsch <matze@mdoetsch.de>",
   "license": "MIT",
   "dependencies": {
+    "async": "^1.5.0",
     "bluebird": "^3.0.5",
     "colors": "^1.1.2",
     "debug": "^2.2.0",
+    "duino": "0.0.9",
     "redis": "~2.3",
     "websocket-node": "brainexe/websocket-node"
   },

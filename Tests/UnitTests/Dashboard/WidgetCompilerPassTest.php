@@ -48,8 +48,8 @@ class WidgetCompilerPassTest extends PHPUnit_Framework_TestCase
             ->method('findTaggedServiceIds')
             ->with(WidgetCompilerPass::TAG)
             ->will($this->returnValue([
-        $widget_id => $widget_definition
-        ]));
+                $widget_id => $widget_definition
+            ]));
 
         $widget_factory
             ->expects($this->once())

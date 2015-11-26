@@ -5,8 +5,8 @@ namespace Homie\Espeak;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\TimeTrait;
-use BrainExe\MessageQueue\Gateway;
-use BrainExe\MessageQueue\Job;
+use BrainExe\Core\MessageQueue\Gateway;
+use BrainExe\Core\MessageQueue\Job;
 use Homie\Client\ClientInterface;
 
 /**
@@ -84,17 +84,9 @@ class Espeak
             escapeshellarg($text),
             $speed,
             $volume,
-            escapeshellarg($speaker)
+            $speaker
         );
 
         $this->client->execute($command);
-    }
-
-    /**
-     * @param string $jobId
-     */
-    public function deleteJob($jobId)
-    {
-        $this->gateway->deleteEvent($jobId, EspeakEvent::SPEAK);
     }
 }

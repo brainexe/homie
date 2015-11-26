@@ -9,13 +9,13 @@ App.service('SocketServer', ['Config', '$rootScope', function(Config, $rootScope
 
         sockjs.onmessage = function(message) {
             var event      = JSON.parse(message.data);
-            var event_name = event.event_name;
+            var eventName = event.eventName;
 
-            $rootScope.$broadcast(event_name, event);
+            $rootScope.$broadcast(eventName, event);
 
             // todo why is debug "undefined"?
             if (debug) {
-                console.log("socket server: " + event.event_name, event)
+                console.log("socket server: " + event.eventName, event)
             }
         };
     });

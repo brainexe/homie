@@ -1,17 +1,19 @@
 <?php
 
-namespace Homie\Arduino;
+namespace Homie\Arduino\Device;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Util\Glob;
+use Homie\Arduino\Device;
+use Homie\Arduino\SerialEvent;
 use Homie\Client\ClientInterface;
 use RuntimeException;
 
 /**
- * @Service("Arduino.Serial", public=false)
+ * @Service("Arduino.Device.Serial", public=false)
  */
-class Serial
+class Serial implements Device
 {
 
     /**

@@ -6,8 +6,8 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Application\UserException;
 use BrainExe\Core\Traits\TimeTrait;
-use BrainExe\MessageQueue\Gateway;
-use BrainExe\MessageQueue\Job;
+use BrainExe\Core\MessageQueue\Gateway;
+use BrainExe\Core\MessageQueue\Job;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Util\TimeParser;
 use Homie\Espeak\EspeakVO;
@@ -64,17 +64,6 @@ class EggTimer
         $timestamp = $this->timeParser->parseString($time);
 
         $this->dispatchInBackground($event, $timestamp);
-    }
-
-    /**
-     * @param string $jobId
-     */
-    public function deleteJob($jobId)
-    {
-        $this->gateway->deleteEvent(
-            $jobId,
-            EggTimerEvent::DONE
-        );
     }
 
     /**

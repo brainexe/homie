@@ -22,7 +22,7 @@
                 <input type="email" ng-if="user.edit" ng-model="user.email" placeholder="{{'Email'|translate}}"/>
             </td>
             <td>
-                <a ng-click="newPassword(user)" class="glyphicon glyphicon-lock"></a>
+                <a ng-click="newPassword(user)" class="btn btn-default glyphicon glyphicon-lock"></a>
             </td>
             <td>
                 <ui-select multiple ng-disabled="!user.edit" ng-model="user.roles">
@@ -32,12 +32,15 @@
                     </ui-select-choices>
                 </ui-select>
             </td>
-            <td>
-                <a ng-click="user.edit = !user.edit">
+            <td class="btn-group">
+                <a ng-click="user.edit = !user.edit" class="btn btn-default">
                     <span class="glyphicon glyphicon-pencil"></span>
                 </a>
-                <a ng-if="user.edit" ng-click="save(user)">
+                <a ng-if="user.edit" ng-click="save(user)" class="btn btn-default">
                     <span class="glyphicon glyphicon-save"></span>
+                </a>
+                <a class="btn btn-danger">
+                    <span class="glyphicon glyphicon-remove"></span>
                 </a>
             </td>
         </tr>

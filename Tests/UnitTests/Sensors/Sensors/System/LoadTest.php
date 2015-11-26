@@ -6,9 +6,6 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Homie\Sensors\Sensors\System\Load;
 use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 
-/**
- * @covers Homie\Sensors\Sensors\System\Load
- */
 class LoadTest extends TestCase
 {
 
@@ -42,8 +39,15 @@ class LoadTest extends TestCase
     {
         $output = new DummyOutput();
 
-        $actualResult = $this->subject->isSupported('', $output);
+        $actual = $this->subject->isSupported('', $output);
 
-        $this->assertTrue($actualResult);
+        $this->assertTrue($actual);
+    }
+
+    public function testSerialize()
+    {
+        $actual = json_encode($this->subject->jsonSerialize());
+
+        $this->assertEquals('{"name":"Load","type":"load","formatter":"load","neededPackages":null}', $actual);
     }
 }

@@ -77,21 +77,21 @@
 
 <table ng-if="jobs|notEmpty" class="table table-bordered table-striped table-hover">
 	<thead>
-	<tr>
-		<th translate>Time</th>
-		<th translate>Text</th>
-		<th translate>Delete</th>
-	</tr>
+		<tr>
+			<th translate>Time</th>
+			<th translate>Text</th>
+			<th translate>Delete</th>
+		</tr>
 	</thead>
 	<tbody>
-	<tr ng-repeat="job in jobs">
-		<td>
-			<time-ago from-time="job.timestamp" overdue="true"></time-ago>
-		</td>
-		<td>{{ job.event.espeak.text }}</td>
-		<td>
-			<a ng-click="deleteEvent(job.eventId)" class="glyphicon glyphicon-remove"></a>
-		</td>
-	</tr>
+		<tr ng-repeat="job in jobs">
+			<td>
+				<time-ago from-time="job.timestamp" overdue="true"></time-ago>
+			</td>
+			<td>{{ job.event.espeak.text }}</td>
+			<td>
+				<a confirm="deleteEvent(job.jobId)" class="glyphicon glyphicon-remove btn btn-danger	"></a>
+			</td>
+		</tr>
 	</tbody>
 </table>

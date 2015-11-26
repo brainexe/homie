@@ -7,10 +7,6 @@ App.service('Speak', ['$http', function($http) {
 
         speak: function (payload) {
             return $http.post('/espeak/speak/', payload);
-        },
-
-        deleteJob: function(jobId) {
-            return $http.delete('/espeak/job/{0}/', jobId);
         }
     };
 }]);

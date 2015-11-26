@@ -178,7 +178,7 @@ class DashboardTest extends PHPUnit_Framework_TestCase
         $this->gateway
             ->expects($this->once())
             ->method('updateMetadata')
-            ->willReturn($dashboardId, $payload);
+            ->with($dashboardId, $payload);
 
         $this->subject->updateDashboard($dashboardId, $payload);
     }
@@ -204,7 +204,7 @@ class DashboardTest extends PHPUnit_Framework_TestCase
         $this->gateway
             ->expects($this->once())
             ->method('updateWidget')
-            ->willReturn($dashboardId, $widgetId, $payload);
+            ->with($dashboardId, $widgetId, $payload);
 
         $this->subject->updateWidget($dashboardId, $widgetId, $payload);
     }

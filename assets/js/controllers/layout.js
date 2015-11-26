@@ -36,7 +36,7 @@ App.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gette
      * @returns {Boolean}
      */
     $scope.isLoggedIn = function () {
-        return $scope.currentUser && $scope.currentUser.id > 0;
+        return $scope.currentUser && $scope.currentUser.userId > 0;
     };
 
     $scope.removeFlash = function(index) {

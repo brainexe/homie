@@ -2,9 +2,11 @@
 
 namespace Tests\Homie\Client\LocalClient;
 
+use Monolog\Logger;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Client\LocalClient;
+use Psr\Log\LogLevel;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 use RuntimeException;
@@ -25,11 +27,18 @@ class LocalClientTest extends PHPUnit_Framework_TestCase
      */
     private $subject;
 
+    /**
+     * @var Logger|MockObject
+     */
+    private $logger;
+
     public function setUp()
     {
         $this->processBuilder = $this->getMock(ProcessBuilder::class, [], [], '', false);
+        $this->logger = $this->getMock(Logger::class, [], [], '', false);
 
         $this->subject = new LocalClient($this->processBuilder);
+        $this->subject->setLogger($this->logger);
     }
 
     /**
@@ -79,6 +88,11 @@ class LocalClientTest extends PHPUnit_Framework_TestCase
             ->method('getErrorOutput')
             ->willReturn('error');
 
+        $this->logger
+            ->expects($this->at(0))
+            ->method('log')
+            ->with(LogLevel::INFO, 'LocalClient command: command [foo]');
+
         $this->subject->executeWithReturn($command, ['foo']);
     }
 
@@ -124,6 +138,16 @@ class LocalClientTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('getOutput')
             ->willReturn($output);
+
+        $this->logger
+            ->expects($this->at(0))
+            ->method('log')
+            ->with(LogLevel::INFO, 'LocalClient command: command []');
+
+        $this->logger
+            ->expects($this->at(1))
+            ->method('log')
+            ->with(LogLevel::DEBUG, 'LocalClient command output: command []: output');
 
         $actualResult = $this->subject->executeWithReturn($command);
         $this->assertEquals($output, $actualResult);
@@ -171,6 +195,16 @@ class LocalClientTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('getOutput')
             ->willReturn($output);
+
+        $this->logger
+            ->expects($this->at(0))
+            ->method('log')
+            ->with(LogLevel::INFO, 'LocalClient command: command []');
+
+        $this->logger
+            ->expects($this->at(1))
+            ->method('log')
+            ->with(LogLevel::DEBUG, 'LocalClient command output: command []: output');
 
         $this->subject->execute($command);
     }

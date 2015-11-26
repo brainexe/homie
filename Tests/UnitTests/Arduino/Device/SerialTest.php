@@ -3,15 +3,15 @@
 namespace Tests\Homie\Arduino;
 
 use BrainExe\Core\Util\Glob;
+use Homie\Arduino\Device\Serial;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
-use Homie\Arduino\Serial;
 use Homie\Arduino\SerialEvent;
 use Homie\Client\ClientInterface;
 use RuntimeException;
 
 /**
- * @covers Homie\Arduino\Serial
+ * @covers Homie\Arduino\Device\Serial
  */
 class SerialTest extends TestCase
 {
@@ -34,7 +34,7 @@ class SerialTest extends TestCase
 
     public function setUp()
     {
-        $this->glob  = $this->getMock(Glob::class, [], [], '', false);
+        $this->glob    = $this->getMock(Glob::class, [], [], '', false);
         $this->client  = $this->getMock(ClientInterface::class, [], [], '', false);
         $this->subject = new Serial($this->glob, $this->client, '/dev/ttyACM*', 57600);
     }

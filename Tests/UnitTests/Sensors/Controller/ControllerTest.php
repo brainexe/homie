@@ -96,6 +96,8 @@ class ControllerTest extends TestCase
 
         $request = new Request();
         $request->query->set('from', $from);
+        $request->query->set('save', 1);
+        $request->attributes->set('userId', $userId = 42);
 
         $sensorsRaw = [
             [
@@ -138,6 +140,21 @@ class ControllerTest extends TestCase
             ->method('getSensorValues')
             ->with($sensorId, $from)
             ->willReturn($sensorValues);
+
+        $this->settings
+            ->expects($this->at(0))
+            ->method('get')
+            ->with($userId, Controller::SETTINGS_ACTIVE_SENSORS);
+
+        $this->settings
+            ->expects($this->at(1))
+            ->method('set')
+            ->with($userId, Controller::SETTINGS_ACTIVE_SENSORS, '12');
+
+        $this->settings
+            ->expects($this->at(2))
+            ->method('set')
+            ->with($userId, Controller::SETTINGS_TIMESPAN, '10');
 
         $json = ['json'];
         $this->chart

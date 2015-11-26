@@ -50,7 +50,7 @@ class SerialEvent extends AbstractEvent
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getPin()
     {

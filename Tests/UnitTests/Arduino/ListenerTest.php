@@ -2,10 +2,10 @@
 
 namespace Tests\Homie\Arduino;
 
+use Homie\Arduino\Device\Serial;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Homie\Arduino\Listener;
-use Homie\Arduino\Serial;
 use Homie\Arduino\SerialEvent;
 
 /**

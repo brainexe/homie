@@ -2,8 +2,9 @@
 
 namespace Homie\Tests\Radio;
 
+use ArrayIterator;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
-use BrainExe\MessageQueue\Gateway;
+use BrainExe\Core\MessageQueue\Gateway;
 use BrainExe\Core\Util\TimeParser;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Radio\RadioChangeEvent;

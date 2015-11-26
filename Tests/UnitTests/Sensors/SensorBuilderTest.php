@@ -57,9 +57,9 @@ class SensorBuilderTest extends TestCase
             ->willReturn($definition);
 
         $this->subject->addSensor($sensorType, $sensorMock);
-        $actualResult = $this->subject->getDefinition($sensorType);
+        $actual = $this->subject->getDefinition($sensorType);
 
-        $this->assertEquals($definition, $actualResult);
+        $this->assertEquals($definition, $actual);
     }
 
     /**
@@ -97,9 +97,9 @@ class SensorBuilderTest extends TestCase
 
         $this->subject->addSensor($sensorType, $sensorMock);
 
-        $actualResult = $this->subject->build($sensorType);
+        $actual = $this->subject->build($sensorType);
 
-        $this->assertEquals($sensorMock, $actualResult);
+        $this->assertEquals($sensorMock, $actual);
     }
 
     public function testGetFormatter()

@@ -4,7 +4,7 @@ App.controller('TodoController', ['$scope', '_', 'Todo', 'UserManagement', funct
     UserManagement.list().success(function (userNames) {
         for (var userId in userNames) {
             $scope.userNames.push({
-                id: userId, name: userNames[userId]
+                userId: userId, name: userNames[userId]
             });
         }
     });

@@ -4,6 +4,7 @@ namespace Homie\Client;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Traits\LoggerTrait;
 use RuntimeException;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
@@ -13,6 +14,7 @@ use Symfony\Component\Process\ProcessBuilder;
  */
 class LocalClient implements ClientInterface
 {
+    use LoggerTrait;
 
     const TIMEOUT = 3600;
 
@@ -43,6 +45,8 @@ class LocalClient implements ClientInterface
      */
     public function executeWithReturn($command, array $arguments = [])
     {
+        $this->info(sprintf('LocalClient command: %s [%s]', $command, implode(' ', $arguments)));
+
         $process = $this->processBuilder
             ->setPrefix(explode(' ', $command))
             ->setArguments($arguments)
@@ -55,6 +59,10 @@ class LocalClient implements ClientInterface
             throw new RuntimeException($process->getErrorOutput());
         }
 
-        return $process->getOutput();
+        $output = $process->getOutput();
+
+        $this->debug(sprintf('LocalClient command output: %s [%s]: %s', $command, implode(' ', $arguments), $output));
+
+        return $output;
     }
 }

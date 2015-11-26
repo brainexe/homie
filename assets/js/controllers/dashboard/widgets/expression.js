@@ -2,6 +2,7 @@
 App.service('Widget.expression', ['$compile', 'Expression', function($compile, Expression) {
     return {
         render: function ($scope, widget, element) {
+console.log('render');
             function load(cached) {
                 var expression;
                 $scope.reloadButton = widget.reloadButton;
@@ -22,7 +23,11 @@ App.service('Widget.expression', ['$compile', 'Expression', function($compile, E
                 // todo this method is triggered multiple times...
                 Expression.invalidate();
                 load(false);
-            }
+            };
+
+            $scope.evaluate = function(expression) {
+                Expression.evaluate(expression, false);
+            };
         }
     };
 }]);

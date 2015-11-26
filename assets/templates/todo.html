@@ -60,9 +60,10 @@
 				<time-ago from-time="item.deadline" overdue="true"></time-ago>
 			</div>
 			<select
+					class="form-control"
 					ng-change="assign(item.todoId, item.userId)"
 					ng-model="item.userId"
-					ng-options="user.id as user.name for user in userNames" >
+					ng-options="user.userId as user.name for user in userNames" >
 			</select>
 		</div>
 	</div>

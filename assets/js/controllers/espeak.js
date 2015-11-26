@@ -1,5 +1,5 @@
 
-App.controller('EspeakController', ['$scope', 'Speak', function ($scope, Speak) {
+App.controller('EspeakController', ['$scope', 'Speak', 'MessageQueue', function ($scope, Speak, MessageQueue) {
     $scope.jobs     = {};
     $scope.speakers = {};
     $scope.pending  = true;
@@ -14,9 +14,7 @@ App.controller('EspeakController', ['$scope', 'Speak', function ($scope, Speak) 
      * @param {String} eventId
      */
     $scope.deleteEvent = function (eventId) {
-        var jobId = eventId.split(':')[1];
-
-        Speak.deleteJob(jobId).success(function () {
+        MessageQueue.deleteJob(eventId).then(function() {
             delete $scope.jobs[eventId];
         });
     };

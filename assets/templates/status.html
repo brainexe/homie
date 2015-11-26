@@ -14,7 +14,7 @@
 				<th>{{ key }}</th>
 				<td>{{ value }}</td>
 				<td>
-					<a ng-click="resetStats(key)" class="btn btn-default">
+					<a confirm="resetStats(key)" class="btn btn-default">
 						<span class="glyphicon glyphicon-remove"></span>
 					</a>
 				</td>
@@ -46,7 +46,7 @@
 				<time-ago from-time="job.timestamp" overdue="true"></time-ago>
 			</td>
 			<td>
-                <a ng-click="deleteEvent(job.jobId)" class="btn btn-danger">
+                <a confirm="deleteEvent(job.jobId)" class="btn btn-danger">
 					<span class="glyphicon glyphicon-remove"></span>
 				</a>
             </td>

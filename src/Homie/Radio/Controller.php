@@ -6,7 +6,7 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Traits\EventDispatcherTrait;
-use BrainExe\MessageQueue\Job;
+use BrainExe\Core\MessageQueue\Job;
 use Homie\Radio\VO\RadioVO;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -132,6 +132,8 @@ class Controller
     }
 
     /**
+     * @todo
+     * @deprecated
      * @param Request $request
      * @param string $jobId
      * @return boolean

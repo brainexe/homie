@@ -4,6 +4,7 @@ namespace Homie\Arduino;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\EventListener;
+use Homie\Arduino\Device\Serial;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -22,15 +23,16 @@ class Listener implements EventSubscriberInterface
     }
 
     /**
-     * @var Serial
+     * @var Device
      */
     private $serial;
 
     /**
-     * @Inject("@Arduino.Serial")
-     * @param Serial $serial
+     * @todo inject correct
+     * @Inject("@Arduino.Device.Redis")
+     * @param Device $serial
      */
-    public function __construct(Serial $serial)
+    public function __construct(Device $serial)
     {
         $this->serial = $serial;
     }

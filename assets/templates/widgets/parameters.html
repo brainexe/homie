@@ -1,7 +1,7 @@
 <div ng-repeat="(type, parameter) in widget.parameters">
     <label>{{parameter.name}}</label>
 
-    <div ng-if="parameter.default" ng-init="payload[type] = parameter.default"></div>
+    <div ng-if="parameter.default && !payload[type]" ng-init="payload[type] = parameter.default"></div>
 
     <div ng-switch="parameter.type">
         <div ng-switch-when="multi_select">

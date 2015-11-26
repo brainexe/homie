@@ -36,7 +36,7 @@ class Controller
      * @param Request $request
      * @return Response
      * @Route("/admin/users/", name="admin.users", methods="GET")
-     * @Role("admin")
+     * @Role(UserVO::ROLE_ADMIN)
      */
     public function index(Request $request)
     {
@@ -46,22 +46,12 @@ class Controller
 
         foreach ($userIds as $id) {
             $user = $this->userProvider->loadUserById($id);
-            $users[$id] = [
-                'userId' => $user->id,
-                'username' => $user->username,
-                'roles' => $user->roles,
-                'email' => $user->email,
-                'hasOneTimToken' => $user->one_time_secret,
-                'avatar' => $user->avatar,
-            ];
+            $users[$id] = $user->toArray();
         }
 
         return [
-            'users' => $users,
-            'rights' => [
-                UserVO::ROLE_ADMIN,
-                UserVO::ROLE_USER,
-            ]
+            'users'  => $users,
+            'rights' => UserVO::ROLES
         ];
     }
 
@@ -69,7 +59,7 @@ class Controller
      * @param Request $request
      * @return Response
      * @Route("/admin/users/", name="admin.users.save", methods="PUT")
-     * @Role("admin")
+     * @Role(UserVO::ROLE_ADMIN)
      */
     public function save(Request $request)
     {
@@ -101,7 +91,7 @@ class Controller
      * @param Request $request
      * @return bool
      * @Route("/admin/user/delete/", name="admin.user.delete")
-     * @Role("admin")
+     * @Role(UserVO::ROLE_ADMIN)
      */
     public function delete(Request $request)
     {

@@ -56,16 +56,15 @@ class ControllerTest extends TestCase
             ->with(42)
             ->willReturn($userVo);
 
-        $actualResult = $this->subject->index($request);
+        $actual = $this->subject->index($request);
 
-        $expectedResult = [
+        $expected = [
             'users' => [
                 42 => [
                     'userId' => 'mockId',
                     'username' => 'mockName',
                     'roles' => 'mockRole',
                     'email' => 'mockEmail',
-                    'hasOneTimToken' => 'mockToken',
                     'avatar' => 'mockAvatar'
                 ]
             ],
@@ -75,7 +74,7 @@ class ControllerTest extends TestCase
             ]
         ];
 
-        $this->assertEquals($expectedResult, $actualResult);
+        $this->assertEquals($expected, $actual);
     }
 
     public function testSave()

@@ -2,7 +2,6 @@
 App.service('Widget.sensor', ['Sensor', '$rootScope', 'SensorFormatter', function(Sensor, $rootScope, SensorFormatter) {
 
     function getStats(series) {
-        // TODO
         if (!series) {
             return {};
         }

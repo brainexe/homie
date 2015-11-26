@@ -7,7 +7,7 @@ use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Util\TimeParser;
-use BrainExe\MessageQueue\Job;
+use BrainExe\Core\MessageQueue\Job;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -46,7 +46,7 @@ class Controller
     public function index()
     {
         $speakers = $this->espeak->getSpeakers();
-        $jobs     = $this->espeak->getPendingJobs();
+        $jobs     = $this->espeak->getPendingJobs(); // TODO MQ
 
         return [
             'speakers' => $speakers,
@@ -77,20 +77,5 @@ class Controller
         $pendingJobs = $this->espeak->getPendingJobs();
 
         return $pendingJobs;
-    }
-
-    /**
-     * @param Request $request
-     * @Route("/espeak/job/{jobId}/", name="espeak.job.delete", methods="DELETE")
-     * @param int $jobId
-     * @return bool
-     */
-    public function deleteJob(Request $request, $jobId)
-    {
-        unset($request);
-
-        $this->espeak->deleteJob($jobId);
-
-        return true;
     }
 }

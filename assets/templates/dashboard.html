@@ -31,17 +31,17 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
+                        <li class="btn-group btn-group-sm">
                             <a
-                                   ng-click="openModal(dashboards, dashboard)"
-                                   tooltip="{{'New Widget'|translate}}">
+                                    class="btn btn-default btn-sm"
+                                    ng-click="openModal(dashboards, dashboard)"
+                                    tooltip="{{'New Widget'|translate}}">
                                 <span class="glyphicon glyphicon-plus cursor"></span>
                             </a>
-                        </li>
-                        <li>
                             <a
-                                   ng-click="editMode = !editMode"
-                                   tooltip="{{'Edit'|translate}}">
+                                    class="btn btn-default btn-sm"
+                                    ng-click="editMode = !editMode"
+                                    tooltip="{{'Edit'|translate}}">
                                 <span class="glyphicon glyphicon-edit cursor"></span>
                             </a>
                         </li>

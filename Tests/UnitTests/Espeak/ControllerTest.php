@@ -96,7 +96,7 @@ class ControllerTest extends TestCase
             ->willReturn($timestamp);
 
         $espeakVo = new EspeakVO($text, $volume, $speed, $speaker);
-        $event = new EspeakEvent($espeakVo);
+        $event    = new EspeakEvent($espeakVo);
 
         $this->dispatcher
             ->expects($this->once())
@@ -113,20 +113,5 @@ class ControllerTest extends TestCase
         $actualResult = $this->subject->speak($request);
 
         $this->assertEquals($pendingJobs, $actualResult);
-    }
-
-    public function testDeleteJobJob()
-    {
-        $jobId = 10;
-        $request = new Request();
-
-        $this->espeak
-            ->expects($this->once())
-            ->method('deleteJob')
-            ->willReturn($jobId);
-
-        $actualResult = $this->subject->deleteJob($request, $jobId);
-
-        $this->assertTrue($actualResult);
     }
 }

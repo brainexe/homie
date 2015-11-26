@@ -3,17 +3,17 @@
 namespace Tests\Homie\Espeak;
 
 use BrainExe\Core\Util\Time;
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Espeak\Espeak;
-use BrainExe\MessageQueue\Gateway;
+use BrainExe\Core\MessageQueue\Gateway;
 use Homie\Client\LocalClient;
 use Homie\Espeak\EspeakEvent;
 
 /**
  * @covers Homie\Espeak\Espeak
  */
-class EspeakTest extends PHPUnit_Framework_TestCase
+class EspeakTest extends TestCase
 {
 
     /**
@@ -86,11 +86,12 @@ class EspeakTest extends PHPUnit_Framework_TestCase
 
         $this->subject->speak($text, $volume, $speed, $speaker);
     }
+
     public function testSpeak()
     {
-        $text = 'text';
-        $volume = 100;
-        $speed = 105;
+        $text    = 'text';
+        $volume  = 100;
+        $speed   = 105;
         $speaker = 'de';
 
         $this->client
@@ -98,17 +99,5 @@ class EspeakTest extends PHPUnit_Framework_TestCase
             ->method('execute');
 
         $this->subject->speak($text, $volume, $speed, $speaker);
-    }
-
-    public function testDeleteJob()
-    {
-        $jobId = 12;
-
-        $this->gateway
-            ->expects($this->once())
-            ->method('deleteEvent')
-            ->with($jobId, EspeakEvent::SPEAK);
-
-        $this->subject->deleteJob($jobId);
     }
 }

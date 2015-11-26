@@ -10,10 +10,10 @@
     <a ng-click="prompt()" class="btn btn-default">
         <span class="glyphicon glyphicon-question-sign"></span>
     </a>
-
-    <a ng-if="job" ng-click="stop(job)" class="btn btn-default">
-        <span class="glyphicon glyphicon-remove-sign">
-            <span ng-include="job.timestamp" time-ago="job.timestamp"></span>
-        </span>
-    </a>
 </div>
+
+<a ng-if="job" confirm="stop(job)" class="btn btn-danger">
+    <time-ago from-time="job.timestamp"></time-ago>
+    &nbsp;
+    <span class="glyphicon glyphicon-remove-sign"></span>
+</a>
