@@ -2,12 +2,14 @@
 App.controller('EspeakController', ['$scope', 'Speak', 'MessageQueue', function ($scope, Speak, MessageQueue) {
     $scope.jobs     = {};
     $scope.speakers = {};
-    $scope.pending  = true;
+    $scope.pending  = false;
 
-    Speak.getData().success(function (data) {
-        $scope.pending  = false;
-        $scope.jobs     = data.jobs;
+    Speak.getSpeakers().success(function (data) {
         $scope.speakers = data.speakers;
+    });
+
+    MessageQueue.getJobs(Speak.JOB_ID, true).success(function(data) {
+        $scope.jobs = data;
     });
 
     /**
@@ -29,9 +31,11 @@ App.controller('EspeakController', ['$scope', 'Speak', 'MessageQueue', function 
             speaker: $scope.speaker
         };
 
-        Speak.speak(payload).success(function (newJobs) {
+        Speak.speak(payload).success(function() {
             $scope.pending = false;
-            $scope.jobs    = newJobs;
+            MessageQueue.getJobs(Speak.JOB_ID, true).success(function(data) {
+                $scope.jobs = data;
+            });
         });
     }
 }]);

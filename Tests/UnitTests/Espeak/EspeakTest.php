@@ -6,7 +6,6 @@ use BrainExe\Core\Util\Time;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Espeak\Espeak;
-use BrainExe\Core\MessageQueue\Gateway;
 use Homie\Client\LocalClient;
 use Homie\Espeak\EspeakEvent;
 
@@ -22,11 +21,6 @@ class EspeakTest extends TestCase
     private $subject;
 
     /**
-     * @var Gateway|MockObject
-     */
-    private $gateway;
-
-    /**
      * @var LocalClient|MockObject
      */
     private $client;
@@ -38,11 +32,10 @@ class EspeakTest extends TestCase
 
     public function setUp()
     {
-        $this->gateway = $this->getMock(Gateway::class, [], [], '', false);
         $this->client  = $this->getMock(LocalClient::class, [], [], '', false);
         $this->time    = $this->getMock(Time::class, [], [], '', false);
 
-        $this->subject = new Espeak($this->gateway, $this->client);
+        $this->subject = new Espeak($this->client);
         $this->subject->setTime($this->time);
     }
 
@@ -50,27 +43,6 @@ class EspeakTest extends TestCase
     {
         $actualResult = $this->subject->getSpeakers();
         $this->assertInternalType('array', $actualResult);
-    }
-
-    public function testGetPendingJobs()
-    {
-        $now = 1000;
-        $pendingJobs = [];
-
-        $this->time
-            ->expects($this->once())
-            ->method('now')
-            ->willReturn($now);
-
-        $this->gateway
-            ->expects($this->once())
-            ->method('getEventsByType')
-            ->with(EspeakEvent::SPEAK, $now)
-            ->willReturn($pendingJobs);
-
-        $actualResult = $this->subject->getPendingJobs();
-
-        $this->assertEquals($pendingJobs, $actualResult);
     }
 
     public function testSpeakWithEmptyText()

@@ -42,18 +42,21 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#/user" class="btn btn-default btn-flat" translate>Profile</a>
+                                    <a href="#/user" class="btn btn-primary" translate>Profile</a>
+                                </div>
 
+                                <div class="btn-group">
                                     <a
-                                            ng-click="changeLanguage(lang)"
+                                            ng-click="changeLanguage(locale)"
                                             ng-repeat="locale in locales"
                                             class="btn btn-default btn-flat"
                                             ng-bind="locale"
-                                            >
+                                    >
                                     </a>
                                 </div>
+
                                 <div class="pull-right">
-                                    <a href="#/logout" class="btn btn-default btn-flat" translate>Sign out</a>
+                                    <a href="#/logout" class="btn btn-danger" translate>Sign out</a>
                                 </div>
                             </li>
                         </ul>

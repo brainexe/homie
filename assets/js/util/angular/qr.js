@@ -1,5 +1,4 @@
 
-// todo test
 App.directive('qrCode', [function () {
     return {
         restrict: 'E',

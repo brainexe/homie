@@ -1,6 +1,5 @@
 
 App.service('SensorGraph', ['Sensor', 'SensorFormatter', function (Sensor, SensorFormatter) {
-
     function init($scope, element, height, sensors, parameters) {
         /**
          * @param sensorValues
@@ -18,6 +17,22 @@ App.service('SensorGraph', ['Sensor', 'SensorFormatter', function (Sensor, Senso
                 graph: $scope.graph
             });
         }
+
+        function decompressData(data) {
+            for (var j = 0; j < data.json.length; j++) {
+                var graphData = [];
+                for (var i = 0; i < data.json[j].data.length; i += 2) {
+                    graphData.push({
+                        x: data.json[j].data[i],
+                        y: data.json[j].data[i+1]
+                    })
+                }
+                data.json[j].data = graphData;
+            }
+
+            return data.json;
+        }
+
         Sensor.getCachedData().success(function(data) {
             $scope.types         = data.types;
             $scope.fromIntervals = data.fromIntervals;
@@ -28,25 +43,14 @@ App.service('SensorGraph', ['Sensor', 'SensorFormatter', function (Sensor, Senso
                 $scope.currentFrom     = data.currentFrom;
                 $scope.stats           = {};
 
-                for (var j = 0; j < data.json.length; j++) {
-                    var graphData = [];
-                    for (var i = 0; i < data.json[j].data.length; i += 2) {
-                        graphData.push({
-                            x: data.json[j].data[i],
-                            y: data.json[j].data[i+1]
-                        })
-                    }
-                    data.json[j].data = graphData;
-                }
-
                 $scope.graph = new Rickshaw.Graph({
                     element: element.querySelector('.chart'),
                     width: element.clientWidth - 20,
-                    interpolation: 'cardinal',
+                    interpolation: 'basis',
                     height: height,
                     min: 'auto',
                     renderer: 'line',
-                    series: data.json
+                    series: decompressData(data)
                 });
                 new Rickshaw.Graph.Axis.Time({graph: $scope.graph});
                 new Rickshaw.Graph.Axis.Y({
@@ -113,7 +117,7 @@ App.service('SensorGraph', ['Sensor', 'SensorFormatter', function (Sensor, Senso
             var parameters = '?from={0}&save=1'.format($scope.currentFrom);
 
             Sensor.getValues(activeIds, parameters).success(function (data) {
-                updateGraph(data.json);
+                updateGraph(decompressData(data));
             });
 
             return false;

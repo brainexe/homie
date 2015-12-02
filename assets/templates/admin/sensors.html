@@ -18,7 +18,7 @@
                     <th translate>Name</th>
                     <th translate>Color</th>
                     <th translate>Value</th>
-                    <th translate>Timing</th>
+                    <th translate>Interval</th>
                     <th translate>Edit</th>
                 </tr>
             </thead>
@@ -86,8 +86,14 @@
                     </small>
                 </td>
                 <td>
-                    <a ng-click="edit(sensor)" class="glyphicon glyphicon-edit"></a>
-                    <a ng-click="deleteSensor(sensor)" class="glyphicon glyphicon-remove"></a>
+                    <div class="btn-group btn-group-sm">
+                        <a ng-click="edit(sensor)" class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </a>
+                        <a ng-click="deleteSensor(sensor)" class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                    </div>
                 </td>
             </tr>
         </table>

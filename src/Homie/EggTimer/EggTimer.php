@@ -5,9 +5,6 @@ namespace Homie\EggTimer;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Application\UserException;
-use BrainExe\Core\Traits\TimeTrait;
-use BrainExe\Core\MessageQueue\Gateway;
-use BrainExe\Core\MessageQueue\Job;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Util\TimeParser;
 use Homie\Espeak\EspeakVO;
@@ -20,13 +17,7 @@ class EggTimer
 
     const EGG_TIMER_RING_SOUND = 'assets/sounds/egg_timer.mp3';
 
-    use TimeTrait;
     use EventDispatcherTrait;
-
-    /**
-     * @var Gateway
-     */
-    private $gateway;
 
     /**
      * @var TimeParser
@@ -34,15 +25,12 @@ class EggTimer
     private $timeParser;
 
     /**
-     * @Inject({"@MessageQueue.Gateway", "@TimeParser"})
-     * @param Gateway $gateway
+     * @Inject({"@TimeParser"})
      * @param TimeParser $timeParser
      */
     public function __construct(
-        Gateway $gateway,
         TimeParser $timeParser
     ) {
-        $this->gateway     = $gateway;
         $this->timeParser  = $timeParser;
     }
 
@@ -54,26 +42,12 @@ class EggTimer
     public function addNewJob($time, $text)
     {
         $espeakVo = null;
-
         if ($text) {
             $espeakVo = new EspeakVO($text);
         }
 
         $event = new EggTimerEvent($espeakVo);
-
         $timestamp = $this->timeParser->parseString($time);
-
         $this->dispatchInBackground($event, $timestamp);
-    }
-
-    /**
-     * @return Job[]
-     */
-    public function getJobs()
-    {
-        return $this->gateway->getEventsByType(
-            EggTimerEvent::DONE,
-            $this->now()
-        );
     }
 }

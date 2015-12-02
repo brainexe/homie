@@ -1,8 +1,11 @@
 
 App.service('Widget.expression', ['$compile', 'Expression', function($compile, Expression) {
+
+
+
     return {
         render: function ($scope, widget, element) {
-console.log('render');
+
             function load(cached) {
                 var expression;
                 $scope.reloadButton = widget.reloadButton;
@@ -14,8 +17,23 @@ console.log('render');
                     });
                 });
 
-                element[0].querySelector('.template').innerHTML = widget.template;
-                $compile(element.contents())($scope);
+                var funcs = [];
+                Expression.getData(true).success(function(data) {
+                    element[0].querySelector('.template').innerHTML = widget.template;
+                    $compile(element.contents())($scope);
+                    return; // TODO implement
+                    funcs = data.functions;
+                    for (var i in funcs) {
+                        var functionName = ""+funcs[i];
+                        $scope[functionName] = function() {
+                            arguments = [];
+                            var command = functionName + '(' + arguments.join(', ') + ')';
+                            Expression.evaluate.call(this, command);
+                        };
+
+
+                    }
+                });
             }
 
             load(true);

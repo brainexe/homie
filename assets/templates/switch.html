@@ -2,8 +2,7 @@
 	<thead>
 		<tr>
 			<th translate>Name</th>
-			<th translate>Enable</th>
-			<th translate>Disable</th>
+			<th translate>Status</th>
 			<th translate>Timer</th>
 			<th translate ng-if="editMode">Delete</th>
 		</tr>
@@ -21,18 +20,32 @@
 					<div ng-if="!radio.edit">
 						{{ radio.name }}
 						<small ng-if="radio.description">({{ radio.description }})</small>
-						<span
-                                ng-if="editMode"
-                                class="glyphicon glyphicon-pencil"
-                                ng-click="radio.edit=true">
-                        </span>
+						<a
+								class="btn btn-sm btn-primary"
+								ng-if="editMode"
+						>
+							<span
+								class="glyphicon glyphicon-pencil"
+								ng-click="radio.edit=true">
+                        	</span>
+						</a>
 					</div>
 				</div>
 			</td>
-			<td><a ng-disabled="!radio.status"  ng-click="setStatus(radio, 1)" class="btn btn-success">Enable</a></td>
-			<td><a ng-disabled="radio.status" ng-click="setStatus(radio, 0)" class="btn btn-danger">Disable</a></td>
-            <td><a ng-click="highlight(radio)" class="glyphicon glyphicon-hourglass"></a></td>
-			<td ng-if="editMode"><a ng-click="deleteRadio(radio.radioId)" class="glyphicon glyphicon-remove"></a></td>
+			<td class="btn-group">
+				<a ng-disabled="!radio.status"  ng-click="setStatus(radio, 1)" class="btn btn-success">Enable</a>
+				<a ng-disabled="radio.status" ng-click="setStatus(radio, 0)" class="btn btn-danger">Disable</a>
+			</td>
+            <td>
+				<a ng-click="highlight(radio)" class="btn btn-sm btn-default">
+					<span class="glyphicon glyphicon-hourglass"></span>
+				</a>
+			</td>
+			<td ng-if="editMode">
+				<a confirm="deleteRadio(radio.radioId)" class="btn btn-sm btn-danger">
+					<span class="glyphicon glyphicon-remove"></span>
+				</a>
+			</td>
 		</tr>
 	</tbody>
 </table>
@@ -55,7 +68,7 @@
 			<td>
 				<time-ago from-time="radioJob.timestamp" overdue="true"></time-ago>
 			</td>
-			<td>{{ radios[radioJob.event.radio_vo.radioId].name }}</td>
+			<td>{{ radios[radioJob.event.radioVo.radioId].name }}</td>
 			<td>
 				<a
                         ng-click="setStatus(radioJob.radioId, 1); deleteRadioJob(radioJob.event_id)"
@@ -66,7 +79,9 @@
                 </a>
 			</td>
 			<td>
-				<a ng-click="deleteRadioJob(radioJob.eventId)" class="glyphicon glyphicon-remove"></a>
+				<a confirm="deleteRadioJob(radioJob.jobId)" class="btn btn-sm btn-danger">
+					<span class="glyphicon glyphicon-remove"></span>
+				</a>
 			</td>
 		</tr>
 	</tbody>

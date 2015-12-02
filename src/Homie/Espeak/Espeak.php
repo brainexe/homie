@@ -5,7 +5,6 @@ namespace Homie\Espeak;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\TimeTrait;
-use BrainExe\Core\MessageQueue\Gateway;
 use BrainExe\Core\MessageQueue\Job;
 use Homie\Client\ClientInterface;
 
@@ -25,19 +24,12 @@ class Espeak
     private $client;
 
     /**
-     * @var Gateway
-     */
-    private $gateway;
-
-    /**
-     * @Inject({"@MessageQueue.Gateway", "@HomieClient"})
-     * @param Gateway $gateway
+     * @Inject({"@HomieClient"})
      * @param ClientInterface $client
      */
-    public function __construct(Gateway $gateway, ClientInterface $client)
+    public function __construct(ClientInterface $client)
     {
         $this->client  = $client;
-        $this->gateway = $gateway;
     }
 
     /**
@@ -51,16 +43,6 @@ class Espeak
             'en'    => 'EN',
             'fr'    => 'FR'
         ];
-    }
-
-    /**
-     * @return Job[]
-     */
-    public function getPendingJobs()
-    {
-        $now = $this->now();
-
-        return $this->gateway->getEventsByType(EspeakEvent::SPEAK, $now);
     }
 
     /**

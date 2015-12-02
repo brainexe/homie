@@ -59,16 +59,10 @@ class ControllerTest extends TestCase
             ->method('getRadios')
             ->willReturn(new ArrayIterator($radiosFormatted));
 
-        $this->radioJob
-            ->expects($this->once())
-            ->method('getJobs')
-            ->willReturn($jobs);
-
         $actual = $this->subject->index();
 
         $expected = [
              'radios'    => $radiosFormatted,
-             'radioJobs' => $jobs,
              'pins'      => Radios::$radioPins,
         ];
 
@@ -174,27 +168,7 @@ class ControllerTest extends TestCase
             ->method('addRadioJob')
             ->with($radioVo, $timeString, $status);
 
-        $this->radioJob
-            ->expects($this->once())
-            ->method('getJobs')
-            ->willReturn([]);
-
         $actual = $this->subject->addRadioJob($request);
-
-        $this->assertEquals([], $actual);
-    }
-
-    public function testDeleteRadioJob()
-    {
-        $request = new Request();
-        $radioId = 10;
-
-        $this->radioJob
-            ->expects($this->once())
-            ->method('deleteJob')
-            ->with($radioId);
-
-        $actual = $this->subject->deleteRadioJob($request, $radioId);
 
         $this->assertTrue($actual);
     }

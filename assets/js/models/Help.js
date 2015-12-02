@@ -1,4 +1,4 @@
-
+// todo deprecated
 App.service('Help', ['$http', 'Cache', function($http, Cache) {
     return {
         getAll: function() {

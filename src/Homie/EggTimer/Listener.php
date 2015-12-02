@@ -11,7 +11,7 @@ use Homie\Media\Sound;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * @EventListener
+ * @EventListener("EggTimer.Listener")
  */
 class Listener
 {

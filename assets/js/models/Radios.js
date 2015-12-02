@@ -1,6 +1,8 @@
 
 App.service('Radios', ['$http', function($http) {
     return {
+        JOB_ID: 'radio.change',
+
         getData: function() {
             return $http.get('/radios/');
         },

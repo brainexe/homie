@@ -21,8 +21,10 @@ App.service('Widget.egg_timer', ['EggTimer', 'MessageQueue', '_', function(EggTi
             });
 
             $scope.start = function(time) {
-                EggTimer.setTimer(time).success(function(jobs) {
-                    updateJobs($scope, jobs);
+                EggTimer.setTimer(time).success(function() {
+                    MessageQueue.getJobs(EggTimer.JOB_ID, true).success(function(data) {
+                        updateJobs($scope, data);
+                    });
                 });
             };
 

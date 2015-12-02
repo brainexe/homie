@@ -1,8 +1,12 @@
 
-App.service('Speak', ['$http', function($http) {
+App.service('Speak', ['$http', 'Cache', function($http, Cache) {
     return {
-        getData: function() {
-            return $http.get('/espeak/');
+        JOB_ID: 'espeak.speak',
+
+        getSpeakers: function() {
+            return $http.get('/espeak/speakers/', {
+                cache: Cache
+            });
         },
 
         speak: function (payload) {

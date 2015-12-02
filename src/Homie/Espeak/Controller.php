@@ -41,22 +41,18 @@ class Controller
 
     /**
      * @return array
-     * @Route("/espeak/", name="espeak.index")
+     * @Route("/espeak/speakers/", name="espeak.speakers")
      */
-    public function index()
+    public function speakers()
     {
-        $speakers = $this->espeak->getSpeakers();
-        $jobs     = $this->espeak->getPendingJobs(); // TODO MQ
-
         return [
-            'speakers' => $speakers,
-            'jobs' => $jobs
+            'speakers' => $this->espeak->getSpeakers(),
         ];
     }
 
     /**
      * @param Request $request
-     * @return Job[]
+     * @return bool
      * @Route("/espeak/speak/", methods="POST", name="espeak.speak")
      */
     public function speak(Request $request)
@@ -74,8 +70,6 @@ class Controller
 
         $this->dispatchInBackground($event, $timestamp);
 
-        $pendingJobs = $this->espeak->getPendingJobs();
-
-        return $pendingJobs;
+        return true;
     }
 }

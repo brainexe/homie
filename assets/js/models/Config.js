@@ -1,7 +1,7 @@
 
 App.service('Config', ['$q', '$http', 'Cache', function($q, $http, Cache) {
     function getAll() {
-        return $http.get('/config/', {cache:Cache});
+        return $http.get('/config/', {cache: Cache});
     }
 
     return {
@@ -14,7 +14,7 @@ App.service('Config', ['$q', '$http', 'Cache', function($q, $http, Cache) {
                     for (var i in keys) {
                         values.push(all[keys[i]])
                     }
-                    resolve.apply(this, values);
+                    resolve.apply(this, [values]);
                 });
             });
         },

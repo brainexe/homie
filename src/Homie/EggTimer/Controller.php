@@ -5,7 +5,6 @@ namespace Homie\EggTimer;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
-use BrainExe\Core\MessageQueue\Job;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -30,7 +29,7 @@ class Controller
 
     /**
      * @param Request $request
-     * @return Job[]
+     * @return true
      * @Route("/egg_timer/", name="egg_timer.add", methods="POST")
      */
     public function add(Request $request)
@@ -40,8 +39,6 @@ class Controller
 
         $this->timer->addNewJob($time, $text);
 
-        $currentJobs = $this->timer->getJobs();
-
-        return $currentJobs;
+        return true;
     }
 }

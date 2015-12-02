@@ -48,7 +48,7 @@ class ControllerTest extends TestCase
         $this->subject->setEventDispatcher($this->dispatcher);
     }
 
-    public function testIndex()
+    public function testSpeakers()
     {
         $speakers = ['speakers'];
         $jobs = ['jobs'];
@@ -58,16 +58,10 @@ class ControllerTest extends TestCase
             ->method('getSpeakers')
             ->willReturn($speakers);
 
-        $this->espeak
-            ->expects($this->once())
-            ->method('getPendingJobs')
-            ->willReturn($jobs);
-
-        $actualResult = $this->subject->index();
+        $actualResult = $this->subject->speakers();
 
         $expectedResult = [
             'speakers' => $speakers,
-            'jobs' => $jobs
         ];
 
         $this->assertEquals($expectedResult, $actualResult);
@@ -103,15 +97,8 @@ class ControllerTest extends TestCase
             ->method('dispatchInBackground')
             ->with($event, $timestamp);
 
-        $pendingJobs = ['pending_jobs'];
+        $actual = $this->subject->speak($request);
 
-        $this->espeak
-            ->expects($this->once())
-            ->method('getPendingJobs')
-            ->willReturn($pendingJobs);
-
-        $actualResult = $this->subject->speak($request);
-
-        $this->assertEquals($pendingJobs, $actualResult);
+        $this->assertTrue($actual);
     }
 }

@@ -1,7 +1,7 @@
 <div ng-repeat="(type, parameter) in widget.parameters">
     <label>{{parameter.name}}</label>
 
-    <div ng-if="parameter.default && !payload[type]" ng-init="payload[type] = parameter.default"></div>
+    <div ng-if="parameter.default && payload[type] == undefined" ng-init="payload[type] = parameter.default"></div>
 
     <div ng-switch="parameter.type">
         <div ng-switch-when="multi_select">
@@ -78,7 +78,8 @@
         <div ng-switch-default>
             <span class="alert-danger">Unkown parameter {{parameter.type}}</span>
         </div>
-    <div>
-        Debug only: {{payload[type]}}
+        <div debug="true">
+            Debug only: {{payload[type]}}
+        </div>
     </div>
 </div>

@@ -1,17 +1,18 @@
-var redis = require('./lib/redis'),
-    config = require('./lib/config'),
-    debug = require('debug')('arduino');
-
-require('colors');
+var redis   = require('./lib/redis'),
+    config  = require('./lib/config'),
+    debug   = require('debug')('arduino'),
+    arduino = require('duino'),
+    colors   = require('colors');
 
 var client = redis.getClient('arduino-subscribe');
-
-var arduino = require('duino'),
-    board = new arduino.Board({
-        device: "USB0"
-    });
-
 var servos = {};
+var board = new arduino.Board({
+    device: "USB0"
+});
+
+board.on('error', function(err) {
+   console.error(err);
+});
 
 client.on('message', function (channel, command) {
     var parts = command.split(':');
@@ -20,8 +21,7 @@ client.on('message', function (channel, command) {
     var pin = parts[1];
     var value = parts[2];
 
-    console.log(arguments);
-    console.log(action, pin, value);
+    debug(action, pin, value);
 
     switch (action) {
         case 'd':
@@ -49,6 +49,5 @@ client.on('message', function (channel, command) {
             servo.write(value);
             break;
     }
-
 });
 client.subscribe("arduino");

@@ -1,0 +1,81 @@
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <th translate width="30">Id</th>
+            <th translate>Type</th>
+            <th translate>Name</th>
+            <th translate>Address</th>
+            <th><span class="glyphicon glyphicon-pencil"></span></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="(nodeId, node) in nodes">
+            <td>
+                {{ node.nodeId }}
+                <div ng-if="node.nodeId == currentId" translate>Current Node</div>
+            </td>
+            <td>
+                {{ node.type }}
+            </td>
+            <td>
+                <div ng-if="!node.edit" ng-bind="node.name"></div>
+                <div ng-if="node.edit">
+                    <input type="text" placeholder="{{'Name'|translate}}" class="form-control" ng-model="node.name"/>
+                </div>
+            </td>
+            <td>
+                <div ng-if="!node.edit" ng-bind="node.address"></div>
+                <div ng-if="node.edit">
+                    <input type="text" placeholder="{{'Address'|translate}}" class="form-control" ng-model="node.address"/>
+                </div>
+            </td>
+            <td class="btn-group">
+                <a ng-if="!node.edit" ng-click="node.edit = !node.edit" class="btn btn-default">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </a>
+                <a ng-if="node.edit" ng-click="edit(node)" class="btn btn-default">
+                    <span class="glyphicon glyphicon-save"></span>
+                </a>
+                <a class="btn btn-danger" confirm="remove(node)">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="2">
+                <ui-select ng-model="newNode.type">
+                    <ui-select-match placeholder="Select...">{{$select.selected}}</ui-select-match>
+                    <ui-select-choices repeat="type in types">
+                        <span ng-bind-html="type"></span>
+                        <span class="small" ng-bind-html="type|highlight:$select.search"></span>
+                    </ui-select-choices>
+                </ui-select>
+            </th>
+            <th>
+                <input
+                        ng-model="newNode.name"
+                        type="text"
+                        class="form-control"
+                />
+            </th>
+            <th>
+                <input
+                        ng-model="newNode.address"
+                        type="text"
+                        class="form-control"
+                />
+            </th>
+            <th>
+                <a
+                        ng-click="addNode(newNode)"
+                        type="button"
+                        class="btn btn-primary"
+                >
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+            </th>
+        </tr>
+    </tfoot>
+</table>

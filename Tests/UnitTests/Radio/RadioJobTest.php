@@ -44,21 +44,6 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase
         $this->subject->setEventDispatcher($this->dispatcher);
     }
 
-    public function testGetJobs()
-    {
-        $jobs = [];
-
-        $this->gateway
-            ->expects($this->once())
-            ->method('getEventsByType')
-            ->with(RadioChangeEvent::CHANGE_RADIO)
-            ->willReturn($jobs);
-
-        $actualResult = $this->subject->getJobs();
-
-        $this->assertEquals($jobs, $actualResult);
-    }
-
     public function testAddJob()
     {
         $timeString = '1h';
@@ -81,18 +66,5 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase
             ->with($event, $timestamp);
 
         $this->subject->addRadioJob($radioVo, $timeString, $status);
-    }
-
-    public function testDeleteJob()
-    {
-        $jobId = 19;
-
-        $this->gateway
-            ->expects($this->once())
-            ->method('deleteEvent')
-            ->with($jobId, RadioChangeEvent::CHANGE_RADIO);
-
-        $this->subject->deleteJob($jobId);
-
     }
 }

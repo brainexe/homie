@@ -26,6 +26,7 @@ class WidgetCompilerPass implements CompilerPassInterface
 
         $taggedServices = $container->findTaggedServiceIds(self::TAG);
         foreach (array_keys($taggedServices) as $serviceId) {
+            // todo optimize by passing widgetId + add via __construct.
             $definition->addMethodCall('addWidget', [new Reference($serviceId)]);
         }
     }

@@ -1,5 +1,5 @@
 
-App.controller('SwitchController', ['$scope', 'Radios', '_', function ($scope, Radios, _) {
+App.controller('SwitchController', ['$scope', 'Radios', 'MessageQueue', '_', function ($scope, Radios, MessageQueue, _) {
     $scope.radios    = {};
     $scope.radioJobs = {};
     $scope.pins      = {};
@@ -7,9 +7,12 @@ App.controller('SwitchController', ['$scope', 'Radios', '_', function ($scope, R
     $scope.editMode  = false;
 
     Radios.getData().success(function (data) {
-        $scope.radios    = data.radios;
-        $scope.radioJobs = data.radioJobs;
-        $scope.pins      = data.pins;
+        $scope.radios = data.radios;
+        $scope.pins   = data.pins;
+    });
+
+    MessageQueue.getJobs(Radios.JOB_ID, true).success(function(data) {
+        $scope.radioJobs = data;
     });
 
     /**
@@ -48,15 +51,16 @@ App.controller('SwitchController', ['$scope', 'Radios', '_', function ($scope, R
 
     $scope.newRadio = {};
     $scope.addRadioJob = function (newJob) {
-        Radios.addJob(newJob).success(function (data) {
-            $scope.radioJobs = data;
+        Radios.addJob(newJob).success(function() {
+            MessageQueue.getJobs(Radios.JOB_ID, true).success(function(data) {
+                $scope.radioJobs = data;
+            });
             $scope.job_time = '';
         });
     };
 
     $scope.deleteRadioJob = function (jobId) {
-        var eventId = jobId.split(':')[1];
-        Radios.deleteJob(eventId).success(function () {
+        MessageQueue.deleteJob(jobId).then(function() {
             delete $scope.radioJobs[jobId];
         });
     }

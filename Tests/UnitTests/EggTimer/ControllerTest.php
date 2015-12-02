@@ -44,14 +44,8 @@ class ControllerTest extends PHPUnit_Framework_TestCase
             ->method('addNewJob')
             ->with($time, $text);
 
-        $jobs = ['jobs'];
-        $this->timer
-            ->expects($this->once())
-            ->method('getJobs')
-            ->willReturn($jobs);
+        $actual = $this->subject->add($request);
 
-        $actualResult = $this->subject->add($request);
-
-        $this->assertEquals($jobs, $actualResult);
+        $this->assertTrue($actual);
     }
 }

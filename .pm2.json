@@ -1,0 +1,36 @@
+{
+  "dependencies": {
+    "pmx": "latest",
+    "pm2": "latest",
+    "pm2-logrotate": "latest",
+    "pm2-redis": "latest"
+  },
+  "apps" : [
+    {
+      "name"        : "message-queue",
+      "script"      : "message-queue.js",
+      "merge_logs"  : true,
+      "cwd"         : "nodejs"
+    },
+    {
+      "name"        : "arduino",
+      "script"      : "arduino.js",
+      "merge_logs"  : true,
+      "cwd"         : "nodejs",
+      "max_restarts" : 2
+    },
+    {
+      "name"        : "websocket",
+      "script"      : "websocket.js",
+      "merge_logs"  : true,
+      "cwd"         : "nodejs",
+      "max_restarts" : 2
+    },
+    {
+      "name"        : "grunt-watch",
+      "script"      : "grunt",
+      "args"        : "watch",
+      "merge_logs"  : true
+    }
+  ]
+}

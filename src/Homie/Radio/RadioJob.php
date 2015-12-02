@@ -40,6 +40,8 @@ class RadioJob
     }
 
     /**
+     * @deprecated
+     * @todo
      * @return Job[]
      */
     public function getJobs()
@@ -58,13 +60,5 @@ class RadioJob
 
         $event = new RadioChangeEvent($radio, $status);
         $this->dispatchInBackground($event, $timestamp);
-    }
-
-    /**
-     * @param string $jobId
-     */
-    public function deleteJob($jobId)
-    {
-        $this->gateway->deleteEvent($jobId, RadioChangeEvent::CHANGE_RADIO);
     }
 }

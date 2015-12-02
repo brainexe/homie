@@ -1,4 +1,5 @@
 
+// todo dynamically add controllers
 App.service('controllers', ['_', function(_) {
     return function() {
         return [
@@ -19,6 +20,7 @@ App.service('controllers', ['_', function(_) {
 
             // admin
             {controller:'AdminUsersController', name: _('Users'), url: 'admin/users', icon:'stats', templateUrl: asset('/templates/admin/users.html'), role: 'admin'},
+            {controller:'AdminNodesController', name: _('Nodes'), url: 'admin/nodes', icon:'stats', templateUrl: asset('/templates/admin/nodes.html'), role: 'admin'},
 
             // private
             {controller:'LoginController', name: _('Login'), url: 'login', icon: 'user', isPublic: true, templateUrl: asset('/templates/user/login.html')},

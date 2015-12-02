@@ -6,7 +6,6 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Traits\EventDispatcherTrait;
-use BrainExe\Core\MessageQueue\Job;
 use Homie\Radio\VO\RadioVO;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -45,12 +44,10 @@ class Controller
     public function index()
     {
         $radiosFormatted = $this->radios->getRadios();
-        $jobs            = $this->radioJob->getJobs();
 
         return [
-            'radios'    => iterator_to_array($radiosFormatted),
-            'radioJobs' => $jobs,
-            'pins'      => Radios::$radioPins,
+            'radios' => iterator_to_array($radiosFormatted),
+            'pins'   => Radios::$radioPins,
         ];
     }
 
@@ -115,7 +112,7 @@ class Controller
 
     /**
      * @param Request $request
-     * @return Job[]
+     * @return true
      * @Route("/radios/jobs/", name="radiojob.add", methods="POST")
      */
     public function addRadioJob(Request $request)
@@ -127,23 +124,6 @@ class Controller
         $radioVo = $this->radios->getRadio($radioId);
 
         $this->radioJob->addRadioJob($radioVo, $timeString, $status);
-
-        return $this->radioJob->getJobs();
-    }
-
-    /**
-     * @todo
-     * @deprecated
-     * @param Request $request
-     * @param string $jobId
-     * @return boolean
-     * @Route("/radios/jobs/{job_id}/", methods="DELETE", name="radio.deleteJob")
-     */
-    public function deleteRadioJob(Request $request, $jobId)
-    {
-        unset($request);
-
-        $this->radioJob->deleteJob($jobId);
 
         return true;
     }

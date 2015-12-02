@@ -4,6 +4,7 @@ namespace Tests\Homie\Node;
 
 use BrainExe\Core\Redis\Predis;
 use BrainExe\Tests\RedisMockTrait;
+use Homie\Node;
 use Homie\Node\Gateway;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
@@ -36,8 +37,7 @@ class GatewayTest extends TestCase
 
     public function testGetAll()
     {
-        $result = ['array'];
-
+        $result = [42 => 'O:10:"Homie\\Node":0:{}'];
         $this->redis
             ->expects($this->once())
             ->method('hgetall')
@@ -46,7 +46,37 @@ class GatewayTest extends TestCase
 
         $actual = $this->subject->getAll();
 
-        $this->assertEquals($result, $actual);
+        $this->assertCount(1, $actual);
+        $this->assertInstanceOf(Node::class, $actual[42]);
+    }
+
+    public function testGet()
+    {
+        $result = 'O:10:"Homie\\Node":0:{}';
+        $this->redis
+            ->expects($this->once())
+            ->method('hget')
+            ->with(Gateway::REDIS_KEY, 42)
+            ->willReturn($result);
+
+        $actual = $this->subject->get(42);
+
+        $this->assertInstanceOf(Node::class, $actual);
+    }
+
+    /**
+     * @expectedException \Exception
+     * @expectedExceptionMessage Invalid node: 42
+     */
+    public function testGetInvalid()
+    {
+        $this->redis
+            ->expects($this->once())
+            ->method('hget')
+            ->with(Gateway::REDIS_KEY, 42)
+            ->willReturn('');
+
+        $this->subject->get(42);
     }
 
     public function testDelete()
@@ -61,16 +91,16 @@ class GatewayTest extends TestCase
         $this->subject->delete($nodeId);
     }
 
-    public function testSet()
+    public function testSave()
     {
         $nodeId = 12;
-        $data = ['foo' => 'bar'];
 
         $this->redis
             ->expects($this->once())
             ->method('hset')
-            ->with(Gateway::REDIS_KEY, $nodeId, '{"foo":"bar"}');
+            ->with(Gateway::REDIS_KEY, $nodeId);
 
-        $this->subject->set($nodeId, $data);
+        $node = new Node($nodeId, 'type', 'name', 'address');
+        $this->subject->save($node);
     }
 }

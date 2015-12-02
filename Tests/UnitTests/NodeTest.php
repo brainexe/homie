@@ -2,14 +2,10 @@
 
 namespace Tests\Homie\Node;
 
-use PHPUnit_Framework_TestCase;
-
+use PHPUnit_Framework_TestCase as TestCase;
 use Homie\Node;
 
-/**
- * @covers Homie\Node
- */
-class NodeTest extends PHPUnit_Framework_TestCase
+class NodeTest extends TestCase
 {
 
     /**
@@ -17,33 +13,26 @@ class NodeTest extends PHPUnit_Framework_TestCase
      */
     private $subject;
 
-    /**
-     * @var integer
-     */
-    private $nodeId;
-
-    public function setUp()
+    public function testSetterGetter()
     {
-        $this->nodeId = 5;
+        $nodeId  = 42;
+        $type    = 'type';
+        $name    = 'name';
+        $address = 'address';
 
-        $this->subject = new Node($this->nodeId);
-    }
+        $this->subject = new Node($nodeId, $type, $name, $address);
+        $this->assertEquals($nodeId, $this->subject->getNodeId());
 
-    public function testGetNodeId()
-    {
-        $actualResult = $this->subject->getNodeId();
-        $this->assertEquals($this->nodeId, $actualResult);
-    }
+        $this->subject->setAddress('newAddress');
+        $this->subject->setName('newName');
 
-    public function testIsMaster()
-    {
-        $actualResult = $this->subject->isMaster();
-        $this->assertFalse($actualResult);
-    }
+        $expected = [
+            'nodeId' => $nodeId,
+            'name' => 'newName',
+            'address' => 'newAddress',
+            'type' => $type,
+        ];
 
-    public function testIsSlave()
-    {
-        $actualResult = $this->subject->isSlave();
-        $this->assertTrue($actualResult);
+        $this->assertEquals($expected, $this->subject->jsonSerialize());
     }
 }

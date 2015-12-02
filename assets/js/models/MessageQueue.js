@@ -6,7 +6,7 @@ App.service('MessageQueue', ['$http', function($http) {
         },
 
         deleteJob: function(jobId) {
-            return $http.delete('/stats/event/?job_id={0}'.format(jobId));
+            return $http.delete('/jobs/{0}/'.format(jobId));
         }
     }
 }]);

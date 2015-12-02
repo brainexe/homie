@@ -26,7 +26,7 @@
 			<span class="help-block" translate>e.g. 10s, 30m, 1h</span>
 		</div>
 	</div>
-	<button type="submit" class="btn btn-primary btn-lg">Submit</button>
+	<button type="submit" class="btn btn-primary btn-lg" translate>Submit</button>
 </form>
 
 <table ng-if="jobs|notEmpty" class="table table-bordered table-striped table-hover">
@@ -44,7 +44,11 @@
 				<time-ago from-time="job.timestamp" overdue="true"></time-ago>
 			</td>
 			<td>{{ job.event.espeak.text || "--" }}</td>
-			<td><a ng-click="deleteTimer(job_id)" class="glyphicon glyphicon-remove"></a></td>
+			<td>
+				<a confirm="deleteTimer(job_id)" class="btn btn-danger btn-sm">
+					<span class="glyphicon glyphicon-remove"></span>
+				</a>
+			</td>
 		</tr>
 	</tbody>
 </table>

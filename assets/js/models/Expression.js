@@ -3,8 +3,10 @@ App.service('Expression', ['$http', 'Cache', function($http, Cache) {
     Cache.intervalClear('^/expression/', 60);
 
     return {
-        getData: function() {
-            return $http.get('/expressions/');
+        getData: function(cached) {
+            return $http.get('/expressions/', {
+                cache: cached ? Cache : false
+            });
         },
 
         evaluate: function(expression, cached) {

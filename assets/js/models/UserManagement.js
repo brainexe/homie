@@ -34,7 +34,7 @@ App.service('UserManagement', ['$http', 'Cache', function($http, Cache) {
 
         isLoggedIn: function(user) {
             user = user || current;
-            return user && user.id > 0;
+            return user && user.userId > 0;
         },
 
         loadCurrentUser: function () {

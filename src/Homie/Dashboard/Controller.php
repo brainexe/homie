@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class Controller
 {
-
     /**
      * @var Dashboard
      */

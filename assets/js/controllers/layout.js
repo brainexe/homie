@@ -71,9 +71,15 @@ App.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gette
         }, 5000);
     };
 
-    Config.get('debug', 'locales').then(function(debug, locales) {
+    Config.get('debug', 'locales').then(function(config) {
+        var debug   = config[0];
+        var locales = config[1];
+
         $scope.locales = locales;
         if (debug) {
+            // purge cache on page reload
+            Cache.removeAll();
+
             // live reload via "grunt watch"
             var s  = document.createElement('script');
             s.type = 'text/javascript';

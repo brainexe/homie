@@ -31,42 +31,6 @@ module.exports = function (grunt) {
         child.stderr.pipe(process.stderr);
     });
 
-    registerDaemon('websocket', './nodejs/message-queue.js');
-    registerDaemon('messageQueue', './nodejs/websocket.js');
-    registerDaemon('arduino', './nodejs/arduino.js');
-
-    function registerDaemon(name, file) {
-        grunt.registerTask(name, function (option) {
-            option = option || 'start';
-            var forever = require('forever');
-
-            function start() {
-                console.log('start...');
-                forever.startDaemon(file);
-            }
-
-            function stop() {
-                console.log('stop...');
-                forever.stopAll();
-            }
-
-            switch (option) {
-                case 'start':
-                    start();
-                    break;
-                case 'stop':
-                    stop();
-                    break;
-                case 'restart':
-                    stop();
-                    start();
-                    break;
-                default:
-                    throw "use: (start|stop|restart)";
-            }
-        });
-    }
-
     grunt.registerTask('console', function () {
         var args = arguments;
         var task = Object.keys(args).map(function (key) {

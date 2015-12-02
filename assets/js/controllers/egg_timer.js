@@ -3,12 +3,14 @@ App.controller('EggTimerController', ['$scope', 'EggTimer', 'MessageQueue', func
     $scope.jobs = {};
 
     MessageQueue.getJobs(EggTimer.JOB_ID, true).success(function (data) {
-        $scope.jobs = data.jobs;
+        $scope.jobs = data;
     });
 
     $scope.addTimer = function () {
-        EggTimer.setTimer($scope.time, $scope.text).success(function (newJobs) {
-            $scope.jobs = newJobs;
+        EggTimer.setTimer($scope.time, $scope.text).success(function () {
+            MessageQueue.getJobs(EggTimer.JOB_ID, true).success(function(data) {
+                $scope.jobs = data;
+            });
         });
 
         $scope.time = '';

@@ -17,7 +17,7 @@ class Dashboard
     /**
      * @var WidgetFactory
      */
-    private $widgetFactory;
+    private $widgets;
 
     /**
      * @var DashboardGateway
@@ -26,15 +26,15 @@ class Dashboard
 
     /**
      * @Inject({"@DashboardGateway", "@WidgetFactory"})
-     * @param DashboardGateway $dashboardGateway
+     * @param DashboardGateway $gateway
      * @param WidgetFactory    $widgetFactory
      */
     public function __construct(
-        DashboardGateway $dashboardGateway,
+        DashboardGateway $gateway,
         WidgetFactory $widgetFactory
     ) {
-        $this->widgetFactory = $widgetFactory;
-        $this->gateway = $dashboardGateway;
+        $this->widgets = $widgetFactory;
+        $this->gateway = $gateway;
     }
 
     /**
@@ -51,7 +51,7 @@ class Dashboard
      */
     public function getAvailableWidgets()
     {
-        return $this->widgetFactory->getAvailableWidgets();
+        return $this->widgets->getAvailableWidgets();
     }
 
     /**
@@ -69,7 +69,7 @@ class Dashboard
             ]);
         }
 
-        $widget = $this->widgetFactory->getWidget($type);
+        $widget = $this->widgets->getWidget($type);
         $widget->validate($payload);
 
         $payload['type'] = $type;

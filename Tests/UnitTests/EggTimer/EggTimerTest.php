@@ -2,15 +2,13 @@
 
 namespace Tests\Homie\EggTimer\EggTimer;
 
-use PHPUnit_Framework_TestCase as TestCase;
-use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Homie\EggTimer\EggTimer;
-use BrainExe\Core\MessageQueue\Gateway;
-use BrainExe\Core\Util\TimeParser;
-use BrainExe\Core\Util\Time;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
+use BrainExe\Core\Util\TimeParser;
+use Homie\EggTimer\EggTimer;
 use Homie\EggTimer\EggTimerEvent;
 use Homie\Espeak\EspeakVO;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
+use PHPUnit_Framework_TestCase as TestCase;
 
 class EggTimerTest extends TestCase
 {
@@ -21,19 +19,9 @@ class EggTimerTest extends TestCase
     private $subject;
 
     /**
-     * @var Gateway|MockObject
-     */
-    private $gateway;
-
-    /**
      * @var TimeParser|MockObject
      */
     private $timeParser;
-
-    /**
-     * @var Time|MockObject
-     */
-    private $time;
 
     /**
      * @var EventDispatcher|MockObject
@@ -42,13 +30,10 @@ class EggTimerTest extends TestCase
 
     public function setUp()
     {
-        $this->gateway = $this->getMock(Gateway::class, [], [], '', false);
-        $this->timeParser          = $this->getMock(TimeParser::class, [], [], '', false);
-        $this->time                = $this->getMock(Time::class, [], [], '', false);
-        $this->dispatcher          = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->timeParser = $this->getMock(TimeParser::class, [], [], '', false);
+        $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-        $this->subject = new EggTimer($this->gateway, $this->timeParser);
-        $this->subject->setTime($this->time);
+        $this->subject = new EggTimer($this->timeParser);
         $this->subject->setEventDispatcher($this->dispatcher);
     }
 
@@ -98,26 +83,5 @@ class EggTimerTest extends TestCase
             ->with($event, $timestamp);
 
         $this->subject->addNewJob($time, $text);
-    }
-
-    public function testGetJobs()
-    {
-        $now  = 1000;
-        $jobs = [];
-
-        $this->time
-            ->expects($this->once())
-            ->method('now')
-            ->willReturn($now);
-
-        $this->gateway
-            ->expects($this->once())
-            ->method('getEventsByType')
-            ->with(EggTimerEvent::DONE, $now)
-            ->willReturn($jobs);
-
-        $actualResult = $this->subject->getJobs();
-
-        $this->assertEquals($jobs, $actualResult);
     }
 }
