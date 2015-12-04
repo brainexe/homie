@@ -1,5 +1,5 @@
 
-App.controller('DashboardController', ['$scope', '$modal', '$q', 'Dashboard', 'WidgetFactory', function($scope, $modal, $q, Dashboard, WidgetFactory) {
+App.controller('DashboardController', ['$scope', '$uibModal', '$q', 'Dashboard', 'WidgetFactory', function($scope, $uibModal, $q, Dashboard, WidgetFactory) {
     $scope.editMode = false;
 
     function selectDashboard(dashboard) {
@@ -77,8 +77,8 @@ App.controller('DashboardController', ['$scope', '$modal', '$q', 'Dashboard', 'W
     };
 
     $scope.openModal = function(dashboards) {
-        var modal = $modal.open({
-			templateUrl: asset('/templates/widgets/new.html'),
+        var modal = $uibModal.open({
+			templateUrl: '/templates/widgets/new.html',
 			controller: 'NewWidgetController',
 			resolve: {
 				widgets: function() {
@@ -126,8 +126,8 @@ App.controller('DashboardController', ['$scope', '$modal', '$q', 'Dashboard', 'W
 	};
 
 	$scope.editWidget = function(dashboardId, widget) {
-        var modal = $modal.open({
-            templateUrl: asset('/templates/widgets/edit.html'),
+        var modal = $uibModal.open({
+            templateUrl: '/templates/widgets/edit.html',
             controller: 'EditWidgetController',
             resolve: {
                 widget: function() {

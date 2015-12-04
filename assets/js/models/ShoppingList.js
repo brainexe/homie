@@ -10,7 +10,7 @@ App.service('ShoppingList', ['$http', function($http) {
         },
 
         remove: function (name) {
-            return $http.delete('/shopping/', {name: name});
+            return $http.delete('/shopping/{0}/'.format(name));
         }
     }
 }]);

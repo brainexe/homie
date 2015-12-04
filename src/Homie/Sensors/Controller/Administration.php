@@ -61,7 +61,6 @@ class Administration
     }
 
     /**
-     * @todo frontend missing
      * @param Request $request
      * @return SensorVO
      * @Route("/sensors/", name="sensors.add", methods="POST")

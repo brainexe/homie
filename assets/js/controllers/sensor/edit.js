@@ -1,5 +1,5 @@
 
-App.controller('AdminSensorsController', ['$scope', '$rootScope', '$modalInstance', 'Sensor', 'SensorFormatter', function($scope, $rootScope, $modalInstance, Sensor, SensorFormatter) {
+App.controller('EditSensorsController', ['$scope', '$rootScope', '$uibModalInstance', 'Sensor', 'SensorFormatter', function($scope, $rootScope, $uibModalInstance, Sensor, SensorFormatter) {
     $scope.sensors = [];
     $scope.types   = {};
 
@@ -44,7 +44,7 @@ App.controller('AdminSensorsController', ['$scope', '$rootScope', '$modalInstanc
     };
 
 	$scope.close = function() {
-		$modalInstance.close();
+		$uibModalInstance.close();
 	};
 
     $scope.edit = function(sensor) {

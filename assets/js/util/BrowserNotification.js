@@ -30,7 +30,7 @@ App.service('BrowserNotification', ['$q', '_', function($q, _) {
     function show(content) {
         var notification = new Notification(_('Homie'), {
             body: content,
-            icon: asset('favicon.ico')
+            icon: 'favicon.ico'
         });
         notification.$content = content;
 

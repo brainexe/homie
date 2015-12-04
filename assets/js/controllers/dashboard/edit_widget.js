@@ -1,5 +1,5 @@
 
-App.controller('EditWidgetController', ['$scope', '$modalInstance', 'Dashboard', 'dashboardId', 'widget', function($scope, $modalInstance, Dashboard, dashboardId, widget) {
+App.controller('EditWidgetController', ['$scope', '$uibModalInstance', 'Dashboard', 'dashboardId', 'widget', function($scope, $uibModalInstance, Dashboard, dashboardId, widget) {
     $scope.payload = widget;
 
     Dashboard.getCachedMetadata().success(function(data) {
@@ -8,11 +8,11 @@ App.controller('EditWidgetController', ['$scope', '$modalInstance', 'Dashboard',
 
     $scope.save = function() {
         Dashboard.updateWidget(dashboardId, widget).success(function(data) {
-            $modalInstance.close(data);
+            $uibModalInstance.close(data);
         });
     };
 
     $scope.close = function() {
-        $modalInstance.close();
+        $uibModalInstance.close();
     }
 }]);

@@ -13,32 +13,35 @@
                         <a
                                 class="tip cursor"
                                 data-placement="bottom"
-                                tooltip="Latest: {{ sensor.lastValue }}"
+                                uib-tooltip="Latest: {{ sensor.lastValue }}"
                                 ng-click="sensorView(sensor.sensorId)"
                                 >
                             {{ sensor.name }}
                         </a>
                     </li>
                     <li>
-                        <a ng-click="editModal()">
-                            {{'Edit'|translate}}
-                            <b class="glyphicon glyphicon-pencil"></b>
-                        </a>
+                        <div class="btn-group btn-group-sm">
+                            <a class="btn btn-default btn-sm" ng-click="editModal()"  uib-tooltip="{{'Edit'|translate}}">
+                                <b class="glyphicon glyphicon-pencil"></b>
+                            </a>
+                            <a class="btn btn-default btn-sm" ng-click="addModal()" uib-tooltip="{{'Add'|translate}}">
+                                <b class="glyphicon glyphicon-plus"></b>
+                            </a>
+                        </div>
                     </li>
-                    <li class="dropdown" dropdown>
-                        <a href class="dropdown-toggle" dropdown-toggle>
-                            {{'Timespan'|translate}}
+                    <div class="dropdown" uib-dropdown>
+                        <a href class="btn btn-default btn-sm mdropdown-toggle" uib-tooltip="{{'Timespan'|translate}}" uib-dropdown-toggle>
                             <span class="glyphicon glyphicon-time"></span>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li ng-repeat="(interval, label) in fromIntervals" ng_class="{active:(interval == currentFrom)}">
+                            <li ng-repeat="(interval, label) in fromIntervals" ng-class="{active:(interval == currentFrom)}">
                                 <a ng-click="sensorView(null, interval)">
                                     {{ label }}
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </div>
                 </ul>
             </div>
 		</div>

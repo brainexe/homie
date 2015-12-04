@@ -20,6 +20,7 @@ App.controller('AdminNodesController', ['$scope', 'Nodes', function ($scope, Nod
     $scope.edit = function(node) {
         Nodes.edit(node).success(function(newNode) {
             $scope.nodes[newNode.nodeId] = newNode;
+            $scope.newNode = {};
         });
     };
 

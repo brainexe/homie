@@ -14,7 +14,7 @@ App.service('Nodes', ['$http', 'Cache', function($http, Cache) {
         },
 
         remove: function (node) {
-            return $http.delete('/nodes/{0}/'.format(node.nodeId), node);
+            return $http.delete('/nodes/{0}/'.format(node.nodeId));
         }
     }
 }]);

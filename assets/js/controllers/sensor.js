@@ -1,5 +1,5 @@
 
-App.controller('SensorController', ['$scope', '$modal', 'SensorGraph', function ($scope, $modal, SensorGraph) {
+App.controller('SensorController', ['$scope', '$uibModal', 'SensorGraph', function ($scope, uibModal, SensorGraph) {
     $scope.sensors         = {};
     $scope.activeSensorIds = '';
     $scope.currentFrom     = 0;
@@ -7,16 +7,24 @@ App.controller('SensorController', ['$scope', '$modal', 'SensorGraph', function 
     $scope.types           = {};
 
     $scope.openModal = function () {
-        $modal.open({
-            templateUrl: asset('/templates/new_sensor.html'),
+        uibModal.open({
+            templateUrl: '/templates/new_sensor.html',
             controller: 'NewSensorController'
         });
     };
 
     $scope.editModal = function () {
-        $modal.open({
-            templateUrl: '/templates/admin/sensors.html',
-            controller : 'AdminSensorsController',
+        uibModal.open({
+            templateUrl: '/templates/sensor/edit.html',
+            controller : 'EditSensorsController',
+            windowClass: 'dialog_1000'
+        });
+    };
+
+    $scope.addModal = function () {
+        uibModal.open({
+            templateUrl: '/templates/sensor/add.html',
+            controller : 'AddSensorsController',
             windowClass: 'dialog_1000'
         });
     };

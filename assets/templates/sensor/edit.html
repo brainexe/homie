@@ -32,12 +32,12 @@
                     <div ng-if="sensor.edit">
                         <ui-select ng-model="sensor.type">
                             <ui-select-match placeholder="{{'Select a type...'|translate}}">{{$select.selected.value.name}}</ui-select-match>
-                            <ui-select-choices group-by="'type.value.type'" groupBy="'type.value.type'" repeat="type.key as type in types|toObjectArray">
+                            <ui-select-choices group-by="'type.value.type'" repeat="type.key as type in types|toObjectArray">
                                 <span ng-bind-html="type.value.name"></span>
                                 <span class="small">({{type.value.type}})</span>
                             </ui-select-choices>
                         </ui-select>
-                        <input type="text" class="form-control" placeholder="Pin" ng-model="sensor.pin" />
+                        <input type="text" class="form-control" placeholder="{{'Pin'|translate}}" ng-model="sensor.pin" />
                     </div>
                 </td>
                 <td>
@@ -46,8 +46,8 @@
                         <span ng-if="sensor.description">({{ sensor.description }})</span>
                     </div>
                     <div ng-if="sensor.edit">
-                        <input type="text"  class="form-control" placeholder="Name" ng-model="sensor.name" />
-                        <input type="text"  class="form-control" placeholder="Description" ng-model="sensor.description" />
+                        <input type="text"  class="form-control" placeholder="{{'Name'|translate}}" ng-model="sensor.name" />
+                        <input type="text"  class="form-control" placeholder="{{'Description'|translate}}" ng-model="sensor.description" />
                     </div>
                 </td>
                 <td>
@@ -62,7 +62,7 @@
                 </td>
                 <td>
                     <span translate>Interval:</span>
-                    <div ng-if="!sensor.edit">
+                    <div ng-if="!sensor.edit" translate>
                         {{ sensor.interval }} minutes
                     </div>
                     <div ng-if="sensor.edit">
@@ -72,7 +72,7 @@
                                 max="86400"
                                 size="2"
                                 class="form-control"
-                                placeholder="Interval"
+                                placeholder="{{'Interval'|translate}}"
                                 ng-model="sensor.interval"
                                 />
                     </div>
@@ -90,7 +90,7 @@
                         <a ng-click="edit(sensor)" class="btn btn-primary btn-sm">
                             <span class="glyphicon glyphicon-edit"></span>
                         </a>
-                        <a ng-click="deleteSensor(sensor)" class="btn btn-danger btn-sm">
+                        <a confirm="deleteSensor(sensor)" class="btn btn-danger btn-sm">
                             <span class="glyphicon glyphicon-remove"></span>
                         </a>
                     </div>

@@ -1,0 +1,90 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <button
+                ng-click="close()"
+                type="button"
+                class="close"
+                data-dismiss="modal"
+        >
+            &times;
+        </button>
+        <h4 class="modal-title" translate>Add Sensor</h4>
+    </div>
+    <div class="modal-body navbar-forms navbar-lefts">
+        <form ng-submit="add(newSensor)" class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" translate>Type</label>
+                <div class="col-sm-10">
+                    <ui-select ng-model="newSensor.type">
+                        <ui-select-match placeholder="{{'Select a type...'|translate}}">{{$select.selected.value.name}}</ui-select-match>
+                        <ui-select-choices group-by="'type.value.type'" repeat="type.key as type in types|toObjectArray">
+                            <span ng-bind-html="type.value.name"></span>
+                            <span class="small">({{type.value.type}})</span>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" translate>Name</label>
+                <div class="col-sm-10">
+                    <input
+                            ng-model="newSensor.name"
+                            type="text"
+                            class="form-control"
+                            placeholder="{{'Name'|translate}}"
+                    />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" translate>Description</label>
+                <div class="col-sm-10">
+                    <input
+                            ng-model="newSensor.description"
+                            type="text"
+                            class="form-control"
+                            placeholder="{{'Description'|translate}}"
+                    />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" translate>Parameter</label>
+                <div class="col-sm-10">
+                    <input
+                            ng-model="newSensor.pin"
+                            type="text"
+                            class="form-control"
+                            placeholder="{{'Parameter'|translate}}"
+                    />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" translate>Interval in minutes</label>
+                <div class="col-sm-10">
+                    <input
+                            ng-model="newSensor.interval"
+                            type="number"
+                            min="-1"
+                            max="2000"
+                            class="form-control"
+                            placeholder="{{'Interval'|translate}}"
+                    />
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg" translate>Add</button>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button
+                type="button"
+                ng-click="close()"
+                class="btn btn-default"
+                data-dismiss="modal"
+                translate
+        >
+            Close
+        </button>
+    </div>
+</div>
+
+

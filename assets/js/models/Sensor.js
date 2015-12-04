@@ -42,6 +42,11 @@ App.service('Sensor', ['$http', '$rootScope', 'Cache', function($http, $rootScop
         edit: function(sensor) {
             Cache.clear('^/sensors/.*');
             return $http.put('/sensors/{0}/'.format(sensor.sensorId), sensor);
+        },
+
+        add: function(sensor) {
+            Cache.clear('^/sensors/.*');
+            return $http.post('/sensors/', sensor);
         }
     };
 }]);

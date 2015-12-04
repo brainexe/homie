@@ -1,7 +1,7 @@
 /**
  * @source https://github.com/venil7/Angular-ui-confirm
  */
-App.directive('confirm', ['$modal', function($modal) {
+App.directive('confirm', ['$uibModal', function($uibModal) {
     return {
         restrict: 'A',
         scope: {
@@ -11,16 +11,16 @@ App.directive('confirm', ['$modal', function($modal) {
         },
         link: function(scope, elem) {
             elem.on('click', function() {
-                var modalInstance = $modal.open({
-                    templateUrl: asset('/templates/modal/confirm.html'),
-                    controller: ["$scope", "$modalInstance", "text", "header", '_', function($scope, $modalInstance, text, header, _) {
+                var modalInstance = $uibModal.open({
+                    templateUrl: '/templates/modal/confirm.html',
+                    controller: ["$scope", "$uibModalInstance", "text", "header", '_', function($scope, $uibModalInstance, text, header, _) {
                         $scope.message = text   || _('Confirm');
                         $scope.header  = header || _('Confirm');
                         $scope.ok = function () {
-                            $modalInstance.close(true);
+                            $uibModalInstance.close(true);
                         };
                         $scope.cancel = function () {
-                            $modalInstance.dismiss('cancel');
+                            $uibModalInstance.dismiss('cancel');
                         };
                     }],
                     resolve: {

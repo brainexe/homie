@@ -1,5 +1,5 @@
 
-App.controller('NewWidgetController', ['$scope', '$modalInstance', 'widgets', 'Dashboard', 'dashboards', 'currentDashboard', function($scope, $modalInstance, widgets, Dashboard, dashboards, currentDashboard) {
+App.controller('NewWidgetController', ['$scope', '$uibModalInstance', 'widgets', 'Dashboard', 'dashboards', 'currentDashboard', function($scope, $uibModalInstance, widgets, Dashboard, dashboards, currentDashboard) {
     $scope.widgets     = widgets;
     $scope.dashboards  = dashboards;
     $scope.payload     = {};
@@ -13,11 +13,11 @@ App.controller('NewWidgetController', ['$scope', '$modalInstance', 'widgets', 'D
         };
 
         Dashboard.add(payload).success(function(data) {
-            $modalInstance.close(data);
+            $uibModalInstance.close(data);
         });
     };
 
     $scope.close = function() {
-        $modalInstance.close();
+        $uibModalInstance.close();
     }
 }]);

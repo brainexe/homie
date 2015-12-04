@@ -14,7 +14,7 @@ services:
 
 before_install:
   - composer install --no-dev
-  - wget https://scrutinizer-ci.com/ocular.phar
+  - wget https://scrutinizer-ci.com/ocular.phar -q
   - npm install
   - npm install -g bower grunt
   - bower install
@@ -24,4 +24,4 @@ script:
   - phpunit --coverage-clover build/logs/clover.xml --coverage-clover=coverage.clover
 
 after_script:
-  - if [ $TRAVIS_TEST_RESULT == 0 ]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
