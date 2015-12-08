@@ -7,8 +7,9 @@ App.controller('AddSensorsController', ['$scope', '$rootScope', '$uibModalInstan
     };
 
     Sensor.getAll().success(function(data) {
-        $scope.sensors = data.sensors;
-        $scope.types   = data.types;
+        $scope.sensors    = data.sensors;
+        $scope.types      = data.types;
+        $scope.formatters = data.formatters;
     });
 
     Nodes.getData().success(function(data) {

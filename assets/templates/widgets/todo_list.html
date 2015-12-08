@@ -2,7 +2,7 @@
     <h4 ng-click="status.hidden = !status.hidden">{{ status.name }} ({{(items|filter:statusId).length}})</h4>
     <ul ng-hide="status.hidden">
         <li ng-repeat="item in items|filter:statusId|orderBy:'name'" >
-            <span tooltip="item.description">{{item.name}}</span>
+            <span uib-tooltip="item.description">{{item.name}}</span>
             <div ng-if="item.deadline > 0">
                 <time-ago from-time="item.deadline" overdue="true"></time-ago>
             </div>&nbsp;
@@ -29,7 +29,7 @@
     <a
             ng-click="addTodo(newTitle)"
             class="input-group-addon btn btn-default"
-            tooltip="{{'Add'|translate}}"
+            uib-tooltip="{{'Add'|translate}}"
             >
         <span class="glyphicon glyphicon-plus"></span>
     </a>

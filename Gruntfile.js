@@ -10,6 +10,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-manifest');
     grunt.loadNpmTasks('grunt-exec');
     grunt.loadNpmTasks('grunt-jslint');
@@ -50,7 +51,7 @@ module.exports = function (grunt) {
         child.stderr.pipe(process.stderr);
     });
 
-    grunt.registerTask('build', ['compile_lang', 'copy', 'uglify', 'htmlmin', 'concat', 'cssmin', 'manifest', 'compress']);
+    grunt.registerTask('build', ['compile_lang', 'copy', 'uglify', 'htmlmin', 'sass', 'concat', 'cssmin', 'manifest', 'compress']);
     grunt.registerTask('buildAll', ['bower', 'build']);
     grunt.registerTask('default', ['build']);
 
@@ -62,7 +63,8 @@ module.exports = function (grunt) {
                     'lang/template.pot': [
                         'assets/templates/**/*.html',
                         'assets/js/**/*.js',
-                        'assets/**/*.html'
+                        'assets/**/*.html',
+                        'cache/translation_token.html'
                     ]
                 },
                 options: {
@@ -281,7 +283,8 @@ module.exports = function (grunt) {
                     {expand: true, src: ['web/**/*.js'],   dest: '.', ext: '.js.gz'},
                     {expand: true, src: ['web/**/*.json'], dest: '.', ext: '.json.gz'},
                     {expand: true, src: ['web/**/*.html'], dest: '.', ext: '.html.gz'},
-                    {expand: true, src: ['web/**/*.css'],  dest: '.', ext: '.css.gz'}
+                    {expand: true, src: ['web/**/*.css'],  dest: '.', ext: '.css.gz'},
+                    {expand: true, src: ['web/*.appcache'],  dest: '.', ext: '.appcache.gz'}
                 ]
             }
         },
@@ -316,6 +319,21 @@ module.exports = function (grunt) {
                 errorsOnly: true, // only display errors
                 failOnError: false, // defaults to true
                 checkstyle: 'out/server-checkstyle.xml' // write a checkstyle-XML
+            }
+        },
+        sass: {
+            dist: {
+                options: {
+                    style: 'expanded',
+                    sourcemap: 'none'
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'assets/',
+                    src: ['**/*.sass'],
+                    dest: 'assets/cache/',
+                    ext: '.css'
+                }]
             }
         }
     });

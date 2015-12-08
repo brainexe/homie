@@ -4,18 +4,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 
+#: assets/templates/expression/expression.html:3
+msgid "Action"
+msgstr ""
+
 #: assets/js/models/Controllers.js:10
-#: assets/templates/expression/expression.html:33
-#: assets/templates/expression/expression.html:77
+#: assets/templates/expression/expression.html:105
+#: assets/templates/expression/expression.html:51
 msgid "Actions"
 msgstr ""
 
 #. add radio
 #: assets/templates/crons.html:47
 #: assets/templates/new_sensor.html:17
+#: assets/templates/sensor/add.html:99
+#: assets/templates/sensor/sensor.html:27
 #: assets/templates/shopping_list.html:26
-#: assets/templates/switch.html:139
-#: assets/templates/switch.html:221
+#: assets/templates/switch.html:134
+#: assets/templates/switch.html:216
 #: assets/templates/user/tokens.html:36
 #: assets/templates/widgets/new.html:48
 #: assets/templates/widgets/shopping_list.html:23
@@ -23,15 +29,16 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
-#: assets/templates/switch.html:91
+#: assets/templates/switch.html:93
 msgid "Add Job"
 msgstr ""
 
 #: assets/templates/new_sensor.html:4
+#: assets/templates/sensor/add.html:11
 msgid "Add Sensor"
 msgstr ""
 
-#: assets/templates/switch.html:153
+#: assets/templates/switch.html:148
 msgid "Add Switch"
 msgstr ""
 
@@ -91,18 +98,19 @@ msgstr ""
 msgid "Characters per Row"
 msgstr ""
 
-#: assets/templates/admin/sensors.html:102
+#: assets/templates/sensor/add.html:103
+#: assets/templates/sensor/edit.html:114
 #: assets/templates/widgets/edit.html:25
 #: assets/templates/widgets/new.html:47
 msgid "Close"
 msgstr ""
 
 #. radio code
-#: assets/templates/switch.html:185
+#: assets/templates/switch.html:180
 msgid "Code"
 msgstr ""
 
-#: assets/templates/admin/sensors.html:19
+#: assets/templates/sensor/edit.html:19
 msgid "Color"
 msgstr ""
 
@@ -110,11 +118,11 @@ msgstr ""
 msgid "Columns"
 msgstr ""
 
-#: assets/templates/expression/expression.html:76
+#: assets/templates/expression/expression.html:104
 msgid "Condition"
 msgstr ""
 
-#: assets/templates/expression/expression.html:13
+#: assets/templates/expression/expression.html:25
 msgid "Conditions"
 msgstr ""
 
@@ -123,15 +131,11 @@ msgstr ""
 msgid "Confirm"
 msgstr ""
 
-#: assets/templates/help.html:7
-msgid "Content"
-msgstr ""
-
 #: assets/templates/crons.html:4
 msgid "Cron-ID"
 msgstr ""
 
-#: assets/templates/expression/expression.html:129
+#: assets/templates/expression/expression.html:157
 msgid "Crons"
 msgstr ""
 
@@ -143,7 +147,7 @@ msgstr ""
 msgid "Current Node"
 msgstr ""
 
-#: assets/templates/widgets/sensor_input.html:8
+#: assets/templates/widgets/sensor_input.html:7
 msgid "Current value"
 msgstr ""
 
@@ -156,6 +160,10 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
+#: assets/templates/todo.html:31
+msgid "Deadline"
+msgstr ""
+
 #: assets/templates/egg_timer.html:16
 #: assets/templates/espeak.html:9
 msgid "Delay"
@@ -165,9 +173,9 @@ msgstr ""
 #: assets/templates/dashboard.html:102
 #: assets/templates/displays.html:58
 #: assets/templates/egg_timer.html:37
-#: assets/templates/espeak.html:83
+#: assets/templates/espeak.html:84
 #: assets/templates/status.html:34
-#: assets/templates/switch.html:63
+#: assets/templates/switch.html:65
 #: assets/templates/switch.html:7
 #: assets/templates/webcam.html:22
 msgid "Delete"
@@ -177,8 +185,11 @@ msgstr ""
 msgid "Delete this token?"
 msgstr ""
 
+#: assets/templates/sensor/add.html:41
+#: assets/templates/sensor/add.html:47
+#: assets/templates/sensor/edit.html:62
+#: assets/templates/switch.html:167
 #: assets/templates/switch.html:172
-#: assets/templates/switch.html:177
 #: assets/templates/todo.html:16
 msgid "Description"
 msgstr ""
@@ -195,11 +206,11 @@ msgstr ""
 msgid "Drag Here to Delete"
 msgstr ""
 
-#: assets/templates/admin/sensors.html:22
 #: assets/templates/dashboard.html:44
 #: assets/templates/dashboard.html:92
 #: assets/templates/displays.html:79
-#: assets/templates/sensor.html:24
+#: assets/templates/sensor/edit.html:22
+#: assets/templates/sensor/sensor.html:24
 msgid "Edit"
 msgstr ""
 
@@ -208,7 +219,7 @@ msgid "Edit Display"
 msgstr ""
 
 #: assets/templates/gpio.html:51
-#: assets/templates/switch.html:53
+#: assets/templates/switch.html:55
 msgid "Edit Mode"
 msgstr ""
 
@@ -229,14 +240,20 @@ msgstr ""
 msgid "Email was sent"
 msgstr ""
 
-#: assets/templates/expression/expression.html:75
-#: assets/templates/expression/expression.html:9
+#: assets/templates/expression/expression.html:103
+#: assets/templates/expression/expression.html:18
 msgid "Enabled"
 msgstr ""
 
 #: assets/templates/crons.html:6
-#: assets/templates/expression/expression.html:3
 msgid "Expression"
+msgstr ""
+
+#: assets/templates/sensor/add.html:88
+#: assets/templates/sensor/add.html:91
+#: assets/templates/sensor/edit.html:40
+#: assets/templates/sensor/edit.html:41
+msgid "Formatter"
 msgstr ""
 
 #: assets/js/models/Controllers.js:11
@@ -259,16 +276,22 @@ msgstr ""
 
 #: assets/templates/admin/nodes.html:4
 #: assets/templates/admin/users.html:4
-#: assets/templates/expression/expression.html:5
-#: assets/templates/expression/expression.html:74
+#: assets/templates/expression/expression.html:102
+#: assets/templates/expression/expression.html:7
 msgid "Id"
 msgstr ""
 
-#: assets/templates/admin/sensors.html:21
+#: assets/templates/sensor/add.html:83
+#: assets/templates/sensor/edit.html:21
+#: assets/templates/sensor/edit.html:87
 msgid "Interval"
 msgstr ""
 
-#: assets/templates/admin/sensors.html:64
+#: assets/templates/sensor/add.html:74
+msgid "Interval in minutes"
+msgstr ""
+
+#: assets/templates/sensor/edit.html:76
 msgid "Interval:"
 msgstr ""
 
@@ -292,6 +315,7 @@ msgid "Lines"
 msgstr ""
 
 #: assets/js/models/Controllers.js:26
+#: assets/templates/user/login.html:2
 msgid "Login"
 msgstr ""
 
@@ -321,13 +345,16 @@ msgstr ""
 
 #: assets/templates/admin/nodes.html:23
 #: assets/templates/admin/nodes.html:6
-#: assets/templates/admin/sensors.html:18
 #: assets/templates/admin/users.html:5
 #: assets/templates/dashboard.html:60
 #: assets/templates/displays.html:6
 #: assets/templates/gpio.html:16
+#: assets/templates/sensor/add.html:28
+#: assets/templates/sensor/add.html:36
+#: assets/templates/sensor/edit.html:18
+#: assets/templates/sensor/edit.html:61
+#: assets/templates/switch.html:156
 #: assets/templates/switch.html:161
-#: assets/templates/switch.html:166
 #: assets/templates/switch.html:4
 msgid "Name"
 msgstr ""
@@ -348,6 +375,10 @@ msgstr ""
 msgid "Next Run"
 msgstr ""
 
+#: assets/templates/sensor/add.html:63
+msgid "Node"
+msgstr ""
+
 #: assets/js/models/Controllers.js:23
 msgid "Nodes"
 msgstr ""
@@ -364,26 +395,33 @@ msgstr ""
 msgid "On"
 msgstr ""
 
-#: assets/templates/user/login.html:23
+#: assets/templates/user/login.html:27
 msgid "One Time Token"
+msgstr ""
+
+#: assets/templates/sensor/add.html:52
+#: assets/templates/sensor/add.html:58
+#: assets/templates/sensor/edit.html:49
+#: assets/templates/sensor/edit.html:50
+msgid "Parameter"
 msgstr ""
 
 #: assets/templates/admin/users.html:7
 #: assets/templates/user/change_password.html:15
 #: assets/templates/user/change_password.html:20
 #: assets/templates/user/change_password.html:7
-#: assets/templates/user/login.html:16
+#: assets/templates/user/login.html:20
 #: assets/templates/user/register.html:15
 msgid "Password"
 msgstr ""
 
-#: assets/templates/expression/expression.html:52
-#: assets/templates/expression/expression.html:78
+#: assets/templates/expression/expression.html:106
+#: assets/templates/expression/expression.html:77
 msgid "Payload"
 msgstr ""
 
 #. radio pin
-#: assets/templates/switch.html:204
+#: assets/templates/switch.html:199
 msgid "Pin"
 msgstr ""
 
@@ -395,7 +433,7 @@ msgstr ""
 msgid "Profile"
 msgstr ""
 
-#: assets/templates/switch.html:61
+#: assets/templates/switch.html:63
 msgid "Radio"
 msgstr ""
 
@@ -445,9 +483,7 @@ msgid "Rows"
 msgstr ""
 
 #: assets/templates/dashboard.html:67
-#: assets/templates/expression/expression.html:59
-#: assets/templates/help.html:19
-#: assets/templates/help.html:8
+#: assets/templates/expression/expression.html:86
 #: assets/templates/widgets/edit.html:26
 msgid "Save"
 msgstr ""
@@ -461,16 +497,17 @@ msgstr ""
 msgid "Secret:"
 msgstr ""
 
-#: assets/templates/admin/sensors.html:34
+#: assets/templates/sensor/add.html:19
+#: assets/templates/sensor/add.html:66
 msgid "Select a type..."
 msgstr ""
 
-#: assets/templates/user/login.html:30
+#: assets/templates/user/login.html:34
 msgid "Send Token via Mail"
 msgstr ""
 
 #: assets/js/models/Controllers.js:9
-#: assets/templates/admin/sensors.html:11
+#: assets/templates/sensor/edit.html:11
 msgid "Sensors"
 msgstr ""
 
@@ -483,7 +520,7 @@ msgstr ""
 msgid "Shopping List"
 msgstr ""
 
-#: assets/templates/user/login.html:24
+#: assets/templates/user/login.html:28
 msgid "Sign in"
 msgstr ""
 
@@ -500,11 +537,11 @@ msgstr ""
 msgid "Speak"
 msgstr ""
 
-#: assets/templates/espeak.html:56
+#: assets/templates/espeak.html:57
 msgid "Speaker"
 msgstr ""
 
-#: assets/templates/espeak.html:40
+#: assets/templates/espeak.html:41
 msgid "Speed"
 msgstr ""
 
@@ -513,16 +550,16 @@ msgid "Stats"
 msgstr ""
 
 #: assets/js/models/Controllers.js:19
-#: assets/templates/switch.html:128
+#: assets/templates/switch.html:122
 #: assets/templates/switch.html:5
-#: assets/templates/switch.html:62
+#: assets/templates/switch.html:64
 msgid "Status"
 msgstr ""
 
 #: assets/templates/displays.html:55
 #: assets/templates/egg_timer.html:29
-#: assets/templates/espeak.html:68
-#: assets/templates/widgets/sensor_input.html:12
+#: assets/templates/espeak.html:69
+#: assets/templates/widgets/sensor_input.html:11
 msgid "Submit"
 msgstr ""
 
@@ -557,15 +594,15 @@ msgstr ""
 #: assets/templates/egg_timer.html:3
 #: assets/templates/egg_timer.html:36
 #: assets/templates/espeak.html:3
-#: assets/templates/espeak.html:82
+#: assets/templates/espeak.html:83
 #: assets/templates/widgets/speak.html:5
 msgid "Text"
 msgstr ""
 
 #: assets/templates/egg_timer.html:35
-#: assets/templates/espeak.html:81
+#: assets/templates/espeak.html:82
 #: assets/templates/switch.html:109
-#: assets/templates/switch.html:60
+#: assets/templates/switch.html:62
 msgid "Time"
 msgstr ""
 
@@ -573,7 +610,7 @@ msgstr ""
 msgid "Timer"
 msgstr ""
 
-#: assets/templates/sensor.html:30
+#: assets/templates/sensor/sensor.html:34
 msgid "Timespan"
 msgstr ""
 
@@ -590,7 +627,7 @@ msgstr ""
 msgid "ToDo List"
 msgstr ""
 
-#: assets/templates/sensor.html:5
+#: assets/templates/sensor/sensor.html:5
 msgid "Toggle navigation"
 msgstr ""
 
@@ -609,9 +646,11 @@ msgid "Two Factor Authentication"
 msgstr ""
 
 #: assets/templates/admin/nodes.html:5
-#: assets/templates/admin/sensors.html:17
-#: assets/templates/help.html:6
 #: assets/templates/new_sensor.html:10
+#: assets/templates/sensor/add.html:16
+#: assets/templates/sensor/edit.html:17
+#: assets/templates/sensor/edit.html:33
+#: assets/templates/sensor/edit.html:34
 #: assets/templates/status.html:32
 #: assets/templates/widgets/new.html:26
 msgid "Type"
@@ -625,7 +664,7 @@ msgstr ""
 msgid "User Settings"
 msgstr ""
 
-#: assets/templates/user/login.html:8
+#: assets/templates/user/login.html:10
 #: assets/templates/user/register.html:7
 msgid "Username"
 msgstr ""
@@ -634,15 +673,15 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
-#: assets/templates/admin/sensors.html:20
 #: assets/templates/gpio.html:21
+#: assets/templates/sensor/edit.html:20
 #: assets/templates/status.html:69
 #: assets/templates/status.html:8
 #: assets/templates/status.html:87
 msgid "Value"
 msgstr ""
 
-#: assets/templates/espeak.html:23
+#: assets/templates/espeak.html:24
 msgid "Volume"
 msgstr ""
 
@@ -658,12 +697,12 @@ msgstr ""
 msgid "Welcome {0}!"
 msgstr ""
 
-#: assets/templates/admin/sensors.html:84
+#: assets/templates/sensor/edit.html:96
 msgid "disabled"
 msgstr ""
 
 #: assets/templates/egg_timer.html:26
-#: assets/templates/espeak.html:19
+#: assets/templates/espeak.html:20
 msgid "e.g. 10s, 30m, 1h"
 msgstr ""
 
@@ -673,4 +712,61 @@ msgstr ""
 
 #: assets/templates/expression/parameter.html:7
 msgid "e.g. isTiming(10 minutes)"
+msgstr ""
+
+#: assets/templates/sensor/add.html:93
+#: assets/templates/sensor/edit.html:43
+msgid "sensor.formatter.'+formatter+'.name"
+msgstr ""
+
+#: cache/translation_token.html:1
+msgid "sensor.formatter.barometer.description"
+msgstr ""
+
+#: cache/translation_token.html:2
+msgid "sensor.formatter.barometer.name"
+msgstr ""
+
+#: cache/translation_token.html:3
+msgid "sensor.formatter.bytes.description"
+msgstr ""
+
+#: cache/translation_token.html:4
+msgid "sensor.formatter.bytes.name"
+msgstr ""
+
+#: cache/translation_token.html:5
+msgid "sensor.formatter.load.description"
+msgstr ""
+
+#: cache/translation_token.html:6
+msgid "sensor.formatter.load.name"
+msgstr ""
+
+#: cache/translation_token.html:7
+msgid "sensor.formatter.none.description"
+msgstr ""
+
+#: cache/translation_token.html:8
+msgid "sensor.formatter.none.name"
+msgstr ""
+
+#: cache/translation_token.html:9
+msgid "sensor.formatter.percentage.description"
+msgstr ""
+
+#: cache/translation_token.html:10
+msgid "sensor.formatter.percentage.name"
+msgstr ""
+
+#: cache/translation_token.html:11
+msgid "sensor.formatter.temperature.description"
+msgstr ""
+
+#: cache/translation_token.html:12
+msgid "sensor.formatter.temperature.name"
+msgstr ""
+
+#: assets/templates/sensor/edit.html:77
+msgid "{{ sensor.interval }} minutes"
 msgstr ""

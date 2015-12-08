@@ -1,8 +1,10 @@
 <form class="form-signin" ng-submit="login()">
-	<h2 class="form-signin-heading">Login</h2>
+	<h2 class="form-signin-heading" translate>Login</h2>
 	<input
 			type="text"
             ng-model="username"
+			ng-min-length="2"
+			ng-enter="login()"
 			class="form-control"
             ng-blur="usernameBlur()"
 			placeholder="{{'Username'|translate}}"
@@ -11,8 +13,10 @@
 			>
 	<input
 			type="password"
+			ng-min-length="2"
             ng-model="password"
             class="form-control"
+			ng-enter="login()"
 			placeholder="{{'Password'|translate}}"
             required>
 	<input

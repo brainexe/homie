@@ -109,4 +109,12 @@ class SensorBuilder
 
         return $this->getFormatter(Definition::TYPE_NONE);
     }
+
+    /**
+     * @return string[]
+     */
+    public function getFormatters()
+    {
+        return array_keys($this->formatter);
+    }
 }

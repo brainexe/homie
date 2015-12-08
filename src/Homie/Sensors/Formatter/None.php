@@ -7,7 +7,7 @@ use Homie\Sensors\CompilerPass\Annotation\SensorFormatter;
 /**
  * @SensorFormatter("Formatter.None")
  */
-class None implements Formatter
+class None extends Formatter
 {
     const TYPE = 'none';
 
@@ -17,21 +17,5 @@ class None implements Formatter
     public function formatValue($value)
     {
         return (string)$value;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getEspeakText($value)
-    {
-        return (string)$value;
-    }
-
-    /**
-     * @return string
-     */
-    public function getType()
-    {
-        return self::TYPE;
     }
 }

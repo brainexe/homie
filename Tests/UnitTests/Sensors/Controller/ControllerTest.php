@@ -295,12 +295,17 @@ class ControllerTest extends TestCase
             ->expects($this->once())
             ->method('getSensors')
             ->willReturn($types);
+        $this->builder
+            ->expects($this->once())
+            ->method('getFormatters')
+            ->willReturn(['formatter']);
 
         $actualResult = $this->subject->sensors();
 
         $expectedValue = [
-            'types'   => $types,
-            'sensors' => $sensors,
+            'types'      => $types,
+            'sensors'    => $sensors,
+            'formatters' => ['formatter'],
             'fromIntervals' => [
                 3600        => _('Last hour'),
                 10800       => _('Last 3 hours'),

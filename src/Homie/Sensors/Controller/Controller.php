@@ -100,9 +100,10 @@ class Controller
     public function sensors()
     {
         return [
-            'types'   => $this->builder->getSensors(),
+            'types'         => $this->builder->getSensors(),
+            'formatters'    => $this->builder->getFormatters(),
             'fromIntervals' => Chart::getTimeSpans(),
-            'sensors' => array_map([$this->voBuilder, 'buildFromArray'], $this->gateway->getSensors())
+            'sensors'       => array_map([$this->voBuilder, 'buildFromArray'], $this->gateway->getSensors())
         ];
     }
 

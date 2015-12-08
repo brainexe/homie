@@ -64,7 +64,7 @@ App.service('SensorGraph', ['Sensor', 'SensorFormatter', function (Sensor, Senso
                     graph: $scope.graph,
                     formatter: function (series, x, y) {
                         var type = $scope.types[series.type];
-                        var formatter = SensorFormatter.getFormatter(type.formatter);
+                        var formatter = SensorFormatter.getFormatter(series.formatter || type.formatter);
                         var date = new Date(x * 1000);
                         var dateString = '<span class="date">{0} {1}:{2}</span><br />'.format(
                             date.toDateString(),

@@ -2,12 +2,15 @@
 App.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gettextCatalog', 'BrowserNotification', 'SocketServer', 'Cache', function ($scope, UserManagement, Config, gettextCatalog, BrowserNotification, SocketServer, Cache) {
     $scope.flashBag  = [];
 
+    var language = 'en';
     if (localStorage.getItem('language')) {
-        var language = localStorage.getItem('language');
-        gettextCatalog.setCurrentLanguage(language);
-        gettextCatalog.cache = Cache;
-        gettextCatalog.loadRemote("/lang/" + language + ".json");
+        language = localStorage.getItem('language');
     }
+
+    gettextCatalog.setCurrentLanguage(language);
+    gettextCatalog.cache = Cache;
+    gettextCatalog.loadRemote("/lang/" + language + ".json");
+
 
     $scope.currentUser = {};
 

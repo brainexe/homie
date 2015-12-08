@@ -27,7 +27,8 @@ class ChartTest extends TestCase
                 'description' => $sensorDescription = 'description',
                 'pin' => $sensorPin = 'pin',
                 'type' => 'mockType',
-                'color' => 'colorful'
+                'color' => 'colorful',
+                'formatter' => 'mockFormatter',
             ],
             [
                 'sensorId' => $sensorId2 = 1213,
@@ -35,7 +36,8 @@ class ChartTest extends TestCase
                 'description' => 'description2',
                 'pin' => 'pin2',
                 'type' => 'mockType2',
-                'color' => 'colorful'
+                'color' => 'colorful',
+                'formatter' => 'mockFormatter',
             ],
             [
                 'sensorId' => 'sensor_id_2',
@@ -60,6 +62,7 @@ class ChartTest extends TestCase
                 'description' => $sensorDescription,
                 'color' => 'colorful',
                 'type' => 'mockType',
+                'formatter' => 'mockFormatter',
                 'data' => [$timestamp, $sensorValue]
             ],
             [
@@ -68,6 +71,7 @@ class ChartTest extends TestCase
                 'description' => 'description2',
                 'color' => 'colorful',
                 'type' => 'mockType2',
+                'formatter' => 'mockFormatter',
                 'data' => [1, 2]
             ]
         ];

@@ -10,7 +10,7 @@
             </small>
             <a
                     ng-click="reload()"
-                    tooltip="{{'Reload'|translate}}"
+                    uib-tooltip="{{'Reload'|translate}}"
                     class="btn btn-default btn-sm glyphicon glyphicon-repeat"></a>
         </td>
     </tr>
@@ -47,7 +47,7 @@
     <tr>
         <th><b translate>Tend</b></th>
         <td colspan="2">
-            <span class="glyphicon glyphicon-arrow-{{stats.lastChange == 0 ? 'right' : (stats.lastChange > 0 ? 'up' : 'down')}}" tooltip="{{format(stats.lastChange)}}"></span>
+            <span class="glyphicon glyphicon-arrow-{{stats.lastChange == 0 ? 'right' : (stats.lastChange > 0 ? 'up' : 'down')}}" uib-tooltip="{{format(stats.lastChange)}}"></span>
         </td>
     </tr>
 </table>

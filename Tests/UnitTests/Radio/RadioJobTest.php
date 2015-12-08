@@ -4,7 +4,6 @@ namespace Homie\Tests\Radio;
 
 use ArrayIterator;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
-use BrainExe\Core\MessageQueue\Gateway;
 use BrainExe\Core\Util\TimeParser;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Radio\RadioChangeEvent;
@@ -25,11 +24,6 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase
     private $timeParser;
 
     /**
-     * @var Gateway|MockObject
-     */
-    private $gateway;
-
-    /**
      * @var EventDispatcher|MockObject
      */
     private $dispatcher;
@@ -37,10 +31,9 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->timeParser = $this->getMock(TimeParser::class);
-        $this->gateway    = $this->getMock(Gateway::class, [], [], '', false);
         $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-        $this->subject = new RadioJob($this->gateway, $this->timeParser);
+        $this->subject = new RadioJob($this->timeParser);
         $this->subject->setEventDispatcher($this->dispatcher);
     }
 

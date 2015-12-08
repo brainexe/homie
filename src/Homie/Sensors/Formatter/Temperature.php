@@ -7,7 +7,7 @@ use Homie\Sensors\CompilerPass\Annotation\SensorFormatter;
 /**
  * @SensorFormatter("Formatter.Temperature")
  */
-class Temperature implements Formatter
+class Temperature extends Formatter
 {
 
     const TYPE = 'temperature';
@@ -26,13 +26,5 @@ class Temperature implements Formatter
     public function getEspeakText($value)
     {
         return str_replace('.', ',', sprintf(gettext('%0.1f Degree'), $value));
-    }
-
-    /**
-     * @return string
-     */
-    public function getType()
-    {
-        return self::TYPE;
     }
 }

@@ -7,7 +7,7 @@ use Homie\Sensors\CompilerPass\Annotation\SensorFormatter;
 /**
  * @SensorFormatter("Formatter.Percentage")
  */
-class Percentage implements Formatter
+class Percentage extends Formatter
 {
     const TYPE = 'percentage';
 
@@ -26,14 +26,6 @@ class Percentage implements Formatter
      */
     public function getEspeakText($value)
     {
-        return sprintf(gettext('%d Percent'), $value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getType()
-    {
-        return self::TYPE;
+        return sprintf(_('%d Percent'), $value);
     }
 }

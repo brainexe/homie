@@ -7,11 +7,10 @@ use Homie\Sensors\CompilerPass\Annotation\SensorFormatter;
 /**
  * @SensorFormatter("Formatter.Bytes")
  */
-class Bytes implements Formatter
+class Bytes extends Formatter
 {
 
     const TYPE = 'bytes';
-
 
     /**
      * {@inheritdoc}
@@ -19,21 +18,5 @@ class Bytes implements Formatter
     public function formatValue($value)
     {
         return sprintf('%dMB', $value / 1000000);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getEspeakText($value)
-    {
-        return $this->formatValue($value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getType()
-    {
-        return self::TYPE;
     }
 }

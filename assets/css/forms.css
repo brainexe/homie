@@ -1,0 +1,12 @@
+input.ng-invalid.ng-touched {
+    background-color: #FA787E;
+}
+
+/*input.ng-valid.ng-touched {
+    background-color: #78FA89;
+}*/
+
+.big-checkbox {
+    width: 25px;
+    height: 25px;
+}

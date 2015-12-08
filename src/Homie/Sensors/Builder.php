@@ -25,6 +25,7 @@ class Builder
             $data['pin'],
             $data['type'],
             $data['color'],
+            isset($data['formatter']) ? $data['formatter'] : null,
             $data['lastValue'],
             $data['lastValueTimestamp']
         );
@@ -39,6 +40,7 @@ class Builder
      * @param string $pin
      * @param string $type
      * @param string $color
+     * @param string $formatter
      * @param float $lastValue
      * @param int $lastValueTimestamp
      * @return SensorVO
@@ -52,6 +54,7 @@ class Builder
         $pin,
         $type,
         $color,
+        $formatter = null,
         $lastValue = null,
         $lastValueTimestamp = null
     ) {
@@ -67,6 +70,7 @@ class Builder
         $sensor->color              = $color;
         $sensor->lastValue          = $lastValue;
         $sensor->lastValueTimestamp = (int)$lastValueTimestamp;
+        $sensor->formatter          = $formatter;
 
         return $sensor;
     }

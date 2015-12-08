@@ -33,6 +33,7 @@ class Chart
                 'color'       => $sensor['color'],
                 'name'        => $sensor['name'],
                 'description' => $sensor['description'],
+                'formatter'   => $sensor['formatter'],
                 'data'        => [] // will be filled with x/y values
             ];
 

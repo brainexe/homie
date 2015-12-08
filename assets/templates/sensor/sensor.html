@@ -13,7 +13,7 @@
                         <a
                                 class="tip cursor"
                                 data-placement="bottom"
-                                uib-tooltip="Latest: {{ sensor.lastValue }}"
+                                uib-tooltip="Recent: {{ sensor.lastValue }}"
                                 ng-click="sensorView(sensor.sensorId)"
                                 >
                             {{ sensor.name }}
@@ -29,19 +29,21 @@
                             </a>
                         </div>
                     </li>
-                    <div class="dropdown" uib-dropdown>
-                        <a href class="btn btn-default btn-sm mdropdown-toggle" uib-tooltip="{{'Timespan'|translate}}" uib-dropdown-toggle>
-                            <span class="glyphicon glyphicon-time"></span>
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li ng-repeat="(interval, label) in fromIntervals" ng-class="{active:(interval == currentFrom)}">
-                                <a ng-click="sensorView(null, interval)">
-                                    {{ label }}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                    <li>
+                        <div class="dropdown" uib-dropdown>
+                            <a href class="btn btn-default btn-sm mdropdown-toggle" uib-tooltip="{{'Timespan'|translate}}" uib-dropdown-toggle>
+                                <span class="glyphicon glyphicon-time"></span>
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="(interval, label) in fromIntervals" ng-class="{active:(interval == currentFrom)}">
+                                    <a ng-click="sensorView(null, interval)">
+                                        {{ label }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
             </div>
 		</div>

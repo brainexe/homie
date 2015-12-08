@@ -7,7 +7,6 @@ use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Util\TimeParser;
-use BrainExe\Core\MessageQueue\Job;
 use Symfony\Component\HttpFoundation\Request;
 
 /**

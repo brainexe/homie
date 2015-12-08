@@ -25,7 +25,7 @@
                             confirm="deleteDashboard(dashboard.dashboardId)"
                             confirm-text="{{'Are you sure?'|translate}}"
                             class="btn btn-danger btn-xs delete glyphicon glyphicon-remove cursor"
-                            tooltip="Delete">
+                            uib-tooltip="Delete">
                     </span>
                     </a>
                 </li>
@@ -35,13 +35,13 @@
                     <a
                             class="btn btn-default btn-sm"
                             ng-click="openModal(dashboards, dashboard)"
-                            tooltip="{{'New Widget'|translate}}">
+                            uib-tooltip="{{'New Widget'|translate}}">
                         <span class="glyphicon glyphicon-plus cursor"></span>
                     </a>
                     <a
                             class="btn btn-default btn-sm"
                             ng-click="editMode = !editMode"
-                            tooltip="{{'Edit'|translate}}">
+                            uib-tooltip="{{'Edit'|translate}}">
                         <span class="glyphicon glyphicon-edit cursor"></span>
                     </a>
                 </li>
@@ -89,7 +89,7 @@
                         <a
                                 class="btn btn-default"
                                 ng-click="editWidget(dashboard.dashboardId, widget); $event.stopPropagation()"
-                                tooltip="{{'Edit'|translate}}">
+                                uib-tooltip="{{'Edit'|translate}}">
                                 <span
                                         class="glyphicon glyphicon-edit cursor"
                                         >
@@ -99,7 +99,7 @@
                                 class="btn btn-danger"
                                 confirm="deleteWidget(dashboard.dashboardId, widget.id); $event.stopPropagation()"
                                 confirm-text="{{'Are you sure?'|translate}}"
-                                tooltip="{{'Delete'|translate}}">
+                                uib-tooltip="{{'Delete'|translate}}">
                                 <span
                                         class="glyphicon glyphicon-remove cursor"
                                         >

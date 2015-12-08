@@ -6,15 +6,15 @@ App.service('SensorFormatter', [function() {
     }
 
     function temperature(value) {
-        return round(value, 2) +'°';
+        return round(value, 2) + '°';
     }
 
     function percentage(value) {
-        return round(value, 2) +'%';
+        return round(value, 2) + '%';
     }
 
     function barometer(value) {
-        return round(value, 2) +'hPa';
+        return round(value, 2) + 'hPa';
     }
 
     function noop(value) {

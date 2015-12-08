@@ -1,71 +1,99 @@
 
-<form style="width: 400px;" role="form">
-	<h2 translate>Expression</h2>
-    <div class="form-group">
-        <label translate>Id</label>
-        <input type="text" class="form-control" ng-model="editExpression.expressionId"/>
-    </div>
-    <div class="form-group">
-        <label translate>Enabled</label>
-        <input type="checkbox" ng-model="editExpression.enabled"/>
-    </div>
-    <div class="form-group">
-        <label translate>Conditions</label>
-        <div class="form-inline" ng-repeat="(key, condition) in editExpression.conditions track by $index">
-            <label class="pull-left">{{ $index + 1 }}.)&nbsp;</label>
+<div class="panel panel-primary">
+    <div class="panel-heading" translate>Action</div>
+    <div class="panel-body">
+        <form class="form-horizontal" role="form" ng-submit="save(editExpression)">
+            <div class="form-group" ng-if="!editExpression.new">
+                <label class="col-sm-2 control-label" translate>Id</label>
+                <div class="col-sm-10">
+                    <input
+                            type="text"
+                            ng-max-length="32"
+                            class="form-control"
+                            ng-model="editExpression.expressionId"
+                    />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" translate>Enabled</label>
+                <div class="col-sm-10">
+                    <input class="big-checkbox" type="checkbox" ng-model="editExpression.enabled"/>
+                </div>
+            </div>
 
-            <expression-parameter type="condition" parameter="editExpression.conditions[$index]"></expression-parameter>
-            <a
-                    ng-show="condition && $index == editExpression.conditions.length - 1"
-                    class="pull-left form-control glyphicon glyphicon-plus"
-                    ng-click="addCondition(editExpression)"
-                    ></a>
-            <a
-                    ng-show="$index > 0"
-                    class="pull-left form-control glyphicon glyphicon-minus"
-                    ng-click="deleteCondition($index)"
-                    ></a>
-            <span class="clearfix"></span>
-        </div>
-    </div>
+            <div class="form-group">
+                <h4 class="col-sm-offset-2" translate>Conditions</h4>
+            </div>
+            <div class="form-group" ng-repeat="(key, condition) in editExpression.conditions track by $index">
+                <label class="col-sm-2 control-label" >{{ $index + 1 }}.)&nbsp;</label>
+                <div class="col-sm-10">
+                    <div class="input-group">
+                        <expression-parameter type="condition" parameter="editExpression.conditions[$index]"></expression-parameter>
+                        <a
+                                ng-show="condition && $index == editExpression.conditions.length - 1"
+                                class="input-group-addon btn btn-success"
+                                ng-click="addCondition(editExpression)"
+                        >
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </a>
+                        <a
+                                ng-show="$index > 0"
+                                class="input-group-addon btn btn-danger"
+                                ng-click="deleteCondition($index)"
+                        >
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-    <div class="form-group">
-        <label translate>Actions</label>
-        <div class="form-inline" ng-repeat="(key, action) in editExpression.actions track by $index">
-            <label class="pull-left">{{ $index + 1 }}.)&nbsp;</label>
-            <expression-parameter type="action" parameter="editExpression.actions[$index]"></expression-parameter>
+            <div class="form-group">
+                <h4 class="col-sm-offset-2" translate>Actions</h4>
+            </div>
+            <div class="form-group" ng-repeat="(key, action) in editExpression.actions track by $index">
+                <label class="col-sm-2 control-label" >{{ $index + 1 }}.)&nbsp;</label>
+                <div class="col-sm-10">
+                    <div class="input-group">
+                        <expression-parameter type="action" parameter="editExpression.actions[$index]"></expression-parameter>
+                        <a
+                                ng-show="action && $index == editExpression.actions.length - 1"
+                                class="input-group-addon btn btn-success"
+                                ng-click="addAction(editExpression)"
+                        >
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </a>
+                        <a
+                                ng-show="$index > 0"
+                                class="input-group-addon btn btn-danger"
+                                ng-click="deleteAction($index)"
+                        >
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-            <a
-                    ng-show="action && $index == editExpression.actions.length - 1"
-                    class="pull-left form-control glyphicon glyphicon-plus"
-                    ng-click="addAction(editExpression)"
-            ></a>
-            <a
-                    ng-show="$index > 0"
-                    class="pull-left form-control glyphicon glyphicon-minus"
-                    ng-click="deleteAction($index)"
-            ></a>
-            <span class="clearfix"></span>
-        </div>
-    </div>
-    <div class="form-group" ng-if="editExpression.payload|notEmpty">
-        <label translate>Payload</label>
-        <div class="form-inline" ng-repeat="(key, value) in editExpression.payload">
-            <label class="pull-left">{{ key }}:&nbsp</label>
-            <input ng-model="value" class="form-control" type="text"/>
-        </div>
-    </div>
+            <div class="form-group" ng-if="editExpression.payload|notEmpty">
+                <label class="col-sm-2 control-label" translate>Payload</label>
+            </div>
+            <div class="form-group" ng-repeat="(key, value) in editExpression.payload">
+                <label class="col-sm-2 control-label">{{ key }}:&nbsp</label>
+                <div class="col-sm-10">
+                    <input ng-model="value" class="form-control" type="text"/>
+                </div>
+            </div>
 
-	<button
-            class="btn btn-lg btn-primary btn-block"
-            ng-disabled="pending"
-            ng-click="save(editExpression)"
-            type="button"
-            translate
-    >
-        Save
-    </button>
-</form>
+            <button
+                    class="btn btn-lg btn-primary btn-block"
+                    ng-disabled="pending"
+                    type="submit"
+                    translate
+            >
+                Save
+            </button>
+        </form>
+    </div>
+</div>
 
 <hr />
 <table ng-if="expressions|notEmpty" class="table table-bordered table-striped table-hover">

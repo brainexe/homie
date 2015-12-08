@@ -41,6 +41,11 @@ class SensorVO
     public $node;
 
     /**
+     * @var string
+     */
+    public $formatter;
+
+    /**
      * @var int - unix timestamp
      */
     public $lastValueTimestamp;

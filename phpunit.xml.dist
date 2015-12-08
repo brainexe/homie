@@ -5,7 +5,6 @@
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          stopOnFailure="false"
-         syntaxCheck="false"
          bootstrap="Tests/bootstrap.php"
         >
     <testsuites>
@@ -16,7 +15,6 @@
             <directory>./Tests/IntegrationTests</directory>
         </testsuite>
     </testsuites>
-
     <filter>
         <whitelist>
             <directory>./src/</directory>

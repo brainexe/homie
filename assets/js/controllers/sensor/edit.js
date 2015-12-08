@@ -22,8 +22,9 @@ App.controller('EditSensorsController', ['$scope', '$rootScope', '$uibModalInsta
     }
 
     Sensor.getAll().success(function(data) {
-        $scope.sensors = data.sensors;
-        $scope.types   = data.types;
+        $scope.sensors    = data.sensors;
+        $scope.types      = data.types;
+        $scope.formatters = data.formatters;
     });
 
     // todo put into own |filter

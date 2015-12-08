@@ -30,14 +30,26 @@
                         <span class="small" ng-if="sensor.pin">({{ sensor.pin }})</span>
                     </div>
                     <div ng-if="sensor.edit">
-                        <ui-select ng-model="sensor.type">
-                            <ui-select-match placeholder="{{'Select a type...'|translate}}">{{$select.selected.value.name}}</ui-select-match>
-                            <ui-select-choices group-by="'type.value.type'" repeat="type.key as type in types|toObjectArray">
+                        <ui-select ng-model="sensor.type" required uib-tooltip="{{'Type'|translate}}">
+                            <ui-select-match placeholder="{{'Type'|translate}}">{{$select.selected.value.name}}</ui-select-match>
+                            <ui-select-choices repeat="type.key as type in types|toObjectArray">
                                 <span ng-bind-html="type.value.name"></span>
                                 <span class="small">({{type.value.type}})</span>
                             </ui-select-choices>
                         </ui-select>
-                        <input type="text" class="form-control" placeholder="{{'Pin'|translate}}" ng-model="sensor.pin" />
+                        <ui-select ng-model="sensor.formatter" required uib-tooltip="{{'Formatter'|translate}}">
+                            <ui-select-match placeholder="{{'Formatter'|translate}}">{{$select.selected}}</ui-select-match>
+                            <ui-select-choices repeat="formatter as formatter in formatters">
+                                {{'sensor.formatter.'+formatter+'.name'|translate}}
+                            </ui-select-choices>
+                        </ui-select>
+                        <input
+                                type="text"
+                                class="form-control"
+                                uib-tooltip="{{'Parameter'|translate}}"
+                                placeholder="{{'Parameter'|translate}}"
+                                ng-model="sensor.pin"
+                        />
                     </div>
                 </td>
                 <td>

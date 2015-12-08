@@ -74,6 +74,7 @@ class Administration
         $interval    = $request->request->getInt('interval');
         $node        = $request->request->getInt('node');
         $color       = $request->request->get('color');
+        $formatter   = $request->request->get('formatter');
 
         $sensorVo = $this->voBuilder->build(
             null,
@@ -83,7 +84,8 @@ class Administration
             $node,
             $pin,
             $sensorType,
-            $color
+            $color,
+            $formatter
         );
 
         $this->gateway->addSensor($sensorVo);
@@ -122,6 +124,7 @@ class Administration
         $sensorVo->pin         = $request->request->get('pin');
         $sensorVo->interval    = $request->request->getInt('interval');
         $sensorVo->color       = $request->request->get('color');
+        $sensorVo->formatter   = $request->request->get('formatter');
 
         $this->gateway->save($sensorVo);
 
