@@ -5,16 +5,17 @@ namespace Homie\Tests\Radio;
 use ArrayIterator;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Core\Util\TimeParser;
-use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Homie\Radio\RadioChangeEvent;
-use Homie\Radio\RadioJob;
+use Homie\Radio\SwitchChangeEvent;
+use Homie\Radio\Job;
 use Homie\Radio\VO\RadioVO;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
+use PHPUnit_Framework_TestCase as TestCase;
 
-class RadioJobTest extends \PHPUnit_Framework_TestCase
+class JobTest extends TestCase
 {
 
     /**
-     * @var RadioJob
+     * @var Job
      */
     private $subject;
 
@@ -33,7 +34,7 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase
         $this->timeParser = $this->getMock(TimeParser::class);
         $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-        $this->subject = new RadioJob($this->timeParser);
+        $this->subject = new Job($this->timeParser);
         $this->subject->setEventDispatcher($this->dispatcher);
     }
 
@@ -44,7 +45,7 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase
         $status     = true;
 
         $radioVo = new RadioVO();
-        $radioVo->radioId = 1;
+        $radioVo->switchId = 1;
 
         $this->timeParser
             ->expects($this->once())
@@ -52,12 +53,12 @@ class RadioJobTest extends \PHPUnit_Framework_TestCase
             ->with($timeString)
             ->willReturn($timestamp);
 
-        $event = new RadioChangeEvent($radioVo, $status);
+        $event = new SwitchChangeEvent($radioVo, $status);
         $this->dispatcher
             ->expects($this->once())
             ->method('dispatchInBackground')
             ->with($event, $timestamp);
 
-        $this->subject->addRadioJob($radioVo, $timeString, $status);
+        $this->subject->addJob($radioVo, $timeString, $status);
     }
 }

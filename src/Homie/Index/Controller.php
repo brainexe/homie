@@ -46,7 +46,7 @@ class Controller
 
     /**
      * @return mixed[]
-    q1 * @Route("/config/", name="config")
+     * @Route("/config/", name="config")
      * @Guest
      */
     public function config()

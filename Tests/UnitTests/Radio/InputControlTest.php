@@ -7,7 +7,7 @@ use BrainExe\InputControl\Event;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Homie\Radio\InputControl;
-use Homie\Radio\RadioChangeEvent;
+use Homie\Radio\SwitchChangeEvent;
 use Homie\Radio\Radios;
 use Homie\Radio\VO\RadioVO;
 
@@ -25,20 +25,20 @@ class InputControlTest extends TestCase
     /**
      * @var Radios|MockObject
      */
-    private $mockRadios;
+    private $radios;
 
     /**
      * @var EventDispatcher|MockObject
      */
-    private $mockEventDispatcher;
+    private $dispatcher;
 
     public function setUp()
     {
-        $this->mockRadios          = $this->getMock(Radios::class, [], [], '', false);
-        $this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->radios     = $this->getMock(Radios::class, [], [], '', false);
+        $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-        $this->subject = new InputControl($this->mockRadios);
-        $this->subject->setEventDispatcher($this->mockEventDispatcher);
+        $this->subject = new InputControl($this->radios);
+        $this->subject->setEventDispatcher($this->dispatcher);
     }
     public function testGetSubscribedEvents()
     {
@@ -49,23 +49,23 @@ class InputControlTest extends TestCase
 
     public function testSay()
     {
-        $radioId    = 5;
+        $switchId   = 5;
         $inputEvent = new Event();
-        $inputEvent->matches = ['on', $radioId];
+        $inputEvent->matches = ['on', $switchId];
 
         $radioVo = new RadioVO();
-        $event   = new RadioChangeEvent($radioVo, true);
+        $event   = new SwitchChangeEvent($radioVo, true);
 
-        $this->mockRadios
+        $this->radios
             ->expects($this->once())
-            ->method('getRadio')
-            ->with($radioId)
+            ->method('get')
+            ->with($switchId)
             ->willReturn($radioVo);
-        $this->mockEventDispatcher
+        $this->dispatcher
             ->expects($this->once())
             ->method('dispatchEvent')
             ->with($event);
 
-        $this->subject->setRadio($inputEvent);
+        $this->subject->setSwitch($inputEvent);
     }
 }

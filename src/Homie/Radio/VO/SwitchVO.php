@@ -2,13 +2,20 @@
 
 namespace Homie\Radio\VO;
 
-class SwitchVO
+abstract class SwitchVO
 {
+
+    const TYPE = 'unknown';
 
     /**
      * @var string
      */
     public $switchId;
+
+    /**
+     * @var string
+     */
+    public $type;
 
     /**
      * @var string
@@ -21,7 +28,13 @@ class SwitchVO
     public $description;
 
     /**
+     * Current status of switch
      * @var bool
      */
     public $status;
+
+    public function __construct()
+    {
+        $this->type = static::TYPE;
+    }
 }

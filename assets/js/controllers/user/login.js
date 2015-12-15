@@ -1,7 +1,6 @@
-App.controller('LoginController', ['$scope', 'UserManagement', 'UserManagement.TOTP', '_', function ($scope, UserManagement, TOTP, _) {
-
+App.controller('LoginController', ['$scope', '$location', 'UserManagement', 'UserManagement.TOTP', '_', function ($scope, $location, UserManagement, TOTP, _) {
     if (UserManagement.isLoggedIn()) {
-        window.location.href = '#/dashboard';
+        $location.path("/dashboard");
         return
     }
 
@@ -19,8 +18,7 @@ App.controller('LoginController', ['$scope', 'UserManagement', 'UserManagement.T
 
             $scope.$broadcast('flash', [message, 'success']);
             UserManagement.setCurrentUser(result);
-
-            window.location.href = '#dashboard';
+            $location.path("/dashboard");
         });
     };
 

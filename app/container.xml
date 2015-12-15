@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <container xmlns="http://symfony.com/schema/dic/services">
+    <imports>
+        <import resource="../vendor/brainexe/core/container.xml" />
+        <import resource="../vendor/brainexe/totp/container.xml" />
+        <import resource="./config.default.xml" />
+        <import resource="./config.xml" ignore-errors="true"/>
+    </imports>
     <parameters>
         <parameter key="logger.sensor.log">logs/sensor.log</parameter>
         <parameter key="application.name">homie</parameter>
         <parameter key="application.registration_enabled">true</parameter>
-
-        <parameter key="gpio.executable">gpio</parameter>
 
         <parameter key="filesystem.remote.url"/>
         <parameter key="filesystem.remote.username"/>
         <parameter key="filesystem.remote.password"/>
         <parameter key="filesystem.remote.pathPrefix"/>
         <parameter key="filesystem.remote.cache">false</parameter>
+
+        <parameter key="application.middlewares" type="collection">
+            <parameter>Middleware.Parameter</parameter>
+            <parameter>Middleware.Session</parameter>
+            <parameter>Middleware.Authentication</parameter>
+            <parameter>Middleware.CatchUserException</parameter>
+            <parameter>Middleware.Csrf</parameter>
+            <parameter>Middleware.Gentime</parameter>
+            <parameter>Middleware.Stats</parameter>
+        </parameter>
     </parameters>
     <services>
         <service id="HomieClient" alias="HomieClient.Local" public="false"/>

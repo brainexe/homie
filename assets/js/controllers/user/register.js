@@ -1,7 +1,7 @@
 
-App.controller('RegisterController', ['$scope', 'UserManagement', function ($scope, UserManagement) {
+App.controller('RegisterController', ['$scope', '$location', 'UserManagement', function ($scope, $location, UserManagement) {
         if (UserManagement.isLoggedIn()) {
-            window.location.href = '#/dashboard';
+            $location.path("/dashboard");
             return
         }
 
@@ -16,6 +16,7 @@ App.controller('RegisterController', ['$scope', 'UserManagement', function ($sco
 
                 $scope.$broadcast('flash', [message, 'success']);
                 UserManagement.setCurrentUser(userVo);
+                $location.path("/dashboard");
             });
         }
     }]

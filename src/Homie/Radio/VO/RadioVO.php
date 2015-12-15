@@ -4,12 +4,7 @@ namespace Homie\Radio\VO;
 
 class RadioVO extends SwitchVO
 {
-
-    /**
-     * @todo use $switchId
-     * @var string
-     */
-    public $radioId;
+    const TYPE = 'radio';
 
     /**
      * @var string
@@ -20,5 +15,4 @@ class RadioVO extends SwitchVO
      * @var int
      */
     public $pin;
-
 }

@@ -27,7 +27,8 @@ class InputControl implements InputControlInterface
     public static function getSubscribedEvents()
     {
         return [
-            '/^radio (on|off) (\s+)$/i' => 'setRadio'
+            '/^radio (on|off) (\s+)$/i' => 'setSwitch',
+            '/^switch (on|off) (\s+)$/i' => 'setSwitch',
         ];
     }
 
@@ -43,15 +44,15 @@ class InputControl implements InputControlInterface
     /**
      * @param Event $event
      */
-    public function setRadio(Event $event)
+    public function setSwitch(Event $event)
     {
-        list ($status, $radioId) = $event->matches;
+        list ($status, $switchId) = $event->matches;
 
         $status = $status === 'on';
 
-        $radioVo = $this->radios->getRadio($radioId);
+        $radioVo = $this->radios->get($switchId);
 
-        $event = new RadioChangeEvent($radioVo, $status);
+        $event = new SwitchChangeEvent($radioVo, $status);
         $this->dispatchEvent($event);
     }
 }

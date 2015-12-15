@@ -9,21 +9,22 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * @EventListener
  */
-class RadioJobListener implements EventSubscriberInterface
+class JobListener implements EventSubscriberInterface
 {
 
     /**
-     * @var RadioController
+     * @var SwitchInterface
      */
     private $controller;
 
     /**
-     * @param RadioController $radioController
+     * @param SwitchInterface $controller
      * @Inject("@RadioController")
+     * @todo fetch correct SwitchInterface
      */
-    public function __construct(RadioController $radioController)
+    public function __construct(SwitchInterface $controller)
     {
-        $this->controller = $radioController;
+        $this->controller = $controller;
     }
 
     /**
@@ -32,17 +33,17 @@ class RadioJobListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            RadioChangeEvent::CHANGE_RADIO => 'handleChangeEvent'
+            SwitchChangeEvent::CHANGE_RADIO => 'handleChangeEvent'
         ];
     }
 
     /**
-     * @param RadioChangeEvent $event
+     * @param SwitchChangeEvent $event
      */
-    public function handleChangeEvent(RadioChangeEvent $event)
+    public function handleChangeEvent(SwitchChangeEvent $event)
     {
         $this->controller->setStatus(
-            $event->radioVo,
+            $event->switch,
             $event->status
         );
     }

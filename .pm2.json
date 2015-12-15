@@ -24,13 +24,7 @@
       "script"      : "websocket.js",
       "merge_logs"  : true,
       "cwd"         : "nodejs",
-      "max_restarts" : 2
-    },
-    {
-      "name"        : "grunt-watch",
-      "script"      : "grunt",
-      "args"        : "watch",
-      "merge_logs"  : true
+      "max_restarts" : 5
     }
   ]
 }

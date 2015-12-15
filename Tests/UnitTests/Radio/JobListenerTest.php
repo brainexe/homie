@@ -2,18 +2,18 @@
 
 namespace Tests\Homie\Radio;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Homie\Radio\RadioChangeEvent;
-use Homie\Radio\RadioJobListener;
+use Homie\Radio\SwitchChangeEvent;
+use Homie\Radio\JobListener;
 use Homie\Radio\RadioController;
 use Homie\Radio\VO\RadioVO;
 
-class RadioJobListenerTest extends PHPUnit_Framework_TestCase
+class JobListenerTest extends TestCase
 {
 
     /**
-     * @var RadioJobListener
+     * @var JobListener
      */
     private $subject;
 
@@ -26,7 +26,7 @@ class RadioJobListenerTest extends PHPUnit_Framework_TestCase
     {
         $this->controller = $this->getMock(RadioController::class, [], [], '', false);
 
-        $this->subject = new RadioJobListener($this->controller);
+        $this->subject = new JobListener($this->controller);
     }
 
     public function testGetSubscribedEvents()
@@ -41,7 +41,7 @@ class RadioJobListenerTest extends PHPUnit_Framework_TestCase
         $radio->code = 'code';
         $radio->pin  = 'pin';
 
-        $event = new RadioChangeEvent($radio, RadioChangeEvent::CHANGE_RADIO);
+        $event = new SwitchChangeEvent($radio, SwitchChangeEvent::CHANGE_RADIO);
         $event->status = $status = 'status';
 
         $this->controller

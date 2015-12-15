@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <container xmlns="http://symfony.com/schema/dic/services">
     <parameters>
-        <parameter key="debug">false</parameter>
+        <parameter key="environment">development</parameter>
+        <parameter key="debug" >parameter("environment") != "production"</parameter>
         <parameter key="node.id">0</parameter>
 
         <parameter key="socket.url">http://localhost:8081/socket</parameter>
+
+        <parameter key="gpio.executable">gpio</parameter>
 
         <parameter key="rc_switch.command">sudo /opt/rcswitch-pi/send</parameter>
         <parameter key="adafruit.path">/opt/Adafruit-Raspberry-Pi-Python-Code/Adafruit_DHT_Driver/</parameter>

@@ -32,6 +32,13 @@ class Expression extends AbstractWidget
                     'name'    => gettext('Variables'),
                     'default' => array('value' => "sprintf('Hallo %s', 'Welt')")
                 ],
+                'reloadInterval' => [
+                    'type'    => WidgetMetadataVo::NUMBER,
+                    'name'    => gettext('Reload Interval in seconds'),
+                    'min'     => -1,
+                    'max'     => 3600,
+                    'default' => -1
+                ],
                 'reloadButton' => [
                     'type'    => WidgetMetadataVo::KEY_BOOLEAN,
                     'name'    => gettext('Reload Button'),

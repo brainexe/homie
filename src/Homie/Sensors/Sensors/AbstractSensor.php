@@ -5,9 +5,6 @@ namespace Homie\Sensors\Sensors;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Interfaces\Sensor;
 
-/**
- * @todo check if package is installed via "dpkg-query -W -f='${Status} ${Version}\n' $package"
- */
 abstract class AbstractSensor implements Sensor
 {
 

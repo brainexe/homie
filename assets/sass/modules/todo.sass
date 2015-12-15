@@ -1,0 +1,75 @@
+
+#shopping_list
+	width: 500px
+	float: left
+	min-height: 500px
+
+	.completed
+		text-decoration: line-through
+
+.shopping-entry
+	width: 230px
+
+.shopping-entry, #shopping_list
+	background-color: #e3e3e3
+	border-radius: 10px
+	margin: 5px
+	padding: 10px
+	border: 1px darkgray solid
+
+.task-list
+	width: 250px
+	float: left
+	margin: 0 5px
+	background-color: #e3e3e3
+	height: 500px
+	border-radius: 10px
+	border: 1px darkgray solid
+	padding-bottom: 15px
+	overflow-y: auto
+
+	input, .task-list textarea
+		width: 240px
+		margin: 1px 5px
+
+	input
+		height: 30px
+
+	input[type="button"]
+		width: 100px
+		margin: 5px
+
+	.completed .todo-task
+		text-decoration: line-through
+
+.todo-task
+	border-radius: 5px
+	background-color: #fff
+	width: 220px
+	margin: 5px
+	padding: 5px
+	border: 1px darkgray solid
+
+	> .task-header
+		font-weight: bold
+
+	> .task-date
+		font-size: small
+		font-style: italic
+
+	> .task-deadline
+		font-size: small
+		font-style: italic
+
+	> .task-description, .todo-task > .task-user
+		font-size: smaller
+
+#delete-div
+	background-color: #fff
+	border: 3px dotted #000
+	border-radius: 5px
+	margin: 10px
+	height: 75px
+	line-height: 75px
+	text-align: center
+

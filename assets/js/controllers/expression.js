@@ -11,13 +11,13 @@ App.controller('ExpressionController', ['$scope', 'Expression', 'MessageQueue', 
 		$scope.input_control = data.input_control;
 		$scope.eventNames    = data.events;
 	});
-    $scope.reloadCrons();
 
     $scope.reloadCrons = function() {
         MessageQueue.getJobs('message_queue.crons').success(function() {
             $scope.crons = [];
         });
     };
+    $scope.reloadCrons();
 
     $scope.save = function(expression) {
         Expression.save(expression).success(function(data) {

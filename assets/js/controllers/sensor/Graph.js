@@ -1,5 +1,5 @@
 
-App.service('SensorGraph', ['Sensor', 'SensorFormatter', function (Sensor, SensorFormatter) {
+App.service('SensorGraph', ['Sensor', 'Sensor.Formatter', function (Sensor, SensorFormatter) {
     function init($scope, element, height, sensors, parameters) {
         /**
          * @param sensorValues
@@ -45,14 +45,15 @@ App.service('SensorGraph', ['Sensor', 'SensorFormatter', function (Sensor, Senso
 
                 $scope.graph = new Rickshaw.Graph({
                     element: element.querySelector('.chart'),
-                    width: element.clientWidth - 20,
+                    width: element.clientWidth - 40,
                     interpolation: 'basis',
                     height: height,
                     min: 'auto',
                     renderer: 'line',
                     series: decompressData(data)
                 });
-                new Rickshaw.Graph.Axis.Time({graph: $scope.graph});
+                // TODO FIX
+               // new Rickshaw.Graph.Axis.Time({graph: $scope.graph});
                 new Rickshaw.Graph.Axis.Y({
                     graph: $scope.graph,
                     orientation: 'right',

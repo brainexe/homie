@@ -60,7 +60,7 @@ class Controller
 
     /**
      * @param Request $request
-     * @Route("/gpio/description/", name="gpio.set", methods="POST")
+     * @Route("/gpio/description/", name="gpio.description", methods="POST")
      * @return bool
      */
     public function setDescription(Request $request)

@@ -3,17 +3,17 @@
 	<thead>
 		<tr>
 			<th width="30">
-				<a ng-click="setOrderBy('wiringId')">
+				<a ng-click="setOrderBy('wiringId')" class="order">
 					#wiring
 				</a>
 			</th>
 			<th width="30">
-				<a ng-click="setOrderBy('physicalId')">
+				<a ng-click="setOrderBy('physicalId')" class="order">
 					#phy
 				</a>
 			</th>
 			<th>
-				<a ng-click="setOrderBy('name')" translate>
+				<a ng-click="setOrderBy('name')" class="order" translate>
 					Name
 				</a>
 			</th>
@@ -21,14 +21,14 @@
 			<th translate translate>Value</th>
 		</tr>
 	</thead>
-	<tbody ng-repeat="pin in gpios|orderObjectBy:orderBy">
-		<tr>
+	<tbody>
+		<tr ng-repeat="pin in gpios|orderObjectBy:orderBy">
 			<td>
 				<span ng-if="pin.wiringId">#{{ pin.wiringId }}</span>
 			</td>
 			<td>#{{ pin.physicalId }}</td>
 			<td>
-				{{ pin.name }} <span ng-if="pin.description">({{ pin.description }})</span>
+				<b>{{ pin.name }}</b> <span ng-if="pin.description">({{ pin.description }})</span>
 
                 <div ng-if="editMode">
                     <input ng-enter="saveDescription(pin)" type="text" ng-model="pin.description"/>

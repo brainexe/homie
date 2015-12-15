@@ -8,8 +8,8 @@ interface SwitchInterface
 {
 
     /**
-     * @param SwitchVO $radioVO
+     * @param SwitchVO $switch
      * @param int $status
      */
-    public function setStatus(SwitchVO $radioVO, $status);
+    public function setStatus(SwitchVO $switch, $status);
 }

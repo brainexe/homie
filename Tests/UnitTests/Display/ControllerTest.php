@@ -16,9 +16,6 @@ use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * @todo more tests
- */
 class ControllerTest extends TestCase
 {
 
@@ -88,7 +85,7 @@ class ControllerTest extends TestCase
 
         $request = new Request();
 
-        $event = new Redraw();
+        $event = new Redraw($displayId);
 
         $this->dispatcher
             ->expects($this->once())

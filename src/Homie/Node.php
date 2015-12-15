@@ -5,12 +5,13 @@ namespace Homie;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\SerializableTrait;
+use BrainExe\Core\Translation\TranslationProvider;
 use JsonSerializable;
 
 /**
  * @Service(public=false)
  */
-class Node implements JsonSerializable
+class Node implements JsonSerializable, TranslationProvider
 {
     use SerializableTrait;
 
@@ -84,5 +85,15 @@ class Node implements JsonSerializable
     public function getNodeId()
     {
         return $this->nodeId;
+    }
+
+    /**
+     * @return string[]
+     */
+    public static function getTokens()
+    {
+        return array_map(function ($type) {
+            return sprintf('node.%s.name', $type);
+        }, self::TYPES);
     }
 }

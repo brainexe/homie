@@ -2,11 +2,11 @@ var redis   = require('./lib/redis'),
     config  = require('./lib/config'),
     debug   = require('debug')('arduino'),
     arduino = require('duino'),
-    colors   = require('colors');
+    colors  = require('colors');
 
 var client = redis.getClient('arduino-subscribe');
 var servos = {};
-var board = new arduino.Board({
+var board  = new arduino.Board({
     device: "USB0"
 });
 
@@ -18,8 +18,8 @@ client.on('message', function (channel, command) {
     var parts = command.split(':');
 
     var action = parts[0];
-    var pin = parts[1];
-    var value = parts[2];
+    var pin    = parts[1];
+    var value  = parts[2];
 
     debug(action, pin, value);
 

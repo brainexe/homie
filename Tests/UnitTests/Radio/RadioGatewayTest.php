@@ -4,22 +4,22 @@ namespace Tests\Homie\Radio;
 
 use BrainExe\Core\Redis\Predis;
 use BrainExe\Tests\RedisMockTrait;
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Homie\Radio\RadioGateway;
+use Homie\Radio\Gateway;
 use Homie\Radio\VO\RadioVO;
 use BrainExe\Core\Util\IdGenerator;
 
 /**
- * @covers Homie\Radio\RadioGateway
+ * @covers Homie\Radio\Gateway
  */
-class RadioGatewayTest extends PHPUnit_Framework_TestCase
+class RadioGatewayTest extends TestCase
 {
 
     use RedisMockTrait;
 
     /**
-     * @var RadioGateway
+     * @var Gateway
      */
     private $subject;
 
@@ -38,7 +38,7 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
         $this->redis       = $this->getRedisMock();
         $this->idGenerator = $this->getMock(IdGenerator::class, [], [], '', false);
 
-        $this->subject = new RadioGateway();
+        $this->subject = new Gateway();
         $this->subject->setRedis($this->redis);
         $this->subject->setIdGenerator($this->idGenerator);
     }
@@ -54,7 +54,7 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
         $this->redis
             ->expects($this->once())
             ->method('SMEMBERS')
-            ->with(RadioGateway::REDIS_RADIO_IDS)
+            ->with(Gateway::REDIS_SWITCH_IDS)
             ->willReturn($radioIds);
 
         $this->redis
@@ -65,31 +65,31 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
         $this->redis
             ->expects($this->once())
             ->method('HGETALL')
-            ->with("radios:$radioId");
+            ->with("switches:$radioId");
 
         $this->redis
             ->expects($this->once())
             ->method('execute')
             ->willReturn($result);
 
-        $actualResult = $this->subject->getRadios();
+        $actualResult = $this->subject->getAll();
 
         $this->assertEquals($result, $actualResult);
     }
 
     public function testGetRadio()
     {
-        $radioId = 10;
+        $switchId = 10;
 
         $radio = ['radio'];
 
         $this->redis
             ->expects($this->once())
             ->method('HGETALL')
-            ->with("radios:$radioId")
+            ->with("switches:$switchId")
             ->willReturn($radio);
 
-        $actualResult = $this->subject->getRadio($radioId);
+        $actualResult = $this->subject->get($switchId);
 
         $this->assertEquals($radio, $actualResult);
     }
@@ -103,20 +103,20 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
         $this->redis
             ->expects($this->once())
             ->method('SMEMBERS')
-            ->with(RadioGateway::REDIS_RADIO_IDS)
+            ->with(Gateway::REDIS_SWITCH_IDS)
             ->willReturn($radioIds);
 
-        $actualResult = $this->subject->getRadioIds();
+        $actualResult = $this->subject->getIds();
 
         $this->assertEquals($radioIds, $actualResult);
     }
 
     public function testAddRadio()
     {
-        $radioId = "11880";
+        $switchId = "11880";
 
         $radioVo = new RadioVO();
-        $radioVo->radioId     = $radioId;
+        $radioVo->switchId    = $switchId;
         $radioVo->name        = $name = 'name';
         $radioVo->description = $description = 'description';
         $radioVo->pin         = $pin = 'pin';
@@ -125,61 +125,62 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
         $this->idGenerator
             ->expects($this->once())
             ->method('generateUniqueId')
-            ->willReturn($radioId);
+            ->willReturn($switchId);
 
         $this->redis
             ->expects($this->once())
             ->method('pipeline')
             ->willReturn($this->redis);
 
-        $key = "radios:$radioId";
+        $key = "switches:$switchId";
 
         $this->redis
             ->expects($this->once())
             ->method('HMSET')
             ->with($key, [
-                'radioId' => $radioId,
+                'switchId' => $switchId,
                 'name' => $name,
                 'description' => $description,
                 'pin' => $pin,
                 'code' => $code,
                 'status' => $radioVo->status,
+                'type' => RadioVO::TYPE
             ]);
 
         $this->redis
             ->expects($this->once())
             ->method('SADD')
-            ->with(RadioGateway::REDIS_RADIO_IDS, [$radioId]);
+            ->with(Gateway::REDIS_SWITCH_IDS, [$switchId]);
 
         $this->redis
             ->expects($this->once())
             ->method('execute');
 
-        $actualResult = $this->subject->addRadio($radioVo);
+        $actualResult = $this->subject->add($radioVo);
 
-        $this->assertEquals($radioId, $actualResult);
+        $this->assertEquals($switchId, $actualResult);
     }
 
     public function testEditRadio()
     {
         $radioVo = new RadioVO();
-        $radioVo->radioId = $radioId = 10;
-        $radioVo->status  = 1;
+        $radioVo->switchId = $switchId = 10;
+        $radioVo->status   = 1;
 
         $this->redis
             ->expects($this->once())
             ->method('hMset')
-            ->with("radios:$radioId", [
-                'radioId' => $radioId,
+            ->with("switches:$switchId", [
+                'switchId' => $switchId,
                 'code' => null,
                 'pin' => null,
                 'name' => null,
                 'description' => null,
                 'status' => 1,
-                'switchId' => null
+                'type' => RadioVO::TYPE
             ]);
 
-        $this->subject->editRadio($radioVo);
+        $this->subject->edit($radioVo);
     }
 
     public function testDeleteRadio()
@@ -189,13 +190,13 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
         $this->redis
             ->expects($this->once())
             ->method('SREM')
-            ->with(RadioGateway::REDIS_RADIO_IDS, $radioId);
+            ->with(Gateway::REDIS_SWITCH_IDS, $radioId);
 
         $this->redis
             ->expects($this->once())
             ->method('DEL')
-            ->with("radios:$radioId");
+            ->with("switches:$radioId");
 
-        $this->subject->deleteRadio($radioId);
+        $this->subject->delete($radioId);
     }
 }

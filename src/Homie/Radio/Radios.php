@@ -15,10 +15,7 @@ use Homie\Radio\VO\RadioVO;
 class Radios
 {
 
-    /**
-     * @var array
-     */
-    public static $radioPins = [
+    const PINS = [
         'A' => 1,
         'B' => 2,
         'C' => 3,
@@ -27,15 +24,15 @@ class Radios
     ];
 
     /**
-     * @var RadioGateway
+     * @var Gateway
      */
     private $gateway;
 
     /**
      * @Inject("@RadioGateway")
-     * @param RadioGateway $gateway
+     * @param Gateway $gateway
      */
-    public function __construct(RadioGateway $gateway)
+    public function __construct(Gateway $gateway)
     {
         $this->gateway = $gateway;
     }
@@ -49,7 +46,7 @@ class Radios
     {
         if (is_numeric($pin)) {
             $pin     = (int)$pin;
-            $flipped = array_flip(self::$radioPins);
+            $flipped = array_flip(self::PINS);
             if (!isset($flipped[$pin])) {
                 throw new UserException(sprintf("Invalid pin: %s", $pin));
             }
@@ -57,26 +54,26 @@ class Radios
         }
 
         $pin = strtoupper($pin);
-        if (empty(self::$radioPins[$pin])) {
+        if (empty(self::PINS[$pin])) {
             throw new UserException(sprintf("Invalid pin: %s", $pin));
         }
 
-        return self::$radioPins[$pin];
+        return self::PINS[$pin];
     }
 
     /**
-     * @param integer $radioId
+     * @param integer $switchId
      * @return RadioVO
      */
-    public function getRadio($radioId)
+    public function get($switchId)
     {
-        $raw = $this->gateway->getRadio($radioId);
+        $raw = $this->gateway->get($switchId);
 
         if (empty($raw)) {
-            throw new InvalidArgumentException(sprintf('Invalid radio: %d', $radioId));
+            throw new InvalidArgumentException(sprintf('Invalid switch: %d', $switchId));
         }
 
-        return $this->buildRadioVO($raw);
+        return $this->buildSwitchVO($raw);
     }
 
     /**
@@ -84,38 +81,38 @@ class Radios
      */
     public function getRadios()
     {
-        $radiosRaw = $this->gateway->getRadios();
+        $radiosRaw = $this->gateway->getAll();
 
         foreach ($radiosRaw as $radio) {
-            yield $radio['radioId'] => $this->buildRadioVO($radio);
+            yield $radio['switchId'] => $this->buildSwitchVO($radio);
         }
     }
 
     /**
      * @param RadioVO $radioVo
-     * @return integer $radioId
+     * @return integer new switch id
      */
     public function addRadio(RadioVO $radioVo)
     {
-        return $this->gateway->addRadio($radioVo);
+        return $this->gateway->add($radioVo);
     }
 
     /**
-     * @param integer $radioId
+     * @param integer $switchId
      */
-    public function deleteRadio($radioId)
+    public function delete($switchId)
     {
-        $this->gateway->deleteRadio($radioId);
+        $this->gateway->delete($switchId);
     }
 
     /**
      * @param array $raw
      * @return RadioVO
      */
-    private function buildRadioVO(array $raw)
+    private function buildSwitchVO(array $raw)
     {
         $radioVo              = new RadioVO();
-        $radioVo->radioId     = $raw['radioId'];
+        $radioVo->switchId    = $raw['switchId'];
         $radioVo->name        = $raw['name'];
         $radioVo->description = $raw['description'];
         $radioVo->code        = $raw['code'];

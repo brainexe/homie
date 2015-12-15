@@ -1,11 +1,7 @@
 
-App.service('Widget.expression', ['$compile', 'Expression', function($compile, Expression) {
-
-
-
+App.service('Widget.expression', ['$compile', '$interval', 'Expression', function($compile, $interval, Expression) {
     return {
         render: function ($scope, widget, element) {
-
             function load(cached) {
                 var expression;
                 $scope.reloadButton = widget.reloadButton;
@@ -20,7 +16,8 @@ App.service('Widget.expression', ['$compile', 'Expression', function($compile, E
                 var funcs = [];
                 Expression.getData(true).success(function(data) {
                     element[0].querySelector('.template').innerHTML = widget.template;
-                    $compile(element.contents())($scope);
+                    $compile(element[0].querySelector('.template'))($scope);
+
                     return; // TODO implement
                     funcs = data.functions;
                     for (var i in funcs) {
@@ -30,15 +27,12 @@ App.service('Widget.expression', ['$compile', 'Expression', function($compile, E
                             var command = functionName + '(' + arguments.join(', ') + ')';
                             Expression.evaluate.call(this, command);
                         };
-
-
                     }
                 });
             }
 
             load(true);
             $scope.reload = function() {
-                // todo this method is triggered multiple times...
                 Expression.invalidate();
                 load(false);
             };
@@ -46,6 +40,10 @@ App.service('Widget.expression', ['$compile', 'Expression', function($compile, E
             $scope.evaluate = function(expression) {
                 Expression.evaluate(expression, false);
             };
+
+            if (widget.reloadInterval > 0) {
+                $interval($scope.reload.bind(this), widget.reloadInterval * 1000);
+            }
         }
     };
 }]);

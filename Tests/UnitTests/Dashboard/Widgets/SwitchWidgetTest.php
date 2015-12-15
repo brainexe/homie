@@ -37,14 +37,14 @@ class SwitchWidgetTest extends TestCase
     public function testSerialize()
     {
         $radio = new RadioVO();
-        $radio->radioId = $radioId = 122;
-        $radio->name    = 'radio';
+        $radio->switchId = $switchId = 122;
+        $radio->name     = 'radio';
 
         $this->radios
             ->expects($this->once())
             ->method('getRadios')
             ->willReturn([
-                 $radioId => $radio
+                 $switchId => $radio
              ]);
 
         $actualResult = $this->subject->getMetadata();
@@ -55,14 +55,14 @@ class SwitchWidgetTest extends TestCase
     public function testJsonEncode()
     {
         $radio = new RadioVO();
-        $radio->radioId = $radioId = 122;
-        $radio->name    = 'radio';
+        $radio->switchId = $switchId = 122;
+        $radio->name     = 'radio';
 
         $this->radios
             ->expects($this->once())
             ->method('getRadios')
             ->willReturn([
-                $radioId => $radio
+                $switchId => $radio
             ]);
 
         $actualResult = json_encode($this->subject);

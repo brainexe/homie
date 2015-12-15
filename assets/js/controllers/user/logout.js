@@ -1,8 +1,7 @@
 
-App.controller('LogoutController', ['$scope', 'UserManagement', function($scope, UserManagement) {
-	UserManagement.logout().success(function(userVo) {
+App.controller('LogoutController', ['$scope', '$location', 'UserManagement', function($scope, $location, UserManagement) {
+	UserManagement.logout().success(function() {
 		UserManagement.setCurrentUser({});
-
-		window.location.href = '#index';
+		$location.path("/index");
 	})
 }]);

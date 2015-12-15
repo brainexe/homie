@@ -1,5 +1,5 @@
 
-App.service('SensorFormatter', [function() {
+App.service('Sensor.Formatter', [function() {
     function round(number, places) {
         var factor = Math.pow(10, places);
         return (~~Math.round(number * factor)) / factor;
@@ -21,23 +21,28 @@ App.service('SensorFormatter', [function() {
         return round(value, 3);
     }
 
+    function bytes(bytes) {
+        return number(bytes) + 'B';
+    }
+
     /**
      * @source http://stackoverflow.com/questions/10420352/converting-file-size-in-bytes-to-human-readable
      */
-    function bytes(bytes) {
+    function number(number) {
         var thresh = 1024;
-        if(Math.abs(bytes) < thresh) {
-            return bytes + ' B';
+        if(Math.abs(number) < thresh * 2) {
+            return number;
         }
-        var units = ['kB','MB','GB','TB','PB','EB','ZB','YB'];
+        var units = ['k','M','G','T','P','E','Z','Y'];
         var u = -1;
         do {
-            bytes /= thresh;
+            number /= thresh;
             ++u;
-        } while(Math.abs(bytes) >= thresh && u < units.length - 1);
+        } while(Math.abs(number) >= thresh && u < units.length - 1);
 
-        return bytes.toFixed(1)+' '+units[u];
+        return number.toFixed(1)+' '+units[u];
     }
+
 
     return {
         getFormatter: function(type) {
@@ -50,6 +55,8 @@ App.service('SensorFormatter', [function() {
                     return barometer;
                 case 'bytes':
                     return bytes;
+                case 'number':
+                    return number;
                 default:
                     return noop;
             }

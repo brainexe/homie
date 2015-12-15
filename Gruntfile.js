@@ -13,7 +13,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-manifest');
     grunt.loadNpmTasks('grunt-exec');
-    grunt.loadNpmTasks('grunt-jslint');
 
     // todo improve performance: https://www.npmjs.com/package/grunt-parallelize
     grunt.registerTask('extract_lang', ['nggettext_extract']);
@@ -92,27 +91,33 @@ module.exports = function (grunt) {
         watch: {
             js: {
                 files: ['assets/**/*.js'],
-                tasks: ['uglify:app'],
+                tasks: ['uglify:app', 'copy:static'],
                 options: {
                     livereload: true
                 }
             },
             css: {
                 files: ['assets/**/*.css'],
-                tasks: ['concat', 'cssmin'],
+                tasks: ['concat', 'cssmin', 'copy:static'],
                 options: {
                     livereload: true
                 }
             },
-            // todo po files
             templates: {
                 files: ['assets/**/*.html'],
-                tasks: ['htmlmin'],
+                tasks: ['htmlmin', 'copy:static'],
                 options: {
                     livereload: true
                 }
             },
-            src: {
+            po: {
+                files: ['lang/*.po'],
+                tasks: ['compile_lang', 'copy:static'],
+                options: {
+                    livereload: true
+                }
+            },
+            php: {
                 files: ['src/**'],
                 tasks: ['console:cc'],
                 options: {
@@ -154,7 +159,7 @@ module.exports = function (grunt) {
                     'bower_components/ui-select/dist/select.min.css',
                     'bower_components/angular-bootstrap-colorpicker/css/colorpicker.min.css',
                     //'bower_components/ng-sortable/dist/ng-sortable.style.min.css', // todo
-                    'assets/css/**/*.css'
+                    'assets/**/*.css'
                 ],
                 dest: 'web/common.css',
                 nonull: true
@@ -298,27 +303,6 @@ module.exports = function (grunt) {
                         'php console cc'
                     ].join(' && ');
                 }
-            }
-        },
-        jslint: { // configure the task
-            // lint your project's server code
-            server: {
-                src: [
-                    'assets/**/*.js'
-                ],
-                directives: {
-                    node: true,
-                    todo: true
-                }
-            },
-            options: {
-                edition: 'latest', // specify an edition of jslint or use 'dir/mycustom-jslint.js' for own path
-                junit: 'out/server-junit.xml', // write the output to a JUnit XML
-                log: 'out/server-lint.log',
-                jslintXml: 'out/server-jslint.xml',
-                errorsOnly: true, // only display errors
-                failOnError: false, // defaults to true
-                checkstyle: 'out/server-checkstyle.xml' // write a checkstyle-XML
             }
         },
         sass: {

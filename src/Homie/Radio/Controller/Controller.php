@@ -1,16 +1,19 @@
 <?php
 
-namespace Homie\Radio;
+namespace Homie\Radio\Controller;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Traits\EventDispatcherTrait;
+use Homie\Radio\Job;
+use Homie\Radio\Radios;
+use Homie\Radio\SwitchChangeEvent;
 use Homie\Radio\VO\RadioVO;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("RadioController")
+ * @ControllerAnnotation("Switch.Controller.Controller")
  */
 class Controller
 {
@@ -22,19 +25,24 @@ class Controller
     private $radios;
 
     /**
-     * @var RadioJob
+     * @var Job
      */
-    private $radioJob;
+    private $job;
 
     /**
-     * @Inject({"@Radios", "@RadioJob"})
+     * @Inject({
+     *     "@Radios",
+     *     "@Switch.Job"
+     * })
      * @param Radios $radios
-     * @param RadioJob $job
+     * @param Job $job
      */
-    public function __construct(Radios $radios, RadioJob $job)
-    {
-        $this->radios   = $radios;
-        $this->radioJob = $job;
+    public function __construct(
+        Radios $radios,
+        Job $job
+    ) {
+        $this->radios = $radios;
+        $this->job    = $job;
     }
 
     /**
@@ -47,24 +55,24 @@ class Controller
 
         return [
             'radios' => iterator_to_array($radiosFormatted),
-            'pins'   => Radios::$radioPins,
+            'pins'   => Radios::PINS,
         ];
     }
 
     /**
      * @param Request $request
-     * @param integer $radioId
+     * @param integer $switchId
      * @param integer $status
      * @return bool
-     * @Route("/radios/{radioId}/status/{status}/", name="radio.set_status", methods="POST")
+     * @Route("/radios/{switchId}/status/{status}/", name="radio.set_status", methods="POST")
      */
-    public function setStatus(Request $request, $radioId, $status)
+    public function setStatus(Request $request, $switchId, $status)
     {
         unset($request);
 
-        $radioVo = $this->radios->getRadio($radioId);
+        $radioVo = $this->radios->get($switchId);
 
-        $event = new RadioChangeEvent($radioVo, (bool)$status);
+        $event = new SwitchChangeEvent($radioVo, (bool)$status);
         $this->dispatchInBackground($event);
 
         return true;
@@ -97,15 +105,15 @@ class Controller
 
     /**
      * @param Request $request
-     * @param integer $radioId
+     * @param integer $switchId
      * @return boolean
-     * @Route("/radios/{radioId}/", name="radio.delete", methods="DELETE")
+     * @Route("/radios/{switchId}/", name="radio.delete", methods="DELETE")
      */
-    public function deleteRadio(Request $request, $radioId)
+    public function deleteRadio(Request $request, $switchId)
     {
         unset($request);
 
-        $this->radios->deleteRadio($radioId);
+        $this->radios->delete($switchId);
 
         return true;
     }
@@ -115,15 +123,15 @@ class Controller
      * @return true
      * @Route("/radios/jobs/", name="radiojob.add", methods="POST")
      */
-    public function addRadioJob(Request $request)
+    public function addJob(Request $request)
     {
-        $radioId     = $request->request->getAlnum('radioId');
+        $switchId    = $request->request->getInt('radioId');
         $status      = (bool)$request->request->getInt('status');
-        $timeString  = $request->request->get('time');
+        $timeString  = (string)$request->request->get('time');
 
-        $radioVo = $this->radios->getRadio($radioId);
+        $switch = $this->radios->get($switchId);
 
-        $this->radioJob->addRadioJob($radioVo, $timeString, $status);
+        $this->job->addJob($switch, $timeString, $status);
 
         return true;
     }

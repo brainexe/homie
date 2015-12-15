@@ -4,12 +4,12 @@ namespace Homie\Tests\Radio;
 
 use BrainExe\Core\Application\UserException;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase;
-use Homie\Radio\RadioGateway;
+use PHPUnit_Framework_TestCase as TestCase;
+use Homie\Radio\Gateway;
 use Homie\Radio\Radios;
 use Homie\Radio\VO\RadioVO;
 
-class RadiosTest extends PHPUnit_Framework_TestCase
+class RadiosTest extends TestCase
 {
 
     /**
@@ -18,15 +18,15 @@ class RadiosTest extends PHPUnit_Framework_TestCase
     private $subject;
 
     /**
-     * @var RadioGateway|MockObject
+     * @var Gateway|MockObject
      */
-    private $mockRadioGateway;
+    private $gateway;
 
     public function setUp()
     {
-        $this->mockRadioGateway = $this->getMock(RadioGateway::class);
+        $this->gateway = $this->getMock(Gateway::class);
 
-        $this->subject = new Radios($this->mockRadioGateway);
+        $this->subject = new Radios($this->gateway);
     }
 
     /**
@@ -48,28 +48,28 @@ class RadiosTest extends PHPUnit_Framework_TestCase
     public function testGetRadios()
     {
         $radio = [
-            'radioId' => 1,
+            'switchId' => 1,
             'name' => 'test',
             'description' => 'description',
             'pin' => 100,
             'code' => 1
         ];
 
-        $this->mockRadioGateway
+        $this->gateway
             ->expects($this->once())
-            ->method('getRadios')
+            ->method('getAll')
             ->willReturn([$radio]);
 
         $actual = $this->subject->getRadios();
 
         $expected              = new RadioVO();
-        $expected->radioId     = $radio['radioId'];
+        $expected->switchId    = $radio['switchId'];
         $expected->name        = $radio['name'];
         $expected->description = $radio['description'];
         $expected->pin         = $radio['pin'];
         $expected->code        = $radio['code'];
 
-        $this->assertEquals([$radio['radioId'] => $expected], iterator_to_array($actual));
+        $this->assertEquals([$radio['switchId'] => $expected], iterator_to_array($actual));
     }
 
     public function testAddRadio()
@@ -82,9 +82,9 @@ class RadiosTest extends PHPUnit_Framework_TestCase
 
         $radioId = 12;
 
-        $this->mockRadioGateway
+        $this->gateway
             ->expects($this->once())
-            ->method('addRadio')
+            ->method('add')
             ->with($radioVo)
             ->willReturn($radioId);
 
@@ -97,36 +97,36 @@ class RadiosTest extends PHPUnit_Framework_TestCase
     {
         $radioId = 12;
 
-        $this->mockRadioGateway
+        $this->gateway
             ->expects($this->once())
-            ->method('deleteRadio')
+            ->method('delete')
             ->with($radioId);
 
-        $this->subject->deleteRadio($radioId);
+        $this->subject->delete($radioId);
     }
 
     public function testGetRadio()
     {
-        $radioId = 21;
+        $switchId = 21;
 
         $radio = [
-            'radioId' => $radioId,
+            'switchId' => $switchId,
             'name' => 'test',
             'description' => 'description',
             'pin' => 100,
             'code' => 1
         ];
 
-        $this->mockRadioGateway
+        $this->gateway
             ->expects($this->once())
-            ->method('getRadio')
-            ->with($radioId)
+            ->method('get')
+            ->with($switchId)
             ->willReturn($radio);
 
-        $result = $this->subject->getRadio($radioId);
+        $result = $this->subject->get($switchId);
 
         $radioVo              = new RadioVO();
-        $radioVo->radioId     = $radioId;
+        $radioVo->switchId    = $switchId;
         $radioVo->name        = $radio['name'];
         $radioVo->description = $radio['description'];
         $radioVo->code        = $radio['code'];
@@ -137,7 +137,7 @@ class RadiosTest extends PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid radio: 4
+     * @expectedExceptionMessage Invalid switch: 4
      */
     public function testGetInvalidRadio()
     {
@@ -145,30 +145,30 @@ class RadiosTest extends PHPUnit_Framework_TestCase
 
         $radio = [];
 
-        $this->mockRadioGateway
+        $this->gateway
             ->expects($this->once())
-            ->method('getRadio')
+            ->method('get')
             ->with($radioId)
             ->willReturn($radio);
 
-        $this->subject->getRadio($radioId);
+        $this->subject->get($radioId);
     }
 
     /**
      * @return array[]
      */
-    public static function providerPins()
+    public function providerPins()
     {
         return [
-        [1, 1],
-        [2, 2],
-        ["2", 2],
-        [0, false],
-        [0.5, false],
-        ['A', 1],
-        ['D', 4],
-        ['', false],
-        ['G', false],
+            [1, 1],
+            [2, 2],
+            ["2", 2],
+            [0, false],
+            [0.5, false],
+            ['A', 1],
+            ['D', 4],
+            ['', false],
+            ['G', false],
         ];
     }
 }

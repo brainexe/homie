@@ -94,7 +94,7 @@ msgstr ""
 msgid "Change Password"
 msgstr ""
 
-#: assets/templates/displays.html:28
+#: assets/templates/displays.html:30
 msgid "Characters per Row"
 msgstr ""
 
@@ -114,7 +114,7 @@ msgstr ""
 msgid "Color"
 msgstr ""
 
-#: assets/templates/displays.html:35
+#: assets/templates/displays.html:37
 msgid "Columns"
 msgstr ""
 
@@ -164,16 +164,16 @@ msgstr ""
 msgid "Deadline"
 msgstr ""
 
-#: assets/templates/egg_timer.html:16
-#: assets/templates/espeak.html:9
+#: assets/templates/egg_timer.html:19
+#: assets/templates/espeak.html:12
 msgid "Delay"
 msgstr ""
 
 #: assets/templates/crons.html:7
 #: assets/templates/dashboard.html:102
-#: assets/templates/displays.html:58
-#: assets/templates/egg_timer.html:37
-#: assets/templates/espeak.html:84
+#: assets/templates/displays.html:60
+#: assets/templates/egg_timer.html:42
+#: assets/templates/espeak.html:89
 #: assets/templates/status.html:34
 #: assets/templates/switch.html:65
 #: assets/templates/switch.html:7
@@ -208,13 +208,13 @@ msgstr ""
 
 #: assets/templates/dashboard.html:44
 #: assets/templates/dashboard.html:92
-#: assets/templates/displays.html:79
+#: assets/templates/displays.html:73
 #: assets/templates/sensor/edit.html:22
 #: assets/templates/sensor/sensor.html:24
 msgid "Edit"
 msgstr ""
 
-#: assets/templates/displays.html:2
+#: assets/templates/displays.html:3
 msgid "Edit Display"
 msgstr ""
 
@@ -228,6 +228,7 @@ msgid "Edit Widget - {{widget.name}}"
 msgstr ""
 
 #: assets/js/models/Controllers.js:14
+#: assets/templates/egg_timer.html:2
 msgid "Egg Timer"
 msgstr ""
 
@@ -236,7 +237,7 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: assets/js/controllers/user/login.js:46
+#: assets/js/controllers/user/login.js:44
 msgid "Email was sent"
 msgstr ""
 
@@ -309,8 +310,8 @@ msgstr ""
 msgid "Keys"
 msgstr ""
 
-#: assets/templates/displays.html:24
-#: assets/templates/displays.html:41
+#: assets/templates/displays.html:26
+#: assets/templates/displays.html:43
 msgid "Lines"
 msgstr ""
 
@@ -347,7 +348,7 @@ msgstr ""
 #: assets/templates/admin/nodes.html:6
 #: assets/templates/admin/users.html:5
 #: assets/templates/dashboard.html:60
-#: assets/templates/displays.html:6
+#: assets/templates/displays.html:8
 #: assets/templates/gpio.html:16
 #: assets/templates/sensor/add.html:28
 #: assets/templates/sensor/add.html:36
@@ -425,7 +426,7 @@ msgstr ""
 msgid "Pin"
 msgstr ""
 
-#: assets/templates/displays.html:69
+#: assets/templates/displays.html:79
 msgid "Preview"
 msgstr ""
 
@@ -441,7 +442,7 @@ msgstr ""
 msgid "Redis Stats"
 msgstr ""
 
-#: assets/templates/displays.html:80
+#: assets/templates/displays.html:74
 msgid "Refresh"
 msgstr ""
 
@@ -478,7 +479,7 @@ msgstr ""
 msgid "Roles"
 msgstr ""
 
-#: assets/templates/displays.html:16
+#: assets/templates/displays.html:18
 msgid "Rows"
 msgstr ""
 
@@ -488,8 +489,8 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: assets/templates/displays.html:67
-msgid "Screen {{screen.displayId}}"
+#: assets/templates/displays.html:71
+msgid "Screen #{{screen.displayId}}"
 msgstr ""
 
 #. otp
@@ -533,15 +534,16 @@ msgid "Size"
 msgstr ""
 
 #: assets/js/models/Controllers.js:13
+#: assets/templates/espeak.html:2
 #: assets/templates/widgets/speak.html:14
 msgid "Speak"
 msgstr ""
 
-#: assets/templates/espeak.html:57
+#: assets/templates/espeak.html:60
 msgid "Speaker"
 msgstr ""
 
-#: assets/templates/espeak.html:41
+#: assets/templates/espeak.html:44
 msgid "Speed"
 msgstr ""
 
@@ -556,9 +558,9 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: assets/templates/displays.html:55
-#: assets/templates/egg_timer.html:29
-#: assets/templates/espeak.html:69
+#: assets/templates/displays.html:57
+#: assets/templates/egg_timer.html:32
+#: assets/templates/espeak.html:72
 #: assets/templates/widgets/sensor_input.html:11
 msgid "Submit"
 msgstr ""
@@ -590,17 +592,17 @@ msgstr ""
 msgid "Tend"
 msgstr ""
 
-#: assets/templates/egg_timer.html:11
-#: assets/templates/egg_timer.html:3
-#: assets/templates/egg_timer.html:36
-#: assets/templates/espeak.html:3
-#: assets/templates/espeak.html:83
+#: assets/templates/egg_timer.html:14
+#: assets/templates/egg_timer.html:41
+#: assets/templates/egg_timer.html:6
+#: assets/templates/espeak.html:6
+#: assets/templates/espeak.html:88
 #: assets/templates/widgets/speak.html:5
 msgid "Text"
 msgstr ""
 
-#: assets/templates/egg_timer.html:35
-#: assets/templates/espeak.html:82
+#: assets/templates/egg_timer.html:40
+#: assets/templates/espeak.html:87
 #: assets/templates/switch.html:109
 #: assets/templates/switch.html:62
 msgid "Time"
@@ -681,7 +683,7 @@ msgstr ""
 msgid "Value"
 msgstr ""
 
-#: assets/templates/espeak.html:24
+#: assets/templates/espeak.html:27
 msgid "Volume"
 msgstr ""
 
@@ -689,7 +691,7 @@ msgstr ""
 msgid "Webcam"
 msgstr ""
 
-#: assets/js/controllers/user/login.js:18
+#: assets/js/controllers/user/login.js:17
 msgid "Welcome back {0}!"
 msgstr ""
 
@@ -701,8 +703,8 @@ msgstr ""
 msgid "disabled"
 msgstr ""
 
-#: assets/templates/egg_timer.html:26
-#: assets/templates/espeak.html:20
+#: assets/templates/egg_timer.html:29
+#: assets/templates/espeak.html:23
 msgid "e.g. 10s, 30m, 1h"
 msgstr ""
 
@@ -714,56 +716,80 @@ msgstr ""
 msgid "e.g. isTiming(10 minutes)"
 msgstr ""
 
+#: cache/translation_token.html:1
+msgid "node.arduino.name"
+msgstr ""
+
+#: cache/translation_token.html:2
+msgid "node.metawear.name"
+msgstr ""
+
+#: cache/translation_token.html:3
+msgid "node.raspberry.name"
+msgstr ""
+
+#: cache/translation_token.html:4
+msgid "node.server.name"
+msgstr ""
+
 #: assets/templates/sensor/add.html:93
 #: assets/templates/sensor/edit.html:43
 msgid "sensor.formatter.'+formatter+'.name"
 msgstr ""
 
-#: cache/translation_token.html:1
+#: cache/translation_token.html:5
 msgid "sensor.formatter.barometer.description"
 msgstr ""
 
-#: cache/translation_token.html:2
+#: cache/translation_token.html:6
 msgid "sensor.formatter.barometer.name"
 msgstr ""
 
-#: cache/translation_token.html:3
+#: cache/translation_token.html:7
 msgid "sensor.formatter.bytes.description"
 msgstr ""
 
-#: cache/translation_token.html:4
+#: cache/translation_token.html:8
 msgid "sensor.formatter.bytes.name"
 msgstr ""
 
-#: cache/translation_token.html:5
+#: cache/translation_token.html:9
 msgid "sensor.formatter.load.description"
 msgstr ""
 
-#: cache/translation_token.html:6
+#: cache/translation_token.html:10
 msgid "sensor.formatter.load.name"
 msgstr ""
 
-#: cache/translation_token.html:7
+#: cache/translation_token.html:11
 msgid "sensor.formatter.none.description"
 msgstr ""
 
-#: cache/translation_token.html:8
+#: cache/translation_token.html:12
 msgid "sensor.formatter.none.name"
 msgstr ""
 
-#: cache/translation_token.html:9
+#: cache/translation_token.html:13
+msgid "sensor.formatter.number.description"
+msgstr ""
+
+#: cache/translation_token.html:14
+msgid "sensor.formatter.number.name"
+msgstr ""
+
+#: cache/translation_token.html:15
 msgid "sensor.formatter.percentage.description"
 msgstr ""
 
-#: cache/translation_token.html:10
+#: cache/translation_token.html:16
 msgid "sensor.formatter.percentage.name"
 msgstr ""
 
-#: cache/translation_token.html:11
+#: cache/translation_token.html:17
 msgid "sensor.formatter.temperature.description"
 msgstr ""
 
-#: cache/translation_token.html:12
+#: cache/translation_token.html:18
 msgid "sensor.formatter.temperature.name"
 msgstr ""
 

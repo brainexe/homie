@@ -17,11 +17,20 @@ class WidgetFactory
     private $widgets;
 
     /**
+     * @param string $widgetId
      * @param WidgetInterface $widget
      */
-    public function addWidget(WidgetInterface $widget)
+    public function addWidget($widgetId, WidgetInterface $widget)
     {
-        $this->widgets[$widget->getId()] = $widget;
+        $this->widgets[$widgetId] = $widget;
+    }
+
+    /**
+     * @param WidgetInterface[] $widgets
+     */
+    public function setWidgets(array $widgets)
+    {
+        $this->widgets = $widgets;
     }
 
     /**

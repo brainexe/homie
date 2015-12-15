@@ -6,12 +6,12 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Util\TimeParser;
-use Homie\Radio\VO\RadioVO;
+use Homie\Radio\VO\SwitchVO;
 
 /**
- * @Service(public=false)
+ * @Service("Switch.Job", public=false)
  */
-class RadioJob
+class Job
 {
 
     use EventDispatcherTrait;
@@ -31,15 +31,15 @@ class RadioJob
     }
 
     /**
-     * @param RadioVO $radio
+     * @param SwitchVO $switch
      * @param string $timeString
      * @param boolean $status
      */
-    public function addRadioJob(RadioVO $radio, $timeString, $status)
+    public function addJob(SwitchVO $switch, $timeString, $status)
     {
         $timestamp = $this->timeParser->parseString($timeString);
 
-        $event = new RadioChangeEvent($radio, $status);
+        $event = new SwitchChangeEvent($switch, $status);
         $this->dispatchInBackground($event, $timestamp);
     }
 }

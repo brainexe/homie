@@ -1605,3 +1605,8 @@ body > .header .logo .icon {
 .container {
   padding-left: 0;
 }
+
+.sidebar-menu > li:hover {
+  background-color: #474747;
+  font-weight: bold;
+}

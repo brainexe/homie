@@ -95,7 +95,7 @@ msgstr "Ändern"
 msgid "Change Password"
 msgstr "Passwort ändern"
 
-#: assets/templates/displays.html:28
+#: assets/templates/displays.html:30
 msgid "Characters per Row"
 msgstr "Zeichen pro Zeile"
 
@@ -113,7 +113,7 @@ msgstr "Code"
 msgid "Color"
 msgstr "Farbe"
 
-#: assets/templates/displays.html:35
+#: assets/templates/displays.html:37
 msgid "Columns"
 msgstr "Spalten"
 
@@ -161,13 +161,13 @@ msgstr "Datum"
 msgid "Deadline"
 msgstr "Deadline"
 
-#: assets/templates/egg_timer.html:16 assets/templates/espeak.html:9
+#: assets/templates/egg_timer.html:19 assets/templates/espeak.html:12
 msgid "Delay"
 msgstr "Verzögerung"
 
 #: assets/templates/crons.html:7 assets/templates/dashboard.html:102
-#: assets/templates/displays.html:58 assets/templates/egg_timer.html:37
-#: assets/templates/espeak.html:84 assets/templates/status.html:34
+#: assets/templates/displays.html:60 assets/templates/egg_timer.html:42
+#: assets/templates/espeak.html:89 assets/templates/status.html:34
 #: assets/templates/switch.html:65 assets/templates/switch.html:7
 #: assets/templates/webcam.html:22
 msgid "Delete"
@@ -196,12 +196,12 @@ msgid "Drag Here to Delete"
 msgstr "Hierhin ziehen zum Löschen"
 
 #: assets/templates/dashboard.html:44 assets/templates/dashboard.html:92
-#: assets/templates/displays.html:79 assets/templates/sensor/edit.html:22
+#: assets/templates/displays.html:73 assets/templates/sensor/edit.html:22
 #: assets/templates/sensor/sensor.html:24
 msgid "Edit"
 msgstr "Editieren"
 
-#: assets/templates/displays.html:2
+#: assets/templates/displays.html:3
 msgid "Edit Display"
 msgstr "Display bearbeiten"
 
@@ -213,7 +213,7 @@ msgstr "Editieren"
 msgid "Edit Widget - {{widget.name}}"
 msgstr "Widget bearbeiten - {{widget.name}}"
 
-#: assets/js/models/Controllers.js:14
+#: assets/js/models/Controllers.js:14 assets/templates/egg_timer.html:2
 msgid "Egg Timer"
 msgstr "Eieruhr"
 
@@ -221,7 +221,7 @@ msgstr "Eieruhr"
 msgid "Email"
 msgstr "Email"
 
-#: assets/js/controllers/user/login.js:46
+#: assets/js/controllers/user/login.js:44
 msgid "Email was sent"
 msgstr "Email wurde gesendet"
 
@@ -288,7 +288,7 @@ msgstr "Key"
 msgid "Keys"
 msgstr "Schlüssel"
 
-#: assets/templates/displays.html:24 assets/templates/displays.html:41
+#: assets/templates/displays.html:26 assets/templates/displays.html:43
 msgid "Lines"
 msgstr "Zeilen"
 
@@ -322,7 +322,7 @@ msgstr "Modus"
 
 #: assets/templates/admin/nodes.html:23 assets/templates/admin/nodes.html:6
 #: assets/templates/admin/users.html:5 assets/templates/dashboard.html:60
-#: assets/templates/displays.html:6 assets/templates/gpio.html:16
+#: assets/templates/displays.html:8 assets/templates/gpio.html:16
 #: assets/templates/sensor/add.html:28 assets/templates/sensor/add.html:36
 #: assets/templates/sensor/edit.html:18 assets/templates/sensor/edit.html:61
 #: assets/templates/switch.html:156 assets/templates/switch.html:161
@@ -393,7 +393,7 @@ msgstr "Payload"
 msgid "Pin"
 msgstr "Pin"
 
-#: assets/templates/displays.html:69
+#: assets/templates/displays.html:79
 msgid "Preview"
 msgstr "Vorschau"
 
@@ -409,7 +409,7 @@ msgstr "Schalter"
 msgid "Redis Stats"
 msgstr "Redis Statistik"
 
-#: assets/templates/displays.html:80
+#: assets/templates/displays.html:74
 msgid "Refresh"
 msgstr "Neu laden"
 
@@ -443,7 +443,7 @@ msgstr "Zurückziehen"
 msgid "Roles"
 msgstr "Rollen"
 
-#: assets/templates/displays.html:16
+#: assets/templates/displays.html:18
 msgid "Rows"
 msgstr "Zeilen"
 
@@ -453,9 +453,9 @@ msgstr "Zeilen"
 msgid "Save"
 msgstr "Speichern"
 
-#: assets/templates/displays.html:67
-msgid "Screen {{screen.displayId}}"
-msgstr "Screen {{screen.displayId}}"
+#: assets/templates/displays.html:71
+msgid "Screen #{{screen.displayId}}"
+msgstr "Screen #{{screen.displayId}}"
 
 #. otp
 #: assets/templates/user/otp.html:7
@@ -494,15 +494,16 @@ msgstr "Log-Out"
 msgid "Size"
 msgstr "Größe"
 
-#: assets/js/models/Controllers.js:13 assets/templates/widgets/speak.html:14
+#: assets/js/models/Controllers.js:13 assets/templates/espeak.html:2
+#: assets/templates/widgets/speak.html:14
 msgid "Speak"
 msgstr "Sprechen"
 
-#: assets/templates/espeak.html:57
+#: assets/templates/espeak.html:60
 msgid "Speaker"
 msgstr "Sprecher"
 
-#: assets/templates/espeak.html:41
+#: assets/templates/espeak.html:44
 msgid "Speed"
 msgstr "Geschwindigkeit"
 
@@ -515,8 +516,8 @@ msgstr "Statistiken"
 msgid "Status"
 msgstr "Status"
 
-#: assets/templates/displays.html:55 assets/templates/egg_timer.html:29
-#: assets/templates/espeak.html:69
+#: assets/templates/displays.html:57 assets/templates/egg_timer.html:32
+#: assets/templates/espeak.html:72
 #: assets/templates/widgets/sensor_input.html:11
 msgid "Submit"
 msgstr "Abschicken"
@@ -545,13 +546,13 @@ msgstr "Video aufnehmen"
 msgid "Tend"
 msgstr "Trend"
 
-#: assets/templates/egg_timer.html:11 assets/templates/egg_timer.html:3
-#: assets/templates/egg_timer.html:36 assets/templates/espeak.html:3
-#: assets/templates/espeak.html:83 assets/templates/widgets/speak.html:5
+#: assets/templates/egg_timer.html:14 assets/templates/egg_timer.html:41
+#: assets/templates/egg_timer.html:6 assets/templates/espeak.html:6
+#: assets/templates/espeak.html:88 assets/templates/widgets/speak.html:5
 msgid "Text"
 msgstr "Text"
 
-#: assets/templates/egg_timer.html:35 assets/templates/espeak.html:82
+#: assets/templates/egg_timer.html:40 assets/templates/espeak.html:87
 #: assets/templates/switch.html:109 assets/templates/switch.html:62
 msgid "Time"
 msgstr "Zeit"
@@ -621,7 +622,7 @@ msgstr "Benutzer"
 msgid "Value"
 msgstr "Wert"
 
-#: assets/templates/espeak.html:24
+#: assets/templates/espeak.html:27
 msgid "Volume"
 msgstr "Lautstärke"
 
@@ -629,7 +630,7 @@ msgstr "Lautstärke"
 msgid "Webcam"
 msgstr "Webcam"
 
-#: assets/js/controllers/user/login.js:18
+#: assets/js/controllers/user/login.js:17
 msgid "Welcome back {0}!"
 msgstr "Willkommen zurück {0}!"
 
@@ -641,7 +642,7 @@ msgstr "Willkommen {0}!"
 msgid "disabled"
 msgstr "aus"
 
-#: assets/templates/egg_timer.html:26 assets/templates/espeak.html:20
+#: assets/templates/egg_timer.html:29 assets/templates/espeak.html:23
 msgid "e.g. 10s, 30m, 1h"
 msgstr "z.B. 10s, 30m, 1h"
 
@@ -653,62 +654,87 @@ msgstr "z.B. @daily, or 2 * * * *"
 msgid "e.g. isTiming(10 minutes)"
 msgstr "z.B. isTiming(10 minutes)"
 
+#: cache/translation_token.html:1
+msgid "node.arduino.name"
+msgstr "Arduino"
+
+#: cache/translation_token.html:2
+msgid "node.metawear.name"
+msgstr "Metawear"
+
+#: cache/translation_token.html:3
+msgid "node.raspberry.name"
+msgstr "Raspberry Pi"
+
+#: cache/translation_token.html:4
+msgid "node.server.name"
+msgstr "Server"
+
 #: assets/templates/sensor/add.html:93 assets/templates/sensor/edit.html:43
 #, fuzzy
 msgid "sensor.formatter.'+formatter+'.name"
 msgstr "Barometer"
 
-#: cache/translation_token.html:1
+#: cache/translation_token.html:5
 #, fuzzy
 msgid "sensor.formatter.barometer.description"
 msgstr "Barometer"
 
-#: cache/translation_token.html:2
+#: cache/translation_token.html:6
 msgid "sensor.formatter.barometer.name"
 msgstr "Barometer"
 
-#: cache/translation_token.html:3
+#: cache/translation_token.html:7
 #, fuzzy
 msgid "sensor.formatter.bytes.description"
 msgstr "Bytes"
 
-#: cache/translation_token.html:4
+#: cache/translation_token.html:8
 msgid "sensor.formatter.bytes.name"
 msgstr "Bytes"
 
-#: cache/translation_token.html:5
+#: cache/translation_token.html:9
 #, fuzzy
 msgid "sensor.formatter.load.description"
 msgstr "Load"
 
-#: cache/translation_token.html:6
+#: cache/translation_token.html:10
 msgid "sensor.formatter.load.name"
 msgstr "Load"
 
-#: cache/translation_token.html:7
+#: cache/translation_token.html:11
 #, fuzzy
 msgid "sensor.formatter.none.description"
 msgstr "Keine"
 
-#: cache/translation_token.html:8
+#: cache/translation_token.html:12
 msgid "sensor.formatter.none.name"
 msgstr "Keine"
 
-#: cache/translation_token.html:9
+#: cache/translation_token.html:13
+#, fuzzy
+msgid "sensor.formatter.number.description"
+msgstr "Keine"
+
+#: cache/translation_token.html:14
+msgid "sensor.formatter.number.name"
+msgstr "Nummer"
+
+#: cache/translation_token.html:15
 #, fuzzy
 msgid "sensor.formatter.percentage.description"
 msgstr "Prozent"
 
-#: cache/translation_token.html:10
+#: cache/translation_token.html:16
 msgid "sensor.formatter.percentage.name"
 msgstr "Prozent"
 
-#: cache/translation_token.html:11
+#: cache/translation_token.html:17
 #, fuzzy
 msgid "sensor.formatter.temperature.description"
 msgstr "Temperatur"
 
-#: cache/translation_token.html:12
+#: cache/translation_token.html:18
 msgid "sensor.formatter.temperature.name"
 msgstr "Temperatur"
 
