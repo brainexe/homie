@@ -23,9 +23,15 @@ class SensorValueEventTest extends TestCase
         $timestamp      = 'valueFormatted';
         $eventName      = 'eventName';
 
-        $subject = new SensorValueEvent($eventName, $sensorVo, $sensor, $value, $valueFormatted, $timestamp);
+        $subject = new SensorValueEvent(
+            $eventName,
+            $sensorVo,
+            $sensor,
+            $value,
+            $valueFormatted,
+            $timestamp
+        );
 
-        $this->assertEquals($sensor, $subject->sensor);
         $this->assertEquals($eventName, $subject->eventName);
         $this->assertEquals($sensorVo, $subject->sensorVo);
         $this->assertEquals($value, $subject->value);

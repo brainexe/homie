@@ -2,7 +2,7 @@
 <container xmlns="http://symfony.com/schema/dic/services">
     <parameters>
         <parameter key="environment">development</parameter>
-        <parameter key="debug" >parameter("environment") != "production"</parameter>
+        <parameter key="debug">false</parameter>
         <parameter key="node.id">0</parameter>
 
         <parameter key="socket.url">http://localhost:8081/socket</parameter>

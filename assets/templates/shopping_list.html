@@ -1,31 +1,32 @@
-<div id="shopping_list">
-	<h3 translate>Shopping List</h3>
 
-	<ul class="unstyled">
-		<li ng-repeat="todo in shoppingList|orderBy:'text'">
-			<input
-                    type="checkbox"
-                    ng-change="change(todo)"
-                    ng-model="todo.done"
-            />
-			<span ng-class="{completed: todo.done}">
-                {{todo.text}}
-            </span>
-		</li>
-	</ul>
-	<form>
-        <div class="input-group">
-            <input
-                    type="text"
-                    ng-model="todoText"
-                    class="form-control"
-                    size="30"
-                    placeholder="{{'Add an item'|translate}}"
-                    ng-enter="addShoppingItem()"
-            />
-            <a ng-click="addShoppingItem()" uib-tooltip="{{'Add'|translate}}" class="input-group-addon">
-                <span class="glyphicon glyphicon-plus"></span>
-            </a>
-        </div>
-	</form>
+<div class="panel panel-primary shopping_list">
+    <div class="panel-heading" translate>Shopping List</div>
+    <div class="panel-body">
+        <ul class="unstyled">
+            <li ng-repeat="todo in shoppingList|orderBy:'text'">
+                <input
+                        class="big-checkbox"
+                        type="checkbox"
+                        ng-change="change(todo)"
+                        ng-model="todo.done"
+                />
+                <span ng-class="{completed: todo.done}" ng-bind="todo.text"></span>
+            </li>
+        </ul>
+        <form>
+            <div class="input-group">
+                <input
+                        type="text"
+                        ng-model="todoText"
+                        class="form-control"
+                        size="30"
+                        placeholder="{{'Add an item'|translate}}"
+                        ng-enter="addShoppingItem()"
+                />
+                <a ng-click="addShoppingItem()" uib-tooltip="{{'Add'|translate}}" class="input-group-addon">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+            </div>
+        </form>
+    </div>
 </div>

@@ -6,6 +6,7 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\EventListener;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Traits\TimeTrait;
+use Exception;
 use Homie\Sensors\SensorBuilder;
 use Homie\Sensors\SensorValueEvent;
 use Homie\Sensors\SensorValuesGateway;
@@ -64,7 +65,12 @@ class Listener implements EventSubscriberInterface
         $sensorVo = $event->getSensorVo();
         $sensor   = $this->builder->build($sensorVo->type);
 
-        $value = $sensor->getValue($sensorVo->pin);
+        try {
+            $value = $sensor->getValue($sensorVo->pin);
+        } catch (Exception $e) {
+            // TODO log
+            $value = null;
+        }
         if ($value === null) {
             $event = new SensorValueEvent(
                 SensorValueEvent::ERROR,

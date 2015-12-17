@@ -4,6 +4,7 @@ namespace Tests\Homie\Sensors\GetValue;
 
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Core\Util\Time;
+use Exception;
 use Homie\Sensors\Formatter\Formatter;
 use Homie\Sensors\GetValue\Listener;
 use Homie\Sensors\GetValue\Event;
@@ -83,6 +84,28 @@ class ListenerTest extends TestCase
             ->expects($this->once())
             ->method('getValue')
             ->willReturn(null);
+
+        $this->subject->handle($event);
+    }
+
+    public function testHandleWithException()
+    {
+        $sensorVo = new SensorVO();
+        $sensorVo->type = 'mockType';
+        $sensor = $this->getMock(Sensor::class);
+
+        $this->builder
+            ->expects($this->once())
+            ->method('build')
+            ->with('mockType')
+            ->willReturn($sensor);
+
+        $event = new Event($sensorVo);
+
+        $sensor
+            ->expects($this->once())
+            ->method('getValue')
+            ->willThrowException(new Exception('my sensor exception'));
 
         $this->subject->handle($event);
     }

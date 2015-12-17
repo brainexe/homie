@@ -1,5 +1,5 @@
 
-App.service('Sensor.Stats', ['', function() {
+App.service('Sensor.Stats', [function() {
     return {
         getStats: function(series) {
             if (!series) {

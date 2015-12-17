@@ -26,18 +26,10 @@ input.ng-invalid.ng-touched
 //    background-color: #78FA89
 
 .big-checkbox
-    width: 25px
-    height: 25px
+    width: 20px
+    height: 20px
 
-.dialog_800 .modal-dialog
-    width: 800px
-
-.dialog_900 .modal-dialog
-    width: 900px
-
-.dialog_1000 .modal-dialog
-    width: 1000px
-
-a.order
-    cursor: pointer
-
+$dialogWidth: 800 900 1000 1100
+@each $width in $dialogWidth
+    .dialog_#{$width} .modal-dialog
+        width: #{$width}px
