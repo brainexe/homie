@@ -57,6 +57,7 @@ class NumberTest extends TestCase
     public function provideEspeak()
     {
         return [
+            [100, "100"],
             [1000000, "1M"],
             [1234000, "1M"],
         ];

@@ -2,7 +2,6 @@
 
 namespace Homie\Tests\Radio;
 
-use ArrayIterator;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Core\Util\TimeParser;
 use Homie\Radio\SwitchChangeEvent;

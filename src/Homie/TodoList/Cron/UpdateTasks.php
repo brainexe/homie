@@ -3,21 +3,15 @@
 namespace Homie\TodoList\Cron;
 
 use BrainExe\Annotations\Annotations\Inject;
-use BrainExe\Core\EventDispatcher\EventDispatcher;
-use BrainExe\Core\Traits\LoggerTrait;
+
 use BrainExe\Core\Traits\TimeTrait;
 use Cron\CronExpression;
-use Homie\Sensors\GetValue\Event;
-use Homie\Sensors\SensorBuilder;
-use Homie\Sensors\SensorGateway;
-use Homie\Sensors\SensorValueEvent;
-use Homie\Sensors\Builder;
-use Homie\Sensors\SensorVO;
+
 use Homie\TodoList\TodoList;
 use Homie\TodoList\VO\TodoItemVO;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
+
 use Symfony\Component\Console\Output\OutputInterface;
 use BrainExe\Core\Annotations\Command as CommandAnnotation;
 

@@ -7,7 +7,6 @@ use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Espeak\Espeak;
 use Homie\Client\LocalClient;
-use Homie\Espeak\EspeakEvent;
 
 /**
  * @covers Homie\Espeak\Espeak

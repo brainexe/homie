@@ -1,17 +1,18 @@
 <?php
 
-namespace Homie\Radio;
+namespace Homie\Radio\Change;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use Homie\Client\ClientInterface;
+use Homie\Radio\SwitchInterface;
 use Homie\Radio\VO\RadioVO;
 use Homie\Radio\VO\SwitchVO;
 
 /**
- * @Service("RadioController", public=false)
+ * @Service("Switches.Change.Radio", public=false)
  */
-class RadioController implements SwitchInterface
+class Radio implements SwitchInterface
 {
     /**
      * @var ClientInterface
@@ -24,28 +25,19 @@ class RadioController implements SwitchInterface
     private $rcSwitchCommand;
 
     /**
-     * @var Gateway
-     */
-    private $gateway;
-
-    /**
      * @Inject({
      *     "@HomieClient",
-     *     "@RadioGateway",
      *     "%rc_switch.command%"
      * })
      * @param ClientInterface $client
-     * @param Gateway $gateway
      * @param $rcSwitchCommand
      */
     public function __construct(
         ClientInterface $client,
-        Gateway $gateway,
         $rcSwitchCommand
     ) {
         $this->client          = $client;
         $this->rcSwitchCommand = $rcSwitchCommand;
-        $this->gateway         = $gateway;
     }
 
     /**
@@ -54,8 +46,6 @@ class RadioController implements SwitchInterface
      */
     public function setStatus(SwitchVO $switch, $status)
     {
-        $this->gateway->edit($switch);
-
         $command = sprintf(
             '%s %s %d %d',
             $this->rcSwitchCommand,

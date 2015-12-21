@@ -5,7 +5,7 @@ namespace Homie\Dashboard\Widgets;
 use BrainExe\Annotations\Annotations\Inject;
 use Homie\Dashbaord\Annotation\Widget;
 use Homie\Dashboard\AbstractWidget;
-use Homie\Radio\Radios;
+use Homie\Radio\Switches;
 
 /**
  * @Widget
@@ -16,17 +16,17 @@ class SwitchWidget extends AbstractWidget
     const TYPE = 'switch';
 
     /**
-     * @var Radios
+     * @var Switches
      */
-    private $radios;
+    private $switches;
 
     /**
-     * @Inject("@Radios")
-     * @param Radios $radios
+     * @Inject("@Switch.Switches")
+     * @param Switches $switches
      */
-    public function __construct(Radios $radios)
+    public function __construct(Switches $switches)
     {
-        $this->radios = $radios;
+        $this->switches = $switches;
     }
 
     /**
@@ -36,8 +36,8 @@ class SwitchWidget extends AbstractWidget
     {
         $values = [];
 
-        foreach ($this->radios->getRadios() as $switchId => $radio) {
-            $values[$switchId] = $radio->name;
+        foreach ($this->switches->getAll() as $switchId => $switch) {
+            $values[$switchId] = $switch->name;
         }
 
         $metadata = new WidgetMetadataVo(

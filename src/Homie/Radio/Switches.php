@@ -5,17 +5,20 @@ namespace Homie\Radio;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Application\UserException;
+use Exception;
 use Generator;
+use Homie\Radio\VO\GpioSwitchVO;
+use Homie\Radio\VO\SwitchVO;
 use InvalidArgumentException;
 use Homie\Radio\VO\RadioVO;
 
 /**
- * @Service(public=false)
+ * @Service("Switch.Switches", public=false)
  */
-class Radios
+class Switches
 {
 
-    const PINS = [
+    const RADIO_PINS = [
         'A' => 1,
         'B' => 2,
         'C' => 3,
@@ -29,7 +32,7 @@ class Radios
     private $gateway;
 
     /**
-     * @Inject("@RadioGateway")
+     * @Inject("@Switch.Gateway")
      * @param Gateway $gateway
      */
     public function __construct(Gateway $gateway)
@@ -46,7 +49,7 @@ class Radios
     {
         if (is_numeric($pin)) {
             $pin     = (int)$pin;
-            $flipped = array_flip(self::PINS);
+            $flipped = array_flip(self::RADIO_PINS);
             if (!isset($flipped[$pin])) {
                 throw new UserException(sprintf("Invalid pin: %s", $pin));
             }
@@ -54,16 +57,16 @@ class Radios
         }
 
         $pin = strtoupper($pin);
-        if (empty(self::PINS[$pin])) {
+        if (empty(self::RADIO_PINS[$pin])) {
             throw new UserException(sprintf("Invalid pin: %s", $pin));
         }
 
-        return self::PINS[$pin];
+        return self::RADIO_PINS[$pin];
     }
 
     /**
      * @param integer $switchId
-     * @return RadioVO
+     * @return SwitchVO
      */
     public function get($switchId)
     {
@@ -77,24 +80,24 @@ class Radios
     }
 
     /**
-     * @return Generator|RadioVO[]
+     * @return Generator|SwitchVO[]
      */
-    public function getRadios()
+    public function getAll()
     {
-        $radiosRaw = $this->gateway->getAll();
+        $raw = $this->gateway->getAll();
 
-        foreach ($radiosRaw as $radio) {
-            yield $radio['switchId'] => $this->buildSwitchVO($radio);
+        foreach ($raw as $switchRaw) {
+            yield $switchRaw['switchId'] => $this->buildSwitchVO($switchRaw);
         }
     }
 
     /**
-     * @param RadioVO $radioVo
+     * @param SwitchVO $switchVO
      * @return integer new switch id
      */
-    public function addRadio(RadioVO $radioVo)
+    public function add(SwitchVO $switchVO)
     {
-        return $this->gateway->add($radioVo);
+        return $this->gateway->add($switchVO);
     }
 
     /**
@@ -107,17 +110,30 @@ class Radios
 
     /**
      * @param array $raw
-     * @return RadioVO
+     * @return SwitchVO
+     * @throws Exception
      */
     private function buildSwitchVO(array $raw)
     {
-        $radioVo              = new RadioVO();
-        $radioVo->switchId    = $raw['switchId'];
-        $radioVo->name        = $raw['name'];
-        $radioVo->description = $raw['description'];
-        $radioVo->code        = $raw['code'];
-        $radioVo->pin         = $raw['pin'];
+        $type = $raw['type'];
+        switch ($type) {
+            case RadioVO::TYPE:
+                $switch = new RadioVO();
+                $switch->code = $raw['code'];
+                $switch->pin  = $raw['pin'];
+                break;
+            case GpioSwitchVO::TYPE:
+                $switch = new GpioSwitchVO();
+                $switch->pin = $raw['pin'];
+                break;
+            default:
+                throw new Exception(sprintf('Invalid switch type: %s', $type));
+        }
 
-        return $radioVo;
+        $switch->switchId    = $raw['switchId'];
+        $switch->name        = $raw['name'];
+        $switch->description = $raw['description'];
+
+        return $switch;
     }
 }

@@ -4,9 +4,7 @@ namespace Tests\Homie\Display;
 
 use ArrayIterator;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
-use BrainExe\Core\Redis\Predis;
-use BrainExe\Core\Util\IdGenerator;
-use BrainExe\Tests\RedisMockTrait;
+
 use Homie\Display\Controller;
 use Homie\Display\Event\Redraw;
 use Homie\Display\Gateway;

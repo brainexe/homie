@@ -5,7 +5,7 @@ App.service('controllers', ['_', function(_) {
         return [
             // menu
             {controller:'DashboardController', name: _('Dashboard'), url: 'dashboard', icon:'th-large', templateUrl: '/templates/dashboard.html'},
-            {controller:'SwitchController', name: _('Switches'), url: 'switch', icon:'home', templateUrl: '/templates/switch.html'},
+            {controller:'SwitchController', name: _('Switches'), url: 'switch', icon:'home', templateUrl: '/templates/switch/switch.html'},
             {controller:'SensorController', name: _('Sensors'), url: 'sensor', icon:'stats', templateUrl: '/templates/sensor/sensor.html'},
             {controller:'ExpressionController', name: _('Actions'), url: 'expression', icon:'link', templateUrl: '/templates/expression/expression.html'},
             {controller:'GpioController', name: _('GPIO'), url: 'gpio', icon:'flash', templateUrl: '/templates/gpio.html'},

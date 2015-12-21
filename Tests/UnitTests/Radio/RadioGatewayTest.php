@@ -43,10 +43,10 @@ class RadioGatewayTest extends TestCase
         $this->subject->setIdGenerator($this->idGenerator);
     }
 
-    public function testGetRadios()
+    public function testGetAll()
     {
-        $radioIds = [
-            $radioId = 1
+        $ids = [
+            $switchId = 1
         ];
 
         $result = ['result'];
@@ -55,7 +55,7 @@ class RadioGatewayTest extends TestCase
             ->expects($this->once())
             ->method('SMEMBERS')
             ->with(Gateway::REDIS_SWITCH_IDS)
-            ->willReturn($radioIds);
+            ->willReturn($ids);
 
         $this->redis
             ->expects($this->once())
@@ -65,7 +65,7 @@ class RadioGatewayTest extends TestCase
         $this->redis
             ->expects($this->once())
             ->method('HGETALL')
-            ->with("switches:$radioId");
+            ->with("switches:$switchId");
 
         $this->redis
             ->expects($this->once())
@@ -77,7 +77,7 @@ class RadioGatewayTest extends TestCase
         $this->assertEquals($result, $actualResult);
     }
 
-    public function testGetRadio()
+    public function testGet()
     {
         $switchId = 10;
 
@@ -94,7 +94,7 @@ class RadioGatewayTest extends TestCase
         $this->assertEquals($radio, $actualResult);
     }
 
-    public function testGetRadioIds()
+    public function testGetIds()
     {
         $radioIds = [
             1
@@ -111,16 +111,16 @@ class RadioGatewayTest extends TestCase
         $this->assertEquals($radioIds, $actualResult);
     }
 
-    public function testAddRadio()
+    public function testAdd()
     {
         $switchId = "11880";
 
-        $radioVo = new RadioVO();
-        $radioVo->switchId    = $switchId;
-        $radioVo->name        = $name = 'name';
-        $radioVo->description = $description = 'description';
-        $radioVo->pin         = $pin = 'pin';
-        $radioVo->code        = $code = 'code';
+        $switchVO = new RadioVO();
+        $switchVO->switchId    = $switchId;
+        $switchVO->name        = $name = 'name';
+        $switchVO->description = $description = 'description';
+        $switchVO->pin         = $pin = 'pin';
+        $switchVO->code        = $code = 'code';
 
         $this->idGenerator
             ->expects($this->once())
@@ -143,7 +143,7 @@ class RadioGatewayTest extends TestCase
                 'description' => $description,
                 'pin' => $pin,
                 'code' => $code,
-                'status' => $radioVo->status,
+                'status' => $switchVO->status,
                 'type' => RadioVO::TYPE
             ]);
 
@@ -156,7 +156,7 @@ class RadioGatewayTest extends TestCase
             ->expects($this->once())
             ->method('execute');
 
-        $actualResult = $this->subject->add($radioVo);
+        $actualResult = $this->subject->add($switchVO);
 
         $this->assertEquals($switchId, $actualResult);
     }

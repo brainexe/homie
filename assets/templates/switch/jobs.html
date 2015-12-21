@@ -1,0 +1,33 @@
+
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+        <th translate>Time</th>
+        <th translate>Switch</th>
+        <th translate>Status</th>
+        <th translate>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="job in jobs">
+        <td>
+            <time-ago from-time="job.timestamp" overdue="true"></time-ago>
+        </td>
+        <td>{{ switches[job.event.switchVo.switchId].name }}</td>
+        <td>
+            <a
+                    ng-click="setStatus(job.switchId, 1); deletejob(job.event_id)"
+                    class="btn"
+                    ng-class="{'btn-danger':!job.event.status, 'btn-success':job.event.status}"
+            >
+                {{ job.event.status ? "ON" : "OFF" }}
+            </a>
+        </td>
+        <td>
+            <a confirm="deletejob(job.jobId)" class="btn btn-sm btn-danger">
+                <span class="glyphicon glyphicon-remove"></span>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>

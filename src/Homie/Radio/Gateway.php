@@ -5,11 +5,11 @@ namespace Homie\Radio;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\IdGeneratorTrait;
 use BrainExe\Core\Traits\RedisTrait;
-use Homie\Radio\VO\RadioVO;
+
 use Homie\Radio\VO\SwitchVO;
 
 /**
- * @Service("RadioGateway", public=false)
+ * @Service("Switch.Gateway", public=false)
  */
 class Gateway
 {

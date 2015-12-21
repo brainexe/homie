@@ -1,22 +1,22 @@
 <?php
 
-namespace Tests\Homie\Radio;
+namespace Tests\Homie\Radio\Change;
 
-use PHPUnit_Framework_TestCase;
+use Homie\Radio\Change\Radio;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Homie\Radio\RadioController;
 use Homie\Client\LocalClient;
 use Homie\Radio\Gateway;
 use Homie\Radio\VO\RadioVO;
 
 /**
- * @covers Homie\Radio\RadioController
+ * @covers Homie\Radio\Change\Radio
  */
-class RadioControllerTest extends PHPUnit_Framework_TestCase
+class RadioTest extends TestCase
 {
 
     /**
-     * @var RadioController
+     * @var Radio
      */
     private $subject;
 
@@ -30,17 +30,14 @@ class RadioControllerTest extends PHPUnit_Framework_TestCase
      */
     private $rcSwitchCommand;
 
-    /**
-     * @var Gateway|MockObject
-     */
-    private $gateway;
-
     public function setUp()
     {
         $this->rcSwitchCommand = '/opt/rc_switch';
         $this->client          = $this->getMock(LocalClient::class, [], [], '', false);
-        $this->gateway         = $this->getMock(Gateway::class, [], [], '', false);
-        $this->subject         = new RadioController($this->client, $this->gateway, $this->rcSwitchCommand);
+        $this->subject         = new Radio(
+            $this->client,
+            $this->rcSwitchCommand
+        );
     }
 
     public function testSetStatus()

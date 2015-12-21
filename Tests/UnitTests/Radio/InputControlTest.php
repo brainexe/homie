@@ -8,7 +8,7 @@ use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Homie\Radio\InputControl;
 use Homie\Radio\SwitchChangeEvent;
-use Homie\Radio\Radios;
+use Homie\Radio\Switches;
 use Homie\Radio\VO\RadioVO;
 
 /**
@@ -23,7 +23,7 @@ class InputControlTest extends TestCase
     private $subject;
 
     /**
-     * @var Radios|MockObject
+     * @var Switches|MockObject
      */
     private $radios;
 
@@ -34,7 +34,7 @@ class InputControlTest extends TestCase
 
     public function setUp()
     {
-        $this->radios     = $this->getMock(Radios::class, [], [], '', false);
+        $this->radios     = $this->getMock(Switches::class, [], [], '', false);
         $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
         $this->subject = new InputControl($this->radios);

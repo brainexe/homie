@@ -3,7 +3,7 @@
 namespace Homie\Radio;
 
 use BrainExe\Core\EventDispatcher\AbstractEvent;
-use Homie\Radio\VO\RadioVO;
+
 use Homie\Radio\VO\SwitchVO;
 
 class SwitchChangeEvent extends AbstractEvent

@@ -10,7 +10,7 @@ use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\TodoList\Controller\TodoListController;
 use Homie\TodoList\TodoList;
 use Homie\TodoList\VO\TodoItemVO;
-use Symfony\Component\HttpFoundation\JsonResponse;
+
 use Symfony\Component\HttpFoundation\Request;
 
 /**

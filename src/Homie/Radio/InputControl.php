@@ -9,7 +9,7 @@ use BrainExe\InputControl\Event;
 use BrainExe\InputControl\Annotations\InputControl as InputControlAnnotation;
 
 /**
- * @InputControlAnnotation(name="radio")
+ * @InputControlAnnotation(name="switch")
  */
 class InputControl implements InputControlInterface
 {
@@ -17,9 +17,9 @@ class InputControl implements InputControlInterface
     use EventDispatcherTrait;
 
     /**
-     * @var Radios
+     * @var Switches
      */
-    private $radios;
+    private $switches;
 
     /**
      * {@inheritdoc}
@@ -33,12 +33,12 @@ class InputControl implements InputControlInterface
     }
 
     /**
-     * @Inject("@Radios")
-     * @param Radios $radios
+     * @Inject("@Switch.Switches")
+     * @param Switches $switches
      */
-    public function __construct(Radios $radios)
+    public function __construct(Switches $switches)
     {
-        $this->radios = $radios;
+        $this->switches = $switches;
     }
 
     /**
@@ -50,9 +50,9 @@ class InputControl implements InputControlInterface
 
         $status = $status === 'on';
 
-        $radioVo = $this->radios->get($switchId);
+        $switch = $this->switches->get($switchId);
 
-        $event = new SwitchChangeEvent($radioVo, $status);
+        $event = new SwitchChangeEvent($switch, $status);
         $this->dispatchEvent($event);
     }
 }

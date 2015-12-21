@@ -6,7 +6,7 @@ use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Homie\Dashboard\Widgets\SwitchWidget;
 use Homie\Dashboard\Widgets\WidgetMetadataVo;
-use Homie\Radio\Radios;
+use Homie\Radio\Switches;
 use Homie\Radio\VO\RadioVO;
 
 class SwitchWidgetTest extends TestCase
@@ -18,13 +18,13 @@ class SwitchWidgetTest extends TestCase
     private $subject;
 
     /**
-     * @var Radios|MockObject
+     * @var Switches|MockObject
      */
     private $radios;
 
     public function setUp()
     {
-        $this->radios  = $this->getMock(Radios::class, [], [], '', false);
+        $this->radios  = $this->getMock(Switches::class, [], [], '', false);
         $this->subject = new SwitchWidget($this->radios);
     }
 
@@ -42,7 +42,7 @@ class SwitchWidgetTest extends TestCase
 
         $this->radios
             ->expects($this->once())
-            ->method('getRadios')
+            ->method('getAll')
             ->willReturn([
                  $switchId => $radio
              ]);
@@ -60,7 +60,7 @@ class SwitchWidgetTest extends TestCase
 
         $this->radios
             ->expects($this->once())
-            ->method('getRadios')
+            ->method('getAll')
             ->willReturn([
                 $switchId => $radio
             ]);

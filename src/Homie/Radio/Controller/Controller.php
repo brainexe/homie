@@ -5,11 +5,12 @@ namespace Homie\Radio\Controller;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
-use BrainExe\Core\Traits\EventDispatcherTrait;
-use Homie\Radio\Job;
-use Homie\Radio\Radios;
-use Homie\Radio\SwitchChangeEvent;
+use BrainExe\Core\Application\UserException;
+use Homie\Radio\Switches;
+
+use Homie\Radio\VO\GpioSwitchVO;
 use Homie\Radio\VO\RadioVO;
+use Homie\Radio\VO\SwitchVO;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -17,122 +18,95 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class Controller
 {
-    use EventDispatcherTrait;
 
     /**
-     * @var Radios;
+     * @var Switches;
      */
-    private $radios;
-
-    /**
-     * @var Job
-     */
-    private $job;
+    private $switches;
 
     /**
      * @Inject({
-     *     "@Radios",
-     *     "@Switch.Job"
+     *     "@Switch.Switches",
      * })
-     * @param Radios $radios
-     * @param Job $job
+     * @param Switches $switches
      */
     public function __construct(
-        Radios $radios,
-        Job $job
+        Switches $switches
     ) {
-        $this->radios = $radios;
-        $this->job    = $job;
+        $this->switches = $switches;
     }
 
     /**
      * @return array
-     * @Route("/radios/", name="radio.index", methods="GET")
+     * @Route("/switches/", name="switches.index", methods="GET")
      */
     public function index()
     {
-        $radiosFormatted = $this->radios->getRadios();
+        $switches = $this->switches->getAll();
 
         return [
-            'radios' => iterator_to_array($radiosFormatted),
-            'pins'   => Radios::PINS,
+            'switches'  => iterator_to_array($switches),
+            'radioPins' => Switches::RADIO_PINS,
         ];
     }
 
     /**
      * @param Request $request
-     * @param integer $switchId
-     * @param integer $status
-     * @return bool
-     * @Route("/radios/{switchId}/status/{status}/", name="radio.set_status", methods="POST")
-     */
-    public function setStatus(Request $request, $switchId, $status)
-    {
-        unset($request);
-
-        $radioVo = $this->radios->get($switchId);
-
-        $event = new SwitchChangeEvent($radioVo, (bool)$status);
-        $this->dispatchInBackground($event);
-
-        return true;
-    }
-
-    /**
-     * @param Request $request
      * @return RadioVO
-     * @Route("/radios/", methods="POST", name="radio.add")
+     * @Route("/switches/", methods="POST", name="switch.add")
      */
-    public function addRadio(Request $request)
+    public function add(Request $request)
     {
         $name        = $request->request->get('name');
         $description = $request->request->get('description');
-        $code        = $request->request->get('code');
-        $pinRaw      = $request->request->get('pin');
 
-        $pin = $this->radios->getRadioPin($pinRaw);
+        $switch = $this->createSwitchVO($request);
+        $switch->name        = $name;
+        $switch->description = $description;
 
-        $radio = new RadioVO();
-        $radio->name        = $name;
-        $radio->description = $description;
-        $radio->code        = $code;
-        $radio->pin         = $pin;
+        $this->switches->add($switch);
 
-        $this->radios->addRadio($radio);
-
-        return $radio;
+        return $switch;
     }
 
     /**
      * @param Request $request
      * @param integer $switchId
      * @return boolean
-     * @Route("/radios/{switchId}/", name="radio.delete", methods="DELETE")
+     * @Route("/switches/{switchId}/", name="switches.delete", methods="DELETE")
      */
-    public function deleteRadio(Request $request, $switchId)
+    public function delete(Request $request, $switchId)
     {
         unset($request);
 
-        $this->radios->delete($switchId);
+        $this->switches->delete($switchId);
 
         return true;
     }
 
     /**
      * @param Request $request
-     * @return true
-     * @Route("/radios/jobs/", name="radiojob.add", methods="POST")
+     * @return SwitchVO
+     * @throws UserException
      */
-    public function addJob(Request $request)
+    private function createSwitchVO(Request $request)
     {
-        $switchId    = $request->request->getInt('radioId');
-        $status      = (bool)$request->request->getInt('status');
-        $timeString  = (string)$request->request->get('time');
+        $type = $request->request->getAlnum('type');
+        switch ($type) {
+            case RadioVO::TYPE:
+                $pin = $request->request->getAlnum('pin');
+                $switchVo = new RadioVO();
+                $switchVo->code = $request->request->getAlnum('code');
+                $switchVo->pin  = $this->switches->getRadioPin($pin);
+                break;
+            case GpioSwitchVO::TYPE:
+                $switchVo = new GpioSwitchVO();
+                $switchVo->pin  = $request->request->getAlnum('pin');
+                break;
+            default:
+                throw new UserException(sprintf(_('Invalid switch type: %s'), $type));
+        }
 
-        $switch = $this->radios->get($switchId);
-
-        $this->job->addJob($switch, $timeString, $status);
-
-        return true;
+        return $switchVo;
     }
 }

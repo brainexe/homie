@@ -4,6 +4,7 @@ namespace Homie\Radio;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\EventListener;
+use Homie\Radio\Change\Change;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -13,18 +14,19 @@ class JobListener implements EventSubscriberInterface
 {
 
     /**
-     * @var SwitchInterface
+     * @var Change
      */
-    private $controller;
+    private $change;
 
     /**
-     * @param SwitchInterface $controller
-     * @Inject("@RadioController")
-     * @todo fetch correct SwitchInterface
+     * @param Change $controller
+     * @Inject({
+     *     "@Switches.Change.Change"
+     * })
      */
-    public function __construct(SwitchInterface $controller)
+    public function __construct(Change $controller)
     {
-        $this->controller = $controller;
+        $this->change = $controller;
     }
 
     /**
@@ -42,7 +44,7 @@ class JobListener implements EventSubscriberInterface
      */
     public function handleChangeEvent(SwitchChangeEvent $event)
     {
-        $this->controller->setStatus(
+        $this->change->setStatus(
             $event->switch,
             $event->status
         );

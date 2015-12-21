@@ -1,0 +1,54 @@
+<div class="panel panel-primary">
+    <div class="panel-heading" translate>Add Job</div>
+    <div class="panel-body">
+        <form ng-submit="addJob(newJob)" class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" translate>Switch</label>
+                <div class="col-sm-10">
+                    <ui-select ng-model="newJob.switchId" required>
+                        <ui-select-match placeholder="Select switch...">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="switch.switchId as switch in switches|toArray|propsFilter:{name: $select.search, description: $select.search}">
+                            <span ng-bind-html="switch.name|highlight:$select.search"></span>
+                            <span class="small" ng-bind-html="switch.description|highlight:$select.search"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" translate uib-tooltip="e.g. 10s, 30m, 1h">Time</label>
+                <div class="col-sm-10">
+                    <input
+                            type="text"
+                            ng-model="newJob.time"
+                            id="newSwitchJobTime"
+                            required
+                            class="form-control"
+                            value="1h"
+                    />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" translate>Status</label>
+                <div class="col-sm-10">
+                    <input
+                            type="checkbox"
+                            class="big-checkbox"
+                            ng-model="newJob.status"
+                            value="1"
+                    />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2  col-lg-10">
+                    <button
+                            class="btn btn-primary"
+                            translate
+                            type="submit"
+                    >
+                        Add
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

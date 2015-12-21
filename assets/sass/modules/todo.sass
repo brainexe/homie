@@ -1,4 +1,6 @@
 
+@import "../common.sass"
+
 .task-list
 	width: 250px
 	float: left
@@ -21,13 +23,22 @@
 	.completed .todo-task
 		text-decoration: line-through
 
+	.delete-div
+		background-color: #fff
+		border: 3px dotted #000
+		border-radius: 5px
+		margin: 10px
+		height: 75px
+		line-height: 75px
+		text-align: center
+
 .todo-task
-	border-radius: 5px
+	@include border(5)
+
 	background-color: #fff
 	width: 220px
 	margin: 5px
 	padding: 5px
-	border: 1px darkgray solid
 
 	> .task-header
 		font-weight: bold
@@ -42,13 +53,3 @@
 
 	> .task-description, .todo-task > .task-user
 		font-size: smaller
-
-#delete-div
-	background-color: #fff
-	border: 3px dotted #000
-	border-radius: 5px
-	margin: 10px
-	height: 75px
-	line-height: 75px
-	text-align: center
-
