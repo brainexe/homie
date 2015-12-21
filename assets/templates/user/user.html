@@ -14,3 +14,15 @@
 		<a class="btn btn-primary" href="#/user/tokens" translate>Tokens</a>
 	</li>
 </ul>
+
+<ul>
+	<li ng-repeat="item in controllers">
+		<input
+				type="checkbox"
+				class="big-checkbox"
+				ng-model="controller.collapsed"
+				ng-change="toggle(controller)"/>
+		<i class="glyphicon glyphicon-{{ item.icon }}"></i>
+		<span ng-bind="item.name"></span>
+	</li>
+</ul>

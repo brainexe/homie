@@ -69,5 +69,5 @@
 		ng-include="'/templates/switch/add_job.html'"></div>
 
 <div
-		ng-if="editMode"
+		ng-if="editMode || !(switches|notEmpty)"
 		ng-include="'/templates/switch/add.html'"></div>

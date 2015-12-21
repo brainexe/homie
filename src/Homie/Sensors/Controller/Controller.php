@@ -4,11 +4,9 @@ namespace Homie\Sensors\Controller;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
-
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Authentication\Settings\Settings;
 use BrainExe\Core\Traits\EventDispatcherTrait;
-
 use Homie\Sensors\Builder;
 use Homie\Sensors\Chart;
 use Homie\Sensors\GetValue\Event;

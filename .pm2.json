@@ -17,7 +17,7 @@
       "script"      : "arduino.js",
       "merge_logs"  : true,
       "cwd"         : "nodejs",
-      "max_restarts" : 2
+      "max_restarts" : 5
     },
     {
       "name"        : "websocket",
