@@ -695,10 +695,7 @@ body > .header .logo .icon {
   color: #f6f6f6;
   background: #444;
 }
-.sidebar > .sidebar-menu > li > .treeview-menu {
-  margin: 0 1px;
-  background: #444;
-}
+
 .left-side, .logo {
   background: #333;
   background: -moz-linear-gradient(left, rgba(51,51,51,1) 94%, rgba(51,51,51,1) 95%, rgba(51,51,51,0.65) 100%);

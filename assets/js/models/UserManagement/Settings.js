@@ -6,7 +6,7 @@ App.service('UserManagement.Settings', ['$http', function($http) {
         },
 
         set: function(key, value) {
-            return $http.put('/settings/{0}/{1}/'.format(key, value));
+            return $http.post('/settings/{0}/{1}/'.format(key, value));
         }
     };
 }]);

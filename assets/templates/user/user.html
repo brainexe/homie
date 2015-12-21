@@ -26,3 +26,9 @@
 		<span ng-bind="item.name"></span>
 	</li>
 </ul>
+
+<ul class="user-profile-avatar">
+	<li ng-repeat="avatar in avatars">
+		<img ng-src="/images/{{avatar}}" ng-click="setAvatar(avatar)"/>
+	</li>
+</ul>
