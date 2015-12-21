@@ -2,7 +2,6 @@
 
 namespace Homie;
 
-
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\SerializableTrait;
 use BrainExe\Core\Translation\TranslationProvider;
@@ -92,8 +91,8 @@ class Node implements JsonSerializable, TranslationProvider
      */
     public static function getTokens()
     {
-        return array_map(function ($type) {
-            return sprintf('node.%s.name', $type);
-        }, self::TYPES);
+        foreach (self::TYPES as $type) {
+            yield sprintf('node.%s.name', $type);
+        }
     }
 }

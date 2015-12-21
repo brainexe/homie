@@ -6,8 +6,8 @@ use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Homie\Dashboard\Widgets\SwitchWidget;
 use Homie\Dashboard\Widgets\WidgetMetadataVo;
-use Homie\Radio\Switches;
-use Homie\Radio\VO\RadioVO;
+use Homie\Switches\Switches;
+use Homie\Switches\VO\RadioVO;
 
 class SwitchWidgetTest extends TestCase
 {
