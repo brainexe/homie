@@ -1,82 +1,89 @@
-<div class="jumbotron">
-	<h3 translate>Edit Display</h3>
-	<form ng-submit="save(currentScreen)">
-		<div class="form-group">
-			<div class="col-sm-12">
-				<label translate>Name</label>
-				<input
-					type="text"
-					ng-model="currentScreen.name"
-					class="form-control"
-				/>
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-sm-6">
-				<label translate>Rows</label>
 
-				<input
-						ng-model="currentScreen.lines"
-						type="number"
-						min="1"
-						max="200"
-						class="form-control input-lg"
-						placeholder="{{'Lines'|translate}}"
-						/>
+<div class="panel panel-primary">
+	<div class="panel-heading" translate>Edit Display</div>
+	<div class="panel-body">
+		<form ng-submit="save(currentScreen)">
+			<div class="form-group">
+				<div class="col-sm-12">
+					<label translate>Name</label>
+					<input
+						type="text"
+						ng-model="currentScreen.name"
+						class="form-control"
+					/>
+				</div>
 			</div>
-			<div class="col-sm-6">
-				<label translate>Characters per Row</label>
-				<input
-						ng-model="currentScreen.columns"
-						type="number"
-						min="1"
-						max="200"
-						class="form-control input-lg"
-						placeholder="{{'Columns'|translate}}"
-						/>
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-sm-12">
-				<h3 translate>Lines</h3>
-				<div class="form-inline" ng-repeat="line in currentScreen.content track by $index">
-					<label class="pull-left">{{ $index+1 }}:&nbsp</label>
-					<input ng-model="currentScreen.content[$index]" class="form-control" type="text"/>
+			<div class="form-group">
+				<div class="col-sm-6">
+					<label translate>Rows</label>
 
-					<div class="btn-group">
-						<a ng-click="currentScreen.content.push('\'\'')" class="btn btn-success glyphicon glyphicon-minus"></a>
-						<a ng-click="" class="btn btn-danger glyphicon glyphicon-plus"></a>
+					<input
+							ng-model="currentScreen.lines"
+							type="number"
+							min="1"
+							max="200"
+							class="form-control input-lg"
+							placeholder="{{'Lines'|translate}}"
+							/>
+				</div>
+				<div class="col-sm-6">
+					<label translate>Characters per Row</label>
+					<input
+							ng-model="currentScreen.columns"
+							type="number"
+							min="1"
+							max="200"
+							class="form-control input-lg"
+							placeholder="{{'Columns'|translate}}"
+							/>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-12">
+					<h3 translate>Lines</h3>
+					<div class="form-inline" ng-repeat="line in currentScreen.content track by $index">
+						<label class="pull-left">{{ $index+1 }}:&nbsp</label>
+						<input ng-model="currentScreen.content[$index]" class="form-control" type="text"/>
+
+						<div class="btn-group">
+							<a ng-click="currentScreen.content.push('\'\'')" class="btn btn-success glyphicon glyphicon-minus"></a>
+							<a ng-click="" class="btn btn-danger glyphicon glyphicon-plus"></a>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-sm-6">
-				<button type="submit" class="btn btn-primary" translate>Submit</button>
+			<div class="form-group">
+				<div class="col-sm-6">
+					<button type="submit" class="btn btn-primary" translate>Submit</button>
+				</div>
+				<div ng-if="currentScreen.displayId" class="col-sm-6">
+					<button type="button" class="btn btn-danger" translate>Delete</button>
+				</div>
 			</div>
-			<div ng-if="currentScreen.displayId" class="col-sm-6">
-				<button type="button" class="btn btn-danger" translate>Delete</button>
-			</div>
-		</div>
-	</form>
+		</form>
+	</div>
 </div>
 
 <hr />
 
-<div class="display-screen" ng-repeat="screen in screens">
-	<h2 translate>Screen {{screen.displayId}}</h2>
-	<div class="form-group">
-		<label translate>Preview</label>
-		<textarea
-				class="form-control"
-				cols="{{screen.columns}}"
-				rows="{{screen.lines}}"
-				readonly="readonly"
-		>{{screen.rendered|join:"\n"}}</textarea>
+<div class="panel panel-default" ng-repeat="screen in screens">
+	<div class="panel-heading">
+		<span translate>Screen #{{screen.displayId}}</span>
+		<div class="btn-group pull-right">
+			<button type="button" class="btn btn-default" ng-click="setScreen(screen)" translate>Edit</button>
+			<button type="button" class="btn btn-primary" ng-click="refresh(screen)" translate>Refresh</button>
+		</div>
 	</div>
-	<br />
-	<div class="btn-group">
-		<button type="button" class="btn btn-default" ng-click="setScreen(screen)" translate>Edit</button>
-		<button type="button" class="btn btn-primary" ng-click="refresh(screen)" translate>Refresh</button>
+	<div class="panel-body">
+		<div class="form-group">
+			<label translate>Preview</label>
+			<textarea
+					class="form-control"
+					cols="{{screen.columns}}"
+					rows="{{screen.lines}}"
+					readonly="readonly"
+			>{{screen.rendered|join:"\n"}}</textarea>
+		</div>
+		<br />
 	</div>
 </div>

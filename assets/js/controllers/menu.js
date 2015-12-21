@@ -1,5 +1,5 @@
 
-App.controller('MenuController', ['$scope', '$rootScope', '$route', '$location', 'controllers', 'UserManagement', '_', function ($scope, $rootScope, $route, $location, controllers, UserManagement, _) {
+App.controller('MenuController', ['$scope', '$rootScope', '$route', '$location', 'controllers', 'UserManagement', 'UserManagement.Settings', function ($scope, $rootScope, $route, $location, controllers, UserManagement, Settings) {
     $scope.controllers = controllers();
     $scope.$on('$routeChangeSuccess', function (event, current) {
         if (current.$$route && current.$$route.name) {
@@ -16,6 +16,9 @@ App.controller('MenuController', ['$scope', '$rootScope', '$route', '$location',
         var user = UserManagement.getCurrentUser();
         var isLoggedIn = UserManagement.isLoggedIn();
 
+        Settings.getAll().success(function(settings) {
+            // TODO
+        });
         $scope.menu = $scope.controllers.filter(function (item) {
             if (!item.name) {
                 return false;

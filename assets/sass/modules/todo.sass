@@ -1,0 +1,55 @@
+
+@import "../common.sass"
+
+.task-list
+	width: 250px
+	float: left
+	margin: 0 5px
+	height: 500px
+	padding-bottom: 15px
+	overflow-y: auto
+
+	input, textarea
+		width: 240px
+		margin: 1px 5px
+
+	input
+		height: 30px
+
+	input[type="button"]
+		width: 100px
+		margin: 5px
+
+	.completed .todo-task
+		text-decoration: line-through
+
+	.delete-div
+		background-color: #fff
+		border: 3px dotted #000
+		border-radius: 5px
+		margin: 10px
+		height: 75px
+		line-height: 75px
+		text-align: center
+
+.todo-task
+	@include border(5)
+
+	background-color: #fff
+	width: 220px
+	margin: 5px
+	padding: 5px
+
+	> .task-header
+		font-weight: bold
+
+	> .task-date
+		font-size: small
+		font-style: italic
+
+	> .task-deadline
+		font-size: small
+		font-style: italic
+
+	> .task-description, .todo-task > .task-user
+		font-size: smaller

@@ -1,5 +1,5 @@
 
-App.controller('EditSensorsController', ['$scope', '$rootScope', '$uibModalInstance', 'Sensor', 'SensorFormatter', function($scope, $rootScope, $uibModalInstance, Sensor, SensorFormatter) {
+App.controller('EditSensorsController', ['$scope', '$rootScope', '$uibModalInstance', 'Sensor', 'Sensor.Formatter', function($scope, $rootScope, $uibModalInstance, Sensor, SensorFormatter) {
     $scope.sensors = [];
     $scope.types   = {};
 

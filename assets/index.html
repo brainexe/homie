@@ -7,9 +7,8 @@
     <title ng-bind="title" translate>Homie</title>
     <meta charset="utf-8">
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
-
     <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
-    <link href="/common.min.css" rel="stylesheet">
+    <link href="/app.min.css" rel="stylesheet">
 </head>
 <body>
     <header class="header">
@@ -33,8 +32,11 @@
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
-                            <li class="user-header bg-light-blue">
-                                <div class="profile_avatar img-circle"></div>
+                            <li class="user-header">
+                                <div
+                                        class="profile_avatar img-circle"
+                                        ng-style="{'backgroundImage':'url(\'/images/' + currentUser.avatar + '\')'}"
+                                ></div>
                                 <p>
                                     <span ng-bind="currentUser.username"></span>
                                 </p>
@@ -72,7 +74,11 @@
                 <div class="user-panel">
                     <div ng-if="isLoggedIn()">
                         <div class="pull-left image">
-                            <div ng-click="flushCache()" class="user_avatar img-circle"></div>
+                            <div
+                                    ng-click="flushCache()"
+                                    ng-style="{'backgroundImage':'url(\'/images/' + currentUser.avatar + '\')'}"
+                                    class="user_avatar img-circle"
+                            ></div>
                         </div>
                         <div class="pull-left info">
                             <p translate>Hello {{ currentUser.username }}!</p>

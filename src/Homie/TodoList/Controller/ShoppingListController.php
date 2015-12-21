@@ -46,7 +46,7 @@ class ShoppingListController
     /**
      * @param Request $request
      * @Route("/shopping/", name="todo.shopping.add", methods="POST")
-     * @return JsonResponse
+     * @return bool
      */
     public function addItem(Request $request)
     {
@@ -54,20 +54,20 @@ class ShoppingListController
 
         $this->shoppingList->addItem($name);
 
-        return new JsonResponse(true);
+        return true;
     }
 
     /**
      * @param Request $request
-     * @Route("/shopping/", name="todo.shopping.remove", methods="DELETE")
-     * @return JsonResponse
+     * @param string $name
+     * @return bool
+     * @Route("/shopping/{name}/", name="todo.shopping.remove", methods="DELETE")
      */
-    public function removeItem(Request $request)
+    public function removeItem(Request $request, $name)
     {
-        $name = $request->request->get('name');
-
+        unset($request);
         $this->shoppingList->removeItem($name);
 
-        return new JsonResponse(true);
+        return true;
     }
 }

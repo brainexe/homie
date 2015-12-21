@@ -1,0 +1,30 @@
+
+.user_avatar
+    background-size: contain
+    height: 54px
+    width: 54px
+
+.profile_avatar
+    background-size: contain
+    z-index: 5
+    height: 90px
+    width: 90px
+    margin: auto
+
+.cursor
+    cursor: pointer
+
+input.ng-invalid.ng-touched
+    background-color: #fa787e
+
+//input.ng-valid.ng-touched
+//    background-color: #78FA89
+
+.big-checkbox
+    width: 20px
+    height: 20px
+
+$dialogWidth: 1000
+@each $width in $dialogWidth
+    .dialog_#{$width} .modal-dialog
+        width: #{$width}px

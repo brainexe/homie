@@ -6,7 +6,7 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\LoggerTrait;
 use RuntimeException;
-use Symfony\Component\Process\Process;
+
 use Symfony\Component\Process\ProcessBuilder;
 
 /**
@@ -56,7 +56,11 @@ class LocalClient implements ClientInterface
         $process->run();
 
         if (!$process->isSuccessful()) {
-            throw new RuntimeException($process->getErrorOutput());
+            throw new RuntimeException(
+                'command: ' . $process->getCommandLine() . PHP_EOL .
+                'status: ' . $process->getStatus() . PHP_EOL .
+                'output: ' . $process->getErrorOutput() . $process->getOptions()
+            );
         }
 
         $output = $process->getOutput();

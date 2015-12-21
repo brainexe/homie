@@ -6,8 +6,8 @@ use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Homie\Dashboard\Widgets\SwitchWidget;
 use Homie\Dashboard\Widgets\WidgetMetadataVo;
-use Homie\Radio\Radios;
-use Homie\Radio\VO\RadioVO;
+use Homie\Switches\Switches;
+use Homie\Switches\VO\RadioVO;
 
 class SwitchWidgetTest extends TestCase
 {
@@ -18,13 +18,13 @@ class SwitchWidgetTest extends TestCase
     private $subject;
 
     /**
-     * @var Radios|MockObject
+     * @var Switches|MockObject
      */
     private $radios;
 
     public function setUp()
     {
-        $this->radios  = $this->getMock(Radios::class, [], [], '', false);
+        $this->radios  = $this->getMock(Switches::class, [], [], '', false);
         $this->subject = new SwitchWidget($this->radios);
     }
 
@@ -37,14 +37,14 @@ class SwitchWidgetTest extends TestCase
     public function testSerialize()
     {
         $radio = new RadioVO();
-        $radio->radioId = $radioId = 122;
-        $radio->name    = 'radio';
+        $radio->switchId = $switchId = 122;
+        $radio->name     = 'radio';
 
         $this->radios
             ->expects($this->once())
-            ->method('getRadios')
+            ->method('getAll')
             ->willReturn([
-                 $radioId => $radio
+                 $switchId => $radio
              ]);
 
         $actualResult = $this->subject->getMetadata();
@@ -55,14 +55,14 @@ class SwitchWidgetTest extends TestCase
     public function testJsonEncode()
     {
         $radio = new RadioVO();
-        $radio->radioId = $radioId = 122;
-        $radio->name    = 'radio';
+        $radio->switchId = $switchId = 122;
+        $radio->name     = 'radio';
 
         $this->radios
             ->expects($this->once())
-            ->method('getRadios')
+            ->method('getAll')
             ->willReturn([
-                $radioId => $radio
+                $switchId => $radio
             ]);
 
         $actualResult = json_encode($this->subject);

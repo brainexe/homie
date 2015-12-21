@@ -3,7 +3,6 @@
 namespace Homie\TodoList;
 
 use BrainExe\Annotations\Annotations\Service;
-use BrainExe\Core\Redis\PhpRedis;
 use BrainExe\Core\Traits\RedisTrait;
 use BrainExe\Core\Traits\TimeTrait;
 use Homie\TodoList\VO\TodoItemVO;

@@ -13,9 +13,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-manifest');
     grunt.loadNpmTasks('grunt-exec');
-    grunt.loadNpmTasks('grunt-jslint');
 
-    // todo improve performance: https://www.npmjs.com/package/grunt-parallelize
     grunt.registerTask('extract_lang', ['nggettext_extract']);
     grunt.registerTask('compile_lang', ['nggettext_compile']);
 
@@ -92,27 +90,33 @@ module.exports = function (grunt) {
         watch: {
             js: {
                 files: ['assets/**/*.js'],
-                tasks: ['uglify:app'],
+                tasks: ['uglify:app', 'copy:static'],
                 options: {
                     livereload: true
                 }
             },
             css: {
                 files: ['assets/**/*.css'],
-                tasks: ['concat', 'cssmin'],
+                tasks: ['concat', 'cssmin', 'copy:static'],
                 options: {
                     livereload: true
                 }
             },
-            // todo po files
             templates: {
                 files: ['assets/**/*.html'],
-                tasks: ['htmlmin'],
+                tasks: ['htmlmin', 'copy:static'],
                 options: {
                     livereload: true
                 }
             },
-            src: {
+            po: {
+                files: ['lang/*.po'],
+                tasks: ['compile_lang', 'copy:static'],
+                options: {
+                    livereload: true
+                }
+            },
+            php: {
                 files: ['src/**'],
                 tasks: ['console:cc'],
                 options: {
@@ -132,31 +136,29 @@ module.exports = function (grunt) {
                         expand: true,
                         src: ['**/*.ico', '**/*.png', '**/*.jpg'],
                         cwd: 'assets/',
-                        dest: 'web/',
-                        filter: 'isFile'
+                        dest: 'web/'
                     },
                     {
                         expand: true,
                         src: ['**/*.woff', '**/*.woff2'],
-                        cwd: 'bower_components/bootstrap',
-                        dest: 'web/',
-                        filter: 'isFile'
+                        cwd: 'bower_components/bootstrap/fonts/',
+                        dest: 'web/fonts/'
                     }
                 ]
             }
         },
         clean: ["web/**"],
         concat: {
-            'common.css': {
+            'app.css': {
                 src: [
                     'bower_components/bootstrap/dist/css/bootstrap.min.css',
                     'bower_components/rickshaw/rickshaw.css',
                     'bower_components/ui-select/dist/select.min.css',
                     'bower_components/angular-bootstrap-colorpicker/css/colorpicker.min.css',
                     //'bower_components/ng-sortable/dist/ng-sortable.style.min.css', // todo
-                    'assets/css/**/*.css'
+                    'assets/**/*.css'
                 ],
-                dest: 'web/common.css',
+                dest: 'web/app.css',
                 nonull: true
             }
         },
@@ -200,7 +202,7 @@ module.exports = function (grunt) {
                     mangle: isProduction ? {
                         toplevel: true
                     } : false,
-                    sourceMap: isProduction,
+                    sourceMap: !isProduction,
                     sourceMapIncludeSources: true,
                     sourceMapName: 'web/app.map'
                 },
@@ -217,7 +219,7 @@ module.exports = function (grunt) {
                 options: {
                     compress: false,
                     mangle: false,
-                    sourceMap: isProduction,
+                    sourceMap: !isProduction,
                     sourceMapIncludeSources: true,
                     sourceMapName: 'web/vendor.map'
                 },
@@ -226,7 +228,7 @@ module.exports = function (grunt) {
                         'bower_components/angular/angular.min.js',
                         'bower_components/angular-route/angular-route.min.js',
                         'bower_components/angular-gettext/dist/angular-gettext.min.js',
-                        'bower_components/angular-sanitize/angular-sanitize.min.js', // todo needed?
+                        'bower_components/angular-sanitize/angular-sanitize.min.js',
                         'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
                         'bower_components/angular-native-dragdrop/draganddrop.js',
                         'bower_components/angular-cache/dist/angular-cache.min.js',
@@ -262,7 +264,7 @@ module.exports = function (grunt) {
                     '**/*.html',
                     '**/*.js',
                     '**/*.json',
-                    '**/*.css',
+                    '**/*.min.css',
                     '**/*.png',
                     '**/*.jpg',
                     '**/*.woff',
@@ -283,7 +285,8 @@ module.exports = function (grunt) {
                     {expand: true, src: ['web/**/*.js'],   dest: '.', ext: '.js.gz'},
                     {expand: true, src: ['web/**/*.json'], dest: '.', ext: '.json.gz'},
                     {expand: true, src: ['web/**/*.html'], dest: '.', ext: '.html.gz'},
-                    {expand: true, src: ['web/**/*.css'],  dest: '.', ext: '.css.gz'},
+                    {expand: true, src: ['web/**/*.min.css'],  dest: '.', ext: '.min.css.gz'},
+                    {expand: true, src: ['web/**/*.map'],  dest: '.', ext: '.map.gz'},
                     {expand: true, src: ['web/*.appcache'],  dest: '.', ext: '.appcache.gz'}
                 ]
             }
@@ -298,27 +301,6 @@ module.exports = function (grunt) {
                         'php console cc'
                     ].join(' && ');
                 }
-            }
-        },
-        jslint: { // configure the task
-            // lint your project's server code
-            server: {
-                src: [
-                    'assets/**/*.js'
-                ],
-                directives: {
-                    node: true,
-                    todo: true
-                }
-            },
-            options: {
-                edition: 'latest', // specify an edition of jslint or use 'dir/mycustom-jslint.js' for own path
-                junit: 'out/server-junit.xml', // write the output to a JUnit XML
-                log: 'out/server-lint.log',
-                jslintXml: 'out/server-jslint.xml',
-                errorsOnly: true, // only display errors
-                failOnError: false, // defaults to true
-                checkstyle: 'out/server-checkstyle.xml' // write a checkstyle-XML
             }
         },
         sass: {

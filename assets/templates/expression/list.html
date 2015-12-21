@@ -1,0 +1,57 @@
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+        <th translate>Id</th>
+        <th translate>Enabled</th>
+        <th translate>Condition</th>
+        <th translate>Actions</th>
+        <th translate>Payload</th>
+        <th><span class="glyphicon glyphicon-edit"></span></th>
+        <th><span class="glyphicon glyphicon-remove"></span></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="(expressionId, expression) in expressions">
+        <td>
+            {{expression.expressionId}}
+        </td>
+        <td>
+            <input type="checkbox" ng-model="expression.enabled" ng-change="save(expression)"/>
+        </td>
+        <td>
+            <ul>
+                <li ng-repeat="condition in expression.conditions">
+                    <code>{{ condition }}</code>
+                </li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li ng-repeat="action in expression.actions">
+                    <code>
+                        {{ action }}
+                    </code>
+                </li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li ng-repeat="(key, value) in expression.payload">{{key}}: {{ value }}</li>
+            </ul>
+        </td>
+        <td>
+            <a
+                    ng-click="edit(expression)"
+                    class="cursor btn btn-default btn-sm"
+            >
+                <span class="glyphicon glyphicon-edit"></span>
+            </a>
+        </td>
+        <td>
+            <a confirm="delete(expressionId)" class="btn btn-danger btn-sm">
+                <span class="glyphicon glyphicon-remove"></span>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>

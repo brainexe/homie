@@ -1,67 +1,70 @@
 
-App.controller('SwitchController', ['$scope', 'Radios', 'MessageQueue', '_', function ($scope, Radios, MessageQueue, _) {
-    $scope.radios    = {};
-    $scope.radioJobs = {};
-    $scope.pins      = {};
+App.controller('SwitchController', ['$scope', 'Switches', 'MessageQueue', '_', function ($scope, Switches, MessageQueue, _) {
+    $scope.switches  = {};
+    $scope.jobs      = {};
+    $scope.radioPins = {};
     $scope.newJob    = {};
     $scope.editMode  = false;
+    $scope.newSwitch = {};
+    $scope.types     = {
+        'radio': {name: _('443 MHz Radio')},
+        'gpio':  {name: _('GPIO')}
+    };
 
-    Radios.getData().success(function (data) {
-        $scope.radios = data.radios;
-        $scope.pins   = data.pins;
+    Switches.getData().success(function (data) {
+        $scope.switches  = data.switches;
+        $scope.radioPins = data.radioPins;
     });
 
-    MessageQueue.getJobs(Radios.JOB_ID, true).success(function(data) {
-        $scope.radioJobs = data;
+    MessageQueue.getJobs(Switches.JOB_ID, true).success(function(data) {
+        $scope.jobs = data;
     });
 
     /**
-     * @param {Object} radio
+     * @param {Object} switchVO
      * @param {Number} status
      */
-    $scope.setStatus = function (radio, status) {
-        Radios.setRadio(radio.radioId, status).success(function () {
-            radio.status = status;
+    $scope.setStatus = function (switchVO, status) {
+        Switches.setStatus(switchVO.switchId, status).success(function () {
+            switchVO.status = status;
         });
     };
 
     /**
-     * @param {Number} radioId
+     * @param {Number} switchId
      */
-    $scope.deleteRadio = function (radioId) {
-        if (!confirm(_('Remove this Radio-Job?'))) {
+    $scope.delete = function (switchId) {
+        if (!confirm(_('Remove this Job?'))) {
             return;
         }
 
-        Radios.deleteRadio(radioId).success(function () {
-            delete $scope.radios[radioId];
+        Switches.delete(switchId).success(function () {
+            delete $scope.switches[switchId];
         });
     };
 
-    $scope.highlight = function (radio) {
-        $scope.newJob.radioId = radio.radioId;
-        document.getElementById('newRadioJobTime').focus();
+    $scope.highlight = function (switchVO) {
+        $scope.newJob.switchId = switchVO.switchId;
+        document.getElementById('newSwitchJobTime').focus();
     };
 
-    $scope.addRadio = function (newRadio) {
-        Radios.add(newRadio).success(function (data) {
-            $scope.radios[data.radioId] = data;
+    $scope.addSwitch = function (newSwitch) {
+        Switches.add(newSwitch).success(function (data) {
+            $scope.switches[data.switchId] = data;
         });
     };
 
-    $scope.newRadio = {};
-    $scope.addRadioJob = function (newJob) {
-        Radios.addJob(newJob).success(function() {
-            MessageQueue.getJobs(Radios.JOB_ID, true).success(function(data) {
-                $scope.radioJobs = data;
+    $scope.addJob = function (newJob) {
+        Switches.addJob(newJob).success(function() {
+            MessageQueue.getJobs(Switches.JOB_ID, true).success(function(data) {
+                $scope.jobs = data;
             });
-            $scope.job_time = '';
         });
     };
 
-    $scope.deleteRadioJob = function (jobId) {
+    $scope.deleteJob = function (jobId) {
         MessageQueue.deleteJob(jobId).then(function() {
-            delete $scope.radioJobs[jobId];
+            delete $scope.jobs[jobId];
         });
     }
 }]);

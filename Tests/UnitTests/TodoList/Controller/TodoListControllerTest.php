@@ -3,14 +3,14 @@
 namespace Tests\Homie\TodoList\Controller;
 
 use ArrayIterator;
+use BrainExe\Core\Authentication\LoadUser;
 use BrainExe\Core\Authentication\UserVO;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\TodoList\Controller\TodoListController;
 use Homie\TodoList\TodoList;
-use BrainExe\Core\Authentication\DatabaseUserProvider;
 use Homie\TodoList\VO\TodoItemVO;
-use Symfony\Component\HttpFoundation\JsonResponse;
+
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -30,18 +30,18 @@ class TodoListControllerTest extends TestCase
     private $todoList;
 
     /**
-     * @var DatabaseUserProvider|MockObject
+     * @var LoadUser|MockObject
      */
-    private $userProvider;
+    private $loadUser;
 
     public function setUp()
     {
-        $this->todoList     = $this->getMock(TodoList::class, [], [], '', false);
-        $this->userProvider = $this->getMock(DatabaseUserProvider::class, [], [], '', false);
+        $this->todoList = $this->getMock(TodoList::class, [], [], '', false);
+        $this->loadUser = $this->getMock(LoadUser::class, [], [], '', false);
 
         $this->subject = new TodoListController(
             $this->todoList,
-            $this->userProvider
+            $this->loadUser
         );
     }
 
@@ -78,10 +78,9 @@ class TodoListControllerTest extends TestCase
             ->method('addItem')
             ->with($user, $itemVo);
 
-        $actualResult = $this->subject->addItem($request);
-        $expectedResult = new JsonResponse($itemVo);
+        $actual = $this->subject->addItem($request);
 
-        $this->assertEquals($expectedResult, $actualResult);
+        $this->assertEquals($itemVo, $actual);
     }
 
     public function testSetItemStatus()
@@ -101,10 +100,9 @@ class TodoListControllerTest extends TestCase
             ->with($itemId, $changes)
             ->willReturn($itemVo);
 
-        $actualResult = $this->subject->setItemStatus($request);
+        $actual = $this->subject->setItemStatus($request);
 
-        $expectedResult = new JsonResponse($itemVo);
-        $this->assertEquals($expectedResult, $actualResult);
+        $this->assertEquals($itemVo, $actual);
     }
 
     public function testSetAssignee()
@@ -125,7 +123,7 @@ class TodoListControllerTest extends TestCase
             'userName' => $userName
         ];
 
-        $this->userProvider
+        $this->loadUser
             ->expects($this->once())
             ->method('loadUserById')
             ->with($userId)
@@ -137,11 +135,9 @@ class TodoListControllerTest extends TestCase
             ->with($itemId, $changes)
             ->willReturn($itemVo);
 
-        $actualResult = $this->subject->setAssignee($request);
+        $actual = $this->subject->setAssignee($request);
 
-        $expectedResult = new JsonResponse($itemVo);
-        $this->assertEquals($expectedResult, $actualResult);
-
+        $this->assertEquals($itemVo, $actual);
     }
 
     public function testDeleteItem()
@@ -155,9 +151,8 @@ class TodoListControllerTest extends TestCase
             ->method('deleteItem')
             ->with($itemId);
 
-        $actualResult = $this->subject->deleteItem($request, $itemId);
+        $actual = $this->subject->deleteItem($request, $itemId);
 
-        $expectedResult = new JsonResponse(true);
-        $this->assertEquals($expectedResult, $actualResult);
+        $this->assertTrue($actual);
     }
 }

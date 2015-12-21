@@ -8,7 +8,6 @@ use BrainExe\Core\Annotations\Listen;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Homie\Espeak\EspeakEvent;
 use Homie\Media\Sound;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * @EventListener("EggTimer.Listener")

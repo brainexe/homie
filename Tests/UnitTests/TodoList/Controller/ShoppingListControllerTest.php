@@ -44,14 +44,14 @@ class ShoppingListControllerTest extends TestCase
             ->method('getItems')
             ->willReturn($shoppingList);
 
-        $actualResult   = $this->subject->index();
-        $expectedResult = new JsonResponse(
+        $actual   = $this->subject->index();
+        $expected = new JsonResponse(
             [
                 'shoppingList' => $shoppingList
             ]
         );
 
-        $this->assertEquals($expectedResult, $actualResult);
+        $this->assertEquals($expected, $actual);
     }
 
     public function testAddItem()
@@ -66,10 +66,9 @@ class ShoppingListControllerTest extends TestCase
             ->method('addItem')
             ->with($name);
 
-        $actualResult = $this->subject->addItem($request);
+        $actual = $this->subject->addItem($request);
 
-        $expectedResult = new JsonResponse(true);
-        $this->assertEquals($expectedResult, $actualResult);
+        $this->assertTrue($actual);
     }
 
     public function testRemoveItem()
@@ -77,16 +76,14 @@ class ShoppingListControllerTest extends TestCase
         $name = 'name';
 
         $request = new Request();
-        $request->request->set('name', $name);
 
         $this->shoppingList
             ->expects($this->once())
             ->method('removeItem')
             ->with($name);
 
-        $actualResult = $this->subject->removeItem($request);
+        $actual = $this->subject->removeItem($request, $name);
 
-        $expectedResult = new JsonResponse(true);
-        $this->assertEquals($expectedResult, $actualResult);
+        $this->assertTrue($actual);
     }
 }

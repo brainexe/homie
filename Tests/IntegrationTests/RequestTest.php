@@ -3,7 +3,7 @@
 namespace IntegrationTests;
 
 use BrainExe\Core\Application\AppKernel;
-use Monolog\Handler\FilterHandler;
+
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
 use PHPUnit_Framework_TestCase as TestCase;

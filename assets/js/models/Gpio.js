@@ -16,7 +16,7 @@ App.service('Gpio', ['$http', function($http) {
         },
 
         savePin: function(pin, direction, value) {
-            var url = '/gpio/set/{0}/{1}/{2}/'.format(pin, direction, value);
+            var url = '/gpio/set/{0}/{1}/{2}/'.format(~~pin, ~~direction, ~~value);
             return $http.post(url, {});
         }
     }

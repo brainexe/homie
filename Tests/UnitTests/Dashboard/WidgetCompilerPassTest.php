@@ -2,7 +2,8 @@
 
 namespace Tests\Homie\Dashboard\WidgetCompilerPass;
 
-use PHPUnit_Framework_TestCase;
+use Homie\Dashboard\Widgets\Time;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Dashboard\WidgetCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -12,7 +13,7 @@ use Symfony\Component\DependencyInjection\Reference;
 /**
  * @covers Homie\Dashboard\WidgetCompilerPass
  */
-class WidgetCompilerPassTest extends PHPUnit_Framework_TestCase
+class WidgetCompilerPassTest extends TestCase
 {
 
     /**
@@ -23,39 +24,53 @@ class WidgetCompilerPassTest extends PHPUnit_Framework_TestCase
     /**
      * @var MockObject|ContainerBuilder
      */
-    private $mockContainer;
+    private $container;
 
     public function setUp()
     {
-        $this->subject = new WidgetCompilerPass();
-        $this->mockContainer = $this->getMock(ContainerBuilder::class);
+        $this->subject   = new WidgetCompilerPass();
+        $this->container = $this->getMock(ContainerBuilder::class);
     }
 
     public function testProcess()
     {
-        $widget_factory    = $this->getMock(Definition::class);
-        $widget_definition = $this->getMock(Definition::class);
-        $widget_id         = 'widget_1';
+        $widgetFactory    = $this->getMock(Definition::class);
+        $widgetDefinition = $this->getMock(Definition::class);
+        $widgetId         = 'widget_1';
 
-        $this->mockContainer
+        $this->container
             ->expects($this->at(0))
             ->method('getDefinition')
             ->with('WidgetFactory')
-            ->willReturn($widget_factory);
+            ->willReturn($widgetFactory);
 
-        $this->mockContainer
+        $this->container
             ->expects($this->at(1))
             ->method('findTaggedServiceIds')
             ->with(WidgetCompilerPass::TAG)
             ->will($this->returnValue([
-                $widget_id => $widget_definition
+                $widgetId => null
             ]));
 
-        $widget_factory
+        $this->container
+            ->expects($this->at(2))
+            ->method('getDefinition')
+            ->with($widgetId)
+            ->willReturn($widgetDefinition);
+        $widgetDefinition
+            ->expects($this->once())
+            ->method('getClass')
+            ->willReturn(Time::class);
+
+        $widgetFactory
             ->expects($this->once())
             ->method('addMethodCall')
-            ->with('addWidget', [new Reference($widget_id)]);
+            ->with('setWidgets', [
+                [
+                    Time::TYPE => new Reference($widgetId)
+                ]
+            ]);
 
-        $this->subject->process($this->mockContainer);
+        $this->subject->process($this->container);
     }
 }

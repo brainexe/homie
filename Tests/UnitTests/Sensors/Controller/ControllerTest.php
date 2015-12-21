@@ -6,7 +6,7 @@ use ArrayIterator;
 use BrainExe\Core\Authentication\Settings\Settings;
 use Homie\Sensors\Controller\Controller;
 use Homie\Sensors\GetValue\Event;
-use Homie\Sensors\Interfaces\Sensor;
+
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\Formatter\Formatter;
@@ -332,26 +332,16 @@ class ControllerTest extends TestCase
             'lastValue'  => $sensorValue
         ];
 
-        $sensorObject = $this->getMock(Sensor::class);
-
         $this->gateway
             ->expects($this->once())
             ->method('getSensor')
             ->with($sensorId)
             ->willReturn($sensorRaw);
-        $this->builder
-            ->expects($this->once())
-            ->method('build')
-            ->with($type)
-            ->willReturn($sensorObject);
 
         $actual = $this->subject->getValue($request, $sensorId);
 
-        $expectedValue = [
-            'sensor'    => $sensorRaw,
-            'sensorObj' => $sensorObject
-        ];
+        $expected = $sensorRaw;
 
-        $this->assertEquals($expectedValue, $actual);
+        $this->assertEquals($expected, $actual);
     }
 }

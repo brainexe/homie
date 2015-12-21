@@ -16,13 +16,13 @@ class Event extends AbstractEvent
     private $sensorVO;
 
     /**
-     * @param SensorVO $sensorVO
+     * @param SensorVO $sensorVo
      */
-    public function __construct(SensorVO $sensorVO)
+    public function __construct(SensorVO $sensorVo)
     {
         parent::__construct(self::NAME);
 
-        $this->sensorVO = $sensorVO;
+        $this->sensorVO = $sensorVo;
     }
 
     /**

@@ -5,7 +5,7 @@ namespace Tests\Homie\Dashboard\Widgets;
 use Homie\Dashboard\Widgets\SensorGraph;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
-use Homie\Dashboard\Widgets\SensorWidget;
+
 use Homie\Dashboard\Widgets\WidgetMetadataVo;
 use Homie\Sensors\SensorGateway;
 

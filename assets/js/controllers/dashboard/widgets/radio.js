@@ -1,20 +1,20 @@
 
-App.service('Widget.switch', ['Radios', function(Radios) {
+App.service('Widget.switch', ['Switches', function(Switches) {
     return {
         render: function ($scope, widget) {
             $scope.switches = [];
 
-            $scope.setStatus = function(radio, status) {
-                Radios.setRadio(radio.radioId, status);
+            $scope.setStatus = function(switchVO, status) {
+                Switches.setStatus(switchVO.switchId, status);
             };
 
-            Radios.getDataCached().success(function(switches) {
-               for (var i in widget.switchIds) {
-                   var currentSwitch = switches.radios[widget.switchIds[i]];
-                   if (currentSwitch) {
-                       $scope.switches.push(currentSwitch);
-                   }
-               }
+            Switches.getDataCached().success(function(switches) {
+                for (var i in widget.switchIds) {
+                    var currentSwitch = switches.switches[widget.switchIds[i]];
+                    if (currentSwitch) {
+                        $scope.switches.push(currentSwitch);
+                    }
+                }
             });
         }
     };

@@ -25,5 +25,8 @@
     "ui-select": "https://github.com/angular-ui/ui-select.git#~0.13.*",
     "angular-native-dragdrop": "~1.1",
     "angular-bootstrap-colorpicker": "~3.0"
+  },
+  "resolutions": {
+    "angular": "1.4.*"
   }
 }

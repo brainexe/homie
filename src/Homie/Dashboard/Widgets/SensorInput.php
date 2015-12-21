@@ -3,7 +3,7 @@
 namespace Homie\Dashboard\Widgets;
 
 use BrainExe\Annotations\Annotations\Inject;
-use BrainExe\Core\Application\UserException;
+
 use Homie\Dashbaord\Annotation\Widget;
 use Homie\Dashboard\AbstractWidget;
 use Homie\Sensors\SensorGateway;

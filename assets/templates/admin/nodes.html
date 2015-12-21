@@ -15,7 +15,7 @@
                 <div ng-if="node.nodeId == currentId" translate>Current Node</div>
             </td>
             <td>
-                {{ node.type }}
+                <b>{{ node.type|translateToken:'node.{0}.name' }}</b>
             </td>
             <td>
                 <div ng-if="!node.edit" ng-bind="node.name"></div>
@@ -48,8 +48,7 @@
                 <ui-select ng-model="newNode.type">
                     <ui-select-match placeholder="Select...">{{$select.selected}}</ui-select-match>
                     <ui-select-choices repeat="type in types">
-                        <span ng-bind-html="type"></span>
-                        <span class="small" ng-bind-html="type|highlight:$select.search"></span>
+                        <span class="small" ng-bind-html="type|translateToken:'node.{0}.name'|highlight:$select.search"></span>
                     </ui-select-choices>
                 </ui-select>
             </th>

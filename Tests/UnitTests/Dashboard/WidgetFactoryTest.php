@@ -21,7 +21,7 @@ class WidgetFactoryTest extends TestCase
     public function setUp()
     {
         $this->subject = new WidgetFactory();
-        $this->subject->addWidget(new Time());
+        $this->subject->addWidget(Time::TYPE, new Time());
     }
 
     /**

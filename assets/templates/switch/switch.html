@@ -1,0 +1,73 @@
+<table ng-if="switches|notEmpty" class="table table-bordered table-striped table-hover">
+	<thead>
+		<tr>
+			<th translate>Name</th>
+			<th translate>Status</th>
+			<th translate>Timer</th>
+			<th translate ng-if="editMode">Delete</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="switch in switches">
+			<td>
+				<div uib-tooltip="Code: {{ switch.code }} - Pin: {{ switch.pin }} - ID: {{ switch.switchId }}" class="tip">
+					<div ng-if="switch.edit">
+						<input type="text" ng-model="switch.name" class="form-control"/>
+						<input type="text" ng-model="switch.description" class="form-control"/>
+						<div class="btn-group btn-xs">
+							<a ng-click="save(switch)" class="btn btn-xs btn-success">
+								<span class="glyphicon glyphicon-save"></span>
+							</a>
+							<a ng-click="switch.edit=false" class="btn btn-xs btn-danger">
+								<span class="glyphicon glyphicon-remove"></span>
+							</a>
+						</div>
+					</div>
+					<div ng-if="!switch.edit">
+						{{ switch.name }}
+						<small ng-if="switch.description">({{ switch.description }})</small>
+						<a
+								class="btn btn-sm btn-primary"
+								ng-if="editMode"
+								ng-click="switch.edit=true"
+						>
+							<span class="glyphicon glyphicon-pencil"></span>
+						</a>
+					</div>
+				</div>
+			</td>
+			<td>
+				<div class="btn-group">
+					<a ng-disabled="!switch.status" ng-click="setStatus(switch, 1)" class="btn btn-success" transate>Enable</a>
+					<a ng-disabled="switch.status" ng-click="setStatus(switch, 0)" class="btn btn-danger" transate>Disable</a>
+				</div>
+			</td>
+            <td>
+				<a ng-click="highlight(switch)" class="btn btn-sm btn-default">
+					<span class="glyphicon glyphicon-hourglass"></span>
+				</a>
+			</td>
+			<td ng-if="editMode">
+				<a confirm="delete(switch.switchId)" class="btn btn-sm btn-danger">
+					<span class="glyphicon glyphicon-remove"></span>
+				</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<button class="btn btn-primary" ng-click="editMode = !editMode" translate>Edit Mode</button>
+
+<div
+		ng-if="jobs|notEmpty"
+		ng-include="'/templates/switch/jobs.html'"></div>
+
+<hr />
+
+<div
+		ng-if="switches|notEmpty"
+		ng-include="'/templates/switch/add_job.html'"></div>
+
+<div
+		ng-if="editMode || !(switches|notEmpty)"
+		ng-include="'/templates/switch/add.html'"></div>

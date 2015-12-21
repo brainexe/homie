@@ -7,7 +7,7 @@ use Homie\Sensors\CompilerPass\Annotation\SensorFormatter;
 /**
  * @SensorFormatter("Formatter.Bytes")
  */
-class Bytes extends Formatter
+class Bytes extends Number
 {
 
     const TYPE = 'bytes';
@@ -17,6 +17,6 @@ class Bytes extends Formatter
      */
     public function formatValue($value)
     {
-        return sprintf('%dMB', $value / 1000000);
+        return parent::formatValue($value) . 'B';
     }
 }

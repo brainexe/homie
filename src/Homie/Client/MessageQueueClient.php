@@ -7,6 +7,7 @@ use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Traits\RedisTrait;
 
 /**
+ * @todo
  * @Service("MessageQueueClient.Local", public=false)
  */
 class MessageQueueClient implements ClientInterface

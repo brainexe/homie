@@ -5,10 +5,10 @@ namespace Homie\TodoList\Controller;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller;
 use BrainExe\Core\Annotations\Route;
-use BrainExe\Core\Authentication\DatabaseUserProvider;
+use BrainExe\Core\Authentication\LoadUser;
 use Homie\TodoList\TodoList;
 use Homie\TodoList\VO\TodoItemVO;
-use Symfony\Component\HttpFoundation\JsonResponse;
+
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -24,21 +24,21 @@ class TodoListController
     private $todo;
 
     /**
-     * @var DatabaseUserProvider
+     * @var LoadUser
      */
-    private $userProvider;
+    private $loadUser;
 
     /**
-     * @Inject({"@TodoList", "@DatabaseUserProvider"})
+     * @Inject({"@TodoList", "@Authentication.LoadUser"})
      * @param TodoList $todo
-     * @param DatabaseUserProvider $userProvider
+     * @param LoadUser $loadUser
      */
     public function __construct(
         TodoList $todo,
-        DatabaseUserProvider $userProvider
+        LoadUser $loadUser
     ) {
-        $this->todo         = $todo;
-        $this->userProvider = $userProvider;
+        $this->todo     = $todo;
+        $this->loadUser = $loadUser;
     }
 
     /**
@@ -77,7 +77,7 @@ class TodoListController
     /**
      * @param Request $request
      * @Route("/todo/", name="todo.add", methods="POST")
-     * @return JsonResponse
+     * @return TodoItemVO
      */
     public function addItem(Request $request)
     {
@@ -92,48 +92,45 @@ class TodoListController
 
         $this->todo->addItem($user, $itemVo);
 
-        return new JsonResponse($itemVo);
+        return $itemVo;
     }
 
     /**
      * @param Request $request
      * @Route("/todo/", name="todo.edit", methods="PUT")
-     * @return JsonResponse
+     * @return TodoItemVO
      */
     public function setItemStatus(Request $request)
     {
         $itemId  = $request->request->getInt('id');
         $changes = $request->request->get('changes');
 
-        $itemVo = $this->todo->editItem($itemId, $changes);
-
-        return new JsonResponse($itemVo);
+        return $this->todo->editItem($itemId, $changes);
     }
 
     /**
      * @param Request $request
      * @Route("/todo/assign/", name="todo.assign", methods="POST")
-     * @return JsonResponse
+     * @return TodoItemVO
      */
     public function setAssignee(Request $request)
     {
         $itemId = $request->request->getInt('id');
         $userId = $request->request->getInt('userId');
 
-        $user = $this->userProvider->loadUserById($userId);
+        $user = $this->loadUser->loadUserById($userId);
 
-        $itemVo = $this->todo->editItem($itemId, [
+        return $this->todo->editItem($itemId, [
             'userId'   => $userId,
             'userName' => $user->username,
         ]);
-        return new JsonResponse($itemVo);
     }
 
     /**
      * @param Request $request
      * @param int $itemId
      * @Route("/todo/{itemId}/", name="todo.delete")
-     * @return JsonResponse
+     * @return bool
      */
     public function deleteItem(Request $request, $itemId)
     {
@@ -141,6 +138,6 @@ class TodoListController
 
         $this->todo->deleteItem($itemId);
 
-        return new JsonResponse(true);
+        return true;
     }
 }

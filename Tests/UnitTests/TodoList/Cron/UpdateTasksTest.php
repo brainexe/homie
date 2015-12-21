@@ -5,7 +5,6 @@ namespace Tests\Homie\TodoList\Cron;
 use BrainExe\Core\Util\Time;
 use Homie\TodoList\Cron\UpdateTasks;
 use Homie\TodoList\TodoList;
-use Homie\TodoList\TodoListGateway;
 use Homie\TodoList\VO\TodoItemVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
@@ -17,16 +16,10 @@ use Symfony\Component\Console\Tester\CommandTester;
  */
 class UpdateTasksTest extends TestCase
 {
-
     /**
      * @var UpdateTasks
      */
     private $subject;
-
-    /**
-     * @var TodoListGateway|MockObject
-     */
-    private $gateway;
 
     /**
      * @var TodoList|MockObject
@@ -40,11 +33,10 @@ class UpdateTasksTest extends TestCase
 
     public function setUp()
     {
-        $this->gateway  = $this->getMock(TodoListGateway::class, [], [], '', false);
         $this->todoList = $this->getMock(TodoList::class, [], [], '', false);
         $this->time     = $this->getMock(Time::class);
 
-        $this->subject = new UpdateTasks($this->gateway, $this->todoList);
+        $this->subject = new UpdateTasks($this->todoList);
         $this->subject->setTime($this->time);
     }
 

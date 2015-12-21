@@ -4,9 +4,9 @@ App.service('Widget.sensor_input', ['Sensor', function(Sensor) {
         render: function ($scope, widget) {
             $scope.value = '';
 
-            Sensor.getSensorData(widget.sensor_id, true).success(function(data) {
-                $scope.sensor      = data.sensor;
-                $scope.placeholder = data.sensor.lastValue;
+            Sensor.getSensorData(widget.sensor_id, true).success(function(sensor) {
+                $scope.sensor      = sensor;
+                $scope.placeholder = sensor.lastValue;
             });
 
             $scope.submit = function(value) {

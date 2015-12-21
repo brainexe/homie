@@ -4,11 +4,11 @@ namespace Tests\Homie\Arduino;
 
 use BrainExe\Tests\RedisMockTrait;
 use Homie\Arduino\Device\Redis;
-use Homie\Arduino\Device\Serial;
+
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Homie\Arduino\SerialEvent;
-use Homie\Client\ClientInterface;
+
 use Predis\Client;
 
 /**

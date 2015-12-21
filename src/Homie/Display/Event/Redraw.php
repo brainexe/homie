@@ -10,10 +10,25 @@ class Redraw extends AbstractEvent
     const KEY = 'display:redraw';
 
     /**
-     * @inheritdoc
+     * @var int
      */
-    public function __construct()
+    private $displayId;
+
+    /**
+     * @param int $displayId
+     */
+    public function __construct($displayId)
     {
         parent::__construct(self::KEY);
+
+        $this->displayId = $displayId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDisplayId()
+    {
+        return $this->displayId;
     }
 }

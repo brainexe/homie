@@ -1,70 +1,74 @@
 <div class="container-fluid">
-	<div class="task-list">
-		<h3 translate>Add a task</h3>
-		<form ng-submit="addTodo()" class="form-group">
-			<input
-                    ng-model="newTitle"
-                    ng-enter="addTodo()"
-                    type="text"
-                    class="form-control"
-                    placeholder="{{'Title'|translate}}"
-            />
-			<textarea
-                    ng-model="newDescription"
-                    ng-enter="addTodo()"
-                    class="form-control"
-                    placeholder="{{'Description'|translate}}"
-                    >
-            </textarea>
-			<input
-					type="text"
-					placeholder="@daily"
-					ng-model="cronExpression"
-					ng-enter="addTodo()"
-					>
-			<!--todo fix datetime picker-->
-			<input
-					type="text" class="form-control"
-                    datepicker-popup="dd-MMMM-yyyy"
-					ng-fodatepicker-popup="dd-MMMM-yyyy"
-                    ng-model="newDateline"
-					placeholder="{{'Deadline'|translate}}"
-                    datepicker-options="{}"
-					date-disabled="disabled(date, mode)"
-                    close-text="Close"
-                    ng-enter="addTodo()"
-            />
-			<input type="submit" class="btn btn-primary" value="{{'Add Task'|translate}}" />
-		</form>
-		<div id="delete-div" ui-on-Drop="onDelete($data)" translate>
-			Drag Here to Delete
+	<div class="panel panel-primary task-list">
+		<div class="panel-heading" translate>Add a task</div>
+		<div class="panel-body">
+			<form ng-submit="addTodo()" class="form-group">
+				<input
+						ng-model="newTitle"
+						ng-enter="addTodo()"
+						type="text"
+						class="form-control"
+						placeholder="{{'Title'|translate}}"
+				/>
+				<textarea
+						ng-model="newDescription"
+						ng-enter="addTodo()"
+						class="form-control"
+						placeholder="{{'Description'|translate}}"
+						>
+				</textarea>
+				<input
+						type="text"
+						placeholder="@daily"
+						ng-model="cronExpression"
+						ng-enter="addTodo()"
+						>
+				<!--todo fix datetime picker-->
+				<input
+						type="text" class="form-control"
+						datepicker-popup="dd-MMMM-yyyy"
+						ng-fodatepicker-popup="dd-MMMM-yyyy"
+						ng-model="newDateline"
+						placeholder="{{'Deadline'|translate}}"
+						datepicker-options="{}"
+						date-disabled="disabled(date, mode)"
+						close-text="Close"
+						ng-enter="addTodo()"
+				/>
+				<input type="submit" class="btn btn-primary" value="{{'Add Task'|translate}}" />
+			</form>
+			<div class="delete-div" ui-on-Drop="onDelete($data)" translate>
+				Drag Here to Delete
+			</div>
 		</div>
 	</div>
 
 	<div
-			class="task-list task-container"
-			ng-repeat="(statusId, status) in states"
-			ng-model="statusId"
-			ui-on-Drop="onDrop(statusId, $event, $data, status.tasks)"
+		class="panel panel-primary task-list task-container"
+		 ng-repeat="(statusId, status) in states"
+		 ng-model="statusId"
+		 ui-on-Drop="onDrop(statusId, $event, $data, status.tasks)"
 	>
-		<h3>{{ status.name }}</h3>
-		<div
-				ng-repeat="item in items|filter:statusId|orderBy:'name'"
-                class="todo-task"
-				ui-draggable="true"
-				drag="item"
-				>
-			<div class="task-header">{{item.name}}</div>
-			<div class="task-description" ng-if="item.description">{{item.description}}</div>
-			<div class="task-deadline" ng-if="item.deadline > 0">
-				<time-ago from-time="item.deadline" overdue="true"></time-ago>
+		<div class="panel-heading">{{ status.name }}</div>
+		<div class="panel-body">
+			<div
+					ng-repeat="item in items|filter:statusId|orderBy:'name'"
+					class="todo-task"
+					ui-draggable="true"
+					drag="item"
+					>
+				<div class="task-header">{{item.name}}</div>
+				<div class="task-description" ng-if="item.description">{{item.description}}</div>
+				<div class="task-deadline" ng-if="item.deadline > 0">
+					<time-ago from-time="item.deadline" overdue="true"></time-ago>
+				</div>
+				<select
+						class="form-control"
+						ng-change="assign(item.todoId, item.userId)"
+						ng-model="item.userId"
+						ng-options="user.userId as user.name for user in userNames" >
+				</select>
 			</div>
-			<select
-					class="form-control"
-					ng-change="assign(item.todoId, item.userId)"
-					ng-model="item.userId"
-					ng-options="user.userId as user.name for user in userNames" >
-			</select>
 		</div>
 	</div>
 

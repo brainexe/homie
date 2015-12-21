@@ -4,7 +4,7 @@ namespace Homie\Arduino;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\EventListener;
-use Homie\Arduino\Device\Serial;
+
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**

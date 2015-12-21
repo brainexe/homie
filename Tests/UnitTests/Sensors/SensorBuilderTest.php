@@ -26,21 +26,21 @@ class SensorBuilderTest extends TestCase
 
     public function testGetSensors()
     {
-        /** @var Sensor|MockObject $sensorMock */
-        $sensorMock = $this->getMock(Sensor::class);
+        /** @var Sensor|MockObject $sensor */
+        $sensor = $this->getMock(Sensor::class);
         $sensorType = 'sensor_123';
 
         $definition = new Definition();
 
-        $sensorMock
+        $sensor
             ->expects($this->once())
             ->method('getDefinition')
             ->willReturn($definition);
 
-        $this->subject->addSensor($sensorType, $sensorMock);
+        $this->subject->addSensor($sensorType, $sensor);
         $actualResult = $this->subject->getSensors();
 
-        $this->assertEquals([$sensorType => $sensorMock], $actualResult);
+        $this->assertEquals([$sensorType => $sensor], $actualResult);
     }
 
     public function testGetDefinition()

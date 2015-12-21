@@ -4,19 +4,16 @@ namespace Homie\Sensors\Controller;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
-use BrainExe\Core\Annotations\Guest;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Authentication\Settings\Settings;
 use BrainExe\Core\Traits\EventDispatcherTrait;
-use Homie\Espeak\EspeakEvent;
-use Homie\Espeak\EspeakVO;
 use Homie\Sensors\Builder;
 use Homie\Sensors\Chart;
 use Homie\Sensors\GetValue\Event;
 use Homie\Sensors\SensorBuilder;
 use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorValuesGateway;
-use Homie\Sensors\SensorVO;
+
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -176,7 +173,6 @@ class Controller
     }
 
     /**
-     * @todo all properties needed?
      * @param Request $request
      * @param int $sensorId
      * @Route("/sensors/{sensorId}/value/", name="sensor.value", methods="GET")
@@ -185,14 +181,7 @@ class Controller
     public function getValue(Request $request, $sensorId)
     {
         unset($request);
-
-        $sensor    = $this->gateway->getSensor($sensorId);
-        $sensorObj = $this->builder->build($sensor['type']);
-
-        return [
-            'sensor'    => $sensor,
-            'sensorObj' => $sensorObj,
-        ];
+        return $this->gateway->getSensor($sensorId);
     }
 
     /**
