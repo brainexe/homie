@@ -3,22 +3,17 @@
 namespace Homie\Sensors\Command;
 
 use BrainExe\Annotations\Annotations\Inject;
-
 use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\Interfaces\Searchable;
 use Homie\Sensors\Interfaces\Sensor;
 use Homie\Sensors\SensorBuilder;
 use Homie\Sensors\SensorGateway;
-
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\ArrayInput;
-
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-
 use Symfony\Component\Console\Question\ConfirmationQuestion;
-
 use BrainExe\Core\Annotations\Command as CommandAnnotation;
 
 /**
@@ -48,7 +43,8 @@ class Crawl extends Command
      */
     protected function configure()
     {
-        $this->setName('sensor:crawl')
+        $this
+            ->setName('sensor:crawl')
             ->setDescription('Search for all sensors');
     }
 
@@ -124,23 +120,10 @@ class Crawl extends Command
 
             return;
         }
-
         /** @var QuestionHelper $helper */
         $helper = $this->getHelperSet()->get('question');
 
-        if ($sensor instanceof Parameterized) {
-            $text = sprintf(
-                'Do you want to add sensor "<info>%s</info>" with parameter "%s" (y/n)',
-                $type,
-                $parameter
-            );
-        } else {
-            $text = sprintf(
-                'Do you want to add sensor "<info>%s</info>" (y/n)',
-                $type
-            );
-        }
-
+        $text = $this->getText($sensor, $parameter, $type);
         $question = new ConfirmationQuestion($text);
 
         if ($helper->ask($input, $output, $question)) {
@@ -171,5 +154,20 @@ class Crawl extends Command
         }
 
         return false;
+    }
+
+    /**
+     * @param Sensor $sensor
+     * @param string $parameter
+     * @param string $type
+     * @return string
+     */
+    private function getText(Sensor $sensor, $parameter, $type)
+    {
+        if ($sensor instanceof Parameterized) {
+            return sprintf('Do you want to add sensor "<info>%s</info>" with parameter "%s" (y/n)', $type, $parameter);
+        } else {
+            return sprintf('Do you want to add sensor "<info>%s</info>" (y/n)', $type);
+        }
     }
 }

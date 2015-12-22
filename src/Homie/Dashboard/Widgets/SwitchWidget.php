@@ -21,7 +21,7 @@ class SwitchWidget extends AbstractWidget
     private $switches;
 
     /**
-     * @Inject("@Switch.Switches")
+     * @Inject("@Switches.Switches")
      * @param Switches $switches
      */
     public function __construct(Switches $switches)

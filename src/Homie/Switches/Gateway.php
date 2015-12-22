@@ -9,7 +9,7 @@ use BrainExe\Core\Traits\RedisTrait;
 use Homie\Switches\VO\SwitchVO;
 
 /**
- * @Service("Switch.Gateway", public=false)
+ * @Service("Switches.Gateway", public=false)
  */
 class Gateway
 {

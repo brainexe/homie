@@ -2,7 +2,7 @@
 
 namespace Tests\Homie\EggTimer;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\EggTimer\Controller;
 use Homie\EggTimer\EggTimer;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * @covers Homie\EggTimer\Controller
  */
-class ControllerTest extends PHPUnit_Framework_TestCase
+class ControllerTest extends TestCase
 {
 
     /**

@@ -4,6 +4,7 @@ namespace Homie\Switches\Change;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Translation\TranslationProvider;
 use Exception;
 use Homie\Switches\SwitchInterface;
 use Homie\Switches\VO\GpioSwitchVO;
@@ -13,18 +14,15 @@ use Homie\Switches\VO\SwitchVO;
 /**
  * @Service("Switches.Change.Change", public=false)
  */
-class Change implements SwitchInterface
+class Change implements SwitchInterface, TranslationProvider
 {
 
-    /**
-     * @var Radio
-     */
-    private $radio;
+    const TOKEN_NAME = 'switch.%s.name';
 
     /**
-     * @var Gpio
+     * @var SwitchInterface[]
      */
-    private $gpio;
+    private $models = [];
 
     /**
      * @Inject({
@@ -38,8 +36,8 @@ class Change implements SwitchInterface
         Radio $radio,
         Gpio $gpio
     ) {
-        $this->radio = $radio;
-        $this->gpio  = $gpio;
+        $this->models[RadioVO::TYPE]      = $radio;
+        $this->models[GpioSwitchVO::TYPE] = $gpio;
     }
 
     /**
@@ -49,19 +47,27 @@ class Change implements SwitchInterface
      */
     public function setStatus(SwitchVO $switch, $status)
     {
-        /** @var SwitchInterface $controller */
-        $controller = null;
-        switch ($switch->type) {
-            case RadioVO::TYPE:
-                $controller = $this->radio;
-                break;
-            case GpioSwitchVO::TYPE:
-                $controller = $this->gpio;
-                break;
-            default:
-                throw new Exception(sprintf('Invalid switch type: %s', $switch->type));
+        if (isset($this->models[$switch->type])) {
+            $controller = $this->models[$switch->type];
+        } else {
+            throw new Exception(sprintf('Invalid switch type: %s', $switch->type));
         }
 
         $controller->setStatus($switch, $status);
+    }
+
+    /**
+     * @return string[]
+     */
+    public static function getTokens()
+    {
+        $types = [
+            GpioSwitchVO::TYPE,
+            RadioVO::TYPE
+        ];
+
+        foreach ($types as $type) {
+            yield sprintf(self::TOKEN_NAME, $type);
+        }
     }
 }

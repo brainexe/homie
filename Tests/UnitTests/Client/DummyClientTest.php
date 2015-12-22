@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Homie\Client\DummyClient;
+namespace Tests\Homie\Client;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;

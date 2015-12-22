@@ -13,7 +13,7 @@ use Homie\Switches\SwitchChangeEvent;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("Switch.Controller.Jobs")
+ * @ControllerAnnotation("Switches.Controller.Jobs")
  */
 class Jobs
 {
@@ -31,8 +31,8 @@ class Jobs
 
     /**
      * @Inject({
-     *     "@Switch.Switches",
-     *     "@Switch.Job"
+     *     "@Switches.Switches",
+     *     "@Switches.Job"
      * })
      * @param Switches $switches
      * @param Job $job

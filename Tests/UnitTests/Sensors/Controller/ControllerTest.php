@@ -97,7 +97,7 @@ class ControllerTest extends TestCase
         $request = new Request();
         $request->query->set('from', $from);
         $request->query->set('save', 1);
-        $request->attributes->set('userId', $userId = 42);
+        $request->attributes->set('user_id', $userId = 42);
 
         $sensorsRaw = [
             [

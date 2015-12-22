@@ -9,7 +9,7 @@ use BrainExe\Core\Util\TimeParser;
 use Homie\Switches\VO\SwitchVO;
 
 /**
- * @Service("Switch.Job", public=false)
+ * @Service("Switches.Job", public=false)
  */
 class Job
 {

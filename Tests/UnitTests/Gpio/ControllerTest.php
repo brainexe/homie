@@ -2,7 +2,7 @@
 
 namespace Tests\Homie\Gpio;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Gpio\Controller;
 use Homie\Gpio\Pin;
@@ -13,7 +13,7 @@ use Homie\Gpio\GpioManager;
 /**
  * @covers Homie\Gpio\Controller
  */
-class ControllerTest extends PHPUnit_Framework_TestCase
+class ControllerTest extends TestCase
 {
 
     /**

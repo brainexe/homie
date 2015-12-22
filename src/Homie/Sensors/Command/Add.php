@@ -147,20 +147,7 @@ class Add extends Command
             return $this->input->getArgument('parameter');
         }
 
-        if ($sensor instanceof Searchable) {
-            $possible = $sensor->search();
-            if (!$possible) {
-                throw new Exception('No possible sensor found');
-            }
-            $question  = new ChoiceQuestion("Parameter", $possible);
-            $parameter = $this->helper->ask($this->input, $this->output, $question);
-        } else {
-            $parameter = $this->helper->ask(
-                $this->input,
-                $this->output,
-                new Question("Parameter?\n")
-            );
-        }
+        $parameter = $this->getRawParameter($sensor);
 
         /** @var Sensor $sensor */
         if (!$sensor->isSupported($parameter, $this->output)) {
@@ -273,5 +260,24 @@ class Add extends Command
         );
 
         return $description;
+    }
+
+    /**
+     * @param Sensor $sensor
+     * @return string
+     * @throws Exception
+     */
+    private function getRawParameter(Sensor $sensor)
+    {
+        if ($sensor instanceof Searchable) {
+            $possible = $sensor->search();
+            if (!$possible) {
+                throw new Exception('No possible sensor found');
+            }
+            $question  = new ChoiceQuestion("Parameter", $possible);
+            return $this->helper->ask($this->input, $this->output, $question);
+        } else {
+            return $this->helper->ask($this->input, $this->output, new Question("Parameter?\n"));
+        }
     }
 }

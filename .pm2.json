@@ -25,6 +25,13 @@
       "merge_logs"  : true,
       "cwd"         : "nodejs",
       "max_restarts" : 5
+    },
+    {
+      "name"        : "metawear",
+      "script"      : "metawear.js",
+      "merge_logs"  : true,
+      "cwd"         : "nodejs",
+      "max_restarts" : 5
     }
   ]
 }

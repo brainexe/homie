@@ -13,7 +13,7 @@ App.controller('ExpressionController', ['$scope', 'Expression', 'MessageQueue', 
 	});
 
     $scope.reloadCrons = function() {
-        MessageQueue.getJobs('message_queue.crons').success(function() {
+        MessageQueue.getJobs('message_queue.cron').success(function() {
             $scope.crons = [];
         });
     };

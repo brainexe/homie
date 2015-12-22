@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Homie\Dashboard\Dashboard;
+namespace Tests\Homie\Dashboard;
 
 use BrainExe\Core\Util\IdGenerator;
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Dashboard\AbstractWidget;
 use Homie\Dashboard\Dashboard;
@@ -13,7 +13,7 @@ use Homie\Dashboard\WidgetFactory;
 /**
  * @covers Homie\Dashboard\Dashboard
  */
-class DashboardTest extends PHPUnit_Framework_TestCase
+class DashboardTest extends TestCase
 {
 
     /**

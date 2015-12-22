@@ -13,7 +13,7 @@ use InvalidArgumentException;
 use Homie\Switches\VO\RadioVO;
 
 /**
- * @Service("Switch.Switches", public=false)
+ * @Service("Switches.Switches", public=false)
  */
 class Switches
 {
@@ -32,7 +32,7 @@ class Switches
     private $gateway;
 
     /**
-     * @Inject("@Switch.Gateway")
+     * @Inject("@Switches.Gateway")
      * @param Gateway $gateway
      */
     public function __construct(Gateway $gateway)

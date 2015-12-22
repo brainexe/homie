@@ -2,14 +2,14 @@
 
 namespace Tests\Homie\Sensors;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use Homie\Sensors\SensorVO;
 use Homie\Sensors\Builder;
 
 /**
  * @covers Homie\Sensors\Builder
  */
-class BuilderTest extends PHPUnit_Framework_TestCase
+class BuilderTest extends TestCase
 {
 
     /**
@@ -33,6 +33,7 @@ class BuilderTest extends PHPUnit_Framework_TestCase
             'pin' => $pin = 'pin',
             'type' => $type = 'type',
             'color' => $color = 'blue',
+            'formatter' => $formatter = 'formatter',
             'lastValue' => $lastValue = 'lastValue',
             'lastValueTimestamp' => $lastValueTimestamp = 10000
         ];
@@ -48,6 +49,7 @@ class BuilderTest extends PHPUnit_Framework_TestCase
         $expected->pin = $pin;
         $expected->type = $type;
         $expected->color = $color;
+        $expected->formatter = $formatter;
         $expected->lastValue = $lastValue;
         $expected->lastValueTimestamp = $lastValueTimestamp;
 

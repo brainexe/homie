@@ -56,7 +56,7 @@ class SensorVO
     public $lastValue;
 
     /**
-     * @var float
+     * @var string (#hex color)
      */
     public $color;
 }

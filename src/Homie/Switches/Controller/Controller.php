@@ -14,7 +14,7 @@ use Homie\Switches\VO\SwitchVO;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("Switch.Controller.Controller")
+ * @ControllerAnnotation("Switches.Controller.Controller")
  */
 class Controller
 {
@@ -26,7 +26,7 @@ class Controller
 
     /**
      * @Inject({
-     *     "@Switch.Switches",
+     *     "@Switches.Switches",
      * })
      * @param Switches $switches
      */

@@ -92,7 +92,7 @@ class Controller
 
     /**
      * @return array
-     * @Route("/sensors/", name="sensor.index")
+     * @Route("/sensors/", name="sensor.index", methods="GET")
      */
     public function sensors()
     {
@@ -112,11 +112,8 @@ class Controller
      */
     public function indexSensor(Request $request, $activeSensorIds)
     {
-        $userId = $request->attributes->get('userId');
-        $from   = (int)$request->query->get('from');
-        if (!$from) {
-            $from = (int)$this->settings->get($userId, self::SETTINGS_TIMESPAN) ?: Chart::DEFAULT_TIME;
-        }
+        $userId = $request->attributes->get('user_id');
+        $from   = $this->getFrom($request, $userId);
 
         $activeSensorIds = $this->getActiveSensorIds($activeSensorIds, $userId);
         if ($request->query->get('save')) {
@@ -227,5 +224,19 @@ class Controller
         }
 
         return $activeSensorIds;
+    }
+
+    /**
+     * @param Request $request
+     * @param int $userId
+     * @return int
+     */
+    private function getFrom(Request $request, $userId)
+    {
+        $from = (int)$request->query->get('from');
+        if (!$from) {
+            return (int)$this->settings->get($userId, self::SETTINGS_TIMESPAN) ?: Chart::DEFAULT_TIME;
+        }
+        return $from;
     }
 }

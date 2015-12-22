@@ -109,19 +109,7 @@ class Cron extends Command
         $this->dispatcher->addListener(SensorValueEvent::ERROR, [$this, 'handleErrorEvent']);
 
         foreach ($sensors as $sensorData) {
-            $sensorVo = $this->sensorVoBuilder->buildFromArray($sensorData);
-            $interval = $sensorVo->interval ?: 1;
-
-            if ($interval < 0) {
-                continue;
-            }
-
-            $lastRun = $sensorVo->lastValueTimestamp;
-            $delta   = $now - $lastRun;
-
-            if ($delta > $interval * 60 || $input->getOption('force')) {
-                $this->getValue($sensorVo);
-            }
+            $this->handleSensor($input, $sensorData, $now);
         }
     }
 
@@ -174,5 +162,27 @@ class Cron extends Command
     public function setOutput(OutputInterface $output)
     {
         $this->output = $output;
+    }
+
+    /**
+     * @param InputInterface $input
+     * @param array $sensorData
+     * @param int $now
+     */
+    protected function handleSensor(InputInterface $input, $sensorData, $now)
+    {
+        $sensorVo = $this->sensorVoBuilder->buildFromArray($sensorData);
+        $interval = $sensorVo->interval ?: 1;
+
+        if ($interval < 0) {
+            return;
+        }
+
+        $lastRun = $sensorVo->lastValueTimestamp;
+        $delta   = $now - $lastRun;
+
+        if ($delta > $interval * 60 || $input->getOption('force')) {
+            $this->getValue($sensorVo);
+        }
     }
 }

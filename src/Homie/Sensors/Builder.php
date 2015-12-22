@@ -25,7 +25,7 @@ class Builder
             $data['pin'],
             $data['type'],
             $data['color'],
-            isset($data['formatter']) ? $data['formatter'] : null,
+            $data['formatter'],
             $data['lastValue'],
             $data['lastValueTimestamp']
         );

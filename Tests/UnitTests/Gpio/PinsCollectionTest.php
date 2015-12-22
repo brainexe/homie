@@ -2,11 +2,11 @@
 
 namespace Tests\Homie\Gpio;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use Homie\Gpio\Pin;
 use Homie\Gpio\PinsCollection;
 
-class PinsCollectionTest extends PHPUnit_Framework_TestCase
+class PinsCollectionTest extends TestCase
 {
 
     /**

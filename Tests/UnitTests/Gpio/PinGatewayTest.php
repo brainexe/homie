@@ -4,14 +4,14 @@ namespace Tests\Homie\Gpio;
 
 use BrainExe\Core\Redis\Predis;
 use BrainExe\Tests\RedisMockTrait;
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Gpio\PinGateway;
 
 /**
  * @covers Homie\Gpio\PinGateway
  */
-class PinGatewayTest extends PHPUnit_Framework_TestCase
+class PinGatewayTest extends TestCase
 {
 
     use RedisMockTrait;

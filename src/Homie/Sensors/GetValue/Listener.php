@@ -8,9 +8,11 @@ use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Traits\LoggerTrait;
 use BrainExe\Core\Traits\TimeTrait;
 use Exception;
+use Homie\Sensors\Interfaces\Sensor;
 use Homie\Sensors\SensorBuilder;
 use Homie\Sensors\SensorValueEvent;
 use Homie\Sensors\SensorValuesGateway;
+use Homie\Sensors\SensorVO;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -35,8 +37,8 @@ class Listener implements EventSubscriberInterface
 
     /**
      * @Inject({
-     * "@SensorBuilder",
-     * "@SensorValuesGateway"
+     *      "@SensorBuilder",
+     *      "@SensorValuesGateway"
      * })
      * @param SensorBuilder $builder
      * @param SensorValuesGateway $valuesGateway
@@ -67,12 +69,7 @@ class Listener implements EventSubscriberInterface
         $sensorVo = $event->getSensorVo();
         $sensor   = $this->builder->build($sensorVo->type);
 
-        try {
-            $value = $sensor->getValue($sensorVo->pin);
-        } catch (Exception $e) {
-            $this->error('Error while fetching sensor value:' . $e->getMessage());
-            $value = null;
-        }
+        $value = $this->getValue($sensor, $sensorVo);
         if ($value === null) {
             $event = new SensorValueEvent(
                 SensorValueEvent::ERROR,
@@ -99,5 +96,20 @@ class Listener implements EventSubscriberInterface
             $this->now()
         );
         $this->dispatcher->dispatchEvent($event);
+    }
+
+    /**
+     * @param Sensor $sensor
+     * @param SensorVO $sensorVo
+     * @return float|null
+     */
+    private function getValue(Sensor $sensor, $sensorVo)
+    {
+        try {
+            return $sensor->getValue($sensorVo->pin);
+        } catch (Exception $e) {
+            $this->error('Error while fetching sensor value:' . $e->getMessage());
+            return null;
+        }
     }
 }

@@ -83,7 +83,7 @@ class Serial implements Device
     {
         $files = $this->glob->execGlob($this->serialPort);
 
-        if (!$files) {
+        if (empty($files)) {
             throw new RuntimeException(
                 sprintf("No file found matching %s", $this->serialPort)
             );

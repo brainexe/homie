@@ -6,6 +6,7 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Application\UserException;
 use Exception;
+use Generator;
 use Homie\Client\ClientInterface;
 
 /**
@@ -53,7 +54,6 @@ class PinLoader
 
     /**
      * @return PinsCollection
-     * @throws UserException
      */
     public function loadPins()
     {
@@ -61,31 +61,7 @@ class PinLoader
             return $this->pins;
         }
 
-        try {
-            $command = sprintf(GpioManager::GPIO_COMMAND_READALL, $this->gpioExecutable);
-            $file = $this->client->executeWithReturn($command);
-        } catch (Exception $e) {
-            $file = file_get_contents(__DIR__ . '/gpio.txt');
-        }
-
-        $lines = explode("\n", $file);
-        $type  = trim($lines[0], ' +-');
-        $this->pins = new PinsCollection($type);
-
-        $lines = array_slice($lines, 3, -4);
-
-        $pins = [];
-        foreach ($lines as $line) {
-            $line = substr($line, 2, -1);
-
-            list($part1, $part2) = explode('||', $line);
-            $part1 = explode('|', $part1);
-            $part2 = array_reverse(explode('|', $part2));
-
-            $pins[] = $part1;
-            $pins[] = $part2;
-        }
-
+        $pins = $this->parsePins();
         foreach ($pins as $r) {
             $matches = array_map('trim', $r);
 
@@ -100,5 +76,35 @@ class PinLoader
         }
 
         return $this->pins;
+    }
+
+    /**
+     * @return Generator
+     */
+    protected function parsePins()
+    {
+        try {
+            $command = sprintf(GpioManager::GPIO_COMMAND_READALL, $this->gpioExecutable);
+            $file = $this->client->executeWithReturn($command);
+        } catch (Exception $e) {
+            $file = file_get_contents(__DIR__ . '/gpio.txt');
+        }
+
+        $lines      = explode("\n", $file);
+        $type       = trim($lines[0], ' +-');
+        $this->pins = new PinsCollection($type);
+
+        $lines = array_slice($lines, 3, -4);
+
+        foreach ($lines as $line) {
+            $line = substr($line, 2, -1);
+
+            list($part1, $part2) = explode('||', $line);
+            $part1 = explode('|', $part1);
+            $part2 = array_reverse(explode('|', $part2));
+
+            yield $part1;
+            yield $part2;
+        }
     }
 }

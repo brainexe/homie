@@ -4,14 +4,10 @@ namespace Homie\Sensors\Controller;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
-
 use BrainExe\Core\Annotations\Route;
-
 use Homie\Sensors\Builder;
-
 use Homie\Sensors\SensorBuilder;
 use Homie\Sensors\SensorGateway;
-
 use Homie\Sensors\SensorVO;
 use Symfony\Component\HttpFoundation\Request;
 

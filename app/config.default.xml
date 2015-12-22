@@ -6,6 +6,8 @@
 
         <parameter key="socket.url">http://localhost:8081/socket</parameter>
 
+        <parameter key="metawear.port">8082</parameter>
+
         <parameter key="gpio.executable">gpio</parameter>
 
         <parameter key="rc_switch.command">sudo /opt/rcswitch-pi/send</parameter>

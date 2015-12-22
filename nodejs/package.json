@@ -10,6 +10,7 @@
     "debug": "^2.2.0",
     "duino": "ni-c/duino",
     "redis": "~2.4",
+    "node-metawear": "*",
     "websocket-node": "brainexe/websocket-node"
   },
   "scripts": {

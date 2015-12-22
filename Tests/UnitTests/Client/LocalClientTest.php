@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Homie\Client\LocalClient;
+namespace Tests\Homie\Client;
 
 use Monolog\Logger;
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Client\LocalClient;
 use Psr\Log\LogLevel;
@@ -14,7 +14,7 @@ use RuntimeException;
 /**
  * @covers Homie\Client\LocalClient
  */
-class LocalClientTest extends PHPUnit_Framework_TestCase
+class LocalClientTest extends TestCase
 {
 
     /**

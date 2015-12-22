@@ -33,7 +33,7 @@ class InputControl implements InputControlInterface
     }
 
     /**
-     * @Inject("@Switch.Switches")
+     * @Inject("@Switches.Switches")
      * @param Switches $switches
      */
     public function __construct(Switches $switches)
