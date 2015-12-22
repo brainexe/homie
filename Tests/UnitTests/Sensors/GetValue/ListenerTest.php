@@ -13,6 +13,7 @@ use Homie\Sensors\SensorBuilder;
 use Homie\Sensors\SensorValueEvent;
 use Homie\Sensors\SensorValuesGateway;
 use Homie\Sensors\SensorVO;
+use Monolog\Logger;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 
@@ -40,9 +41,14 @@ class ListenerTest extends TestCase
     private $time;
 
     /**
-     * @var SensorValuesGateway
+     * @var SensorValuesGateway|MockObject
      */
     private $valuesGateway;
+
+    /**
+     * @var Logger|MockObject
+     */
+    private $logger;
 
     public function setUp()
     {
@@ -50,6 +56,7 @@ class ListenerTest extends TestCase
         $this->builder       = $this->getMock(SensorBuilder::class, [], [], '', false);
         $this->dispatcher    = $this->getMock(EventDispatcher::class, [], [], '', false);
         $this->time          = $this->getMock(Time::class, [], [], '', false);
+        $this->logger        = $this->getMock(Logger::class, [], [], '', false);
 
         $this->subject = new Listener(
             $this->builder,
@@ -58,6 +65,7 @@ class ListenerTest extends TestCase
 
         $this->subject->setEventDispatcher($this->dispatcher);
         $this->subject->setTime($this->time);
+        $this->subject->setLogger($this->logger);
     }
 
     public function testGetSubscribedEvents()
@@ -106,6 +114,10 @@ class ListenerTest extends TestCase
             ->expects($this->once())
             ->method('getValue')
             ->willThrowException(new Exception('my sensor exception'));
+
+        $this->logger
+            ->expects($this->once())
+            ->method('log');
 
         $this->subject->handle($event);
     }

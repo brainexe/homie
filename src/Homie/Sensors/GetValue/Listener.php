@@ -5,6 +5,7 @@ namespace Homie\Sensors\GetValue;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\EventListener;
 use BrainExe\Core\Traits\EventDispatcherTrait;
+use BrainExe\Core\Traits\LoggerTrait;
 use BrainExe\Core\Traits\TimeTrait;
 use Exception;
 use Homie\Sensors\SensorBuilder;
@@ -20,6 +21,7 @@ class Listener implements EventSubscriberInterface
 
     use TimeTrait;
     use EventDispatcherTrait;
+    use LoggerTrait;
 
     /**
      * @var SensorBuilder
@@ -68,7 +70,7 @@ class Listener implements EventSubscriberInterface
         try {
             $value = $sensor->getValue($sensorVo->pin);
         } catch (Exception $e) {
-            // TODO log
+            $this->error('Error while fetching sensor value:' . $e->getMessage());
             $value = null;
         }
         if ($value === null) {

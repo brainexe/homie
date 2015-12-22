@@ -59,7 +59,7 @@ class LocalClient implements ClientInterface
             throw new RuntimeException(
                 'command: ' . $process->getCommandLine() . PHP_EOL .
                 'status: ' . $process->getStatus() . PHP_EOL .
-                'output: ' . $process->getErrorOutput() . $process->getOptions()
+                'output: ' . $process->getErrorOutput() . $process->getOutput()
             );
         }
 

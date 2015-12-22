@@ -7,10 +7,9 @@ App.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gette
         language = localStorage.getItem('language');
     }
 
-    gettextCatalog.setCurrentLanguage(language);
     gettextCatalog.cache = Cache;
+    gettextCatalog.setCurrentLanguage(language);
     gettextCatalog.loadRemote("/lang/" + language + ".json");
-
 
     $scope.currentUser = {};
 

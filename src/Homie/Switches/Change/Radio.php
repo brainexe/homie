@@ -46,15 +46,10 @@ class Radio implements SwitchInterface
      */
     public function setStatus(SwitchVO $switch, $status)
     {
-        $command = sprintf(
-            '%s %s %d %d',
-            $this->rcSwitchCommand,
-            escapeshellarg($switch->code),
+        $this->client->execute($this->rcSwitchCommand, [
+            $switch->code,
             (int)$switch->pin,
             (int)$status
-        );
-        $switch->status = (bool)$status;
-
-        $this->client->execute($command);
+        ]);
     }
 }

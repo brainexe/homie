@@ -44,12 +44,16 @@ class RadioTest extends TestCase
         $radioVo = new RadioVO();
         $radioVo->code = "0101";
         $radioVo->pin  = 2;
-        $status = 1;
+        $status        = 1;
 
         $this->client
             ->expects($this->once())
             ->method('execute')
-            ->with("/opt/rc_switch '0101' 2 1");
+            ->with("/opt/rc_switch", [
+                '0101',
+                2,
+                1
+            ]);
 
         $this->subject->setStatus($radioVo, $status);
     }
