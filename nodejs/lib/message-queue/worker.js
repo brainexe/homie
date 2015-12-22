@@ -49,7 +49,9 @@ module.exports = {
 
             function waitForImmediate() {
                 clientImmediate.BRPOPAsync('message_queue:immediate', 600).then(function(data) {
-                    callJob(data[1]);
+                    if (data) {
+                        callJob(data[1]);
+                    }
                     waitForImmediate();
                 });
             }

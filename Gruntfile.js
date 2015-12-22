@@ -1,6 +1,9 @@
 module.exports = function (grunt) {
     'use strict';
 
+    grunt.config('env', grunt.option('env') || process.env.ENVIRONMENT || 'development');
+    var isProduction = grunt.config('env') == 'production';
+
     grunt.loadNpmTasks('grunt-angular-gettext');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-copy');
@@ -49,11 +52,15 @@ module.exports = function (grunt) {
         child.stderr.pipe(process.stderr);
     });
 
-    grunt.registerTask('build', ['compile_lang', 'copy', 'uglify', 'htmlmin', 'sass', 'concat', 'cssmin', 'manifest', 'compress']);
+    var defaultTasks = ['compile_lang', 'copy', 'uglify', 'htmlmin', 'sass', 'concat', 'cssmin', 'manifest'];
+    if (isProduction) {
+        defaultTasks.push('compress');
+    }
+
+    grunt.registerTask('build', defaultTasks);
     grunt.registerTask('buildAll', ['bower', 'build']);
     grunt.registerTask('default', ['build']);
 
-    var isProduction = process.env.ENVIRONMENT == 'production';
     grunt.initConfig({
         nggettext_extract: {
             pot: {

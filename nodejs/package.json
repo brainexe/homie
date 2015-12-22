@@ -5,7 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "async": "^1.5.0",
-    "bluebird": "^3.0.6",
+    "bluebird": "^3.1.1",
     "colors": "^1.1.2",
     "debug": "^2.2.0",
     "duino": "ni-c/duino",
