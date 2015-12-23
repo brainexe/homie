@@ -23,7 +23,7 @@ class Number extends Formatter
             return round($number, 1);
         }
 
-        $units = ['k','M','G','T','P','E','Z','Y'];
+        $units = ['k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
         $u = -1;
         do {
             $number /= $thresh;

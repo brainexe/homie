@@ -54,7 +54,7 @@ class Controller
     }
 
     /**
-     * @return array
+     * @return WebcamVO
      * @Route("/webcam/recent/", name="webcam.recent", methods="GET")
      */
     public function loadRecent()
@@ -74,7 +74,7 @@ class Controller
 
         $duration = (int)$request->request->get('duration');
 
-        switch($type) {
+        switch ($type) {
             case 'video':
                 $event = new WebcamEvent($name, WebcamEvent::TAKE_VIDEO, $duration);
                 break;

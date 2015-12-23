@@ -29,7 +29,7 @@ class Espeak
      */
     public function __construct(ClientInterface $client)
     {
-        $this->client  = $client;
+        $this->client = $client;
     }
 
     /**

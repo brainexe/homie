@@ -101,7 +101,7 @@ class Controller
                 break;
             case GpioSwitchVO::TYPE:
                 $switchVo = new GpioSwitchVO();
-                $switchVo->pin  = $request->request->getAlnum('pin');
+                $switchVo->pin = $request->request->getAlnum('pin');
                 break;
             default:
                 throw new UserException(sprintf(_('Invalid switch type: %s'), $type));
