@@ -50,9 +50,9 @@ class Controller
     public function index()
     {
         return [
-           'nodes'     => $this->gateway->getAll(),
-           'currentId' => $this->currentId,
-           'types'     => Node::TYPES
+            'nodes'     => $this->gateway->getAll(),
+            'currentId' => $this->currentId,
+            'types'     => Node::TYPES
         ];
     }
 

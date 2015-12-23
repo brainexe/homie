@@ -17,7 +17,7 @@ class Redis extends AbstractSensor implements Parameterized
 {
     use RedisTrait;
 
-    const TYPE    = 'system.redis';
+    const TYPE = 'system.redis';
 
     /**
      * {@inheritdoc}
@@ -26,7 +26,7 @@ class Redis extends AbstractSensor implements Parameterized
     {
         list ($section, $key) = explode('.', $parameter, 2);
 
-        $section  = ucfirst($section);
+        $section = ucfirst($section);
         $data = $this->getRedis()->info($section);
 
         if (empty($data) || !array_key_exists($key, $data[$section])) {

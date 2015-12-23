@@ -276,7 +276,7 @@ class Add extends Command
             if (!$possible) {
                 throw new Exception('No possible sensor found');
             }
-            $question  = new ChoiceQuestion("Parameter", $possible);
+            $question = new ChoiceQuestion("Parameter", $possible);
             return $this->helper->ask($this->input, $this->output, $question);
         } else {
             return $this->helper->ask($this->input, $this->output, new Question("Parameter?\n"));

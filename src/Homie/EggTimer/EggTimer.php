@@ -31,7 +31,7 @@ class EggTimer
     public function __construct(
         TimeParser $timeParser
     ) {
-        $this->timeParser  = $timeParser;
+        $this->timeParser = $timeParser;
     }
 
     /**
