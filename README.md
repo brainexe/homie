@@ -11,15 +11,33 @@ Homie is a software to automate you home using low-budget hardware, like a Raspb
  - nodejs 0.10 - 4.1
  - npm
  - redis-server
+ - sass ([gem install sass](http://sass-lang.com/install))
 
 # Installation
   - composer install
   - npm install
   - grunt exec:install
-  - ./console user:create username password
-  - ./console server:run
+  - ./console user:create user pAs$worD admin # creates in initial user "user" with admin role and the given password
+  - ./console server:run # runs the build-in PHP webserver on port 8080
 
-#Features
+# Tests
+## Unit tests:
+```
+phpunit --testsuite unit 
+```
+
+## Integration test:
+```
+phpunit --testsuite integration
+```
+
+## End to end test:
+```npm install -g protractor
+webdriver-manager start
+cd test/Frontend
+protractor config.js
+```
+# Features
 tbd
 
 # Screenshots

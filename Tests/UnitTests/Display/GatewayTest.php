@@ -82,6 +82,24 @@ class GatewayTest extends TestCase
 
         $this->assertEquals([$settings], iterator_to_array($actual));
     }
+    public function testGet()
+    {
+        $displayId = 42;
+
+        $settings = new Settings();
+        $settings->content = '1212';
+
+        $list = serialize($settings);
+        $this->redis
+            ->expects($this->once())
+            ->method('hget')
+            ->with(Gateway::KEY, $displayId)
+            ->willReturn($list);
+
+        $actual = $this->subject->get($displayId);
+
+        $this->assertEquals($settings, $actual);
+    }
 
     public function testDelete()
     {

@@ -126,6 +126,7 @@ class ListenerTest extends TestCase
     {
         $sensorVo = new SensorVO();
         $sensorVo->type = 'mockType';
+        $sensorVo->formatter = 'formatter';
 
         /** @var Sensor|MockObject $sensor */
         $sensor = $this->getMock(Sensor::class);
@@ -147,7 +148,7 @@ class ListenerTest extends TestCase
         $this->builder
             ->expects($this->once())
             ->method('getFormatter')
-            ->with('mockType')
+            ->with('formatter')
             ->willReturn($formatter);
 
         $sensor

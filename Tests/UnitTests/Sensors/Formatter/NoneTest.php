@@ -5,9 +5,6 @@ namespace Tests\Homie\Sensors\Formatter;
 use PHPUnit_Framework_TestCase as TestCase;
 use Homie\Sensors\Formatter\None;
 
-/**
- * @covers Homie\Sensors\Formatter\None
- */
 class NoneTest extends TestCase
 {
 
@@ -29,6 +26,18 @@ class NoneTest extends TestCase
     public function testFormatValue($value, $expected)
     {
         $actual = $this->subject->formatValue($value);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @dataProvider provideValues
+     * @param mixed $value
+     * @param string $expected
+     */
+    public function testFormatEspeakValue($value, $expected)
+    {
+        $actual = $this->subject->getEspeakText($value);
 
         $this->assertEquals($expected, $actual);
     }

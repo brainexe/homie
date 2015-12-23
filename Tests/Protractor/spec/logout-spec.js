@@ -15,6 +15,8 @@ describe('Logout of homie app', function() {
         var userLink = $('a[href="#/logout"]');
         userLink.click();
 
+        helper.sleep(1000);
+
         // login link should be visible
         var link = $('a[href="/#login"]');
         expect(link.isPresent()).toBe(true);

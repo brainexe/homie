@@ -18,7 +18,6 @@ class SensorBuilderTest extends TestCase
      */
     private $subject;
 
-
     public function setUp()
     {
         $this->subject = new SensorBuilder();
@@ -29,13 +28,6 @@ class SensorBuilderTest extends TestCase
         /** @var Sensor|MockObject $sensor */
         $sensor = $this->getMock(Sensor::class);
         $sensorType = 'sensor_123';
-
-        $definition = new Definition();
-
-        $sensor
-            ->expects($this->once())
-            ->method('getDefinition')
-            ->willReturn($definition);
 
         $this->subject->addSensor($sensorType, $sensor);
         $actualResult = $this->subject->getSensors();
@@ -57,8 +49,13 @@ class SensorBuilderTest extends TestCase
             ->willReturn($definition);
 
         $this->subject->addSensor($sensorType, $sensorMock);
-        $actual = $this->subject->getDefinition($sensorType);
 
+        // first call
+        $actual = $this->subject->getDefinition($sensorType);
+        $this->assertEquals($definition, $actual);
+
+        // second cached call
+        $actual = $this->subject->getDefinition($sensorType);
         $this->assertEquals($definition, $actual);
     }
 
@@ -87,13 +84,6 @@ class SensorBuilderTest extends TestCase
         /** @var Sensor|MockObject $sensorMock */
         $sensorMock = $this->getMock(Sensor::class);
         $sensorType = 'sensor_123';
-
-        $definition = new Definition();
-
-        $sensorMock
-            ->expects($this->once())
-            ->method('getDefinition')
-            ->willReturn($definition);
 
         $this->subject->addSensor($sensorType, $sensorMock);
 
@@ -129,33 +119,14 @@ class SensorBuilderTest extends TestCase
         $this->assertEquals($formatter, $actual);
     }
 
-    public function testGetFormatterFromSensor()
+    public function testGetFormatters()
     {
-        $type = 'mockType';
-
-        /** @var Sensor|MockObject $sensorMock */
-        $sensorMock = $this->getMock(Sensor::class);
-
-        $definition = new Definition();
-        $definition->formatter = 'newFormatter';
-        $sensorMock
-            ->expects($this->once())
-            ->method('getDefinition')
-            ->willReturn($definition);
-
         /** @var Formatter $formatter */
         $formatter = $this->getMock(Formatter::class);
-        $this->subject->addFormatter('newFormatter', $formatter);
+        $this->subject->addFormatter('foo', $formatter);
 
-        $this->subject->addSensor($type, $sensorMock);
+        $actual = $this->subject->getFormatters();
 
-        /** @var Formatter $formatter */
-        $formatter = $this->getMock(Formatter::class);
-
-        $this->subject->addFormatter($type, $formatter);
-
-        $actual = $this->subject->getFormatter($type);
-
-        $this->assertEquals($formatter, $actual);
+        $this->assertEquals(['foo'], $actual);
     }
 }

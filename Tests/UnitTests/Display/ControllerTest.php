@@ -76,23 +76,62 @@ class ControllerTest extends TestCase
         $this->assertEquals($settings, $actual);
     }
 
+    public function testEditDisplay()
+    {
+        $displayId = 42;
+
+        $request = new Request();
+        $request->request->set('lines', $lines = 4);
+        $request->request->set('columns', $columns = 5);
+        $request->request->set('content', $content = ['content']);
+
+        $rendered = ['rendered'];
+
+        $settings = new Settings();
+        $settings->displayId = $displayId;
+        $settings->lines     = $lines;
+        $settings->columns   = $columns;
+        $settings->content   = $content;
+        $settings->rendered  = $rendered;
+
+        $this->renderer
+            ->expects($this->once())
+            ->method('render')
+            ->willReturn($rendered);
+
+        $this->gateway
+            ->expects($this->once())
+            ->method('update')
+            ->with($settings);
+
+        $actual = $this->subject->update($request, $displayId);
+
+        $this->assertEquals($settings, $actual);
+    }
+
     public function testRedraw()
     {
 
         $displayId = 11880;
-
         $request = new Request();
 
-        $event = new Redraw($displayId);
-
-        $this->dispatcher
+        $settings = new Settings();
+        $this->renderer
             ->expects($this->once())
-            ->method('dispatchInBackground')
-            ->with($event);
+            ->method('render')
+            ->with($settings)
+            ->willReturn(['foo', 'bar']);
+
+        $this->gateway
+            ->expects($this->once())
+            ->method('get')
+            ->with($displayId)
+            ->willReturn($settings);
 
         $actual = $this->subject->redraw($request, $displayId);
 
-        $this->assertTrue($actual);
+        $this->assertEquals($settings, $actual);
+        $this->assertEquals(['foo', 'bar'], $actual->content);
     }
 
     public function testIndex()

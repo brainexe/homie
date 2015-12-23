@@ -194,7 +194,7 @@ class Controller
             $sensorId = $sensor['sensorId'];
 
             if (!empty($sensor['lastValue'])) {
-                $formatter           = $this->builder->getFormatter($sensor['type']);
+                $formatter = $this->builder->getFormatter($sensor['formatter']);
                 $sensor['lastValue'] = $formatter->formatValue($sensor['lastValue']);
             }
 

@@ -13,9 +13,9 @@ App.controller('DashboardController', ['$scope', '$uibModal', '$q', 'Dashboard',
         }
 
         dashboard.widgets.sort(function(a, b) {
-            var index_a = order.indexOf(a.id);
-            var index_b = order.indexOf(b.id);
-            return index_a > index_b;
+            var indexA = order.indexOf(a.id);
+            var indexB = order.indexOf(b.id);
+            return indexA > indexB;
         });
         $scope.dashboard = dashboard;
     }

@@ -3,6 +3,7 @@
 namespace Tests\Homie\Sensors\Sensors\System;
 
 use Homie\Client\ClientInterface;
+use Homie\Sensors\Definition;
 use Homie\Sensors\Sensors\System\DiskUsed;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
@@ -69,5 +70,11 @@ class DiskUsedTest extends TestCase
         $output = new DummyOutput();
         $actual = $this->subject->isSupported('', $output);
         $this->assertTrue($actual);
+    }
+
+    public function testGetDefinition()
+    {
+        $actual = $this->subject->getDefinition();
+        $this->assertInstanceOf(Definition::class, $actual);
     }
 }

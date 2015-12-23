@@ -3,6 +3,7 @@
 namespace Tests\Homie\Sensors\Sensors\Humid;
 
 use Homie\Client\ClientInterface;
+use Homie\Sensors\Definition;
 use Homie\Sensors\Sensors\Humid\DHT11;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
@@ -106,5 +107,11 @@ class DHT11Test extends TestCase
         $actualResult = $this->subject->isSupported($file, $output);
 
         $this->assertFalse($actualResult);
+    }
+
+    public function testGetDefinition()
+    {
+        $actual = $this->subject->getDefinition();
+        $this->assertInstanceOf(Definition::class, $actual);
     }
 }

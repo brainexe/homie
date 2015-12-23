@@ -2,6 +2,7 @@
 
 namespace Tests\Homie\Sensors\Command;
 
+use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\Formatter;
 use Homie\Sensors\Interfaces\Searchable;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
@@ -152,6 +153,14 @@ class AddTest extends TestCase
             ->method('getSensorType')
             ->willReturn('type_2');
 
+        $definition2 = new Definition();
+        $definition2->formatter = 'formatter';
+
+        $sensor2
+            ->expects($this->once())
+            ->method('getDefinition')
+            ->willReturn($definition2);
+
         /** @var QuestionHelper|MockObject $helper_set */
         $helper = $this->getMock(QuestionHelper::class);
 
@@ -230,6 +239,7 @@ class AddTest extends TestCase
         $expectedVo->interval    = $interval;
         $expectedVo->node        = $node;
         $expectedVo->color       = '#b06893';
+        $expectedVo->formatter   = 'formatter';
 
         $this->gateway
             ->expects($this->once())
@@ -254,6 +264,14 @@ class AddTest extends TestCase
 
         $sensor1 = $this->getMock(TestSensorParameterized::class);
         $sensor2 = $this->getMock(TestSensor::class);
+
+        $definition2 = new Definition();
+        $definition2->formatter = 'formatter';
+
+        $sensor2
+            ->expects($this->once())
+            ->method('getDefinition')
+            ->willReturn($definition2);
 
         $sensors = [
             'type_1' => $sensor1,
@@ -305,7 +323,7 @@ class AddTest extends TestCase
         $this->builder
             ->expects($this->once())
             ->method('getFormatter')
-            ->with($sensorType2)
+            ->with('formatter')
             ->willReturn($formatter);
 
         $expectedVo              = new SensorVO();
@@ -314,6 +332,7 @@ class AddTest extends TestCase
         $expectedVo->description = $description;
         $expectedVo->pin         = null;
         $expectedVo->interval    = $interval;
+        $expectedVo->formatter   = 'formatter';
         $expectedVo->node        = $node;
         $expectedVo->color       = '#b06893';
 

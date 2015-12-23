@@ -96,13 +96,14 @@ class Add extends Command
         $interval    = $this->getInterval();
         $node        = $this->getNode();
         $type        = $sensor->getSensorType();
+        $formatter   = $sensor->getDefinition()->formatter;
 
         // get test value
         $testValue = $sensor->getValue($parameter);
         if ($testValue !== null) {
-            $formatter = $this->builder->getFormatter($type);
+            $formatterModel = $this->builder->getFormatter($formatter);
             $output->writeln(
-                sprintf('<info>Sensor value: %s</info>', $formatter->formatValue($testValue))
+                sprintf('<info>Sensor value: %s</info>', $formatterModel->formatValue($testValue))
             );
         } else {
             $output->writeln('<error>Sensor returned invalid data.</error>');
@@ -116,6 +117,7 @@ class Add extends Command
         $sensorVo->pin         = $parameter;
         $sensorVo->interval    = $interval;
         $sensorVo->node        = $node;
+        $sensorVo->formatter   = $formatter;
         $sensorVo->color       = '#' . substr(md5($name), 0, 6);
 
         $this->gateway->addSensor($sensorVo);

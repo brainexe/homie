@@ -48,6 +48,17 @@ class Gateway
 
     /**
      * @param int $displayId
+     * @return Settings
+     */
+    public function get($displayId)
+    {
+        $display = $this->getRedis()->hget(self::KEY, $displayId);
+
+        return unserialize($display);
+    }
+
+    /**
+     * @param int $displayId
      */
     public function delete($displayId)
     {

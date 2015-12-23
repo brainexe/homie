@@ -58,7 +58,7 @@ class UpdateTasks extends Command
         $tasks = $this->todoList->getList();
 
         foreach ($tasks as $task) {
-            if ($task->status = TodoItemVO::STATUS_PENDING && $task->cronExpression) {
+            if ($task->status == TodoItemVO::STATUS_PENDING && $task->cronExpression) {
                 $this->handleTask($task);
             }
         }

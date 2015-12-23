@@ -35,15 +35,23 @@ class WidgetFactoryTest extends TestCase
 
     public function testGetValidWidget()
     {
-        $actualResult = $this->subject->getWidget(Time::TYPE);
+        $actual = $this->subject->getWidget(Time::TYPE);
 
-        $this->assertTrue($actualResult instanceof WidgetInterface);
+        $this->assertTrue($actual instanceof WidgetInterface);
+    }
+
+    public function testSetWidgets()
+    {
+        $this->subject->setWidgets(['type2' => new Time()]);
+
+        $actual = $this->subject->getWidget('type2');
+        $this->assertTrue($actual instanceof WidgetInterface);
     }
 
     public function testGetWidgetTypes()
     {
-        $actualResult = $this->subject->getAvailableWidgets();
+        $actual = $this->subject->getAvailableWidgets();
 
-        $this->assertEquals(['time' => new Time()], $actualResult);
+        $this->assertEquals(['time' => new Time()], $actual);
     }
 }

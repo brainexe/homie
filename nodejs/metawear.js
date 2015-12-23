@@ -18,19 +18,24 @@ devices.discover(function(device) {
 console.log('start server on port ' + port + '...');
 
 http.createServer(function(request, response){
-    if (!currentDevice) {
-        response.writeHeader(503, {"Content-Type": "text/plain"});
-        response.write("metawear not ready");
+    function writeResponse(code, body) {
+        response.writeHeader(code, {"Content-Type": "text/plain"});
+        response.write(body);
         response.end();
+    }
+
+    console.log('HTTP request - ' + request.url);
+
+    if (!currentDevice) {
+        writeResponse(503, "metawear not ready yet");
         console.error('Device not ready..');
         return;
     }
+
     switch (request.url) {
         case '/':
         case '/info/':
-            response.writeHeader(200, {"Content-Type": "text/plain"});
-            response.write("OK");
-            response.end();
+            writeResponse(200, 'OK');
             break;
         case '/temperature/':
             var temperature = new currentDevice.Temperature(
@@ -39,15 +44,10 @@ http.createServer(function(request, response){
             );
 
             temperature.getValue(function(value) {
-                response.writeHeader(200, {"Content-Type": "text/plain"});
-                response.write("" + value);
-                response.end();
+                writeResponse(200, value);
             });
             break;
         default:
-            response.writeHeader(404, {"Content-Type": "text/plain"});
-            response.write("Route not found");
-            response.end();
+            writeResponse(404, "Route not found");
     }
-    console.log('HTTP request - ' + request.url);
 }).listen(port);

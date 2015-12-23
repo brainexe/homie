@@ -17,7 +17,7 @@ App.controller('SensorController', ['$scope', '$uibModal', 'SensorGraph', functi
         uibModal.open({
             templateUrl: '/templates/sensor/edit.html',
             controller : 'EditSensorsController',
-            windowClass: 'dialog_1000'
+            windowClass: 'dialog_1200'
         });
     };
 
@@ -25,7 +25,7 @@ App.controller('SensorController', ['$scope', '$uibModal', 'SensorGraph', functi
         uibModal.open({
             templateUrl: '/templates/sensor/add.html',
             controller : 'AddSensorsController',
-            windowClass: 'dialog_1000'
+            windowClass: 'dialog_1200'
         });
     };
 

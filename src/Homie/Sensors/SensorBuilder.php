@@ -43,16 +43,6 @@ class SensorBuilder
     public function addSensor($type, Sensor $sensor)
     {
         $this->sensors[$type] = $sensor;
-        $this->addDefinition($type, $sensor->getDefinition());
-    }
-
-    /**
-     * @param string $type
-     * @param Definition $definition
-     */
-    public function addDefinition($type, Definition $definition)
-    {
-        $this->definitions[$type] = $definition;
     }
 
     /**
@@ -89,22 +79,17 @@ class SensorBuilder
             return $this->definitions[$type];
         }
 
-        throw new InvalidArgumentException(sprintf('Invalid sensor type: %s', $type));
+        return $this->definitions[$type] = $this->build($type)->getDefinition();
     }
 
     /**
-     * @param string $type
+     * @param string $formatterType
      * @return Formatter
      */
-    public function getFormatter($type)
+    public function getFormatter($formatterType)
     {
-        if (isset($this->formatter[$type])) {
-            return $this->formatter[$type];
-        }
-
-        if (isset($this->sensors[$type])) {
-            $type = $this->build($type)->getDefinition()->formatter;
-            return $this->getFormatter($type);
+        if (isset($this->formatter[$formatterType])) {
+            return $this->formatter[$formatterType];
         }
 
         return $this->getFormatter(Definition::TYPE_NONE);

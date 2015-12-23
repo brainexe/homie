@@ -41,9 +41,9 @@ class Switches
     }
 
     /**
-     * @param integer|string $pin
+     * @param int|string $pin
      * @throws UserException
-     * @return integer
+     * @return int
      */
     public function getRadioPin($pin)
     {

@@ -3,6 +3,7 @@
 namespace Tests\Homie\Sensors\Sensors\Temperature;
 
 use Homie\Client\ClientInterface;
+use Homie\Sensors\Definition;
 use Homie\Sensors\Sensors\Temperature\DHT11;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
@@ -103,5 +104,11 @@ class DHT11Test extends TestCase
         $actual = $this->subject->isSupported($parameter, $output);
 
         $this->assertFalse($actual);
+    }
+
+    public function testGetDefinition()
+    {
+        $actual = $this->subject->getDefinition();
+        $this->assertInstanceOf(Definition::class, $actual);
     }
 }

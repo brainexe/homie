@@ -99,14 +99,19 @@ class Controller
     /**
      * @Route("/display/{displayId}/redraw/", name="display.redraw", methods="POST")
      * @param Request $request
-     * @return bool
+     * @param int $displayId
+     * @return Settings
      */
     public function redraw(Request $request, $displayId)
     {
-        $event = new Redraw($displayId);
-        $this->dispatchInBackground($event);
+        unset($request);
 
-        return true;
+        $display = $this->gateway->get($displayId);
+
+        $display->content = $this->renderer->render($display);
+        $this->gateway->update($display);
+
+        return $display;
     }
 
     /**

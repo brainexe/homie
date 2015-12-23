@@ -104,6 +104,7 @@ class ControllerTest extends TestCase
                 'sensorId'  => $sensorId = 12,
                 'lastValue' => $lastValue,
                 'type'      => $type,
+                'formatter' => 'formatter'
             ]
         ];
 
@@ -112,7 +113,7 @@ class ControllerTest extends TestCase
         $this->builder
             ->expects($this->once())
             ->method('getFormatter')
-            ->with($type)
+            ->with('formatter')
             ->willReturn($formatter);
 
         $sensorIds = [$sensorId];

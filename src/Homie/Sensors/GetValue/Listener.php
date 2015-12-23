@@ -85,7 +85,7 @@ class Listener implements EventSubscriberInterface
 
         $this->gateway->addValue($sensorVo, $value);
 
-        $formatter      = $this->builder->getFormatter($sensorVo->type);
+        $formatter      = $this->builder->getFormatter($sensorVo->formatter);
         $formattedValue = $formatter->formatValue($value);
         $event = new SensorValueEvent(
             SensorValueEvent::VALUE,

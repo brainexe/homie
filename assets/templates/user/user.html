@@ -1,34 +1,41 @@
 <h2 translate>User</h2>
 
-<ul>
-	<li>
-		<a class="btn btn-primary" href="#/logout" translate>Logout</a>
-	</li>
-	<li>
-		<a class="btn btn-primary" href="#/user/change_password" translate>Change Password</a>
-	</li>
-	<li>
-		<a class="btn btn-primary" href="#/user/otp" translate>Two Factor Authentication</a>
-	</li>
-	<li>
-		<a class="btn btn-primary" href="#/user/tokens" translate>Tokens</a>
-	</li>
-</ul>
+<div ng-include="'/templates/user/menu.html'"></div>
 
-<ul>
-	<li ng-repeat="item in controllers">
-		<input
-				type="checkbox"
-				class="big-checkbox"
-				ng-model="controller.collapsed"
-				ng-change="toggle(controller)"/>
-		<i class="glyphicon glyphicon-{{ item.icon }}"></i>
-		<span ng-bind="item.name"></span>
-	</li>
-</ul>
+<hr/>
 
-<ul class="user-profile-avatar">
-	<li ng-repeat="avatar in avatars">
-		<img ng-src="/images/{{avatar}}" ng-click="setAvatar(avatar)"/>
-	</li>
-</ul>
+<div class="panel panel-primary">
+	<div class="panel-heading" translate>
+		Toggle menu entries
+	</div>
+	<div class="panel-body">
+		<ul>
+			<li ng-repeat="item in controllers">
+				<input
+						type="checkbox"
+						class="big-checkbox"
+						ng-model="controller.collapsed"
+						ng-change="toggle(controller)"/>
+				<i class="glyphicon glyphicon-{{ item.icon }}"></i>
+				<span ng-bind="item.name"></span>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<hr/>
+
+<div class="panel panel-primary">
+	<div class="panel-heading" translate>
+		Avatar
+	</div>
+	<div class="panel-body">
+		<ul class="user-profile-avatar">
+			<li ng-repeat="avatar in avatars">
+				<img ng-src="/images/{{avatar}}" ng-click="setAvatar(avatar)"/>
+			</li>
+		</ul>
+	</div>
+</div>
+
+

@@ -1,5 +1,7 @@
 <h2 translate>Two Factor Authentication</h2>
 
+<div ng-include="'/templates/user/menu.html'"></div>
+
 <div ng-if="oneTimePassword.secret">
 	<qr-code data="oneTimePassword.url"></qr-code>
 

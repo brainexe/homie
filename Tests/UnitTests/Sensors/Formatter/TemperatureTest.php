@@ -71,7 +71,8 @@ class TemperatureTest extends TestCase
     {
         return [
             ['12', "12°"],
-            ['12.22', "12.22°"]
+            ['12.22', "12.22°"],
+            ['0', "0°"]
         ];
     }
 }

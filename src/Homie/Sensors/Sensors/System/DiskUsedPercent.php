@@ -32,7 +32,6 @@ class DiskUsedPercent extends AbstractSensor
         $this->client = $client;
     }
 
-
     /**
      * {@inheritdoc}
      */

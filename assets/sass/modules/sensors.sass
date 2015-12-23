@@ -5,6 +5,7 @@
     position: relative
     display: inline-block
     width: 100%
+    @include border()
 
     .legend
         display: inline-block
@@ -21,7 +22,7 @@
         width: 40px
 
 .sensorColorPicker
-    @include border
+    @include border(1)
     width: 20px
     height: 20px
 
