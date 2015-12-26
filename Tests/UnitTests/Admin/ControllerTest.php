@@ -140,6 +140,32 @@ class ControllerTest extends TestCase
         $this->assertEquals($userVo, $actualResult);
     }
 
+    public function testSaveUpdatePasswordOnly()
+    {
+        $request = new Request();
+        $request->request->set('userId', $userId = 42);
+        $request->request->set('email', $email = '');
+        $request->request->set('roles', $roles = []);
+        $request->request->set('password', $password = 'newPassword');
+
+        $userVo = new UserVO();
+        $userVo->roles = $roles;
+
+        $this->userProvider
+            ->expects($this->at(0))
+            ->method('loadUserById')
+            ->with($userId)
+            ->willReturn($userVo);
+        $this->userProvider
+            ->expects($this->at(1))
+            ->method('changePassword')
+            ->with($userVo, $password);
+
+        $actualResult = $this->subject->save($request);
+
+        $this->assertEquals($userVo, $actualResult);
+    }
+
     public function testSaveDoNothing()
     {
         $request = new Request();

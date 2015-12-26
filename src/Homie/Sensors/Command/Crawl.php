@@ -18,7 +18,6 @@ use BrainExe\Core\Annotations\Command as CommandAnnotation;
 
 /**
  * @CommandAnnotation("Command.Sensor.Crawl")
- * @codeCoverageIgnore
  */
 class Crawl extends Command
 {
@@ -72,21 +71,7 @@ class Crawl extends Command
         foreach ($sensors as $sensor) {
             $output->writeln(sprintf("Handling <info>%s</info>...", $sensor->getSensorType()));
             if ($sensor instanceof Searchable) {
-                $output->writeln("Searching...");
-
-                $parameters = $sensor->search();
-                if (empty($parameters)) {
-                    $output->writeln(
-                        sprintf(
-                            "<error>No valid sensor found for %s...</error>",
-                            $sensor->getSensorType()
-                        )
-                    );
-                }
-
-                foreach ($parameters as $parameter) {
-                    $this->addSensor($input, $output, $sensor, $parameter);
-                }
+                $this->handleSearchable($input, $output, $sensor);
             } elseif (!$sensor instanceof Parameterized) {
                 $this->addSensor($input, $output, $sensor, null);
             } else {
@@ -168,6 +153,28 @@ class Crawl extends Command
             return sprintf('Do you want to add sensor "<info>%s</info>" with parameter "%s" (y/n)', $type, $parameter);
         } else {
             return sprintf('Do you want to add sensor "<info>%s</info>" (y/n)', $type);
+        }
+    }
+
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @param Sensor|Searchable $sensor
+     */
+    protected function handleSearchable(
+        InputInterface $input,
+        OutputInterface $output,
+        Searchable $sensor
+    ) {
+        $output->writeln("Searching...");
+
+        $parameters = $sensor->search();
+        if (empty($parameters)) {
+            $output->writeln(sprintf("<error>No valid sensor found for %s...</error>", $sensor->getSensorType()));
+        }
+
+        foreach ($parameters as $parameter) {
+            $this->addSensor($input, $output, $sensor, $parameter);
         }
     }
 }

@@ -1,6 +1,5 @@
 
 App.controller('ExpressionController', ['$scope', 'Expression', 'MessageQueue', function ($scope, Expression, MessageQueue) {
-	$scope.input_control  = [];
 	$scope.expressions    = {};
     $scope.editExpression = {actions:[''], conditions:[''], 'new': true};
     $scope.eventNames     = [];
@@ -8,7 +7,6 @@ App.controller('ExpressionController', ['$scope', 'Expression', 'MessageQueue', 
 
     Expression.getData().success(function(data) {
 		$scope.expressions   = data.expressions;
-		$scope.input_control = data.input_control;
 		$scope.eventNames    = data.events;
 	});
 

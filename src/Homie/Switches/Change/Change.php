@@ -6,6 +6,7 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Translation\TranslationProvider;
 use Exception;
+use Homie\Switches\Gateway;
 use Homie\Switches\SwitchInterface;
 use Homie\Switches\VO\GpioSwitchVO;
 use Homie\Switches\VO\RadioVO;
@@ -25,19 +26,28 @@ class Change implements SwitchInterface, TranslationProvider
     private $models = [];
 
     /**
+     * @var Gateway
+     */
+    private $gateway;
+
+    /**
      * @Inject({
      *     "@Switches.Change.Radio",
      *     "@Switches.Change.Gpio",
+     *     "@Switches.Gateway",
      * })
      * @param Radio $radio
      * @param Gpio $gpio
+     * @param Gateway $gateway
      */
     public function __construct(
         Radio $radio,
-        Gpio $gpio
+        Gpio $gpio,
+        Gateway $gateway
     ) {
         $this->models[RadioVO::TYPE]      = $radio;
         $this->models[GpioSwitchVO::TYPE] = $gpio;
+        $this->gateway = $gateway;
     }
 
     /**
@@ -54,6 +64,9 @@ class Change implements SwitchInterface, TranslationProvider
         }
 
         $controller->setStatus($switch, $status);
+
+        $switch->status = (bool)$status;
+        $this->gateway->edit($switch);
     }
 
     /**

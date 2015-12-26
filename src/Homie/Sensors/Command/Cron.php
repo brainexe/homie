@@ -4,7 +4,6 @@ namespace Homie\Sensors\Command;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
-
 use BrainExe\Core\Traits\TimeTrait;
 use Homie\Sensors\GetValue\Event;
 use Homie\Sensors\SensorBuilder;
@@ -180,7 +179,6 @@ class Cron extends Command
 
         $lastRun = $sensorVo->lastValueTimestamp;
         $delta   = $now - $lastRun;
-
         if ($delta > $interval * 60 || $input->getOption('force')) {
             $this->getValue($sensorVo);
         }

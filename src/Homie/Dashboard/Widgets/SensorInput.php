@@ -35,11 +35,6 @@ class SensorInput extends AbstractWidget
      */
     public function getMetadata()
     {
-        $sensors = [];
-        foreach ($this->gateway->getSensors() as $sensor) {
-            $sensors[$sensor['sensorId']] = $sensor['name'];
-        }
-
         $metadata = new WidgetMetadataVo(
             $this->getId(),
             gettext('Input sensor value'),
@@ -47,7 +42,7 @@ class SensorInput extends AbstractWidget
             [
                 'sensor_id' => [
                     'name'   => gettext('Sensor'),
-                    'values' => $sensors,
+                    'values' => $this->getSensors(),
                     'type'   => 'single_select'
                 ]
             ]
@@ -56,5 +51,17 @@ class SensorInput extends AbstractWidget
         return $metadata
             ->addTitle()
             ->setSize(4, 3);
+    }
+
+    /**
+     * @return array
+     */
+    protected function getSensors()
+    {
+        $sensors = [];
+        foreach ($this->gateway->getSensors() as $sensor) {
+            $sensors[$sensor['sensorId']] = $sensor['name'];
+        }
+        return $sensors;
     }
 }

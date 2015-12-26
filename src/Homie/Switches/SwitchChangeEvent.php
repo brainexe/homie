@@ -4,9 +4,10 @@ namespace Homie\Switches;
 
 use BrainExe\Core\EventDispatcher\AbstractEvent;
 
+use BrainExe\Core\EventDispatcher\PushViaWebsocket;
 use Homie\Switches\VO\SwitchVO;
 
-class SwitchChangeEvent extends AbstractEvent
+class SwitchChangeEvent extends AbstractEvent implements PushViaWebsocket
 {
 
     const CHANGE_RADIO = 'switch.change';

@@ -10,7 +10,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * @codeCoverageIgnore
  * @CommandAnnotation("Command.Arduino")
  */
 class Command extends SymfonyCommand

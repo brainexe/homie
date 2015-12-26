@@ -3,8 +3,9 @@
 namespace Homie\Arduino;
 
 use BrainExe\Core\EventDispatcher\AbstractEvent;
+use BrainExe\Core\EventDispatcher\PushViaWebsocket;
 
-class SerialEvent extends AbstractEvent
+class SerialEvent extends AbstractEvent implements PushViaWebsocket
 {
 
     const SERIAL = 'arduino.serial';

@@ -5,6 +5,7 @@ namespace Tests\Homie\Switches\Change;
 use Homie\Switches\Change\Change;
 use Homie\Switches\Change\Gpio;
 use Homie\Switches\Change\Radio;
+use Homie\Switches\Gateway;
 use Homie\Switches\VO\GpioSwitchVO;
 use Homie\Switches\VO\RadioVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
@@ -31,13 +32,21 @@ class ChangeTest extends TestCase
      */
     private $radio;
 
+    /**
+     * @var Gateway|MockObject
+     */
+    private $gateway;
+
     public function setUp()
     {
         $this->radio = $this->getMock(Radio::class, [], [], '', false);
         $this->gpio  = $this->getMock(Gpio::class, [], [], '', false);
+        $this->gateway  = $this->getMock(Gateway::class, [], [], '', false);
+
         $this->subject = new Change(
             $this->radio,
-            $this->gpio
+            $this->gpio,
+            $this->gateway
         );
     }
 
@@ -52,6 +61,11 @@ class ChangeTest extends TestCase
             ->expects($this->once())
             ->method('setStatus')
             ->with($switch, $status);
+
+        $this->gateway
+            ->expects($this->once())
+            ->method('edit')
+            ->with($switch);
 
         $this->subject->setStatus($switch, $status);
     }
@@ -68,6 +82,11 @@ class ChangeTest extends TestCase
             ->method('setStatus')
             ->with($switch, $status);
 
+        $this->gateway
+            ->expects($this->once())
+            ->method('edit')
+            ->with($switch);
+
         $this->subject->setStatus($switch, $status);
     }
 
@@ -81,6 +100,10 @@ class ChangeTest extends TestCase
         $switch->type = 'invalid';
 
         $status = 1;
+
+        $this->gateway
+            ->expects($this->never())
+            ->method('edit');
 
         $this->subject->setStatus($switch, $status);
     }

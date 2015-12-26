@@ -1,6 +1,6 @@
 var redis = require('../redis'),
     config = require('../config'),
-    child_process = require('child_process'),
+    childProcess = require('child_process'),
     async = require('async'),
     fs = require('fs');
 
@@ -19,7 +19,7 @@ module.exports = {
                     return;
                 }
 
-                var process = child_process.spawn('php', ['console', 'message:exec', '--ansi', '--no-interaction', payload], {
+                var process = childProcess.spawn('php', ['console', 'message:exec', '--ansi', '--no-interaction', payload], {
                     cwd:        config['application.root'],
                     timeout:    30000
                 });

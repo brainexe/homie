@@ -17,7 +17,7 @@ Homie is a software to automate you home using low-budget hardware, like a Raspb
   - composer install
   - npm install
   - grunt exec:install
-  - ./console user:create user pAs$worD admin # creates in initial user "user" with admin role and the given password
+  - ./console user:create user pAsSworD admin # creates in initial user "user" with admin role and the given password
   - ./console server:run # runs the build-in PHP webserver on port 8080
 
 # Tests
