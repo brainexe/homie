@@ -117,13 +117,11 @@ class Cron extends Command
      */
     public function handleEvent(SensorValueEvent $event)
     {
-        $definition = $this->builder->getDefinition($event->sensorVo->type);
-
         $this->output->writeln(
             sprintf(
                 '#%d: <info>%s</info> (<info>%s</info>): <info>%s</info>',
                 $event->sensorVo->sensorId,
-                $definition->name,
+                $event->sensorVo->type,
                 $event->sensorVo->name,
                 $event->valueFormatted
             )
@@ -134,13 +132,11 @@ class Cron extends Command
      */
     public function handleErrorEvent(SensorValueEvent $event)
     {
-        $definition = $this->builder->getDefinition($event->sensorVo->type);
-
         $this->output->writeln(
             sprintf(
                 '#%d: <error>Error while fetching value of sensor %s</error> (<info>%s</info>)</info>',
                 $event->sensorVo->sensorId,
-                $definition->name,
+                $event->sensorVo->type,
                 $event->sensorVo->name
             )
         );

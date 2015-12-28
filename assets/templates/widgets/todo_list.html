@@ -1,5 +1,5 @@
 <div ng-repeat="(statusId, status) in states" ng-if="items|toArray|filter:statusId|notEmpty">
-    <h4 ng-click="status.hidden = !status.hidden">{{ status.name }} ({{(items|filter:statusId).length}})</h4>
+    <h4 ng-click="status.hidden = !status.hidden">{{statusId|translateToken:'todo.status.{0}.name'}} ({{(items|filter:statusId).length}})</h4>
     <ul ng-hide="status.hidden">
         <li ng-repeat="item in items|filter:statusId|orderBy:'name'" >
             <span uib-tooltip="item.description">{{item.name}}</span>
@@ -12,7 +12,7 @@
                         ng-repeat="nextStatus in status.next"
                         class="btn btn-xs btn-success status-change"
                         ng-click="setStatus(item, nextStatus)">
-                    {{states[nextStatus].name || 'Delete'|translate}}
+                    {{nextStatus|translateToken:'todo.status.{0}.name' || 'Delete'|translate}}
                 </a>
             </div>
         </li>

@@ -111,7 +111,10 @@ class Recorder
 
         $this->client->execute(str_replace('{{file}}', $temp, $command));
 
-        $this->filesystem->writeStream(Webcam::ROOT . $filename, fopen($temp, 'r'));
+//        $this->filesystem->getAdapter()->
+        $this->filesystem->writeStream(Webcam::ROOT . $filename, fopen($temp, 'r'), [
+            'visibility' => 'public' // todo chmod 777
+        ]);
 
         unlink($temp);
 

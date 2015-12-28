@@ -59,7 +59,6 @@ class Redis extends AbstractSensor implements Parameterized
     public function getDefinition()
     {
         $definition            = new Definition();
-        $definition->name      = gettext('Redis');
         $definition->type      = Definition::TYPE_NONE;
         $definition->formatter = None::TYPE;
 

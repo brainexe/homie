@@ -18,11 +18,6 @@ class Definition
     /**
      * @var string
      */
-    public $name;
-
-    /**
-     * @var string
-     */
     public $type;
 
     /**
@@ -31,6 +26,7 @@ class Definition
     public $formatter = None::TYPE;
 
     /**
+     * Needed linux system package to use the sensor
      * @var string[]
      */
     public $neededPackages;

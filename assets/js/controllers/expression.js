@@ -1,5 +1,5 @@
 
-App.controller('ExpressionController', ['$scope', 'Expression', 'MessageQueue', function ($scope, Expression, MessageQueue) {
+App.controller('ExpressionController', ['$scope', '$rootScope', 'Expression', 'MessageQueue', function ($scope, $rootScope, Expression, MessageQueue) {
 	$scope.expressions    = {};
     $scope.editExpression = {actions:[''], conditions:[''], 'new': true};
     $scope.eventNames     = [];
@@ -11,11 +11,18 @@ App.controller('ExpressionController', ['$scope', 'Expression', 'MessageQueue', 
 	});
 
     $scope.reloadCrons = function() {
-        MessageQueue.getJobs('message_queue.cron').success(function() {
-            $scope.crons = [];
+        MessageQueue.getJobs('message_queue.cron').success(function(data) {
+            $scope.crons = data;
         });
     };
     $scope.reloadCrons();
+
+    $scope.$on('message_queue.handled', function(event, data) {
+        var job = data.job;
+        if ($scope.crons[job.jobId]) {
+            $scope.crons[job.jobId] = job;
+        }
+    });
 
     $scope.save = function(expression) {
         Expression.save(expression).success(function(data) {

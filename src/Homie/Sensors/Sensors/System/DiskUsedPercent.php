@@ -60,7 +60,6 @@ class DiskUsedPercent extends AbstractSensor
     public function getDefinition()
     {
         $definition            = new Definition();
-        $definition->name      = gettext('Disk Used (%)');
         $definition->type      = Definition::TYPE_DISK;
         $definition->formatter = Percentage::TYPE;
 

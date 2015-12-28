@@ -42,8 +42,8 @@ class SwitchWidget extends AbstractWidget
 
         $metadata = new WidgetMetadataVo(
             $this->getId(),
-            gettext('Switch'),
-            gettext('Control your switches.'),
+            ('Switch'),
+            ('Control your switches.'),
             [
                 'switchIds' => [
                     'name'   => gettext('Switch'),

@@ -37,8 +37,8 @@ class SensorInput extends AbstractWidget
     {
         $metadata = new WidgetMetadataVo(
             $this->getId(),
-            gettext('Input sensor value'),
-            gettext('Displays the current value of a given sensor'),
+            ('Input sensor value'),
+            ('Displays the current value of a given sensor'),
             [
                 'sensor_id' => [
                     'name'   => gettext('Sensor'),

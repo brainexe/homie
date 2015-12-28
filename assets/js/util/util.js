@@ -16,9 +16,9 @@ String.prototype.format = function () {
  * @param value
  * @returns {Array}
  */
-Array.prototype.removeByValue = function(value) {
+Array.prototype.removeByValue = function(value, key) {
     for (var i = 0; i < this.length; i++) {
-        if (this[i] === value) {
+        if (this[i] === value || (key && value[key] == this[i][key])) {
             this.splice(i, 1);
             i--;
         }

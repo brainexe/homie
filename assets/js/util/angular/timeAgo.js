@@ -22,6 +22,9 @@ App.directive('timeAgo', ['$filter', 'timeAgo', 'nowTime', function ($filter, ti
                 if (scope.overdue && nowTime() > fromTime) {
                     elem[0].style.color = '#c00';
                     elem[0].style.fontWeight = 'bold';
+                } else if (elem[0].style.color == '#c00'){
+                    elem[0].style.color = '';
+                    elem[0].style.fontWeight = 'normal';
                 }
 
                 tooltip = dateFilter(fromTime, 'medium');
@@ -101,8 +104,8 @@ App.directive('timeAgo', ['$filter', 'timeAgo', 'nowTime', function ($filter, ti
         }
 
         var words =
-            seconds < 15 && substitute($l.fewSeconds, Math.round(seconds)) ||
-            seconds < 45 && substitute($l.seconds, Math.round(seconds)) ||
+            seconds < 5 && substitute($l.fewSeconds, Math.round(seconds)) ||
+            seconds <= 60 && substitute($l.seconds, Math.round(seconds)) ||
             seconds < 90 && substitute($l.minute, 1) ||
             minutes < 45 && substitute($l.minutes, Math.round(minutes)) ||
             minutes < 90 && substitute($l.hour, 1) ||

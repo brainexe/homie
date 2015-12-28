@@ -29,7 +29,7 @@ App.controller('WebcamController', ['$scope', 'Webcam', function ($scope, Webcam
 
         shot.deleting = true;
         Webcam.remove(shot.webPath).success(function () {
-            $scope.files.slice(index, 1);
+            $scope.files.splice(index, 1);
         });
     };
 

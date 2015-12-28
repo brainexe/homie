@@ -19,8 +19,8 @@ class Status extends AbstractWidget
     {
         $metadata = new WidgetMetadataVo(
             $this->getId(),
-            gettext('Status'),
-            gettext('Show internal information')
+            ('Status'),
+            ('Show internal information')
         );
 
         return $metadata

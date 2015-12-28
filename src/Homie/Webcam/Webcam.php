@@ -68,10 +68,11 @@ class Webcam
 
     /**
      * @param string $filename
+     * @return bool
      */
     public function delete($filename)
     {
-        $this->filesystem->delete($filename);
+        return $this->filesystem->delete($filename);
     }
 
     /**

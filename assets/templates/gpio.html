@@ -3,22 +3,30 @@
 	<thead>
 		<tr>
 			<th width="30">
-				<a ng-click="setOrderBy('wiringId')" class="order">
+				<a ng-click="setOrderBy('wiringId')" class="order" translate translate-context="gpio">
 					#wiring
 				</a>
 			</th>
 			<th width="30">
-				<a ng-click="setOrderBy('physicalId')" class="order">
+				<a ng-click="setOrderBy('physicalId')" class="order" translate  translate-context="gpio">
 					#phy
 				</a>
 			</th>
 			<th>
-				<a ng-click="setOrderBy('name')" class="order" translate>
+				<a ng-click="setOrderBy('name')" class="order" translate  translate-context="gpio">
 					Name
 				</a>
 			</th>
-			<th translate translate>Mode</th>
-			<th translate translate>Value</th>
+			<th>
+				<a ng-click="setOrderBy('mode')" class="order" translate  translate-context="gpio">
+					Mode
+				</a>
+			</th>
+			<th>
+				<a ng-click="setOrderBy('value')" class="order" translate translate-context="gpio">
+					Value
+				</a>
+			</th>
 		</tr>
 	</thead>
 	<tbody>

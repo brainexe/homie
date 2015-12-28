@@ -4,9 +4,13 @@ namespace Homie\Arduino;
 
 use BrainExe\Core\EventDispatcher\AbstractEvent;
 use BrainExe\Core\EventDispatcher\PushViaWebsocket;
+use BrainExe\Core\Traits\SerializableTrait;
+use Zend\Stdlib\JsonSerializable;
 
-class SerialEvent extends AbstractEvent implements PushViaWebsocket
+class SerialEvent extends AbstractEvent implements PushViaWebsocket, JsonSerializable
 {
+
+    use SerializableTrait;
 
     const SERIAL = 'arduino.serial';
 

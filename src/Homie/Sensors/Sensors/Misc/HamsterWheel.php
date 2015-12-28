@@ -58,7 +58,6 @@ class HamsterWheel extends AbstractSensor implements Parameterized
     public function getDefinition()
     {
         $definition            = new Definition();
-        $definition->name      = gettext('Hamsterrad');
         $definition->type      = Definition::TYPE_NONE;
         $definition->formatter = None::TYPE;
 

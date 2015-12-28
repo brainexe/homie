@@ -8,7 +8,6 @@ use Homie\Sensors\SensorValueEvent;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\Command\Cron;
-use Homie\Sensors\Definition;
 use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorBuilder;
 use Homie\Sensors\SensorVO;
@@ -91,9 +90,6 @@ class CronTest extends TestCase
         $sensor->pin      = $pin = 12;
         $sensor->name     = 'name';
 
-        $definition = new Definition();
-        $definition->name = 'type';
-
         $this->mockTime
             ->expects($this->once())
             ->method('now')
@@ -137,9 +133,6 @@ class CronTest extends TestCase
         $sensor = new SensorVO();
         $sensor->interval = -1;
 
-        $definition = new Definition();
-        $definition->name = 'type';
-
         $this->mockTime
             ->expects($this->once())
             ->method('now')
@@ -181,15 +174,6 @@ class CronTest extends TestCase
         /** @var Sensor|MockObject $sensor */
         $sensor = $this->getMock(Sensor::class, [], [], '', false);
 
-        $definition = new Definition();
-        $definition->name = 'mockDefinitionName';
-
-        $this->builder
-            ->expects($this->once())
-            ->method('getDefinition')
-            ->with('mockType')
-            ->willReturn($definition);
-
         $event = new SensorValueEvent(
             SensorValueEvent::VALUE,
             $sensorVo,
@@ -203,7 +187,7 @@ class CronTest extends TestCase
         $this->subject->setOutput($output);
         $this->subject->handleEvent($event);
 
-        $this->assertEquals('#42: mockDefinitionName (mockName): 10°', trim($output->fetch()));
+        $this->assertEquals('#42: mockType (mockName): 10°', trim($output->fetch()));
     }
 
     public function testHandleErrorEvent()
@@ -215,15 +199,6 @@ class CronTest extends TestCase
 
         /** @var Sensor|MockObject $sensor */
         $sensor = $this->getMock(Sensor::class, [], [], '', false);
-
-        $definition = new Definition();
-        $definition->name = 'mockDefinitionName';
-
-        $this->builder
-            ->expects($this->once())
-            ->method('getDefinition')
-            ->with('mockType')
-            ->willReturn($definition);
 
         $value = 10;
         $valueFormatted = '10°';
@@ -242,6 +217,6 @@ class CronTest extends TestCase
         $this->subject->setOutput($output);
         $this->subject->handleErrorEvent($event);
 
-        $this->assertEquals('#42: Error while fetching value of sensor mockDefinitionName (mockName)', trim($output->fetch()));
+        $this->assertEquals('#42: Error while fetching value of sensor mockType (mockName)', trim($output->fetch()));
     }
 }

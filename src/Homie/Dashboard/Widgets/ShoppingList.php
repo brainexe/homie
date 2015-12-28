@@ -20,8 +20,8 @@ class ShoppingList extends AbstractWidget
     {
         $metadata = new WidgetMetadataVo(
             $this->getId(),
-            gettext('Shopping List'),
-            gettext('Displays/manage current shopping list'),
+            ('Shopping List'),
+            ('Displays/manage current shopping list'),
             []
         );
         return $metadata

@@ -123,7 +123,6 @@ class DS18Test extends TestCase
     public function testGetDefinition()
     {
         $definition            = new Definition();
-        $definition->name      = 'Temperature';
         $definition->type      = Definition::TYPE_TEMPERATURE;
         $definition->formatter = Temperature::TYPE;
 

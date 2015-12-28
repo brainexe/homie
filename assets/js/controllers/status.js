@@ -1,12 +1,19 @@
 
 App.controller('StatusController', ['$scope', 'Status', 'Cache', function ($scope, Status, Cache) {
-    var REFRESH_INTERVAL = 15000;
+    var REFRESH_INTERVAL = 20000;
 
     $scope.stats   = {};
     $scope.jobs    = {};
     $scope.cache   = Cache;
     $scope.cacheSize     = JSON.stringify(Cache.info().storageImpl).length / 1000;
     $scope.redisSections = {};
+
+    $scope.$on('message_queue.handled', function(event, data) {
+        var job = data.job;
+        if ($scope.jobs[job.jobId]) {
+            $scope.jobs[job.jobId] = job;
+        }
+    });
 
     $scope.update = function () {
         Status.getData().success(function (data) {

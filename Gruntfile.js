@@ -1,6 +1,8 @@
 module.exports = function (grunt) {
     'use strict';
 
+    var fs = require('fs');
+
     grunt.config('env', grunt.option('env') || process.env.ENVIRONMENT || 'development');
     var isProduction = grunt.config('env') == 'production';
 
@@ -17,7 +19,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-manifest');
     grunt.loadNpmTasks('grunt-exec');
 
-    grunt.registerTask('extract_lang', ['nggettext_extract']);
+    grunt.registerTask('extract_lang', ['php_gettext_extract', 'nggettext_extract', 'pot_merge']);
     grunt.registerTask('compile_lang', ['nggettext_compile']);
 
     grunt.registerTask('bower', function () {
@@ -30,6 +32,29 @@ module.exports = function (grunt) {
             done();
         });
         child.stdout.pipe(process.stdout);
+        child.stderr.pipe(process.stderr);
+    });
+
+    grunt.registerTask('php_gettext_extract', function () {
+        var done = this.async();
+        var exec = require('child_process').exec;
+        exec('xgettext --from-code=utf-8 -o lang/pot/php.pot $(find src vendor/brainexe -name *.php)', function(err, stdout, stderr) {
+            done();
+        });
+    });
+
+    grunt.registerTask('pot_merge', function () {
+        var done = this.async();
+
+        var potStream = fs.createWriteStream('lang/pot/all.pot', {flags: 'w'});
+
+        var child = grunt.util.spawn({
+            cmd: 'msgcat',
+            args: ['--use-first', 'lang/pot/frontend.pot', 'lang/pot/php.pot']
+        }, function (err, out) {
+            done();
+        });
+        child.stdout.pipe(potStream);
         child.stderr.pipe(process.stderr);
     });
 
@@ -65,7 +90,7 @@ module.exports = function (grunt) {
         nggettext_extract: {
             pot: {
                 files: {
-                    'lang/template.pot': [
+                    'lang/pot/frontend.pot': [
                         'assets/templates/**/*.html',
                         'assets/js/**/*.js',
                         'assets/**/*.html',

@@ -89,7 +89,6 @@ class DS18 extends AbstractSensor implements Searchable
     public function getDefinition()
     {
         $definition            = new Definition();
-        $definition->name      = gettext('Temperature');
         $definition->type      = Definition::TYPE_TEMPERATURE;
         $definition->formatter = Temperature::TYPE;
 

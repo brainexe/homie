@@ -86,7 +86,6 @@ class OnBoard extends AbstractSensor implements Searchable
     public function getDefinition()
     {
         $definition            = new Definition();
-        $definition->name      = gettext('Temp. Onboard');
         $definition->type      = Definition::TYPE_TEMPERATURE;
         $definition->formatter = Temperature::TYPE;
 

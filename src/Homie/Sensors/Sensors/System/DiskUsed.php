@@ -60,7 +60,6 @@ class DiskUsed extends AbstractSensor
     public function getDefinition()
     {
         $definition            = new Definition();
-        $definition->name      = gettext('Disk used (bytes)');
         $definition->type      = Definition::TYPE_DISK;
         $definition->formatter = Bytes::TYPE;
 

@@ -26,8 +26,7 @@
 				<!--todo fix datetime picker-->
 				<input
 						type="text" class="form-control"
-						datepicker-popup="dd-MMMM-yyyy"
-						ng-fodatepicker-popup="dd-MMMM-yyyy"
+						uib-datepicker-popup="dd-MMMM-yyyy"
 						ng-model="newDateline"
 						placeholder="{{'Deadline'|translate}}"
 						datepicker-options="{}"
@@ -49,7 +48,7 @@
 		 ng-model="statusId"
 		 ui-on-Drop="onDrop(statusId, $event, $data, status.tasks)"
 	>
-		<div class="panel-heading">{{ status.name }}</div>
+		<div class="panel-heading">{{statusId|translateToken:'todo.status.{0}.name'}}</div>
 		<div class="panel-body">
 			<div
 					ng-repeat="item in items|filter:statusId|orderBy:'name'"

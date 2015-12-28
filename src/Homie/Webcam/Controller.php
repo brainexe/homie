@@ -99,9 +99,7 @@ class Controller
     {
         $filename = $request->query->get('shotId');
 
-        $this->webcam->delete($filename);
-
-        return true;
+        return $this->webcam->delete($filename);
     }
 
     /**
@@ -118,7 +116,7 @@ class Controller
         $response = new Response();
         $response->setContent(stream_get_contents($stream));
         $response->headers->set('Content-Type', $mime);
-        $response->headers->set('Cache-Control', 'max-age=86400, must-revalidate');
+        $response->headers->set('Cache-Control', 'max-age=86400');
 
         return $response;
     }

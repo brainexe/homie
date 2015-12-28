@@ -7,6 +7,7 @@ bower_components
 composer.lock
 coverage
 lang/*.mo
+lang/pot/all.pot
 node_modules
 npm-debug.log
 vendor

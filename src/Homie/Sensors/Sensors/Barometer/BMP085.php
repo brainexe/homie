@@ -69,7 +69,6 @@ class BMP085 extends AbstractSensor implements Parameterized
     public function getDefinition()
     {
         $definition            = new Definition();
-        $definition->name      = gettext('BMP085 Barometer');
         $definition->type      = Definition::TYPE_BAROMETER;
         $definition->formatter = Barometer::TYPE;
 

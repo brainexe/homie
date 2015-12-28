@@ -6,17 +6,19 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Authentication\LoadUser;
+use BrainExe\Core\Translation\TranslationProvider;
 use Homie\TodoList\TodoList;
 use Homie\TodoList\VO\TodoItemVO;
-
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @todo repeatable tasks
  * @Controller("ToDoListController")
  */
-class TodoListController
+class TodoListController implements TranslationProvider
 {
+
+    const TOKEN_NAME = 'todo.status.%s.name';
 
     /**
      * @var TodoList
@@ -51,7 +53,7 @@ class TodoListController
 
         return [
             'list'   => iterator_to_array($list),
-            'states' => $this->getStates()
+            'states' => self::getStates()
         ];
     }
 
@@ -125,28 +127,35 @@ class TodoListController
     /**
      * @return array[]
      */
-    protected function getStates()
+    protected static function getStates()
     {
-        $states = [
+        return [
             TodoItemVO::STATUS_PENDING => [
-                'name' => _('Pending'),
                 'next' => [TodoItemVO::STATUS_OPEN, 'delete']
             ],
             TodoItemVO::STATUS_OPEN => [
-                'name' => _('Open'),
                 'next' => [TodoItemVO::STATUS_PROGRESS, TodoItemVO::STATUS_COMPLETED, 'delete']
             ],
             TodoItemVO::STATUS_PROGRESS => [
-                'name' => _('In Progress'),
                 'next' => [TodoItemVO::STATUS_COMPLETED, 'delete']
             ],
             TodoItemVO::STATUS_COMPLETED => [
-                'name' => _('Completed'),
                 'next' => ['delete'],
                 'hidden' => true
             ],
         ];
+    }
 
-        return $states;
+    /**
+     * @return string[]
+     */
+    public static function getTokens()
+    {
+        $states = array_keys(self::getStates());
+        $states[] = 'delete';
+
+        foreach ($states as $stateId) {
+            yield sprintf(self::TOKEN_NAME, $stateId);
+        }
     }
 }

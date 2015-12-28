@@ -1,0 +1,191 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-12-28 15:07+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: src/Homie/Switches/Controller/Controller.php:107
+#, php-format
+msgid "Invalid switch type: %s"
+msgstr ""
+
+#: src/Homie/TodoList/Listener.php:35
+#, php-format
+msgid "Erinnerung: %s"
+msgstr ""
+
+#: src/Homie/TodoList/TodoReminder.php:50
+msgid "Erinnerung"
+msgstr ""
+
+#: src/Homie/TodoList/TodoReminder.php:99
+#, php-format
+msgid "%d task in progress"
+msgid_plural "%d tasks in progress"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Homie/TodoList/TodoReminder.php:102
+#, php-format
+msgid "%d open task"
+msgid_plural "%d open tasks"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Homie/TodoList/TodoReminder.php:114
+msgid "one"
+msgstr ""
+
+#: src/Homie/Dashboard/Dashboard.php:68
+msgid "Dashboard"
+msgstr ""
+
+#: src/Homie/Dashboard/Widgets/SensorGraph.php:70
+msgid "Sensors"
+msgstr ""
+
+#: src/Homie/Dashboard/Widgets/SensorGraph.php:75
+#: src/Homie/Dashboard/Widgets/SensorWidget.php:50
+msgid "From"
+msgstr ""
+
+#: src/Homie/Dashboard/Widgets/SwitchWidget.php:49
+msgid "Switch"
+msgstr ""
+
+#: src/Homie/Dashboard/Widgets/WidgetMetadataVo.php:72
+msgid "Width"
+msgstr ""
+
+#: src/Homie/Dashboard/Widgets/WidgetMetadataVo.php:79
+msgid "Height"
+msgstr ""
+
+#: src/Homie/Dashboard/Widgets/WidgetMetadataVo.php:95
+msgid "Title"
+msgstr ""
+
+#: src/Homie/Dashboard/Widgets/SensorInput.php:44
+#: src/Homie/Dashboard/Widgets/SensorWidget.php:44
+msgid "Sensor"
+msgstr ""
+
+#: src/Homie/Dashboard/Widgets/Speak.php:43
+msgid "Speaker"
+msgstr ""
+
+#: src/Homie/Dashboard/Widgets/Expression.php:40
+msgid "Template"
+msgstr ""
+
+#: src/Homie/Dashboard/Widgets/Expression.php:45
+msgid "Variables"
+msgstr ""
+
+#: src/Homie/Dashboard/Widgets/Expression.php:50
+msgid "Reload Interval in seconds"
+msgstr ""
+
+#: src/Homie/Dashboard/Widgets/Expression.php:57
+msgid "Reload Button"
+msgstr ""
+
+#: src/Homie/Dashboard/Widgets/Display.php:48
+msgid "Display"
+msgstr ""
+
+#: src/Homie/Dashboard/Widgets/Webcam.php:27
+msgid "Show recent image"
+msgstr ""
+
+#: src/Homie/Sensors/Formatter/Percentage.php:29
+#, php-format
+msgid "%d Percent"
+msgstr ""
+
+#: src/Homie/Sensors/Formatter/Temperature.php:28
+#, php-format
+msgid "%0.1f Degree"
+msgstr ""
+
+#: src/Homie/Sensors/Chart.php:55
+msgid "Last hour"
+msgstr ""
+
+#: src/Homie/Sensors/Chart.php:56
+msgid "Last 3 hours"
+msgstr ""
+
+#: src/Homie/Sensors/Chart.php:57
+msgid "Last day"
+msgstr ""
+
+#: src/Homie/Sensors/Chart.php:58
+msgid "Last week"
+msgstr ""
+
+#: src/Homie/Sensors/Chart.php:59
+msgid "Last month"
+msgstr ""
+
+#: src/Homie/Sensors/Chart.php:60
+msgid "All time"
+msgstr ""
+
+#: vendor/brainexe/expression/src/Controller/Controller.php:81
+msgid "No actions defined"
+msgstr ""
+
+#: vendor/brainexe/expression/vendor/brainexe/core/src/Middleware/Authentication.php:76
+#: vendor/brainexe/input-control/vendor/brainexe/core/src/Middleware/Authentication.php:76
+#: vendor/brainexe/totp/vendor/brainexe/core/src/Middleware/Authentication.php:76
+#: vendor/brainexe/core/src/Middleware/Authentication.php:76
+msgid "Not logged in"
+msgstr ""
+
+#: vendor/brainexe/expression/vendor/brainexe/core/src/Middleware/CatchUserException.php:62
+#: vendor/brainexe/input-control/vendor/brainexe/core/src/Middleware/CatchUserException.php:62
+#: vendor/brainexe/totp/vendor/brainexe/core/src/Middleware/CatchUserException.php:62
+#: vendor/brainexe/core/src/Middleware/CatchUserException.php:62
+msgid "An error occurred"
+msgstr ""
+
+#: vendor/brainexe/totp/src/OneTimePassword.php:84
+msgid "No one time secret requested"
+msgstr ""
+
+#: vendor/brainexe/totp/src/OneTimePassword.php:88
+msgid "No one time token given"
+msgstr ""
+
+#: vendor/brainexe/totp/src/OneTimePassword.php:94
+#, php-format
+msgid "Invalid token: \"%s\"!"
+msgstr ""
+
+#: vendor/brainexe/totp/src/OneTimePassword.php:118
+msgid "No email address defined for this user"
+msgstr ""
+
+#: vendor/brainexe/totp/src/OneTimePassword.php:125
+msgid "Invalid username"
+msgstr ""
+
+#: vendor/brainexe/core/src/Authentication/Controller/UserController.php:65
+#, php-format
+msgid "Invalid avatar: %s"
+msgstr ""

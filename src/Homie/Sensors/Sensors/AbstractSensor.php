@@ -2,13 +2,15 @@
 
 namespace Homie\Sensors\Sensors;
 
+use BrainExe\Core\Translation\TranslationProvider;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Interfaces\Sensor;
 
-abstract class AbstractSensor implements Sensor
+abstract class AbstractSensor implements Sensor, TranslationProvider
 {
-
     const TYPE = 'unknown';
+
+    const TOKEN_NAME = 'sensor.%s.name';
 
     /**
      * @return string
@@ -34,5 +36,13 @@ abstract class AbstractSensor implements Sensor
     protected function round($value, $multiplier = 1)
     {
         return (int)($value / $multiplier) * $multiplier;
+    }
+
+    /**
+     * @return string[]
+     */
+    public static function getTokens()
+    {
+        yield sprintf(self::TOKEN_NAME, self::getSensorType());
     }
 }

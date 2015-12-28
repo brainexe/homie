@@ -19,8 +19,8 @@ class Webcam extends AbstractWidget
     {
         $metadata = new WidgetMetadataVo(
             $this->getId(),
-            gettext('Webcam'),
-            gettext('Take shots')
+            ('Webcam'),
+            ('Take shots')
         );
 
         $metadata->parameters['showImage'] = [

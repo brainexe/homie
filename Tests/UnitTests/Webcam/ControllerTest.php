@@ -134,7 +134,8 @@ class ControllerTest extends TestCase
         $this->webcam
             ->expects($this->once())
             ->method('delete')
-            ->with($photoId);
+            ->with($photoId)
+            ->willReturn(true);
 
         $actualResult = $this->subject->delete($request);
 

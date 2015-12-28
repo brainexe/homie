@@ -70,7 +70,6 @@ class Webcam extends AbstractSensor
     public function getDefinition()
     {
         $definition            = new Definition();
-        $definition->name      = gettext('DB');
         $definition->type      = Definition::TYPE_NONE;
         $definition->formatter = None::TYPE;
         $definition->neededPackages = [

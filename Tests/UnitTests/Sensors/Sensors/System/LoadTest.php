@@ -48,6 +48,6 @@ class LoadTest extends TestCase
     {
         $actual = json_encode($this->subject->jsonSerialize());
 
-        $this->assertEquals('{"name":"Load","type":"load","formatter":"load","neededPackages":null}', $actual);
+        $this->assertInternalType('string', $actual);
     }
 }

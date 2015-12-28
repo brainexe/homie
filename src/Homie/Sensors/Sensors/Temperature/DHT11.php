@@ -36,7 +36,6 @@ class DHT11 extends AbstractDHT11
     public function getDefinition()
     {
         $definition            = new Definition();
-        $definition->name      = gettext('Temperature (DTH)');
         $definition->type      = Definition::TYPE_TEMPERATURE;
         $definition->formatter = Temperature::TYPE;
 

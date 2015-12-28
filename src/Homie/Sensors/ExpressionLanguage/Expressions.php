@@ -37,15 +37,5 @@ class Expressions implements DefaultExpression
             'increaseCounter()'
         ];
         yield $cleanCron;
-
-        $websocketNotification = new Entity();
-        $websocketNotification->expressionId = 'sensorNotification';
-        $websocketNotification->conditions = [
-            'isEvent("sensor.value")'
-        ];
-        $websocketNotification->actions = [
-            'pushViaWebsocket()'
-        ];
-        yield $websocketNotification;
     }
 }

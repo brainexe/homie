@@ -19,8 +19,8 @@ class TodoList extends AbstractWidget
     {
         $metadata = new WidgetMetadataVo(
             $this->getId(),
-            gettext('Todo List'),
-            gettext('Displays/manage current todo list'),
+            ('Todo List'),
+            ('Displays/manage current todo list'),
             []
         );
         return $metadata

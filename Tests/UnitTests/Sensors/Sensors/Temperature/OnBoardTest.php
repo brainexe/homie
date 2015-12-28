@@ -98,7 +98,6 @@ class OnBoardTest extends TestCase
     public function testGetDefinition()
     {
         $definition            = new Definition();
-        $definition->name      = _('Temp. Onboard');
         $definition->type      = Definition::TYPE_TEMPERATURE;
         $definition->formatter = Temperature::TYPE;
 

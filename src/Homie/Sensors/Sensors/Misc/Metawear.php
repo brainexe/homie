@@ -8,39 +8,31 @@ use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\None;
 use Homie\Sensors\Interfaces\Parameterized;
+use Homie\Sensors\Interfaces\Searchable;
 use Homie\Sensors\Sensors\AbstractSensor;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * @Sensor("Sensor.Misc.Script")
+ * @Sensor("Sensor.Misc.Metawear")
  */
-class Script extends AbstractSensor implements Parameterized
+class Metawear extends AbstractSensor
 {
 
-    const TYPE = 'custom.script';
-
-    /**
-     * @var ClientInterface
-     */
-    private $client;
-
-    /**
-     * @Inject({"@HomieClient"})
-     * @param ClientInterface $client
-     */
-    public function __construct(
-        ClientInterface $client
-    ) {
-        $this->client = $client;
-    }
+    const TYPE = 'custom.metawear';
 
     /**
      * @param integer $parameter
-     * @return string
+     * @return float
      */
     public function getValue($parameter)
     {
-        return $this->client->executeWithReturn($parameter);
+        $url = sprintf('http://localhost:8082/%s/', $parameter); // TODO load from node
+        $content = file_get_contents($url);
+        if ($content === false) {
+            return null;
+        }
+
+        return (float)$content;
     }
 
     /**
@@ -48,9 +40,7 @@ class Script extends AbstractSensor implements Parameterized
      */
     public function isSupported($parameter, OutputInterface $output)
     {
-        $current = $this->getValue($parameter);
-
-        return $current !== null;
+        return $this->getValue($parameter) !== null;
     }
 
     /**
