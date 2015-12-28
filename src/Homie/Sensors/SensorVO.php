@@ -28,7 +28,7 @@ class SensorVO
     /**
      * @var string
      */
-    public $pin;
+    public $parameter;
 
     /**
      * @var int

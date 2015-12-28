@@ -10,9 +10,11 @@ use Homie\Sensors\Formatter\None;
 use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\Interfaces\Searchable;
 use Homie\Sensors\Sensors\AbstractSensor;
+use Homie\Sensors\SensorVO;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
+ * @todo searchable (temperature / pressure / brigtness...)
  * @Sensor("Sensor.Misc.Metawear")
  */
 class Metawear extends AbstractSensor
@@ -21,12 +23,11 @@ class Metawear extends AbstractSensor
     const TYPE = 'custom.metawear';
 
     /**
-     * @param integer $parameter
-     * @return float
+     * {@inheritdoc}
      */
-    public function getValue($parameter)
+    public function getValue(SensorVO $sensor)
     {
-        $url = sprintf('http://localhost:8082/%s/', $parameter); // TODO load from node
+        $url = sprintf('http://localhost:8082/%s/', $sensor->parameter); // TODO load from node
         $content = file_get_contents($url);
         if ($content === false) {
             return null;
@@ -38,9 +39,9 @@ class Metawear extends AbstractSensor
     /**
      * {@inheritdoc}
      */
-    public function isSupported($parameter, OutputInterface $output)
+    public function isSupported(SensorVO $sensor, OutputInterface $output)
     {
-        return $this->getValue($parameter) !== null;
+        return $this->getValue($sensor->parameter) !== null;
     }
 
     /**

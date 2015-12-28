@@ -5,6 +5,7 @@ namespace Tests\Homie\Sensors\Sensors\Decibel;
 use Homie\Client\ClientInterface;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Sensors\Decibel\Webcam;
+use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\Console\Output\NullOutput;
@@ -39,7 +40,9 @@ class WebcamTest extends TestCase
             ->method('executeWithReturn')
             ->willReturn(10);
 
-        $actual = $this->subject->getValue(10);
+        $sensor = new SensorVO();
+        $sensor->parameter = 10;
+        $actual = $this->subject->getValue($sensor);
 
         $this->assertEquals(20, $actual);
     }
@@ -48,7 +51,10 @@ class WebcamTest extends TestCase
     {
         $parameter = null;
         $output = new NullOutput();
-        $actual = $this->subject->isSupported($parameter, $output);
+
+        $sensor = new SensorVO();
+        $sensor->parameter = $parameter;
+        $actual = $this->subject->isSupported($sensor, $output);
 
         $this->assertTrue($actual);
     }

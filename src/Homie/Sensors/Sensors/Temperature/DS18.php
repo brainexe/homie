@@ -10,6 +10,7 @@ use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\Temperature;
 use Homie\Sensors\Interfaces\Searchable;
 use Homie\Sensors\Sensors\AbstractSensor;
+use Homie\Sensors\SensorVO;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -42,16 +43,15 @@ class DS18 extends AbstractSensor implements Searchable
     }
 
     /**
-     * @param integer $path
-     * @return double
+     * {@inheritdoc}
      */
-    public function getValue($path)
+    public function getValue(SensorVO $sensor)
     {
-        if (!$this->fileSystem->exists($path)) {
+        if (!$this->fileSystem->exists($sensor->parameter)) {
             return null;
         }
 
-        $content = $this->fileSystem->fileGetContents($path);
+        $content = $this->fileSystem->fileGetContents($sensor->parameter);
 
         return $this->parseContent($content);
     }
@@ -59,14 +59,14 @@ class DS18 extends AbstractSensor implements Searchable
     /**
      * {@inheritdoc}
      */
-    public function isSupported($parameter, OutputInterface $output)
+    public function isSupported(SensorVO $sensor, OutputInterface $output)
     {
-        if (!$this->fileSystem->exists($parameter)) {
+        if (!$this->fileSystem->exists($sensor->parameter)) {
             $output->writeln(
                 sprintf(
                     '<error>%s: w1 bus not exists: %s</error>',
                     self::TYPE,
-                    $parameter
+                    $sensor->parameter
                 )
             );
             return false;

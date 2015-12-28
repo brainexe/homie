@@ -84,11 +84,11 @@ class CronTest extends TestCase
             $sensorRaw = []
         ];
 
-        $sensor = new SensorVO();
-        $sensor->sensorId = 10;
-        $sensor->type     = $type = 'type';
-        $sensor->pin      = $pin = 12;
-        $sensor->name     = 'name';
+        $sensor            = new SensorVO();
+        $sensor->sensorId  = 10;
+        $sensor->type      = $type = 'type';
+        $sensor->parameter = 12;
+        $sensor->name      = 'name';
 
         $this->mockTime
             ->expects($this->once())

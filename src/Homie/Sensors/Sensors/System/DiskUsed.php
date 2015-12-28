@@ -7,6 +7,7 @@ use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\Bytes;
 use Homie\Sensors\Sensors\AbstractSensor;
+use Homie\Sensors\SensorVO;
 use Symfony\Component\Console\Output\OutputInterface;
 use BrainExe\Annotations\Annotations\Inject;
 
@@ -31,13 +32,12 @@ class DiskUsed extends AbstractSensor
         $this->client = $client;
     }
 
-
     /**
      * {@inheritdoc}
      */
-    public function getValue($parameter)
+    public function getValue(SensorVO $sensor)
     {
-        $content = $this->client->executeWithReturn('df . --output=used');
+        $content = $this->client->executeWithReturn('df', ['.', '--output=used']);
 
         if (preg_match('/(\d+)/', $content, $matches)) {
             return (int)$matches[1] * 1000; // -> we get kb
@@ -49,7 +49,7 @@ class DiskUsed extends AbstractSensor
     /**
      * {@inheritdoc}
      */
-    public function isSupported($parameter, OutputInterface $output)
+    public function isSupported(SensorVO $sensorVO, OutputInterface $output)
     {
         return true;
     }

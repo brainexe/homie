@@ -5,6 +5,7 @@ namespace Tests\Homie\Sensors\Sensors\Brightness;
 use Homie\Client\ClientInterface;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Sensors\Brightness\Webcam;
+use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\Console\Output\NullOutput;
@@ -41,7 +42,9 @@ class WebcamTest extends TestCase
             ->method('executeWithReturn')
             ->willReturn('gray(3)');
 
-        $actual = $this->subject->getValue(10);
+        $sensor = new SensorVO();
+        $sensor->parameter = $parameter = 10;
+        $actual = $this->subject->getValue($sensor);
 
         $this->assertEquals(3, $actual);
     }
@@ -56,7 +59,9 @@ class WebcamTest extends TestCase
             ->method('executeWithReturn')
             ->willReturn('black');
 
-        $actual = $this->subject->getValue(10);
+        $sensor = new SensorVO();
+        $sensor->parameter = $parameter = 10;
+        $actual = $this->subject->getValue($sensor);
 
         $this->assertNull($actual);
     }
@@ -64,8 +69,11 @@ class WebcamTest extends TestCase
     public function testIsSupported()
     {
         $parameter = null;
+        $sensor = new SensorVO();
+        $sensor->parameter = $parameter;
+
         $output = new NullOutput();
-        $actual = $this->subject->isSupported($parameter, $output);
+        $actual = $this->subject->isSupported($sensor, $output);
 
         $this->assertTrue($actual);
     }

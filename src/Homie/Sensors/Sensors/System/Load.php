@@ -6,6 +6,7 @@ use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\Load as Formatter;
 use Homie\Sensors\Sensors\AbstractSensor;
+use Homie\Sensors\SensorVO;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -19,9 +20,9 @@ class Load extends AbstractSensor
     /**
      * {@inheritdoc}
      */
-    public function getValue($parameter)
+    public function getValue(SensorVO $sensor)
     {
-        unset($parameter);
+        unset($sensor);
 
         return sys_getloadavg()[0];
     }
@@ -29,7 +30,7 @@ class Load extends AbstractSensor
     /**
      * {@inheritdoc}
      */
-    public function isSupported($parameter, OutputInterface $output)
+    public function isSupported(SensorVO $sensorVO, OutputInterface $output)
     {
         return true;
     }

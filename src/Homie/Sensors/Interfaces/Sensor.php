@@ -2,6 +2,7 @@
 
 namespace Homie\Sensors\Interfaces;
 
+use Homie\Sensors\SensorVO;
 use JsonSerializable;
 use Homie\Sensors\Definition;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -15,17 +16,17 @@ interface Sensor extends JsonSerializable
     public function getSensorType();
 
     /**
-     * @param integer $parameter
-     * @return double
+     * @param SensorVO $sensor
+     * @return float
      */
-    public function getValue($parameter);
+    public function getValue(SensorVO $sensor);
 
     /**
-     * @param string $parameter
+     * @param SensorVO $sensor
      * @param OutputInterface $output
      * @return bool
      */
-    public function isSupported($parameter, OutputInterface $output);
+    public function isSupported(SensorVO $sensor, OutputInterface $output);
 
     /**
      * @return Definition

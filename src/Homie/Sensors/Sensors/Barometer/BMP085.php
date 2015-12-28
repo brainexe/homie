@@ -9,6 +9,7 @@ use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\Barometer;
 use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\Sensors\AbstractSensor;
+use Homie\Sensors\SensorVO;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -36,12 +37,11 @@ class BMP085 extends AbstractSensor implements Parameterized
     }
 
     /**
-     * @param integer $parameter
-     * @return double|null
+     * {@inheritdoc}
      */
-    public function getValue($parameter)
+    public function getValue(SensorVO $sensor)
     {
-        $content = $this->client->executeWithReturn($parameter);
+        $content = $this->client->executeWithReturn($sensor->parameter);
 
         if (!$content) {
             return null;
@@ -58,9 +58,9 @@ class BMP085 extends AbstractSensor implements Parameterized
     /**
      * {@inheritdoc}
      */
-    public function isSupported($parameter, OutputInterface $output)
+    public function isSupported(SensorVO $sensor, OutputInterface $output)
     {
-        return is_file($parameter);
+        return is_file($sensor->parameter);
     }
 
     /**

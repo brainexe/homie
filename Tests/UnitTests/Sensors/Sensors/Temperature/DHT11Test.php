@@ -5,6 +5,7 @@ namespace Tests\Homie\Sensors\Sensors\Temperature;
 use Homie\Client\ClientInterface;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Sensors\Temperature\DHT11;
+use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
@@ -49,12 +50,15 @@ class DHT11Test extends TestCase
         $parameter = 3;
         $output    = "Temperature = $temp °";
 
+        $sensor = new SensorVO();
+        $sensor->parameter = $parameter;
+
         $this->client
             ->expects($this->once())
             ->method('executeWithReturn')
             ->willReturn($output);
 
-        $actualResult = $this->subject->getValue($parameter);
+        $actualResult = $this->subject->getValue($sensor);
 
         $this->assertEquals(70.3, $actualResult);
     }
@@ -64,12 +68,15 @@ class DHT11Test extends TestCase
         $parameter = 3;
         $output    = "Temp = ERROR %";
 
+        $sensor = new SensorVO();
+        $sensor->parameter = $parameter;
+
         $this->client
             ->expects($this->once())
             ->method('executeWithReturn')
             ->willReturn($output);
 
-        $actual = $this->subject->getValue($parameter);
+        $actual = $this->subject->getValue($sensor);
 
         $this->assertEquals(null, $actual);
     }
@@ -79,13 +86,16 @@ class DHT11Test extends TestCase
         $output    = new DummyOutput();
         $parameter = 'parameter';
 
+        $sensor = new SensorVO();
+        $sensor->parameter = $parameter;
+
         $this->fileSystem
             ->expects($this->once())
             ->method('exists')
             ->with($parameter)
             ->willReturn(true);
 
-        $actual = $this->subject->isSupported($parameter, $output);
+        $actual = $this->subject->isSupported($sensor, $output);
 
         $this->assertTrue($actual);
     }
@@ -101,7 +111,10 @@ class DHT11Test extends TestCase
             ->with($parameter)
             ->willReturn(false);
 
-        $actual = $this->subject->isSupported($parameter, $output);
+        $sensor = new SensorVO();
+        $sensor->parameter = $parameter;
+
+        $actual = $this->subject->isSupported($sensor, $output);
 
         $this->assertFalse($actual);
     }

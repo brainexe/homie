@@ -62,7 +62,7 @@ class Administration
         $sensorType  = $request->request->get('type');
         $name        = $request->request->get('name');
         $description = $request->request->get('description');
-        $pin         = $request->request->get('pin');
+        $parameter   = $request->request->get('parameter');
         $interval    = $request->request->getInt('interval');
         $node        = $request->request->getInt('node');
         $color       = $request->request->get('color');
@@ -74,7 +74,7 @@ class Administration
             $description,
             $interval,
             $node,
-            $pin,
+            $parameter,
             $sensorType,
             $color,
             $formatter
@@ -108,12 +108,12 @@ class Administration
      */
     public function edit(Request $request, $sensorId)
     {
-        $sensor   = $this->gateway->getSensor($sensorId);
-        $sensorVo = $this->voBuilder->buildFromArray($sensor);
+        $sensor                = $this->gateway->getSensor($sensorId);
+        $sensorVo              = $this->voBuilder->buildFromArray($sensor);
         $sensorVo->type        = $request->request->get('type');
         $sensorVo->name        = $request->request->get('name');
         $sensorVo->description = $request->request->get('description');
-        $sensorVo->pin         = $request->request->get('pin');
+        $sensorVo->parameter   = $request->request->get('parameter');
         $sensorVo->interval    = $request->request->getInt('interval');
         $sensorVo->color       = $request->request->get('color');
         $sensorVo->formatter   = $request->request->get('formatter');

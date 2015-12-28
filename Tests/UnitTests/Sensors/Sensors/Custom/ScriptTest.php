@@ -5,6 +5,7 @@ namespace Tests\Homie\Sensors\Sensors\Misc;
 use Homie\Client\LocalClient;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Sensors\Misc\Script;
+use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\Console\Output\NullOutput;
@@ -42,7 +43,9 @@ class ScriptTest extends TestCase
             ->with($parameter)
             ->willReturn($value);
 
-        $actual = $this->subject->getValue($parameter);
+        $sensor = new SensorVO();
+        $sensor->parameter = $parameter;
+        $actual = $this->subject->getValue($sensor);
 
         $this->assertEquals($value, $actual);
     }
@@ -58,7 +61,9 @@ class ScriptTest extends TestCase
             ->willReturn(1);
 
         $output = new NullOutput();
-        $actual = $this->subject->isSupported($parameter, $output);
+        $sensor = new SensorVO();
+        $sensor->parameter = $parameter;
+        $actual = $this->subject->isSupported($sensor, $output);
 
         $this->assertTrue($actual);
     }

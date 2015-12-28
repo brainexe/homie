@@ -5,6 +5,7 @@ namespace Tests\Homie\Sensors\Sensors\Temperature;
 use BrainExe\Core\Util\FileSystem;
 use BrainExe\Core\Util\Glob;
 use Homie\Sensors\Sensors\Temperature\DS18;
+use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\Definition;
@@ -57,9 +58,12 @@ class DS18Test extends TestCase
             ->with($file)
             ->willReturn(false);
 
-        $actualResult = $this->subject->getValue($file);
+        $sensor = new SensorVO();
+        $sensor->parameter = $file;
 
-        $this->assertNull($actualResult);
+        $actual = $this->subject->getValue($sensor);
+
+        $this->assertNull($actual);
     }
 
     /**
@@ -83,7 +87,10 @@ class DS18Test extends TestCase
             ->with($file)
             ->willReturn($content);
 
-        $actualResult = $this->subject->getValue($file);
+        $sensor = new SensorVO();
+        $sensor->parameter = $file;
+
+        $actualResult = $this->subject->getValue($sensor);
 
         $this->assertEquals($expectedResult, $actualResult);
     }
@@ -98,8 +105,11 @@ class DS18Test extends TestCase
             ->with($file)
             ->willReturn(true);
 
+        $sensor = new SensorVO();
+        $sensor->parameter = $file;
+
         $output = new DummyOutput();
-        $actualResult = $this->subject->isSupported($file, $output);
+        $actualResult = $this->subject->isSupported($sensor, $output);
 
         $this->assertTrue($actualResult);
     }
@@ -114,8 +124,11 @@ class DS18Test extends TestCase
             ->with($file)
             ->willReturn(false);
 
+        $sensor = new SensorVO();
+        $sensor->parameter = $file;
+
         $output       = new DummyOutput();
-        $actualResult = $this->subject->isSupported($file, $output);
+        $actualResult = $this->subject->isSupported($sensor, $output);
 
         $this->assertFalse($actualResult);
     }

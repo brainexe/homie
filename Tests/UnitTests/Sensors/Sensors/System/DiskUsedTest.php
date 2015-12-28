@@ -5,6 +5,7 @@ namespace Tests\Homie\Sensors\Sensors\System;
 use Homie\Client\ClientInterface;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Sensors\System\DiskUsed;
+use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
@@ -39,36 +40,35 @@ class DiskUsedTest extends TestCase
 
     public function testGetValueInvalid()
     {
-        $pin = 1;
-
         $this->client
             ->expects($this->once())
             ->method('executeWithReturn')
             ->willReturn('ads');
 
-        $actual = $this->subject->getValue($pin);
+        $sensor = new SensorVO();
+        $actual = $this->subject->getValue($sensor);
 
         $this->assertNull($actual);
     }
 
     public function testGetValue()
     {
-        $pin = 1;
-
         $this->client
             ->expects($this->once())
             ->method('executeWithReturn')
             ->willReturn('120kb');
 
-        $actual = $this->subject->getValue($pin);
+        $sensor = new SensorVO();
+        $actual = $this->subject->getValue($sensor);
 
         $this->assertEquals(120000, $actual);
     }
 
     public function testIsSupported()
     {
+        $sensor = new SensorVO();
         $output = new DummyOutput();
-        $actual = $this->subject->isSupported('', $output);
+        $actual = $this->subject->isSupported($sensor, $output);
         $this->assertTrue($actual);
     }
 

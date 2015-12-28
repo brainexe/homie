@@ -55,8 +55,8 @@ class AdministrationTest extends TestCase
     {
         $type        = 'type';
         $name        = 'name';
-        $description = 'descritpion';
-        $pin         = 'pin';
+        $description = 'description';
+        $parameter   = 'parameter';
         $interval    = 12;
         $node        = 1;
 
@@ -64,7 +64,7 @@ class AdministrationTest extends TestCase
         $request->request->set('type', $type);
         $request->request->set('name', $name);
         $request->request->set('description', $description);
-        $request->request->set('pin', $pin);
+        $request->request->set('parameter', $parameter);
         $request->request->set('interval', $interval);
         $request->request->set('node', $node);
 
@@ -80,7 +80,7 @@ class AdministrationTest extends TestCase
                 $description,
                 $interval,
                 $node,
-                $pin,
+                $parameter,
                 $type
             )
             ->willReturn($sensorVo);

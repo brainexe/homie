@@ -8,6 +8,7 @@ use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\None;
 use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\Sensors\AbstractSensor;
+use Homie\Sensors\SensorVO;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -22,9 +23,9 @@ class Redis extends AbstractSensor implements Parameterized
     /**
      * {@inheritdoc}
      */
-    public function getValue($parameter)
+    public function getValue(SensorVO $sensor)
     {
-        list ($section, $key) = explode('.', $parameter, 2);
+        list ($section, $key) = explode('.', $sensor->parameter, 2);
 
         $section = ucfirst($section);
         $data = $this->getRedis()->info($section);
@@ -39,13 +40,13 @@ class Redis extends AbstractSensor implements Parameterized
     /**
      * {@inheritdoc}
      */
-    public function isSupported($parameter, OutputInterface $output)
+    public function isSupported(SensorVO $sensor, OutputInterface $output)
     {
-        if ($this->getValue($parameter) === null) {
+        if ($this->getValue($sensor) === null) {
             $output->writeln(
                 sprintf(
                     'Invalid stats key: "%s". Use "section.key", e.g. "memory.used_memory"',
-                    $parameter
+                    $sensor->parameter
                 )
             );
             return false;

@@ -22,7 +22,7 @@ class Builder
             $data['description'],
             $data['interval'],
             $data['node'],
-            $data['pin'],
+            $data['parameter'],
             $data['type'],
             $data['color'],
             $data['formatter'],
@@ -37,7 +37,7 @@ class Builder
      * @param string $description
      * @param int $interval
      * @param int $node
-     * @param string $pin
+     * @param string $parameter
      * @param string $type
      * @param string $color
      * @param string $formatter
@@ -51,7 +51,7 @@ class Builder
         $description,
         $interval,
         $node,
-        $pin,
+        $parameter,
         $type,
         $color,
         $formatter = null,
@@ -65,7 +65,7 @@ class Builder
         $sensor->description        = $description;
         $sensor->interval           = (int)$interval;
         $sensor->node               = (int)$node;
-        $sensor->pin                = $pin;
+        $sensor->parameter          = $parameter;
         $sensor->type               = $type;
         $sensor->color              = $color;
         $sensor->lastValue          = $lastValue;

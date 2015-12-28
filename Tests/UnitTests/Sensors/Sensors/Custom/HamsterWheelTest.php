@@ -5,6 +5,7 @@ namespace Tests\Homie\Sensors\Sensors\Misc;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Sensors\Aggregate\Aggregated;
 use Homie\Sensors\Sensors\Misc\HamsterWheel;
+use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
@@ -42,7 +43,9 @@ class HamsterWheelTest extends TestCase
         $parameter = '12';
         $output = new DummyOutput();
 
-        $actual = $this->subject->isSupported($parameter, $output);
+        $sensor = new SensorVO();
+        $sensor->parameter = $parameter;
+        $actual = $this->subject->isSupported($sensor, $output);
         $this->assertTrue($actual);
     }
 }

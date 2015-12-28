@@ -6,6 +6,7 @@ use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\Percentage;
 use Homie\Sensors\Sensors\AbstractDHT11;
+use Homie\Sensors\SensorVO;
 
 /**
  * DHT11 / DHT22
@@ -19,12 +20,11 @@ class DHT11 extends AbstractDHT11
     const TYPE = 'humid.dht11';
 
     /**
-     * @param integer $parameter
-     * @return double
+     * {@inheritdoc}
      */
-    public function getValue($parameter)
+    public function getValue(SensorVO $sensor)
     {
-        $output = $this->getContent($parameter);
+        $output = $this->getContent($sensor->parameter);
 
         if (!preg_match('/(Hum|Humidity) = ([\d\.]+) %/', $output, $matches)) {
             return null;

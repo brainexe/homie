@@ -106,7 +106,7 @@ class Listener implements EventSubscriberInterface
     private function getValue(Sensor $sensor, $sensorVo)
     {
         try {
-            return $sensor->getValue($sensorVo->pin);
+            return $sensor->getValue($sensorVo);
         } catch (Exception $e) {
             $this->error('Error while fetching sensor value:' . $e->getMessage());
             return null;

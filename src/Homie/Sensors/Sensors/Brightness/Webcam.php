@@ -8,6 +8,7 @@ use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\None;
 use Homie\Sensors\Sensors\AbstractSensor;
+use Homie\Sensors\SensorVO;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -33,10 +34,9 @@ class Webcam extends AbstractSensor
     }
 
     /**
-     * @param integer $path
-     * @return double
+     * {@inheritdoc}
      */
-    public function getValue($path)
+    public function getValue(SensorVO $sensor)
     {
         $tmpFile = tempnam('/tmp', self::TYPE);
         $this->client->executeWithReturn('fswebcam', [$tmpFile]);
@@ -58,7 +58,7 @@ class Webcam extends AbstractSensor
     /**
      * {@inheritdoc}
      */
-    public function isSupported($parameter, OutputInterface $output)
+    public function isSupported(SensorVO $sensor, OutputInterface $output)
     {
         // todo check if camera is connected
         // todo check if fswebcam/imagemagic is installed

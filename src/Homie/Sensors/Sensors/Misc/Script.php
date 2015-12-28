@@ -9,6 +9,7 @@ use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\None;
 use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\Sensors\AbstractSensor;
+use Homie\Sensors\SensorVO;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -35,20 +36,19 @@ class Script extends AbstractSensor implements Parameterized
     }
 
     /**
-     * @param integer $parameter
-     * @return string
+     * {@inheritdoc}
      */
-    public function getValue($parameter)
+    public function getValue(SensorVO $sensor)
     {
-        return $this->client->executeWithReturn($parameter);
+        return $this->client->executeWithReturn($sensor->parameter);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function isSupported($parameter, OutputInterface $output)
+    public function isSupported(SensorVO $sensor, OutputInterface $output)
     {
-        $current = $this->getValue($parameter);
+        $current = $this->getValue($sensor);
 
         return $current !== null;
     }

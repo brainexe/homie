@@ -118,7 +118,7 @@ class AddTest extends TestCase
         $sensor1
             ->expects($this->once())
             ->method('isSupported')
-            ->with($parameter, $output)
+            ->with($this->isInstanceOf(SensorVO::class), $output)
             ->willReturn(false);
 
         $input = ['--force'];
@@ -166,7 +166,7 @@ class AddTest extends TestCase
 
         $name        = 'name';
         $description = 'description';
-        $parameter   = 'pin';
+        $parameter   = 'myParameter';
         $interval    = 12;
         $node        = 2;
 
@@ -222,20 +222,19 @@ class AddTest extends TestCase
         $sensor2
             ->expects($this->once())
             ->method('isSupported')
-            ->with($parameter, $output)
+            ->with($this->isInstanceOf(SensorVO::class), $output)
             ->willReturn(true);
 
         $sensor2
             ->expects($this->once())
             ->method('getValue')
-            ->with($parameter)
             ->willReturn(null);
 
         $expectedVo              = new SensorVO();
         $expectedVo->name        = $name;
         $expectedVo->type        = $sensorType2;
         $expectedVo->description = $description;
-        $expectedVo->pin         = $parameter;
+        $expectedVo->parameter   = $parameter;
         $expectedVo->interval    = $interval;
         $expectedVo->node        = $node;
         $expectedVo->color       = '#b06893';
@@ -310,7 +309,6 @@ class AddTest extends TestCase
         $sensor2
             ->expects($this->once())
             ->method('getValue')
-            ->with($parameter)
             ->willReturn(12);
 
         $formatter = $this->getMock(Formatter::class);
@@ -330,7 +328,7 @@ class AddTest extends TestCase
         $expectedVo->name        = $name;
         $expectedVo->type        = $sensorType2;
         $expectedVo->description = $description;
-        $expectedVo->pin         = null;
+        $expectedVo->parameter   = null;
         $expectedVo->interval    = $interval;
         $expectedVo->formatter   = 'formatter';
         $expectedVo->node        = $node;
@@ -363,9 +361,11 @@ class AddTest extends TestCase
         /** @var Sensor $sensor */
         $sensor = $this->getMock(Sensor::class);
 
-        $actual = $this->subject->getParameter($sensor);
+        $sensorVo = new SensorVO();
 
-        $this->assertNull($actual);
+        $this->subject->getParameter($sensorVo, $sensor);
+
+        $this->assertNull($sensorVo->parameter);
     }
 
     public function testAddWithInput()
@@ -387,9 +387,10 @@ class AddTest extends TestCase
 
         $this->subject->setInputOutput($input, $output);
 
-        $actual = $this->subject->getParameter($sensor);
+        $sensorVo = new SensorVO();
+        $this->subject->getParameter($sensorVo, $sensor);
 
-        $this->assertEquals($parameter, $actual);
+        $this->assertEquals($parameter, $sensorVo->parameter);
     }
 
     /**
@@ -418,7 +419,8 @@ class AddTest extends TestCase
             ->willReturn(null);
 
         $this->subject->setInputOutput($input, $output);
+        $sensorVo = new SensorVO();
 
-        $this->subject->getParameter($sensor);
+        $this->subject->getParameter($sensorVo, $sensor);
     }
 }

@@ -4,6 +4,7 @@ namespace Tests\Homie\Sensors\Sensors\System;
 
 use Homie\Sensors\Definition;
 use Homie\Sensors\Sensors\System\MemoryUsed;
+use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 
@@ -25,18 +26,17 @@ class MemoryUsedTest extends TestCase
 
     public function testIsSupported()
     {
-        $parameter = '12';
         $output = new DummyOutput();
+        $sensor = new SensorVO();
 
-        $actual = $this->subject->isSupported($parameter, $output);
+        $actual = $this->subject->isSupported($sensor, $output);
         $this->assertTrue($actual);
     }
 
     public function testGetValue()
     {
-        $parameter = '12';
-
-        $actual = $this->subject->getValue($parameter);
+        $sensor = new SensorVO();
+        $actual = $this->subject->getValue($sensor);
         $this->assertInternalType('int', $actual);
     }
 

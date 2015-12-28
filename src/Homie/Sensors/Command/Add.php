@@ -89,8 +89,10 @@ class Add extends Command
         $this->output = $output;
         $this->helper = $this->getHelperSet()->get('question');
 
+        $sensorVo = new SensorVO();
+
         $sensor      = $this->getSensor();
-        $parameter   = $this->getParameter($sensor);
+        $this->getParameter($sensorVo, $sensor);
         $name        = $this->getSensorName($sensor);
         $description = $this->getSensorDescription();
         $interval    = $this->getInterval();
@@ -99,7 +101,7 @@ class Add extends Command
         $formatter   = $sensor->getDefinition()->formatter;
 
         // get test value
-        $testValue = $sensor->getValue($parameter);
+        $testValue = $sensor->getValue($sensorVo);
         if ($testValue !== null) {
             $formatterModel = $this->builder->getFormatter($formatter);
             $output->writeln(
@@ -110,11 +112,9 @@ class Add extends Command
             $this->askForTermination();
         }
 
-        $sensorVo              = new SensorVO();
         $sensorVo->name        = $name;
         $sensorVo->type        = $type;
         $sensorVo->description = $description;
-        $sensorVo->pin         = $parameter;
         $sensorVo->interval    = $interval;
         $sensorVo->node        = $node;
         $sensorVo->formatter   = $formatter;
@@ -135,31 +135,30 @@ class Add extends Command
     }
 
     /**
+     * @param SensorVO $sensorVo
      * @param Sensor $sensor
-     * @return string
      * @throws Exception
      */
-    public function getParameter(Sensor $sensor)
+    public function getParameter(SensorVO $sensorVo, Sensor $sensor)
     {
         if (!$sensor instanceof Parameterized) {
-            return null;
+            return;
         }
 
         if ($this->input->getArgument('parameter')) {
-            return $this->input->getArgument('parameter');
+            $sensorVo->parameter = $this->input->getArgument('parameter');
+            return;
         }
 
-        $parameter = $this->getRawParameter($sensor);
+        $sensorVo->parameter = $this->getRawParameter($sensor);
 
         /** @var Sensor $sensor */
-        if (!$sensor->isSupported($parameter, $this->output)) {
+        if (!$sensor->isSupported($sensorVo, $this->output)) {
             $this->output->writeln('<error>Sensor is not supported</error>');
-            throw new Exception(sprintf('Parameter "%s" is not supported', $parameter));
+            throw new Exception(sprintf('Parameter "%s" is not supported', $sensorVo->parameter));
         }
 
         $this->output->writeln('<info>Sensor is supported</info>');
-
-        return $parameter;
     }
 
     /**
@@ -277,9 +276,10 @@ class Add extends Command
                 throw new Exception('No possible sensor found');
             }
             $question = new ChoiceQuestion("Parameter", $possible);
-            return $this->helper->ask($this->input, $this->output, $question);
         } else {
-            return $this->helper->ask($this->input, $this->output, new Question("Parameter?\n"));
+            $question = new Question("Parameter?\n");
         }
+
+        return $this->helper->ask($this->input, $this->output, $question);
     }
 }

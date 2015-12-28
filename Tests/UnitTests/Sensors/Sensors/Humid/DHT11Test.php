@@ -5,6 +5,7 @@ namespace Tests\Homie\Sensors\Sensors\Humid;
 use Homie\Client\ClientInterface;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Sensors\Humid\DHT11;
+use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
@@ -57,7 +58,9 @@ class DHT11Test extends TestCase
             ->method('executeWithReturn')
             ->willReturn($output);
 
-        $actual = $this->subject->getValue($parameter);
+        $sensor = new SensorVO();
+        $sensor->parameter = $parameter;
+        $actual = $this->subject->getValue($sensor);
 
         $this->assertEquals($humid, $actual);
     }
@@ -72,7 +75,9 @@ class DHT11Test extends TestCase
             ->method('executeWithReturn')
             ->willReturn($output);
 
-        $actual = $this->subject->getValue($parameter);
+        $sensor = new SensorVO();
+        $sensor->parameter = $parameter;
+        $actual = $this->subject->getValue($sensor);
 
         $this->assertNull($actual);
     }
@@ -87,8 +92,10 @@ class DHT11Test extends TestCase
             ->with($file)
             ->willReturn(true);
 
+        $sensor = new SensorVO();
+        $sensor->parameter = $file;
         $output = new DummyOutput();
-        $actualResult = $this->subject->isSupported($file, $output);
+        $actualResult = $this->subject->isSupported($sensor, $output);
 
         $this->assertTrue($actualResult);
     }
@@ -103,8 +110,10 @@ class DHT11Test extends TestCase
             ->with($file)
             ->willReturn(false);
 
+        $sensor = new SensorVO();
+        $sensor->parameter = $file;
         $output = new DummyOutput();
-        $actualResult = $this->subject->isSupported($file, $output);
+        $actualResult = $this->subject->isSupported($sensor, $output);
 
         $this->assertFalse($actualResult);
     }

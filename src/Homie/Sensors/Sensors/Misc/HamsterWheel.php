@@ -9,6 +9,7 @@ use Homie\Sensors\Formatter\None;
 use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\Sensors\AbstractSensor;
 use Homie\Sensors\Sensors\Aggregate\Aggregated;
+use Homie\Sensors\SensorVO;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -35,19 +36,18 @@ class HamsterWheel extends AbstractSensor implements Parameterized
     }
 
     /**
-     * @param integer $parameter
-     * @return string
+     * {@inheritdoc}
      */
-    public function getValue($parameter)
+    public function getValue(SensorVO $sensor)
     {
         // todo multiply by range/extend
-        return (int)$this->aggregated->getCurrent($parameter);
+        return (int)$this->aggregated->getCurrent($sensor->parameter);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function isSupported($parameter, OutputInterface $output)
+    public function isSupported(SensorVO $sensor, OutputInterface $output)
     {
         return true;
     }

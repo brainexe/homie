@@ -7,6 +7,7 @@ use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\Percentage;
 use Homie\Sensors\Sensors\AbstractSensor;
+use Homie\Sensors\SensorVO;
 use Symfony\Component\Console\Output\OutputInterface;
 use BrainExe\Annotations\Annotations\Inject;
 
@@ -35,7 +36,7 @@ class DiskUsedPercent extends AbstractSensor
     /**
      * {@inheritdoc}
      */
-    public function getValue($parameter)
+    public function getValue(SensorVO $sensor)
     {
         $content = $this->client->executeWithReturn('df .');
 
@@ -49,7 +50,7 @@ class DiskUsedPercent extends AbstractSensor
     /**
      * {@inheritdoc}
      */
-    public function isSupported($parameter, OutputInterface $output)
+    public function isSupported(SensorVO $sensor, OutputInterface $output)
     {
         return true;
     }

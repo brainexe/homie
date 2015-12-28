@@ -5,6 +5,7 @@ namespace Tests\Homie\Sensors\Sensors\Barometer;
 use Homie\Client\ClientInterface;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Sensors\Barometer\BMP085;
+use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
@@ -42,7 +43,9 @@ class BMP085Test extends TestCase
             ->with($parameter)
             ->willReturn('Pressure: 1024 hPa');
 
-        $actual = $this->subject->getValue($parameter);
+        $sensor = new SensorVO();
+        $sensor->parameter = $parameter;
+        $actual = $this->subject->getValue($sensor);
 
         $this->assertEquals(1024, $actual);
     }
@@ -57,7 +60,9 @@ class BMP085Test extends TestCase
             ->with($parameter)
             ->willReturn(null);
 
-        $actual = $this->subject->getValue($parameter);
+        $sensor = new SensorVO();
+        $sensor->parameter = $parameter;
+        $actual = $this->subject->getValue($sensor);
 
         $this->assertNull($actual);
     }
@@ -72,7 +77,9 @@ class BMP085Test extends TestCase
             ->with($parameter)
             ->willReturn('invalid');
 
-        $actual = $this->subject->getValue($parameter);
+        $sensor = new SensorVO();
+        $sensor->parameter = $parameter;
+        $actual = $this->subject->getValue($sensor);
 
         $this->assertNull($actual);
     }
@@ -81,7 +88,10 @@ class BMP085Test extends TestCase
     {
         $parameter = 'not_exiting_file';
         $output    = new DummyOutput();
-        $actual    = $this->subject->isSupported($parameter, $output);
+
+        $sensor = new SensorVO();
+        $sensor->parameter = $parameter;
+        $actual    = $this->subject->isSupported($sensor, $output);
         $this->assertFalse($actual);
     }
 

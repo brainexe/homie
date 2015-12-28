@@ -4,6 +4,7 @@ namespace Tests\Homie\Sensors\Sensors\System;
 
 use BrainExe\Tests\RedisMockTrait;
 use Homie\Sensors\Sensors\System\Redis;
+use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Predis\Client;
@@ -41,6 +42,8 @@ class RedisTest extends TestCase
     public function testGetValue()
     {
         $parameter = 'memory.used_memory';
+        $sensor = new SensorVO();
+        $sensor->parameter = $parameter;
 
         $this->redis
             ->expects($this->once())
@@ -53,7 +56,7 @@ class RedisTest extends TestCase
                 ]
             ]);
 
-        $actual = $this->subject->getValue($parameter);
+        $actual = $this->subject->getValue($sensor);
 
         $this->assertEquals(42000, $actual);
     }
@@ -73,7 +76,9 @@ class RedisTest extends TestCase
                 ]
             ]);
 
-        $actual = $this->subject->isSupported('memory.total_memory', $output);
+        $sensor = new SensorVO();
+        $sensor->parameter = $parameter = 'memory.total_memory';
+        $actual = $this->subject->isSupported($sensor, $output);
 
         $this->assertTrue($actual);
     }
@@ -92,8 +97,10 @@ class RedisTest extends TestCase
                     'used_memory' => 42000
                 ]
             ]);
+        $sensor = new SensorVO();
+        $sensor->parameter = 'memory.invalid';
 
-        $actual = $this->subject->isSupported('memory.invalid', $output);
+        $actual = $this->subject->isSupported($sensor, $output);
 
         $this->assertFalse($actual);
     }

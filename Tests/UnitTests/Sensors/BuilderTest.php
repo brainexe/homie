@@ -30,7 +30,7 @@ class BuilderTest extends TestCase
             'description' => $description = 'description',
             'interval' => $interval = 60,
             'node' => $node = 22,
-            'pin' => $pin = 'pin',
+            'parameter' => $parameter = 'parameter',
             'type' => $type = 'type',
             'color' => $color = 'blue',
             'formatter' => $formatter = 'formatter',
@@ -40,17 +40,17 @@ class BuilderTest extends TestCase
 
         $actualResult = $this->subject->buildFromArray($array);
 
-        $expected = new SensorVO();
-        $expected->sensorId = $sensorId;
-        $expected->name = $name;
-        $expected->description = $description;
-        $expected->interval = $interval;
-        $expected->node = $node;
-        $expected->pin = $pin;
-        $expected->type = $type;
-        $expected->color = $color;
-        $expected->formatter = $formatter;
-        $expected->lastValue = $lastValue;
+        $expected                     = new SensorVO();
+        $expected->sensorId           = $sensorId;
+        $expected->name               = $name;
+        $expected->description        = $description;
+        $expected->interval           = $interval;
+        $expected->node               = $node;
+        $expected->parameter          = $parameter;
+        $expected->type               = $type;
+        $expected->color              = $color;
+        $expected->formatter          = $formatter;
+        $expected->lastValue          = $lastValue;
         $expected->lastValueTimestamp = $lastValueTimestamp;
 
         $this->assertEquals($expected, $actualResult);

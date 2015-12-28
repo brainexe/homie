@@ -10,6 +10,7 @@ use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\Temperature;
 use Homie\Sensors\Interfaces\Searchable;
 use Homie\Sensors\Sensors\AbstractSensor;
+use Homie\Sensors\SensorVO;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -44,9 +45,9 @@ class OnBoard extends AbstractSensor implements Searchable
     /**
      * {@inheritdoc}
      */
-    public function getValue($parameter)
+    public function getValue(SensorVO $sensor)
     {
-        $content = $this->fileSystem->fileGetContents($parameter);
+        $content = $this->fileSystem->fileGetContents($sensor->parameter);
 
         return $this->round($content / 1000, 0.02);
     }
@@ -54,14 +55,14 @@ class OnBoard extends AbstractSensor implements Searchable
     /**
      * {@inheritdoc}
      */
-    public function isSupported($parameter, OutputInterface $output)
+    public function isSupported(SensorVO $sensor, OutputInterface $output)
     {
-        if (!$this->fileSystem->exists($parameter)) {
+        if (!$this->fileSystem->exists($sensor->parameter)) {
             $output->writeln(
                 sprintf(
                     '<error>%s: Thermal zone file does not exist: %s</error>',
                     self::TYPE,
-                    $parameter
+                    $sensor->parameter
                 )
             );
             return false;

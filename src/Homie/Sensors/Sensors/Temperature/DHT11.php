@@ -6,6 +6,7 @@ use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\Temperature;
 use Homie\Sensors\Sensors\AbstractDHT11;
+use Homie\Sensors\SensorVO;
 
 /**
  * @Sensor("Sensor.DHT11.Temperature")
@@ -16,12 +17,11 @@ class DHT11 extends AbstractDHT11
     const TYPE = 'temperature.dht11';
 
     /**
-     * @param integer $parameter
-     * @return double
+     * {@inheritdoc}
      */
-    public function getValue($parameter)
+    public function getValue(SensorVO $sensor)
     {
-        $output = $this->getContent($parameter);
+        $output = $this->getContent($sensor->parameter);
 
         if (!preg_match('/Temperature = ([\d.]+)/', $output, $matches)) {
             return null;

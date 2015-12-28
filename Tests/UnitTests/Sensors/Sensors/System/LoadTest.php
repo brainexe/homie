@@ -2,6 +2,7 @@
 
 namespace Tests\Homie\Sensors\Sensors\System;
 
+use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_TestCase as TestCase;
 use Homie\Sensors\Sensors\System\Load;
 use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
@@ -28,9 +29,8 @@ class LoadTest extends TestCase
 
     public function testGetValue()
     {
-        $pin = 1;
-
-        $actualResult = $this->subject->getValue($pin);
+        $sensor = new SensorVO();
+        $actualResult = $this->subject->getValue($sensor);
 
         $this->assertTrue(is_numeric($actualResult));
     }
@@ -38,8 +38,8 @@ class LoadTest extends TestCase
     public function testIsSupported()
     {
         $output = new DummyOutput();
-
-        $actual = $this->subject->isSupported('', $output);
+        $sensor = new SensorVO();
+        $actual = $this->subject->isSupported($sensor, $output);
 
         $this->assertTrue($actual);
     }
