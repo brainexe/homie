@@ -69,9 +69,6 @@ class Dashboard
             ]);
         }
 
-        $widget = $this->widgets->getWidget($type);
-        $widget->validate($payload);
-
         $payload['type'] = $type;
 
         $this->gateway->addWidget($dashboardId, $payload);

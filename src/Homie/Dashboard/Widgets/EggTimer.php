@@ -25,6 +25,8 @@ class EggTimer extends AbstractWidget
             []
         );
 
-        return $metadata->setSize(4, 3);
+        return $metadata
+            ->addTitle()
+            ->setSize(4, 3);
     }
 }

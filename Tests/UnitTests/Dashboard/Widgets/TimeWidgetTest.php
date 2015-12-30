@@ -25,21 +25,6 @@ class TimeWidgetTest extends TestCase
         $this->assertEquals(Time::TYPE, $actualResult);
     }
 
-    public function testValidate()
-    {
-        $payload = [];
-
-        $actualResult = $this->subject->validate($payload);
-        $this->assertTrue($actualResult);
-    }
-
-    public function testCreate()
-    {
-        $payload = [];
-
-        $this->subject->create($payload);
-    }
-
     public function testSerialize()
     {
         $actualResult = $this->subject->getMetadata();

@@ -5,7 +5,6 @@ namespace Tests\Homie\Dashboard;
 use BrainExe\Core\Util\IdGenerator;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Homie\Dashboard\AbstractWidget;
 use Homie\Dashboard\Dashboard;
 use Homie\Dashboard\DashboardGateway;
 use Homie\Dashboard\WidgetFactory;
@@ -82,19 +81,6 @@ class DashboardTest extends TestCase
         $payload = [];
         $payload['type'] = $type;
 
-        $widget = $this->getMock(AbstractWidget::class);
-
-        $this->widgetFactory
-            ->expects($this->once())
-            ->method('getWidget')
-            ->with($type)
-            ->willReturn($widget);
-
-        $widget
-            ->expects($this->once())
-            ->method('validate')
-            ->with($payload);
-
         $this->gateway
             ->expects($this->once())
             ->method('addWidget')
@@ -110,23 +96,10 @@ class DashboardTest extends TestCase
         $payload = [];
         $payload['type'] = $type;
 
-        $widget = $this->getMock(AbstractWidget::class);
-
-        $this->widgetFactory
-            ->expects($this->once())
-            ->method('getWidget')
-            ->with($type)
-            ->willReturn($widget);
-
         $this->idGenerator
             ->expects($this->once())
             ->method('generateUniqueId')
             ->willReturn($dashboardId);
-
-        $widget
-            ->expects($this->once())
-            ->method('validate')
-            ->with($payload);
 
         $this->gateway
             ->expects($this->once())

@@ -14,10 +14,9 @@ use Homie\Sensors\SensorVO;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * @todo searchable (temperature / pressure / brigtness...)
  * @Sensor("Sensor.Misc.Metawear")
  */
-class Metawear extends AbstractSensor
+class Metawear extends AbstractSensor implements Searchable
 {
 
     const TYPE = 'custom.metawear';
@@ -41,7 +40,7 @@ class Metawear extends AbstractSensor
      */
     public function isSupported(SensorVO $sensor, OutputInterface $output)
     {
-        return $this->getValue($sensor->parameter) !== null;
+        return $this->getValue($sensor) !== null;
     }
 
     /**
@@ -54,5 +53,17 @@ class Metawear extends AbstractSensor
         $definition->formatter = None::TYPE;
 
         return $definition;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function search()
+    {
+        return [
+            'temperature',
+            'pressure',
+            'brightness'
+        ];
     }
 }

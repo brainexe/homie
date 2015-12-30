@@ -16,6 +16,8 @@ module.exports = {
 
         client = clients[name] = redis.createClient();
 
+        // todo auth + select DB
+
         return client;
     }
 };

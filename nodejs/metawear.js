@@ -5,7 +5,7 @@ var port    = config['metawear.port'];
 
 var currentDevice = null;
 devices.discover(function(device) {
-    console.log('Discovered device');
+    console.log('discovered device', device.address);
     device.on('disconnect', function () {
         console.log('we got disconnected! :( ');
     });
@@ -44,7 +44,23 @@ http.createServer(function(request, response){
             );
 
             temperature.getValue(function(value) {
-                writeResponse(200, value);
+                writeResponse(200, "" + value);
+            });
+            break;
+        case '/pressure/':
+            var barometer = new currentDevice.Barometer(currentDevice);
+
+            barometer.enablePressure(function(value) {
+                writeResponse(200, "" + value);
+                barometer.disable();
+            });
+            break;
+        case '/brightness/':
+            var light = new currentDevice.AmbiantLight(currentDevice);
+
+            light.enable(function(value) {
+                writeResponse(200, "" + value);
+                light.disable();
             });
             break;
         default:

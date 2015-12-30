@@ -165,7 +165,6 @@ class ListenerTest extends TestCase
         $expectedEvent = new SensorValueEvent(
             SensorValueEvent::VALUE,
             $sensorVo,
-            $sensor,
             $value,
             '42°',
             $now

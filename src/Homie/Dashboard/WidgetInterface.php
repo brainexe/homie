@@ -16,18 +16,4 @@ interface WidgetInterface
      * @return WidgetMetadataVo
      */
     public function getMetadata();
-
-    /**
-     * @param array $payload
-     * @return mixed
-     * @deprecated can be removed?
-     */
-    public function create(array $payload);
-
-    /**
-     * @param array $payload
-     * @return mixed
-     * @deprecated can be removed?
-     */
-    public function validate(array $payload);
 }

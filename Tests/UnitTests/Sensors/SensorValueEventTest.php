@@ -2,7 +2,6 @@
 
 namespace Tests\Homie\Sensors;
 
-use Homie\Sensors\Interfaces\Sensor;
 use Homie\Sensors\SensorValueEvent;
 use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_TestCase as TestCase;
@@ -16,8 +15,6 @@ class SensorValueEventTest extends TestCase
     public function testProperties()
     {
         $sensorVo       = new SensorVO();
-        /** @var Sensor $sensor */
-        $sensor         = $this->getMock(Sensor::class);
         $value          = 'value';
         $valueFormatted = 'valueFormatted';
         $timestamp      = 'valueFormatted';
@@ -26,7 +23,6 @@ class SensorValueEventTest extends TestCase
         $subject = new SensorValueEvent(
             $eventName,
             $sensorVo,
-            $sensor,
             $value,
             $valueFormatted,
             $timestamp

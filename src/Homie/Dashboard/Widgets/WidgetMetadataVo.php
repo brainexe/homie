@@ -13,16 +13,6 @@ class WidgetMetadataVo
     const KEY_BOOLEAN    = 'boolean';
 
     /**
-     * @var string
-     */
-    public $name;
-
-    /**
-     * @var string
-     */
-    public $description;
-
-    /**
      * @var array[]
      */
     public $parameters = [];
@@ -51,8 +41,6 @@ class WidgetMetadataVo
     public function __construct($widgetId, $name, $description, array $parameters = [])
     {
         $this->widgetId    = $widgetId;
-        $this->name        = $name;
-        $this->description = $description;
         $this->parameters  = $parameters;
 
         $this->setSize(4, 2);
@@ -61,7 +49,7 @@ class WidgetMetadataVo
     /**
      * @param int $width
      * @param int $height
-     * @return $this
+     * @return self
      */
     public function setSize($width, $height)
     {
@@ -87,14 +75,13 @@ class WidgetMetadataVo
     }
 
     /**
-     * @return $this
+     * @return self
      */
     public function addTitle()
     {
         $new = ['title' => [
             'name'    => gettext('Title'),
             'type'    => self::TEXT,
-            'default' => $this->name
         ]];
         $this->parameters = $new + $this->parameters;
 

@@ -19,11 +19,6 @@ class SensorValueEvent extends AbstractEvent implements PushViaWebsocket
     public $sensorVo;
 
     /**
-     * @var Sensor
-     */
-    public $sensor;
-
-    /**
      * @var float
      */
     public $value;
@@ -41,7 +36,6 @@ class SensorValueEvent extends AbstractEvent implements PushViaWebsocket
     /**
      * @param string $eventName
      * @param SensorVO $sensorVo
-     * @param Sensor $sensor
      * @param float $value
      * @param string $valueFormatted
      * @param integer $timestamp
@@ -49,7 +43,6 @@ class SensorValueEvent extends AbstractEvent implements PushViaWebsocket
     public function __construct(
         $eventName,
         SensorVO $sensorVo,
-        Sensor $sensor,
         $value,
         $valueFormatted,
         $timestamp
@@ -57,7 +50,6 @@ class SensorValueEvent extends AbstractEvent implements PushViaWebsocket
         parent::__construct($eventName);
         $this->sensorVo       = $sensorVo;
         $this->value          = $value;
-        $this->sensor         = $sensor;
         $this->valueFormatted = $valueFormatted;
         $this->timestamp      = $timestamp;
     }

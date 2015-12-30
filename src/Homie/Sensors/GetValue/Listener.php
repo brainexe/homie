@@ -71,15 +71,13 @@ class Listener implements EventSubscriberInterface
 
         $value = $this->getValue($sensor, $sensorVo);
         if ($value === null) {
-            $event = new SensorValueEvent(
+            $this->dispatcher->dispatchEvent(new SensorValueEvent(
                 SensorValueEvent::ERROR,
                 $sensorVo,
-                $sensor,
                 $value,
                 null,
                 $this->now()
-            );
-            $this->dispatcher->dispatchEvent($event);
+            ));
             return;
         }
 
@@ -90,7 +88,6 @@ class Listener implements EventSubscriberInterface
         $event = new SensorValueEvent(
             SensorValueEvent::VALUE,
             $sensorVo,
-            $sensor,
             $value,
             $formattedValue,
             $this->now()

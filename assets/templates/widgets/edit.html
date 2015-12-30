@@ -6,12 +6,12 @@
                 class="close"
                 data-dismiss="modal"
                 aria-hidden="true">&times;</button>
-        <h4 class="modal-title" translate>Edit Widget - {{widget.name}}</h4>
+        <h4 class="modal-title">{{'Edit Widget'|translate}} - {{widget.widgetId|translateToken:'dashboard.widget.{0}.name'}}</h4>
     </div>
     <div class="modal-body navbar-forms navbar-lefts">
         <div class="row">
             <div class="col-lg-10" ng-if="widget">
-                <div class="alert alert-info">{{widget.description}}</div>
+                <div class="alert alert-info">{{widget.widgetId|translateToken:'dashboard.widget.{0}.description'}}</div>
             </div>
             <div class="col-lg-5">
                 <div

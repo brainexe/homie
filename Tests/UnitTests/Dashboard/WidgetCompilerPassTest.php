@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Homie\Dashboard\WidgetCompilerPass;
+namespace Tests\Homie\Dashboard;
 
 use Homie\Dashboard\Widgets\Time;
 use PHPUnit_Framework_TestCase as TestCase;

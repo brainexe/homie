@@ -25,6 +25,8 @@ class Time extends AbstractWidget
             []
         );
 
-        return $metadata->setSize(3, 3);
+        return $metadata
+            ->addTitle()
+            ->setSize(3, 3);
     }
 }

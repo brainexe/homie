@@ -39,6 +39,7 @@ class SensorBuilder
     /**
      * @param string $type
      * @param Sensor $sensor
+     * @todo lazy load sensors
      */
     public function addSensor($type, Sensor $sensor)
     {

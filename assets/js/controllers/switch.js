@@ -16,8 +16,15 @@ App.controller('SwitchController', ['$scope', 'Switches', 'MessageQueue', '_', f
         $scope.radioPins = data.radioPins;
     });
 
-    MessageQueue.getJobs(Switches.JOB_ID, true).success(function(data) {
+    MessageQueue.getJobs(Switches.JOB_ID).success(function(data) {
         $scope.jobs = data;
+    });
+
+    $scope.$on('message_queue.handled', function(event, data) {
+        var job = data.job;
+        if ($scope.jobs[job.jobId]) {
+            delete $scope.jobs[job.jobId];
+        }
     });
 
     /**

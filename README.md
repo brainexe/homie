@@ -32,7 +32,9 @@ phpunit --testsuite integration
 ```
 
 ## End to end test:
-```npm install -g protractor
+```
+npm install -g protractor webdriver-manager
+php console user:create testuser testpassword admin
 webdriver-manager start
 cd test/Frontend
 protractor config.js

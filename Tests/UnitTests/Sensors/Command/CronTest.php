@@ -171,13 +171,9 @@ class CronTest extends TestCase
         $valueFormatted = '10°';
         $timestamp = 1000;
 
-        /** @var Sensor|MockObject $sensor */
-        $sensor = $this->getMock(Sensor::class, [], [], '', false);
-
         $event = new SensorValueEvent(
             SensorValueEvent::VALUE,
             $sensorVo,
-            $sensor,
             $value,
             $valueFormatted,
             $timestamp
@@ -197,9 +193,6 @@ class CronTest extends TestCase
         $sensorVo->type = 'mockType';
         $sensorVo->name = 'mockName';
 
-        /** @var Sensor|MockObject $sensor */
-        $sensor = $this->getMock(Sensor::class, [], [], '', false);
-
         $value = 10;
         $valueFormatted = '10°';
         $timestamp = 1000;
@@ -207,7 +200,6 @@ class CronTest extends TestCase
         $event = new SensorValueEvent(
             SensorValueEvent::VALUE,
             $sensorVo,
-            $sensor,
             $value,
             $valueFormatted,
             $timestamp

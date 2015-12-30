@@ -28,6 +28,8 @@ class Webcam extends AbstractWidget
             'type'   => WidgetMetadataVo::KEY_BOOLEAN
         ];
 
-        return $metadata->setSize(4, 3);
+        return $metadata
+            ->addTitle()
+            ->setSize(4, 3);
     }
 }

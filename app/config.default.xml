@@ -4,6 +4,8 @@
         <parameter key="environment">development</parameter>
         <parameter key="node.id">0</parameter>
 
+        <parameter key="socket.internal.port">8081</parameter>
+        <!--<parameter key="socket.url">/socket</parameter>-->
         <parameter key="socket.url">http://localhost:8081/socket</parameter>
 
         <parameter key="metawear.port">8082</parameter>

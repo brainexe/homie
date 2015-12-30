@@ -122,4 +122,15 @@ class Administration
 
         return $sensorVo;
     }
+
+    /**
+     * @param Request $request
+     * @param string $sensorType
+     * @return string[]
+     * @Route("/sensors/{sensorId}/search/", name="sensor.search", methods="GET")
+     */
+    public function search(Request $request, $sensorType)
+    {
+        //  TODO
+    }
 }
