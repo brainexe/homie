@@ -2,7 +2,7 @@
 
 namespace Tests\Homie\Display;
 
-use BrainExe\Expression\Language;
+use Homie\Expression\Language;
 use Homie\Display\Renderer;
 use Homie\Display\Settings;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;

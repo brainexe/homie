@@ -37,8 +37,6 @@ class SensorGraph extends AbstractWidget
     {
         $metadata = new WidgetMetadataVo(
             $this->getId(),
-            ('Sensor Graph'),
-            ('Displays a Sensor Graph of given sensors'),
             $this->getParameters()
         );
 

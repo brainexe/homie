@@ -36,8 +36,6 @@ class Speak extends AbstractWidget
     {
         $metadata = new WidgetMetadataVo(
             $this->getId(),
-            ('Speak'),
-            ('Speaks a given text.'),
             [
                 'speaker' => [
                     'name'    => gettext('Speaker'),

@@ -67,9 +67,8 @@ class Listener implements EventSubscriberInterface
     public function handle(Event $event)
     {
         $sensorVo = $event->getSensorVo();
-        $sensor   = $this->builder->build($sensorVo->type);
 
-        $value = $this->getValue($sensor, $sensorVo);
+        $value = $this->getValue($sensorVo);
         if ($value === null) {
             $this->dispatcher->dispatchEvent(new SensorValueEvent(
                 SensorValueEvent::ERROR,
@@ -85,23 +84,23 @@ class Listener implements EventSubscriberInterface
 
         $formatter      = $this->builder->getFormatter($sensorVo->formatter);
         $formattedValue = $formatter->formatValue($value);
-        $event = new SensorValueEvent(
+        $this->dispatcher->dispatchEvent(new SensorValueEvent(
             SensorValueEvent::VALUE,
             $sensorVo,
             $value,
             $formattedValue,
             $this->now()
-        );
-        $this->dispatcher->dispatchEvent($event);
+        ));
     }
 
     /**
-     * @param Sensor $sensor
      * @param SensorVO $sensorVo
      * @return float|null
      */
-    private function getValue(Sensor $sensor, $sensorVo)
+    private function getValue($sensorVo)
     {
+        $sensor = $this->builder->build($sensorVo->type);
+
         try {
             return $sensor->getValue($sensorVo);
         } catch (Exception $e) {

@@ -5,7 +5,7 @@ namespace Homie\Sensors\ExpressionLanguage;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use Homie\Sensors\SensorGateway;
-use Prophecy\Exception\InvalidArgumentException;
+use InvalidArgumentException;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
@@ -33,16 +33,16 @@ class Language implements ExpressionFunctionProviderInterface
      */
     public function getFunctions()
     {
-        $sensorValue = new ExpressionFunction('getSensorValue', function () {
-            throw new InvalidArgumentException('getSensorValue not implemented');
-        }, function (array $variables, $value) {
-            return $this->gateway->getSensor($value)['lastValue'];
+        $sensorValue = new ExpressionFunction('getSensorValue', function ($sensorId) {
+            return sprintf('$container->get("SensorGateway")->getSensor(%d)["lastValue"]', $sensorId);
+        }, function (array $variables, $sensorId) {
+            return $this->gateway->getSensor($sensorId)['lastValue'];
         });
 
-        $sensor = new ExpressionFunction('getSensor', function () {
-            throw new InvalidArgumentException('getSensor not implemented');
-        }, function (array $variables, $value) {
-            return $this->gateway->getSensor($value);
+        $sensor = new ExpressionFunction('getSensor', function ($sensorId) {
+            return sprintf('$container->get("SensorGateway")->getSensor(%d)', $sensorId);
+        }, function (array $variables, $sensorId) {
+            return $this->gateway->getSensor($sensorId);
         });
 
         return [$sensorValue, $sensor];

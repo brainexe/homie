@@ -62,7 +62,7 @@ class Espeak
         }
 
         $command = sprintf(
-            'espeak %s -s %d -a %d -v%ss --stdout | aplay',
+            'espeak %s -s %d -a %d -v%ss',
             escapeshellarg($text),
             $speed,
             $volume,

@@ -56,8 +56,11 @@ class LanguageTest extends TestCase
 
         $evaluator = $function->getEvaluator();
         $actual = $evaluator([], $sensorId);
-
         $this->assertEquals($sensor, $actual);
+
+        $compiler = $function->getCompiler();
+        $actual = $compiler([], $sensorId);
+        $this->assertInternalType('string', $actual);
     }
 
     public function testGetSensorValue()
@@ -80,7 +83,10 @@ class LanguageTest extends TestCase
 
         $evaluator = $function->getEvaluator();
         $actual = $evaluator([], $sensorId);
-
         $this->assertEquals($value, $actual);
+
+        $compiler = $function->getCompiler();
+        $actual = $compiler([], $sensorId);
+        $this->assertInternalType('string', $actual);
     }
 }

@@ -6,14 +6,13 @@
 
         <parameter key="socket.internal.port">8081</parameter>
         <!--<parameter key="socket.url">/socket</parameter>-->
-        <parameter key="socket.url">http://localhost:8081/socket</parameter>
+        <parameter key="socket.url">http://localhost:%socket.internal.port%/socket</parameter>
 
         <parameter key="metawear.port">8082</parameter>
 
         <parameter key="gpio.executable">gpio</parameter>
 
         <parameter key="rc_switch.command">sudo /opt/rcswitch-pi/send</parameter>
-        <parameter key="adafruit.path">/opt/Adafruit-Raspberry-Pi-Python-Code/Adafruit_DHT_Driver/</parameter>
 
         <parameter key="webcam.executable.photo">fswebcam {{file}}</parameter>
         <parameter key="webcam.executable.sound">timeout $(({{duration}}+2)) arecord -f cd -d {{duration}} -t raw | lame -x -r - {{file}}</parameter>

@@ -41,8 +41,6 @@ class Display extends AbstractWidget
 
         $metadata = new WidgetMetadataVo(
             $this->getId(),
-            ('Display'),
-            ('Show rendered display content'),
             [
                 'displayId' => [
                     'name'   => gettext('Display'),

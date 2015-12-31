@@ -26,6 +26,8 @@ class NodeTest extends TestCase
         $this->subject->setAddress('newAddress');
         $this->subject->setName('newName');
 
+        $this->assertEquals($type, $this->subject->getType());
+
         $expected = [
             'nodeId' => $nodeId,
             'name' => 'newName',

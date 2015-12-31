@@ -34,20 +34,12 @@ class SwitchWidget extends AbstractWidget
      */
     public function getMetadata()
     {
-        $values = [];
-
-        foreach ($this->switches->getAll() as $switchId => $switch) {
-            $values[$switchId] = $switch->name;
-        }
-
         $metadata = new WidgetMetadataVo(
             $this->getId(),
-            ('Switch'),
-            ('Control your switches.'),
             [
                 'switchIds' => [
                     'name'   => gettext('Switch'),
-                    'values' => $values,
+                    'values' => $this->getSwitches(),
                     'type'   => WidgetMetadataVo::MULTI_SELECT
                 ]
             ]
@@ -56,5 +48,17 @@ class SwitchWidget extends AbstractWidget
         return $metadata
             ->addTitle()
             ->setSize(4, 3);
+    }
+
+    /**
+     * @return array
+     */
+    protected function getSwitches()
+    {
+        $values = [];
+        foreach ($this->switches->getAll() as $switchId => $switch) {
+            $values[$switchId] = $switch->name;
+        }
+        return $values;
     }
 }

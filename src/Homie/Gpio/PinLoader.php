@@ -83,14 +83,7 @@ class PinLoader
      */
     protected function parsePins()
     {
-        try {
-            $command = sprintf(GpioManager::GPIO_COMMAND_READALL, $this->gpioExecutable);
-            $file = $this->client->executeWithReturn($command);
-        } catch (Exception $e) {
-            $file = file_get_contents(__DIR__ . '/gpio.txt');
-        }
-
-        $lines      = explode("\n", $file);
+        $lines      = explode("\n", $this->loadFile());
         $type       = trim($lines[0], ' +-');
         $this->pins = new PinsCollection($type);
 
@@ -105,6 +98,19 @@ class PinLoader
 
             yield $part1;
             yield $part2;
+        }
+    }
+
+    /**
+     * @return string
+     */
+    protected function loadFile()
+    {
+        try {
+            $command = sprintf(GpioManager::GPIO_COMMAND_READALL, $this->gpioExecutable);
+            return $this->client->executeWithReturn($command);
+        } catch (Exception $e) {
+            return file_get_contents(__DIR__ . '/gpio.txt');
         }
     }
 }

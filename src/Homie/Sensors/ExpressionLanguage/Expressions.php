@@ -3,8 +3,8 @@
 namespace Homie\Sensors\ExpressionLanguage;
 
 use BrainExe\Annotations\Annotations\Service;
-use BrainExe\Expression\CompilerPass\DefaultExpression;
-use BrainExe\Expression\Entity;
+use Homie\Expression\CompilerPass\DefaultExpression;
+use Homie\Expression\Entity;
 
 /**
  * @Service("Sensors.ExpressionLanguage", public=false, tags={{"name"="default_expressions"}})

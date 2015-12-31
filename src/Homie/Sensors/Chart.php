@@ -22,14 +22,12 @@ class Chart
     {
         foreach ($sensors as $sensor) {
             $sensorId = $sensor['sensorId'];
-
             if (empty($sensorValues[$sensorId])) {
                 continue;
             }
 
             $sensorJson = [
                 'sensor_id'   => (int)$sensorId,
-                'type'        => $sensor['type'],
                 'color'       => $sensor['color'],
                 'name'        => $sensor['name'],
                 'description' => $sensor['description'],
@@ -41,7 +39,6 @@ class Chart
                 $sensorJson['data'][] = (int)$timestamp;
                 $sensorJson['data'][] = (double)$value;
             }
-
             yield $sensorJson;
         }
     }

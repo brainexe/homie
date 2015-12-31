@@ -11,20 +11,4 @@ use Homie\Dashboard\AbstractWidget;
 class Status extends AbstractWidget
 {
     const TYPE = 'status';
-
-    /**
-     * @return WidgetMetadataVo
-     */
-    public function getMetadata()
-    {
-        $metadata = new WidgetMetadataVo(
-            $this->getId(),
-            ('Status'),
-            ('Show internal information')
-        );
-
-        return $metadata
-            ->addTitle()
-            ->setSize(4, 3);
-    }
 }

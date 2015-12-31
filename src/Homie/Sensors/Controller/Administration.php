@@ -5,7 +5,9 @@ namespace Homie\Sensors\Controller;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
+use BrainExe\Core\Application\UserException;
 use Homie\Sensors\Builder;
+use Homie\Sensors\Interfaces\Searchable;
 use Homie\Sensors\SensorBuilder;
 use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorVO;
@@ -127,10 +129,18 @@ class Administration
      * @param Request $request
      * @param string $sensorType
      * @return string[]
+     * @throws UserException
      * @Route("/sensors/{sensorId}/search/", name="sensor.search", methods="GET")
      */
     public function search(Request $request, $sensorType)
     {
-        //  TODO
+        unset($request);
+
+        $sensor = $this->builder->build($sensorType);
+        if (!$sensor instanceof Searchable) {
+            throw new UserException(sprintf(_('Sensor %s is not searchable'), $sensorType));
+        }
+
+        return $sensor->search();
     }
 }

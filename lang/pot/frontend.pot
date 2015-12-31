@@ -241,7 +241,7 @@ msgid "Edit Mode"
 msgstr ""
 
 #: assets/templates/widgets/edit.html:9
-msgid "Edit Widget - {{widget.name}}"
+msgid "Edit Widget"
 msgstr ""
 
 #: assets/js/models/Controllers.js:14
@@ -484,7 +484,7 @@ msgstr ""
 msgid "Reload"
 msgstr ""
 
-#: assets/js/controllers/switch.js:37
+#: assets/js/controllers/switch.js:44
 msgid "Remove this Job?"
 msgstr ""
 
@@ -493,7 +493,7 @@ msgid "Repeat Password"
 msgstr ""
 
 #: assets/templates/user/otp.html:20
-msgid "Requet One Time Secret"
+msgid "Request One Time Secret"
 msgstr ""
 
 #: assets/templates/status.html:9

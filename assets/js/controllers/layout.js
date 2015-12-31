@@ -101,7 +101,6 @@ App.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gette
             sensorValues[event.sensorVo.sensorId] = event.value;
             var text = '{0}: {1}'.format(event.sensorVo.name, event.valueFormatted);
             BrowserNotification.show(text);
-            console.log(sensorValues)
         }
     });
 }]);

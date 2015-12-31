@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-28 15:07+0100\n"
+"POT-Creation-Date: 2015-12-30 13:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -67,15 +67,15 @@ msgstr ""
 msgid "Switch"
 msgstr ""
 
-#: src/Homie/Dashboard/Widgets/WidgetMetadataVo.php:72
+#: src/Homie/Dashboard/Widgets/WidgetMetadataVo.php:60
 msgid "Width"
 msgstr ""
 
-#: src/Homie/Dashboard/Widgets/WidgetMetadataVo.php:79
+#: src/Homie/Dashboard/Widgets/WidgetMetadataVo.php:67
 msgid "Height"
 msgstr ""
 
-#: src/Homie/Dashboard/Widgets/WidgetMetadataVo.php:95
+#: src/Homie/Dashboard/Widgets/WidgetMetadataVo.php:83
 msgid "Title"
 msgstr ""
 

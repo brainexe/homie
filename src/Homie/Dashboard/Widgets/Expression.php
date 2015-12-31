@@ -19,8 +19,6 @@ class Expression extends AbstractWidget
     {
         $metadata = new WidgetMetadataVo(
             $this->getId(),
-            ('Expression'),
-            ('Evaluate any expression'),
             $this->getParameters()
         );
 

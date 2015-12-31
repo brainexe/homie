@@ -1,4 +1,6 @@
-server {
+# /etc/nginx/sites-enabled/homie.conf
+
+```server {
     server_name homie.example.de;
     root   /www/homie/web/;
 
@@ -27,4 +29,5 @@ server {
         fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
     }
 }
+```
 
