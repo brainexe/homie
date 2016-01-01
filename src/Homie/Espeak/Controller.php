@@ -56,7 +56,7 @@ class Controller
      */
     public function speak(Request $request)
     {
-        $speaker   = $request->request->get('speaker') ?: null;
+        $speaker   = $request->request->get('speaker');
         $text      = $request->request->get('text');
         $volume    = $request->request->getInt('volume');
         $speed     = $request->request->getInt('speed');

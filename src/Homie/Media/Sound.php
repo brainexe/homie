@@ -12,7 +12,10 @@ use Homie\Client\ClientInterface;
 class Sound
 {
 
-    const COMMAND = 'mplayer %s';
+    const ROOT = ROOT . '/assets/sounds/';
+
+    // todo configurable
+    const COMMAND = 'mplayer';
 
     /**
      * @var ClientInterface
@@ -33,7 +36,6 @@ class Sound
      */
     public function playSound($file)
     {
-        $command = sprintf(self::COMMAND, escapeshellarg($file));
-        $this->client->execute($command);
+        $this->client->execute(self::COMMAND, [self::ROOT . $file]);
     }
 }

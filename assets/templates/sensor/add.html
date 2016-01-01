@@ -15,7 +15,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label" translate>Type</label>
                 <div class="col-sm-10">
-                    <ui-select required ng-model="newSensor.type" ng-change="newSensor.formatter = $select.selected.value.formatter">
+                    <ui-select required ng-model="newSensor.type" ng-change="changedType($select.selected.key); newSensor.formatter = $select.selected.value.formatter">
                         <ui-select-match placeholder="{{'Select a type...'|translate}}">{{$select.selected.key|translateToken:'sensor.{0}.name'}}</ui-select-match>
                         <ui-select-choices group-by="'type.value.type'" repeat="type.key as type in types|toObjectArray">
                             <span>{{type.key|translateToken:'sensor.{0}.name'}}</span>
@@ -48,7 +48,7 @@
                     />
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-if="parameters !== false">
                 <label class="col-sm-2 control-label" translate>Parameter</label>
                 <div class="col-sm-10">
                     <input
@@ -57,6 +57,12 @@
                             class="form-control"
                             placeholder="{{'Parameter'|translate}}"
                     />
+
+                    <select
+                            ng-model="newSensor.pin"
+                            class="form-control"
+                            ng-options="parameter in parameters">
+                    </select>
                 </div>
             </div>
             <div class="form-group">

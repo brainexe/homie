@@ -19,7 +19,11 @@ class Controller
     private $config = [];
 
     /**
-     * @Inject({"%debug%", "%socket.url%", "%locales%"})
+     * @Inject({
+     *     "%debug%",
+     *     "%socket.url%",
+     *     "%locales%"
+     * })
      * @param bool $debug
      * @param string $socketUrl
      * @param string[] $locales
@@ -38,7 +42,6 @@ class Controller
      */
     public function index()
     {
-        // todo ServeFileTrait
         $response = file_get_contents(ROOT . '/web/index.html');
 
         return new Response($response);

@@ -49,7 +49,7 @@ class ListenerTest extends TestCase
         $this->sound
             ->expects($this->once())
             ->method('playSound')
-            ->with(ROOT . EggTimer::EGG_TIMER_RING_SOUND);
+            ->with(EggTimer::EGG_TIMER_RING_SOUND);
 
         $this->subject->handleEggTimerEvent($event);
     }
@@ -70,7 +70,7 @@ class ListenerTest extends TestCase
         $this->sound
             ->expects($this->once())
             ->method('playSound')
-            ->with(ROOT . EggTimer::EGG_TIMER_RING_SOUND);
+            ->with(EggTimer::EGG_TIMER_RING_SOUND);
 
         $this->subject->handleEggTimerEvent($event);
     }

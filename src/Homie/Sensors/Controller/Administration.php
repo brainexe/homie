@@ -7,10 +7,12 @@ use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Application\UserException;
 use Homie\Sensors\Builder;
+use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\Interfaces\Searchable;
 use Homie\Sensors\SensorBuilder;
 use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorVO;
+use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -130,17 +132,46 @@ class Administration
      * @param string $sensorType
      * @return string[]
      * @throws UserException
-     * @Route("/sensors/{sensorId}/search/", name="sensor.search", methods="GET")
+     * @Route("/sensors/{sensorId}/parameters/", name="sensor.search", methods="GET")
      */
-    public function search(Request $request, $sensorType)
+    public function parameters(Request $request, $sensorType)
     {
         unset($request);
 
         $sensor = $this->builder->build($sensorType);
+        if (!$sensor instanceof Parameterized) {
+            return false;
+        }
+
         if (!$sensor instanceof Searchable) {
-            throw new UserException(sprintf(_('Sensor %s is not searchable'), $sensorType));
+            return true;
         }
 
         return $sensor->search();
+    }
+
+    /**
+     * @param Request $request
+     * @param string $sensorType
+     * @param string $parameter
+     * @return string[]
+     * @Route("/sensors/{sensorId}/{parameter}/valid/", name="sensor.valid", methods="GET")
+     */
+    public function isValid(Request $request, $sensorType, $parameter)
+    {
+        unset($request);
+
+        $sensor = $this->builder->build($sensorType);
+
+        $output = new DummyOutput();
+        $sensorVo = new SensorVO();
+        $sensorVo->parameter = $parameter;
+
+        $isValid = $sensor->isSupported($sensorVo, $output);
+
+        return [
+            'isValid' => $isValid,
+            'message' => implode("<br/>", $output->getLogs())
+        ];
     }
 }

@@ -36,7 +36,7 @@ class SoundTest extends TestCase
         $this->client
             ->expects($this->once())
             ->method('execute')
-            ->with("mplayer 'file'");
+            ->with("mplayer", [Sound::ROOT . 'file']);
 
         $this->subject->playSound($file);
     }

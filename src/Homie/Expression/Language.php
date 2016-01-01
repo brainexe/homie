@@ -35,7 +35,8 @@ class Language extends ExpressionLanguage
             'date',
             'time',
             'microtime',
-            'rand'
+            'rand',
+            'round',
         ];
 
         foreach ($functions as $function) {
@@ -82,11 +83,11 @@ class Language extends ExpressionLanguage
             return $parameters['eventName'] === $eventId;
         });
 
-        $this->register('pushViaWebsocket', function () {
-            throw new Exception('pushViaWebsocket() not implemented');
-        }, function ($parameters) {
-            $this->getDispatcher()->dispatchAsWebsocketEvent($parameters['event']);
-        });
+//        $this->register('pushViaWebsocket', function () {
+//            throw new Exception('pushViaWebsocket() not implemented');
+//        }, function ($parameters) {
+//            $this->getDispatcher()->dispatchAsWebsocketEvent($parameters['event']);
+//        });
 
         $this->register('exec', function () {
             throw new Exception('exec() not implemented');

@@ -16,6 +16,8 @@ class Espeak
 
     use TimeTrait;
 
+    const COMMAND = 'espeak'; // todo config
+
     const DEFAULT_SPEAKER = 'de+m1';
 
     /**
@@ -61,14 +63,11 @@ class Espeak
             return;
         }
 
-        $command = sprintf(
-            'espeak %s -s %d -a %d -v%ss',
-            escapeshellarg($text),
-            $speed,
-            $volume,
-            $speaker
-        );
-
-        $this->client->execute($command);
+        $this->client->execute(self::COMMAND, [
+            $text,
+            '-s', $speed,
+            '-a', $volume,
+            sprintf('-v%ss', $speaker)
+        ]);
     }
 }

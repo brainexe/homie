@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Homie\Webcam\Webcam;
+namespace Tests\Homie\Webcam;
 
 use League\Flysystem\Filesystem;
 use PHPUnit_Framework_TestCase as TestCase;

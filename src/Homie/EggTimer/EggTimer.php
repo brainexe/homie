@@ -15,7 +15,7 @@ use Homie\Espeak\EspeakVO;
 class EggTimer
 {
 
-    const EGG_TIMER_RING_SOUND = 'assets/sounds/egg_timer.mp3';
+    const EGG_TIMER_RING_SOUND = 'egg_timer.mp3';
 
     use EventDispatcherTrait;
 

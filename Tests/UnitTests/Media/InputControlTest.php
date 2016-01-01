@@ -1,16 +1,16 @@
 <?php
 
-namespace Tests\Homie\Webcam;
+namespace Tests\Homie\Media;
 
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\InputControl\Event;
-use Homie\Webcam\InputControl;
-use Homie\Webcam\WebcamEvent;
+use Homie\Media\InputControl;
+use Homie\Media\SoundEvent;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 
 /**
- * @covers Homie\Webcam\InputControl
+ * @covers Homie\Media\InputControl
  */
 class InputControlTest extends TestCase
 {
@@ -38,24 +38,14 @@ class InputControlTest extends TestCase
         $this->assertInternalType('array', $actual);
     }
 
-    public function testTakeShot()
+    public function testPlaySound()
     {
         $this->eventDispatcher
             ->expects($this->once())
-            ->method('dispatchInBackground')
-            ->with($this->isInstanceOf(WebcamEvent::class));
+            ->method('dispatchEvent')
+            ->with($this->isInstanceOf(SoundEvent::class));
 
-        $this->subject->takeShot();
-    }
-
-    public function testTakeVideo()
-    {
         $event = new Event();
-        $this->eventDispatcher
-            ->expects($this->once())
-            ->method('dispatchInBackground')
-            ->with($this->isInstanceOf(WebcamEvent::class));
-
-        $this->subject->takeVideo($event);
+        $this->subject->play($event);
     }
 }

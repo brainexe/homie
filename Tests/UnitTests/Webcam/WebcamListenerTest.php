@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Homie\Webcam\WebcamListener;
+namespace Tests\Homie\Webcam;
 
 use Homie\Webcam\Recorder;
 use PHPUnit_Framework_TestCase as TestCase;

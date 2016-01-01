@@ -41,6 +41,12 @@ App.controller('ExpressionController', ['$scope', '$rootScope', 'Expression', 'M
         $scope.editExpression = expression;
     };
 
+    $scope.evaluateAction = function(expression, action) {
+        Expression.evaluate(action).success(function(result) {
+            alert(result); // todo nice UI
+        });
+    };
+
     $scope.deleteAction = function(index) {
         $scope.editExpression.actions.splice(index, 1);
     };

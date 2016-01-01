@@ -37,7 +37,7 @@ class Listener
      */
     public function handleEggTimerEvent(EggTimerEvent $event)
     {
-        $this->sound->playSound(ROOT . EggTimer::EGG_TIMER_RING_SOUND);
+        $this->sound->playSound(EggTimer::EGG_TIMER_RING_SOUND);
 
         if ($event->espeak) {
             $newEvent = new EspeakEvent($event->espeak);

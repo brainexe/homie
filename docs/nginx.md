@@ -1,4 +1,6 @@
-# /etc/nginx/sites-enabled/homie.conf
+# Recommend configuration for nginx webserver
+
+/etc/nginx/sites-enabled/homie.conf
 
 ```server {
     server_name homie.example.de;
@@ -8,6 +10,11 @@
 
     # serve pre-generated .gz file
     gzip_static  on;
+
+    # If the serer is available via the internet, it's recommended to use additional HTTP-auth
+    # allow   192.168.0.0/24;
+    # auth_basic            "Restricted";
+    # auth_basic_user_file  /etc/nginx/htpasswd;
 
     location / {
         try_files $uri $uri/ /index.php?$uri&$args;

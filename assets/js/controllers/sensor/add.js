@@ -1,8 +1,9 @@
 
 App.controller('AddSensorsController', ['$scope', '$rootScope', '$uibModalInstance', 'Sensor', 'Nodes', function($scope, $rootScope, $uibModalInstance, Sensor, Nodes) {
-    $scope.sensors   = [];
-    $scope.nodes     = {};
-    $scope.newSensor = {
+    $scope.sensors    = [];
+    $scope.parameters = [];
+    $scope.nodes      = {};
+    $scope.newSensor  = {
         interval: 5
     };
 
@@ -15,6 +16,13 @@ App.controller('AddSensorsController', ['$scope', '$rootScope', '$uibModalInstan
     Nodes.getData().success(function(data) {
         $scope.nodes = data.nodes;
     });
+
+    $scope.changedType = function(sensorType) {
+        Sensor.parameters(sensorType).success(function(parameters) {
+            $scope.parameters = parameters || [];
+            console.log($scope.parameters)
+        });
+    };
 
     $scope.add = function(newSensor) {
         Sensor.add(newSensor).success(function(sensor) {

@@ -61,23 +61,32 @@ class ClearCache implements EventSubscriberInterface
 
     private function installDefaultExpressions()
     {
-        $existing = [];
-        foreach ($this->gateway->getAll() as $entity) {
-            $existing[$entity->expressionId] = true;
-        };
-
         $expressions = $this->includeFile(CacheDefaultExpressions::CACHE_FILE);
         if (!$expressions) {
             return;
         }
+
+        $existing = $this->getExisting();
         foreach ($expressions as $expressionId => $entity) {
             if (isset($existing[$expressionId])) {
                 continue;
             }
 
             $this->gateway->save($entity);
-
             $this->debug(sprintf('Registered entity "%s"', $expressionId));
         }
+    }
+
+    /**
+     * @return bool[]
+     */
+    private function getExisting()
+    {
+        $existing = [];
+        foreach ($this->gateway->getAll() as $entity) {
+            $existing[$entity->expressionId] = true;
+        };
+
+        return $existing;
     }
 }

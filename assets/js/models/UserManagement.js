@@ -47,8 +47,18 @@ App.service('UserManagement', ['$http', 'Cache', function($http, Cache) {
             return promise;
         },
 
-        changePassword: function(password) {
-            return $http.post('/user/change_password/', {password:password});
+        changePassword: function(oldPassword, newPassword) {
+            Cache.clear('^/user/$');
+
+            return $http.post('/user/change_password/', {
+                oldPassword: oldPassword,
+                newPassword: newPassword
+            });
+        },
+
+        changeEmail: function(email) {
+            Cache.clear('^/user/$');
+            return $http.post('/user/change_email/', {email:email});
         }
     };
 }]);

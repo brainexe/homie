@@ -32,9 +32,36 @@
 	<div class="panel-body">
 		<ul class="user-profile-avatar">
 			<li ng-repeat="avatar in avatars">
-				<img ng-src="/images/{{avatar}}" ng-click="setAvatar(avatar)"/>
+				<img ng-src="/images/{{avatar}}" />
+				<a ng-if="avatar != user.avatar" ng-click="setAvatar(avatar)" translate class="btn btn-success">
+					Change avatar
+				</a>
+				<span ng-if="avatar == user.avatar" translate>
+					Your current avatar
+				</span>
 			</li>
 		</ul>
+	</div>
+</div>
+
+<div class="panel panel-primary">
+	<div class="panel-heading" translate>
+		Email
+	</div>
+	<div class="panel-body">
+		<form ng-submit="changeEmail()">
+			<input
+					type="email"
+					required
+					class="form-control"
+					ng-enter="changeMail()"
+					ng-model="user.email"
+			/>
+			<input
+					type="submit"
+					class="btn btn-success"
+			/>
+		</form>
 	</div>
 </div>
 
