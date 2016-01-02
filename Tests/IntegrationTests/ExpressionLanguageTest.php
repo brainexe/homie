@@ -80,9 +80,6 @@ class ExpressionLanguageTest extends TestCase
             ['getProperty("foo")', 'bar', [
                 'entity' => $entity
             ]],
-            ['getProperty("foo2")', null, [
-                'entity' => $entity
-            ]],
             ['setProperty("foo", "bar2")', null, [
                 'entity' => $entity
             ]],

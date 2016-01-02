@@ -97,9 +97,15 @@ App.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gette
     // todo extract into separate service
     var sensorValues = {};
     $scope.$on('sensor.value', function (eventName, event) {
-        if (sensorValues[event.sensorVo.sensorId] != event.valueFormatted) {
+        var old = sensorValues[event.sensorVo.sensorId];
+        var text;
+        if (old != event.valueFormatted) {
             sensorValues[event.sensorVo.sensorId] = event.valueFormatted;
-            var text = '{0}: {1}'.format(event.sensorVo.name, event.valueFormatted);
+            if (old) {
+                text = '{0}: {1} -> {2}'.format(event.sensorVo.name, old, event.valueFormatted);
+            } else {
+                text = '{0}: {1}'.format(event.sensorVo.name, event.valueFormatted);
+            }
             BrowserNotification.show(text);
         }
     });

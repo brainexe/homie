@@ -54,6 +54,9 @@ class SensorGraph extends AbstractWidget
         foreach ($this->gateway->getSensors() as $sensor) {
             $sensors[$sensor['sensorId']] = $sensor['name'];
         }
+
+        sort($sensors);
+
         return $sensors;
     }
 

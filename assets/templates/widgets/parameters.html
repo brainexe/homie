@@ -10,8 +10,8 @@
                 <ui-select-match placeholder="Select...">
                     {{$item.value}}
                 </ui-select-match>
-                <ui-select-choices repeat="element.key as element in parameter.values|toObjectArray">
-                    {{element.value}}
+                <ui-select-choices repeat="element.key as element in parameter.values|toObjectArray|propsFilter:{value:$select.search}">
+                    <span ng-bind-html="element.value|highlight:$select.search"></span>
                 </ui-select-choices>
             </ui-select>
         </div>
@@ -25,8 +25,8 @@
                 <ui-select-match placeholder="Select...">
                     {{$select.selected.value}}
                 </ui-select-match>
-                <ui-select-choices repeat="element.key as element in parameter.values|toObjectArray">
-                    {{element.value}}
+                <ui-select-choices repeat="element.key as element in parameter.values|toObjectArray|propsFilter:{value:$select.search}">
+                    <span ng-bind-html="element.value|highlight:$select.search"></span>
                 </ui-select-choices>
             </ui-select>
         </div>

@@ -51,6 +51,7 @@ class SensorWidget extends AbstractWidget
                 ]
             ]
         );
+
         return $metadata
             ->addTitle()
             ->setSize(4, 3);
@@ -65,6 +66,9 @@ class SensorWidget extends AbstractWidget
         foreach ($this->gateway->getSensors() as $sensor) {
             $sensors[$sensor['sensorId']] = $sensor['name'];
         }
+
+        sort($sensors);
+
         return $sensors;
     }
 }

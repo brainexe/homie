@@ -39,8 +39,14 @@ webdriver-manager start
 cd test/Frontend
 protractor config.js
 ```
+
 # Features
-tbd
+- Many sensors supported, like temperature, barometer, light sensor etc.
+- real time websocket notifications
+- Expression language like IFTTT
+- AngularJS single page application
+- Mobile/Chrome App support
+- ... tbd
 
 # Screenshots
 tbd

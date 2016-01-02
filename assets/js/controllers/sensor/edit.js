@@ -2,6 +2,15 @@
 App.controller('EditSensorsController', ['$scope', '$rootScope', '$uibModalInstance', 'Sensor', 'Sensor.Formatter', function($scope, $rootScope, $uibModalInstance, Sensor, SensorFormatter) {
     $scope.sensors = [];
     $scope.types   = {};
+    $scope.orderBy = 'name';
+
+    $scope.setOrderBy = function(key) {
+        if ($scope.orderBy == key) {
+            key = '-' + key;
+        }
+
+        $scope.orderBy = key;
+    };
 
     $rootScope.$on('sensor.update', function(event, sensorVo) {
         var index = getSensorIndex(sensorVo);
