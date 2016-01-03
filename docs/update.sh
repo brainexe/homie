@@ -2,8 +2,8 @@
 
 # This script will deploy the current version of "homie" to the local directory
 
-#git fetch --all
-#git reset --hard origin/master
+git fetch --all
+git reset --hard origin/master
 
 wget https://jenkins.mdoetsch.de/job/BuildHomie-Web/lastSuccessfulBuild/artifact/*zip*/archive.zip -O archive.zip
 

@@ -15,7 +15,10 @@
     # allow   192.168.0.0/24;
     # auth_basic            "Restricted";
     # auth_basic_user_file  /etc/nginx/htpasswd;
-
+    #location /ifttt/ {
+    #    auth_basic          off;
+    #}
+    
     location / {
         try_files $uri $uri/ /index.php?$uri&$args;
     }

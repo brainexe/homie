@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-30 13:06+0100\n"
+"POT-Creation-Date: 2016-01-03 13:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,61 +54,61 @@ msgstr ""
 msgid "Dashboard"
 msgstr ""
 
-#: src/Homie/Dashboard/Widgets/SensorGraph.php:70
+#: src/Homie/Dashboard/Widgets/SensorGraph.php:71
 msgid "Sensors"
 msgstr ""
 
-#: src/Homie/Dashboard/Widgets/SensorGraph.php:75
-#: src/Homie/Dashboard/Widgets/SensorWidget.php:50
+#: src/Homie/Dashboard/Widgets/SensorGraph.php:76
+#: src/Homie/Dashboard/Widgets/SensorWidget.php:48
 msgid "From"
 msgstr ""
 
-#: src/Homie/Dashboard/Widgets/SwitchWidget.php:49
+#: src/Homie/Dashboard/Widgets/SwitchWidget.php:41
 msgid "Switch"
 msgstr ""
 
-#: src/Homie/Dashboard/Widgets/WidgetMetadataVo.php:60
+#: src/Homie/Dashboard/Widgets/WidgetMetadataVo.php:58
 msgid "Width"
 msgstr ""
 
-#: src/Homie/Dashboard/Widgets/WidgetMetadataVo.php:67
+#: src/Homie/Dashboard/Widgets/WidgetMetadataVo.php:65
 msgid "Height"
 msgstr ""
 
-#: src/Homie/Dashboard/Widgets/WidgetMetadataVo.php:83
+#: src/Homie/Dashboard/Widgets/WidgetMetadataVo.php:81
 msgid "Title"
 msgstr ""
 
-#: src/Homie/Dashboard/Widgets/SensorInput.php:44
-#: src/Homie/Dashboard/Widgets/SensorWidget.php:44
+#: src/Homie/Dashboard/Widgets/SensorInput.php:42
+#: src/Homie/Dashboard/Widgets/SensorWidget.php:42
 msgid "Sensor"
 msgstr ""
 
-#: src/Homie/Dashboard/Widgets/Speak.php:43
+#: src/Homie/Dashboard/Widgets/Speak.php:41
 msgid "Speaker"
 msgstr ""
 
-#: src/Homie/Dashboard/Widgets/Expression.php:40
+#: src/Homie/Dashboard/Widgets/Expression.php:38
 msgid "Template"
 msgstr ""
 
-#: src/Homie/Dashboard/Widgets/Expression.php:45
+#: src/Homie/Dashboard/Widgets/Expression.php:43
 msgid "Variables"
 msgstr ""
 
-#: src/Homie/Dashboard/Widgets/Expression.php:50
+#: src/Homie/Dashboard/Widgets/Expression.php:48
 msgid "Reload Interval in seconds"
 msgstr ""
 
-#: src/Homie/Dashboard/Widgets/Expression.php:57
+#: src/Homie/Dashboard/Widgets/Expression.php:55
 msgid "Reload Button"
 msgstr ""
 
-#: src/Homie/Dashboard/Widgets/Display.php:48
+#: src/Homie/Dashboard/Widgets/Display.php:46
 msgid "Display"
 msgstr ""
 
-#: src/Homie/Dashboard/Widgets/Webcam.php:27
+#: src/Homie/Dashboard/Widgets/Webcam.php:25
 msgid "Show recent image"
 msgstr ""
 
@@ -122,42 +122,40 @@ msgstr ""
 msgid "%0.1f Degree"
 msgstr ""
 
-#: src/Homie/Sensors/Chart.php:55
+#: src/Homie/Sensors/Chart.php:52
 msgid "Last hour"
 msgstr ""
 
-#: src/Homie/Sensors/Chart.php:56
+#: src/Homie/Sensors/Chart.php:53
 msgid "Last 3 hours"
 msgstr ""
 
-#: src/Homie/Sensors/Chart.php:57
+#: src/Homie/Sensors/Chart.php:54
 msgid "Last day"
 msgstr ""
 
-#: src/Homie/Sensors/Chart.php:58
+#: src/Homie/Sensors/Chart.php:55
 msgid "Last week"
 msgstr ""
 
-#: src/Homie/Sensors/Chart.php:59
+#: src/Homie/Sensors/Chart.php:56
 msgid "Last month"
 msgstr ""
 
-#: src/Homie/Sensors/Chart.php:60
+#: src/Homie/Sensors/Chart.php:57
 msgid "All time"
 msgstr ""
 
-#: vendor/brainexe/expression/src/Controller/Controller.php:81
+#: src/Homie/Expression/Controller/Controller.php:81
 msgid "No actions defined"
 msgstr ""
 
-#: vendor/brainexe/expression/vendor/brainexe/core/src/Middleware/Authentication.php:76
 #: vendor/brainexe/input-control/vendor/brainexe/core/src/Middleware/Authentication.php:76
 #: vendor/brainexe/totp/vendor/brainexe/core/src/Middleware/Authentication.php:76
 #: vendor/brainexe/core/src/Middleware/Authentication.php:76
 msgid "Not logged in"
 msgstr ""
 
-#: vendor/brainexe/expression/vendor/brainexe/core/src/Middleware/CatchUserException.php:62
 #: vendor/brainexe/input-control/vendor/brainexe/core/src/Middleware/CatchUserException.php:62
 #: vendor/brainexe/totp/vendor/brainexe/core/src/Middleware/CatchUserException.php:62
 #: vendor/brainexe/core/src/Middleware/CatchUserException.php:62
@@ -185,7 +183,7 @@ msgstr ""
 msgid "Invalid username"
 msgstr ""
 
-#: vendor/brainexe/core/src/Authentication/Controller/UserController.php:65
+#: vendor/brainexe/core/src/Authentication/Controller/UserController.php:63
 #, php-format
 msgid "Invalid avatar: %s"
 msgstr ""

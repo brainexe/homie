@@ -16,7 +16,7 @@
  - Temperature	OnBoard
 
 ```
-ls src/Homie/Sensors/Sensors/*/*.php | awk -F "/" '{print $5 "\t" $6}'
+ls src/Homie/Sensors/Sensors/*/*.php | awk -F "/" '{print $5 "\t" substr($6, 0, length($6)-3)}'
 ```
 
 ## DS18 (DS18S20)

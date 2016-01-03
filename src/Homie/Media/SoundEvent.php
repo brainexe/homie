@@ -15,11 +15,11 @@ class SoundEvent extends AbstractEvent implements PushViaWebsocket
     public $fileName;
 
     /**
-     * @param string $fileName
+     * @param string $eventName
      */
-    public function __construct($fileName)
+    public function __construct($eventName)
     {
         parent::__construct(self::PLAY_SOUND);
-        $this->fileName     = $fileName;
+        $this->fileName     = $eventName;
     }
 }

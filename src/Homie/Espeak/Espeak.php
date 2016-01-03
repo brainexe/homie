@@ -4,8 +4,6 @@ namespace Homie\Espeak;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
-use BrainExe\Core\Traits\TimeTrait;
-
 use Homie\Client\ClientInterface;
 
 /**
@@ -13,10 +11,6 @@ use Homie\Client\ClientInterface;
  */
 class Espeak
 {
-
-    use TimeTrait;
-
-    const COMMAND = 'espeak'; // todo config
 
     const DEFAULT_SPEAKER = 'de+m1';
 
@@ -26,15 +20,26 @@ class Espeak
     private $client;
 
     /**
-     * @Inject({"@HomieClient"})
-     * @param ClientInterface $client
+     * @var string
      */
-    public function __construct(ClientInterface $client)
+    private $command;
+
+    /**
+     * @Inject({
+     *     "@HomieClient",
+     *     "%espeak.command%"
+     * })
+     * @param ClientInterface $client
+     * @param string $command
+     */
+    public function __construct(ClientInterface $client, $command)
     {
-        $this->client = $client;
+        $this->client  = $client;
+        $this->command = $command;
     }
 
     /**
+     * @todo cache espeak --voices
      * @return array
      */
     public function getSpeakers()
@@ -63,11 +68,11 @@ class Espeak
             return;
         }
 
-        $this->client->execute(self::COMMAND, [
+        $this->client->execute($this->command, [
             $text,
             '-s', $speed,
             '-a', $volume,
-            sprintf('-v%ss', $speaker)
+            '-v', $speaker
         ]);
     }
 }

@@ -2,8 +2,23 @@
 # Dashboard
 
 ## Widgets
+- Display
+- EggTimer
+- Expression
+- SensorGraph
+- SensorInput
+- SensorWidget
+- ShoppingList
+- Speak
+- Status
+- SwitchWidget
+- Time
+- TodoList
+- Webcam
+- WidgetMetadataVo
+
 ```
-ls src/Homie/Dashboard/Widgets/*.php | awk -F "/" '{print $5}'
+ls src/Homie/Dashboard/Widgets/*.php | awk -F "/" '{print "- " substr($5, 0, length($5)-3)}'
 ```
 
 ## Add a new widget

@@ -34,20 +34,20 @@ class SensorValueEvent extends AbstractEvent implements PushViaWebsocket
     public $valueFormatted;
 
     /**
-     * @param string $eventFileName
+     * @param string $eventName
      * @param SensorVO $sensorVo
      * @param float $value
      * @param string $valueFormatted
      * @param integer $timestamp
      */
     public function __construct(
-        $eventFileName,
+        $eventName,
         SensorVO $sensorVo,
         $value,
         $valueFormatted,
         $timestamp
     ) {
-        parent::__construct($eventFileName);
+        parent::__construct($eventName);
         $this->sensorVo       = $sensorVo;
         $this->value          = $value;
         $this->valueFormatted = $valueFormatted;

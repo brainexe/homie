@@ -2,7 +2,6 @@
 
 namespace Tests\Homie\Espeak;
 
-use BrainExe\Core\Util\Time;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Espeak\Espeak;
@@ -24,18 +23,11 @@ class EspeakTest extends TestCase
      */
     private $client;
 
-    /**
-     * @var Time|MockObject
-     */
-    private $time;
-
     public function setUp()
     {
         $this->client  = $this->getMock(LocalClient::class, [], [], '', false);
-        $this->time    = $this->getMock(Time::class, [], [], '', false);
 
-        $this->subject = new Espeak($this->client);
-        $this->subject->setTime($this->time);
+        $this->subject = new Espeak($this->client, 'espeak');
     }
 
     public function testGetSpeakers()
