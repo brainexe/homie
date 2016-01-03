@@ -28,7 +28,8 @@
                 <label class="col-sm-2 control-label" >{{ $index + 1 }}.)&nbsp;</label>
                 <div class="col-sm-10">
                     <div class="input-group">
-                        <expression-parameter type="condition" parameter="editExpression.conditions[$index]"></expression-parameter>
+                        <!--<div ng-include="'/templates/expression/parameter.html'"></div>-->
+                        <expression-parameter functions="functions" type="condition" parameter="editExpression.conditions[$index]"></expression-parameter>
                         <a
                                 ng-show="condition && $index == editExpression.conditions.length - 1"
                                 class="input-group-addon btn btn-success"

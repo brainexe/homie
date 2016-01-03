@@ -2,13 +2,11 @@
 
 namespace Homie\IFTTT;
 
-use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Guest;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @ControllerAnnotation("IFTTT.Controller")
@@ -19,16 +17,28 @@ class Controller
     use EventDispatcherTrait;
 
     /**
-     * @return Response
-     * @Route("/ifttt/", name="ifttt.trigger")
+     * @param Request $request
+     * @return bool
+     * @Route("/ifttt/", name="ifttt.action")
      * @Guest
      */
-    public function index(Request $request)
+    public function action(Request $request)
     {
         $eventName = $request->query->get('event');
+        $value1 = $request->query->get('value1');
+        $value2 = $request->query->get('value2');
+        $value3 = $request->query->get('value3');
 
-        $event = new IFTTTEvent($eventName);
+        $event = new IFTTTEvent(
+            IFTTTEvent::ACTION,
+            $eventName,
+            $value1,
+            $value2,
+            $value3
+        );
 
         $this->dispatchEvent($event);
+
+        return true;
     }
 }

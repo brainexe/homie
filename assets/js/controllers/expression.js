@@ -4,10 +4,24 @@ App.controller('ExpressionController', ['$scope', '$rootScope', 'Expression', 'M
     $scope.editExpression = {actions:[''], conditions:[''], 'new': true};
     $scope.eventNames     = [];
     $scope.crons          = [];
+    $scope.functions      = [];
 
     Expression.getData().success(function(data) {
 		$scope.expressions   = data.expressions;
 		$scope.eventNames    = data.events;
+
+        data.functions.forEach(function(functionName) {
+            switch (functionName) {
+                case 'event':
+                    for (var eventName in data.events) {
+                        $scope.functions.push(functionName + '("' + eventName + '")');
+                    }
+                    break;
+                case 'isTiming':
+                    // TODO add crons
+            }
+            $scope.functions.push(functionName + '()');
+        });
 	});
 
     $scope.reloadCrons = function() {

@@ -6,9 +6,9 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 
 /**
- * @Service("IFTTT.Action", public=false)
+ * @Service("IFTTT.Trigger", public=false)
  */
-class Action
+class Trigger
 {
 
     const BASE_URL = 'https://maker.ifttt.com/trigger/%s/with/key/%s';
@@ -35,12 +35,16 @@ class Action
     {
         $url = sprintf(self::BASE_URL, $eventName, $this->key);
 
-        $options = array(
-            'http' => array(
-                'method'  => 'POST',
-            ),
-        );
-        $context  = stream_context_create($options);
+        return $this->makeRequest($url);
+    }
+
+    /**
+     * @param string $url
+     * @return string
+     */
+    protected function makeRequest($url)
+    {
+        $context = stream_context_create(['http' => ['method' => 'POST']]);
 
         return file_get_contents($url, false, $context);
     }

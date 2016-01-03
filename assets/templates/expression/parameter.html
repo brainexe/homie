@@ -2,7 +2,21 @@
         type="text"
         size="60"
         class="form-control"
-        style="float:left"
+        style="width: 500px;float:left"
         ng-model="parameter"
         placeholder="{{'e.g. isTiming(10 minutes)'|translate}}"
-        />
+/>
+
+<ui-select
+        ng-model="parameter"
+        style="width: 500px"
+        theme="bootstrap"
+>
+    <ui-select-match placeholder="Select...">
+        {{$select.selected}}
+    </ui-select-match>
+    <ui-select-choices repeat="functionName in functions">
+        <span ng-bind-html="functionName|highlight:$select.search"></span>
+    </ui-select-choices>
+</ui-select>
+{{parameter}}

@@ -1,7 +1,6 @@
 
 // TODO WIP
 App.directive('expressionParameter', [function() {
-
     function stringify(parts) {
         if (!parts[0]) {
             return '';
@@ -17,7 +16,6 @@ App.directive('expressionParameter', [function() {
         }
         var functionName = args[1];
 
-
         var parameterList = args[2].split(',').map(function(param) {
             return param.trim();
         });
@@ -28,17 +26,8 @@ App.directive('expressionParameter', [function() {
         ];
     }
 
-    var conditions = {
-        'isTiming': [['10Minutes', '20Minutes']]
-    };
-
-    var actions = {
-    };
-
     function link(scope, element, attrs) {
         var parameter = scope.parameter;
-
-        scope.functions = scope.type == 'conditions' ? conditions : actions;
         scope.parts = parse(parameter);
     }
 
@@ -48,7 +37,8 @@ App.directive('expressionParameter', [function() {
         link: link,
         scope: {
             parameter: '=',
-            type: '='
+            type: '=',
+            functions: '='
         }
     };
 }]);

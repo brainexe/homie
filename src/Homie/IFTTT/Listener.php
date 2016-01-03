@@ -13,17 +13,17 @@ class Listener implements EventSubscriberInterface
 {
 
     /**
-     * @var Action
+     * @var Trigger
      */
-    private $action;
+    private $trigger;
 
     /**
-     * @Inject("@IFTTT.Action")
-     * @param Action $action
+     * @Inject("@IFTTT.Trigger")
+     * @param Trigger $action
      */
-    public function __construct(Action $action)
+    public function __construct(Trigger $action)
     {
-        $this->action = $action;
+        $this->trigger = $action;
     }
 
     /**
@@ -32,15 +32,15 @@ class Listener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            IFTTTEvent::ACTION => 'callAction',
+            IFTTTEvent::TRIGGER => 'callTrigger',
         ];
     }
 
     /**
      * @param IFTTTEvent $event
      */
-    public function callAction(IFTTTEvent $event)
+    public function callTrigger(IFTTTEvent $event)
     {
-        $this->action->trigger($event->event);
+        $this->trigger->trigger($event->event);
     }
 }
