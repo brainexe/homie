@@ -2,34 +2,52 @@
 App.controller('ExpressionController', ['$scope', '$rootScope', 'Expression', 'MessageQueue', function ($scope, $rootScope, Expression, MessageQueue) {
 	$scope.expressions    = {};
     $scope.editExpression = {actions:[''], conditions:[''], 'new': true};
-    $scope.eventNames     = [];
     $scope.crons          = [];
     $scope.functions      = [];
 
-    Expression.getData().success(function(data) {
-		$scope.expressions   = data.expressions;
-		$scope.eventNames    = data.events;
-
-        data.functions.forEach(function(functionName) {
-            switch (functionName) {
-                case 'event':
-                    for (var eventName in data.events) {
-                        $scope.functions.push(functionName + '("' + eventName + '")');
-                    }
-                    break;
-                case 'isTiming':
-                    // TODO add crons
-            }
-            $scope.functions.push(functionName + '()');
-        });
-	});
-
     $scope.reloadCrons = function() {
-        MessageQueue.getJobs('message_queue.cron').success(function(data) {
+        return MessageQueue.getJobs('message_queue.cron').success(function(data) {
             $scope.crons = data;
         });
     };
-    $scope.reloadCrons();
+
+    function generateParameterList(array) {
+        var parameterList = [];
+        array.forEach(function(parameter) {
+            parameterList.push('"' + parameter + '"');
+        });
+        return parameterList.join(', ');
+    }
+
+    // todo improve chain
+    $scope.reloadCrons().success(function(crons) {
+        Expression.getData().success(function(expressions) {
+            Expression.getEvents().success(function(events) {
+                Expression.getFunctions().success(function(functions) {
+                    $scope.expressions   = expressions.expressions;
+
+                    for (var functionName in functions) {
+                        switch (functionName) {
+                            case 'event':
+                                for (var eventName in events) {
+                                    var parameters = [eventName].concat(events[eventName].parameters);
+                                    var eventParameterList = generateParameterList(parameters);
+
+                                    $scope.functions.push(functionName + '(' + eventParameterList + ')');
+                                }
+                                break;
+                            case 'isTiming':
+                                for (var cron in crons) {
+                                    $scope.functions.push(functionName + '("' + crons[cron].event.expression + '")');
+                                }
+                        }
+                        var parameterList = generateParameterList(functions[functionName]);
+                        $scope.functions.push(functionName + '(' + parameterList + ')');
+                    }
+                });
+            });
+        });
+    });
 
     $scope.$on('message_queue.handled', function(event, data) {
         var job = data.job;

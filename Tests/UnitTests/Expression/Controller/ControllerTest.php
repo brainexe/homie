@@ -72,11 +72,6 @@ class ControllerTest extends TestCase
 
     public function testLoad()
     {
-        $this->language
-            ->expects($this->once())
-            ->method('getFunctionNames')
-            ->willReturn(['functions']);
-
         $this->gateway
             ->expects($this->once())
             ->method('getAll')
@@ -87,7 +82,20 @@ class ControllerTest extends TestCase
         $actual = $this->subject->load();
 
         $this->assertEquals(['expressions'], $actual['expressions']);
-        $this->assertEquals(['functions'], $actual['functions']);
+    }
+
+    public function testEvents()
+    {
+        $actual = $this->subject->events();
+
+        $this->assertInternalType('array', $actual);
+    }
+
+    public function testFunctions()
+    {
+        $actual = $this->subject->functions();
+
+        $this->assertInternalType('array', $actual);
     }
 
     /**

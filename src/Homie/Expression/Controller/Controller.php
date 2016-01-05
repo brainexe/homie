@@ -49,10 +49,26 @@ class Controller
     public function load()
     {
         return [
-            'events'        => include ROOT . '/cache/events.php',
             'expressions'   => $this->gateway->getAll(),
-            'functions'     => $this->language->getFunctionNames()
         ];
+    }
+
+    /**
+     * @return array[]
+     * @Route("/expressions/functions/", name="expressions.functions", methods="GET")
+     */
+    public function functions()
+    {
+        return include_once ROOT . 'cache/expression_functions.php';
+    }
+
+    /**
+     * @return array[]
+     * @Route("/expressions/events/", name="expressions.events", methods="GET")
+     */
+    public function events()
+    {
+        return include_once ROOT . 'cache/events.php';
     }
 
     /**

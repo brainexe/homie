@@ -31,6 +31,7 @@ php console expression:list
  - getSensor(int $sensorId)
   
 ## Misc
+ - say(string $text)
  - exec(string $inputControl)
  - log(string $level, string $message, $context = null)
  - executeExpression TODO
@@ -55,20 +56,20 @@ tbd
 # Events
 http://homie/expressions/
 
-# "Input control"
+# "Input control" (deprecated)
  - send mail "(.*)" "(.*)" "(.*)"
  - radio (on|off) (\s+)
  - switch (on|off) (\s+)
- - (say|speak) (.*
+ - (say|speak) (.*)
  - webcam
  - webcam video (\d+) seconds
- - add shopping item (.*
- - delete shopping item (.*
- - add item (.*
- - delete item (\d+
- - assign item (\d+) to (\s+
- - set item status (\d+) to (\d+
- - todo lis
+ - add shopping item (.*)
+ - delete shopping item (.*)
+ - add item (.*)
+ - delete item (\d+)
+ - assign item (\d+) to (\s+)
+ - set item status (\d+) to (\d+)
+ - todo list
  - play sound (.*)
  - sensor say (\d+)
  - echo (.*)

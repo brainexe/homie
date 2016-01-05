@@ -152,11 +152,20 @@ class Language extends ExpressionLanguage
     }
 
     /**
+     * @deprecated
      * @return string[]
      */
     public function getFunctionNames()
     {
         return array_keys($this->functions);
+    }
+
+    /**
+     * @return array[]
+     */
+    public function getFunctions()
+    {
+        return $this->functions;
     }
 
     /**

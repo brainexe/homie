@@ -13,6 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * @CommandAnnotation("Expression.Command.List")
  * @codeCoverageIgnore
+ * @deprecated
  */
 class ListFunctions extends SymfonyCommand
 {
