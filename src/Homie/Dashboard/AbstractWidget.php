@@ -49,7 +49,7 @@ abstract class AbstractWidget implements WidgetInterface, JsonSerializable, Tran
      */
     public static function getTokens()
     {
-        yield sprintf(self::TOKEN_NAME, self::getId());
-        yield sprintf(self::TOKEN_DESCRIPTION, self::getId());
+        yield sprintf(self::TOKEN_NAME, static::TYPE);
+        yield sprintf(self::TOKEN_DESCRIPTION, static::TYPE);
     }
 }

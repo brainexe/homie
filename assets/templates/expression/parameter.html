@@ -19,5 +19,9 @@
         <span ng-bind-html="functionName|highlight:$select.search"></span>
     </ui-select-choices>
 </ui-select>
-1: {{parameter}}<br />
-2: {{parameter2}}
+
+<select
+        ng-model="parameter"
+        class="form-control"
+        ng-options="functionName as functionName for functionName in functions">
+</select>

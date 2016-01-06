@@ -20,7 +20,7 @@ class Trigger
 
     /**
      * @Inject({"%ifttt.key%"})
-     * @param $key
+     * @param string$key
      */
     public function __construct($key)
     {
@@ -44,6 +44,7 @@ class Trigger
      */
     protected function makeRequest($url)
     {
+        // todo webservice class
         $context = stream_context_create(['http' => ['method' => 'POST']]);
 
         return file_get_contents($url, false, $context);

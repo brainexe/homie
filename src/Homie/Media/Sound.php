@@ -14,21 +14,28 @@ class Sound
 
     const ROOT = ROOT . '/assets/sounds/';
 
-    // todo configurable
-    const COMMAND = 'mplayer';
-
     /**
      * @var ClientInterface
      */
     private $client;
 
     /**
-     * @Inject("@HomieClient")
-     * @param ClientInterface $client
+     * @var string
      */
-    public function __construct(ClientInterface $client)
+    private $command;
+
+    /**
+     * @Inject({
+     *     "@HomieClient",
+     *     "%sound.executable%"
+     * })
+     * @param ClientInterface $client
+     * @param string $command
+     */
+    public function __construct(ClientInterface $client, $command)
     {
-        $this->client = $client;
+        $this->client  = $client;
+        $this->command = $command;
     }
 
     /**
@@ -36,6 +43,6 @@ class Sound
      */
     public function playSound($file)
     {
-        $this->client->execute(self::COMMAND, [self::ROOT . $file]);
+        $this->client->execute($this->command, [self::ROOT . $file]);
     }
 }

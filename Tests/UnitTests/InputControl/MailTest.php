@@ -34,7 +34,6 @@ class MailTest extends TestCase
 
     public function testPlaySound()
     {
-
         $event = new Event();
         $event->matches = [
             $recipient = 'myRecipient',

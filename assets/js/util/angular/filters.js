@@ -112,7 +112,7 @@ App.filter('propsFilter', function() {
     }
 });
 
-App.filter('filter', function() {
+App.filter('filterArray', function() {
     return function(items, needle) {
         if (needle || !items) {
             return items;

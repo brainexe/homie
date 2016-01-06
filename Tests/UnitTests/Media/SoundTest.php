@@ -26,7 +26,7 @@ class SoundTest extends TestCase
     public function setUp()
     {
         $this->client  = $this->getMock(ClientInterface::class, [], [], '', false);
-        $this->subject = new Sound($this->client);
+        $this->subject = new Sound($this->client, 'mplayer');
     }
 
     public function testPlaySound()

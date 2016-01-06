@@ -69,12 +69,12 @@ class Language extends ExpressionLanguage
 
         $this->register('isTiming', function ($timingId) {
             return sprintf('($eventName == \'%s\' && $event->timingId === %s)', TimingEvent::TIMING_EVENT, $timingId);
-        }, function ($parameters, $eventId) {
+        }, function ($parameters, $isTiming) {
             if ($parameters['eventName'] !== TimingEvent::TIMING_EVENT) {
                 return false;
             }
 
-            return $parameters['event']->timingId === $eventId;
+            return $parameters['event']->timingId === $isTiming;
         });
 
         $this->register('isEvent', function ($eventId) {
@@ -82,12 +82,6 @@ class Language extends ExpressionLanguage
         }, function ($parameters, $eventId) {
             return $parameters['eventName'] === $eventId;
         });
-
-//        $this->register('pushViaWebsocket', function () {
-//            throw new Exception('pushViaWebsocket() not implemented');
-//        }, function ($parameters) {
-//            $this->getDispatcher()->dispatchAsWebsocketEvent($parameters['event']);
-//        });
 
         $this->register('exec', function () {
             throw new Exception('exec() not implemented');

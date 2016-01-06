@@ -4,6 +4,7 @@ namespace Homie\IFTTT;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\EventListener;
+use Homie\IFTTT\Event\TriggerEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -32,14 +33,14 @@ class Listener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            IFTTTEvent::TRIGGER => 'callTrigger',
+            TriggerEvent::TRIGGER => 'callTrigger',
         ];
     }
 
     /**
-     * @param IFTTTEvent $event
+     * @param TriggerEvent $event
      */
-    public function callTrigger(IFTTTEvent $event)
+    public function callTrigger(TriggerEvent $event)
     {
         $this->trigger->trigger($event->event);
     }

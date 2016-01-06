@@ -2,7 +2,9 @@
 
 namespace Homie\Expression;
 
-class Entity
+use Zend\Stdlib\JsonSerializable;
+
+class Entity implements JsonSerializable
 {
 
     /**
@@ -47,5 +49,19 @@ class Entity
         }
 
         return $entity;
+    }
+
+    /**
+     * @return array
+     */
+    function jsonSerialize()
+    {
+        return [
+            'expressionId' => $this->expressionId,
+            'conditions'   => $this->conditions,
+            'actions'      => $this->actions,
+            'payload'      => $this->payload,
+            'enabled'      => $this->enabled,
+        ];
     }
 }

@@ -1,14 +1,13 @@
 <?php
 
-namespace Homie\IFTTT;
+namespace Homie\IFTTT\Event;
 
 use BrainExe\Core\EventDispatcher\AbstractEvent;
 use BrainExe\Core\EventDispatcher\PushViaWebsocket;
 
-class IFTTTEvent extends AbstractEvent implements PushViaWebsocket
+class TriggerEvent extends AbstractEvent implements PushViaWebsocket
 {
     const TRIGGER = 'ifttt.trigger';
-    const ACTION  = 'ifttt.action';
 
     /**
      * @var string
@@ -31,20 +30,18 @@ class IFTTTEvent extends AbstractEvent implements PushViaWebsocket
     public $value3;
 
     /**
-     * @param string $type
      * @param string $eventName
      * @param $value1
      * @param $value2
      * @param $value3
      */
     public function __construct(
-        $type,
         $eventName,
         $value1 = null,
         $value2 = null,
         $value3 = null
     ) {
-        parent::__construct($type);
+        parent::__construct(self::TRIGGER);
         $this->event = $eventName;
 
         $this->value1 = $value1;

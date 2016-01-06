@@ -6,6 +6,7 @@ use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Guest;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Traits\EventDispatcherTrait;
+use Homie\IFTTT\Event\ActionEvent;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -29,8 +30,7 @@ class Controller
         $value2 = $request->query->get('value2');
         $value3 = $request->query->get('value3');
 
-        $event = new IFTTTEvent(
-            IFTTTEvent::ACTION,
+        $event = new ActionEvent(
             $eventName,
             $value1,
             $value2,
