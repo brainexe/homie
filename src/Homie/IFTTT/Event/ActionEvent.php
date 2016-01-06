@@ -30,14 +30,12 @@ class ActionEvent extends AbstractEvent implements PushViaWebsocket
     public $value3;
 
     /**
-     * @param string $type
      * @param string $eventName
      * @param $value1
      * @param $value2
      * @param $value3
      */
     public function __construct(
-        $type,
         $eventName,
         $value1 = null,
         $value2 = null,

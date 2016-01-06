@@ -4,7 +4,7 @@ namespace Tests\Homie\IFTTT;
 
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Homie\IFTTT\Controller;
-use Homie\IFTTT\IFTTTEvent;
+use Homie\IFTTT\Event\ActionEvent;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +34,7 @@ class ControllerTest extends TestCase
     {
         $eventName = 'my-test';
 
-        $event = new IFTTTEvent(IFTTTEvent::ACTION, $eventName);
+        $event = new ActionEvent($eventName);
 
         $request = new Request();
         $request->query->set('event', $eventName);

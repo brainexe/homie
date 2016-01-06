@@ -36,7 +36,6 @@ App.controller('EditSensorsController', ['$scope', '$rootScope', '$uibModalInsta
         $scope.formatters = data.formatters;
     });
 
-    // todo put into own |filter
     $scope.formatValue = function(value, sensor) {
         var formatter = SensorFormatter.getFormatter(sensor.formatter);
         return formatter(value);

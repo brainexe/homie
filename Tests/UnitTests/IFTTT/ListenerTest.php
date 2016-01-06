@@ -2,8 +2,8 @@
 
 namespace Tests\Homie\IFTTT;
 
+use Homie\IFTTT\Event\TriggerEvent;
 use Homie\IFTTT\Trigger;
-use Homie\IFTTT\IFTTTEvent;
 use Homie\IFTTT\Listener;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
@@ -36,7 +36,7 @@ class ListenerTest extends TestCase
     public function testHandleEvent()
     {
         $eventName = 'my-test';
-        $event = new IFTTTEvent(IFTTTEvent::TRIGGER, $eventName);
+        $event = new TriggerEvent($eventName);
 
         $this->action
             ->expects($this->once())

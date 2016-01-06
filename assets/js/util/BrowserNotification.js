@@ -36,6 +36,7 @@ App.service('BrowserNotification', ['$q', '_', function($q, _) {
 
         setTimeout(function() {
             notification.close();
+            notification.$content = '';
         }, TIMEOUT);
 
         openNotifications.push(notification);
@@ -46,6 +47,8 @@ App.service('BrowserNotification', ['$q', '_', function($q, _) {
     return {
         show: function(content) {
             request().then(function() {
+                contentQueue.push(content);
+
                 window.setTimeout(function() {
                     if (contentQueue.length == 0) {
                         // content already shown
@@ -56,7 +59,7 @@ App.service('BrowserNotification', ['$q', '_', function($q, _) {
                     if (openNotifications.length) {
                         var notification;
 
-                        while(notification = openNotifications.pop()) {
+                        while (notification = openNotifications.pop()) {
                             if (notification.$content) {
                                 contentQueue.push(notification.$content);
                                 notification.$content = '';
@@ -66,10 +69,7 @@ App.service('BrowserNotification', ['$q', '_', function($q, _) {
                     }
                     show(contentQueue.join("\n"));
                     contentQueue = [];
-                }, 3000);
-                if (contentQueue) {
-                    contentQueue.push(content);
-                }
+                }, 1500);
             });
         }
     }

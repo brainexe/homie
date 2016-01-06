@@ -43,6 +43,6 @@ abstract class AbstractSensor implements Sensor, TranslationProvider
      */
     public static function getTokens()
     {
-        yield sprintf(self::TOKEN_NAME, self::getSensorType());
+        yield sprintf(self::TOKEN_NAME, static::TYPE);
     }
 }

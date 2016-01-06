@@ -3,8 +3,8 @@
 namespace Tests\Homie\IFTTT;
 
 use BrainExe\Core\EventDispatcher\EventDispatcher;
+use Homie\IFTTT\Event\TriggerEvent;
 use Homie\IFTTT\ExpressionLanguage;
-use Homie\IFTTT\IFTTTEvent;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +34,7 @@ class ExpressionLanguageTest extends TestCase
     {
         $eventName = 'my-test';
 
-        $event = new IFTTTEvent(IFTTTEvent::TRIGGER, $eventName, 2, 3);
+        $event = new TriggerEvent($eventName, 2, 3);
 
         $request = new Request();
         $request->query->set('event', $eventName);
