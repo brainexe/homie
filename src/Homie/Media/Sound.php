@@ -27,7 +27,7 @@ class Sound
     /**
      * @Inject({
      *     "@HomieClient",
-     *     "%sound.executable%"
+     *     "%sound.command%"
      * })
      * @param ClientInterface $client
      * @param string $command

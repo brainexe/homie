@@ -79,7 +79,7 @@ App.controller('ExpressionController', ['$scope', '$rootScope', '$q', 'Expressio
 
     $scope.evaluateAction = function(expression, action) {
         Expression.evaluate(action).success(function(result) {
-            alert(result); // todo nice UI
+            console.log(result);
         });
     };
 

@@ -87,11 +87,15 @@ class LocalClientTest extends TestCase
             ->expects($this->once())
             ->method('getErrorOutput')
             ->willReturn('error');
+        $process
+            ->expects($this->exactly(2))
+            ->method('getCommandLine')
+            ->willReturn('commandline');
 
         $this->logger
             ->expects($this->at(0))
             ->method('log')
-            ->with(LogLevel::INFO, 'LocalClient command: command [foo]');
+            ->with(LogLevel::INFO, 'LocalClient command: commandline');
 
         $this->subject->executeWithReturn($command, ['foo']);
     }
@@ -142,12 +146,16 @@ class LocalClientTest extends TestCase
         $this->logger
             ->expects($this->at(0))
             ->method('log')
-            ->with(LogLevel::INFO, 'LocalClient command: command []');
+            ->with(LogLevel::INFO, 'LocalClient command: commandline');
+        $process
+            ->expects($this->exactly(2))
+            ->method('getCommandLine')
+            ->willReturn('commandline');
 
         $this->logger
             ->expects($this->at(1))
             ->method('log')
-            ->with(LogLevel::DEBUG, 'LocalClient command output: command []: output');
+            ->with(LogLevel::DEBUG, 'LocalClient command output: commandline: output');
 
         $actualResult = $this->subject->executeWithReturn($command);
         $this->assertEquals($output, $actualResult);
@@ -196,15 +204,20 @@ class LocalClientTest extends TestCase
             ->method('getOutput')
             ->willReturn($output);
 
+        $process
+            ->expects($this->exactly(2))
+            ->method('getCommandLine')
+            ->willReturn('commandLine');
+
         $this->logger
             ->expects($this->at(0))
             ->method('log')
-            ->with(LogLevel::INFO, 'LocalClient command: command []');
+            ->with(LogLevel::INFO, 'LocalClient command: commandLine');
 
         $this->logger
             ->expects($this->at(1))
             ->method('log')
-            ->with(LogLevel::DEBUG, 'LocalClient command output: command []: output');
+            ->with(LogLevel::DEBUG, 'LocalClient command output: commandLine: output');
 
         $this->subject->execute($command);
     }

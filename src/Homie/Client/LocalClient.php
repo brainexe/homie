@@ -44,16 +44,14 @@ class LocalClient implements ClientInterface
      */
     public function executeWithReturn($command, array $arguments = [])
     {
-        $this->info(sprintf('LocalClient command: %s [%s]', $command, implode(' ', $arguments)));
-
         $process = $this->processBuilder
             ->setPrefix(explode(' ', $command))
             ->setArguments($arguments)
             ->setTimeout(self::TIMEOUT)
             ->getProcess();
-
         $process->run();
 
+        $this->info(sprintf('LocalClient command: %s', $process->getCommandLine()));
         if (!$process->isSuccessful()) {
             throw new RuntimeException(
                 'command: ' . $process->getCommandLine() . PHP_EOL .
@@ -64,7 +62,7 @@ class LocalClient implements ClientInterface
 
         $output = $process->getOutput();
 
-        $this->debug(sprintf('LocalClient command output: %s [%s]: %s', $command, implode(' ', $arguments), $output));
+        $this->debug(sprintf('LocalClient command output: %s: %s', $process->getCommandLine(), $output));
 
         return $output;
     }

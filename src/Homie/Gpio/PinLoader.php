@@ -31,7 +31,7 @@ class PinLoader
     private $gpioExecutable;
 
     /**
-     * @Inject({"@HomieClient", "%gpio.executable%"})
+     * @Inject({"@HomieClient", "%gpio.command%"})
      * @param ClientInterface $client
      * @param string $gpioExecutable
      */

@@ -37,7 +37,7 @@ class GpioManager
     private $gpioExecutable;
 
     /**
-     * @Inject({"@PinGateway", "@HomieClient", "@PinLoader", "%gpio.executable%"})
+     * @Inject({"@PinGateway", "@HomieClient", "@PinLoader", "%gpio.command%"})
      * @param PinGateway $gateway
      * @param ClientInterface $client
      * @param PinLoader $loader

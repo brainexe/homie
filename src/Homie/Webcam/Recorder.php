@@ -45,9 +45,9 @@ class Recorder
      * @Inject({
      * "@HomieClient",
      * "@RemoteFilesystem",
-     * "%webcam.executable.photo%",
-     * "%webcam.executable.video%",
-     * "%webcam.executable.sound%"
+     * "%webcam.command.photo%",
+     * "%webcam.command.video%",
+     * "%webcam.command.sound%"
      * })
      * @param ClientInterface $client
      * @param Filesystem $fileUploader

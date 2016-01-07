@@ -35,16 +35,6 @@ class Trigger
     {
         $url = sprintf(self::BASE_URL, $eventName, $this->key);
 
-        return $this->makeRequest($url);
-    }
-
-    /**
-     * @param string $url
-     * @return string
-     */
-    protected function makeRequest($url)
-    {
-        // todo webservice class
         $context = stream_context_create(['http' => ['method' => 'POST']]);
 
         return file_get_contents($url, false, $context);
