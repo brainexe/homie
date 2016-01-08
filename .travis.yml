@@ -13,7 +13,7 @@ services:
   - redis-server
 
 before_install:
-  - composer install --no-dev
+  - composer install
   - wget https://scrutinizer-ci.com/ocular.phar -q
   - gem install sass
   - npm install

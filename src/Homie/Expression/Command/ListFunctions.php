@@ -2,9 +2,9 @@
 
 namespace Homie\Expression\Command;
 
-use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Command as CommandAnnotation;
-use Homie\Expression\Language;
+use BrainExe\Core\Traits\FileCacheTrait;
+use Homie\Expression\Listener\WriteFunctionCache;
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,26 +12,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @CommandAnnotation("Expression.Command.List")
- * @codeCoverageIgnore
- * @deprecated
  */
 class ListFunctions extends SymfonyCommand
 {
 
-    /**
-     * @var Language
-     */
-    private $language;
-
-    /**
-     * @Inject("@Expression.Language")
-     * @param Language $language
-     */
-    public function __construct(Language $language)
-    {
-        parent::__construct();
-        $this->language = $language;
-    }
+    use FileCacheTrait;
 
     /**
      * {@inheritdoc}
@@ -47,13 +32,13 @@ class ListFunctions extends SymfonyCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $functions = $this->language->getFunctionNames();
+        $functions = $this->includeFile(WriteFunctionCache::CACHE);
 
         $table = new Table($output);
-        $table->setHeaders(['Function']);
+        $table->setHeaders(['Function', 'Parameters']);
 
-        foreach ($functions as $function) {
-            $table->addRow([$function]);
+        foreach ($functions as $function => $parameters) {
+            $table->addRow([$function, implode(', ', $parameters)]);
         }
 
         $table->render();

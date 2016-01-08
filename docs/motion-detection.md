@@ -14,3 +14,8 @@ on_motion_detected curl -X GET http://homie/motion/add/
 ```
 /etc/init.d/motion start
 ```
+
+## Usage as Trigger
+```
+isEvent("motion.motion")
+```

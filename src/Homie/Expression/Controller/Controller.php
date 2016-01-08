@@ -59,7 +59,7 @@ class Controller
      */
     public function functions()
     {
-        return include_once ROOT . 'cache/expression_functions.php';
+        return include ROOT . 'cache/expression_functions.php';
     }
 
     /**
@@ -68,7 +68,7 @@ class Controller
      */
     public function events()
     {
-        return include_once ROOT . 'cache/events.php';
+        return include ROOT . 'cache/events.php';
     }
 
     /**
@@ -81,14 +81,7 @@ class Controller
     {
         $expressionId = $request->request->get('expressionId');
 
-        $expressions = $this->gateway->getAll();
-        if (isset($expressions[$expressionId])) {
-            $entity = $expressions[$expressionId];
-        } else {
-            $entity = new Entity();
-            $entity->expressionId = $expressionId;
-        }
-
+        $entity = $this->getEntity($expressionId);
         $entity->conditions = (array)$request->request->get('conditions');
         $entity->actions    = (array)$request->request->get('actions');
         $entity->enabled    = (bool)$request->request->get('enabled');
@@ -141,5 +134,21 @@ class Controller
     private function validate($expression)
     {
         $this->language->parse($expression, $this->language->getParameterNames());
+    }
+
+    /**
+     * @param string $expressionId
+     * @return Entity
+     */
+    private function getEntity($expressionId)
+    {
+        $expressions = $this->gateway->getAll();
+        if (isset($expressions[$expressionId])) {
+            return $expressions[$expressionId];
+        } else {
+            $entity               = new Entity();
+            $entity->expressionId = $expressionId;
+            return $entity;
+        }
     }
 }

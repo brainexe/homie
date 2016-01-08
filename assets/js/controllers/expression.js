@@ -34,6 +34,11 @@ App.controller('ExpressionController', ['$scope', '$rootScope', '$q', 'Expressio
 
         for (var functionName in functions) {
             switch (functionName) {
+                case 'isEvent':
+                    for (var eventName in events) {
+                        $scope.functions.push(functionName + '("' + eventName + '")');
+                    }
+                    break;
                 case 'event':
                     //for (var eventName in events) {
                     //    var parameters = [eventName].concat(events[eventName].parameters);

@@ -2,6 +2,7 @@
 
 namespace Tests\Homie\Sensors\ExpressionLanguage;
 
+use Generator;
 use Homie\Sensors\ExpressionLanguage\Language;
 use Homie\Sensors\SensorGateway;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
@@ -33,7 +34,7 @@ class LanguageTest extends TestCase
     public function testGetFunctions()
     {
         $actual = $this->subject->getFunctions();
-        $this->assertInternalType('array', $actual);
+        $this->assertInstanceOf(Generator::class, $actual);
     }
 
     public function testGetSensor()
@@ -50,7 +51,7 @@ class LanguageTest extends TestCase
             ]);
 
         /** @var ExpressionFunction $function */
-        $actual = $this->subject->getFunctions();
+        $actual = iterator_to_array($this->subject->getFunctions());
         $function = $actual[1];
         $this->assertInstanceOf(ExpressionFunction::class, $function);
 
@@ -77,7 +78,7 @@ class LanguageTest extends TestCase
             ]);
 
         /** @var ExpressionFunction $function */
-        $functions = $this->subject->getFunctions();
+        $functions = iterator_to_array($this->subject->getFunctions());
         $function = $functions[0];
         $this->assertInstanceOf(ExpressionFunction::class, $function);
 

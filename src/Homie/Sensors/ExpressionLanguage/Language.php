@@ -5,6 +5,7 @@ namespace Homie\Sensors\ExpressionLanguage;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use Homie\Sensors\SensorGateway;
+use Homie\Sensors\SensorValueEvent;
 use InvalidArgumentException;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
@@ -33,18 +34,29 @@ class Language implements ExpressionFunctionProviderInterface
      */
     public function getFunctions()
     {
-        $sensorValue = new ExpressionFunction('getSensorValue', function ($sensorId) {
+        yield new ExpressionFunction('getSensorValue', function ($sensorId) {
             return sprintf('$container->get("SensorGateway")->getSensor(%d)["lastValue"]', $sensorId);
         }, function (array $variables, $sensorId) {
+            unset($variables);
             return $this->gateway->getSensor($sensorId)['lastValue'];
         });
 
-        $sensor = new ExpressionFunction('getSensor', function ($sensorId) {
+        yield new ExpressionFunction('getSensor', function ($sensorId) {
             return sprintf('$container->get("SensorGateway")->getSensor(%d)', $sensorId);
         }, function (array $variables, $sensorId) {
+            unset($variables);
             return $this->gateway->getSensor($sensorId);
         });
 
-        return [$sensorValue, $sensor];
+        yield new ExpressionFunction('isSensorValue', function ($sensorId) {
+            return sprintf(
+                "(\$eventName == '%s') && \$event->sensorVo->sensorId == %d",
+                SensorValueEvent::VALUE,
+                $sensorId
+            );
+        }, function ($parameters, $sensorId) {
+            return $parameters['eventName'] === SensorValueEvent::VALUE &&
+            $parameters['event']->sensorVo->sensorId == $sensorId;
+        });
     }
 }

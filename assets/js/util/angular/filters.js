@@ -14,11 +14,16 @@ App.filter('notEmpty', function () {
 
 App.filter('orderObjectBy', function() {
     return function(input, attribute) {
-        if (!angular.isObject(input)) return input;
+        if (!angular.isObject(input)) {
+            return input;
+        }
 
         var array = [];
         for (var objectKey in input) {
-            array.push(input[objectKey]);
+            // todo cleaner solution
+            if (objectKey == ~~ objectKey) {
+                array.push(input[objectKey]);
+            }
         }
 
         var reversed = false;
@@ -114,7 +119,7 @@ App.filter('propsFilter', function() {
 
 App.filter('filterArray', function() {
     return function(items, needle) {
-        if (needle || !items) {
+        if (!needle || !items) {
             return items;
         }
 

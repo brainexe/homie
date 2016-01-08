@@ -5,7 +5,22 @@ App.directive('expressionParameter', [function() {
         restrict: "E",
         scope: {
             parameter: '=',
-            functions: '='
+            functions: '=',
+            uiSelectParameter: '='
+
+        },
+        link: function ($scope) {
+            $scope.uiSelectParameter = $scope.parameter;
+
+            $scope.onUiSelect = function(selected) {
+                $scope.parameter = selected;
+            };
+
+            $scope.$watch(function() {
+                return $scope.parameter;
+            }, function(newVal) {
+                $scope.uiSelectParameter = newVal;
+            })
         }
     };
 }]);

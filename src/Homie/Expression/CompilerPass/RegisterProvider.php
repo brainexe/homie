@@ -17,7 +17,6 @@ use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 class RegisterProvider implements CompilerPassInterface
 {
 
-
     /**
      * {@inheritdoc}
      */
@@ -25,7 +24,6 @@ class RegisterProvider implements CompilerPassInterface
     {
         $dispatcher = $container->getDefinition('EventDispatcher');
         $dispatcher->addMethodCall('addCatchall', [new Reference('Expression.Listener')]);
-
 
         $language   = $container->getDefinition('Expression.Language');
         $serviceIds = $container->findTaggedServiceIds('expression_language');

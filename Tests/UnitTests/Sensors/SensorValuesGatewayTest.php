@@ -96,6 +96,7 @@ class SensorValuesGatewayTest extends TestCase
         $redisResult = [
             "701-100",
             "702-101",
+            "703--1",
         ];
         $this->redis
             ->expects($this->once())
@@ -108,6 +109,7 @@ class SensorValuesGatewayTest extends TestCase
         $expectedResult = [
             701 => 100,
             702 => 101,
+            703 => -1,
         ];
 
         $this->assertEquals($expectedResult, $actualResult);

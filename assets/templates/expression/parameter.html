@@ -8,20 +8,15 @@
 />
 
 <ui-select
-        ng-model="parameter"
+        ng-model="uiSelectParameter"
+        on-select="onUiSelect($item)"
         style="width: 500px"
         theme="bootstrap"
 >
     <ui-select-match placeholder="Select...">
         {{$select.selected}}
     </ui-select-match>
-    <ui-select-choices repeat="functionName in functions">
+    <ui-select-choices repeat="functionName in functions|filterArray:$select.search">
         <span ng-bind-html="functionName|highlight:$select.search"></span>
     </ui-select-choices>
 </ui-select>
-
-<select
-        ng-model="parameter"
-        class="form-control"
-        ng-options="functionName as functionName for functionName in functions">
-</select>

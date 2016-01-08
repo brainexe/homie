@@ -43,7 +43,7 @@ class InputControl implements InputControlInterface, ExpressionFunctionProviderI
     public function getFunctions()
     {
         $speak = new ExpressionFunction('say', function ($text) {
-        }, function (array $variables, $text) {
+        }, function (array $variables, $text, $volume = null, $speed = null) {
             unset($variables);
             $event = new EspeakEvent(new EspeakVO($text));
 

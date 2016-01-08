@@ -62,7 +62,7 @@ class SensorValuesGateway
         $result      = [];
 
         foreach ($redisResult as $part) {
-            list($timestamp, $value) = explode('-', $part);
+            list($timestamp, $value) = explode('-', $part, 2);
             $result[$timestamp] = $value;
         }
 

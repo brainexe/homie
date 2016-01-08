@@ -29,12 +29,15 @@ php console expression:list
 ## Sensor
  - getSensorValue(int $sensorId)
  - getSensor(int $sensorId)
+ - isSensorValue(int $sensorId)
   
 ## Misc
  - say(string $text)
+ - mail(recipientMail, subject, body)
  - exec(string $inputControl)
  - log(string $level, string $message, $context = null)
  - executeExpression TODO
+ - triggerIFTTT(eventId)
 
 # Examples
 
@@ -43,15 +46,21 @@ Enabled between 2AM and 7AM
 ```
 Condition: isEvent("motion.motion") && date('G') > 2 && date('G') <= 6
 Actions: 
- - exec('send mail "yourname@example.com" "Motion detected in your flat" "Motion detected in your flat"')
+ - sendMail("yourname@example.com", "Motion detected in your flat", "Motion detected in your flat"')
+ - say("Go away, police is called")
  - exec('webcam video 10 seconds')
- - exec("say Go away, police is called")
  - exec('play sound egg_timer.mp3')
 ```
 
-
-motion detection
-tbd
+## Air quality check
+Notifies you when the humidity is over 70% by using speakers and sending an notification to IFTTT. This might trigger many other actions...
+```
+Conditions:
+isTiming("15minutes") && getSensorValue(indorrhumidity) >= 70
+Actions:
+ - say("Humidity is at " ~ round(getSensorValue(indorrhumidity)) ~ " Percent")
+ - triggerIFTTT("hightHumidity", round(getSensorValue(indorrhumidity)))
+```
 
 # Events
 http://homie/expressions/
