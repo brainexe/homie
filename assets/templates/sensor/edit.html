@@ -40,8 +40,8 @@
                 </tr>
             </thead>
             <tr ng-repeat="sensor in sensors|orderObjectBy:orderBy">
-                <td uib-tooltip="{{ sensor.sensorId }}">
-                    <div ng-if="!sensor.edit">
+                <td>
+                    <div ng-if="!sensor.edit" uib-tooltip="{{ sensor.sensorId }}">
                         <b>{{sensor.type|translateToken:'sensor.{0}.name'}}</b>
                         <br />
                         <span class="small" ng-if="sensor.parameter">({{ sensor.parameter }})</span>

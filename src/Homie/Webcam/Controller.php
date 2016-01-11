@@ -93,7 +93,7 @@ class Controller
     /**
      * @Route("/webcam/", name="webcam.delete", methods="DELETE")
      * @param Request $request
-     * @return boolean
+     * @return bool
      */
     public function delete(Request $request)
     {
@@ -117,6 +117,7 @@ class Controller
         $response->setContent(stream_get_contents($stream));
         $response->headers->set('Content-Type', $mime);
         $response->headers->set('Cache-Control', 'max-age=86400');
+        $response->headers->set('Content-Disposition', 'attachment; filename="' . basename($file) . '"');
 
         return $response;
     }

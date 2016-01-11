@@ -72,8 +72,7 @@ class Espeak
             $text,
             '-s', $speed,
             '-a', $volume,
-            '-v', $speaker,
-            '-q'
+            '-v', $speaker
         ]);
     }
 }

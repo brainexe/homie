@@ -37,7 +37,7 @@ App.service('Widget.expression', ['$compile', '$interval', 'Expression', functio
                 load(false);
             };
 
-            $scope.evaluate = function(expression) {
+                $scope.evaluate = function(expression) {
                 Expression.evaluate(expression, false);
             };
 

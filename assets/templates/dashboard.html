@@ -69,8 +69,11 @@
         </div>
         <br/>
     </div>
-    <div class="container" ui-sortable="{ 'ui-floating': true }" is-disabled="!editMode"
-         as-sortable="dragControlListeners" ng-model="dashboard.widgets">
+    <div class="container"
+         ui-sortable="{ 'ui-floating': true }"
+         is-disabled="!editMode"
+         as-sortable="dragControlListeners"
+         ng-model="dashboard.widgets">
         <div
                 class="col-md-{{metadata(widget, 'width')}} as-sortable-item"
                 ng-repeat="widget in dashboard.widgets"

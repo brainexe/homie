@@ -6,6 +6,8 @@ use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\InputControl\Annotations\InputControl as InputControlAnnotation;
 use BrainExe\InputControl\Annotations\InputControlInterface;
 use BrainExe\InputControl\Event;
+use Generator;
+use InvalidArgumentException;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
@@ -34,22 +36,21 @@ class InputControl implements InputControlInterface, ExpressionFunctionProviderI
     {
         $event = new EspeakEvent(new EspeakVO($event->matches[1]));
 
-        $this->dispatchEvent($event);
+        $this->dispatchInBackground($event);
     }
 
     /**
-     * @return ExpressionFunction[] An array of Function instances
+     * @return Generator|ExpressionFunction[] An array of Function instances
      */
     public function getFunctions()
     {
-        $speak = new ExpressionFunction('say', function ($text) {
-        }, function (array $variables, $text, $volume = null, $speed = null) {
+        yield new ExpressionFunction('say', function ($text) {
+            throw new InvalidArgumentException('say() is not available in this context');
+        }, function (array $variables, $text, $volume = 100, $speed = 100) {
             unset($variables);
-            $event = new EspeakEvent(new EspeakVO($text));
+            $event = new EspeakEvent(new EspeakVO($text, $volume, $speed));
 
-            $this->dispatchEvent($event);
+            $this->dispatchInBackground($event);
         });
-
-        yield $speak;
     }
 }

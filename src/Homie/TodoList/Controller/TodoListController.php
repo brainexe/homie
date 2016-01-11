@@ -137,10 +137,10 @@ class TodoListController implements TranslationProvider
                 'next' => [TodoItemVO::STATUS_PROGRESS, TodoItemVO::STATUS_COMPLETED, 'delete']
             ],
             TodoItemVO::STATUS_PROGRESS => [
-                'next' => [TodoItemVO::STATUS_COMPLETED, 'delete']
+                'next' => [TodoItemVO::STATUS_COMPLETED, TodoItemVO::STATUS_OPEN, 'delete']
             ],
             TodoItemVO::STATUS_COMPLETED => [
-                'next' => ['delete'],
+                'next' => [TodoItemVO::STATUS_PROGRESS, TodoItemVO::STATUS_OPEN, 'delete'],
                 'hidden' => true
             ],
         ];
