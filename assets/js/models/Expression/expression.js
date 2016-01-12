@@ -13,13 +13,13 @@ App.directive('expressionParameter', [function() {
             $scope.uiSelectParameter = $scope.parameter;
 
             $scope.onUiSelect = function(selected) {
-                $scope.parameter = selected;
+                $scope.parameter = selected.expression;
             };
 
             $scope.$watch(function() {
                 return $scope.parameter;
             }, function(newVal) {
-                $scope.uiSelectParameter = newVal;
+                $scope.uiSelectParameter = '';
             })
         }
     };

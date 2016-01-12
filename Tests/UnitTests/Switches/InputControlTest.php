@@ -47,7 +47,7 @@ class InputControlTest extends TestCase
         $this->assertInternalType('array', $actualResult);
     }
 
-    public function testSay()
+    public function testSetSwitch()
     {
         $switchId   = 5;
         $inputEvent = new Event();
@@ -63,7 +63,7 @@ class InputControlTest extends TestCase
             ->willReturn($radioVo);
         $this->dispatcher
             ->expects($this->once())
-            ->method('dispatchEvent')
+            ->method('dispatchInBackground')
             ->with($event);
 
         $this->subject->setSwitch($inputEvent);

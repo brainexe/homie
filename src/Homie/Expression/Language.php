@@ -37,16 +37,15 @@ class Language extends ExpressionLanguage
             'microtime',
             'rand',
             'round',
+            'sleep'
         ];
 
         foreach ($functions as $function) {
-            $this->register($function, function () use ($function) {
-                $parameters = func_get_args();
-
+            $this->register($function, function (...$parameters) use ($function) {
                 return sprintf('%s(%s)', $function, implode(', ', $parameters));
-            }, function () use ($function) {
-                $parameters = array_slice(func_get_args(), 1);
-                return call_user_func_array($function, $parameters);
+            }, function ($parameters, ...$params) use ($function) {
+                unset($parameters);
+                return $function(...$params);
             });
         }
 

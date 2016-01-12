@@ -1,5 +1,5 @@
 
-App.controller('ExpressionController', ['$scope', '$rootScope', '$q', 'Expression', 'MessageQueue', function ($scope, $rootScope, $q, Expression, MessageQueue) {
+App.controller('ExpressionController', ['$scope', '$rootScope', '$q', 'Expression', 'MessageQueue', 'Sensor', function ($scope, $rootScope, $q, Expression, MessageQueue, Sensor) {
 	$scope.expressions    = {};
     $scope.editExpression = {actions:[''], conditions:[''], 'new': true};
     $scope.crons          = [];
@@ -11,50 +11,71 @@ App.controller('ExpressionController', ['$scope', '$rootScope', '$q', 'Expressio
         });
     };
 
-    function generateParameterList(array) {
-        var parameterList = [];
-        array.forEach(function(parameter) {
-            parameterList.push('"' + parameter + '"');
-        });
-        return parameterList.join(', ');
-    }
-
+    // todo cache + outsource
     $q.all([
         $scope.reloadCrons(),
         Expression.getData(),
         Expression.getEvents(),
-        Expression.getFunctions()
+        Expression.getFunctions(),
+        Sensor.getCachedData()
     ]).then(function(data) {
         var crons       = data[0].data;
         var expressions = data[1].data;
         var events      = data[2].data;
         var functions   = data[3].data;
+        var sensors     = data[4].data.sensors;
 
         $scope.expressions  = expressions.expressions;
+
+        function add(functionName2, parameters, label) {
+            var parameterList = generateParameterList(parameters);
+            var expression = functionName2 + '(' + parameterList + ')';
+            var expressionLabel = expression;
+
+            if (label) {
+                expressionLabel += ' # ' + label;
+            }
+
+            $scope.functions.push({
+                label: expressionLabel,
+                expression: expression
+            });
+        }
+
+        function generateParameterList(array) {
+            var parameterList = [];
+            array.forEach(function(parameter) {
+                parameterList.push('"' + parameter + '"');
+            });
+            return parameterList.join(', ');
+        }
 
         for (var functionName in functions) {
             switch (functionName) {
                 case 'isEvent':
                     for (var eventName in events) {
-                        $scope.functions.push(functionName + '("' + eventName + '")');
+                        add(functionName, [eventName]);
+                    }
+                    break;
+                case 'isSensorValue':
+                case 'getSensorValue':
+                    for (var sensorIdx in sensors) {
+                        add(functionName, [sensors[sensorIdx].sensorId], sensors[sensorIdx].name);
                     }
                     break;
                 case 'event':
                     //for (var eventName in events) {
                     //    var parameters = [eventName].concat(events[eventName].parameters);
-                    //    var eventParameterList = generateParameterList(parameters);
-                    //
-                    //    $scope.functions.push(functionName + '(' + eventParameterList + ')');
+                    //    add(functionName, parameters);
                     //}
                     break;
                 case 'isTiming':
                     for (var cron in crons) {
-                        $scope.functions.push(functionName + '("' + crons[cron].event.expression + '")');
+                        add(functionName, [crons[cron].event.event.timingId], crons[cron].event.expression);
                     }
                     break;
             }
-            var parameterList = generateParameterList(functions[functionName]);
-            $scope.functions.push(functionName + '(' + parameterList + ')');
+            add(functionName, functions[functionName]);
         }
     });
 

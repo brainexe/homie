@@ -20,7 +20,6 @@ App.controller('AddSensorsController', ['$scope', '$rootScope', '$uibModalInstan
     $scope.changedType = function(sensorType) {
         Sensor.parameters(sensorType).success(function(parameters) {
             $scope.parameters = parameters || [];
-            console.log($scope.parameters)
         });
     };
 

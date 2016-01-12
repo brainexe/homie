@@ -16,7 +16,12 @@
             {{expression.expressionId}}
         </td>
         <td>
-            <input type="checkbox" ng-model="expression.enabled" ng-change="save(expression)"/>
+            <input
+                    class="big-checkbox"
+                    type="checkbox"
+                    ng-model="expression.enabled"
+                    ng-change="save(expression)"
+            />
         </td>
         <td>
             <ul>

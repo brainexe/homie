@@ -7,11 +7,15 @@ use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\InputControl\Annotations\InputControlInterface;
 use BrainExe\InputControl\Event;
 use BrainExe\InputControl\Annotations\InputControl as InputControlAnnotation;
+use Generator;
+use InvalidArgumentException;
+use Symfony\Component\ExpressionLanguage\ExpressionFunction;
+use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
 /**
- * @InputControlAnnotation(name="switch")
+ * @InputControlAnnotation(name="switch", tags={{"name"="expression_language"}})
  */
-class InputControl implements InputControlInterface
+class InputControl implements InputControlInterface, ExpressionFunctionProviderInterface
 {
 
     use EventDispatcherTrait;
@@ -53,6 +57,24 @@ class InputControl implements InputControlInterface
         $switch = $this->switches->get($switchId);
 
         $event = new SwitchChangeEvent($switch, $status);
-        $this->dispatchEvent($event);
+        $this->dispatchInBackground($event);
+    }
+
+    /**
+     * @return Generator|ExpressionFunction[] An array of Function instances
+     */
+    public function getFunctions()
+    {
+        yield new ExpressionFunction('setSwitch', function ($switchId, $status) {
+            unset($switchId, $status);
+            throw new InvalidArgumentException('Function addNotification() not available as condition');
+        }, function (array $variables, $switchId, $status) {
+            unset($variables);
+            $switch = $this->switches->get($switchId);
+
+            $event = new SwitchChangeEvent($switch, $status);
+
+            $this->dispatchInBackground($event);
+        });
     }
 }

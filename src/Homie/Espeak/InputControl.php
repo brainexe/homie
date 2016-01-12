@@ -12,7 +12,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
 /**
- * @InputControlAnnotation("InputControl.espeak", tags={{"name"="expression_language"}})
+ * @InputControlAnnotation("InputControl.espeak", tags={{"name"="expression_language"}}, public=false)
  */
 class InputControl implements InputControlInterface, ExpressionFunctionProviderInterface
 {

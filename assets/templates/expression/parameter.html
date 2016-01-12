@@ -14,9 +14,9 @@
         theme="bootstrap"
 >
     <ui-select-match placeholder="Select...">
-        {{$select.selected}}
+        {{$select.selected.label}}
     </ui-select-match>
-    <ui-select-choices repeat="functionName in functions|filterArray:$select.search">
-        <span ng-bind-html="functionName|highlight:$select.search"></span>
+    <ui-select-choices repeat="function.expression as function in functions|propsFilter:{expression:$select.search, label:$select.search}">
+        <span ng-bind-html="function.label|highlight:$select.search"></span>
     </ui-select-choices>
 </ui-select>
