@@ -17,6 +17,7 @@ class SerialEvent extends AbstractEvent implements PushViaWebsocket, JsonSeriali
     const SERVO   = 's';
     const ANALOG  = 'a';
     const DIGITAL = 'd';
+    const LCD     = 'lcd';
 
     /**
      * @var string
@@ -29,7 +30,7 @@ class SerialEvent extends AbstractEvent implements PushViaWebsocket, JsonSeriali
     private $pin;
 
     /**
-     * @var int
+     * @var int|string
      */
     private $value;
 

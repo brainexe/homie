@@ -48,6 +48,13 @@ client.on('message', function (channel, command) {
 
             servo.write(value);
             break;
+        case 'lcd':
+            var lcd = new arduino.LCD({
+                board: board,
+                pins: {rs:12, rw:11, e:10, data:[5, 4, 3, 2]}
+            });
+            lcd.begin(1, 1);
+            lcd.print(value);
     }
 });
 client.subscribe("arduino");

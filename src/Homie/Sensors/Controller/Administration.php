@@ -71,6 +71,7 @@ class Administration
         $node        = $request->request->getInt('node');
         $color       = $request->request->get('color');
         $formatter   = $request->request->get('formatter');
+        $tags        = (array)$request->request->get('tags');
 
         $sensorVo = $this->voBuilder->build(
             null,
@@ -81,7 +82,8 @@ class Administration
             $parameter,
             $sensorType,
             $color,
-            $formatter
+            $formatter,
+            $tags
         );
 
         $this->gateway->addSensor($sensorVo);
@@ -114,6 +116,7 @@ class Administration
     {
         $sensor                = $this->gateway->getSensor($sensorId);
         $sensorVo              = $this->voBuilder->buildFromArray($sensor);
+
         $sensorVo->type        = $request->request->get('type');
         $sensorVo->name        = $request->request->get('name');
         $sensorVo->description = $request->request->get('description');
@@ -121,6 +124,7 @@ class Administration
         $sensorVo->interval    = $request->request->getInt('interval');
         $sensorVo->color       = $request->request->get('color');
         $sensorVo->formatter   = $request->request->get('formatter');
+        $sensorVo->tags        = (array)$request->request->get('tags');
 
         $this->gateway->save($sensorVo);
 

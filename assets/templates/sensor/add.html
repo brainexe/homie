@@ -52,14 +52,14 @@
                 <label class="col-sm-2 control-label" translate>Parameter</label>
                 <div class="col-sm-10">
                     <input
-                            ng-model="newSensor.pin"
+                            ng-model="newSensor.parameter"
                             type="text"
                             class="form-control"
                             placeholder="{{'Parameter'|translate}}"
                     />
 
                     <select
-                            ng-model="newSensor.pin"
+                            ng-model="newSensor.parameter"
                             class="form-control"
                             ng-options="parameter in parameters">
                     </select>
@@ -99,6 +99,19 @@
                             {{formatter|translateToken:'sensor.formatter.{0}.name'}}
                         </ui-select-choices>
                     </ui-select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" translate>Tags</label>
+                <div class="col-sm-10">
+                    <ui-select tagging multiple ng-model="newSensor.tags">
+                        <ui-select-match placeholder="Select...">{{$item}}</ui-select-match>
+                        <ui-select-choices repeat="tag as tag in tags">
+                            {{tag}}
+                        </ui-select-choices>
+                    </ui-select>
+                    {{newSensor.tags}}
                 </div>
             </div>
 

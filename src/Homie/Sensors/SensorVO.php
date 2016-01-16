@@ -59,4 +59,9 @@ class SensorVO
      * @var string (#hex color)
      */
     public $color;
+
+    /**
+     * @var string[]
+     */
+    public $tags = [];
 }

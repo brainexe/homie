@@ -13,12 +13,12 @@ class EspeakVO
     /**
      * @var integer
      */
-    public $volume = 100;
+    public $volume;
 
     /**
      * @var integer
      */
-    public $speed = 100;
+    public $speed;
 
     /**
      * @var string
@@ -33,13 +33,13 @@ class EspeakVO
      */
     public function __construct(
         $text,
-        $volume = 100,
-        $speed = 100,
-        $speaker = Espeak::DEFAULT_SPEAKER
+        $volume = null,
+        $speed = null,
+        $speaker = null
     ) {
         $this->text    = $text;
-        $this->volume  = $volume;
-        $this->speed   = $speed;
+        $this->volume  = $volume ?: Espeak::DEFAULT_VOLUME;
+        $this->speed   = $speed ?: Espeak::DEFAULT_SPEED;
         $this->speaker = $speaker ?: Espeak::DEFAULT_SPEAKER;
     }
 }

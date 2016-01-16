@@ -46,7 +46,7 @@ class InputControl implements InputControlInterface, ExpressionFunctionProviderI
     {
         yield new ExpressionFunction('say', function ($text) {
             throw new InvalidArgumentException('say() is not available in this context');
-        }, function (array $variables, $text, $volume = 100, $speed = 100) {
+        }, function (array $variables, $text, $volume = null, $speed = null) {
             unset($variables);
             $event = new EspeakEvent(new EspeakVO($text, $volume, $speed));
 

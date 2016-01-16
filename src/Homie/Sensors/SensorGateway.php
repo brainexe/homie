@@ -75,6 +75,7 @@ class SensorGateway
         $sensorVo->lastValueTimestamp = 0;
 
         $data = (array)$sensorVo;
+        $data['tags'] = implode(',', $sensorVo->tags);
         $redis->HMSET($key, $data);
         $redis->sAdd(self::SENSOR_IDS, [$newId]);
 
@@ -103,7 +104,9 @@ class SensorGateway
     {
         $key = $this->getKey($sensorVO->sensorId);
 
-        $this->getRedis()->hmset($key, (array)$sensorVO);
+        $data = (array)$sensorVO;
+        $data['tags'] = implode(',', $sensorVO->tags);
+        $this->getRedis()->hmset($key, (array)$data);
     }
 
     /**

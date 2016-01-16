@@ -12,7 +12,9 @@
 					<!--</video>-->
 				</div>
 				<div ng-switch-when="jpg">
-					<img ng-src="/webcam/file/?file={{ file.webPath }}" class="img-thumbnail thumbnail"/>
+					<a target="_blank" ng-href="/webcam/file/?file={{ file.webPath }}">
+						<img ng-src="/webcam/file/?file={{ file.webPath }}" class="img-thumbnail thumbnail"/>
+					</a>
 				</div>
 			</div>
 

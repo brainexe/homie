@@ -4,6 +4,7 @@ namespace Homie\Sensors\Controller;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
+use BrainExe\Core\Annotations\Guest;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Authentication\Settings\Settings;
 use BrainExe\Core\Traits\EventDispatcherTrait;
@@ -138,6 +139,7 @@ class Controller
      * @param Request $request
      * @param integer $sensorId
      * @return boolean
+     * @Guest
      * @Route("/sensors/{sensor_id}/value/", name="sensor.submitValue", methods="POST")
      */
     public function addValue(Request $request, $sensorId)

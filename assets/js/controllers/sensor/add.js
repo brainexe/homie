@@ -1,10 +1,12 @@
 
 App.controller('AddSensorsController', ['$scope', '$rootScope', '$uibModalInstance', 'Sensor', 'Nodes', function($scope, $rootScope, $uibModalInstance, Sensor, Nodes) {
     $scope.sensors    = [];
-    $scope.parameters = [];
+    $scope.parameters = false;
     $scope.nodes      = {};
+    $scope.tags       = []; // todo add Tags
     $scope.newSensor  = {
-        interval: 5
+        interval: 5,
+        tags: []
     };
 
     Sensor.getAll().success(function(data) {

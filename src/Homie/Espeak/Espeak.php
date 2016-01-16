@@ -13,6 +13,8 @@ class Espeak
 {
 
     const DEFAULT_SPEAKER = 'de+m1';
+    const DEFAULT_SPEED = 75;
+    const DEFAULT_VOLUME = 120;
 
     /**
      * @var ClientInterface

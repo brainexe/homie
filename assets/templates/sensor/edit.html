@@ -14,7 +14,6 @@
 		<table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-
                     <th>
                         <a ng-click="setOrderBy('type')" class="order" translate translate-context="sensor">
                             Type
@@ -60,6 +59,18 @@
                                 {{formatter|translateToken:'sensor.formatter.{0}.name'}}
                             </ui-select-choices>
                         </ui-select>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" translate>Tags</label>
+                            <div class="col-sm-10">
+                                <ui-select tagging multiple ng-model="sensor.tags">
+                                    <ui-select-match placeholder="Select...">{{$item}}</ui-select-match>
+                                    <ui-select-choices repeat="tag as tag in tags">
+                                        {{tag}}
+                                    </ui-select-choices>
+                                </ui-select>
+                                {{newSensor.tags}}
+                            </div>
+                        </div>
                         <input
                                 type="text"
                                 class="form-control"

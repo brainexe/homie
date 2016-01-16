@@ -67,8 +67,6 @@ class SensorWidget extends AbstractWidget
             $sensors[$sensor['sensorId']] = $sensor['name'];
         }
 
-        sort($sensors);
-
         return $sensors;
     }
 }

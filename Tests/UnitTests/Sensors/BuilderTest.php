@@ -33,6 +33,7 @@ class BuilderTest extends TestCase
             'parameter' => $parameter = 'parameter',
             'type' => $type = 'type',
             'color' => $color = 'blue',
+            'tags' => $tags = ['tag1', 'tag2'],
             'formatter' => $formatter = 'formatter',
             'lastValue' => $lastValue = 'lastValue',
             'lastValueTimestamp' => $lastValueTimestamp = 10000
@@ -50,6 +51,7 @@ class BuilderTest extends TestCase
         $expected->type               = $type;
         $expected->color              = $color;
         $expected->formatter          = $formatter;
+        $expected->tags               = $tags;
         $expected->lastValue          = $lastValue;
         $expected->lastValueTimestamp = $lastValueTimestamp;
 

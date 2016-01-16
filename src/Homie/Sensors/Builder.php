@@ -26,6 +26,7 @@ class Builder
             $data['type'],
             $data['color'],
             $data['formatter'],
+            isset($data['tags']) ? is_string($data['tags']) ? explode(',', $data['tags']) : $data['tags'] : [],
             $data['lastValue'],
             $data['lastValueTimestamp']
         );
@@ -41,6 +42,7 @@ class Builder
      * @param string $type
      * @param string $color
      * @param string $formatter
+     * @param string[] $tags
      * @param float $lastValue
      * @param int $lastValueTimestamp
      * @return SensorVO
@@ -54,7 +56,8 @@ class Builder
         $parameter,
         $type,
         $color,
-        $formatter = null,
+        $formatter,
+        $tags,
         $lastValue = null,
         $lastValueTimestamp = null
     ) {
@@ -71,6 +74,7 @@ class Builder
         $sensor->lastValue          = $lastValue;
         $sensor->lastValueTimestamp = (int)$lastValueTimestamp;
         $sensor->formatter          = $formatter;
+        $sensor->tags               = $tags;
 
         return $sensor;
     }
