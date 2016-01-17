@@ -6,7 +6,9 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Application\UserException;
+use BrainExe\Core\Traits\EventDispatcherTrait;
 use Homie\Sensors\Builder;
+use Homie\Sensors\GetValue\Event;
 use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\Interfaces\Searchable;
 use Homie\Sensors\SensorBuilder;
@@ -20,6 +22,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class Administration
 {
+    use EventDispatcherTrait;
 
     /**
      * @var SensorGateway
@@ -73,6 +76,10 @@ class Administration
         $formatter   = $request->request->get('formatter');
         $tags        = (array)$request->request->get('tags');
 
+        if (empty($color)) {
+            $color = '#aaaaaa'; // todo random color
+        }
+
         $sensorVo = $this->voBuilder->build(
             null,
             $name,
@@ -87,6 +94,9 @@ class Administration
         );
 
         $this->gateway->addSensor($sensorVo);
+
+        $event = new Event($sensorVo);
+        $this->dispatchInBackground($event);
 
         return $sensorVo;
     }

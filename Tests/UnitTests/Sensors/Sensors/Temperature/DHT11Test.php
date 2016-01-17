@@ -63,6 +63,24 @@ class DHT11Test extends TestCase
         $this->assertEquals(70.3, $actualResult);
     }
 
+    public function testGetValueWitValidNegativeOutput()
+    {
+        $parameter = 3;
+        $output    = "Temperature = -1.80 *C";
+
+        $sensor = new SensorVO();
+        $sensor->parameter = $parameter;
+
+        $this->client
+            ->expects($this->once())
+            ->method('executeWithReturn')
+            ->willReturn($output);
+
+        $actualResult = $this->subject->getValue($sensor);
+
+        $this->assertEquals(-1.8, $actualResult);
+    }
+
     public function testGetValueWitInvalidOutput()
     {
         $parameter = 3;

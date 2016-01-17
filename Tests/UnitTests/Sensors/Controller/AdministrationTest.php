@@ -2,7 +2,9 @@
 
 namespace Tests\Homie\Sensors\Controller;
 
+use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Homie\Sensors\Controller\Administration;
+use Homie\Sensors\GetValue\Event;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\SensorVO;
@@ -37,17 +39,25 @@ class AdministrationTest extends TestCase
      */
     private $voBuilder;
 
+    /**
+     * @var EventDispatcher|MockObject
+     */
+    private $dispatcher;
+
     public function setUp()
     {
         $this->gateway       = $this->getMock(SensorGateway::class, [], [], '', false);
         $this->builder       = $this->getMock(SensorBuilder::class, [], [], '', false);
         $this->voBuilder     = $this->getMock(Builder::class, [], [], '', false);
+        $this->dispatcher    = $this->getMock(EventDispatcher::class, [], [], '', false);
 
         $this->subject = new Administration(
             $this->gateway,
             $this->builder,
             $this->voBuilder
         );
+
+        $this->subject->setEventDispatcher($this->dispatcher);
     }
 
 
@@ -89,8 +99,13 @@ class AdministrationTest extends TestCase
             ->method('addSensor')
             ->with($sensorVo);
 
-        $actual = $this->subject->addSensor($request);
+        $event = new Event($sensorVo);
+        $this->dispatcher
+            ->expects($this->once())
+            ->method('dispatchInBackground')
+            ->with($event);
 
+        $actual = $this->subject->addSensor($request);
         $this->assertEquals($sensorVo, $actual);
     }
 

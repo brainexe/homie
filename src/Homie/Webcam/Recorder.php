@@ -95,7 +95,7 @@ class Recorder
      */
     public function takeSound($name, $duration)
     {
-        $filename = sprintf('%s.mp3', $name);
+        $filename = sprintf('%s.wav', $name);
         $command  = str_replace('{{duration}}', $duration, $this->soundCommand);
         $this->take($command, $filename, WebcamEvent::TOOK_SOUND);
     }

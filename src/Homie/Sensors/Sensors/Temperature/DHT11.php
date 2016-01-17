@@ -23,7 +23,7 @@ class DHT11 extends AbstractDHT11
     {
         $output = $this->getContent($sensor->parameter);
 
-        if (!preg_match('/Temperature = ([\d.]+)/', $output, $matches)) {
+        if (!preg_match('/Temperature = ([-\d.]+)/', $output, $matches)) {
             return null;
         }
 

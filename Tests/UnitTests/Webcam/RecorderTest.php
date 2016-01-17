@@ -107,7 +107,7 @@ class RecorderTest extends TestCase
             ->method('execute')
             ->with($this->stringStartsWith("sound command /tmp/web"));
 
-        $event = new WebcamEvent($name.'.mp3', WebcamEvent::TOOK_SOUND);
+        $event = new WebcamEvent($name.'.wav', WebcamEvent::TOOK_SOUND);
 
         $this->dispatcher
             ->expects($this->once())
@@ -117,7 +117,7 @@ class RecorderTest extends TestCase
         $this->filesystem
             ->expects($this->once())
             ->method('writeStream')
-            ->with(Webcam::ROOT . $name . '.mp3');
+            ->with(Webcam::ROOT . $name . '.wav');
 
         $this->subject->takeSound($name, 5);
     }

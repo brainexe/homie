@@ -2,9 +2,7 @@
 .sass-cache
 assets/cache/
 app/config.xml
-bin/*
 bower_components
-composer.lock
 coverage
 lang/*.mo
 lang/pot/all.pot
