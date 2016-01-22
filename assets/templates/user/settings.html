@@ -1,0 +1,46 @@
+<h2 translate>Settings</h2>
+
+<div ng-include="'/templates/user/menu.html'"></div>
+
+<hr />
+
+<div class="panel panel-primary">
+    <div class="panel-heading" translate>
+        Hide menu entries
+    </div>
+    <div class="panel-body">
+        <ul>
+            <li ng-repeat="item in controllers">
+                <input
+                        type="checkbox"
+                        class="big-checkbox"
+                        ng-model="settings.hiddenMenus[item.controller]"
+                        ng-change="set('hiddenMenus', settings.hiddenMenus)"/>
+                <i class="glyphicon glyphicon-{{ item.icon }}"></i>
+                <span ng-bind="item.name"></span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<hr />
+
+<div class="panel panel-primary">
+    <div class="panel-heading" translate>
+        Settings
+    </div>
+    <div class="panel-body">
+        <ul>
+            <li>
+                <label translate>Browser Notification</label>
+                <input
+                        type="checkbox"
+                        class="big-checkbox"
+                        ng-model="settings.browserNotification"
+                        ng-change="set('browserNotification', settings.browserNotification)"/>
+
+                <i class="glyphicon glyphicon-envelope"></i>
+            </li>
+        </ul>
+    </div>
+</div>

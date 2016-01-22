@@ -24,10 +24,4 @@ class Definition
      * @var string
      */
     public $formatter = None::TYPE;
-
-    /**
-     * Needed linux system package to use the sensor
-     * @var string[]
-     */
-    public $neededPackages;
 }

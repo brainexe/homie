@@ -4,7 +4,7 @@ namespace Tests\Homie\Sensors\Command;
 
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Homie\Sensors\Command\Aggregated;
-use Homie\Sensors\Sensors\Aggregate\AggregateEvent;
+use Homie\Sensors\Aggregate\AggregateEvent;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\Console\Application;

@@ -17,8 +17,7 @@ App.controller('MenuController', ['$scope', '$rootScope', '$route', '$location',
         var isLoggedIn = UserManagement.isLoggedIn();
 
         Settings.getAll().success(function(settings) {
-            // TODO hide disabled menu entries
-            var disabled = {};
+            var disabled = settings.hiddenMenus;
 
             $scope.menu = $scope.controllers.filter(function (item) {
                 if (!item.name) {
@@ -26,7 +25,7 @@ App.controller('MenuController', ['$scope', '$rootScope', '$route', '$location',
                     return false;
                 }
 
-                if (disabled[item.controller]) {
+                if (disabled && disabled[item.controller]) {
                     // disabled via settings
                     return false;
                 }

@@ -6,27 +6,6 @@
 
 <div class="panel panel-primary">
 	<div class="panel-heading" translate>
-		Toggle menu entries
-	</div>
-	<div class="panel-body">
-		<ul>
-			<li ng-repeat="item in controllers">
-				<input
-						type="checkbox"
-						class="big-checkbox"
-						ng-model="controller.collapsed"
-						ng-change="toggle(controller)"/>
-				<i class="glyphicon glyphicon-{{ item.icon }}"></i>
-				<span ng-bind="item.name"></span>
-			</li>
-		</ul>
-	</div>
-</div>
-
-<hr/>
-
-<div class="panel panel-primary">
-	<div class="panel-heading" translate>
 		Avatar
 	</div>
 	<div class="panel-body">

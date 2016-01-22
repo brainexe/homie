@@ -3,7 +3,7 @@
 namespace Homie\Sensors\Command;
 
 use BrainExe\Core\Traits\EventDispatcherTrait;
-use Homie\Sensors\Sensors\Aggregate\AggregateEvent;
+use Homie\Sensors\Aggregate\AggregateEvent;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

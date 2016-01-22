@@ -72,10 +72,6 @@ class Webcam extends AbstractSensor
         $definition            = new Definition();
         $definition->type      = Definition::TYPE_NONE;
         $definition->formatter = None::TYPE;
-        $definition->neededPackages = [
-            'arecord',
-            'sox'
-        ];
 
         return $definition;
     }

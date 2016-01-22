@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Homie\Sensors\Sensors\Aggregate;
+namespace Tests\Homie\Sensors\Aggregate;
 
 use BrainExe\Core\Redis\Predis;
 use BrainExe\Tests\RedisMockTrait;
-use Homie\Sensors\Sensors\Aggregate\Aggregated;
+use Homie\Sensors\Aggregate\Aggregated;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 

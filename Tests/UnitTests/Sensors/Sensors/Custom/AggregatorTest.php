@@ -3,21 +3,21 @@
 namespace Tests\Homie\Sensors\Sensors\Misc;
 
 use Homie\Sensors\Definition;
-use Homie\Sensors\Sensors\Aggregate\Aggregated;
-use Homie\Sensors\Sensors\Misc\HamsterWheel;
+use Homie\Sensors\Aggregate\Aggregated;
+use Homie\Sensors\Sensors\Misc\Aggregator;
 use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 
 /**
- * @covers Homie\Sensors\Sensors\Misc\HamsterWheel
+ * @covers Homie\Sensors\Sensors\Misc\Aggregator
  */
-class HamsterWheelTest extends TestCase
+class AggregatorTest extends TestCase
 {
 
     /**
-     * @var HamsterWheel
+     * @var Aggregator
      */
     private $subject;
 
@@ -29,7 +29,7 @@ class HamsterWheelTest extends TestCase
     public function setUp()
     {
         $this->aggregated = $this->getMock(Aggregated::class, [], [], '', false);
-        $this->subject    = new HamsterWheel($this->aggregated);
+        $this->subject    = new Aggregator($this->aggregated);
     }
 
     public function testGetDefinition()

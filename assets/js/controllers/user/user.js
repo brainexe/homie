@@ -1,11 +1,7 @@
 
-App.controller('UserController', ['$scope', 'UserManagement', 'UserManagement.Avatar', 'controllers', function ($scope, UserManagement, Avatar, controllers) {
+App.controller('UserController', ['$scope', 'UserManagement', 'UserManagement.Avatar', function ($scope, UserManagement, Avatar) {
 
     $scope.user = UserManagement.getCurrentUser();
-
-    $scope.controllers = controllers().filter(function(controller) {
-        return controller.collapsible
-    });
 
     Avatar.getList().success(function(avatars) {
         $scope.avatars = avatars;
@@ -23,9 +19,5 @@ App.controller('UserController', ['$scope', 'UserManagement', 'UserManagement.Av
             UserManagement.setCurrentUser(user);
             $scope.user = user;
         });
-    };
-
-    $scope.toggleMenu = function(controller) {
-        // TODO
     };
 }]);

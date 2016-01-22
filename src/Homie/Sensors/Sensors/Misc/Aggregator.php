@@ -8,17 +8,17 @@ use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\None;
 use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\Sensors\AbstractSensor;
-use Homie\Sensors\Sensors\Aggregate\Aggregated;
+use Homie\Sensors\Aggregate\Aggregated;
 use Homie\Sensors\SensorVO;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * @Sensor("Sensor.Custom.HamsterWheel")
+ * @Sensor("Sensor.Custom.Aggregator")
  */
-class HamsterWheel extends AbstractSensor implements Parameterized
+class Aggregator extends AbstractSensor implements Parameterized
 {
 
-    const TYPE = 'custom.hamsterwheel';
+    const TYPE = 'custom.aggregator';
 
     /**
      * @var Aggregated
@@ -40,7 +40,6 @@ class HamsterWheel extends AbstractSensor implements Parameterized
      */
     public function getValue(SensorVO $sensor)
     {
-        // todo multiply by range/extend
         return (int)$this->aggregated->getCurrent($sensor->parameter);
     }
 

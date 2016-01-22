@@ -282,6 +282,7 @@ body > .header .logo {
   }
   .row-offcanvas-left .sidebar-offcanvas {
     left: -180px;
+    margin-top: -50px;
   }
   .row-offcanvas-right.active {
     right: 180px;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Homie\Sensors\Sensors\Aggregate;
+namespace Homie\Sensors\Aggregate;
 
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\RedisTrait;

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-03 13:42+0100\n"
+"POT-Creation-Date: 2016-01-22 22:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,11 +54,11 @@ msgstr ""
 msgid "Dashboard"
 msgstr ""
 
-#: src/Homie/Dashboard/Widgets/SensorGraph.php:71
+#: src/Homie/Dashboard/Widgets/SensorGraph.php:69
 msgid "Sensors"
 msgstr ""
 
-#: src/Homie/Dashboard/Widgets/SensorGraph.php:76
+#: src/Homie/Dashboard/Widgets/SensorGraph.php:74
 #: src/Homie/Dashboard/Widgets/SensorWidget.php:48
 msgid "From"
 msgstr ""
@@ -135,18 +135,22 @@ msgid "Last day"
 msgstr ""
 
 #: src/Homie/Sensors/Chart.php:55
-msgid "Last week"
+msgid "Last 3 days"
 msgstr ""
 
 #: src/Homie/Sensors/Chart.php:56
-msgid "Last month"
+msgid "Last week"
 msgstr ""
 
 #: src/Homie/Sensors/Chart.php:57
+msgid "Last month"
+msgstr ""
+
+#: src/Homie/Sensors/Chart.php:58
 msgid "All time"
 msgstr ""
 
-#: src/Homie/Expression/Controller/Controller.php:81
+#: src/Homie/Expression/Controller/Controller.php:90
 msgid "No actions defined"
 msgstr ""
 

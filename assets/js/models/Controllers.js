@@ -29,6 +29,7 @@ App.service('controllers', ['_', function(_) {
             // hidden controllers
             {url: 'logout', templateUrl: "/templates/index.html", controller: "LogoutController"},
             {url: 'user/change_password', templateUrl: "/templates/user/change_password.html", controller: "ChangePasswordController"},
+            {url: 'user/settings', templateUrl: "/templates/user/settings.html", controller: "UserSettingsController"},
             {url: 'user/otp', templateUrl: "/templates/user/otp.html", controller: "OtpController"},
             {url: 'user/tokens', templateUrl: "/templates/user/tokens.html", controller: "UserTokensController"},
             {url: 'index', templateUrl: "/templates/index.html", controller: "IndexController"}

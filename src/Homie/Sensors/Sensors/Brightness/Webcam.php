@@ -41,7 +41,7 @@ class Webcam extends AbstractSensor
         $tmpFile = tempnam('/tmp', self::TYPE);
         $this->client->executeWithReturn('fswebcam', [$tmpFile]);
         $command = sprintf(
-            "convert %s  -colorspace gray  -resize 1x1  txt:-",
+            "convert %s -colorspace gray -resize 1x1 txt:-",
             $tmpFile
         );
 
@@ -61,7 +61,6 @@ class Webcam extends AbstractSensor
     public function isSupported(SensorVO $sensor, OutputInterface $output)
     {
         // todo check if camera is connected
-        // todo check if fswebcam/imagemagic is installed
         return true;
     }
 
@@ -73,10 +72,6 @@ class Webcam extends AbstractSensor
         $definition            = new Definition();
         $definition->type      = Definition::TYPE_NONE;
         $definition->formatter = None::TYPE;
-        $definition->neededPackages = [
-            'fswebcam',
-            'imagemagick'
-        ];
 
         return $definition;
     }
