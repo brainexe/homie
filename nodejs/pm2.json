@@ -2,8 +2,7 @@
   "dependencies": {
     "pmx": "latest",
     "pm2": "latest",
-    "pm2-logrotate": "latest",
-    "pm2-redis": "latest"
+    "pm2-logrotate": "latest"
   },
   "apps" : [
     {
@@ -26,6 +25,12 @@
     {
       "name"        : "metawear",
       "script"      : "metawear.js",
+      "merge_logs"  : true,
+      "max_restarts" : 5
+    },
+    {
+      "name"        : "motion",
+      "script"      : "motion.js",
       "merge_logs"  : true,
       "max_restarts" : 5
     }

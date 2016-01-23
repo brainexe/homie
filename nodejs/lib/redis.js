@@ -1,6 +1,5 @@
 var redis    = require('redis'),
-    bluebird = require('bluebird'),
-    config   = require('./config');
+    bluebird = require('bluebird');
 
 var client;
 var clients = {};

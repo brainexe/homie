@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 DEVICE=$(ls /dev/ttyUSB* /dev/ttyACM*)
+TYPE="du"
 
-cd node_modules/duino/src/du
-arduino du.ino --upload --port $DEVICE
+cd node_modules/duino/src/
+arduino $TYPE.ino --upload --port $DEVICE

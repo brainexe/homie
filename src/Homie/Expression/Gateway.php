@@ -40,7 +40,7 @@ class Gateway
      */
     public function save(Entity $entity)
     {
-        $entity->expressionId = $entity->expressionId ?: $this->generateUniqueId();
+        $entity->expressionId = $entity->expressionId ?: $this->generateUniqueId('expressionid');
         $entity->payload      = $entity->payload ?: [];
 
         $entity->compiledCondition = $this->language->compile(

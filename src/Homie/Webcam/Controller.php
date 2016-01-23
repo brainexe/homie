@@ -70,7 +70,7 @@ class Controller
      */
     public function take(Request $request, $type)
     {
-        $name = $this->generateUniqueId();
+        $name = $this->generateUniqueId('webcam');
 
         $duration = (int)$request->request->get('duration');
 

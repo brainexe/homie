@@ -287,6 +287,10 @@ msgstr ""
 msgid "Hello {{ currentUser.username }}!"
 msgstr ""
 
+#: assets/templates/user/settings.html:8
+msgid "Hide menu entries"
+msgstr ""
+
 #: assets/index.html:15 assets/index.html:7
 #: assets/js/util/BrowserNotification.js:31
 msgid "Homie"
@@ -361,8 +365,8 @@ msgctxt "gpio"
 msgid "Mode"
 msgstr ""
 
-#: assets/templates/sensor/edit.html:23
-msgctxt "sensor"
+#: assets/templates/gpio.html:16
+msgctxt "gpio"
 msgid "Name"
 msgstr ""
 
@@ -375,8 +379,8 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: assets/templates/gpio.html:16
-msgctxt "gpio"
+#: assets/templates/sensor/edit.html:23
+msgctxt "sensor"
 msgid "Name"
 msgstr ""
 
@@ -639,10 +643,6 @@ msgstr ""
 msgid "ToDo List"
 msgstr ""
 
-#: assets/templates/user/settings.html:8
-msgid "Toggle menu entries"
-msgstr ""
-
 #: assets/templates/sensor/sensor.html:5
 msgid "Toggle navigation"
 msgstr ""
@@ -659,15 +659,15 @@ msgstr ""
 msgid "Two Factor Authentication"
 msgstr ""
 
+#: assets/templates/sensor/edit.html:18
+msgctxt "sensor"
+msgid "Type"
+msgstr ""
+
 #: assets/templates/admin/nodes.html:5 assets/templates/new_sensor.html:10
 #: assets/templates/sensor/add.html:16 assets/templates/sensor/edit.html:49
 #: assets/templates/sensor/edit.html:50 assets/templates/status.html:32
 #: assets/templates/switch/add.html:8 assets/templates/widgets/new.html:26
-msgid "Type"
-msgstr ""
-
-#: assets/templates/sensor/edit.html:18
-msgctxt "sensor"
 msgid "Type"
 msgstr ""
 
@@ -687,6 +687,11 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
+#: assets/templates/sensor/edit.html:29
+msgctxt "sensor"
+msgid "Value"
+msgstr ""
+
 #: assets/templates/status.html:69 assets/templates/status.html:8
 #: assets/templates/status.html:87
 msgid "Value"
@@ -694,11 +699,6 @@ msgstr ""
 
 #: assets/templates/gpio.html:26
 msgctxt "gpio"
-msgid "Value"
-msgstr ""
-
-#: assets/templates/sensor/edit.html:29
-msgctxt "sensor"
 msgid "Value"
 msgstr ""
 
@@ -943,66 +943,70 @@ msgid "sensor.formatter.temperature.name"
 msgstr "Temperature"
 
 #: cache/translation_token.html:52
+msgid "sensor.humid.absolute.name"
+msgstr "Absolute Humidity"
+
+#: cache/translation_token.html:53
 msgid "sensor.humid.dht11.name"
 msgstr "Humid (DHT11)"
 
-#: cache/translation_token.html:53
+#: cache/translation_token.html:54
 msgid "sensor.system.disk_used.name"
 msgstr "Used disc space"
 
-#: cache/translation_token.html:54
+#: cache/translation_token.html:55
 msgid "sensor.system.disk_used_percent.name"
 msgstr "Used disc space in %"
 
-#: cache/translation_token.html:55
+#: cache/translation_token.html:56
 msgid "sensor.system.load.name"
 msgstr "System Load"
 
-#: cache/translation_token.html:56
+#: cache/translation_token.html:57
 msgid "sensor.system.memory_used.name"
 msgstr "Used RAM"
 
-#: cache/translation_token.html:57
+#: cache/translation_token.html:58
 msgid "sensor.system.redis.name"
 msgstr "Redis statistic"
 
-#: cache/translation_token.html:58
+#: cache/translation_token.html:59
 msgid "sensor.temperature.dht11.name"
 msgstr "Temperature (DHT11 / DHT22)"
 
-#: cache/translation_token.html:59
+#: cache/translation_token.html:60
 msgid "sensor.temperature.ds18.name"
 msgstr "Temperature (DS18)"
 
-#: cache/translation_token.html:60
+#: cache/translation_token.html:61
 msgid "sensor.temperature.onboard.name"
 msgstr "Temperature (on Chip)"
 
-#: cache/translation_token.html:61
+#: cache/translation_token.html:62
 msgid "switch.gpio.name"
 msgstr "GPIO Pin"
 
-#: cache/translation_token.html:62
+#: cache/translation_token.html:63
 msgid "switch.radio.name"
 msgstr "443 MHz radio switch"
 
-#: cache/translation_token.html:63
+#: cache/translation_token.html:64
 msgid "todo.status.completed.name"
 msgstr "Completed"
 
-#: cache/translation_token.html:64
+#: cache/translation_token.html:65
 msgid "todo.status.delete.name"
 msgstr "Delete"
 
-#: cache/translation_token.html:65
+#: cache/translation_token.html:66
 msgid "todo.status.open.name"
 msgstr "Open"
 
-#: cache/translation_token.html:66
+#: cache/translation_token.html:67
 msgid "todo.status.pending.name"
 msgstr "Pending"
 
-#: cache/translation_token.html:67
+#: cache/translation_token.html:68
 msgid "todo.status.progress.name"
 msgstr "In progress"
 

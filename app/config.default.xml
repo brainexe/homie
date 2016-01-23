@@ -9,6 +9,7 @@
         <parameter key="socket.url">http://localhost:%socket.internal.port%/socket</parameter>
 
         <parameter key="metawear.port">8082</parameter>
+        <parameter key="motion.port">8083</parameter>
 
         <parameter key="gpio.command">gpio</parameter>
         <parameter key="sound.command">mplayer</parameter>
@@ -19,6 +20,7 @@
         <parameter key="webcam.command.video">streamer -t 0:0:2 -f rgb24 -r {{duration}} -o {{file}}</parameter>
         <!--<parameter key="webcam.command.photo">raspistill -o %s</parameter>-->
 
+        <parameter key="webcam.device">/dev/video0</parameter>
         <parameter key="ifttt.key"></parameter>
 
         <!-- Connect an Arduino -->

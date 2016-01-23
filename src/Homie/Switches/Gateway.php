@@ -59,7 +59,7 @@ class Gateway
      */
     public function add(SwitchVO $switch)
     {
-        $switch->switchId = $newId = $this->generateUniqueId();
+        $switch->switchId = $newId = $this->generateUniqueId('switchid');
 
         $pipeline = $this->getRedis()->pipeline();
 

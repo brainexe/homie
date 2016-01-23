@@ -22,7 +22,7 @@ class Gateway
      */
     public function addDisplay(Settings $setting)
     {
-        $setting->displayId = $this->generateUniqueId();
+        $setting->displayId = $this->generateUniqueId('displayid');
         $this->update($setting);
     }
 

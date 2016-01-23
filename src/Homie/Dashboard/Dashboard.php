@@ -63,7 +63,7 @@ class Dashboard
     public function addWidget($dashboardId, $type, array $payload)
     {
         if (!$dashboardId) {
-            $dashboardId = $this->generateUniqueId();
+            $dashboardId = $this->generateUniqueId('dashboardid');
             $this->gateway->addDashboard($dashboardId, [
                 'name' => gettext('Dashboard') . ' - ' . $dashboardId
             ]);

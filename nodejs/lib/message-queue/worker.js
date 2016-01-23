@@ -1,7 +1,6 @@
 var redis = require('../redis'),
     config = require('../config'),
     childProcess = require('child_process'),
-    async = require('async'),
     fs = require('fs');
 
 require('colors');

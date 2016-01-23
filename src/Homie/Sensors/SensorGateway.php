@@ -66,7 +66,7 @@ class SensorGateway
     public function addSensor(SensorVO $sensorVo)
     {
         $redis = $this->getRedis()->pipeline();
-        $newId = $this->generateUniqueId();
+        $newId = $this->generateUniqueId('sensorid');
 
         $key = $this->getKey($newId);
 

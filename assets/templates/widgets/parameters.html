@@ -46,7 +46,10 @@
             ></textarea>
         </div>
         <div ng-switch-when="boolean">
-            <input type="checkbox" ng-model="payload[type]"/>
+            <input
+                    type="checkbox"
+                    class="big-checkbox"
+                    ng-model="payload[type]"/>
         </div>
         <div ng-switch-when="key_value_list" >
             <div ng-repeat="(key, value) in payload[type]" class="input-group">
