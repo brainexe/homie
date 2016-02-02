@@ -3,6 +3,7 @@
 namespace Tests\Homie\Sensors;
 
 use BrainExe\Core\Redis\Predis;
+use BrainExe\Core\Util\IdGenerator;
 use BrainExe\Core\Util\Time;
 use BrainExe\Tests\RedisMockTrait;
 use Homie\Sensors\SensorVO;
@@ -34,14 +35,21 @@ class SensorValuesGatewayTest extends TestCase
      */
     private $time;
 
+    /**
+     * @var IdGenerator|MockObject
+     */
+    private $idGenerator;
+
     public function setUp()
     {
         $this->redis = $this->getRedisMock();
         $this->time  = $this->getMock(Time::class, [], [], '', false);
+        $this->idGenerator  = $this->getMock(IdGenerator::class, [], [], '', false);
 
         $this->subject = new SensorValuesGateway();
         $this->subject->setRedis($this->redis);
         $this->subject->setTime($this->time);
+        $this->subject->setIdGenerator($this->idGenerator);
     }
 
     public function testAddValue()
@@ -49,16 +57,21 @@ class SensorValuesGatewayTest extends TestCase
         $sensorId = 10;
         $value    = 100;
         $now      = 10000;
+        $valueId  = 4242;
 
         $this->redis
             ->expects($this->once())
             ->method('pipeline')
             ->willReturn($this->redis);
+        $this->idGenerator
+            ->expects($this->once())
+            ->method('generateUniqueId')
+            ->willReturn($valueId);
 
         $this->redis
             ->expects($this->once())
             ->method('ZADD')
-            ->with("sensor_values:$sensorId", $now, "$now-$value");
+            ->with("sensor_values:$sensorId", $now, "$valueId-$value");
 
         $this->redis
             ->expects($this->once())
@@ -94,9 +107,9 @@ class SensorValuesGatewayTest extends TestCase
             ->willReturn($now);
 
         $redisResult = [
-            "701-100",
-            "702-101",
-            "703--1",
+            "701-100" => 701,
+            "702-101" => 702,
+            "703--1"  => 703,
         ];
         $this->redis
             ->expects($this->once())
@@ -142,7 +155,7 @@ class SensorValuesGatewayTest extends TestCase
     public function testDeleteOldValues()
     {
         $sensorId = 10;
-        $now      = SensorValuesGateway::CLEAN_SINCE + 10;
+        $now      = 3 * 86400 + 10;
 
         $this->time
             ->expects($this->once())
@@ -153,21 +166,21 @@ class SensorValuesGatewayTest extends TestCase
             "701-100" => 10000,
             "702-101" => 10001,
             "702-103" => 2330000,
+            "400-103" => 2330000,
+            "4334702-103" => 2330000,
         ];
 
         $this->redis
-            ->expects($this->once())
+            ->expects($this->exactly(count(SensorValuesGateway::FRAMES)))
             ->method('ZRANGEBYSCORE')
-            ->with("sensor_values:$sensorId", 0, $now - SensorValuesGateway::CLEAN_SINCE, ['withscores' => true])
             ->willReturn($oldValues);
 
         $this->redis
-            ->expects($this->once())
-            ->method('ZREM')
-            ->with("sensor_values:$sensorId", "702-101");
+            ->expects($this->exactly(7))
+            ->method('ZREM');
 
         $actual = $this->subject->deleteOldValues($sensorId);
 
-        $this->assertEquals(1, $actual);
+        $this->assertEquals(7, $actual);
     }
 }

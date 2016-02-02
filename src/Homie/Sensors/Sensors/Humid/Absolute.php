@@ -63,10 +63,7 @@ class Absolute extends Expression implements Parameterized
         $sensorParameter = clone $sensor;
         $sensorParameter->parameter = $expression;
 
-        $r = parent::getValue($sensorParameter);
-
-        echo "$r --- ";
-        return $r;
+        return parent::getValue($sensorParameter);
     }
 
     /**
@@ -77,6 +74,7 @@ class Absolute extends Expression implements Parameterized
         $definition            = new Definition();
         $definition->formatter = Percentage::TYPE;
         $definition->type      = Definition::TYPE_NONE;
+        $definition->unit      = 'g/m³';
 
         return $definition;
     }

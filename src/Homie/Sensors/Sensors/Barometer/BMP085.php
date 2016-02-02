@@ -71,6 +71,7 @@ class BMP085 extends AbstractSensor implements Parameterized
         $definition            = new Definition();
         $definition->type      = Definition::TYPE_BAROMETER;
         $definition->formatter = Barometer::TYPE;
+        $definition->unit      = 'hPa';
 
         return $definition;
     }

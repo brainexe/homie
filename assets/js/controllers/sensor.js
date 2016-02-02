@@ -6,13 +6,6 @@ App.controller('SensorController', ['$scope', '$uibModal', 'SensorGraph', functi
     $scope.fromIntervals   = {};
     $scope.types           = {};
 
-    $scope.openModal = function () {
-        uibModal.open({
-            templateUrl: '/templates/new_sensor.html',
-            controller: 'NewSensorController'
-        });
-    };
-
     $scope.editModal = function () {
         uibModal.open({
             templateUrl: '/templates/sensor/edit.html',

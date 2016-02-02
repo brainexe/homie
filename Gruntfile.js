@@ -283,7 +283,7 @@ module.exports = function (grunt) {
                 cwd: 'web/',
                 options: {
                     network: ['*'],
-                    fallback: ['/ /index.html'],
+                    fallback: ['/index.html'],
                     exclude: ['manifest.appcache'],
                     preferOnline: true,
                     basePath: 'web',

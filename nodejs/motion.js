@@ -35,5 +35,5 @@ motion
     })
     .on('exit', function (msg) {
         console.log('[MOTION EXIT]', msg);
-        config && config.deleteConfig();
+        config.deleteConfig();
     });

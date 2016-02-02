@@ -3,6 +3,7 @@
 namespace Homie\Sensors;
 
 use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Traits\IdGeneratorTrait;
 use BrainExe\Core\Traits\RedisTrait;
 use BrainExe\Core\Traits\TimeTrait;
 
@@ -14,11 +15,14 @@ class SensorValuesGateway
 
     const REDIS_SENSOR_VALUES = 'sensor_values:%d';
 
-    const CLEAN_SINCE     = 3 * 86400; // start cleaning up values after 3 days
-    const CLEAN_THRESHOLD = 30 * 60; // try to keep values each 30 minutes
+    const FRAMES = [
+        3 * 86400  => 30 * 60,  // after 3 days, just keep one entry each 30 minutes
+        14 * 86400 => 3 * 3600, // after 2 weeks, just keep one entry each 3 hours
+    ];
 
     use RedisTrait;
     use TimeTrait;
+    use IdGeneratorTrait;
 
     /**
      * @param SensorVO $sensor
@@ -32,8 +36,9 @@ class SensorValuesGateway
 
         $redis = $this->getRedis()->pipeline();
         $key   = $this->getKey($sensor->sensorId);
+        $id    = $this->generateUniqueId('sensorvalue');
 
-        $redis->ZADD($key, $now, $now . '-' . $value);
+        $redis->ZADD($key, $now, $id . '-' . $value);
         $redis->HMSET(SensorGateway::REDIS_SENSOR_PREFIX . $sensor->sensorId, [
             'lastValue' => $sensor->lastValue,
             'lastValueTimestamp' => $sensor->lastValueTimestamp
@@ -58,11 +63,11 @@ class SensorValuesGateway
         }
 
         $key         = $this->getKey($sensorId);
-        $redisResult = $this->getRedis()->ZRANGEBYSCORE($key, $from, $now);
+        $redisResult = $this->getRedis()->ZRANGEBYSCORE($key, $from, $now, ['withscores' => true]);
         $result      = [];
 
-        foreach ($redisResult as $part) {
-            list($timestamp, $value) = explode('-', $part, 2);
+        foreach ($redisResult as $part => $timestamp) {
+            list(, $value) = explode('-', $part, 2);
             $result[$timestamp] = $value;
         }
 
@@ -75,23 +80,26 @@ class SensorValuesGateway
      */
     public function deleteOldValues($sensorId)
     {
-        $redis = $this->getRedis();
+        $redis   = $this->getRedis();
+        $now     = $this->now();
+        $deleted = 0;
 
-        $untilTimestamp = $this->now() - self::CLEAN_SINCE;
-        $key            = $this->getKey($sensorId);
-        $oldValues      = $redis->ZRANGEBYSCORE($key, 0, $untilTimestamp, ['withscores' => true]);
-        $deleted        = 0;
-        $lastTimestamp  = 0;
+        foreach (self::FRAMES as $since => $threshHold) {
+            $untilTimestamp = $now - $since;
+            $key            = $this->getKey($sensorId);
+            $oldValues      = $redis->ZRANGEBYSCORE($key, 0, $untilTimestamp, ['withscores' => true]);
+            $lastTimestamp  = 0;
 
-        foreach ($oldValues as $score => $timestamp) {
-            if ($lastTimestamp + self::CLEAN_THRESHOLD > $timestamp) {
-                $redis->ZREM($key, $score);
+            foreach ($oldValues as $score => $timestamp) {
+                if ($lastTimestamp + $threshHold > $timestamp) {
+                    $redis->ZREM($key, $score);
 
-                $deleted += 1;
-                continue;
+                    $deleted += 1;
+                    continue;
+                }
+
+                $lastTimestamp = $timestamp;
             }
-
-            $lastTimestamp = $timestamp;
         }
 
         return $deleted;

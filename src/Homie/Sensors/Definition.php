@@ -24,4 +24,9 @@ class Definition
      * @var string
      */
     public $formatter = None::TYPE;
+
+    /**
+     * @var string
+     */
+    public $unit;
 }
