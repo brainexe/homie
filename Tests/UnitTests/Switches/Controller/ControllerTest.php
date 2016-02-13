@@ -4,6 +4,7 @@ namespace Tests\Homie\Switches\Controller;
 
 use ArrayIterator;
 use BrainExe\Core\Application\UserException;
+use Homie\Switches\VO\ArduinoSwitchVO;
 use Homie\Switches\VO\GpioSwitchVO;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
@@ -116,6 +117,36 @@ class ControllerTest extends TestCase
         $switch->name        = $name;
         $switch->description = $description;
         $switch->pin         = $pin;
+
+        $this->switches
+            ->expects($this->once())
+            ->method('add')
+            ->with($switch);
+
+        $actual = $this->subject->add($request);
+
+        $this->assertEquals($switch, $actual);
+    }
+
+    public function testAddArduino()
+    {
+        $name        = 'name';
+        $description = 'description';
+        $pin         = 1;
+        $node        = 42;
+
+        $request = new Request();
+        $request->request->set('name', $name);
+        $request->request->set('description', $description);
+        $request->request->set('pin', $pin);
+        $request->request->set('node', $node);
+        $request->request->set('type', ArduinoSwitchVO::TYPE);
+
+        $switch = new ArduinoSwitchVO();
+        $switch->name        = $name;
+        $switch->description = $description;
+        $switch->pin         = $pin;
+        $switch->nodeId      = $node;
 
         $this->switches
             ->expects($this->once())

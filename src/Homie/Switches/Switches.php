@@ -7,6 +7,7 @@ use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Application\UserException;
 use Exception;
 use Generator;
+use Homie\Switches\VO\ArduinoSwitchVO;
 use Homie\Switches\VO\GpioSwitchVO;
 use Homie\Switches\VO\SwitchVO;
 use InvalidArgumentException;
@@ -123,6 +124,10 @@ class Switches
                 $switch->pin  = $raw['pin'];
                 break;
             case GpioSwitchVO::TYPE:
+                $switch = new GpioSwitchVO();
+                $switch->pin = $raw['pin'];
+                break;
+            case ArduinoSwitchVO::TYPE:
                 $switch = new GpioSwitchVO();
                 $switch->pin = $raw['pin'];
                 break;

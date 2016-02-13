@@ -7,7 +7,7 @@ use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Application\UserException;
 use Homie\Switches\Switches;
-
+use Homie\Switches\VO\ArduinoSwitchVO;
 use Homie\Switches\VO\GpioSwitchVO;
 use Homie\Switches\VO\RadioVO;
 use Homie\Switches\VO\SwitchVO;
@@ -102,6 +102,11 @@ class Controller
             case GpioSwitchVO::TYPE:
                 $switchVo = new GpioSwitchVO();
                 $switchVo->pin = $request->request->getAlnum('pin');
+                break;
+            case ArduinoSwitchVO::TYPE:
+                $switchVo = new ArduinoSwitchVO();
+                $switchVo->pin    = $request->request->getAlnum('pin');
+                $switchVo->nodeId = $request->request->getAlnum('node');
                 break;
             default:
                 throw new UserException(sprintf(_('Invalid switch type: %s'), $type));

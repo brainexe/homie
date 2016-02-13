@@ -1,19 +1,25 @@
 
-App.controller('SwitchController', ['$scope', 'Switches', 'MessageQueue', '_', function ($scope, Switches, MessageQueue, _) {
+App.controller('SwitchController', ['$scope', 'Switches', 'Nodes', 'MessageQueue', '_', function ($scope, Switches, Nodes, MessageQueue, _) {
     $scope.switches  = {};
     $scope.jobs      = {};
     $scope.radioPins = {};
     $scope.newJob    = {};
     $scope.editMode  = false;
     $scope.newSwitch = {};
+    $scope.nodes     = {};
     $scope.types     = {
-        'radio': {name: _('443 MHz Radio')},
-        'gpio':  {name: _('GPIO')}
+        'radio':    {name: _('443 MHz Radio')},
+        'gpio':     {name: _('RaspberryPi Pin')},
+        'arduino':  {name: _('Arduino Pin')}
     };
 
     Switches.getData().success(function (data) {
         $scope.switches  = data.switches;
         $scope.radioPins = data.radioPins;
+    });
+
+    Nodes.getData().success(function(data) {
+        $scope.nodes = data.nodes;
     });
 
     MessageQueue.getJobs(Switches.JOB_ID).success(function(data) {

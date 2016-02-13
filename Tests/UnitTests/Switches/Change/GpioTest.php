@@ -24,11 +24,11 @@ class GpioTest extends TestCase
 
     public function testSetStatus()
     {
-        $radioVo = new GpioSwitchVO();
-        $radioVo->pin  = 2;
+        $switchVo = new GpioSwitchVO();
+        $switchVo->pin  = 2;
         $status = 1;
 
         $this->markTestIncomplete('gpio switch not final');
-        $this->subject->setStatus($radioVo, $status);
+        $this->subject->setStatus($switchVo, $status);
     }
 }

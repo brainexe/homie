@@ -1,0 +1,37 @@
+<?php
+
+namespace Homie\Remote;
+
+use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
+use BrainExe\Core\Annotations\Guest;
+use BrainExe\Core\Annotations\Route;
+use BrainExe\Core\Traits\EventDispatcherTrait;
+use Homie\Remote\Event\ReceivedEvent;
+use Symfony\Component\HttpFoundation\Request;
+
+/**
+ * @ControllerAnnotation("Remote.Controller")
+ */
+class Controller
+{
+
+    use EventDispatcherTrait;
+
+    /**
+     * @param Request $request
+     * @param string $code
+     * @return bool
+     * @Route("/remote/receive/{code}/", name="remote.receive")
+     * @Guest
+     */
+    public function action(Request $request, $code)
+    {
+        unset($request);
+
+        $event = new ReceivedEvent($code);
+
+        $this->dispatchEvent($event);
+
+        return true;
+    }
+}

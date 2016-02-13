@@ -115,6 +115,7 @@ class Controller
 
         $response = new Response();
         $response->setContent(stream_get_contents($stream));
+        $response->setSharedMaxAge(86400);
         $response->headers->set('Content-Type', $mime);
         $response->headers->set('Cache-Control', 'max-age=86400');
 

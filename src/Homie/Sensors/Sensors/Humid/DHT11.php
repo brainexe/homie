@@ -30,7 +30,7 @@ class DHT11 extends AbstractDHT11
             return null;
         }
 
-        return $this->round($matches[2], 0.05);
+        return $this->round($matches[2], 0.01);
     }
 
     /**

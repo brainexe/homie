@@ -63,7 +63,7 @@ class Absolute extends Expression implements Parameterized
         $sensorParameter = clone $sensor;
         $sensorParameter->parameter = $expression;
 
-        return parent::getValue($sensorParameter);
+        return $this->round(parent::getValue($sensorParameter), 0.01);
     }
 
     /**
