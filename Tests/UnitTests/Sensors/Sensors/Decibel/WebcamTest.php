@@ -37,14 +37,18 @@ class WebcamTest extends TestCase
     {
         $this->client
             ->expects($this->once())
+            ->method('execute');
+
+        $this->client
+            ->expects($this->once())
             ->method('executeWithReturn')
-            ->willReturn(10);
+            ->willReturn('Maximum amplitude: 12');
 
         $sensor = new SensorVO();
         $sensor->parameter = 10;
         $actual = $this->subject->getValue($sensor);
 
-        $this->assertEquals(20, $actual);
+        $this->assertEquals(21.58, $actual);
     }
 
     public function testIsSupported()

@@ -2,14 +2,10 @@
 
 namespace Homie\Expression\CompilerPass;
 
-use BrainExe\Core\Traits\FileCacheTrait;
-use Homie\Expression\Language;
-use ReflectionFunction;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use BrainExe\Core\Annotations\CompilerPass as CompilerPassAnnotation;
-use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
 /**
  * @CompilerPassAnnotation

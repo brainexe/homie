@@ -38,21 +38,19 @@ class Webcam extends AbstractSensor
      */
     public function getValue(SensorVO $sensor)
     {
-        $tmp = sys_get_temp_dir();
+        $tmpFile = sys_get_temp_dir() . '/tmp_rec.wav';
+        $this->client->execute('arecord', ['-d', 2, $tmpFile]);
 
-        $this->client->execute(sprintf('arecord -d 1 %s/tmp_rec.wav', $tmp));
+        $content = $this->client->executeWithReturn('sox', ['-t', '.wav', $tmpFile, '-n', 'stat']);
 
-        $command = sprintf(
-            "sox -t .wav %s/tmp_rec.wav -n stat 2>&1 " .
-            "| grep \"Maximum amplitude\" | cut -d ':' -f 2",
-            $tmp
-        );
+        if (!preg_match('/^Maximum amplitude:\s*([\d\.]+?)$/m', $content, $match)) {
+            return null;
+        }
 
-        $value = (float)trim($this->client->executeWithReturn($command));
-
+        $value = (float)trim($match[1]);
         $value = 20 * log($value) / log(10);
 
-        return round($value, 1);
+        return $this->round($value, 0.01);
     }
 
     /**
