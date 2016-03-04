@@ -113,7 +113,7 @@ class DS18 extends AbstractSensor implements Searchable
 
         $temperature = $matches[1] / 1000;
 
-        $invalidTemperatures = [0.0, 85.0];
+        $invalidTemperatures = [0.0, 85.0, 127.937];
         if (in_array($temperature, $invalidTemperatures)) {
             return null;
         }
