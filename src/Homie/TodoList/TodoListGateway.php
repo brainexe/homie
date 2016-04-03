@@ -28,9 +28,9 @@ class TodoListGateway
 
         $raw = (array)$itemVo;
 
-        $redis->HMSET($this->getRedisKey($itemVo->todoId), $raw);
+        $redis->hmset($this->getRedisKey($itemVo->todoId), $raw);
 
-        $redis->sAdd(self::TODO_IDS, $itemVo->todoId);
+        $redis->sadd(self::TODO_IDS, [$itemVo->todoId]);
     }
 
     /**
@@ -38,11 +38,11 @@ class TodoListGateway
      */
     public function getList()
     {
-        $itemIds = $this->getRedis()->sMembers(self::TODO_IDS);
+        $itemIds = $this->getRedis()->smembers(self::TODO_IDS);
 
         $redis = $this->getRedis()->pipeline();
         foreach ($itemIds as $itemId) {
-            $redis->HGETALL($this->getRedisKey($itemId));
+            $redis->hgetall($this->getRedisKey($itemId));
         }
 
         return $redis->execute();
@@ -54,7 +54,7 @@ class TodoListGateway
      */
     public function getRawItem($itemId)
     {
-        return $this->getRedis()->HGETALL($this->getRedisKey($itemId));
+        return $this->getRedis()->hgetall($this->getRedisKey($itemId));
     }
 
     /**
@@ -67,7 +67,7 @@ class TodoListGateway
 
         $changes['lastChange'] = $this->now();
 
-        $this->getRedis()->hMSet($key, $changes);
+        $this->getRedis()->hmset($key, $changes);
     }
 
     /**
@@ -78,7 +78,7 @@ class TodoListGateway
         $key = $this->getRedisKey($itemId);
 
         $this->getRedis()->del($key);
-        $this->getRedis()->sRem(self::TODO_IDS, $itemId);
+        $this->getRedis()->srem(self::TODO_IDS, $itemId);
     }
 
     /**

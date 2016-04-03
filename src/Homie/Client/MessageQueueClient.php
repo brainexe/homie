@@ -37,6 +37,6 @@ class MessageQueueClient implements ClientInterface
 
         $this->dispatchInBackground($event);
 
-        return $this->getRedis()->brPop(self::RETURN_CHANNEL, self::TIMEOUT);
+        return $this->getRedis()->brpop(self::RETURN_CHANNEL, self::TIMEOUT);
     }
 }

@@ -5,6 +5,7 @@ namespace Homie\Dashboard;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\IdGeneratorTrait;
 use BrainExe\Core\Traits\RedisTrait;
+use Generator;
 
 /**
  * @Service(public=false)
@@ -20,19 +21,16 @@ class DashboardGateway
     const IDS_KEY    = 'dashboard:ids';
 
     /**
-     * @return DashboardVo[]
+     * @return Generator|DashboardVo[]
      */
     public function getDashboards()
     {
         $redis = $this->getRedis();
 
-        $dashboards = [];
-        $dashboardIds = $redis->sMembers(self::IDS_KEY);
+        $dashboardIds = $redis->smembers(self::IDS_KEY);
         foreach ($dashboardIds as $dashboardId) {
-            $dashboards[$dashboardId] = $this->getDashboard($dashboardId);
+            yield $dashboardId => $this->getDashboard($dashboardId);
         }
-
-        return $dashboards;
     }
     /**
      * @param integer $dashboardId
@@ -43,8 +41,8 @@ class DashboardGateway
         $dashboard = new DashboardVo();
         $dashboard->dashboardId = $dashboardId;
 
-        $widgetsRaw = $this->getRedis()->hGetAll($this->getWidgetKey($dashboardId));
-        $meta       = $this->getRedis()->hGetAll($this->getMetaKey($dashboardId));
+        $widgetsRaw = $this->getRedis()->hgetall($this->getWidgetKey($dashboardId));
+        $meta       = $this->getRedis()->hgetall($this->getMetaKey($dashboardId));
 
         foreach ($widgetsRaw as $widgetRaw) {
             $widget = json_decode($widgetRaw, true);
@@ -78,7 +76,7 @@ class DashboardGateway
      */
     public function updateWidget($dashboardId, $widgetId, array $payload)
     {
-        $this->getRedis()->hSet($this->getWidgetKey($dashboardId), $widgetId, json_encode($payload));
+        $this->getRedis()->hset($this->getWidgetKey($dashboardId), $widgetId, json_encode($payload));
     }
 
     /**
@@ -87,7 +85,7 @@ class DashboardGateway
      */
     public function deleteWidget($dashboardId, $widgetId)
     {
-        $this->getRedis()->hDel($this->getWidgetKey($dashboardId), $widgetId);
+        $this->getRedis()->hdel($this->getWidgetKey($dashboardId), [$widgetId]);
     }
 
     /**
@@ -96,7 +94,7 @@ class DashboardGateway
      */
     public function addDashboard($dashboardId, array $metadata)
     {
-        $this->getRedis()->sAdd(self::IDS_KEY, $dashboardId);
+        $this->getRedis()->sadd(self::IDS_KEY, [$dashboardId]);
         $this->updateMetadata($dashboardId, $metadata);
     }
 
@@ -116,7 +114,7 @@ class DashboardGateway
     {
         $this->getRedis()->del($this->getWidgetKey($dashboardId));
         $this->getRedis()->del($this->getMetaKey($dashboardId));
-        $this->getRedis()->sRem(self::IDS_KEY, $dashboardId);
+        $this->getRedis()->srem(self::IDS_KEY, $dashboardId);
     }
 
     /**

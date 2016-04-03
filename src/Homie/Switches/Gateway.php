@@ -30,7 +30,7 @@ class Gateway
         $pipeline = $this->getRedis()->pipeline();
 
         foreach ($switchIds as $switchId) {
-            $pipeline->HGETALL(self::getRedisKey($switchId));
+            $pipeline->hgetall(self::getRedisKey($switchId));
         }
 
         return $pipeline->execute();
@@ -42,7 +42,7 @@ class Gateway
      */
     public function get($switchId)
     {
-        return $this->getRedis()->HGETALL($this->getRedisKey($switchId));
+        return $this->getRedis()->hgetall($this->getRedisKey($switchId));
     }
 
     /**
@@ -50,7 +50,7 @@ class Gateway
      */
     public function getIds()
     {
-        return $this->getRedis()->SMEMBERS(self::REDIS_SWITCH_IDS);
+        return $this->getRedis()->smembers(self::REDIS_SWITCH_IDS);
     }
 
     /**
@@ -64,9 +64,9 @@ class Gateway
         $pipeline = $this->getRedis()->pipeline();
 
         $key = $this->getRedisKey($newId);
-        $pipeline->HMSET($key, (array)$switch);
+        $pipeline->hmset($key, (array)$switch);
 
-        $this->getRedis()->SADD(self::REDIS_SWITCH_IDS, [$newId]);
+        $this->getRedis()->sadd(self::REDIS_SWITCH_IDS, [$newId]);
 
         $pipeline->execute();
 
@@ -80,7 +80,7 @@ class Gateway
     {
         $key = $this->getRedisKey($switch->switchId);
 
-        $this->getRedis()->hMset($key, (array)$switch);
+        $this->getRedis()->hmset($key, (array)$switch);
     }
 
     /**
@@ -90,8 +90,8 @@ class Gateway
     {
         $redis = $this->getRedis();
 
-        $redis->SREM(self::REDIS_SWITCH_IDS, $switchId);
-        $redis->DEL(self::getRedisKey($switchId));
+        $redis->srem(self::REDIS_SWITCH_IDS, $switchId);
+        $redis->del(self::getRedisKey($switchId));
     }
 
     /**

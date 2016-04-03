@@ -53,7 +53,7 @@ class GatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('SMEMBERS')
+            ->method('smembers')
             ->with(Gateway::REDIS_SWITCH_IDS)
             ->willReturn($ids);
 
@@ -64,7 +64,7 @@ class GatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('HGETALL')
+            ->method('hgetall')
             ->with("switches:$switchId");
 
         $this->redis
@@ -85,7 +85,7 @@ class GatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('HGETALL')
+            ->method('hgetall')
             ->with("switches:$switchId")
             ->willReturn($radio);
 
@@ -102,7 +102,7 @@ class GatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('SMEMBERS')
+            ->method('smembers')
             ->with(Gateway::REDIS_SWITCH_IDS)
             ->willReturn($radioIds);
 
@@ -136,7 +136,7 @@ class GatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('HMSET')
+            ->method('hmset')
             ->with($key, [
                 'switchId' => $switchId,
                 'name' => $name,
@@ -149,7 +149,7 @@ class GatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('SADD')
+            ->method('sadd')
             ->with(Gateway::REDIS_SWITCH_IDS, [$switchId]);
 
         $this->redis
@@ -169,7 +169,7 @@ class GatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('hMset')
+            ->method('hmset')
             ->with("switches:$switchId", [
                 'switchId' => $switchId,
                 'code' => null,
@@ -189,12 +189,12 @@ class GatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('SREM')
+            ->method('srem')
             ->with(Gateway::REDIS_SWITCH_IDS, $radioId);
 
         $this->redis
             ->expects($this->once())
-            ->method('DEL')
+            ->method('del')
             ->with("switches:$radioId");
 
         $this->subject->delete($radioId);

@@ -35,7 +35,7 @@ class Display extends AbstractWidget
     public function getMetadata()
     {
         $displays = [];
-        foreach ($this->gateway->getall() as $display) {
+        foreach ($this->gateway->getAll() as $display) {
             $displays[$display->displayId] = $display->displayId;
         }
 

@@ -1,8 +1,6 @@
+var fs = require('fs');
+
 module.exports = function (grunt) {
-    'use strict';
-
-    var fs = require('fs');
-
     grunt.config('env', grunt.option('env') || process.env.ENVIRONMENT || 'development');
     var isProduction = grunt.config('env') == 'production';
 

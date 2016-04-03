@@ -6,6 +6,7 @@ use Homie\Dashboard\Widgets\WidgetMetadataVo;
 
 interface WidgetInterface
 {
+    const TYPE = '';
 
     /**
      * @return string

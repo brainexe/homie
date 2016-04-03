@@ -33,6 +33,5 @@ class WidgetCompilerPass implements CompilerPassInterface
         }
 
         $definition->addMethodCall('setWidgets', [$widgets]);
-
     }
 }

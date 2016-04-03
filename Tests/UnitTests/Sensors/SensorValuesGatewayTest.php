@@ -70,12 +70,12 @@ class SensorValuesGatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('ZADD')
+            ->method('zadd')
             ->with("sensor_values:$sensorId", $now, "$valueId-$value");
 
         $this->redis
             ->expects($this->once())
-            ->method('HMSET')
+            ->method('hmset')
             ->with(SensorGateway::REDIS_SENSOR_PREFIX . $sensorId, [
                 'lastValue' => $value,
                 'lastValueTimestamp' => $now
@@ -113,7 +113,7 @@ class SensorValuesGatewayTest extends TestCase
         ];
         $this->redis
             ->expects($this->once())
-            ->method('ZRANGEBYSCORE')
+            ->method('zrangebyscore')
             ->with("sensor_values:$sensorId", 700, $now)
             ->willReturn($redisResult);
 
@@ -141,7 +141,7 @@ class SensorValuesGatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('ZRANGEBYSCORE')
+            ->method('zrangebyscore')
             ->with("sensor_values:$sensorId", 0, $now)
             ->willReturn([]);
 
@@ -172,12 +172,12 @@ class SensorValuesGatewayTest extends TestCase
 
         $this->redis
             ->expects($this->exactly(count(SensorValuesGateway::FRAMES)))
-            ->method('ZRANGEBYSCORE')
+            ->method('zrangebyscore')
             ->willReturn($oldValues);
 
         $this->redis
             ->expects($this->exactly(7))
-            ->method('ZREM');
+            ->method('zrem');
 
         $actual = $this->subject->deleteOldValues($sensorId);
 

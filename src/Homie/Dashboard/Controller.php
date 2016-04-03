@@ -47,7 +47,7 @@ class Controller
         $dashboards = $this->dashboard->getDashboards();
 
         return [
-            'dashboards' => $dashboards,
+            'dashboards' => iterator_to_array($dashboards),
         ];
     }
 

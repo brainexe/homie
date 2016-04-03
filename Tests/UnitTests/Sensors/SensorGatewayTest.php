@@ -53,7 +53,7 @@ class SensorGatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('SMEMBERS')
+            ->method('smembers')
             ->with(SensorGateway::SENSOR_IDS)
             ->willReturn($sensorIds);
 
@@ -64,7 +64,7 @@ class SensorGatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('HGETALL')
+            ->method('hgetall')
             ->with("sensor:$sensorId");
 
         $this->redis
@@ -95,7 +95,7 @@ class SensorGatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('SMEMBERS')
+            ->method('smembers')
             ->with(SensorGateway::SENSOR_IDS)
             ->willReturn($sensorIds);
 
@@ -106,7 +106,7 @@ class SensorGatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('HGETALL')
+            ->method('hgetall')
             ->with("sensor:$sensorId");
 
         $this->redis
@@ -132,7 +132,7 @@ class SensorGatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('sMembers')
+            ->method('smembers')
             ->with(SensorGateway::SENSOR_IDS)
             ->willReturn($sensorIds);
 
@@ -162,12 +162,12 @@ class SensorGatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('HMSET')
+            ->method('hmset')
             ->with("sensor:$newSensorId");
 
         $this->redis
             ->expects($this->once())
-            ->method('sAdd')
+            ->method('sadd')
             ->with(SensorGateway::SENSOR_IDS, [$newSensorId]);
 
         $this->redis
@@ -186,7 +186,7 @@ class SensorGatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('hGetAll')
+            ->method('hgetall')
             ->with("sensor:$sensorId")
             ->willReturn($sensor);
 
@@ -219,7 +219,7 @@ class SensorGatewayTest extends TestCase
 
         $this->redis
             ->expects($this->at(1))
-            ->method('sRem')
+            ->method('srem')
             ->with(SensorGateway::SENSOR_IDS, $sensorId);
 
         $this->redis

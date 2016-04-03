@@ -40,7 +40,7 @@ class PinGatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('hGetAll')
+            ->method('hgetall')
             ->with(PinGateway::REDIS_PINS)
             ->willReturn($descriptions);
 
@@ -48,6 +48,7 @@ class PinGatewayTest extends TestCase
 
         $this->assertEquals($descriptions, $actualResult);
     }
+
     public function testSetDescription()
     {
         $pinId       = 100;

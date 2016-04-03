@@ -38,8 +38,8 @@ class SensorValuesGateway
         $key   = $this->getKey($sensor->sensorId);
         $id    = $this->generateUniqueId('sensorvalue');
 
-        $redis->ZADD($key, $now, $id . '-' . $value);
-        $redis->HMSET(SensorGateway::REDIS_SENSOR_PREFIX . $sensor->sensorId, [
+        $redis->zadd($key, $now, $id . '-' . $value);
+        $redis->hmset(SensorGateway::REDIS_SENSOR_PREFIX . $sensor->sensorId, [
             'lastValue' => $sensor->lastValue,
             'lastValueTimestamp' => $sensor->lastValueTimestamp
         ]);
@@ -63,7 +63,7 @@ class SensorValuesGateway
         }
 
         $key         = $this->getKey($sensorId);
-        $redisResult = $this->getRedis()->ZRANGEBYSCORE($key, $from, $now, ['withscores' => true]);
+        $redisResult = $this->getRedis()->zrangebyscore($key, $from, $now, ['withscores' => true]);
         $result      = [];
 
         foreach ($redisResult as $part => $timestamp) {
@@ -87,12 +87,12 @@ class SensorValuesGateway
         foreach (self::FRAMES as $since => $threshHold) {
             $untilTimestamp = $now - $since;
             $key            = $this->getKey($sensorId);
-            $oldValues      = $redis->ZRANGEBYSCORE($key, 0, $untilTimestamp, ['withscores' => true]);
+            $oldValues      = $redis->zrangebyscore($key, 0, $untilTimestamp, ['withscores' => true]);
             $lastTimestamp  = 0;
 
             foreach ($oldValues as $score => $timestamp) {
                 if ($lastTimestamp + $threshHold > $timestamp) {
-                    $redis->ZREM($key, $score);
+                    $redis->zrem($key, $score);
 
                     $deleted += 1;
                     continue;

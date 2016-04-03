@@ -44,7 +44,7 @@ class Controller
      */
     public function index()
     {
-        $screens = $this->gateway->getall();
+        $screens = $this->gateway->getAll();
 
         return [
             'screens' => iterator_to_array($screens)

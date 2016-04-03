@@ -19,7 +19,7 @@ class Gateway
      */
     public function getItems()
     {
-        return $this->getRedis()->sMembers(self::REDIS_KEY);
+        return $this->getRedis()->smembers(self::REDIS_KEY);
     }
 
     /**
@@ -27,7 +27,7 @@ class Gateway
      */
     public function addItem($name)
     {
-        $this->getRedis()->sAdd(self::REDIS_KEY, $name);
+        $this->getRedis()->sadd(self::REDIS_KEY, $name);
     }
 
     /**
@@ -35,6 +35,6 @@ class Gateway
      */
     public function removeItem($name)
     {
-        $this->getRedis()->sRem(self::REDIS_KEY, $name);
+        $this->getRedis()->srem(self::REDIS_KEY, $name);
     }
 }

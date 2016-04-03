@@ -28,7 +28,7 @@ class SensorGateway
 
         $redis = $this->getRedis()->pipeline();
         foreach ($sensorIds as $sensorId) {
-            $redis->HGETALL($this->getKey($sensorId));
+            $redis->hgetall($this->getKey($sensorId));
         }
 
         return $redis->execute();
@@ -52,7 +52,7 @@ class SensorGateway
      */
     public function getSensorIds()
     {
-        $sensorIds = $this->getRedis()->sMembers(self::SENSOR_IDS);
+        $sensorIds = $this->getRedis()->smembers(self::SENSOR_IDS);
 
         sort($sensorIds);
 
@@ -76,8 +76,8 @@ class SensorGateway
 
         $data = (array)$sensorVo;
         $data['tags'] = implode(',', $sensorVo->tags);
-        $redis->HMSET($key, $data);
-        $redis->sAdd(self::SENSOR_IDS, [$newId]);
+        $redis->hmset($key, $data);
+        $redis->sadd(self::SENSOR_IDS, [$newId]);
 
         $redis->execute();
 
@@ -94,7 +94,7 @@ class SensorGateway
     {
         $key = $this->getKey($sensorId);
 
-        return $this->getRedis()->hGetAll($key);
+        return $this->getRedis()->hgetall($key);
     }
 
     /**
@@ -117,7 +117,7 @@ class SensorGateway
         $redis = $this->getRedis();
 
         $redis->del($this->getKey($sensorId));
-        $redis->sRem(self::SENSOR_IDS, $sensorId);
+        $redis->srem(self::SENSOR_IDS, $sensorId);
         $redis->del(sprintf(SensorValuesGateway::REDIS_SENSOR_VALUES, $sensorId));
     }
 

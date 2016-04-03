@@ -35,7 +35,7 @@ class GatewayTest extends TestCase
 
     public function setUp()
     {
-        $this->redis        = $this->getRedisMock();
+        $this->redis       = $this->getRedisMock();
         $this->idGenerator = $this->getMock(IdGenerator::class);
         $this->subject = new Gateway();
         $this->subject->setRedis($this->redis);
@@ -58,7 +58,7 @@ class GatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('hSet')
+            ->method('hset')
             ->with(Gateway::KEY, $generatedId, serialize($expected));
 
         $this->subject->addDisplay($setting);
@@ -78,7 +78,7 @@ class GatewayTest extends TestCase
             ->with(Gateway::KEY)
             ->willReturn($list);
 
-        $actual = $this->subject->getall();
+        $actual = $this->subject->getAll();
 
         $this->assertEquals([$settings], iterator_to_array($actual));
     }
@@ -107,7 +107,7 @@ class GatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('hDel')
+            ->method('hdel')
             ->with(Gateway::KEY, [$displayId]);
 
         $this->subject->delete($displayId);

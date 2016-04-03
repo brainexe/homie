@@ -1,8 +1,5 @@
 #!/usr/bin/php
 <?php
-if (class_exists('Tideways\Profiler')) {
-    \Tideways\Profiler::start(array('api_key' => 'QRRsjpAPfF2f9K38'));
-}
 
 use Symfony\Component\Console\Application;
 

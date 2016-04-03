@@ -39,7 +39,7 @@ class GatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('sMembers')
+            ->method('smembers')
             ->with(Gateway::REDIS_KEY)
             ->willReturn($items);
 
@@ -54,7 +54,7 @@ class GatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('sAdd')
+            ->method('sadd')
             ->with(Gateway::REDIS_KEY, $name);
 
         $this->subject->addItem($name);
@@ -66,7 +66,7 @@ class GatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('sRem')
+            ->method('srem')
             ->with(Gateway::REDIS_KEY, $name);
 
         $this->subject->removeItem($name);

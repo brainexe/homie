@@ -61,13 +61,13 @@ class DashboardGatewayTest extends TestCase
 
         $this->redis
             ->expects($this->at(0))
-            ->method('hGetAll')
+            ->method('hgetall')
             ->with("dashboard:widgets:$dashboardId")
             ->willReturn($widgetsRaw);
 
         $this->redis
             ->expects($this->at(1))
-            ->method('hGetAll')
+            ->method('hgetall')
             ->with("dashboard:meta:$dashboardId")
             ->willReturn($meta);
 
@@ -103,23 +103,23 @@ class DashboardGatewayTest extends TestCase
 
         $this->redis
             ->expects($this->at(0))
-            ->method('sMembers')
+            ->method('smembers')
             ->with("dashboard:ids")
             ->willReturn([$dashboardId]);
 
         $this->redis
             ->expects($this->at(1))
-            ->method('hGetAll')
+            ->method('hgetall')
             ->with("dashboard:widgets:$dashboardId")
             ->willReturn($widgetsRaw);
 
         $this->redis
             ->expects($this->at(2))
-            ->method('hGetAll')
+            ->method('hgetall')
             ->with("dashboard:meta:$dashboardId")
             ->willReturn($meta);
 
-        $actual = $this->subject->getDashboards();
+        $actual = iterator_to_array($this->subject->getDashboards());
 
         $dashboard = new DashboardVo();
 
@@ -151,7 +151,7 @@ class DashboardGatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('hSet')
+            ->method('hset')
             ->with("dashboard:widgets:$dashboardId", $newId, json_encode($payload));
 
         $this->subject->addWidget($dashboardId, $payload);
@@ -164,8 +164,8 @@ class DashboardGatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('HDEL')
-            ->with("dashboard:widgets:$dashboardId", $widgetId);
+            ->method('hdel')
+            ->with("dashboard:widgets:$dashboardId", [$widgetId]);
 
         $this->subject->deleteWidget($dashboardId, $widgetId);
     }
@@ -186,7 +186,7 @@ class DashboardGatewayTest extends TestCase
 
         $this->redis
             ->expects($this->at(2))
-            ->method('sRem')
+            ->method('srem')
             ->with("dashboard:ids", $dashboardId);
 
         $this->subject->delete($dashboardId);
@@ -201,7 +201,7 @@ class DashboardGatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('hmSet')
+            ->method('hmset')
             ->with("dashboard:meta:$dashboardId", $payload);
 
         $this->subject->updateMetadata($dashboardId, $payload);
@@ -216,12 +216,12 @@ class DashboardGatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('sAdd')
-            ->with(DashboardGateway::IDS_KEY, $dashboardId);
+            ->method('sadd')
+            ->with(DashboardGateway::IDS_KEY, [$dashboardId]);
 
         $this->redis
             ->expects($this->once())
-            ->method('hmSet')
+            ->method('hmset')
             ->with("dashboard:meta:$dashboardId", $metadata);
 
         $this->subject->addDashboard($dashboardId, $metadata);

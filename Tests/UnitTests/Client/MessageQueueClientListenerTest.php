@@ -56,7 +56,7 @@ class MessageQueueClientListenerTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('lPush')
+            ->method('lpush')
             ->with(MessageQueueClient::RETURN_CHANNEL, $output);
 
         $this->client

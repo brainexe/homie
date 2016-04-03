@@ -21,7 +21,7 @@ class PinGateway
     {
         $redis = $this->getRedis();
 
-        return $redis->hGetAll(self::REDIS_PINS);
+        return $redis->hgetall(self::REDIS_PINS);
     }
 
     /**

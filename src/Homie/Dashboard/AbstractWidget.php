@@ -9,9 +9,7 @@ use JsonSerializable;
 abstract class AbstractWidget implements WidgetInterface, JsonSerializable, TranslationProvider
 {
 
-    const TYPE = 'none';
-
-    const TOKEN_NAME = 'dashboard.widget.%s.name';
+    const TOKEN_NAME        = 'dashboard.widget.%s.name';
     const TOKEN_DESCRIPTION = 'dashboard.widget.%s.description';
 
     /**

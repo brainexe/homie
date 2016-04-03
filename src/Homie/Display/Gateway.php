@@ -37,7 +37,7 @@ class Gateway
     /**
      * @return Generator|Settings[]
      */
-    public function getall()
+    public function getAll()
     {
         $displays = $this->getRedis()->hgetall(self::KEY);
 

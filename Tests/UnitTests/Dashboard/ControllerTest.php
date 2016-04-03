@@ -2,6 +2,7 @@
 
 namespace Tests\Homie\Dashboard;
 
+use ArrayIterator;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Dashboard\Controller;
@@ -55,7 +56,7 @@ class ControllerTest extends TestCase
         $this->dashboard
             ->expects($this->once())
             ->method('getDashboards')
-            ->willReturn($dashboards);
+            ->willReturn(new ArrayIterator($dashboards));
 
         $actualResult = $this->subject->dashboard();
 

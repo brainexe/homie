@@ -50,13 +50,13 @@ class TodoListGatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('HMSET')
+            ->method('hmset')
             ->with("todo:$todoId", $this->isType('array'));
 
         $this->redis
             ->expects($this->once())
-            ->method('sAdd')
-            ->with(TodoListGateway::TODO_IDS, $itemVo->todoId);
+            ->method('sadd')
+            ->with(TodoListGateway::TODO_IDS, [$itemVo->todoId]);
 
         $this->subject->addItem($itemVo);
     }
@@ -74,7 +74,7 @@ class TodoListGatewayTest extends TestCase
 
         $this->redis
             ->expects($this->at(0))
-            ->method('sMembers')
+            ->method('smembers')
             ->with("todo_ids")
             ->willReturn([$item1Id, $item2Id]);
 
@@ -85,13 +85,13 @@ class TodoListGatewayTest extends TestCase
 
         $this->redis
             ->expects($this->at(2))
-            ->method('HGETALL')
+            ->method('hgetall')
             ->with("todo:$item1Id")
             ->willReturn($itemRaw1);
 
         $this->redis
             ->expects($this->at(3))
-            ->method('HGETALL')
+            ->method('hgetall')
             ->with("todo:$item2Id")
             ->willReturn($itemRaw2);
 
@@ -114,7 +114,7 @@ class TodoListGatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('HGETALL')
+            ->method('hgetall')
             ->with("todo:$itemId")
             ->willReturn($itemRaw);
 
@@ -140,7 +140,7 @@ class TodoListGatewayTest extends TestCase
         $changes['lastChange'] = $now;
         $this->redis
             ->expects($this->once())
-            ->method('hMSet')
+            ->method('hmset')
             ->with("todo:$itemId", $changes);
 
         $this->subject->editItem($itemId, $changes);
@@ -157,7 +157,7 @@ class TodoListGatewayTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('sRem')
+            ->method('srem')
             ->with(TodoListGateway::TODO_IDS, $itemId);
 
         $this->subject->deleteItem($itemId);

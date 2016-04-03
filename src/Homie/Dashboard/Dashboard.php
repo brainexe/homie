@@ -5,6 +5,7 @@ namespace Homie\Dashboard;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\IdGeneratorTrait;
+use Generator;
 
 /**
  * @Service(public=false)
@@ -96,7 +97,7 @@ class Dashboard
     }
 
     /**
-     * @return DashboardVo[]
+     * @return Generator|DashboardVo[]
      */
     public function getDashboards()
     {
