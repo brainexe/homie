@@ -3,41 +3,19 @@
 namespace Homie\Espeak;
 
 use BrainExe\Core\Traits\EventDispatcherTrait;
-use BrainExe\InputControl\Annotations\InputControl as InputControlAnnotation;
-use BrainExe\InputControl\Annotations\InputControlInterface;
-use BrainExe\InputControl\Event;
 use Generator;
+use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
 use InvalidArgumentException;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
 /**
- * @InputControlAnnotation("InputControl.espeak", tags={{"name"="expression_language"}}, public=false)
+ * @ExpressionLanguageAnnotation("Espeak.ExpressionLanguage")
  */
-class InputControl implements InputControlInterface, ExpressionFunctionProviderInterface
+class ExpressionLanguage implements ExpressionFunctionProviderInterface
 {
 
     use EventDispatcherTrait;
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedEvents()
-    {
-        return [
-            '/^(say|speak) (.*)$/' => 'say'
-        ];
-    }
-
-    /**
-     * @param Event $event
-     */
-    public function say(Event $event)
-    {
-        $event = new EspeakEvent(new EspeakVO($event->matches[1]));
-
-        $this->dispatchInBackground($event);
-    }
 
     /**
      * @return Generator|ExpressionFunction[] An array of Function instances

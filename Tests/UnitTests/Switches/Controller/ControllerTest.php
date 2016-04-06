@@ -3,17 +3,14 @@
 namespace Tests\Homie\Switches\Controller;
 
 use ArrayIterator;
-use BrainExe\Core\Application\UserException;
 use Homie\Switches\VO\ArduinoSwitchVO;
 use Homie\Switches\VO\GpioSwitchVO;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Switches\Controller\Controller;
-
 use Homie\Switches\VO\RadioVO;
 use Symfony\Component\HttpFoundation\Request;
 use Homie\Switches\Switches;
-
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 
 /**

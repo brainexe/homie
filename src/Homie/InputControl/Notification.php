@@ -2,7 +2,6 @@
 
 namespace Homie\InputControl;
 
-use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Notification\Notification as NotificationEvent;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Generator;
@@ -10,9 +9,10 @@ use InvalidArgumentException;
 use Monolog\Logger;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
+use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
 
 /**
- * @Service("InputControl.Notification", tags={{"name"="expression_language"}}, public=false)
+ * @ExpressionLanguageAnnotation("InputControl.Notification")
  */
 class Notification implements ExpressionFunctionProviderInterface
 {

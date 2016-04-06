@@ -9,11 +9,11 @@ use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorBuilder;
-use Homie\Sensors\SensorVO;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
-abstract class SearchableTestSensor2 implements Sensor, Searchable {}
+abstract class SearchableTestSensor2 implements Sensor, Searchable {
+}
 
 /**
  * @covers Homie\Sensors\Command\Crawl

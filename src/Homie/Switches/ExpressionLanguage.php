@@ -4,18 +4,16 @@ namespace Homie\Switches;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Traits\EventDispatcherTrait;
-use BrainExe\InputControl\Annotations\InputControlInterface;
-use BrainExe\InputControl\Event;
-use BrainExe\InputControl\Annotations\InputControl as InputControlAnnotation;
 use Generator;
 use InvalidArgumentException;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
+use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
 
 /**
- * @InputControlAnnotation(name="switch", tags={{"name"="expression_language"}})
+ * @ExpressionLanguageAnnotation(name="Switches.ExpressionLanguage")
  */
-class InputControl implements InputControlInterface, ExpressionFunctionProviderInterface
+class ExpressionLanguage implements ExpressionFunctionProviderInterface
 {
 
     use EventDispatcherTrait;
@@ -26,38 +24,12 @@ class InputControl implements InputControlInterface, ExpressionFunctionProviderI
     private $switches;
 
     /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedEvents()
-    {
-        return [
-            '/^radio (on|off) (\s+)$/i' => 'setSwitch',
-            '/^switch (on|off) (\s+)$/i' => 'setSwitch',
-        ];
-    }
-
-    /**
      * @Inject("@Switches.Switches")
      * @param Switches $switches
      */
     public function __construct(Switches $switches)
     {
         $this->switches = $switches;
-    }
-
-    /**
-     * @param Event $event
-     */
-    public function setSwitch(Event $event)
-    {
-        list ($status, $switchId) = $event->matches;
-
-        $status = $status === 'on';
-
-        $switch = $this->switches->get($switchId);
-
-        $event = new SwitchChangeEvent($switch, $status);
-        $this->dispatchInBackground($event);
     }
 
     /**

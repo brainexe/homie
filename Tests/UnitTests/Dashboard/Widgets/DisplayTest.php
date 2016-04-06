@@ -3,7 +3,6 @@
 namespace Tests\Homie\Dashboard\Widgets;
 
 use Homie\Dashboard\Widgets\Display;
-use Homie\Dashboard\Widgets\SensorInput;
 use Homie\Display\Gateway;
 use Homie\Display\Settings;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;

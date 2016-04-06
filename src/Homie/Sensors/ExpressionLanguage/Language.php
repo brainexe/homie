@@ -3,15 +3,14 @@
 namespace Homie\Sensors\ExpressionLanguage;
 
 use BrainExe\Annotations\Annotations\Inject;
-use BrainExe\Annotations\Annotations\Service;
 use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorValueEvent;
-use InvalidArgumentException;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
+use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
 
 /**
- * @Service("Sensor.ExpressionLanguage.Language", tags={{"name"="expression_language"}}, public=false)
+ * @ExpressionLanguageAnnotation("Sensor.ExpressionLanguage.Language")
  */
 class Language implements ExpressionFunctionProviderInterface
 {

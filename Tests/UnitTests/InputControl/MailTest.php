@@ -4,8 +4,6 @@ namespace Tests\Homie\InputControl;
 
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Core\Mail\SendMailEvent;
-use BrainExe\InputControl\Event;
-use Generator;
 use Homie\InputControl\Mail;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
@@ -32,25 +30,6 @@ class MailTest extends TestCase
         $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
         $this->subject    = new Mail();
         $this->subject->setEventDispatcher($this->dispatcher);
-    }
-
-    public function testSendMail()
-    {
-        $event = new Event();
-        $event->matches = [
-            $recipient = 'myRecipient',
-            $subject = 'mySubject',
-            $body = 'myBody'
-        ];
-
-        $mailEvent = new SendMailEvent($recipient, $subject, $body);
-
-        $this->dispatcher
-            ->expects($this->once())
-            ->method('dispatchEvent')
-            ->with($mailEvent);
-
-        $this->subject->sendMail($event);
     }
 
     public function testSendMailExpression()

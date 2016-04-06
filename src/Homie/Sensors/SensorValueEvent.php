@@ -3,9 +3,7 @@
 namespace Homie\Sensors;
 
 use BrainExe\Core\EventDispatcher\AbstractEvent;
-
 use BrainExe\Core\EventDispatcher\PushViaWebsocket;
-use Homie\Sensors\Interfaces\Sensor;
 
 class SensorValueEvent extends AbstractEvent implements PushViaWebsocket
 {

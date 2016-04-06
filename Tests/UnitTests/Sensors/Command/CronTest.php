@@ -3,7 +3,6 @@
 namespace Tests\Homie\Sensors\Command;
 
 use Homie\Sensors\GetValue\Event;
-use Homie\Sensors\Interfaces\Sensor;
 use Homie\Sensors\SensorValueEvent;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;

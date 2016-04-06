@@ -3,7 +3,7 @@
 namespace Homie\EggTimer;
 
 use BrainExe\Annotations\Annotations\Inject;
-use BrainExe\Annotations\Annotations\Service;
+use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Generator;
 use InvalidArgumentException;
@@ -11,7 +11,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
 /**
- * @Service("EggTimer.ExpressionLanguage", public=false, tags={{"name"="expression_language"}})
+ * @ExpressionLanguageAnnotation("EggTimer.ExpressionLanguage")
  */
 class ExpressionLanguage implements ExpressionFunctionProviderInterface
 {

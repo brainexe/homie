@@ -3,23 +3,22 @@
 namespace Tests\Homie\Espeak;
 
 use BrainExe\Core\EventDispatcher\EventDispatcher;
-use BrainExe\InputControl\Event;
 use Generator;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Homie\Espeak\EspeakEvent;
 use Homie\Espeak\EspeakVO;
-use Homie\Espeak\InputControl;
+use Homie\Espeak\ExpressionLanguage;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 
 /**
- * @covers Homie\Espeak\InputControl
+ * @covers Homie\Espeak\ExpressionLanguage
  */
-class InputControlTest extends TestCase
+class ExpressionLanguageTest extends TestCase
 {
 
     /**
-     * @var InputControl
+     * @var ExpressionLanguage
      */
     private $subject;
 
@@ -32,30 +31,8 @@ class InputControlTest extends TestCase
     {
         $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-        $this->subject = new InputControl();
+        $this->subject = new ExpressionLanguage();
         $this->subject->setEventDispatcher($this->dispatcher);
-    }
-
-    public function testGetSubscribedEvents()
-    {
-        $actualResult = $this->subject->getSubscribedEvents();
-
-        $this->assertInternalType('array', $actualResult);
-    }
-
-    public function testSay()
-    {
-        $inputEvent = new Event();
-        $inputEvent->matches = ['say', 'text'];
-
-        $event = new EspeakEvent(new EspeakVO('text'));
-
-        $this->dispatcher
-            ->expects($this->once())
-            ->method('dispatchInBackground')
-            ->with($event);
-
-        $this->subject->say($inputEvent);
     }
 
     public function testSetTimer()

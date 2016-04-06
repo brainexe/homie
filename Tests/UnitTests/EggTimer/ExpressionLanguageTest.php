@@ -5,8 +5,6 @@ namespace Tests\Homie\EggTimer;
 use Generator;
 use Homie\EggTimer\EggTimer;
 use Homie\EggTimer\ExpressionLanguage;
-use Homie\Sensors\ExpressionLanguage\Language;
-use Homie\Sensors\SensorGateway;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;

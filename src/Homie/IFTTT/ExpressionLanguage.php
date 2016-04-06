@@ -2,15 +2,15 @@
 
 namespace Homie\IFTTT;
 
-use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Homie\IFTTT\Event\TriggerEvent;
 use InvalidArgumentException;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
+use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
 
 /**
- * @Service("IFTTT.ExpressionLanguage", tags={{"name"="expression_language"}}, public=false)
+ * @ExpressionLanguageAnnotation("IFTTT.ExpressionLanguage")
  */
 class ExpressionLanguage implements ExpressionFunctionProviderInterface
 {

@@ -67,7 +67,6 @@ class BytesTest extends TestCase
      */
     public function provideValues()
     {
-
         return [
             [1000000, "1MB"],
             [1234000, "1MB"],

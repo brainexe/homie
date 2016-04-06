@@ -4,9 +4,7 @@ namespace Tests\Homie\Display;
 
 use ArrayIterator;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
-
 use Homie\Display\Controller;
-use Homie\Display\Event\Redraw;
 use Homie\Display\Gateway;
 use Homie\Display\Renderer;
 use Homie\Display\Settings;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Homie\Gpio;
+namespace Homie\Webcam;
 
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Generator;
@@ -10,7 +10,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
 
 /**
- * @ExpressionLanguageAnnotation("Gpio.ExpressionLanguage")
+ * @ExpressionLanguageAnnotation("Webcam.ExpressionLanguage")
  */
 class ExpressionLanguage implements ExpressionFunctionProviderInterface
 {
@@ -18,17 +18,17 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
     use EventDispatcherTrait;
 
     /**
-     * @return Generator|ExpressionFunction[]
+     * @return Generator|ExpressionFunction[] An array of Function instances
      */
     public function getFunctions()
     {
-        yield new ExpressionFunction('setGPIOPin', function ($pin, $value) {
-            unset($pin, $value);
-            throw new InvalidArgumentException('triggerIFTTT() is not available in this context');
-        }, function (array $variables, $pin, $value) {
+        yield new ExpressionFunction('takePhoto', function () {
+            throw new InvalidArgumentException('Function takePhoto() not available as condition');
+        }, function () {
             unset($variables);
+            $name  = microtime(true);
+            $event = new WebcamEvent($name, WebcamEvent::TAKE_PHOTO);
 
-            // todo implement GPIO
             $this->dispatchInBackground($event);
         });
     }

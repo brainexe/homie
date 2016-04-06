@@ -39,13 +39,6 @@ class LanguageTest extends TestCase
         $this->assertEquals('', $actual);
     }
 
-    public function testGetFunctionNames()
-    {
-        $actual = $this->subject->getFunctionNames();
-
-        $this->assertInternalType('array', $actual);
-    }
-
     public function testGetParameterNames()
     {
         $actual = $this->subject->getParameterNames();

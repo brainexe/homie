@@ -5,7 +5,6 @@ namespace Homie\Display;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Traits\EventDispatcherTrait;
-use Homie\Display\Event\Redraw;
 use Symfony\Component\HttpFoundation\Request;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 

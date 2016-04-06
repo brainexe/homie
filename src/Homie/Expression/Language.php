@@ -7,7 +7,6 @@ use BrainExe\Core\EventDispatcher\AbstractEvent;
 use BrainExe\Core\EventDispatcher\Events\TimingEvent;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Traits\LoggerTrait;
-use BrainExe\InputControl\InputControlEvent;
 use Exception;
 use ReflectionClass;
 use Symfony\Component\ExpressionLanguage\Expression;
@@ -82,15 +81,6 @@ class Language extends ExpressionLanguage
             return $parameters['eventName'] === $eventId;
         });
 
-        $this->register('exec', function () {
-            throw new Exception('exec() not implemented');
-        }, function ($parameters, $string) {
-            unset($parameters);
-            $inputEvent = new InputControlEvent($string);
-
-            $this->getDispatcher()->dispatchInBackground($inputEvent);
-        });
-
         $this->register('event', function () {
             throw new Exception('event() not implemented');
         }, function (array $parameters, $type, ...$eventArguments) {
@@ -142,15 +132,6 @@ class Language extends ExpressionLanguage
         }
 
         return parent::evaluate($expression, $values);
-    }
-
-    /**
-     * @deprecated
-     * @return string[]
-     */
-    public function getFunctionNames()
-    {
-        return array_keys($this->functions);
     }
 
     /**

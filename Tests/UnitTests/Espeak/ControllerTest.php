@@ -51,7 +51,6 @@ class ControllerTest extends TestCase
     public function testSpeakers()
     {
         $speakers = ['speakers'];
-        $jobs = ['jobs'];
 
         $this->espeak
             ->expects($this->once())

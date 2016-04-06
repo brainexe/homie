@@ -23,8 +23,9 @@ class ListFunctions extends SymfonyCommand
      */
     protected function configure()
     {
-        $this->setName('expression:list')
-             ->setDescription('List all available expression functions');
+        $this
+            ->setName('expression:list')
+            ->setDescription('List all available expression functions');
     }
 
     /**

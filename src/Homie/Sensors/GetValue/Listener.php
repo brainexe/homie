@@ -8,7 +8,6 @@ use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Traits\LoggerTrait;
 use BrainExe\Core\Traits\TimeTrait;
 use Exception;
-use Homie\Sensors\Interfaces\Sensor;
 use Homie\Sensors\SensorBuilder;
 use Homie\Sensors\SensorValueEvent;
 use Homie\Sensors\SensorValuesGateway;
@@ -66,7 +65,7 @@ class Listener implements EventSubscriberInterface
      */
     public function handle(Event $event)
     {
-        $sensorVo = $event->getSensorVo();
+        $sensorVo = $event->getSensorVO();
 
         $value = $this->getValue($sensorVo);
         if ($value === null) {
