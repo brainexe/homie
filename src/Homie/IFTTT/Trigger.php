@@ -20,9 +20,9 @@ class Trigger
 
     /**
      * @Inject({"%ifttt.key%"})
-     * @param string$key
+     * @param string $key
      */
-    public function __construct($key)
+    public function __construct(string $key)
     {
         $this->key = $key;
     }
@@ -31,7 +31,7 @@ class Trigger
      * @param string $eventName
      * @return string
      */
-    public function trigger($eventName)
+    public function trigger(string $eventName)
     {
         $url = sprintf(self::BASE_URL, $eventName, $this->key);
 

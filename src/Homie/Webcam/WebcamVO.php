@@ -21,7 +21,7 @@ class WebcamVO
     public $webPath;
 
     /**
-     * @varstring
+     * @var string
      */
     public $name;
 

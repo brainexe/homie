@@ -64,7 +64,6 @@ class RedisTest extends TestCase
             ['a', 12, 1, "a:12:1"],
             ['a', 100000, -121, "a:100000:-121"],
             ['s', 0, 0, "s:0:0"],
-            ['s', null, false, "s:0:0"],
         ];
     }
 }

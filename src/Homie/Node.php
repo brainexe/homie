@@ -54,8 +54,12 @@ class Node implements JsonSerializable, TranslationProvider
      * @param string $name
      * @param string $address
      */
-    public function __construct($nodeId, $type, $name, $address)
-    {
+    public function __construct(
+        int $nodeId,
+        string $type,
+        string $name,
+        string $address
+    ) {
         $this->nodeId  = $nodeId;
         $this->type    = $type;
         $this->address = $address;
@@ -65,7 +69,7 @@ class Node implements JsonSerializable, TranslationProvider
     /**
      * @param string $address
      */
-    public function setAddress($address)
+    public function setAddress(string $address)
     {
         $this->address = $address;
     }
@@ -73,7 +77,7 @@ class Node implements JsonSerializable, TranslationProvider
     /**
      * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
     }
@@ -81,7 +85,7 @@ class Node implements JsonSerializable, TranslationProvider
     /**
      * @return int
      */
-    public function getNodeId()
+    public function getNodeId() : int
     {
         return $this->nodeId;
     }
@@ -89,7 +93,7 @@ class Node implements JsonSerializable, TranslationProvider
     /**
      * @return string
      */
-    public function getType()
+    public function getType() : string
     {
         return $this->type;
     }

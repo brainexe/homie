@@ -36,7 +36,7 @@ class DHT11 extends AbstractDHT11
     /**
      * @return Definition
      */
-    public function getDefinition()
+    public function getDefinition() : Definition
     {
         $definition            = new Definition();
         $definition->formatter = Percentage::TYPE;

@@ -68,6 +68,6 @@ class MailTest extends TestCase
         $function = $actual[0];
 
         $compiler = $function->getCompiler();
-        $compiler([], $recipient, $subject, $body);
+        $compiler($recipient, $subject, $body);
     }
 }

@@ -27,19 +27,19 @@ class EspeakVO
 
     /**
      * @param string $text
-     * @param integer $volume
-     * @param integer $speed
+     * @param int $volume
+     * @param int $speed
      * @param string $speaker
      */
     public function __construct(
-        $text,
-        $volume = null,
-        $speed = null,
-        $speaker = null
+        string $text,
+        int $volume = null,
+        int $speed = null,
+        string $speaker = null
     ) {
         $this->text    = $text;
-        $this->volume  = $volume ?: Espeak::DEFAULT_VOLUME;
-        $this->speed   = $speed ?: Espeak::DEFAULT_SPEED;
+        $this->volume  = $volume  ?: Espeak::DEFAULT_VOLUME;
+        $this->speed   = $speed   ?: Espeak::DEFAULT_SPEED;
         $this->speaker = $speaker ?: Espeak::DEFAULT_SPEAKER;
     }
 }

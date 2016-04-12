@@ -12,6 +12,7 @@ use BrainExe\Core\Annotations\CompilerPass as CompilerPassAnnotation;
  */
 class RegisterProvider implements CompilerPassInterface
 {
+    const TAG = 'expression_language';
 
     /**
      * {@inheritdoc}
@@ -22,7 +23,7 @@ class RegisterProvider implements CompilerPassInterface
         $dispatcher->addMethodCall('addCatchall', [new Reference('Expression.Listener')]);
 
         $language   = $container->getDefinition('Expression.Language');
-        $serviceIds = $container->findTaggedServiceIds('expression_language');
+        $serviceIds = $container->findTaggedServiceIds(self::TAG);
         foreach (array_keys($serviceIds) as $serviceId) {
             $language->addMethodCall('registerProvider', [new Reference($serviceId)]);
         }

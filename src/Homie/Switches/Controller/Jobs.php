@@ -47,12 +47,12 @@ class Jobs
 
     /**
      * @param Request $request
-     * @param integer $switchId
-     * @param integer $status
+     * @param int $switchId
+     * @param int $status
      * @return bool
      * @Route("/switches/{switchId}/status/{status}/", name="switch.job.set_status", methods="POST")
      */
-    public function setStatus(Request $request, $switchId, $status)
+    public function setStatus(Request $request, int $switchId, $status)
     {
         unset($request);
 
@@ -69,7 +69,7 @@ class Jobs
      * @return bool
      * @Route("/switches/jobs/", name="switch.job.add", methods="POST")
      */
-    public function addJob(Request $request)
+    public function addJob(Request $request) : bool
     {
         $switchId    = $request->request->getInt('switchId');
         $status      = (bool)$request->request->getInt('status');

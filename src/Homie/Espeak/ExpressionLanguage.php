@@ -22,9 +22,9 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
      */
     public function getFunctions()
     {
-        yield new ExpressionFunction('say', function ($text) {
+        yield new ExpressionFunction('say', function (string $text) {
             throw new InvalidArgumentException('say() is not available in this context');
-        }, function (array $variables, $text, $volume = null, $speed = null) {
+        }, function (array $variables, string $text, int $volume = null, int $speed = null) {
             unset($variables);
             $event = new EspeakEvent(new EspeakVO($text, $volume, $speed));
 

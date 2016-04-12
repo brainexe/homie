@@ -69,7 +69,7 @@ class Absolute extends Expression implements Parameterized
     /**
      * @return Definition
      */
-    public function getDefinition()
+    public function getDefinition() : Definition
     {
         $definition            = new Definition();
         $definition->formatter = Percentage::TYPE;

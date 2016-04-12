@@ -29,7 +29,7 @@ class Renderer
      * @param Settings $settings
      * @return string[]
      */
-    public function render(Settings $settings)
+    public function render(Settings $settings) : array
     {
         $result = [];
         foreach ($settings->content as $line) {

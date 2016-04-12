@@ -34,7 +34,7 @@ class Radio implements SwitchInterface
      */
     public function __construct(
         ClientInterface $client,
-        $rcSwitchCommand
+        string $rcSwitchCommand
     ) {
         $this->client          = $client;
         $this->rcSwitchCommand = $rcSwitchCommand;

@@ -14,6 +14,6 @@ class EspeakEventTest extends TestCase
         $event  = new EspeakEvent($espeak);
 
         $this->assertEquals(EspeakEvent::SPEAK, $event->eventName);
-        $this->assertEquals($espeak, $event->espeak);
+        $this->assertEquals($espeak, $event->getEspeak());
     }
 }

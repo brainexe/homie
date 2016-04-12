@@ -61,13 +61,13 @@ class NotificationTest extends TestCase
     {
         $message = 'message';
         $subject = 'subject';
-        $level = 'level';
+        $level   = 'level';
 
         /** @var ExpressionFunction $function */
-        $actual = iterator_to_array($this->subject->getFunctions());
+        $actual   = iterator_to_array($this->subject->getFunctions());
         $function = $actual[0];
 
         $compiler = $function->getCompiler();
-        $compiler([], $message, $subject, $level);
+        $compiler($message, $subject, $level);
     }
 }

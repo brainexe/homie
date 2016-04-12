@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @ControllerAnnotation("Node.Controller")
+ * @ControllerAnnotation("Node.Controller", requirements={"nodeId":"\d+"})
  */
 class Controller
 {
@@ -35,17 +35,19 @@ class Controller
      * @param Gateway $gateway
      * @param int $currentNodeId
      */
-    public function __construct(Gateway $gateway, $currentNodeId)
-    {
+    public function __construct(
+        Gateway $gateway,
+        int $currentNodeId
+    ) {
         $this->gateway   = $gateway;
         $this->currentId = $currentNodeId;
     }
 
     /**
-     * @return Response
+     * @return array
      * @Route("/nodes/", name="node.index", methods="GET")
      */
-    public function index()
+    public function index() : array
     {
         return [
             'nodes'     => $this->gateway->getAll(),
@@ -59,7 +61,7 @@ class Controller
      * @return Node
      * @Route("/nodes/", name="node.add", methods="POST")
      */
-    public function add(Request $request)
+    public function add(Request $request) : Node
     {
         $nodeId  = $this->generateUniqueId();
         $type    = $request->request->get('type');
@@ -79,7 +81,7 @@ class Controller
      * @return Node
      * @Route("/nodes/{nodeId}/", name="node.edit", methods="PUT")
      */
-    public function edit(Request $request, $nodeId)
+    public function edit(Request $request, int $nodeId) : Node
     {
         $address = $request->request->get('address');
         $name    = $request->request->get('name');
@@ -99,9 +101,10 @@ class Controller
      * @return bool
      * @Route("/nodes/{nodeId}/", name="node.delete", methods="DELETE")
      */
-    public function delete(Request $request, $nodeId)
+    public function delete(Request $request, int $nodeId) : bool
     {
         unset($request);
+
         return $this->gateway->delete($nodeId);
     }
 }

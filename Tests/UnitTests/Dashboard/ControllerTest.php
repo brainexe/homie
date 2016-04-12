@@ -3,6 +3,7 @@
 namespace Tests\Homie\Dashboard;
 
 use ArrayIterator;
+use Homie\Dashboard\DashboardVo;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Dashboard\Controller;
@@ -73,7 +74,7 @@ class ControllerTest extends TestCase
         $dashboardId   = 0;
 
         $payload   = ['payload'];
-        $dashboard = ['dashboard'];
+        $dashboard = new DashboardVo();
 
         $request = new Request();
         $request->request->set('type', $type);
@@ -93,7 +94,7 @@ class ControllerTest extends TestCase
     public function testUpdateDashboard()
     {
         $dashboardId = 1212;
-        $dashboard   = 'dashboard';
+        $dashboard   = new DashboardVo();
 
         $request = new Request();
         $request->request->set('foo', 'bar');
@@ -115,8 +116,7 @@ class ControllerTest extends TestCase
     {
         $widgetId    = 12;
         $dashboardId = 1;
-
-        $dashboard = ['dashboard'];
+        $dashboard   = new DashboardVo();
 
         $request = new Request();
 
@@ -156,7 +156,7 @@ class ControllerTest extends TestCase
     {
         $dashboardId = 100;
         $widgetId    = 222;
-        $dashboard   = ['dashboard'];
+        $dashboard   = new DashboardVo();
 
         $request = new Request();
         $request->request->set('foo', 'bar');

@@ -6,7 +6,7 @@ use BrainExe\Annotations\Annotations\Service;
 use Homie\TodoList\VO\TodoItemVO;
 
 /**
- * @Service("TodoVoBuilder", public=false)
+ * @Service("TodoList.Builder", public=false)
  */
 class Builder
 {
@@ -15,7 +15,7 @@ class Builder
      * @param array $raw
      * @return TodoItemVO
      */
-    public function build(array $raw)
+    public function build(array $raw) : TodoItemVO
     {
         $itemVo = new TodoItemVO();
         $itemVo->todoId      = $raw['todoId'];

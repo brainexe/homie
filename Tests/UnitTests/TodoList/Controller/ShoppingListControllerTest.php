@@ -37,7 +37,7 @@ class ShoppingListControllerTest extends TestCase
 
     public function testIndex()
     {
-        $shoppingList = 'shoppingList';
+        $shoppingList = ['shoppingList'];
 
         $this->shoppingList
             ->expects($this->once())
@@ -45,11 +45,9 @@ class ShoppingListControllerTest extends TestCase
             ->willReturn($shoppingList);
 
         $actual   = $this->subject->index();
-        $expected = new JsonResponse(
-            [
-                'shoppingList' => $shoppingList
-            ]
-        );
+        $expected = [
+            'shoppingList' => $shoppingList
+        ];
 
         $this->assertEquals($expected, $actual);
     }

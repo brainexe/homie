@@ -15,7 +15,7 @@ class Temperature extends Formatter
     /**
      * {@inheritdoc}
      */
-    public function formatValue($value)
+    public function formatValue($value) : string
     {
         return sprintf('%s°', $value);
     }
@@ -23,7 +23,7 @@ class Temperature extends Formatter
     /**
      * {@inheritdoc}
      */
-    public function getEspeakText($value)
+    public function getEspeakText($value) : string
     {
         return str_replace('.', ',', sprintf(gettext('%0.1f Degree'), $value));
     }

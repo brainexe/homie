@@ -23,7 +23,7 @@ class Listener
     private $sound;
 
     /**
-     * @Inject("@Sound")
+     * @Inject("@Media.Sound")
      * @param Sound $sound
      */
     public function __construct(Sound $sound)
@@ -39,8 +39,9 @@ class Listener
     {
         $this->sound->playSound(EggTimer::EGG_TIMER_RING_SOUND);
 
-        if ($event->espeak) {
-            $newEvent = new EspeakEvent($event->espeak);
+        $espeak = $event->getEspeak();
+        if ($espeak) {
+            $newEvent = new EspeakEvent($espeak);
             $this->dispatchEvent($newEvent);
         }
     }

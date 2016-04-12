@@ -13,7 +13,7 @@ class EggTimerEvent extends AbstractEvent
     /**
      * @var EspeakVO
      */
-    public $espeak;
+    private $espeak;
 
     /**
      * @param EspeakVO $espeak
@@ -22,5 +22,13 @@ class EggTimerEvent extends AbstractEvent
     {
         parent::__construct(self::DONE);
         $this->espeak = $espeak;
+    }
+
+    /**
+     * @return EspeakVO|null
+     */
+    public function getEspeak()
+    {
+        return $this->espeak;
     }
 }

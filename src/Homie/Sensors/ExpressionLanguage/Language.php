@@ -33,27 +33,27 @@ class Language implements ExpressionFunctionProviderInterface
      */
     public function getFunctions()
     {
-        yield new ExpressionFunction('getSensorValue', function ($sensorId) {
+        yield new ExpressionFunction('getSensorValue', function (int $sensorId) {
             return sprintf('$container->get("SensorGateway")->getSensor(%d)["lastValue"]', $sensorId);
-        }, function (array $variables, $sensorId) {
+        }, function (array $variables, int $sensorId) {
             unset($variables);
             return $this->gateway->getSensor($sensorId)['lastValue'];
         });
 
-        yield new ExpressionFunction('getSensor', function ($sensorId) {
+        yield new ExpressionFunction('getSensor', function (int $sensorId) {
             return sprintf('$container->get("SensorGateway")->getSensor(%d)', $sensorId);
-        }, function (array $variables, $sensorId) {
+        }, function (array $variables, int $sensorId) {
             unset($variables);
             return $this->gateway->getSensor($sensorId);
         });
 
-        yield new ExpressionFunction('isSensorValue', function ($sensorId) {
+        yield new ExpressionFunction('isSensorValue', function (int $sensorId) {
             return sprintf(
                 "(\$eventName == '%s') && \$event->sensorVo->sensorId == %d",
                 SensorValueEvent::VALUE,
                 $sensorId
             );
-        }, function ($parameters, $sensorId) {
+        }, function (array $parameters, int $sensorId) {
             return $parameters['eventName'] === SensorValueEvent::VALUE &&
             $parameters['event']->sensorVo->sensorId == $sensorId;
         });

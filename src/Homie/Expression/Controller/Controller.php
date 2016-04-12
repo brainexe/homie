@@ -77,9 +77,12 @@ class Controller
      * @return Entity
      * @throws UserException
      */
-    public function save(Request $request)
+    public function save(Request $request) : Entity
     {
         $expressionId = $request->request->get('expressionId');
+        if (empty($expressionId)) {
+            throw new UserException(_('No expression id defined'));
+        }
 
         $entity = $this->getEntity($expressionId);
         $entity->conditions = (array)$request->request->get('conditions');
@@ -104,11 +107,11 @@ class Controller
 
     /**
      * @param Request $request
-     * @param $expressionId
+     * @param string $expressionId
      * @return bool
      * @Route("/expressions/{expressionId}/", name="expressions.delete", methods="DELETE")
      */
-    public function delete(Request $request, $expressionId)
+    public function delete(Request $request, string $expressionId) : bool
     {
         unset($request);
 
@@ -131,7 +134,7 @@ class Controller
     /**
      * @param string $expression
      */
-    private function validate($expression)
+    private function validate(string $expression)
     {
         $this->language->parse($expression, $this->language->getParameterNames());
     }
@@ -140,7 +143,7 @@ class Controller
      * @param string $expressionId
      * @return Entity
      */
-    private function getEntity($expressionId)
+    private function getEntity(string $expressionId) : Entity
     {
         $expressions = $this->gateway->getAll();
         if (isset($expressions[$expressionId])) {

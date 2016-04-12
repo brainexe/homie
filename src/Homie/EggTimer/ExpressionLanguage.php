@@ -39,7 +39,7 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
     {
         yield new ExpressionFunction('eggTimer', function () {
             throw new InvalidArgumentException('eggTimer() is not available in this context');
-        }, function (array $variables, $time, $text) {
+        }, function (array $variables, string $time, string $text) {
             unset($variables);
             $this->eggTimer->addNewJob($time, $text);
         });

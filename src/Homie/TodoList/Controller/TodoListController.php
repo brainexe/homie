@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @todo repeatable tasks
- * @Controller("ToDoListController")
+ * @Controller("TodoList.Controller.TodoListController")
  */
 class TodoListController implements TranslationProvider
 {
@@ -47,7 +47,7 @@ class TodoListController implements TranslationProvider
      * @Route("/todo/", name="todo.index", methods="GET")
      * @return array
      */
-    public function index()
+    public function index() : array
     {
         $list = $this->todo->getList();
 
@@ -62,7 +62,7 @@ class TodoListController implements TranslationProvider
      * @Route("/todo/", name="todo.add", methods="POST")
      * @return TodoItemVO
      */
-    public function addItem(Request $request)
+    public function addItem(Request $request) : TodoItemVO
     {
         $itemVo                 = new TodoItemVO();
         $itemVo->name           = $request->request->get('name');
@@ -83,7 +83,7 @@ class TodoListController implements TranslationProvider
      * @Route("/todo/", name="todo.edit", methods="PUT")
      * @return TodoItemVO
      */
-    public function setItemStatus(Request $request)
+    public function setItemStatus(Request $request) : TodoItemVO
     {
         $itemId  = $request->request->getInt('id');
         $changes = $request->request->get('changes');
@@ -96,7 +96,7 @@ class TodoListController implements TranslationProvider
      * @Route("/todo/assign/", name="todo.assign", methods="POST")
      * @return TodoItemVO
      */
-    public function setAssignee(Request $request)
+    public function setAssignee(Request $request) : TodoItemVO
     {
         $itemId = $request->request->getInt('id');
         $userId = $request->request->getInt('userId');
@@ -115,7 +115,7 @@ class TodoListController implements TranslationProvider
      * @Route("/todo/{itemId}/", name="todo.delete")
      * @return bool
      */
-    public function deleteItem(Request $request, $itemId)
+    public function deleteItem(Request $request, $itemId) : bool
     {
         unset($request);
 

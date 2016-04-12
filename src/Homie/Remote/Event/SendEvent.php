@@ -17,7 +17,7 @@ class SendEvent extends AbstractEvent implements PushViaWebsocket
     /**
      * @param string $code
      */
-    public function __construct($code)
+    public function __construct(string $code)
     {
         parent::__construct(self::SEND);
         $this->code = $code;

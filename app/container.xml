@@ -22,9 +22,15 @@
             <parameter>Middleware.Session</parameter>
             <parameter>Middleware.Authentication</parameter>
             <parameter>Middleware.CatchUserException</parameter>
-            <parameter>Middleware.Csrf</parameter>
+            <!--<parameter>Middleware.Csrf</parameter>-->
+            <!--<parameter>Middleware.Stats</parameter>-->
             <parameter>Middleware.Gentime</parameter>
-            <parameter>Middleware.Stats</parameter>
+        </parameter>
+
+        <parameter key="config.public" type="collection">
+            <parameter key="debug">%debug%</parameter>
+            <parameter key="socketUrl">%socket.url%</parameter>
+            <parameter key="locales">%locales%</parameter>
         </parameter>
     </parameters>
     <services>

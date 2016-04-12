@@ -1,5 +1,4 @@
 {
-  "minimum-stability": "stable",
   "license": "MIT",
   "authors": [
     {
@@ -13,9 +12,9 @@
     }
   },
   "require": {
-    "php": ">=5.6.0",
-    "brainexe/core": "~1.1",
-    "brainexe/totp": "~1.0",
+    "php": ">=7.0.0",
+    "brainexe/core": "~2.0.0",
+    "brainexe/totp": "~2.0.0",
     "symfony/expression-language": "~3.0",
     "league/flysystem": "~1.0",
     "league/flysystem-cached-adapter": "~1.0",

@@ -30,11 +30,14 @@ class PinLoader
     private $gpioExecutable;
 
     /**
-     * @Inject({"@HomieClient", "%gpio.command%"})
+     * @Inject({
+     *     "@HomieClient",
+     *     "%gpio.command%"
+     * })
      * @param ClientInterface $client
      * @param string $gpioExecutable
      */
-    public function __construct(ClientInterface $client, $gpioExecutable)
+    public function __construct(ClientInterface $client, string $gpioExecutable)
     {
         $this->client = $client;
         $this->gpioExecutable = $gpioExecutable;
@@ -44,7 +47,7 @@ class PinLoader
      * @param string $pin
      * @return Pin
      */
-    public function loadPin($pin)
+    public function loadPin($pin) : Pin
     {
         $pins = $this->loadPins();
 
@@ -54,7 +57,7 @@ class PinLoader
     /**
      * @return PinsCollection
      */
-    public function loadPins()
+    public function loadPins() : PinsCollection
     {
         if (null !== $this->pins) {
             return $this->pins;
@@ -103,7 +106,7 @@ class PinLoader
     /**
      * @return string
      */
-    protected function loadFile()
+    protected function loadFile() : string
     {
         try {
             $command = sprintf(GpioManager::GPIO_COMMAND_READALL, $this->gpioExecutable);

@@ -279,19 +279,20 @@ class ControllerTest extends TestCase
 
     public function testSensors()
     {
-        $sensors = [0 => ['sensor']];
+        $sensorRaw = [0 => ['sensor']];
+        $sensors = [0 => new SensorVO()];
         $types   = ['sensorsBuilder'];
 
         $this->voBuilder
             ->expects($this->once())
             ->method('buildFromArray')
-            ->with($sensors[0])
+            ->with($sensorRaw[0])
             ->willReturn($sensors[0]);
 
         $this->gateway
             ->expects($this->once())
             ->method('getSensors')
-            ->willReturn($sensors);
+            ->willReturn($sensorRaw);
         $this->builder
             ->expects($this->once())
             ->method('getSensors')

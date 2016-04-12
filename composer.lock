@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dd6a75f20a68c41e76453baae9bf4358",
-    "content-hash": "6da499b302eeae97c51c95586f83ed99",
+    "hash": "1688aa19febdc9d7383218d50abdb305",
+    "content-hash": "63627fdfe3066a6550bab5b6a2873f02",
     "packages": [
         {
             "name": "brainexe/annotations",
@@ -56,16 +56,16 @@
         },
         {
             "name": "brainexe/core",
-            "version": "1.1.1",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brainexe/core.git",
-                "reference": "c458f8dae5973f222960c50e52e810f0f06d7037"
+                "reference": "eeebc233e71cd8c7fe6bdbf408acb1974084ef00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brainexe/core/zipball/c458f8dae5973f222960c50e52e810f0f06d7037",
-                "reference": "c458f8dae5973f222960c50e52e810f0f06d7037",
+                "url": "https://api.github.com/repos/brainexe/core/zipball/eeebc233e71cd8c7fe6bdbf408acb1974084ef00",
+                "reference": "eeebc233e71cd8c7fe6bdbf408acb1974084ef00",
                 "shasum": ""
             },
             "require": {
@@ -74,6 +74,7 @@
                 "monolog/monolog": "~1.17",
                 "mtdowling/cron-expression": "1.1.*",
                 "ocramius/proxy-manager": "~1.0",
+                "php": ">=7.0.0",
                 "phpmailer/phpmailer": "~5.2",
                 "predis/predis": "~1.0",
                 "symfony/config": "~3.0",
@@ -121,25 +122,26 @@
             ],
             "description": "Framework core - used for brainexe/homie",
             "homepage": "https://mdoetsch.de",
-            "time": "2016-04-06 16:32:09"
+            "time": "2016-04-12 16:10:30"
         },
         {
             "name": "brainexe/totp",
-            "version": "1.0.5",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brainexe/totp.git",
-                "reference": "6eaa5e1c375d45ec4826cf48134d6d27018dc72d"
+                "reference": "b45f08c78037b2880092f4124c96321cc11e5839"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brainexe/totp/zipball/6eaa5e1c375d45ec4826cf48134d6d27018dc72d",
-                "reference": "6eaa5e1c375d45ec4826cf48134d6d27018dc72d",
+                "url": "https://api.github.com/repos/brainexe/totp/zipball/b45f08c78037b2880092f4124c96321cc11e5839",
+                "reference": "b45f08c78037b2880092f4124c96321cc11e5839",
                 "shasum": ""
             },
             "require": {
-                "brainexe/core": "~1.1",
-                "christian-riesen/base32": "~1.1"
+                "brainexe/core": "~2.0.0",
+                "christian-riesen/base32": "~1.1",
+                "php": ">=7.0.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "~5.3"
@@ -166,20 +168,20 @@
                 }
             ],
             "description": "Timebased One Time Password component for brainexe core library",
-            "time": "2016-04-06 16:04:43"
+            "time": "2016-04-12 16:32:01"
         },
         {
             "name": "christian-riesen/base32",
-            "version": "1.2.2",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ChristianRiesen/base32.git",
-                "reference": "fbe67d49d45dc789f942ef828c787550ebb894bc"
+                "reference": "fde061a370b0a97fdcd33d9d5f7b1b70ce1f79d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ChristianRiesen/base32/zipball/fbe67d49d45dc789f942ef828c787550ebb894bc",
-                "reference": "fbe67d49d45dc789f942ef828c787550ebb894bc",
+                "url": "https://api.github.com/repos/ChristianRiesen/base32/zipball/fde061a370b0a97fdcd33d9d5f7b1b70ce1f79d4",
+                "reference": "fde061a370b0a97fdcd33d9d5f7b1b70ce1f79d4",
                 "shasum": ""
             },
             "require": {
@@ -220,7 +222,7 @@
                 "encode",
                 "rfc4648"
             ],
-            "time": "2015-09-27 23:45:02"
+            "time": "2016-04-07 07:45:31"
         },
         {
             "name": "doctrine/annotations",
@@ -1150,16 +1152,16 @@
         },
         {
             "name": "sabre/vobject",
-            "version": "3.5.0",
+            "version": "3.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fruux/sabre-vobject.git",
-                "reference": "061dd47ce40074bf63da8e3d6dbe7f18b5a4f3a4"
+                "reference": "5b92c27399a31c860877b9c29f4fcbb241069679"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fruux/sabre-vobject/zipball/061dd47ce40074bf63da8e3d6dbe7f18b5a4f3a4",
-                "reference": "061dd47ce40074bf63da8e3d6dbe7f18b5a4f3a4",
+                "url": "https://api.github.com/repos/fruux/sabre-vobject/zipball/5b92c27399a31c860877b9c29f4fcbb241069679",
+                "reference": "5b92c27399a31c860877b9c29f4fcbb241069679",
                 "shasum": ""
             },
             "require": {
@@ -1212,7 +1214,7 @@
                 "jCard",
                 "vCard"
             ],
-            "time": "2016-01-11 18:13:23"
+            "time": "2016-04-07 00:12:31"
         },
         {
             "name": "symfony/config",
@@ -2550,16 +2552,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "3.3.0",
+            "version": "3.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "fe33716763b604ade4cb442c0794f5bd5ad73004"
+                "reference": "2431befdd451fac43fbcde94d1a92fb3b8b68f86"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/fe33716763b604ade4cb442c0794f5bd5ad73004",
-                "reference": "fe33716763b604ade4cb442c0794f5bd5ad73004",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/2431befdd451fac43fbcde94d1a92fb3b8b68f86",
+                "reference": "2431befdd451fac43fbcde94d1a92fb3b8b68f86",
                 "shasum": ""
             },
             "require": {
@@ -2577,7 +2579,7 @@
             },
             "suggest": {
                 "ext-dom": "*",
-                "ext-xdebug": ">=2.2.1",
+                "ext-xdebug": ">=2.4.0",
                 "ext-xmlwriter": "*"
             },
             "type": "library",
@@ -2609,7 +2611,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-03-03 08:49:08"
+            "time": "2016-04-08 08:14:53"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -2791,16 +2793,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "5.3.0",
+            "version": "5.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "dd3001822b2df8f5add266020e3d2fd3c5db3ae9"
+                "reference": "2c6da3536035617bae3fe3db37283c9e0eb63ab3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/dd3001822b2df8f5add266020e3d2fd3c5db3ae9",
-                "reference": "dd3001822b2df8f5add266020e3d2fd3c5db3ae9",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/2c6da3536035617bae3fe3db37283c9e0eb63ab3",
+                "reference": "2c6da3536035617bae3fe3db37283c9e0eb63ab3",
                 "shasum": ""
             },
             "require": {
@@ -2815,7 +2817,7 @@
                 "phpunit/php-code-coverage": "^3.3.0",
                 "phpunit/php-file-iterator": "~1.4",
                 "phpunit/php-text-template": "~1.2",
-                "phpunit/php-timer": ">=1.0.6",
+                "phpunit/php-timer": "^1.0.6",
                 "phpunit/phpunit-mock-objects": "^3.1",
                 "sebastian/comparator": "~1.1",
                 "sebastian/diff": "~1.2",
@@ -2862,7 +2864,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-03-31 21:35:50"
+            "time": "2016-04-12 16:20:08"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -3490,7 +3492,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.6.0"
+        "php": ">=7.0.0"
     },
     "platform-dev": []
 }

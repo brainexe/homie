@@ -8,7 +8,7 @@ use BrainExe\Core\Annotations\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("GpioController")
+ * @ControllerAnnotation("Gpio.Controller")
  */
 class Controller
 {
@@ -19,7 +19,7 @@ class Controller
     private $manager;
 
     /**
-     * @Inject("@GpioManager")
+     * @Inject("@Gpio.GpioManager")
      * @param GpioManager $manager
      */
     public function __construct(GpioManager $manager)
@@ -31,7 +31,7 @@ class Controller
      * @Route("/gpio/", name="gpio.index");
      * @return array
      */
-    public function index()
+    public function index() : array
     {
         $pins = $this->manager->getPins();
 
@@ -43,13 +43,13 @@ class Controller
 
     /**
      * @param Request $request
-     * @param integer $sensorId
+     * @param int $sensorId
      * @param string $status
-     * @param integer $value
+     * @param int $value
      * @return Pin
      * @Route("/gpio/set/{id}/{status}/{value}/", name="gpio.set", methods="POST")
      */
-    public function setStatus(Request $request, $sensorId, $status, $value)
+    public function setStatus(Request $request, $sensorId, $status, $value) : Pin
     {
         unset($request);
 
@@ -63,7 +63,7 @@ class Controller
      * @Route("/gpio/description/", name="gpio.description", methods="POST")
      * @return bool
      */
-    public function setDescription(Request $request)
+    public function setDescription(Request $request) : bool
     {
         $pinId       = $request->request->get('pinId');
         $description = $request->request->get('description');

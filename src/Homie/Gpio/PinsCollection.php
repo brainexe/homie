@@ -19,7 +19,7 @@ class PinsCollection
     /**
      * @param string $type
      */
-    public function __construct($type = '')
+    public function __construct(string $type = '')
     {
         $this->type = $type;
     }
@@ -34,11 +34,11 @@ class PinsCollection
     }
 
     /**
-     * @param integer $pinId
+     * @param int $pinId
      * @return Pin
      * @throws InvalidArgumentException
      */
-    public function getByPhysicalId($pinId)
+    public function getByPhysicalId(int $pinId) : Pin
     {
         if (empty($this->pins[$pinId])) {
             throw new InvalidArgumentException(sprintf('Pin #%s does not exist', $pinId));
@@ -48,17 +48,18 @@ class PinsCollection
     }
 
     /**
-     * @param integer $pinId
+     * @param int $pinId
      * @return Pin
      * @throws InvalidArgumentException
      */
-    public function getByWiringId($pinId)
+    public function getByWiringId(int $pinId) : Pin
     {
         foreach ($this->pins as $pin) {
             if ($pin->getWiringId() === $pinId) {
                 return $pin;
             }
         }
+
         throw new InvalidArgumentException(sprintf('Pin #%s does not exist', $pinId));
     }
 

@@ -45,8 +45,8 @@ class JobListener implements EventSubscriberInterface
     public function handleChangeEvent(SwitchChangeEvent $event)
     {
         $this->change->setStatus(
-            $event->switch,
-            $event->status
+            $event->getSwitch(),
+            $event->getStatus()
         );
     }
 }

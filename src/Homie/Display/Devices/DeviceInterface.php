@@ -7,5 +7,5 @@ interface DeviceInterface
     /**
      * @param string $content
      */
-    public function display($content);
+    public function display(string $content);
 }

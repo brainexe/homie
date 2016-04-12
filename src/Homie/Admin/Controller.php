@@ -7,40 +7,38 @@ use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 
 use BrainExe\Core\Annotations\Role;
 use BrainExe\Core\Annotations\Route;
-use BrainExe\Core\Authentication\DatabaseUserProvider;
+use BrainExe\Core\Authentication\UserProvider;
 use BrainExe\Core\Authentication\UserVO;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @ControllerAnnotation("AdminController")
+ * @ControllerAnnotation("Admin.Controller")
  */
 class Controller
 {
 
     /**
-     * @var DatabaseUserProvider
+     * @var UserProvider
      */
     private $userProvider;
 
     /**
-     * @Inject("@DatabaseUserProvider")
-     * @param DatabaseUserProvider $userProvider
+     * @Inject("@Core.Authentication.UserProvider")
+     * @param UserProvider $userProvider
      */
-    public function __construct(DatabaseUserProvider $userProvider)
+    public function __construct(UserProvider $userProvider)
     {
         $this->userProvider = $userProvider;
     }
 
     /**
-     * @param Request $request
-     * @return Response
+     * @return array
      * @Route("/admin/users/", name="admin.users", methods="GET")
      * @Role(UserVO::ROLE_ADMIN)
      */
-    public function index(Request $request)
+    public function index() : array
     {
-        unset($request);
         $userIds = $this->userProvider->getAllUserNames();
         $users = [];
 
@@ -57,11 +55,11 @@ class Controller
 
     /**
      * @param Request $request
-     * @return Response
+     * @return UserVO
      * @Route("/admin/users/", name="admin.users.save", methods="PUT")
      * @Role(UserVO::ROLE_ADMIN)
      */
-    public function save(Request $request)
+    public function save(Request $request) : UserVO
     {
         $userId    = $request->request->getInt('userId');
         $email     = $request->request->get('email');
@@ -93,7 +91,7 @@ class Controller
      * @Route("/admin/user/delete/", name="admin.user.delete")
      * @Role(UserVO::ROLE_ADMIN)
      */
-    public function delete(Request $request)
+    public function delete(Request $request) : bool
     {
         $userId = $request->request->getInt('userId');
 

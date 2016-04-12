@@ -71,6 +71,6 @@ class ExpressionLanguageTest extends TestCase
         $this->assertInstanceOf(ExpressionFunction::class, $function);
 
         $compiler = $function->getCompiler();
-        $compiler([], $time, $text);
+        $compiler($time, $text);
     }
 }

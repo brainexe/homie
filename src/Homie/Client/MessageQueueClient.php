@@ -21,7 +21,7 @@ class MessageQueueClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function execute($command, array $arguments = [])
+    public function execute(string $command, array $arguments = [])
     {
         $event = new ExecuteCommandEvent($command, $arguments, false);
 
@@ -31,7 +31,7 @@ class MessageQueueClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function executeWithReturn($command, array $arguments = [])
+    public function executeWithReturn(string $command, array $arguments = []) : string
     {
         $event = new ExecuteCommandEvent($command, $arguments, true);
 

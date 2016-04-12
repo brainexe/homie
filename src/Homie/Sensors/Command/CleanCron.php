@@ -67,7 +67,7 @@ class CleanCron extends Command
 
     /**
      * @param OutputInterface $output
-     * @param integer $sensorId
+     * @param int $sensorId
      */
     private function deleteOldValues(OutputInterface $output, $sensorId)
     {

@@ -23,7 +23,7 @@ class Controller
      * @Route("/ifttt/", name="ifttt.action")
      * @Guest
      */
-    public function action(Request $request)
+    public function action(Request $request) : bool
     {
         $eventName = $request->query->get('event');
         $value1 = $request->query->get('value1');

@@ -30,7 +30,7 @@ class Load extends AbstractSensor
     /**
      * {@inheritdoc}
      */
-    public function isSupported(SensorVO $sensorVO, OutputInterface $output)
+    public function isSupported(SensorVO $sensorVO, OutputInterface $output) : bool
     {
         return true;
     }
@@ -38,7 +38,7 @@ class Load extends AbstractSensor
     /**
      * @return Definition
      */
-    public function getDefinition()
+    public function getDefinition() : Definition
     {
         $definition = new Definition();
         $definition->type       = Definition::TYPE_LOAD;

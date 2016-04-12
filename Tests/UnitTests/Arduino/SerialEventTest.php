@@ -10,8 +10,8 @@ class SerialEventTest extends TestCase
     public function testAll()
     {
         $action = 'action';
-        $pin    = 'pin';
-        $value  = 'value';
+        $pin    = 12;
+        $value  = 1;
 
         $event = new SerialEvent($action, $pin, $value);
 

@@ -10,6 +10,7 @@ use Homie\Switches\ExpressionLanguage;
 use Homie\Switches\SwitchChangeEvent;
 use Homie\Switches\Switches;
 use Homie\Switches\VO\RadioVO;
+use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 
 /**
  * @covers Homie\Switches\ExpressionLanguage
@@ -25,7 +26,7 @@ class ExpressionLanguageTest extends TestCase
     /**
      * @var Switches|MockObject
      */
-    private $radios;
+    private $switches;
 
     /**
      * @var EventDispatcher|MockObject
@@ -34,12 +35,38 @@ class ExpressionLanguageTest extends TestCase
 
     public function setUp()
     {
-        $this->radios     = $this->getMock(Switches::class, [], [], '', false);
+        $this->switches   = $this->getMock(Switches::class, [], [], '', false);
         $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-        $this->subject = new ExpressionLanguage($this->radios);
+        $this->subject = new ExpressionLanguage($this->switches);
         $this->subject->setEventDispatcher($this->dispatcher);
+    }
 
-        $this->markTestIncomplete("todo");
+    public function testEvaluator()
+    {
+        $switchId = 12333;
+        $switchVo = new RadioVO();
+        $status   = true;
+
+        $this->switches
+            ->expects($this->once())
+            ->method('get')
+            ->with($switchId)
+            ->willReturn($switchVo);
+
+        $event = new SwitchChangeEvent($switchVo, $status);
+
+        $this->dispatcher
+            ->expects($this->once())
+            ->method('dispatchInBackground')
+            ->with($event);
+
+        /** @var ExpressionFunction $function */
+        $actual = iterator_to_array($this->subject->getFunctions());
+        $function = $actual[0];
+        $this->assertInstanceOf(ExpressionFunction::class, $function);
+
+        $evaluator = $function->getEvaluator();
+        $evaluator([], $switchId, $status);
     }
 }

@@ -28,7 +28,7 @@ class ShoppingList
     /**
      * @return string[]
      */
-    public function getItems()
+    public function getItems() : array
     {
         return $this->gateway->getItems();
     }

@@ -15,21 +15,37 @@ class SwitchChangeEvent extends AbstractEvent implements PushViaWebsocket
     /**
      * @var SwitchVO
      */
-    public $switch;
+    private $switch;
 
     /**
-     * @var boolean
+     * @var bool
      */
-    public $status;
+    private $status;
 
     /**
      * @param SwitchVO $switchVo
      * @param bool $status
      */
-    public function __construct(SwitchVO $switchVo, $status)
+    public function __construct(SwitchVO $switchVo, bool $status)
     {
         parent::__construct(self::CHANGE_RADIO);
         $this->switch = $switchVo;
         $this->status = $status;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @return SwitchVO
+     */
+    public function getSwitch()
+    {
+        return $this->switch;
     }
 }

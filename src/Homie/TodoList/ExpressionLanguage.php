@@ -4,6 +4,7 @@ namespace Homie\TodoList;
 
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Annotations\Annotations\Inject;
+use Generator;
 use InvalidArgumentException;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
@@ -20,7 +21,7 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
     private $todoReminder;
 
     /**
-     * @Inject("@TodoReminder")
+     * @Inject("@TodoList.TodoReminder")
      * @param TodoReminder $todoReminder
      */
     public function __construct(TodoReminder $todoReminder)
@@ -28,6 +29,9 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
         $this->todoReminder = $todoReminder;
     }
 
+    /**
+     * @return Generator
+     */
     public function getFunctions()
     {
         yield new ExpressionFunction('sayTodoList', function () {

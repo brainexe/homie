@@ -43,11 +43,11 @@ class Recorder
 
     /**
      * @Inject({
-     * "@HomieClient",
-     * "@RemoteFilesystem",
-     * "%webcam.command.photo%",
-     * "%webcam.command.video%",
-     * "%webcam.command.sound%"
+     *  "@HomieClient",
+     *  "@RemoteFilesystem",
+     *  "%webcam.command.photo%",
+     *  "%webcam.command.video%",
+     *  "%webcam.command.sound%"
      * })
      * @param ClientInterface $client
      * @param Filesystem $fileUploader
@@ -58,9 +58,9 @@ class Recorder
     public function __construct(
         ClientInterface $client,
         Filesystem $fileUploader,
-        $photoCommand,
-        $videoCommand,
-        $soundCommand
+        string $photoCommand,
+        string $videoCommand,
+        string $soundCommand
     ) {
         $this->client       = $client;
         $this->filesystem   = $fileUploader;
@@ -72,7 +72,7 @@ class Recorder
     /**
      * @param string $name
      */
-    public function takePhoto($name)
+    public function takePhoto(string $name)
     {
         $filename = sprintf('%s.jpg', $name);
         $this->take($this->photoCommand, $filename, WebcamEvent::TOOK_PHOTO);
@@ -82,7 +82,7 @@ class Recorder
      * @param string $name
      * @param int $duration
      */
-    public function takeVideo($name, $duration)
+    public function takeVideo(string $name, int $duration)
     {
         $filename = sprintf('%s.avi', $name);
         $command = str_replace('{{duration}}', $duration, $this->videoCommand);
@@ -93,7 +93,7 @@ class Recorder
      * @param string $name
      * @param int $duration
      */
-    public function takeSound($name, $duration)
+    public function takeSound(string $name, int $duration)
     {
         $filename = sprintf('%s.wav', $name);
         $command  = str_replace('{{duration}}', $duration, $this->soundCommand);
@@ -105,13 +105,12 @@ class Recorder
      * @param string $filename
      * @param string $eventName
      */
-    private function take($command, $filename, $eventName)
+    private function take(string $command, string $filename, string $eventName)
     {
         $temp = tempnam(sys_get_temp_dir(), 'webcam');
 
         $this->client->execute(str_replace('{{file}}', $temp, $command));
 
-//        $this->filesystem->getAdapter()->
         $this->filesystem->writeStream(Webcam::ROOT . $filename, fopen($temp, 'r'), [
             'visibility' => 'public' // todo chmod 777
         ]);

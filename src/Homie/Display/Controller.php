@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 
 /**
- * @ControllerAnnotation("DisplayController")
+ * @ControllerAnnotation("Display.Controller", requirements={"displayId": "\d+"})
  */
 class Controller
 {
@@ -41,7 +41,7 @@ class Controller
      * @Route("/display/", name="display.index", methods="GET")
      * @return array
      */
-    public function index()
+    public function index() : array
     {
         $screens = $this->gateway->getAll();
 
@@ -85,7 +85,7 @@ class Controller
      * @param int $displayId
      * @return Settings
      */
-    public function update(Request $request, $displayId)
+    public function update(Request $request, int $displayId)
     {
         $settings = $this->getSettingsFromRequest($request);
         $settings->displayId = $displayId;
@@ -101,7 +101,7 @@ class Controller
      * @param int $displayId
      * @return Settings
      */
-    public function redraw(Request $request, $displayId)
+    public function redraw(Request $request, int $displayId) : Settings
     {
         unset($request);
 
@@ -117,7 +117,7 @@ class Controller
      * @param Request $request
      * @return Settings
      */
-    private function getSettingsFromRequest(Request $request)
+    private function getSettingsFromRequest(Request $request) : Settings
     {
         $settings           = new Settings();
         $settings->lines    = $request->request->getInt('lines');

@@ -13,9 +13,10 @@ interface Sensor extends JsonSerializable
     /**
      * @return string
      */
-    public function getSensorType();
+    public function getSensorType() : string;
 
     /**
+     * @todo throw more exceptions in case of error
      * @param SensorVO $sensor
      * @return float
      */
@@ -26,10 +27,10 @@ interface Sensor extends JsonSerializable
      * @param OutputInterface $output
      * @return bool
      */
-    public function isSupported(SensorVO $sensor, OutputInterface $output);
+    public function isSupported(SensorVO $sensor, OutputInterface $output) : bool;
 
     /**
      * @return Definition
      */
-    public function getDefinition();
+    public function getDefinition() : Definition;
 }

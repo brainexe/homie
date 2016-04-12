@@ -15,7 +15,7 @@ class TodoListEvent extends AbstractEvent implements PushViaWebsocket
     /**
      * @var TodoItemVO
      */
-    public $itemVo;
+    private $itemVo;
 
     /**
      * @param TodoItemVO $itemVo
@@ -24,6 +24,15 @@ class TodoListEvent extends AbstractEvent implements PushViaWebsocket
     public function __construct(TodoItemVO $itemVo, $eventName)
     {
         parent::__construct($eventName);
+
         $this->itemVo = $itemVo;
+    }
+
+    /**
+     * @return TodoItemVO
+     */
+    public function getItemVo() : TodoItemVO
+    {
+        return $this->itemVo;
     }
 }

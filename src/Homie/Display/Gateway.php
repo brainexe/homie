@@ -50,7 +50,7 @@ class Gateway
      * @param int $displayId
      * @return Settings
      */
-    public function get($displayId)
+    public function get(int $displayId) : Settings
     {
         $display = $this->getRedis()->hget(self::KEY, $displayId);
 
@@ -60,7 +60,7 @@ class Gateway
     /**
      * @param int $displayId
      */
-    public function delete($displayId)
+    public function delete(int $displayId)
     {
         $this->getRedis()->hdel(self::KEY, [$displayId]);
     }

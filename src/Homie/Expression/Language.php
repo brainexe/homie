@@ -42,32 +42,32 @@ class Language extends ExpressionLanguage
         foreach ($functions as $function) {
             $this->register($function, function (...$parameters) use ($function) {
                 return sprintf('%s(%s)', $function, implode(', ', $parameters));
-            }, function ($parameters, ...$params) use ($function) {
+            }, function (array $parameters, ...$params) use ($function) {
                 unset($parameters);
                 return $function(...$params);
             });
         }
 
-        $this->register('setProperty', function ($property, $value) {
+        $this->register('setProperty', function (string $property, string $value) {
             return sprintf('($entity->payload[%s] = %s)', $property, $value);
-        }, function ($parameters, $property, $value) {
+        }, function (array $parameters, string $property, string $value) {
             /** @var Entity $entity */
             $entity = $parameters['entity'];
             $entity->payload[$property] = $value;
         });
 
-        $this->register('getProperty', function ($property) {
+        $this->register('getProperty', function (string $property) {
             return sprintf('$entity->payload[%s]', $property);
-        }, function ($parameters, $property) {
+        }, function (array $parameters, string $property) {
             /** @var Entity $entity */
             $entity = $parameters['entity'];
 
             return $entity->payload[$property];
         });
 
-        $this->register('isTiming', function ($timingId) {
+        $this->register('isTiming', function (string $timingId) {
             return sprintf('($eventName == \'%s\' && $event->timingId === %s)', TimingEvent::TIMING_EVENT, $timingId);
-        }, function ($parameters, $isTiming) {
+        }, function (array $parameters, string $isTiming) {
             if ($parameters['eventName'] !== TimingEvent::TIMING_EVENT) {
                 return false;
             }
@@ -75,15 +75,15 @@ class Language extends ExpressionLanguage
             return $parameters['event']->timingId === $isTiming;
         });
 
-        $this->register('isEvent', function ($eventId) {
+        $this->register('isEvent', function (string $eventId) {
             return sprintf('($eventName == %s)', $eventId);
-        }, function ($parameters, $eventId) {
+        }, function (array $parameters, string $eventId) {
             return $parameters['eventName'] === $eventId;
         });
 
         $this->register('event', function () {
             throw new Exception('event() not implemented');
-        }, function (array $parameters, $type, ...$eventArguments) {
+        }, function (array $parameters, string $type, ...$eventArguments) {
             unset($parameters);
             $events = (include ROOT.'/cache/events.php'); // TODO extract
 
@@ -96,13 +96,13 @@ class Language extends ExpressionLanguage
 
         $this->register('log', function () {
             throw new Exception('log() not implemented');
-        }, function (array $parameters, $level, $message, $context = null) {
+        }, function (array $parameters, $level, string $message, $context = null) {
             unset($parameters);
             $this->log($level, $message, ['channel' => $context]);
         });
 
         $this->register('increaseCounter', function () {
-            throw new Exception('log() not implemented');
+            throw new Exception('increaseCounter() not implemented');
         }, function (array $parameters) {
             /** @var Entity $entity */
             $entity = $parameters['entity'];
@@ -111,12 +111,6 @@ class Language extends ExpressionLanguage
             } else {
                 $entity->payload['counter']++;
             }
-        });
-
-        $this->register('executeExpression', function () {
-            throw new Exception('executeExpression() not implemented');
-        }, function (array $parameters, $expressionId) {
-            // TODO throw some event
         });
     }
 

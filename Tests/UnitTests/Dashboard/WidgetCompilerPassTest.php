@@ -64,8 +64,8 @@ class WidgetCompilerPassTest extends TestCase
 
         $widgetFactory
             ->expects($this->once())
-            ->method('addMethodCall')
-            ->with('setWidgets', [
+            ->method('setArguments')
+            ->with([
                 [
                     Time::TYPE => new Reference($widgetId)
                 ]

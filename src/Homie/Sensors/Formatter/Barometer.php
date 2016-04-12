@@ -15,7 +15,7 @@ class Barometer extends Formatter
     /**
      * {@inheritdoc}
      */
-    public function formatValue($value)
+    public function formatValue($value) : string
     {
         return $value . 'hPa';
     }

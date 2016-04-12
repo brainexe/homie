@@ -44,7 +44,7 @@ class Pin implements JsonSerializable
      * Get ID value.
      * @return int
      */
-    public function getWiringId()
+    public function getWiringId() : int
     {
         return $this->wiringId;
     }
@@ -53,7 +53,7 @@ class Pin implements JsonSerializable
      * Set ID value.
      * @param int $pinId ID
      */
-    public function setWiringId($pinId)
+    public function setWiringId(int $pinId)
     {
         $this->wiringId = $pinId;
     }
@@ -62,7 +62,7 @@ class Pin implements JsonSerializable
      * Get Name value.
      * @return string
      */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
     }
@@ -71,7 +71,7 @@ class Pin implements JsonSerializable
      * Set Name value.
      * @param string $name Name
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
     }
@@ -81,7 +81,7 @@ class Pin implements JsonSerializable
      *
      * @return string
      */
-    public function getMode()
+    public function getMode() : string
     {
         return $this->mode;
     }
@@ -93,7 +93,7 @@ class Pin implements JsonSerializable
      *
      * @return Pin
      */
-    public function setMode($mode)
+    public function setMode(string $mode) : Pin
     {
         $this->mode = $mode;
 
@@ -127,7 +127,7 @@ class Pin implements JsonSerializable
     /**
      * @param string $description
      */
-    public function setDescription($description)
+    public function setDescription(string $description)
     {
         $this->description = $description;
     }
@@ -143,7 +143,7 @@ class Pin implements JsonSerializable
     /**
      * @param int $physicalId
      */
-    public function setPhysicalId($physicalId)
+    public function setPhysicalId(int $physicalId)
     {
         $this->physicalId = $physicalId;
     }

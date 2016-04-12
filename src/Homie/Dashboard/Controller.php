@@ -8,7 +8,7 @@ use BrainExe\Core\Annotations\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("DashboardController")
+ * @ControllerAnnotation("Dashboard.Controller", requirements={"dashboardId":"\d+", "widgetId":"\d+"})
  */
 class Controller
 {
@@ -30,7 +30,7 @@ class Controller
      * @return array
      * @Route("/dashboard/metadata/", name="dashboard.metadata", methods="GET")
      */
-    public function metadata()
+    public function metadata() : array
     {
         $widgets = $this->dashboard->getAvailableWidgets();
 
@@ -42,7 +42,7 @@ class Controller
      * @return array
      * @Route("/dashboard/", name="dashboard.index", methods="GET")
      */
-    public function dashboard()
+    public function dashboard() : array
     {
         $dashboards = $this->dashboard->getDashboards();
 
@@ -71,7 +71,7 @@ class Controller
      * @return DashboardVo
      * @Route("/dashboard/{dashboardId}/", methods="PUT", name="dashboard.update")
      */
-    public function updateDashboard(Request $request, $dashboardId)
+    public function updateDashboard(Request $request, int $dashboardId) : DashboardVo
     {
         $payload = (array)$request->request->all();
 
@@ -80,12 +80,12 @@ class Controller
 
     /**
      * @param Request $request
-     * @return bool
+     * @return DashboardVo
      * @param int $dashboardId
      * @param int $widgetId
      * @Route("/dashboard/widget/{dashboardId}/{widgetId}/", name="dashboard.widget.update", methods="PUT")
      */
-    public function updateWidget(Request $request, $dashboardId, $widgetId)
+    public function updateWidget(Request $request, int $dashboardId, int $widgetId) : DashboardVo
     {
         $payload = $request->request->all();
 
@@ -101,7 +101,7 @@ class Controller
      * @Route("/dashboard/{dashboardId}/{widgetId}/", methods="DELETE", name="dashboard.widget.delete")
      * @return DashboardVo
      */
-    public function deleteWidget(Request $request, $dashboardId, $widgetId)
+    public function deleteWidget(Request $request, int $dashboardId, int $widgetId) : DashboardVo
     {
         unset($request);
 
@@ -116,7 +116,7 @@ class Controller
      * @Route("/dashboard/{dashboardId}/", methods="DELETE", name="dashboard.delete")
      * @return bool
      */
-    public function deleteDashboard(Request $request, $dashboardId)
+    public function deleteDashboard(Request $request, int $dashboardId) : bool
     {
         unset($request);
 

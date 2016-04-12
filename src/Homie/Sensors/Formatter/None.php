@@ -14,7 +14,7 @@ class None extends Formatter
     /**
      * {@inheritdoc}
      */
-    public function formatValue($value)
+    public function formatValue($value) : string
     {
         return (string)$value;
     }

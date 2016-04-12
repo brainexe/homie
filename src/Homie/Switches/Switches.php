@@ -46,7 +46,7 @@ class Switches
      * @throws UserException
      * @return int
      */
-    public function getRadioPin($pin)
+    public function getRadioPin($pin) : int
     {
         if (is_numeric($pin)) {
             $pin     = (int)$pin;
@@ -66,10 +66,10 @@ class Switches
     }
 
     /**
-     * @param integer $switchId
+     * @param int $switchId
      * @return SwitchVO
      */
-    public function get($switchId)
+    public function get(int $switchId) : SwitchVO
     {
         $raw = $this->gateway->get($switchId);
 
@@ -96,15 +96,15 @@ class Switches
      * @param SwitchVO $switchVO
      * @return integer new switch id
      */
-    public function add(SwitchVO $switchVO)
+    public function add(SwitchVO $switchVO) : int
     {
         return $this->gateway->add($switchVO);
     }
 
     /**
-     * @param integer $switchId
+     * @param int $switchId
      */
-    public function delete($switchId)
+    public function delete(int $switchId)
     {
         $this->gateway->delete($switchId);
     }
@@ -114,7 +114,7 @@ class Switches
      * @return SwitchVO
      * @throws Exception
      */
-    private function buildSwitchVO(array $raw)
+    private function buildSwitchVO(array $raw) : SwitchVO
     {
         $type = $raw['type'];
         switch ($type) {

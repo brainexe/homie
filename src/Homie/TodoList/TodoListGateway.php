@@ -36,7 +36,7 @@ class TodoListGateway
     /**
      * @return array[]
      */
-    public function getList()
+    public function getList() : array
     {
         $itemIds = $this->getRedis()->smembers(self::TODO_IDS);
 
@@ -49,10 +49,10 @@ class TodoListGateway
     }
 
     /**
-     * @param integer $itemId
+     * @param int $itemId
      * @return array
      */
-    public function getRawItem($itemId)
+    public function getRawItem(int $itemId)
     {
         return $this->getRedis()->hgetall($this->getRedisKey($itemId));
     }
@@ -61,7 +61,7 @@ class TodoListGateway
      * @param int $itemId
      * @param array $changes
      */
-    public function editItem($itemId, array $changes)
+    public function editItem(int $itemId, array $changes)
     {
         $key = $this->getRedisKey($itemId);
 
@@ -71,9 +71,9 @@ class TodoListGateway
     }
 
     /**
-     * @param integer $itemId
+     * @param int $itemId
      */
-    public function deleteItem($itemId)
+    public function deleteItem(int $itemId)
     {
         $key = $this->getRedisKey($itemId);
 
@@ -82,10 +82,10 @@ class TodoListGateway
     }
 
     /**
-     * @param integer $itemId
+     * @param int $itemId
      * @return string
      */
-    private function getRedisKey($itemId)
+    private function getRedisKey(int $itemId) : string
     {
         return sprintf(self::TODO_KEY, $itemId);
     }

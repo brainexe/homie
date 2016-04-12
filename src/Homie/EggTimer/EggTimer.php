@@ -10,7 +10,7 @@ use BrainExe\Core\Util\TimeParser;
 use Homie\Espeak\EspeakVO;
 
 /**
- * @Service(public=false)
+ * @Service("EggTimer", public=false)
  */
 class EggTimer
 {
@@ -37,9 +37,8 @@ class EggTimer
     /**
      * @param string $time
      * @param string $text
-     * @throws UserException
      */
-    public function addNewJob($time, $text)
+    public function addNewJob(string $time, string $text)
     {
         $espeakVo = null;
         if ($text) {

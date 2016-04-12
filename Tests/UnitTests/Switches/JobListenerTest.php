@@ -40,9 +40,9 @@ class JobListenerTest extends TestCase
         $radio = new RadioVO();
         $radio->code = 'code';
         $radio->pin  = 'pin';
+        $status      = true;
 
-        $event = new SwitchChangeEvent($radio, SwitchChangeEvent::CHANGE_RADIO);
-        $event->status = $status = 'status';
+        $event = new SwitchChangeEvent($radio, $status);
 
         $this->change
             ->expects($this->once())

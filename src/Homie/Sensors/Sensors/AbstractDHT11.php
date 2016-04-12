@@ -39,10 +39,10 @@ abstract class AbstractDHT11 extends AbstractSensor implements Parameterized
     }
 
     /**
-     * @param integer $parameter
+     * @param string $parameter
      * @return string
      */
-    protected function getContent($parameter)
+    protected function getContent(string $parameter) : string
     {
         $command = sprintf('timeout 5 %s', $parameter);
 
@@ -52,7 +52,7 @@ abstract class AbstractDHT11 extends AbstractSensor implements Parameterized
     /**
      * {@inheritdoc}
      */
-    public function isSupported(SensorVO $sensor, OutputInterface $output)
+    public function isSupported(SensorVO $sensor, OutputInterface $output) : bool
     {
         $file = explode(' ', $sensor->parameter)[0];
 

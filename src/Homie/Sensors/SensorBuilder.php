@@ -8,7 +8,7 @@ use Homie\Sensors\Formatter\Formatter;
 use Homie\Sensors\Interfaces\Sensor;
 
 /**
- * @Service(public=false)
+ * @Service("SensorBuilder", public=false)
  */
 class SensorBuilder
 {
@@ -60,7 +60,7 @@ class SensorBuilder
      * @throws InvalidArgumentException
      * @return Sensor
      */
-    public function build($type)
+    public function build($type) : Sensor
     {
         if (!empty($this->sensors[$type])) {
             return $this->sensors[$type];
@@ -74,7 +74,7 @@ class SensorBuilder
      * @throws InvalidArgumentException
      * @return Definition
      */
-    public function getDefinition($type)
+    public function getDefinition($type) : Definition
     {
         if (!empty($this->definitions[$type])) {
             return $this->definitions[$type];
@@ -87,7 +87,7 @@ class SensorBuilder
      * @param string $formatterType
      * @return Formatter
      */
-    public function getFormatter($formatterType)
+    public function getFormatter($formatterType) : Formatter
     {
         if (isset($this->formatter[$formatterType])) {
             return $this->formatter[$formatterType];

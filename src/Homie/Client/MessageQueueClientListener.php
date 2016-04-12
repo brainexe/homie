@@ -10,7 +10,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * @EventListener("Listener.MessageQueueClient")
  */
-class MessageQueueClientListener implements EventSubscriberInterface
+class MessageQueueClientListener
 {
 
     use RedisTrait;

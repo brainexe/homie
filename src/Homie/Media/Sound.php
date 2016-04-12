@@ -7,7 +7,7 @@ use BrainExe\Annotations\Annotations\Service;
 use Homie\Client\ClientInterface;
 
 /**
- * @Service(public=false)
+ * @Service("Media.Sound", public=false)
  */
 class Sound
 {
@@ -32,8 +32,10 @@ class Sound
      * @param ClientInterface $client
      * @param string $command
      */
-    public function __construct(ClientInterface $client, $command)
-    {
+    public function __construct(
+        ClientInterface $client,
+        string $command
+    ) {
         $this->client  = $client;
         $this->command = $command;
     }
@@ -41,7 +43,7 @@ class Sound
     /**
      * @param string $file
      */
-    public function playSound($file)
+    public function playSound(string $file)
     {
         $this->client->execute($this->command, [self::ROOT . $file]);
     }

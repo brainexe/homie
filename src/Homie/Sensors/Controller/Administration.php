@@ -18,7 +18,7 @@ use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("Sensors.Controller.Administration")
+ * @ControllerAnnotation("Sensors.Controller.Administration", requirements={"sensorId":"\d+"})
  */
 class Administration
 {
@@ -107,7 +107,7 @@ class Administration
      * @param Request $request
      * @return bool
      */
-    public function delete(Request $request, $sensorId)
+    public function delete(Request $request, int $sensorId)
     {
         unset($request);
 
@@ -122,7 +122,7 @@ class Administration
      * @param Request $request
      * @return SensorVO
      */
-    public function edit(Request $request, $sensorId)
+    public function edit(Request $request, int $sensorId)
     {
         $sensor                = $this->gateway->getSensor($sensorId);
         $sensorVo              = $this->voBuilder->buildFromArray($sensor);
@@ -146,9 +146,9 @@ class Administration
      * @param string $sensorType
      * @return string[]
      * @throws UserException
-     * @Route("/sensors/{sensorId}/parameters/", name="sensor.search", methods="GET")
+     * @Route("/sensors/{sensorType}/parameters/", name="sensor.search", methods="GET")
      */
-    public function parameters(Request $request, $sensorType)
+    public function parameters(Request $request, string $sensorType) : array
     {
         unset($request);
 
@@ -169,9 +169,9 @@ class Administration
      * @param string $sensorType
      * @param string $parameter
      * @return string[]
-     * @Route("/sensors/{sensorId}/{parameter}/valid/", name="sensor.valid", methods="GET")
+     * @Route("/sensors/{sensorType}/{parameter}/valid/", name="sensor.valid", methods="GET")
      */
-    public function isValid(Request $request, $sensorType, $parameter)
+    public function isValid(Request $request, string $sensorType, string $parameter) : array
     {
         unset($request);
 

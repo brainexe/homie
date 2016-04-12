@@ -3,6 +3,7 @@
 namespace Tests\Homie\Dashboard;
 
 use BrainExe\Core\Util\IdGenerator;
+use Homie\Dashboard\DashboardVo;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Dashboard\Dashboard;
@@ -47,7 +48,7 @@ class DashboardTest extends TestCase
 
     public function testGetDashboard()
     {
-        $dashboard = [];
+        $dashboard = new DashboardVo();
         $userId    = 10;
 
         $this->gateway
@@ -55,9 +56,9 @@ class DashboardTest extends TestCase
             ->method('getDashboard')
             ->willReturn($dashboard);
 
-        $actualResult = $this->subject->getDashboard($userId);
+        $actual = $this->subject->getDashboard($userId);
 
-        $this->assertEquals($dashboard, $actualResult);
+        $this->assertEquals($dashboard, $actual);
     }
 
     public function testGetAvailableWidgets()
@@ -69,9 +70,9 @@ class DashboardTest extends TestCase
             ->method('getAvailableWidgets')
             ->willReturn($widgets);
 
-        $actualResult = $this->subject->getAvailableWidgets();
+        $actual = $this->subject->getAvailableWidgets();
 
-        $this->assertEquals($widgets, $actualResult);
+        $this->assertEquals($widgets, $actual);
     }
 
     public function testAddWidget()
@@ -131,7 +132,7 @@ class DashboardTest extends TestCase
 
     public function testGetDashboards()
     {
-        $dashboards = ['dashboards'];
+        $dashboards = [new DashboardVo()];
 
         $this->gateway
             ->expects($this->once())

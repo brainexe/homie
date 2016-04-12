@@ -8,7 +8,7 @@ use BrainExe\Core\Annotations\EventListener;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * @EventListener("ArduinoListener")
+ * @EventListener("Arduino.Listener")
  */
 class Listener implements EventSubscriberInterface
 {

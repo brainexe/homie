@@ -34,7 +34,7 @@ class Webcam
     /**
      * @return WebcamVO[]
      */
-    public function getFiles()
+    public function getFiles() : array
     {
         $files = $this->filesystem->listContents(self::ROOT, true);
 
@@ -47,19 +47,18 @@ class Webcam
     }
 
     /**
-     * @return WebcamVO
+     * @return WebcamVO|null
      */
     public function getRecentImage()
     {
         $files = $this->filesystem->listContents(self::ROOT, true);
 
         if (empty($files)) {
-            return [];
+            return null;
         }
 
         usort($files, function (array $a, array $b) {
-            // todo check via isset()
-            return @$a['timestamp'] > @$b['timestamp'];
+            return @$a['timestamp'] <=> @$b['timestamp'];
         });
         $file = array_pop($files);
 
@@ -70,24 +69,24 @@ class Webcam
      * @param string $filename
      * @return bool
      */
-    public function delete($filename)
+    public function delete(string $filename) : bool
     {
-        return $this->filesystem->delete($filename);
+        return (bool)$this->filesystem->delete($filename);
     }
 
     /**
      * @param array $file
      * @return WebcamVO
      */
-    private function formatFile(array $file)
+    private function formatFile(array $file) : WebcamVO
     {
         $fileVo = new WebcamVO();
         $fileVo->filePath  = $file['path'];
         $fileVo->name      = $file['basename'];
         $fileVo->webcamId  = $file['basename'];
-        $fileVo->extension = isset($file['extension']) ? $file['extension'] : '';
+        $fileVo->extension = $file['extension'] ?? '';
+        $fileVo->timestamp = $file['timestamp'] ?? null;
         $fileVo->webPath   = sprintf('%s%s', self::ROOT, $fileVo->name);
-        $fileVo->timestamp = isset($file['timestamp']) ? $file['timestamp'] : null;
 
         return $fileVo;
     }

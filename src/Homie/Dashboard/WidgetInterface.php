@@ -11,10 +11,10 @@ interface WidgetInterface
     /**
      * @return string
      */
-    public function getId();
+    public function getId() : string;
 
     /**
      * @return WidgetMetadataVo
      */
-    public function getMetadata();
+    public function getMetadata() : WidgetMetadataVo;
 }

@@ -77,7 +77,6 @@ class SerialTest extends TestCase
      */
     public function testSendSerial($action, $pin, $value, $expectedResult)
     {
-
         $file = __DIR__ . self::FILE;
 
         $this->glob
@@ -109,7 +108,6 @@ class SerialTest extends TestCase
             ['a', 12, 1, "a:12:1\n"],
             ['a', 100000, -121, "a:100000:-121\n"],
             ['s', 0, 0, "s:0:0\n"],
-            ['s', null, false, "s:0:0\n"],
         ];
     }
 }

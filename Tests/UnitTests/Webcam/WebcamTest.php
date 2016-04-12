@@ -121,7 +121,7 @@ class WebcamTest extends TestCase
             ->willReturn($files);
 
         $actual = $this->subject->getRecentImage();
-        $this->assertEquals([], $actual);
+        $this->assertEquals(null, $actual);
     }
 
     public function testDelete()

@@ -7,7 +7,7 @@ use BrainExe\Annotations\Annotations\Service;
 use Homie\Client\ClientInterface;
 
 /**
- * @Service(public=false)
+ * @Service("GPIO.GpioManager", public=false)
  */
 class GpioManager
 {
@@ -37,7 +37,12 @@ class GpioManager
     private $gpioExecutable;
 
     /**
-     * @Inject({"@PinGateway", "@HomieClient", "@PinLoader", "%gpio.command%"})
+     * @Inject({
+     *     "@GPIO.PinGateway",
+     *     "@HomieClient",
+     *     "@PinLoader",
+     *     "%gpio.command%"
+     * })
      * @param PinGateway $gateway
      * @param ClientInterface $client
      * @param PinLoader $loader
@@ -47,7 +52,7 @@ class GpioManager
         PinGateway $gateway,
         ClientInterface $client,
         PinLoader $loader,
-        $gpioExecutable
+        string $gpioExecutable
     ) {
         $this->gateway        = $gateway;
         $this->client         = $client;
@@ -58,7 +63,7 @@ class GpioManager
     /**
      * @return PinsCollection
      */
-    public function getPins()
+    public function getPins() : PinsCollection
     {
         $descriptions = $this->gateway->getPinDescriptions();
 
@@ -75,12 +80,12 @@ class GpioManager
     }
 
     /**
-     * @param integer $pinId
+     * @param int $pinId
      * @param string $status
-     * @param boolean $value
+     * @param bool $value
      * @return Pin
      */
-    public function setPin($pinId, $status, $value)
+    public function setPin(int $pinId, string $status, bool $value) : Pin
     {
         $pin = $this->loader->loadPin($pinId);
 
@@ -96,7 +101,7 @@ class GpioManager
      * @param int $pinId
      * @param string $description
      */
-    public function setDescription($pinId, $description)
+    public function setDescription(int $pinId, string $description)
     {
         $this->gateway->setDescription($pinId, $description);
     }

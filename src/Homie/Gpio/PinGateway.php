@@ -6,7 +6,7 @@ use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\RedisTrait;
 
 /**
- * @Service(public=false)
+ * @Service("GPIO.PinGateway", public=false)
  */
 class PinGateway
 {
@@ -17,7 +17,7 @@ class PinGateway
     /**
      * @return string[]
      */
-    public function getPinDescriptions()
+    public function getPinDescriptions() : array
     {
         $redis = $this->getRedis();
 
@@ -28,7 +28,7 @@ class PinGateway
      * @param int $pinId
      * @param $description
      */
-    public function setDescription($pinId, $description)
+    public function setDescription(int $pinId, string $description)
     {
         $this->getRedis()->hset(self::REDIS_PINS, $pinId, $description);
     }

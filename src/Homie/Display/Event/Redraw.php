@@ -17,7 +17,7 @@ class Redraw extends AbstractEvent
     /**
      * @param int $displayId
      */
-    public function __construct($displayId)
+    public function __construct(int $displayId)
     {
         parent::__construct(self::KEY);
 
@@ -27,7 +27,7 @@ class Redraw extends AbstractEvent
     /**
      * @return int
      */
-    public function getDisplayId()
+    public function getDisplayId() : int
     {
         return $this->displayId;
     }

@@ -34,7 +34,7 @@ class LocalClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function execute($command, array $arguments = [])
+    public function execute(string $command, array $arguments = [])
     {
         $this->executeWithReturn($command, $arguments);
     }
@@ -42,7 +42,7 @@ class LocalClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function executeWithReturn($command, array $arguments = [])
+    public function executeWithReturn(string $command, array $arguments = []) : string
     {
         $process = $this->processBuilder
             ->setPrefix(explode(' ', $command))

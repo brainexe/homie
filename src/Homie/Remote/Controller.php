@@ -24,7 +24,7 @@ class Controller
      * @Route("/remote/receive/{code}/", name="remote.receive")
      * @Guest
      */
-    public function action(Request $request, $code)
+    public function action(Request $request, string $code) : bool
     {
         unset($request);
 

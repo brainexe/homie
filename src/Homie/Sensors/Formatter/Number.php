@@ -16,7 +16,7 @@ class Number extends Formatter
      * @param float $number
      * @return float|int|string
      */
-    public function formatValue($number)
+    public function formatValue($number) : string
     {
         $thresh = 1000;
         if ($number < $thresh) {

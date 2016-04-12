@@ -8,6 +8,7 @@ use BrainExe\Core\Annotations\Guest;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Authentication\Settings\Settings;
 use BrainExe\Core\Traits\EventDispatcherTrait;
+use Generator;
 use Homie\Sensors\Builder;
 use Homie\Sensors\Chart;
 use Homie\Sensors\GetValue\Event;
@@ -19,7 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @todo split into second controller for sensor values
- * @ControllerAnnotation("SensorsController")
+ * @ControllerAnnotation("Sensors.Controller.Controller", requirements={"sensorId":"\d+"})
  */
 class Controller
 {
@@ -113,7 +114,7 @@ class Controller
      */
     public function indexSensor(Request $request, $activeSensorIds)
     {
-        $userId = $request->attributes->get('user_id');
+        $userId = (int)$request->attributes->get('user_id');
         $from   = $this->getFrom($request, $userId);
 
         $activeSensorIds = $this->getActiveSensorIds($activeSensorIds, $userId);
@@ -137,12 +138,12 @@ class Controller
 
     /**
      * @param Request $request
-     * @param integer $sensorId
-     * @return boolean
+     * @param int $sensorId
+     * @return bool
      * @Guest
-     * @Route("/sensors/{sensor_id}/value/", name="sensor.submitValue", methods="POST")
+     * @Route("/sensors/{sensorId}/value/", name="sensor.submitValue", methods="POST")
      */
-    public function addValue(Request $request, $sensorId)
+    public function addValue(Request $request, int $sensorId) : bool
     {
         $value    = $request->request->get('value');
         $sensor   = $this->gateway->getSensor($sensorId);
@@ -155,11 +156,24 @@ class Controller
 
     /**
      * @param Request $request
-     * @param integer $sensorId
-     * @return boolean
-     * @Route("/sensors/{sensor_id}/force/", name="sensor.forceGetValue", methods="POST")
+     * @return Generator
+     * @Route("/sensors/byTime/", name="sensor.getByTime")
      */
-    public function forceGetValue(Request $request, $sensorId)
+    public function getByTime(Request $request) : Generator
+    {
+        $sensorIds = (string)$request->query->get('sensorIds');
+        $time = (int)$request->query->get('timestamp'); // todo default time()
+
+        return $this->valuesGateway->getByTime(explode(',', $sensorIds), $time);
+    }
+
+    /**
+     * @param Request $request
+     * @param int $sensorId
+     * @return bool
+     * @Route("/sensors/{sensorId}/force/", name="sensor.forceGetValue", methods="POST")
+     */
+    public function forceGetValue(Request $request, int $sensorId)
     {
         unset($request);
         $sensor   = $this->gateway->getSensor($sensorId);
@@ -189,7 +203,7 @@ class Controller
      * @param int $from
      * @return array
      */
-    private function addValues(array $activeSensorIds, array &$sensorsRaw, $from)
+    private function addValues(array $activeSensorIds, array &$sensorsRaw, int $from) : array
     {
         $sensorValues = [];
         foreach ($sensorsRaw as &$sensor) {
@@ -233,12 +247,13 @@ class Controller
      * @param int $userId
      * @return int
      */
-    private function getFrom(Request $request, $userId)
+    private function getFrom(Request $request, int $userId) : int
     {
         $from = (int)$request->query->get('from');
         if (!$from) {
             return (int)$this->settings->get($userId, self::SETTINGS_TIMESPAN) ?: Chart::DEFAULT_TIME;
         }
+
         return $from;
     }
 }

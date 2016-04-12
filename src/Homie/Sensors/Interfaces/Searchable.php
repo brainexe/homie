@@ -8,5 +8,5 @@ interface Searchable extends Parameterized
     /**
      * @return string[]
      */
-    public function search();
+    public function search() : array;
 }

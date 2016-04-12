@@ -20,7 +20,7 @@ class Gateway
     /**
      * @return Node[]
      */
-    public function getAll()
+    public function getAll() : array
     {
         return array_map('unserialize', $this->getRedis()->hgetall(self::REDIS_KEY));
     }
@@ -30,7 +30,7 @@ class Gateway
      * @return Node
      * @throws Exception
      */
-    public function get($nodeId)
+    public function get(int $nodeId) : Node
     {
         $raw = $this->getRedis()->hget(self::REDIS_KEY, $nodeId);
         if (!$raw) {
@@ -52,7 +52,7 @@ class Gateway
      * @param int $nodeId
      * @return int
      */
-    public function delete($nodeId)
+    public function delete(int $nodeId)
     {
         return $this->getRedis()->hdel(self::REDIS_KEY, [$nodeId]);
     }

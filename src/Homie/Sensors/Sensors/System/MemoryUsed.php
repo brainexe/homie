@@ -27,7 +27,8 @@ class MemoryUsed extends AbstractSensor
         preg_match('/MemTotal:\s*(\d+) kB/', $content, $total);
         preg_match('/MemAvailable:\s*(\d+) kB/', $content, $available);
 
-        $usedkb = $total[1] - $available[1];
+        // todo
+        $usedkb = @$total[1] - @$available[1];
 
         return $usedkb * 1000; // -> Bytes
     }
@@ -35,7 +36,7 @@ class MemoryUsed extends AbstractSensor
     /**
      * {@inheritdoc}
      */
-    public function isSupported(SensorVO $sensor, OutputInterface $output)
+    public function isSupported(SensorVO $sensor, OutputInterface $output) : bool
     {
         return is_file(self::MEMINFO);
     }
@@ -43,7 +44,7 @@ class MemoryUsed extends AbstractSensor
     /**
      * @return Definition
      */
-    public function getDefinition()
+    public function getDefinition() : Definition
     {
         $definition            = new Definition();
         $definition->type      = Definition::TYPE_MEMORY;

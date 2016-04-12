@@ -9,12 +9,12 @@ interface ClientInterface
      * @param string $command
      * @param string[] $arguments
      */
-    public function execute($command, array $arguments = []);
+    public function execute(string $command, array $arguments = []);
 
     /**
      * @param string $command
      * @param string[] $arguments
      * @return string
      */
-    public function executeWithReturn($command, array $arguments = []);
+    public function executeWithReturn(string $command, array $arguments = []);
 }

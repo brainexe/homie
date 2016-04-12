@@ -16,7 +16,7 @@ class Time extends AbstractWidget
     /**
      * @return WidgetMetadataVo
      */
-    public function getMetadata()
+    public function getMetadata() : WidgetMetadataVo
     {
         $metadata = new WidgetMetadataVo(
             $this->getId()

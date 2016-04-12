@@ -40,7 +40,7 @@ class Redis extends AbstractSensor implements Parameterized
     /**
      * {@inheritdoc}
      */
-    public function isSupported(SensorVO $sensor, OutputInterface $output)
+    public function isSupported(SensorVO $sensor, OutputInterface $output) : bool
     {
         if ($this->getValue($sensor) === null) {
             $output->writeln(
@@ -57,7 +57,7 @@ class Redis extends AbstractSensor implements Parameterized
     /**
      * @return Definition
      */
-    public function getDefinition()
+    public function getDefinition() : Definition
     {
         $definition            = new Definition();
         $definition->type      = Definition::TYPE_NONE;

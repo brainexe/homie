@@ -8,6 +8,7 @@ use BrainExe\Core\Authentication\UserVO;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Traits\IdGeneratorTrait;
 use BrainExe\Core\Traits\TimeTrait;
+use Generator;
 use Homie\TodoList\VO\TodoItemVO;
 
 /**
@@ -30,7 +31,7 @@ class TodoList
     private $builder;
 
     /**
-     * @Inject({"@TodoListGateway", "@TodoVoBuilder"})
+     * @Inject({"@TodoListGateway", "@TodoList.Builder"})
      * @param TodoListGateway $gateway
      * @param Builder $builder
      */
@@ -45,7 +46,7 @@ class TodoList
      * @param TodoItemVO $itemVo
      * @return TodoItemVO
      */
-    public function addItem(UserVO $user, TodoItemVO $itemVo)
+    public function addItem(UserVO $user, TodoItemVO $itemVo) : TodoItemVO
     {
         $now = $this->now();
 
@@ -67,7 +68,7 @@ class TodoList
     }
 
     /**
-     * @return \Generator|TodoItemVO[]
+     * @return Generator|TodoItemVO[]
      */
     public function getList()
     {
@@ -80,10 +81,10 @@ class TodoList
     }
 
     /**
-     * @param integer $itemId
+     * @param int $itemId
      * @return null|TodoItemVO
      */
-    public function getItem($itemId)
+    public function getItem(int $itemId)
     {
         $raw = $this->gateway->getRawItem($itemId);
 
@@ -99,7 +100,7 @@ class TodoList
      * @param array $changes
      * @return TodoItemVO|null
      */
-    public function editItem($itemId, array $changes)
+    public function editItem(int $itemId, array $changes)
     {
         $itemVo = $this->getItem($itemId);
         if (empty($itemVo)) {
@@ -117,7 +118,7 @@ class TodoList
     /**
      * @param int $itemId
      */
-    public function deleteItem($itemId)
+    public function deleteItem(int $itemId)
     {
         $itemVo = $this->getItem($itemId);
 

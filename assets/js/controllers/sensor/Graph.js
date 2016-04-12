@@ -33,10 +33,32 @@ App.service('SensorGraph', ['Sensor', 'Sensor.Formatter', function (Sensor, Sens
             return data.json;
         }
 
+        function aggregateTags(rawSensors) {
+            var tags = {};
+            for (var idx in rawSensors) {
+                var sensor = rawSensors[idx];
+                if (!sensor.tags) {
+                    continue;
+                }
+                for (var tagId in sensor.tags) {
+                    if (!tagId || tagId != ~~ tagId) {
+                        continue; // todo ugly fix
+                    }
+                    var tag = sensor.tags[tagId];
+                    if (!tags[tag]) {
+                        tags[tag] = [];
+                    }
+                    tags[tag].push(sensor);
+                }
+            }
+            return tags;
+        }
+
         Sensor.getCachedData().success(function(data) {
             $scope.types         = data.types;
             $scope.fromIntervals = data.fromIntervals;
             $scope.sensors       = data.sensors;
+            $scope.tags          = aggregateTags(data.sensors);
 
             Sensor.getValues(sensors, parameters).success(function (data) {
                 $scope.activeSensorIds = data.activeSensorIds;

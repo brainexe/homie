@@ -34,6 +34,11 @@ class Listener extends EventDispatcher
     private $container;
 
     /**
+     * @var callable
+     */
+    private $cachedFunctions;
+
+    /**
      * @Inject({
      *     "@Expression.Gateway",
      *     "@Expression.Language",
@@ -43,11 +48,16 @@ class Listener extends EventDispatcher
      * @param Language $language
      * @param Container $container
      */
-    public function __construct(Gateway $gateway, Language $language, Container $container)
-    {
+    public function __construct(
+        Gateway $gateway,
+        Language $language,
+        Container $container
+    ) {
         $this->gateway   = $gateway;
         $this->language  = $language;
         $this->container = $container;
+
+        $this->cachedFunctions = $this->includeFile(Cache::CACHE_FILE);
     }
 
     /**
@@ -55,13 +65,12 @@ class Listener extends EventDispatcher
      */
     public function dispatch($eventName, Event $event = null)
     {
-        $cachedFunction = $this->includeFile(Cache::CACHE_FILE);
-        if (!$cachedFunction) {
+        if (!$this->cachedFunctions) {
             return;
         }
 
         /** @var Generator|Entity[] $matches */
-        $matches = call_user_func($cachedFunction, $event, $eventName, $this->container);
+        $matches = call_user_func($this->cachedFunctions, $event, $eventName, $this->container);
         foreach ($matches as $entity) {
             $parameters = [
                 'event'     => $event,

@@ -60,7 +60,7 @@ class Gateway
     /**
      * @return Entity[]
      */
-    public function getAll()
+    public function getAll() : array
     {
         return array_map(
             function ($string) {
@@ -71,10 +71,10 @@ class Gateway
     }
 
     /**
-     * @param int[] $entityIds
+     * @param string[] $entityIds
      * @return Entity[]
      */
-    public function getEntities(array $entityIds)
+    public function getEntities(array $entityIds) : array
     {
         return array_map(
             function ($string) {
@@ -85,10 +85,10 @@ class Gateway
     }
 
     /**
-     * @param int $expressionId
+     * @param string $expressionId
      * @return bool
      */
-    public function delete($expressionId)
+    public function delete(string $expressionId) : bool
     {
         $result = $this->getRedis()->hdel(self::REDIS_KEY, [$expressionId]);
         if ($result) {

@@ -17,15 +17,15 @@ class Gateway
     /**
      * @return string[]
      */
-    public function getItems()
+    public function getItems() : array
     {
-        return $this->getRedis()->smembers(self::REDIS_KEY);
+        return (array)$this->getRedis()->smembers(self::REDIS_KEY);
     }
 
     /**
      * @param string $name
      */
-    public function addItem($name)
+    public function addItem(string $name)
     {
         $this->getRedis()->sadd(self::REDIS_KEY, $name);
     }
@@ -33,7 +33,7 @@ class Gateway
     /**
      * @param string $name
      */
-    public function removeItem($name)
+    public function removeItem(string $name)
     {
         $this->getRedis()->srem(self::REDIS_KEY, $name);
     }

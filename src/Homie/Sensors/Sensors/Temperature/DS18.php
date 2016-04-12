@@ -59,7 +59,7 @@ class DS18 extends AbstractSensor implements Searchable
     /**
      * {@inheritdoc}
      */
-    public function isSupported(SensorVO $sensor, OutputInterface $output)
+    public function isSupported(SensorVO $sensor, OutputInterface $output) : bool
     {
         if (!$this->fileSystem->exists($sensor->parameter)) {
             $output->writeln(
@@ -78,7 +78,7 @@ class DS18 extends AbstractSensor implements Searchable
     /**
      * @return string[]
      */
-    public function search()
+    public function search() : array
     {
         return $this->glob->execGlob('/sys/bus/w1/devices/*/w1_slave');
     }
@@ -86,7 +86,7 @@ class DS18 extends AbstractSensor implements Searchable
     /**
      * @return Definition
      */
-    public function getDefinition()
+    public function getDefinition() : Definition
     {
         $definition            = new Definition();
         $definition->type      = Definition::TYPE_TEMPERATURE;

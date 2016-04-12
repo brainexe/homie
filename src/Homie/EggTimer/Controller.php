@@ -8,7 +8,7 @@ use BrainExe\Core\Annotations\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("EggTimerController")
+ * @ControllerAnnotation("EggTimer.Controller")
  */
 class Controller
 {
@@ -29,10 +29,10 @@ class Controller
 
     /**
      * @param Request $request
-     * @return true
+     * @return bool
      * @Route("/egg_timer/", name="egg_timer.add", methods="POST")
      */
-    public function add(Request $request)
+    public function add(Request $request) : bool
     {
         $text = $request->request->get('text');
         $time = $request->request->get('time');

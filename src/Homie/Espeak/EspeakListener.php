@@ -41,7 +41,7 @@ class EspeakListener implements EventSubscriberInterface
      */
     public function handleEspeakEvent(EspeakEvent $event)
     {
-        $espeakVo = $event->espeak;
+        $espeakVo = $event->getEspeak();
 
         $this->espeak->speak(
             $espeakVo->text,

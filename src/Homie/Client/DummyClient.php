@@ -16,7 +16,7 @@ class DummyClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function execute($command, array $arguments = [])
+    public function execute(string $command, array $arguments = [])
     {
         $this->info(sprintf('%s %s', $command, implode(' ', $arguments)));
     }
@@ -24,7 +24,7 @@ class DummyClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function executeWithReturn($command, array $arguments = [])
+    public function executeWithReturn(string $command, array $arguments = []) : string
     {
         $this->info(sprintf('%s %s', $command, implode(' ', $arguments)));
 

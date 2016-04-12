@@ -32,6 +32,6 @@ class WidgetCompilerPass implements CompilerPassInterface
             $widgets[$class::TYPE] = new Reference($serviceId);
         }
 
-        $definition->addMethodCall('setWidgets', [$widgets]);
+        $definition->setArguments([$widgets]);
     }
 }

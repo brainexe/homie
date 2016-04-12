@@ -11,7 +11,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * @CommandAnnotation("Expression.Command.List")
+ * @CommandAnnotation("Expression.Command.ListFunctions")
  */
 class ListFunctions extends SymfonyCommand
 {

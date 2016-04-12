@@ -13,7 +13,7 @@ class EspeakEvent extends AbstractEvent implements PushViaWebsocket
     /**
      * @var EspeakVO
      */
-    public $espeak;
+    private $espeak;
 
     /**
      * @param EspeakVO $espeak
@@ -23,5 +23,13 @@ class EspeakEvent extends AbstractEvent implements PushViaWebsocket
         parent::__construct(self::SPEAK);
 
         $this->espeak = $espeak;
+    }
+
+    /**
+     * @return EspeakVO
+     */
+    public function getEspeak() : EspeakVO
+    {
+        return $this->espeak;
     }
 }

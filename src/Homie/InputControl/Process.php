@@ -35,10 +35,10 @@ class Process implements ExpressionFunctionProviderInterface
      */
     public function getFunctions()
     {
-        yield new ExpressionFunction('executeCommand', function ($command, array $arguments = array()) {
+        yield new ExpressionFunction('executeCommand', function (string $command, array $arguments = array()) {
             unset($command, $arguments);
             throw new InvalidArgumentException('Function executeCommand() not available as condition');
-        }, function (array $variables, $command, array $arguments = array()) {
+        }, function (array $variables, string $command, array $arguments = array()) {
             unset($variables);
             return $this->client->executeWithReturn($command, $arguments);
         });

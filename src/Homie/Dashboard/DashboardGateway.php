@@ -33,10 +33,10 @@ class DashboardGateway
         }
     }
     /**
-     * @param integer $dashboardId
+     * @param int $dashboardId
      * @return DashboardVo
      */
-    public function getDashboard($dashboardId)
+    public function getDashboard($dashboardId) : DashboardVo
     {
         $dashboard = new DashboardVo();
         $dashboard->dashboardId = $dashboardId;
@@ -57,10 +57,10 @@ class DashboardGateway
     }
 
     /**
-     * @param integer $dashboardId
+     * @param int $dashboardId
      * @param array $payload
      */
-    public function addWidget($dashboardId, array $payload)
+    public function addWidget(int $dashboardId, array $payload)
     {
         $newId = $this->generateUniqueId('widget');
         $payload['id']   = $newId;
@@ -74,16 +74,16 @@ class DashboardGateway
      * @param int $widgetId
      * @param array $payload
      */
-    public function updateWidget($dashboardId, $widgetId, array $payload)
+    public function updateWidget(int $dashboardId, int $widgetId, array $payload)
     {
         $this->getRedis()->hset($this->getWidgetKey($dashboardId), $widgetId, json_encode($payload));
     }
 
     /**
-     * @param integer $dashboardId
-     * @param integer $widgetId
+     * @param int $dashboardId
+     * @param int $widgetId
      */
-    public function deleteWidget($dashboardId, $widgetId)
+    public function deleteWidget(int $dashboardId, int $widgetId)
     {
         $this->getRedis()->hdel($this->getWidgetKey($dashboardId), [$widgetId]);
     }
@@ -92,7 +92,7 @@ class DashboardGateway
      * @param int $dashboardId
      * @param array $metadata
      */
-    public function addDashboard($dashboardId, array $metadata)
+    public function addDashboard(int $dashboardId, array $metadata)
     {
         $this->getRedis()->sadd(self::IDS_KEY, [$dashboardId]);
         $this->updateMetadata($dashboardId, $metadata);
@@ -102,7 +102,7 @@ class DashboardGateway
      * @param int $dashboardId
      * @param array $payload
      */
-    public function updateMetadata($dashboardId, array $payload)
+    public function updateMetadata(int $dashboardId, array $payload)
     {
         $this->getRedis()->hmset($this->getMetaKey($dashboardId), $payload);
     }
@@ -110,7 +110,7 @@ class DashboardGateway
     /**
      * @param int $dashboardId
      */
-    public function delete($dashboardId)
+    public function delete(int $dashboardId)
     {
         $this->getRedis()->del($this->getWidgetKey($dashboardId));
         $this->getRedis()->del($this->getMetaKey($dashboardId));
@@ -118,19 +118,19 @@ class DashboardGateway
     }
 
     /**
-     * @param integer $dashboardId
+     * @param int $dashboardId
      * @return string
      */
-    private function getWidgetKey($dashboardId)
+    private function getWidgetKey(int $dashboardId)
     {
         return sprintf(self::WIDGET_KEY, $dashboardId);
     }
 
     /**
-     * @param integer $dashboardId
+     * @param int $dashboardId
      * @return string
      */
-    private function getMetaKey($dashboardId)
+    private function getMetaKey(int $dashboardId)
     {
         return sprintf(self::META_KEY, $dashboardId);
     }

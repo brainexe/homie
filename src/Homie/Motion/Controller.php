@@ -20,7 +20,7 @@ class Controller
      * @Route("/motion/add/", name="motion.add")
      * @Guest
      */
-    public function add()
+    public function add() : bool
     {
         $event = new MotionEvent(MotionEvent::MOTION);
 

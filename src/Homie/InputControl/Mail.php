@@ -23,10 +23,10 @@ class Mail implements ExpressionFunctionProviderInterface
      */
     public function getFunctions()
     {
-        yield new ExpressionFunction('sendMail', function ($recipient, $subject, $body) {
+        yield new ExpressionFunction('sendMail', function (string $recipient, string $subject, string $body) {
             unset($recipient, $subject, $body);
             throw new InvalidArgumentException('Function sendMail() not available as condition');
-        }, function (array $variables, $recipient, $subject, $body) {
+        }, function (array $variables, string $recipient, string $subject, string $body) {
             unset($variables);
             $event = new SendMailEvent($recipient, $subject, $body);
 

@@ -39,10 +39,10 @@ class Dashboard
     }
 
     /**
-     * @param integer $dashboardId
+     * @param int $dashboardId
      * @return DashboardVo
      */
-    public function getDashboard($dashboardId)
+    public function getDashboard(int $dashboardId) : DashboardVo
     {
         return $this->gateway->getDashboard($dashboardId);
     }
@@ -50,18 +50,18 @@ class Dashboard
     /**
      * @return WidgetInterface[]
      */
-    public function getAvailableWidgets()
+    public function getAvailableWidgets() : array
     {
         return $this->widgets->getAvailableWidgets();
     }
 
     /**
-     * @param integer $dashboardId
+     * @param int $dashboardId
      * @param string $type
      * @param array $payload
      * @return DashboardVo
      */
-    public function addWidget($dashboardId, $type, array $payload)
+    public function addWidget($dashboardId, string $type, array $payload) : DashboardVo
     {
         if (!$dashboardId) {
             $dashboardId = $this->generateUniqueId('dashboardid');
@@ -82,16 +82,16 @@ class Dashboard
      * @param int $widgetId
      * @param array $payload
      */
-    public function updateWidget($dashboardId, $widgetId, array $payload)
+    public function updateWidget(int $dashboardId, int $widgetId, array $payload)
     {
         $this->gateway->updateWidget($dashboardId, $widgetId, $payload);
     }
 
     /**
-     * @param integer $dashboardId
-     * @param integer $widgetId
+     * @param int $dashboardId
+     * @param int $widgetId
      */
-    public function deleteWidget($dashboardId, $widgetId)
+    public function deleteWidget(int $dashboardId, int $widgetId)
     {
         $this->gateway->deleteWidget($dashboardId, $widgetId);
     }
@@ -109,7 +109,7 @@ class Dashboard
      * @param array $payload
      * @return DashboardVo
      */
-    public function updateDashboard($dashboardId, array $payload)
+    public function updateDashboard(int $dashboardId, array $payload) : DashboardVo
     {
         $this->gateway->updateMetadata($dashboardId, $payload);
 
@@ -119,7 +119,7 @@ class Dashboard
     /**
      * @param int $dashboardId
      */
-    public function delete($dashboardId)
+    public function delete(int $dashboardId)
     {
         $this->gateway->delete($dashboardId);
     }

@@ -33,9 +33,9 @@ class Job
     /**
      * @param SwitchVO $switch
      * @param string $timeString
-     * @param boolean $status
+     * @param bool $status
      */
-    public function addJob(SwitchVO $switch, $timeString, $status)
+    public function addJob(SwitchVO $switch, string $timeString, bool $status)
     {
         $timestamp = $this->timeParser->parseString($timeString);
 

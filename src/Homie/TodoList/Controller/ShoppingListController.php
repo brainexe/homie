@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Controller("ShoppingListController")
+ * @Controller("TodoList.Controller.ShoppingListController")
  */
 class ShoppingListController
 {
@@ -32,15 +32,15 @@ class ShoppingListController
 
     /**
      * @Route("/shopping/", name="todo.shopping.index", methods="GET")
-     * @return JsonResponse
+     * @return array
      */
-    public function index()
+    public function index() : array
     {
         $shoppingList = $this->shoppingList->getItems();
 
-        return new JsonResponse([
+        return [
             'shoppingList' => $shoppingList,
-        ]);
+        ];
     }
 
     /**
@@ -48,7 +48,7 @@ class ShoppingListController
      * @Route("/shopping/", name="todo.shopping.add", methods="POST")
      * @return bool
      */
-    public function addItem(Request $request)
+    public function addItem(Request $request) : bool
     {
         $name = $request->request->get('name');
 
@@ -63,7 +63,7 @@ class ShoppingListController
      * @return bool
      * @Route("/shopping/{name}/", name="todo.shopping.remove", methods="DELETE")
      */
-    public function removeItem(Request $request, $name)
+    public function removeItem(Request $request, string $name)
     {
         unset($request);
         $this->shoppingList->removeItem($name);

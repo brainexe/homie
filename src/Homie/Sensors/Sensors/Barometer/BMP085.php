@@ -58,7 +58,7 @@ class BMP085 extends AbstractSensor implements Parameterized
     /**
      * {@inheritdoc}
      */
-    public function isSupported(SensorVO $sensor, OutputInterface $output)
+    public function isSupported(SensorVO $sensor, OutputInterface $output) : bool
     {
         return is_file($sensor->parameter);
     }
@@ -66,7 +66,7 @@ class BMP085 extends AbstractSensor implements Parameterized
     /**
      * @return Definition
      */
-    public function getDefinition()
+    public function getDefinition() : Definition
     {
         $definition            = new Definition();
         $definition->type      = Definition::TYPE_BAROMETER;

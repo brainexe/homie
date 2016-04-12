@@ -58,7 +58,7 @@ class Webcam extends AbstractSensor
     /**
      * {@inheritdoc}
      */
-    public function isSupported(SensorVO $sensor, OutputInterface $output)
+    public function isSupported(SensorVO $sensor, OutputInterface $output) : bool
     {
         // todo check if camera is connected
         return true;
@@ -67,7 +67,7 @@ class Webcam extends AbstractSensor
     /**
      * @return Definition
      */
-    public function getDefinition()
+    public function getDefinition() : Definition
     {
         $definition            = new Definition();
         $definition->type      = Definition::TYPE_NONE;

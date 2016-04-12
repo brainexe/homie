@@ -15,7 +15,7 @@ class Bytes extends Number
     /**
      * {@inheritdoc}
      */
-    public function formatValue($value)
+    public function formatValue($value) : string
     {
         return parent::formatValue($value) . 'B';
     }

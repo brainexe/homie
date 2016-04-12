@@ -57,7 +57,7 @@ class GatewayTest extends TestCase
 
     public function testSave()
     {
-        $id = 'id';
+        $id = 3333;
 
         $this->idGenerator
             ->expects($this->once())

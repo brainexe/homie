@@ -28,7 +28,7 @@ class Event extends AbstractEvent
     /**
      * @return SensorVO
      */
-    public function getSensorVO()
+    public function getSensorVO() : SensorVO
     {
         return $this->sensorVO;
     }

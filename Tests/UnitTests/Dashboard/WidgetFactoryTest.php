@@ -20,7 +20,7 @@ class WidgetFactoryTest extends TestCase
 
     public function setUp()
     {
-        $this->subject = new WidgetFactory();
+        $this->subject = new WidgetFactory([]);
         $this->subject->addWidget(Time::TYPE, new Time());
     }
 
@@ -42,7 +42,7 @@ class WidgetFactoryTest extends TestCase
 
     public function testSetWidgets()
     {
-        $this->subject->setWidgets(['type2' => new Time()]);
+        $this->subject = new WidgetFactory(['type2' => new Time()]);
 
         $actual = $this->subject->getWidget('type2');
         $this->assertTrue($actual instanceof WidgetInterface);

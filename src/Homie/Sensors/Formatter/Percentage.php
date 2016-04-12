@@ -15,16 +15,16 @@ class Percentage extends Formatter
      * @param double $value
      * @return string
      */
-    public function formatValue($value)
+    public function formatValue($value) : string
     {
         return sprintf('%d%%', $value);
     }
 
     /**
      * @param float $value
-     * @return string|null
+     * @return string
      */
-    public function getEspeakText($value)
+    public function getEspeakText($value) : string
     {
         return sprintf(_('%d Percent'), $value);
     }

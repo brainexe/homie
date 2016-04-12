@@ -7,7 +7,7 @@ use BrainExe\Core\Annotations\EventListener;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * @EventListener
+ * @EventListener("Webcam.WebcamListener")
  */
 class WebcamListener implements EventSubscriberInterface
 {
@@ -43,7 +43,7 @@ class WebcamListener implements EventSubscriberInterface
      */
     public function handlePictureEvent(WebcamEvent $event)
     {
-        $this->recorder->takePhoto($event->name);
+        $this->recorder->takePhoto($event->getName());
     }
 
     /**
@@ -51,7 +51,7 @@ class WebcamListener implements EventSubscriberInterface
      */
     public function handleVideoEvent(WebcamEvent $event)
     {
-        $this->recorder->takeVideo($event->name, $event->duration);
+        $this->recorder->takeVideo($event->getName(), $event->getDuration());
     }
 
     /**
@@ -59,6 +59,6 @@ class WebcamListener implements EventSubscriberInterface
      */
     public function handleSoundEvent(WebcamEvent $event)
     {
-        $this->recorder->takeSound($event->name, $event->duration);
+        $this->recorder->takeSound($event->getName(), $event->getDuration());
     }
 }

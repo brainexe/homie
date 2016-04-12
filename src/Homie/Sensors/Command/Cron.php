@@ -76,7 +76,7 @@ class Cron extends Command
      * @param SensorBuilder $builder
      * @param Builder $voBuilder
      * @param EventDispatcher $dispatcher
-     * @param integer $nodeId
+     * @param int $nodeId
      */
     public function __construct(
         SensorGateway $gateway,

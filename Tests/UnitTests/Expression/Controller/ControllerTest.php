@@ -100,7 +100,7 @@ class ControllerTest extends TestCase
 
     /**
      * @expectedException \BrainExe\Core\Application\UserException
-     * @expectedExceptionMessage No actions defined
+     * @expectedExceptionMessage No expression id defined
      */
     public function testSaveWithoutAction()
     {

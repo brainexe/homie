@@ -96,7 +96,7 @@ class Listener implements EventSubscriberInterface
      * @param SensorVO $sensorVo
      * @return float|null
      */
-    private function getValue($sensorVo)
+    private function getValue(SensorVO $sensorVo)
     {
         $sensor = $this->builder->build($sensorVo->type);
 

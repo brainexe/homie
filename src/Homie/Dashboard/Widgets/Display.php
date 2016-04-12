@@ -32,7 +32,7 @@ class Display extends AbstractWidget
     /**
      * @return WidgetMetadataVo
      */
-    public function getMetadata()
+    public function getMetadata() : WidgetMetadataVo
     {
         $displays = [];
         foreach ($this->gateway->getAll() as $display) {

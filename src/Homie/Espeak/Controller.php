@@ -10,7 +10,7 @@ use BrainExe\Core\Util\TimeParser;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("EspeakController")
+ * @ControllerAnnotation("Espeak.Controller")
  */
 class Controller
 {
@@ -54,7 +54,7 @@ class Controller
      * @return bool
      * @Route("/espeak/speak/", methods="POST", name="espeak.speak")
      */
-    public function speak(Request $request)
+    public function speak(Request $request) : bool
     {
         $speaker   = $request->request->get('speaker');
         $text      = $request->request->get('text');

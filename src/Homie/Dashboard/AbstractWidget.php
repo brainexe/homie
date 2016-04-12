@@ -15,15 +15,15 @@ abstract class AbstractWidget implements WidgetInterface, JsonSerializable, Tran
     /**
      * @return string
      */
-    public function getId()
+    public function getId() : string
     {
         return static::TYPE;
     }
 
     /**
-     * @return array
+     * @return WidgetMetadataVo
      */
-    public function jsonSerialize()
+    public function jsonSerialize() : WidgetMetadataVo
     {
         return $this->getMetadata();
     }
@@ -31,7 +31,7 @@ abstract class AbstractWidget implements WidgetInterface, JsonSerializable, Tran
     /**
      * @return WidgetMetadataVo
      */
-    public function getMetadata()
+    public function getMetadata() : WidgetMetadataVo
     {
         $metadata = new WidgetMetadataVo(
             $this->getId()

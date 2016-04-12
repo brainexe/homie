@@ -40,7 +40,7 @@ class Gateway
      * @param int $switchId
      * @return array
      */
-    public function get($switchId)
+    public function get(int $switchId)
     {
         return $this->getRedis()->hgetall($this->getRedisKey($switchId));
     }
@@ -57,7 +57,7 @@ class Gateway
      * @param SwitchVO $switch
      * @return int new switch id
      */
-    public function add(SwitchVO $switch)
+    public function add(SwitchVO $switch) : int
     {
         $switch->switchId = $newId = $this->generateUniqueId('switchid');
 
@@ -86,7 +86,7 @@ class Gateway
     /**
      * @param int $switchId
      */
-    public function delete($switchId)
+    public function delete(int $switchId)
     {
         $redis = $this->getRedis();
 
@@ -95,10 +95,10 @@ class Gateway
     }
 
     /**
-     * @param integer $switchId
+     * @param int $switchId
      * @return string
      */
-    private function getRedisKey($switchId)
+    private function getRedisKey(int $switchId)
     {
         return sprintf(self::REDIS_SWITCH, $switchId);
     }

@@ -37,10 +37,10 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
      */
     public function getFunctions()
     {
-        yield new ExpressionFunction('setSwitch', function ($switchId, $status) {
+        yield new ExpressionFunction('setSwitch', function (int $switchId, bool $status) {
             unset($switchId, $status);
             throw new InvalidArgumentException('Function addNotification() not available as condition');
-        }, function (array $variables, $switchId, $status) {
+        }, function (array $variables, int $switchId, bool $status) {
             unset($variables);
             $switch = $this->switches->get($switchId);
 

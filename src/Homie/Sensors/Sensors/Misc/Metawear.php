@@ -35,7 +35,7 @@ class Metawear extends AbstractSensor implements Searchable
     /**
      * {@inheritdoc}
      */
-    public function isSupported(SensorVO $sensor, OutputInterface $output)
+    public function isSupported(SensorVO $sensor, OutputInterface $output) : bool
     {
         return $this->getValue($sensor) !== null;
     }
@@ -43,7 +43,7 @@ class Metawear extends AbstractSensor implements Searchable
     /**
      * @return Definition
      */
-    public function getDefinition()
+    public function getDefinition() : Definition
     {
         $definition            = new Definition();
         $definition->type      = Definition::TYPE_NONE;
@@ -55,7 +55,7 @@ class Metawear extends AbstractSensor implements Searchable
     /**
      * @return string[]
      */
-    public function search()
+    public function search() : array
     {
         return [
             'temperature',

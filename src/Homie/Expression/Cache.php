@@ -37,14 +37,10 @@ class Cache
 
         $content = "use \\BrainExe\\Core\\EventDispatcher\\AbstractEvent;
 use \\Symfony\\Component\\DependencyInjection\\Container;
-return function(AbstractEvent \$event, \$eventName, Container \$container) {
+return function(AbstractEvent \$event, string \$eventName, Container \$container) {
 ";
         foreach ($all as $entity) {
-            if (!$entity->compiledCondition) {
-                continue;
-            }
-
-            if (!$entity->enabled) {
+            if (!$entity->compiledCondition || !$entity->enabled) {
                 continue;
             }
 

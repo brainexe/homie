@@ -39,7 +39,7 @@ class SerialEvent extends AbstractEvent implements PushViaWebsocket, JsonSeriali
      * @param int $pin
      * @param int $value
      */
-    public function __construct($action, $pin, $value = 0)
+    public function __construct(string $action, int $pin, $value = 0)
     {
         parent::__construct(self::SERIAL);
         $this->action     = $action;
@@ -50,7 +50,7 @@ class SerialEvent extends AbstractEvent implements PushViaWebsocket, JsonSeriali
     /**
      * @return string
      */
-    public function getAction()
+    public function getAction() : string
     {
         return $this->action;
     }
@@ -58,7 +58,7 @@ class SerialEvent extends AbstractEvent implements PushViaWebsocket, JsonSeriali
     /**
      * @return int
      */
-    public function getPin()
+    public function getPin() : int
     {
         return $this->pin;
     }

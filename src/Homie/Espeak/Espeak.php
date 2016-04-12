@@ -7,7 +7,7 @@ use BrainExe\Annotations\Annotations\Service;
 use Homie\Client\ClientInterface;
 
 /**
- * @Service(public=false)
+ * @Service("Espeak", public=false)
  */
 class Espeak
 {
@@ -34,7 +34,7 @@ class Espeak
      * @param ClientInterface $client
      * @param string $command
      */
-    public function __construct(ClientInterface $client, $command)
+    public function __construct(ClientInterface $client, string $command)
     {
         $this->client  = $client;
         $this->command = $command;
@@ -44,7 +44,7 @@ class Espeak
      * @todo cache espeak --voices
      * @return array
      */
-    public function getSpeakers()
+    public function getSpeakers() : array
     {
         return [
             'de+m1' => 'DE Male',
@@ -56,15 +56,15 @@ class Espeak
 
     /**
      * @param string $text
-     * @param integer $volume
-     * @param integer $speed
+     * @param int $volume
+     * @param int $speed
      * @param string $speaker
      */
     public function speak(
-        $text,
-        $volume,
-        $speed,
-        $speaker
+        string $text,
+        int $volume,
+        int $speed,
+        string $speaker
     ) {
         if (empty($text)) {
             return;

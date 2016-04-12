@@ -69,9 +69,12 @@ class MessageQueueClientTest extends TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('brPop')
-            ->with(MessageQueueClient::RETURN_CHANNEL, MessageQueueClient::TIMEOUT);
+            ->method('brpop')
+            ->with(MessageQueueClient::RETURN_CHANNEL, MessageQueueClient::TIMEOUT)
+            ->willReturn('result');
 
-        $this->subject->executeWithReturn($command);
+        $actual = $this->subject->executeWithReturn($command);
+
+        $this->assertEquals('result', $actual);
     }
 }

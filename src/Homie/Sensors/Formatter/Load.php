@@ -14,7 +14,7 @@ class Load extends Formatter
     /**
      * {@inheritdoc}
      */
-    public function formatValue($value)
+    public function formatValue($value) : string
     {
         return sprintf('%0.1f', $value);
     }

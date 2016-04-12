@@ -7,7 +7,7 @@ use BrainExe\Core\Traits\IdGeneratorTrait;
 use BrainExe\Core\Traits\RedisTrait;
 
 /**
- * @Service(public=false)
+ * @Service("SensorGateway", public=false)
  */
 class SensorGateway
 {
@@ -22,7 +22,7 @@ class SensorGateway
      * @param int[] $activeSensorIds
      * @return array[]
      */
-    public function getSensors(array $activeSensorIds = [])
+    public function getSensors(array $activeSensorIds = []) : array
     {
         $sensorIds = $activeSensorIds ?: $this->getSensorIds();
 
@@ -35,10 +35,10 @@ class SensorGateway
     }
 
     /**
-     * @param integer $node
+     * @param int $node
      * @return array[]
      */
-    public function getSensorsForNode($node)
+    public function getSensorsForNode(int $node) : array
     {
         $sensors = $this->getSensors();
 
@@ -48,9 +48,9 @@ class SensorGateway
     }
 
     /**
-     * @return integer[]
+     * @return int[]
      */
-    public function getSensorIds()
+    public function getSensorIds() : array
     {
         $sensorIds = $this->getRedis()->smembers(self::SENSOR_IDS);
 
@@ -61,9 +61,9 @@ class SensorGateway
 
     /**
      * @param SensorVO $sensorVo
-     * @return integer
+     * @return int
      */
-    public function addSensor(SensorVO $sensorVo)
+    public function addSensor(SensorVO $sensorVo) : int
     {
         $redis = $this->getRedis()->pipeline();
         $newId = $this->generateUniqueId('sensorid');
@@ -87,14 +87,14 @@ class SensorGateway
     }
 
     /**
-     * @param integer $sensorId
+     * @param int $sensorId
      * @return array
      */
-    public function getSensor($sensorId)
+    public function getSensor(int $sensorId) : array
     {
         $key = $this->getKey($sensorId);
 
-        return $this->getRedis()->hgetall($key);
+        return (array)$this->getRedis()->hgetall($key);
     }
 
     /**
@@ -110,9 +110,9 @@ class SensorGateway
     }
 
     /**
-     * @param integer $sensorId
+     * @param int $sensorId
      */
-    public function deleteSensor($sensorId)
+    public function deleteSensor(int $sensorId)
     {
         $redis = $this->getRedis();
 
@@ -122,10 +122,10 @@ class SensorGateway
     }
 
     /**
-     * @param integer $sensorId
+     * @param int $sensorId
      * @return string
      */
-    private function getKey($sensorId)
+    private function getKey(int $sensorId)
     {
         return self::REDIS_SENSOR_PREFIX . $sensorId;
     }

@@ -40,7 +40,7 @@ class Controller
      * @return array
      * @Route("/switches/", name="switches.index", methods="GET")
      */
-    public function index()
+    public function index() : array
     {
         $switches = $this->switches->getAll();
 
@@ -52,10 +52,10 @@ class Controller
 
     /**
      * @param Request $request
-     * @return RadioVO
+     * @return SwitchVO
      * @Route("/switches/", methods="POST", name="switch.add")
      */
-    public function add(Request $request)
+    public function add(Request $request) : SwitchVO
     {
         $name        = $request->request->get('name');
         $description = $request->request->get('description');
@@ -71,11 +71,11 @@ class Controller
 
     /**
      * @param Request $request
-     * @param integer $switchId
-     * @return boolean
+     * @param int $switchId
+     * @return bool
      * @Route("/switches/{switchId}/", name="switches.delete", methods="DELETE")
      */
-    public function delete(Request $request, $switchId)
+    public function delete(Request $request, int $switchId)
     {
         unset($request);
 
@@ -89,7 +89,7 @@ class Controller
      * @return SwitchVO
      * @throws UserException
      */
-    private function createSwitchVO(Request $request)
+    private function createSwitchVO(Request $request) : SwitchVO
     {
         $type = $request->request->getAlnum('type');
         switch ($type) {

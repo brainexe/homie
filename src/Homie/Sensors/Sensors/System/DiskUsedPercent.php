@@ -50,7 +50,7 @@ class DiskUsedPercent extends AbstractSensor
     /**
      * {@inheritdoc}
      */
-    public function isSupported(SensorVO $sensor, OutputInterface $output)
+    public function isSupported(SensorVO $sensor, OutputInterface $output) : bool
     {
         return true;
     }
@@ -58,7 +58,7 @@ class DiskUsedPercent extends AbstractSensor
     /**
      * @return Definition
      */
-    public function getDefinition()
+    public function getDefinition() : Definition
     {
         $definition            = new Definition();
         $definition->type      = Definition::TYPE_DISK;

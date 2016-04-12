@@ -14,7 +14,7 @@ class Builder
      * @param array $data
      * @return SensorVO
      */
-    public function buildFromArray(array $data)
+    public function buildFromArray(array $data) : SensorVO
     {
         return $this->build(
             $data['sensorId'],
@@ -60,7 +60,7 @@ class Builder
         $tags,
         $lastValue = null,
         $lastValueTimestamp = null
-    ) {
+    ) : SensorVO {
         $sensor = new SensorVO();
 
         $sensor->sensorId           = (int)$sensorId;

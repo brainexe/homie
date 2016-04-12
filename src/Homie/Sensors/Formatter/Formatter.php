@@ -13,7 +13,7 @@ abstract class Formatter implements TranslationProvider
     /**
      * @return string
      */
-    public function getType()
+    public function getType() : string
     {
         return static::TYPE;
     }
@@ -22,13 +22,13 @@ abstract class Formatter implements TranslationProvider
      * @param double $value
      * @return string
      */
-    abstract public function formatValue($value);
+    abstract public function formatValue($value) : string;
 
     /**
      * @param float $value
      * @return string|null
      */
-    public function getEspeakText($value)
+    public function getEspeakText($value) : string
     {
         return $this->formatValue($value);
     }

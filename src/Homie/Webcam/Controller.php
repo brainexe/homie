@@ -68,7 +68,7 @@ class Controller
      * @return bool
      * @Route("/webcam/{type}/", name="webcam.take", methods="POST")
      */
-    public function take(Request $request, $type)
+    public function take(Request $request, string $type) : bool
     {
         $name = $this->generateUniqueId('webcam');
 
@@ -95,7 +95,7 @@ class Controller
      * @param Request $request
      * @return bool
      */
-    public function delete(Request $request)
+    public function delete(Request $request) : bool
     {
         $filename = $request->query->get('shotId');
 
@@ -107,7 +107,7 @@ class Controller
      * @param Request $request
      * @return Response
      */
-    public function getFile(Request $request)
+    public function getFile(Request $request) : Response
     {
         $file   = $request->query->get('file');
         $stream = $this->filesystem->readStream($file);

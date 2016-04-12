@@ -3,6 +3,7 @@
 namespace Homie\Webcam;
 
 use BrainExe\Core\Traits\EventDispatcherTrait;
+use BrainExe\Core\Traits\IdGeneratorTrait;
 use Generator;
 use InvalidArgumentException;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
@@ -16,7 +17,8 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
 {
 
     use EventDispatcherTrait;
-
+    use IdGeneratorTrait;
+    
     /**
      * @return Generator|ExpressionFunction[] An array of Function instances
      */
@@ -25,8 +27,7 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
         yield new ExpressionFunction('takePhoto', function () {
             throw new InvalidArgumentException('Function takePhoto() not available as condition');
         }, function () {
-            unset($variables);
-            $name  = microtime(true);
+            $name  = $this->generateRandomId();
             $event = new WebcamEvent($name, WebcamEvent::TAKE_PHOTO);
 
             $this->dispatchInBackground($event);

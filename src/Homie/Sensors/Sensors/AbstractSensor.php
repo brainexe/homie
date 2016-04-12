@@ -15,7 +15,7 @@ abstract class AbstractSensor implements Sensor, TranslationProvider
     /**
      * @return string
      */
-    public function getSensorType()
+    public function getSensorType() : string
     {
         return static::TYPE;
     }
@@ -33,7 +33,7 @@ abstract class AbstractSensor implements Sensor, TranslationProvider
      * @param int $multiplier
      * @return float
      */
-    protected function round($value, $multiplier = 1)
+    protected function round($value, $multiplier = 1) : float
     {
         return (int)($value / $multiplier) * $multiplier;
     }

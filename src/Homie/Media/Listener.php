@@ -18,7 +18,7 @@ class Listener implements EventSubscriberInterface
     private $sound;
 
     /**
-     * @Inject("@Sound")
+     * @Inject("@Media.Sound")
      * @param Sound $recorder
      */
     public function __construct(Sound $recorder)
@@ -41,6 +41,6 @@ class Listener implements EventSubscriberInterface
      */
     public function handleEvent(SoundEvent $event)
     {
-        $this->sound->playSound($event->fileName);
+        $this->sound->playSound($event->getFileName());
     }
 }

@@ -10,7 +10,7 @@ use Homie\Espeak\EspeakVO;
 use Homie\TodoList\VO\TodoItemVO;
 
 /**
- * @Service(public=false)
+ * @Service("TodoList.TodoReminder", public=false)
  */
 class TodoReminder
 {
@@ -45,7 +45,7 @@ class TodoReminder
     /**
      * @param array $issuesPerState
      */
-    private function doSendNotification($issuesPerState)
+    private function doSendNotification(array $issuesPerState)
     {
         $text = gettext('Erinnerung');
         $text .= ': ';
@@ -69,7 +69,7 @@ class TodoReminder
     /**
      * @return array[]
      */
-    private function getGroupedIssues()
+    private function getGroupedIssues() : array
     {
         $todos = $this->todoList->getList();
 
@@ -86,11 +86,11 @@ class TodoReminder
     }
 
     /**
-     * @param integer $count
+     * @param int $count
      * @param string $state
      * @return string
      */
-    private function getStateName($count, $state)
+    private function getStateName(int $count, string $state) : string
     {
         $stringCount = $this->getNumber($count);
 
@@ -107,13 +107,13 @@ class TodoReminder
      * @param int $count
      * @return string
      */
-    private function getNumber($count)
+    private function getNumber(int $count) : string
     {
         switch ($count) {
             case 1:
                 return gettext('one');
             default:
-                return $count;
+                return (string)$count;
         }
     }
 }

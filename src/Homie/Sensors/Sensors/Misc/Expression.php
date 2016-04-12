@@ -40,13 +40,13 @@ class Expression extends AbstractSensor implements Parameterized
      */
     public function getValue(SensorVO $sensor)
     {
-        return $this->language->evaluate($sensor->parameter, []);
+        return (float)$this->language->evaluate($sensor->parameter, []);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function isSupported(SensorVO $sensor, OutputInterface $output)
+    public function isSupported(SensorVO $sensor, OutputInterface $output) : bool
     {
         $current = $this->getValue($sensor);
 
@@ -56,7 +56,7 @@ class Expression extends AbstractSensor implements Parameterized
     /**
      * @return Definition
      */
-    public function getDefinition()
+    public function getDefinition() : Definition
     {
         $definition            = new Definition();
         $definition->type      = Definition::TYPE_NONE;

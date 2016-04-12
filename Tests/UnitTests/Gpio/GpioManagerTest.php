@@ -37,8 +37,8 @@ class GpioManagerTest extends TestCase
     public function setUp()
     {
         $this->pinGateway = $this->getMock(PinGateway::class, [], [], '', false);
-        $this->client = $this->getMock(LocalClient::class, [], [], '', false);
-        $this->pinLoader = $this->getMock(PinLoader::class, [], [], '', false);
+        $this->client     = $this->getMock(LocalClient::class, [], [], '', false);
+        $this->pinLoader  = $this->getMock(PinLoader::class, [], [], '', false);
 
         $this->subject = new GpioManager($this->pinGateway, $this->client, $this->pinLoader, './gpio');
     }

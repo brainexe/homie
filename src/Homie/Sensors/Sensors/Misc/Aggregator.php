@@ -40,13 +40,13 @@ class Aggregator extends AbstractSensor implements Parameterized
      */
     public function getValue(SensorVO $sensor)
     {
-        return (int)$this->aggregated->getCurrent($sensor->parameter);
+        return (float)$this->aggregated->getCurrent($sensor->parameter);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function isSupported(SensorVO $sensor, OutputInterface $output)
+    public function isSupported(SensorVO $sensor, OutputInterface $output) : bool
     {
         return true;
     }
@@ -54,7 +54,7 @@ class Aggregator extends AbstractSensor implements Parameterized
     /**
      * @return Definition
      */
-    public function getDefinition()
+    public function getDefinition() : Definition
     {
         $definition            = new Definition();
         $definition->type      = Definition::TYPE_NONE;

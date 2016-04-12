@@ -6,6 +6,8 @@ use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\IdGeneratorTrait;
 use BrainExe\Core\Traits\RedisTrait;
 use BrainExe\Core\Traits\TimeTrait;
+use Generator;
+use Predis\Pipeline\Pipeline;
 
 /**
  * @Service(public=false)
@@ -16,7 +18,7 @@ class SensorValuesGateway
     const REDIS_SENSOR_VALUES = 'sensor_values:%d';
 
     const FRAMES = [
-        3 * 86400  => 30 * 60,  // after 3 days, just keep one entry each 30 minutes
+        3  * 86400 => 30 * 60,  // after 3 days, just keep one entry each 30 minutes
         14 * 86400 => 3 * 3600, // after 2 weeks, just keep one entry each 3 hours
     ];
 
@@ -26,9 +28,9 @@ class SensorValuesGateway
 
     /**
      * @param SensorVO $sensor
-     * @param double $value
+     * @param float $value
      */
-    public function addValue(SensorVO $sensor, $value)
+    public function addValue(SensorVO $sensor, float $value)
     {
         $now = $this->now();
         $sensor->lastValue = $value;
@@ -36,7 +38,7 @@ class SensorValuesGateway
 
         $redis = $this->getRedis()->pipeline();
         $key   = $this->getKey($sensor->sensorId);
-        $id    = $this->generateUniqueId('sensorvalue');
+        $id    = $this->generateUniqueId('sensorvalue:' . $sensor->sensorId);
 
         $redis->zadd($key, $now, $id . '-' . $value);
         $redis->hmset(SensorGateway::REDIS_SENSOR_PREFIX . $sensor->sensorId, [
@@ -48,11 +50,31 @@ class SensorValuesGateway
     }
 
     /**
-     * @param integer $sensorId
-     * @param integer $from
+     * @param array $sensorIds
+     * @param int $timestamp
+     * @return Generator|float[]
+     */
+    public function getByTime(array $sensorIds, int $timestamp) : Generator
+    {
+        $values = $this->getRedis()->pipeline(function (Pipeline $pipe) use ($sensorIds, $timestamp) {
+            foreach ($sensorIds as $sensorId) {
+                $key = $this->getKey($sensorId);
+
+                $pipe->zrevrangebyscore($key, $timestamp, 0, ['limit' => [0, 1]]);
+            }
+        });
+
+        foreach ($sensorIds as $index => $sensorId) {
+            yield $sensorId => explode('-', $values[$index][0])[1];
+        }
+    }
+
+    /**
+     * @param int $sensorId
+     * @param int $from
      * @return array[]
      */
-    public function getSensorValues($sensorId, $from)
+    public function getSensorValues(int $sensorId, int $from) : array
     {
         $now = $this->now();
 
@@ -75,10 +97,10 @@ class SensorValuesGateway
     }
 
     /**
-     * @param integer $sensorId
-     * @return integer $deleted_rows
+     * @param int $sensorId
+     * @return int $deleted_rows
      */
-    public function deleteOldValues($sensorId)
+    public function deleteOldValues(int $sensorId) : int
     {
         $redis   = $this->getRedis();
         $now     = $this->now();
@@ -106,10 +128,10 @@ class SensorValuesGateway
     }
 
     /**
-     * @param integer $sensorId
+     * @param int $sensorId
      * @return string
      */
-    private function getKey($sensorId)
+    private function getKey(int $sensorId) : string
     {
         return sprintf(self::REDIS_SENSOR_VALUES, $sensorId);
     }

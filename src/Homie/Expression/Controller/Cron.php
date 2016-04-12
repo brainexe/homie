@@ -37,7 +37,7 @@ class Cron
      * @Route("/expressions/cron/", name="expressions.cron")
      * @return bool
      */
-    public function addCron(Request $request)
+    public function addCron(Request $request) : bool
     {
         $cronExpression = $request->request->get('expression');
         $cronId         = $request->request->get('cronId');
