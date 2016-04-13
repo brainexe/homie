@@ -48,4 +48,22 @@ class AggregatorTest extends TestCase
         $actual = $this->subject->isSupported($sensor, $output);
         $this->assertTrue($actual);
     }
+
+    public function testGetValue()
+    {
+        $value = 122;
+
+        $sensor = new SensorVO();
+        $sensor->parameter = 'parameter';
+
+        $this->aggregated
+            ->expects($this->once())
+            ->method('getCurrent')
+            ->with('parameter')
+            ->willReturn($value);
+
+        $actual = $this->subject->getValue($sensor);
+
+        $this->assertEquals($value, $actual);
+    }
 }

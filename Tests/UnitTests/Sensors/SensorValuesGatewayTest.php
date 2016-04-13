@@ -183,4 +183,30 @@ class SensorValuesGatewayTest extends TestCase
 
         $this->assertEquals(7, $actual);
     }
+
+    public function testDeleteOldValuesWithoutValues()
+    {
+        $sensorId = 10;
+        $now      = 3 * 86400 + 10;
+
+        $this->time
+            ->expects($this->once())
+            ->method('now')
+            ->willReturn($now);
+
+        $oldValues = [];
+
+        $this->redis
+            ->expects($this->exactly(count(SensorValuesGateway::FRAMES)))
+            ->method('zrangebyscore')
+            ->willReturn($oldValues);
+
+        $this->redis
+            ->expects($this->never())
+            ->method('zrem');
+
+        $actual = $this->subject->deleteOldValues($sensorId);
+
+        $this->assertEquals(0, $actual);
+    }
 }

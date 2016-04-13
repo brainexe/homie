@@ -8,9 +8,6 @@ use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Webcam\WebcamEvent;
 use Homie\Webcam\WebcamListener;
 
-/**
- * @covers Homie\Webcam\WebcamListener
- */
 class WebcamListenerTest extends TestCase
 {
 

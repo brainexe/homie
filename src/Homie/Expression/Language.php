@@ -29,24 +29,7 @@ class Language extends ExpressionLanguage
     {
         parent::__construct($cache, $providers);
 
-        $functions = [
-            'sprintf',
-            'date',
-            'time',
-            'microtime',
-            'rand',
-            'round',
-            'sleep'
-        ];
-
-        foreach ($functions as $function) {
-            $this->register($function, function (...$parameters) use ($function) {
-                return sprintf('%s(%s)', $function, implode(', ', $parameters));
-            }, function (array $parameters, ...$params) use ($function) {
-                unset($parameters);
-                return $function(...$params);
-            });
-        }
+        $this->registerNativeFunctions();
 
         $this->register('setProperty', function (string $property, string $value) {
             return sprintf('($entity->payload[%s] = %s)', $property, $value);
@@ -146,5 +129,27 @@ class Language extends ExpressionLanguage
             'eventName',
             'entity'
         ];
+    }
+
+    private function registerNativeFunctions()
+    {
+        $functions = [
+            'sprintf',
+            'date',
+            'time',
+            'microtime',
+            'rand',
+            'round',
+            'sleep'
+        ];
+
+        foreach ($functions as $function) {
+            $this->register($function, function (...$parameters) use ($function) {
+                return sprintf('%s(%s)', $function, implode(', ', $parameters));
+            }, function (array $parameters, ...$params) use ($function) {
+                unset($parameters);
+                return $function(...$params);
+            });
+        }
     }
 }

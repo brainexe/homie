@@ -13,6 +13,7 @@ class Cache
 {
 
     use FileCacheTrait;
+
     const CACHE_FILE = 'expressions';
 
     /**
@@ -40,15 +41,13 @@ use \\Symfony\\Component\\DependencyInjection\\Container;
 return function(AbstractEvent \$event, string \$eventName, Container \$container) {
 ";
         foreach ($all as $entity) {
-            if (!$entity->compiledCondition || !$entity->enabled) {
-                continue;
+            if ($entity->compiledCondition && $entity->enabled) {
+                $content .= sprintf(
+                    "\t\t\$entity = %s;\n\t\tif (%s) {\n\t\t\tyield \$entity;\n\t\t}\n",
+                    var_export($entity, true),
+                    $entity->compiledCondition
+                );
             }
-
-            $content .= sprintf(
-                "\t\t\$entity = %s;\n\t\tif (%s) {\n\t\t\tyield \$entity;\n\t\t}\n",
-                var_export($entity, true),
-                $entity->compiledCondition
-            );
         }
 
         $content .= "};";

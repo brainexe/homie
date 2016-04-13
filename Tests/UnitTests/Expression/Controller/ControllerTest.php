@@ -102,7 +102,7 @@ class ControllerTest extends TestCase
      * @expectedException \BrainExe\Core\Application\UserException
      * @expectedExceptionMessage No expression id defined
      */
-    public function testSaveWithoutAction()
+    public function testSaveWithoutId()
     {
         $request = new Request();
 
@@ -145,5 +145,36 @@ class ControllerTest extends TestCase
         $actual = $this->subject->save($request);
 
         $this->assertEquals($entity, $actual);
+    }
+
+    /**
+     * @expectedException \BrainExe\Core\Application\UserException
+     * @expectedExceptionMessage No actions defined
+     */
+    public function testSaveWithoutAction()
+    {
+        $request = new Request();
+        $request->request->set('expressionId', 42);
+        $request->request->set('actions', []);
+        $request->request->set('conditions', ['condition1']);
+        $request->request->set('enables', true);
+
+        $existingEntity = new Entity();
+        $existingEntity->compiledCondition = ['compiled'];
+
+        $this->gateway
+            ->expects($this->once())
+            ->method('getAll')
+            ->willReturn([
+                42 => $existingEntity
+            ]);
+
+        $entity = new Entity();
+        $entity->compiledCondition = ['compiled'];
+        $entity->conditions = ['condition1'];
+        $entity->actions    = ['action1'];
+        $entity->enabled    = false;
+
+        $this->subject->save($request);
     }
 }

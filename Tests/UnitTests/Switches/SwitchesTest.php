@@ -3,6 +3,7 @@
 namespace Homie\Tests\Switches;
 
 use BrainExe\Core\Application\UserException;
+use Homie\Switches\VO\ArduinoSwitchVO;
 use Homie\Switches\VO\GpioSwitchVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
@@ -10,7 +11,8 @@ use Homie\Switches\Gateway;
 use Homie\Switches\Switches;
 use Homie\Switches\VO\RadioVO;
 
-class SwitchesTest extends TestCase
+class
+SwitchesTest extends TestCase
 {
 
     /**
@@ -55,11 +57,18 @@ class SwitchesTest extends TestCase
             'pin' => 100,
             'type' => GpioSwitchVO::TYPE,
         ];
+        $arduino = [
+            'switchId' => 2,
+            'name'     => 'test2',
+            'description' => 'description2',
+            'pin'      => 102,
+            'type'     => ArduinoSwitchVO::TYPE,
+        ];
 
         $this->gateway
             ->expects($this->once())
             ->method('getAll')
-            ->willReturn([$radio]);
+            ->willReturn([$radio, $arduino]);
 
         $actual = $this->subject->getAll();
 
@@ -69,7 +78,16 @@ class SwitchesTest extends TestCase
         $expected->description = $radio['description'];
         $expected->pin         = $radio['pin'];
 
-        $this->assertEquals([$radio['switchId'] => $expected], iterator_to_array($actual));
+        $expected2              = new ArduinoSwitchVO();
+        $expected2->switchId    = $arduino['switchId'];
+        $expected2->name        = $arduino['name'];
+        $expected2->description = $arduino['description'];
+        $expected2->pin         = $arduino['pin'];
+
+        $this->assertEquals([
+            $radio['switchId']   => $expected,
+            $arduino['switchId'] => $expected2
+        ], iterator_to_array($actual));
     }
 
     /**

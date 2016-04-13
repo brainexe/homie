@@ -45,4 +45,11 @@ class LanguageTest extends TestCase
 
         $this->assertInternalType('array', $actual);
     }
+    
+    public function testGetFunctions()
+    {
+        $actual = $this->subject->getFunctions();
+
+        $this->assertInternalType('array', $actual);
+    }
 }

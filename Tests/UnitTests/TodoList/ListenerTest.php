@@ -9,9 +9,6 @@ use Homie\TodoList\TodoListEvent;
 use Homie\TodoList\VO\TodoItemVO;
 use PHPUnit_Framework_TestCase as TestCase;
 
-/**
- * @covers Homie\TodoList\Listener
- */
 class ListenerTest extends TestCase
 {
 

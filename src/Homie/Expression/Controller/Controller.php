@@ -89,18 +89,7 @@ class Controller
         $entity->actions    = (array)$request->request->get('actions');
         $entity->enabled    = (bool)$request->request->get('enabled');
 
-        if (empty($entity->actions)) {
-            throw new UserException(_('No actions defined'));
-        }
-
-        foreach ($entity->actions as $action) {
-            $this->validate($action);
-        }
-        foreach ($entity->conditions as $condition) {
-            $this->validate($condition);
-        }
-
-        $this->gateway->save($entity);
+        $this->saveEntity($entity);
 
         return $entity;
     }
@@ -153,5 +142,25 @@ class Controller
             $entity->expressionId = $expressionId;
             return $entity;
         }
+    }
+
+    /**
+     * @param Entity $entity
+     * @throws UserException
+     */
+    private function saveEntity(Entity $entity)
+    {
+        if (empty($entity->actions)) {
+            throw new UserException(_('No actions defined'));
+        }
+
+        foreach ($entity->actions as $action) {
+            $this->validate($action);
+        }
+        foreach ($entity->conditions as $condition) {
+            $this->validate($condition);
+        }
+
+        $this->gateway->save($entity);
     }
 }

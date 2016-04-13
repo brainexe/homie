@@ -51,7 +51,7 @@ class CronTest extends TestCase
     /**
      * @var Time|MockObject
      */
-    private $mockTime;
+    private $time;
 
     /**
      * @var integer
@@ -60,11 +60,11 @@ class CronTest extends TestCase
 
     public function setUp()
     {
-        $this->gateway       = $this->getMock(SensorGateway::class, [], [], '', false);
-        $this->builder       = $this->getMock(SensorBuilder::class, [], [], '', false);
-        $this->voBuilder     = $this->getMock(Builder::class, [], [], '', false);
-        $this->dispatcher    = $this->getMock(EventDispatcher::class, [], [], '', false);
-        $this->mockTime      = $this->getMock(Time::class, [], [], '', false);
+        $this->gateway    = $this->getMock(SensorGateway::class, [], [], '', false);
+        $this->builder    = $this->getMock(SensorBuilder::class, [], [], '', false);
+        $this->voBuilder  = $this->getMock(Builder::class, [], [], '', false);
+        $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->time       = $this->getMock(Time::class, [], [], '', false);
 
         $this->subject = new Cron(
             $this->gateway,
@@ -73,7 +73,7 @@ class CronTest extends TestCase
             $this->dispatcher,
             $this->nodeId
         );
-        $this->subject->setTime($this->mockTime);
+        $this->subject->setTime($this->time);
     }
 
     public function testExecute()
@@ -89,7 +89,7 @@ class CronTest extends TestCase
         $sensor->parameter = 12;
         $sensor->name      = 'name';
 
-        $this->mockTime
+        $this->time
             ->expects($this->once())
             ->method('now')
             ->willReturn($now);
@@ -132,7 +132,7 @@ class CronTest extends TestCase
         $sensor = new SensorVO();
         $sensor->interval = -1;
 
-        $this->mockTime
+        $this->time
             ->expects($this->once())
             ->method('now')
             ->willReturn($now);
@@ -160,6 +160,33 @@ class CronTest extends TestCase
     }
 
     public function testHandleEvent()
+    {
+        $sensorVo = new SensorVO();
+        $sensorVo->sensorId = 42;
+        $sensorVo->type = 'mockType';
+        $sensorVo->name = 'mockName';
+        $sensorVo->interval = 10000;
+
+        $value = 10;
+        $valueFormatted = '10°';
+        $timestamp = 1000;
+
+        $event = new SensorValueEvent(
+            SensorValueEvent::VALUE,
+            $sensorVo,
+            $value,
+            $valueFormatted,
+            $timestamp
+        );
+
+        $output = new BufferedOutput();
+        $this->subject->setOutput($output);
+        $this->subject->handleEvent($event);
+
+        $this->assertEquals('#42: mockType (mockName): 10°', trim($output->fetch()));
+    }
+
+    public function testHandleEventWithDefaultInterval()
     {
         $sensorVo = new SensorVO();
         $sensorVo->sensorId = 42;

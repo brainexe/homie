@@ -7,6 +7,7 @@ use BrainExe\Core\Traits\IdGeneratorTrait;
 use BrainExe\Core\Traits\RedisTrait;
 use BrainExe\Core\Traits\TimeTrait;
 use Generator;
+use Iterator;
 use Predis\Pipeline\Pipeline;
 
 /**
@@ -52,9 +53,9 @@ class SensorValuesGateway
     /**
      * @param array $sensorIds
      * @param int $timestamp
-     * @return Generator|float[]
+     * @return Iterator|float[]
      */
-    public function getByTime(array $sensorIds, int $timestamp) : Generator
+    public function getByTime(array $sensorIds, int $timestamp) : Iterator
     {
         $values = $this->getRedis()->pipeline(function (Pipeline $pipe) use ($sensorIds, $timestamp) {
             foreach ($sensorIds as $sensorId) {

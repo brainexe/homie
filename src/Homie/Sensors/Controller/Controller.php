@@ -16,6 +16,7 @@ use Homie\Sensors\SensorBuilder;
 use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorValuesGateway;
 
+use Iterator;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -156,13 +157,13 @@ class Controller
 
     /**
      * @param Request $request
-     * @return Generator
+     * @return Iterator
      * @Route("/sensors/byTime/", name="sensor.getByTime")
      */
-    public function getByTime(Request $request) : Generator
+    public function getByTime(Request $request) : Iterator
     {
         $sensorIds = (string)$request->query->get('sensorIds');
-        $time = (int)$request->query->get('timestamp'); // todo default time()
+        $time      = (int)$request->query->get('timestamp'); // todo default time()
 
         return $this->valuesGateway->getByTime(explode(',', $sensorIds), $time);
     }
@@ -209,15 +210,14 @@ class Controller
         foreach ($sensorsRaw as &$sensor) {
             $sensorId = $sensor['sensorId'];
 
-            if (!empty($sensor['lastValue'])) {
-                $formatter = $this->builder->getFormatter($sensor['formatter']);
-                $sensor['lastValue'] = $formatter->formatValue($sensor['lastValue']);
-            }
+            if (empty($activeSensorIds) || in_array($sensorId, $activeSensorIds)) {
+                if (!empty($sensor['lastValue'])) {
+                    $formatter = $this->builder->getFormatter($sensor['formatter']);
+                    $sensor['lastValue'] = $formatter->formatValue($sensor['lastValue']);
+                }
 
-            if ($activeSensorIds && !in_array($sensorId, $activeSensorIds)) {
-                continue;
+                $sensorValues[$sensorId] = $this->valuesGateway->getSensorValues($sensorId, $from);
             }
-            $sensorValues[$sensorId] = $this->valuesGateway->getSensorValues($sensorId, $from);
         }
 
         return $sensorValues;

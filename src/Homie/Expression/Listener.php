@@ -69,13 +69,22 @@ class Listener extends EventDispatcher
             return;
         }
 
+        $this->handleEvent($eventName, $event);
+    }
+
+    /**
+     * @param string $eventName
+     * @param Event $event
+     */
+    private function handleEvent(string $eventName, Event $event)
+    {
         /** @var Generator|Entity[] $matches */
         $matches = call_user_func($this->cachedFunctions, $event, $eventName, $this->container);
         foreach ($matches as $entity) {
             $parameters = [
-                'event'     => $event,
+                'event' => $event,
                 'eventName' => $eventName,
-                'entity'    => $entity
+                'entity' => $entity
             ];
 
             $oldParams = $entity->payload;
@@ -87,5 +96,13 @@ class Listener extends EventDispatcher
                 $this->gateway->save($entity);
             }
         }
+    }
+
+    /**
+     * @param callable $cachedFunctions
+     */
+    public function setCachedFunctions($cachedFunctions)
+    {
+        $this->cachedFunctions = $cachedFunctions;
     }
 }

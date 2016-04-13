@@ -4,6 +4,7 @@ namespace Tests\Homie\Sensors\Controller;
 
 use ArrayIterator;
 use BrainExe\Core\Authentication\Settings\Settings;
+use Generator;
 use Homie\Sensors\Controller\Controller;
 use Homie\Sensors\GetValue\Event;
 
@@ -320,6 +321,25 @@ class ControllerTest extends TestCase
         ];
 
         $this->assertEquals($expectedValue, $actualResult);
+    }
+
+    public function testGetByTime()
+    {
+        $request = new Request();
+
+        $request->query->set('time', $time = 122323);
+        $request->query->set('sensorIds', '12,13');
+
+        $iterator = new ArrayIterator(['test']);
+        $this->valuesGateway
+            ->expects($this->once())
+            ->method('getByTime')
+            ->with(['12', '13'])
+            ->willReturn($iterator);
+
+        $actual = $this->subject->getByTime($request);
+
+        $this->assertEquals($iterator, $actual);
     }
 
     public function testGetValue()

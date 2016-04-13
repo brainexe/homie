@@ -35,10 +35,13 @@ class WriteFunctionCache implements EventSubscriberInterface
         $this->language = $language;
     }
 
+    /**
+     * @return array
+     */
     public static function getSubscribedEvents()
     {
         return [
-            ClearCacheEvent::NAME           => 'rebuildCache',
+            ClearCacheEvent::NAME => 'rebuildCache',
         ];
     }
 

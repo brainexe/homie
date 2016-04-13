@@ -128,7 +128,7 @@ class Switches
                 $switch->pin = $raw['pin'];
                 break;
             case ArduinoSwitchVO::TYPE:
-                $switch = new GpioSwitchVO();
+                $switch = new ArduinoSwitchVO();
                 $switch->pin = $raw['pin'];
                 break;
             default:

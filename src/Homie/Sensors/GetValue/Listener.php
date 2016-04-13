@@ -81,15 +81,7 @@ class Listener implements EventSubscriberInterface
 
         $this->gateway->addValue($sensorVo, $value);
 
-        $formatter      = $this->builder->getFormatter($sensorVo->formatter);
-        $formattedValue = $formatter->formatValue($value);
-        $this->dispatcher->dispatchEvent(new SensorValueEvent(
-            SensorValueEvent::VALUE,
-            $sensorVo,
-            $value,
-            $formattedValue,
-            $this->now()
-        ));
+        $this->dispatch($sensorVo, $value);
     }
 
     /**
@@ -106,5 +98,24 @@ class Listener implements EventSubscriberInterface
             $this->error('Error while fetching sensor value:' . $e->getMessage());
             return null;
         }
+    }
+
+    /**
+     * @param SensorVO $sensorVo
+     * @param float|null $value
+     */
+    private function dispatch(SensorVO $sensorVo, $value)
+    {
+        $formatter      = $this->builder->getFormatter($sensorVo->formatter);
+        $formattedValue = $formatter->formatValue($value);
+
+        $event = new SensorValueEvent(
+            SensorValueEvent::VALUE,
+            $sensorVo,
+            $value,
+            $formattedValue,
+            $this->now()
+        );
+        $this->dispatcher->dispatchEvent($event);
     }
 }
