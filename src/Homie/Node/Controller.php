@@ -8,7 +8,6 @@ use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Traits\IdGeneratorTrait;
 use Homie\Node;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @ControllerAnnotation("Node.Controller", requirements={"nodeId":"\d+"})

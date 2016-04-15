@@ -56,16 +56,16 @@
         },
         {
             "name": "brainexe/core",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brainexe/core.git",
-                "reference": "eeebc233e71cd8c7fe6bdbf408acb1974084ef00"
+                "reference": "e2255070eef95733c3807f5029742758f6cff090"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brainexe/core/zipball/eeebc233e71cd8c7fe6bdbf408acb1974084ef00",
-                "reference": "eeebc233e71cd8c7fe6bdbf408acb1974084ef00",
+                "url": "https://api.github.com/repos/brainexe/core/zipball/e2255070eef95733c3807f5029742758f6cff090",
+                "reference": "e2255070eef95733c3807f5029742758f6cff090",
                 "shasum": ""
             },
             "require": {
@@ -101,7 +101,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2.x-dev"
+                    "dev-master": "3.0.x-dev"
                 }
             },
             "autoload": {
@@ -122,7 +122,7 @@
             ],
             "description": "Framework core - used for brainexe/homie",
             "homepage": "https://mdoetsch.de",
-            "time": "2016-04-12 16:10:30"
+            "time": "2016-04-15 17:08:20"
         },
         {
             "name": "brainexe/totp",
@@ -596,16 +596,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.18.2",
+            "version": "1.19.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "064b38c16790249488e7a8b987acf1c9d7383c09"
+                "reference": "5f56ed5212dc509c8dc8caeba2715732abb32dbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/064b38c16790249488e7a8b987acf1c9d7383c09",
-                "reference": "064b38c16790249488e7a8b987acf1c9d7383c09",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/5f56ed5212dc509c8dc8caeba2715732abb32dbf",
+                "reference": "5f56ed5212dc509c8dc8caeba2715732abb32dbf",
                 "shasum": ""
             },
             "require": {
@@ -670,7 +670,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2016-04-02 13:12:58"
+            "time": "2016-04-12 18:29:35"
         },
         {
             "name": "mtdowling/cron-expression",
@@ -2132,16 +2132,16 @@
         },
         {
             "name": "zendframework/zend-stdlib",
-            "version": "3.0.0",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-stdlib.git",
-                "reference": "22eb098958980fbbe6b9a06f209f5a4b496cc0c1"
+                "reference": "8bafa58574204bdff03c275d1d618aaa601588ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-stdlib/zipball/22eb098958980fbbe6b9a06f209f5a4b496cc0c1",
-                "reference": "22eb098958980fbbe6b9a06f209f5a4b496cc0c1",
+                "url": "https://api.github.com/repos/zendframework/zend-stdlib/zipball/8bafa58574204bdff03c275d1d618aaa601588ae",
+                "reference": "8bafa58574204bdff03c275d1d618aaa601588ae",
                 "shasum": ""
             },
             "require": {
@@ -2173,7 +2173,7 @@
                 "stdlib",
                 "zf2"
             ],
-            "time": "2016-02-03 16:53:37"
+            "time": "2016-04-12 21:19:36"
         }
     ],
     "packages-dev": [
@@ -2394,12 +2394,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-mock/php-mock-phpunit.git",
-                "reference": "92f13426b5092c06ab2f93326a6b52d39acd0d1e"
+                "reference": "e5552cceb9b259fc680d4d9f9fa4d4ce883d6e51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-mock/php-mock-phpunit/zipball/92f13426b5092c06ab2f93326a6b52d39acd0d1e",
-                "reference": "92f13426b5092c06ab2f93326a6b52d39acd0d1e",
+                "url": "https://api.github.com/repos/php-mock/php-mock-phpunit/zipball/e5552cceb9b259fc680d4d9f9fa4d4ce883d6e51",
+                "reference": "e5552cceb9b259fc680d4d9f9fa4d4ce883d6e51",
                 "shasum": ""
             },
             "require": {
@@ -2437,7 +2437,7 @@
                 "test",
                 "test double"
             ],
-            "time": "2016-02-16 22:00:36"
+            "time": "2016-04-15 08:46:34"
         },
         {
             "name": "phpdocumentor/reflection-docblock",

@@ -2,11 +2,10 @@
         type="text"
         size="60"
         class="form-control"
-        style="width: 500px;float:left"
+        style="width: 500px; float:left"
         ng-model="parameter"
         placeholder="{{'e.g. isTiming(10 minutes)'|translate}}"
 />
-
 <ui-select
         ng-model="uiSelectParameter"
         on-select="onUiSelect($item)"
@@ -16,7 +15,7 @@
     <ui-select-match placeholder="Select...">
         {{$select.selected.label}}
     </ui-select-match>
-    <ui-select-choices repeat="function.expression as function in functions|propsFilter:{expression:$select.search, label:$select.search}">
+    <ui-select-choices repeat="function in (functions | filter: $select.search) track by function.expression">
         <span ng-bind-html="function.label|highlight:$select.search"></span>
     </ui-select-choices>
 </ui-select>

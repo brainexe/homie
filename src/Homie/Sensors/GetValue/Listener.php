@@ -8,6 +8,7 @@ use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Traits\LoggerTrait;
 use BrainExe\Core\Traits\TimeTrait;
 use Exception;
+use Homie\Sensors\Exception\InvalidSensorValueException;
 use Homie\Sensors\SensorBuilder;
 use Homie\Sensors\SensorValueEvent;
 use Homie\Sensors\SensorValuesGateway;
@@ -94,6 +95,15 @@ class Listener implements EventSubscriberInterface
 
         try {
             return $sensor->getValue($sensorVo);
+        } catch (InvalidSensorValueException $e) {
+            $this->error(
+                sprintf(
+                    'Error while fetching sensor %s: %s',
+                    $e->getSensor()->name,
+                    $e->getMessage()
+                )
+            );
+            return null;
         } catch (Exception $e) {
             $this->error('Error while fetching sensor value:' . $e->getMessage());
             return null;

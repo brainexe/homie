@@ -32,10 +32,7 @@ class ControllerTest extends TestCase
     }
 
     public function testIndex()
-    {
-        $request = new Request();
-
-        $userVo = new UserVO();
+    {$userVo = new UserVO();
         $userVo->id = 'mockId';
         $userVo->username = 'mockName';
         $userVo->roles = 'mockRole';
@@ -56,7 +53,7 @@ class ControllerTest extends TestCase
             ->with(42)
             ->willReturn($userVo);
 
-        $actual = $this->subject->index($request);
+        $actual = $this->subject->index();
 
         $expected = [
             'users' => [

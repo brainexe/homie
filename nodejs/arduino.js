@@ -1,18 +1,25 @@
 var redis   = require('./lib/redis'),
     config  = require('./lib/config'),
     debug   = require('debug')('arduino'),
-    arduino = require('duino'),
-    colors  = require('colors');
+    arduino = require('duino');
 
 var client = redis.getClient('arduino-subscribe');
 var servos = {};
-var board  = new arduino.Board({
-    device: "USB0"
-});
 
-board.on('error', function(err) {
-   console.error(err);
-});
+function registerGpioListener(pin) {
+    var button = new arduino.Button({
+        board: board,
+        pin: pin
+    });
+
+    button.on('up', function(){
+        console.log('up');
+    });
+
+    button.on('down', function(){
+        console.log('down');
+    });
+}
 
 client.on('message', function (channel, command) {
     var parts = command.split(':');

@@ -9,7 +9,7 @@ describe('Test "Switch" component', function() {
 
         link.click();
     });
-ueuser
+
     it('Check "edit mode" button is present', function () {
         expect(editMode.isPresent()).toBe(true);
     });

@@ -3,6 +3,7 @@
 namespace Homie\Sensors\Command;
 
 use BrainExe\Annotations\Annotations\Inject;
+use Exception;
 use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\Interfaces\Searchable;
 use Homie\Sensors\Interfaces\Sensor;
@@ -105,20 +106,8 @@ class Crawl extends Command
 
             return;
         }
-        /** @var QuestionHelper $helper */
-        $helper = $this->getHelperSet()->get('question');
 
-        $text = $this->getText($sensor, $parameter, $type);
-        $question = new ConfirmationQuestion($text);
-
-        if ($helper->ask($input, $output, $question)) {
-            $arrayInput = new ArrayInput([
-                'command' => 'sensor:add',
-                'type' => $type,
-                'parameter' => $parameter
-            ]);
-            $this->getApplication()->run($arrayInput, $output);
-        };
+        $this->callAddSenor($input, $output, $sensor, $parameter, $type);
     }
 
     /**
@@ -126,15 +115,13 @@ class Crawl extends Command
      * @param string $parameter
      * @return bool
      */
-    private function hasSensor($type, $parameter)
+    private function hasSensor(string $type, $parameter) : bool
     {
         foreach ($this->sensorsRaw as $sensor) {
-            if ($sensor['type'] !== $type) {
-                continue;
-            }
-
-            if (empty($parameter) || $parameter == $sensor['pin']) {
-                return true;
+            if ($sensor['type'] === $type) {
+                if (empty($parameter) || $parameter == $sensor['pin']) {
+                    return true;
+                }
             }
         }
 
@@ -147,7 +134,7 @@ class Crawl extends Command
      * @param string $type
      * @return string
      */
-    private function getText(Sensor $sensor, $parameter, $type)
+    private function getText(Sensor $sensor, $parameter, $type) : string
     {
         if ($sensor instanceof Parameterized) {
             return sprintf('Do you want to add sensor "<info>%s</info>" with parameter "%s" (y/n)', $type, $parameter);
@@ -176,5 +163,36 @@ class Crawl extends Command
         foreach ($parameters as $parameter) {
             $this->addSensor($input, $output, $sensor, $parameter);
         }
+    }
+
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @param Sensor $sensor
+     * @param mixed $parameter
+     * @param string $type
+     * @throws Exception
+     */
+    private function callAddSenor(
+        InputInterface $input,
+        OutputInterface $output,
+        Sensor $sensor,
+        $parameter,
+        $type
+    ) {
+        /** @var QuestionHelper $helper */
+        $helper = $this->getHelperSet()->get('question');
+
+        $text     = $this->getText($sensor, $parameter, $type);
+        $question = new ConfirmationQuestion($text);
+
+        if ($helper->ask($input, $output, $question)) {
+            $arrayInput = new ArrayInput([
+                'command' => 'sensor:add',
+                'type' => $type,
+                'parameter' => $parameter
+            ]);
+            $this->getApplication()->run($arrayInput, $output);
+        };
     }
 }

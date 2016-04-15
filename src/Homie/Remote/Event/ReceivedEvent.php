@@ -22,4 +22,12 @@ class ReceivedEvent extends AbstractEvent implements PushViaWebsocket
         parent::__construct(self::RECEIVED);
         $this->code = $code;
     }
+
+    /**
+     * @return string
+     */
+    public function getCode() : string
+    {
+        return $this->code;
+    }
 }

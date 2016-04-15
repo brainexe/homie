@@ -40,7 +40,7 @@ class Script extends AbstractSensor implements Parameterized
      */
     public function getValue(SensorVO $sensor)
     {
-        return $this->client->executeWithReturn((string)$sensor->parameter);
+        return (float)$this->client->executeWithReturn((string)$sensor->parameter);
     }
 
     /**

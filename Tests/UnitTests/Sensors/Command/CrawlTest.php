@@ -38,8 +38,8 @@ class CrawlTest extends TestCase
 
     public function setUp()
     {
-        $this->gateway       = $this->getMock(SensorGateway::class, [], [], '', false);
-        $this->builder       = $this->getMock(SensorBuilder::class, [], [], '', false);
+        $this->gateway = $this->getMock(SensorGateway::class, [], [], '', false);
+        $this->builder = $this->getMock(SensorBuilder::class, [], [], '', false);
 
         $this->subject = new Crawl(
             $this->gateway,
@@ -80,7 +80,7 @@ class CrawlTest extends TestCase
         $commandTester->execute($input);
 
         $this->assertEquals("Handling myType...
-Sensor \"myType\" with parameter \"\" already exists", trim($commandTester->getDisplay()   ));
+Sensor \"myType\" with parameter \"\" already exists", trim($commandTester->getDisplay()));
     }
 
     public function testExecuteWithSearchableWithoutParameters()

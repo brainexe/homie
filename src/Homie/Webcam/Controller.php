@@ -83,7 +83,6 @@ class Controller
                 break;
             default:
                 $event = new WebcamEvent($name, WebcamEvent::TAKE_PHOTO);
-
         }
         $this->dispatchInBackground($event);
 

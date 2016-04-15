@@ -71,7 +71,7 @@ class SensorValuesGatewayTest extends TestCase
         $this->redis
             ->expects($this->once())
             ->method('zadd')
-            ->with("sensor_values:$sensorId", $now, "$valueId-$value");
+            ->with("sensor_values:$sensorId", [$now => "$valueId-$value"]);
 
         $this->redis
             ->expects($this->once())
@@ -117,15 +117,40 @@ class SensorValuesGatewayTest extends TestCase
             ->with("sensor_values:$sensorId", 700, $now)
             ->willReturn($redisResult);
 
-        $actualResult = $this->subject->getSensorValues($sensorId, $from);
+        $actual = $this->subject->getSensorValues($sensorId, $from);
 
-        $expectedResult = [
+        $expected = [
             701 => 100,
             702 => 101,
             703 => -1,
         ];
 
-        $this->assertEquals($expectedResult, $actualResult);
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testGetByTime()
+    {
+        $time     = 300;
+
+        $redisResult = [
+            ["701-100"],
+            ["702-101"],
+            ["703--1"],
+        ];
+        $this->redis
+            ->expects($this->once())
+            ->method('pipeline')
+            ->willReturn($redisResult);
+
+        $actual = $this->subject->getByTime([11, 12, 13], $time);
+
+        $expected = [
+            11 => 100.0,
+            12 => 101.0,
+            13 => -1.0,
+        ];
+
+        $this->assertEquals($expected, iterator_to_array($actual));
     }
 
     public function testGetAllSensorValuesWithEmptySet()

@@ -55,7 +55,7 @@ class ChartTest extends TestCase
 
         $expected = [
             [
-                'sensor_id' => $sensorId1,
+                'sensorId' => $sensorId1,
                 'name' => $sensorName,
                 'description' => $sensorDescription,
                 'color' => 'colorful',
@@ -63,7 +63,7 @@ class ChartTest extends TestCase
                 'data' => [$timestamp, $sensorValue]
             ],
             [
-                'sensor_id' => $sensorId2,
+                'sensorId' => $sensorId2,
                 'name' => 'name2',
                 'description' => 'description2',
                 'color' => 'colorful',

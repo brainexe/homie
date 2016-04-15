@@ -3,7 +3,6 @@
 namespace Tests\Homie\Webcam;
 
 use BrainExe\Core\EventDispatcher\EventDispatcher;
-use BrainExe\Core\Traits\IdGeneratorTrait;
 use BrainExe\Core\Util\IdGenerator;
 use Homie\Webcam\ExpressionLanguage;
 use Homie\Webcam\WebcamEvent;

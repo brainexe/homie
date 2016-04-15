@@ -7,6 +7,7 @@ use BrainExe\Core\Util\FileSystem;
 use BrainExe\Core\Util\Glob;
 use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Definition;
+use Homie\Sensors\Exception\InvalidSensorValueException;
 use Homie\Sensors\Formatter\Temperature;
 use Homie\Sensors\Interfaces\Searchable;
 use Homie\Sensors\Sensors\AbstractSensor;
@@ -53,7 +54,7 @@ class DS18 extends AbstractSensor implements Searchable
 
         $content = $this->fileSystem->fileGetContents($sensor->parameter);
 
-        return $this->parseContent($content);
+        return $this->parseContent($sensor, $content);
     }
 
     /**
@@ -96,26 +97,28 @@ class DS18 extends AbstractSensor implements Searchable
     }
 
     /**
+     * @param SensorVO $sensor
      * @param string $content
-     * @return float|null
+     * @return float
+     * @throws InvalidSensorValueException
      */
-    protected function parseContent($content)
+    protected function parseContent(SensorVO $sensor, string $content) : float
     {
         if (strpos($content, 'YES') === false) {
             // invalid response :(
-            return null;
+            throw new InvalidSensorValueException($sensor, sprintf('Invalid content: %s', $content));
         }
 
         $matches = null;
         if (!preg_match('/t=([\-\d]+)$/', $content, $matches)) {
-            return null;
+            throw new InvalidSensorValueException($sensor, sprintf('Invalid content: %s', $content));
         }
 
         $temperature = $matches[1] / 1000;
 
         $invalidTemperatures = [0.0, 85.0, 127.937];
         if (in_array($temperature, $invalidTemperatures)) {
-            return null;
+            throw new InvalidSensorValueException($sensor, sprintf('Invalid content: %s', $content));
         }
 
         return $this->round($temperature, 0.01);

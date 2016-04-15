@@ -24,7 +24,6 @@ use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Tester\CommandTester;
 
 abstract class TestSensorParameterized implements Sensor, Parameterized {}
-abstract class TestSensor implements Sensor {}
 abstract class SearchableTestSensor implements Sensor, Searchable {}
 
 /**
@@ -262,7 +261,7 @@ class AddTest extends TestCase
         $commandTester = new CommandTester($this->subject);
 
         $sensor1 = $this->getMock(TestSensorParameterized::class);
-        $sensor2 = $this->getMock(TestSensor::class);
+        $sensor2 = $this->getMock(Sensor::class);
 
         $definition2 = new Definition();
         $definition2->formatter = 'formatter';

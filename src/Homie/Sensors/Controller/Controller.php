@@ -8,14 +8,12 @@ use BrainExe\Core\Annotations\Guest;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Authentication\Settings\Settings;
 use BrainExe\Core\Traits\EventDispatcherTrait;
-use Generator;
 use Homie\Sensors\Builder;
 use Homie\Sensors\Chart;
 use Homie\Sensors\GetValue\Event;
 use Homie\Sensors\SensorBuilder;
 use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorValuesGateway;
-
 use Iterator;
 use Symfony\Component\HttpFoundation\Request;
 

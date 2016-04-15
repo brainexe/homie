@@ -29,8 +29,8 @@
         <parameter key="serial.baud">57600</parameter>
 
         <!-- Remote storage for webcam images ...-->
-        <parameter key="filesystem.remote.url">https://owncloud.example.com/webdav/</parameter>
-        <parameter key="filesystem.remote.username">homie</parameter>
-        <parameter key="filesystem.remote.password">homie</parameter>
+        <!--<parameter key="filesystem.remote.url">https://owncloud.example.com/webdav/</parameter>-->
+        <!--<parameter key="filesystem.remote.username">homie</parameter>-->
+        <!--<parameter key="filesystem.remote.password">homie</parameter>-->
     </parameters>
 </container>

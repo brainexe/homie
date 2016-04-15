@@ -3,7 +3,6 @@
 namespace Tests\Homie\Switches;
 
 use BrainExe\Core\EventDispatcher\EventDispatcher;
-use BrainExe\InputControl\Event;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Homie\Switches\ExpressionLanguage;

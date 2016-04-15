@@ -4,6 +4,7 @@ namespace Tests\Homie\Sensors\Sensors\Temperature;
 
 use BrainExe\Core\Util\FileSystem;
 use BrainExe\Core\Util\Glob;
+use Homie\Sensors\Exception\InvalidSensorValueException;
 use Homie\Sensors\Sensors\Temperature\DS18;
 use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_TestCase as TestCase;
@@ -35,7 +36,7 @@ class DS18Test extends TestCase
 
     public function setUp()
     {
-        $this->fileSystem = $this->getMock(Filesystem::class, [], [], '', false);
+        $this->fileSystem = $this->getMock(FileSystem::class, [], [], '', false);
         $this->glob       = $this->getMock(Glob::class, [], [], '', false);
 
         $this->subject = new DS18($this->fileSystem, $this->glob);
@@ -68,10 +69,10 @@ class DS18Test extends TestCase
 
     /**
      * @param string $content
-     * @param string|null $expectedResult
+     * @param float|null $expected
      * @dataProvider provideContent
      */
-    public function testGetValue($content, $expectedResult)
+    public function testGetValue($content, $expected)
     {
         $file = "mockFile";
 
@@ -90,9 +91,12 @@ class DS18Test extends TestCase
         $sensor = new SensorVO();
         $sensor->parameter = $file;
 
-        $actualResult = $this->subject->getValue($sensor);
+        if (null === $expected) {
+            $this->expectException(InvalidSensorValueException::class);
+        }
+        $actual = $this->subject->getValue($sensor);
 
-        $this->assertEquals($expectedResult, $actualResult);
+        $this->assertEquals($expected, $actual);
     }
 
     public function testIsSupported()

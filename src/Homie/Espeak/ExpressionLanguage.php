@@ -23,6 +23,7 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
     public function getFunctions()
     {
         yield new ExpressionFunction('say', function (string $text) {
+            unset($text);
             throw new InvalidArgumentException('say() is not available in this context');
         }, function (array $variables, string $text, int $volume = null, int $speed = null) {
             unset($variables);

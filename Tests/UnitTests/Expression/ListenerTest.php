@@ -3,12 +3,10 @@
 namespace Tests\Homie\Expression;
 
 use BrainExe\Core\EventDispatcher\AbstractEvent;
-use BrainExe\Core\EventDispatcher\Events\ClearCacheEvent;
 use Homie\Expression\Entity;
 use Homie\Expression\Gateway;
 use Homie\Expression\Listener;
 use Homie\Expression\Language;
-use Homie\Sensors\GetValue\Event;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\DependencyInjection\Container;

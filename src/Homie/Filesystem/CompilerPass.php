@@ -21,11 +21,7 @@ class CompilerPass implements CompilerPassInterface
         $user = $container->getParameter('filesystem.remote.username');
 
         if ($host && $user) {
-            if ($container->getParameter('filesystem.remote.cache')) {
-                $container->setAlias('RemoteFilesystem', 'CachedRemoteFilesystem');
-            } else {
-                $container->setAlias('RemoteFilesystem', 'WebdavRemoteFilesystem');
-            }
+            $container->setAlias('RemoteFilesystem', 'CachedRemoteFilesystem');
         }
     }
 }

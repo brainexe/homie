@@ -6,7 +6,6 @@ use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\IdGeneratorTrait;
 use BrainExe\Core\Traits\RedisTrait;
 use BrainExe\Core\Traits\TimeTrait;
-use Generator;
 use Iterator;
 use Predis\Pipeline\Pipeline;
 
@@ -41,7 +40,10 @@ class SensorValuesGateway
         $key   = $this->getKey($sensor->sensorId);
         $id    = $this->generateUniqueId('sensorvalue:' . $sensor->sensorId);
 
-        $redis->zadd($key, $now, $id . '-' . $value);
+        $redis->zadd(
+            $key,
+            [$now => $id . '-' . $value]
+        );
         $redis->hmset(SensorGateway::REDIS_SENSOR_PREFIX . $sensor->sensorId, [
             'lastValue' => $sensor->lastValue,
             'lastValueTimestamp' => $sensor->lastValueTimestamp
@@ -66,7 +68,7 @@ class SensorValuesGateway
         });
 
         foreach ($sensorIds as $index => $sensorId) {
-            yield $sensorId => explode('-', $values[$index][0])[1];
+            yield $sensorId => (float)explode('-', $values[$index][0], 2)[1];
         }
     }
 
@@ -91,13 +93,14 @@ class SensorValuesGateway
 
         foreach ($redisResult as $part => $timestamp) {
             list(, $value) = explode('-', $part, 2);
-            $result[$timestamp] = $value;
+            $result[$timestamp] = (float)$value;
         }
 
         return $result;
     }
 
     /**
+     * @todo extarct to separate class
      * @param int $sensorId
      * @return int $deleted_rows
      */

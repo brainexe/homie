@@ -66,7 +66,7 @@ class PinsCollection
     /**
      * @return Pin[]
      */
-    public function getAll()
+    public function getAll() : array
     {
         return $this->pins;
     }
@@ -74,7 +74,7 @@ class PinsCollection
     /**
      * @return string
      */
-    public function getType()
+    public function getType() : string
     {
         return $this->type;
     }

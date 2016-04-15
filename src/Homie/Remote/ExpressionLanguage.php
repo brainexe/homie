@@ -4,9 +4,7 @@ namespace Homie\Remote;
 
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Generator;
-use Homie\IFTTT\Event\TriggerEvent;
 use Homie\Remote\Event\ReceivedEvent;
-use InvalidArgumentException;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;

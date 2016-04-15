@@ -3,6 +3,7 @@
 namespace Homie\Sensors\ExpressionLanguage;
 
 use BrainExe\Annotations\Annotations\Inject;
+use Generator;
 use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorValueEvent;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
@@ -29,7 +30,7 @@ class Language implements ExpressionFunctionProviderInterface
     }
 
     /**
-     * @return ExpressionFunction[] An array of Function instances
+     * @return ExpressionFunction[]|Generator An array of Function instances
      */
     public function getFunctions()
     {

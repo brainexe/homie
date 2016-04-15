@@ -25,6 +25,7 @@ class Notification implements ExpressionFunctionProviderInterface
     public function getFunctions()
     {
         yield new ExpressionFunction('addNotification', function (string $message, string $subject, $level = Logger::ALERT) {
+            unset($message, $subject,$level);
             throw new InvalidArgumentException('Function addNotification() not available as condition');
         }, function (array $variables, string $message, string $subject, $level = Logger::ALERT) {
             unset($variables);

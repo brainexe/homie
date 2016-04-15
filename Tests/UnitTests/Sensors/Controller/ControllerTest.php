@@ -4,10 +4,8 @@ namespace Tests\Homie\Sensors\Controller;
 
 use ArrayIterator;
 use BrainExe\Core\Authentication\Settings\Settings;
-use Generator;
 use Homie\Sensors\Controller\Controller;
 use Homie\Sensors\GetValue\Event;
-
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\Formatter\Formatter;

@@ -4,7 +4,6 @@ namespace Homie\EggTimer;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
-use BrainExe\Core\Application\UserException;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Util\TimeParser;
 use Homie\Espeak\EspeakVO;

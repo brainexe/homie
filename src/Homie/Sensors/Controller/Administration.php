@@ -144,11 +144,11 @@ class Administration
     /**
      * @param Request $request
      * @param string $sensorType
-     * @return string[]
+     * @return string[]|bool
      * @throws UserException
      * @Route("/sensors/{sensorType}/parameters/", name="sensor.search", methods="GET")
      */
-    public function parameters(Request $request, string $sensorType) : array
+    public function parameters(Request $request, string $sensorType)
     {
         unset($request);
 
@@ -177,7 +177,7 @@ class Administration
 
         $sensor = $this->builder->build($sensorType);
 
-        $output = new DummyOutput();
+        $output   = new DummyOutput();
         $sensorVo = new SensorVO();
         $sensorVo->parameter = $parameter;
 
@@ -185,7 +185,7 @@ class Administration
 
         return [
             'isValid' => $isValid,
-            'message' => implode("<br/>", $output->getLogs())
+            'message' => $output->fetch()
         ];
     }
 }

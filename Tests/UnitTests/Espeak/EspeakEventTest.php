@@ -13,7 +13,7 @@ class EspeakEventTest extends TestCase
         $espeak = new EspeakVO('foo');
         $event  = new EspeakEvent($espeak);
 
-        $this->assertEquals(EspeakEvent::SPEAK, $event->eventName);
+        $this->assertEquals(EspeakEvent::SPEAK, $event->getEventName());
         $this->assertEquals($espeak, $event->getEspeak());
     }
 }

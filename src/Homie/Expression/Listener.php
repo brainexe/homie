@@ -82,9 +82,9 @@ class Listener extends EventDispatcher
         $matches = call_user_func($this->cachedFunctions, $event, $eventName, $this->container);
         foreach ($matches as $entity) {
             $parameters = [
-                'event' => $event,
+                'event'     => $event,
                 'eventName' => $eventName,
-                'entity' => $entity
+                'entity'    => $entity
             ];
 
             $oldParams = $entity->payload;

@@ -27,7 +27,7 @@ class Chart
             }
 
             $sensorJson = [
-                'sensor_id'   => (int)$sensorId,
+                'sensorId'    => (int)$sensorId,
                 'color'       => $sensor['color'],
                 'name'        => $sensor['name'],
                 'description' => $sensor['description'],

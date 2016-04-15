@@ -41,7 +41,7 @@ SwitchesTest extends TestCase
     public function testGetRadioPin($inputPin, $expectedPin)
     {
         if (false === $expectedPin) {
-            $this->setExpectedException(UserException::class);
+            $this->expectException(UserException::class);
         }
         $actualPin = $this->subject->getRadioPin($inputPin);
 

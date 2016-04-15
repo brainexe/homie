@@ -7,7 +7,7 @@
 Homie is a software to automate you home using low-budget hardware, like a RaspberryPi
 
 # Requirements
- - PHP5.6 / PHP7
+ - PHP7
  - nodejs 0.10 - 4.1
  - npm
  - redis-server
@@ -42,7 +42,7 @@ protractor config.js
 
 # Features
 - Many sensors supported, like temperature, barometer, light sensor etc.
-- real time websocket notifications
+- Real time websocket notifications
 - Expression language like IFTTT
 - AngularJS single page application
 - Mobile/Chrome App support

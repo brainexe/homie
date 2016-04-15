@@ -2,7 +2,7 @@
 
 namespace Homie\Sensors\Interfaces;
 
-interface Parameterized
+interface Parameterized extends Sensor
 {
 
 }

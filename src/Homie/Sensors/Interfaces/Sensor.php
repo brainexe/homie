@@ -2,6 +2,7 @@
 
 namespace Homie\Sensors\Interfaces;
 
+use Homie\Sensors\Exception\InvalidSensorValueException;
 use Homie\Sensors\SensorVO;
 use JsonSerializable;
 use Homie\Sensors\Definition;
@@ -16,8 +17,9 @@ interface Sensor extends JsonSerializable
     public function getSensorType() : string;
 
     /**
-     * @todo throw more exceptions in case of error
+     * @todo return typehint: float
      * @param SensorVO $sensor
+     * @throws InvalidSensorValueException
      * @return float
      */
     public function getValue(SensorVO $sensor);
@@ -25,6 +27,7 @@ interface Sensor extends JsonSerializable
     /**
      * @param SensorVO $sensor
      * @param OutputInterface $output
+     * @throws InvalidSensorValueException
      * @return bool
      */
     public function isSupported(SensorVO $sensor, OutputInterface $output) : bool;

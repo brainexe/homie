@@ -7,7 +7,6 @@
         <import resource="./config.xml" ignore-errors="true"/>
     </imports>
     <parameters>
-        <parameter key="logger.sensor.log">logs/sensor.log</parameter>
         <parameter key="application.name">homie</parameter>
         <parameter key="application.registration_enabled">true</parameter>
 
@@ -15,7 +14,6 @@
         <parameter key="filesystem.remote.username"/>
         <parameter key="filesystem.remote.password"/>
         <parameter key="filesystem.remote.pathPrefix"/>
-        <parameter key="filesystem.remote.cache">false</parameter>
 
         <parameter key="application.middlewares" type="collection">
             <parameter>Middleware.Parameter</parameter>
@@ -40,32 +38,6 @@
             <argument type="service">
                 <service class="League\Flysystem\Adapter\Local">
                     <argument>%cache.dir%filesystem/</argument>
-                </service>
-            </argument>
-        </service>
-
-        <service id="WebdavRemoteFilesystem" class="League\Flysystem\Filesystem" public="false">
-            <argument type="service">
-                <service class="League\Flysystem\WebDAV\WebDAVAdapter">
-                    <argument type="service">
-                        <service class="Sabre\DAV\Client">
-                            <argument type="collection">
-                                <argument key="userName">%filesystem.remote.username%</argument>
-                                <argument key="password">%filesystem.remote.password%</argument>
-                                <argument key="baseUri">%filesystem.remote.url%</argument>
-                                <argument key="authType">1</argument>
-                            </argument>
-                            <call method="addCurlSetting">
-                                <argument type="constant">CURLOPT_SSL_VERIFYHOST</argument>
-                                <argument>0</argument>
-                            </call>
-                            <call method="addCurlSetting">
-                                <argument type="constant">CURLOPT_SSL_VERIFYPEER</argument>
-                                <argument>0</argument>
-                            </call>
-                        </service>
-                    </argument>
-                    <call method="setPathPrefix"><argument>%filesystem.remote.pathPrefix%</argument></call>
                 </service>
             </argument>
         </service>

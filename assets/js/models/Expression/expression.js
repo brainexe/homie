@@ -7,7 +7,6 @@ App.directive('expressionParameter', [function() {
             parameter: '=',
             functions: '=',
             uiSelectParameter: '='
-
         },
         link: function ($scope) {
             $scope.uiSelectParameter = $scope.parameter;
