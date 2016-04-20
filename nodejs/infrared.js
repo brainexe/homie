@@ -1,6 +1,10 @@
-var http = require('http');
-var IRW  = require('infrared').irw;
-var irw  = new IRW();
+var http   = require('http');
+var common = require('./lib/common');
+var config = require('./lib/config');
+var IRW    = require('infrared').irw;
+var irw    = new IRW();
+
+common.changeUser();
 
 var regexp = /[0-9a-f]+? ([\d]+?) ([a-z_]+?) [a-z_]+/gi;
 
@@ -13,12 +17,12 @@ irw.on('stdout', function(data) {
         console.log(code);
 
         console.log({
-            host: 'localhost',
+            host: config['server.host'],
             path: '/remote/receive/' + code + '/'
         });
 
         http.request({
-            host: 'localhost',
+            host: config['server.host'],
             path: '/remote/receive/' + code + '/'
         }, function (response) {
             var str = '';
@@ -31,4 +35,7 @@ irw.on('stdout', function(data) {
         });
     }
 });
+
+console.log('Started process');
+
 irw.start();

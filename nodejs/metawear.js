@@ -1,7 +1,8 @@
 var config  = require('./lib/config');
 var http    = require('http');
 var devices = require('node-metawear/src/device');
-var port    = config['metawear.port'];
+
+var port = config['metawear.port'];
 
 var currentDevice = null;
 devices.discover(function(device) {

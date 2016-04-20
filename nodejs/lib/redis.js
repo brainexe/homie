@@ -1,5 +1,6 @@
 var redis    = require('redis'),
-    bluebird = require('bluebird');
+    bluebird = require('bluebird'),
+    config   = require('./config');
 
 var client;
 var clients = {};
@@ -13,9 +14,9 @@ module.exports = {
             return clients[name];
         }
 
-        client = clients[name] = redis.createClient();
-
-        // todo auth + select DB
+        client = clients[name] = redis.createClient({
+            url: config['redis.connection']
+        });
 
         return client;
     }

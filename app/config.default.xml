@@ -11,6 +11,7 @@
 
         <parameter key="metawear.port">8082</parameter>
         <parameter key="motion.port">8083</parameter>
+        <parameter key="motion.ir.pin">3</parameter>
 
         <parameter key="gpio.command">gpio</parameter>
         <parameter key="sound.command">mplayer</parameter>
@@ -28,9 +29,13 @@
         <parameter key="serial.port">/dev/ttyACM*</parameter>
         <parameter key="serial.baud">57600</parameter>
 
-        <!-- Remote storage for webcam images ...-->
-        <!--<parameter key="filesystem.remote.url">https://owncloud.example.com/webdav/</parameter>-->
-        <!--<parameter key="filesystem.remote.username">homie</parameter>-->
-        <!--<parameter key="filesystem.remote.password">homie</parameter>-->
+        <parameter key="pm2.apps" type="collection">
+            <parameter type="collection"><parameter key="name">arduino</parameter></parameter>
+            <parameter type="collection"><parameter key="name">message-queue</parameter></parameter>
+            <parameter type="collection"><parameter key="name">metawear</parameter></parameter>
+            <parameter type="collection"><parameter key="name">motion_ir</parameter></parameter>
+            <parameter type="collection"><parameter key="name">motion_webcam</parameter></parameter>
+            <parameter type="collection"><parameter key="name">websocket</parameter></parameter>
+        </parameter>
     </parameters>
 </container>

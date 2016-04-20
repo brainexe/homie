@@ -71,7 +71,7 @@ class SensorValuesGatewayTest extends TestCase
         $this->redis
             ->expects($this->once())
             ->method('zadd')
-            ->with("sensor_values:$sensorId", [$now => "$valueId-$value"]);
+            ->with("sensor_values:$sensorId", ["$valueId-$value" => $now]);
 
         $this->redis
             ->expects($this->once())

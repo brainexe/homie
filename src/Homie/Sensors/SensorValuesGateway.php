@@ -42,10 +42,10 @@ class SensorValuesGateway
 
         $redis->zadd(
             $key,
-            [$now => $id . '-' . $value]
+            [$id . '-' . $value => $now]
         );
         $redis->hmset(SensorGateway::REDIS_SENSOR_PREFIX . $sensor->sensorId, [
-            'lastValue' => $sensor->lastValue,
+            'lastValue'          => $sensor->lastValue,
             'lastValueTimestamp' => $sensor->lastValueTimestamp
         ]);
 

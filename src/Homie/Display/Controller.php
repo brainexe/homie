@@ -55,7 +55,7 @@ class Controller
      * @param Request $request
      * @return Settings
      */
-    public function add(Request $request)
+    public function add(Request $request) : Settings
     {
         $settings = $this->getSettingsFromRequest($request);
 
@@ -70,7 +70,7 @@ class Controller
      * @param int $displayId
      * @return bool
      */
-    public function delete(Request $request, $displayId)
+    public function delete(Request $request, int $displayId) : bool
     {
         unset($request);
 
@@ -85,7 +85,7 @@ class Controller
      * @param int $displayId
      * @return Settings
      */
-    public function update(Request $request, int $displayId)
+    public function update(Request $request, int $displayId) : Settings
     {
         $settings = $this->getSettingsFromRequest($request);
         $settings->displayId = $displayId;

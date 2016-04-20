@@ -1,38 +1,17 @@
 {
-  "dependencies": {
-    "pmx": "latest",
-    "pm2": "latest",
-    "pm2-logrotate": "latest"
-  },
-  "apps" : [
-    {
-      "name"        : "message-queue",
-      "script"      : "message-queue.js",
-      "merge_logs"  : true
-    },
-    {
-      "name"        : "arduino",
-      "script"      : "arduino.js",
-      "merge_logs"  : true,
-      "max_restarts" : 5
-    },
-    {
-      "name"        : "websocket",
-      "script"      : "websocket.js",
-      "merge_logs"  : true,
-      "max_restarts" : 5
-    },
-    {
-      "name"        : "metawear",
-      "script"      : "metawear.js",
-      "merge_logs"  : true,
-      "max_restarts" : 5
-    },
-    {
-      "name"        : "motion",
-      "script"      : "motion.js",
-      "merge_logs"  : true,
-      "max_restarts" : 5
-    }
-  ]
+  // todo create config "pm2.scripts" which manages deamons
+  "apps": [
+    {"name": "message-queue"},
+//    {"name": "arduino"},
+    {"name": "websocket"},
+    {"name": "metawear"},
+//    {"name": "motion_ir"},
+//    {"name": "motion_webcam"}
+  ].map(function(entry) {
+    entry.script     = entry.name + ".js";
+    entry.out_file   = "../logs/pm-" + entry.name + ".log";
+    entry.error_file = "../logs/pm-" + entry.name + ".log";
+    entry.merge_logs = true;
+    return entry;
+  })
 }

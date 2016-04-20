@@ -16,6 +16,7 @@ use Homie\Sensors\SensorVO;
 use Monolog\Logger;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
+use Psr\Log\LogLevel;
 
 class ListenerTest extends TestCase
 {
@@ -173,6 +174,10 @@ class ListenerTest extends TestCase
             ->expects($this->once())
             ->method('dispatchEvent')
             ->with($expectedEvent);
+        $this->logger
+            ->expects($this->once())
+            ->method('log')
+            ->with(LogLevel::DEBUG);
 
         $event = new Event($sensorVo);
         $this->subject->handle($event);

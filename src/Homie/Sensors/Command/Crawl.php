@@ -119,7 +119,7 @@ class Crawl extends Command
     {
         foreach ($this->sensorsRaw as $sensor) {
             if ($sensor['type'] === $type) {
-                if (empty($parameter) || $parameter == $sensor['pin']) {
+                if (empty($parameter) || $parameter == $sensor['parameter']) {
                     return true;
                 }
             }

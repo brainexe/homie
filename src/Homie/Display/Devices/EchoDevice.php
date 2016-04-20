@@ -2,6 +2,11 @@
 
 namespace Homie\Display\Devices;
 
+use BrainExe\Annotations\Annotations\Service;
+
+/**
+ * @Service("Display.Devices.EchoDevice", public=false)
+ */
 class EchoDevice implements DeviceInterface
 {
 

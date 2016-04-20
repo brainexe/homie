@@ -1,17 +1,16 @@
 {
-  "version": "0.0.1",
-  "main": "index.js",
   "author": "Matthias Dötsch <matze@mdoetsch.de>",
   "license": "MIT",
+  "readme": "../readme.md",
   "dependencies": {
     "bluebird": "^3.3.4",
     "colors": "^1.1.2",
     "debug": "^2.2.0",
     "infrared": "0.0.4",
-    "ni-c/duino": "ni-c/duino",
+    "duino": "ni-c/duino",
     "node-metawear": "^0.3.1",
     "node-motion": "^0.1.4",
-    "redis": "~2.6",
+    "redis": "~2.5",
     "websocket-node": "brainexe/websocket-node"
   },
   "scripts": {

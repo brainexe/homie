@@ -127,5 +127,14 @@ class Listener implements EventSubscriberInterface
             $this->now()
         );
         $this->dispatcher->dispatchEvent($event);
+
+        $this->debug(
+            sprintf('Sensor value for %s: %s', $sensorVo->name, $formattedValue),
+            [
+                'channel'  => 'sensor',
+                'sensor'   => $sensorVo->name,
+                'value'    => $value
+            ]
+        );
     }
 }
