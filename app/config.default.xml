@@ -3,13 +3,14 @@
     <parameters>
         <parameter key="environment">development</parameter>
         <parameter key="node.id">0</parameter>
-        <parameter key="application.url">http://homie</parameter>
 
-        <parameter key="socket.internal.port">8081</parameter>
         <!--<parameter key="socket.url">/socket</parameter>-->
-        <parameter key="socket.url">http://localhost:%socket.internal.port%/socket</parameter>
+        <parameter key="socket.internal.port">8081</parameter>
+        <parameter key="socket.url">http://%server.host%:%socket.internal.port%/socket</parameter>
 
         <parameter key="metawear.port">8082</parameter>
+        <parameter key="metawear.url">http://%server.host%:%metawear.port%</parameter>
+
         <parameter key="motion.port">8083</parameter>
         <parameter key="motion.ir.pin">3</parameter>
 
@@ -21,7 +22,6 @@
         <parameter key="webcam.command.sound">arecord -d {{duration}} -q -t wav {{file}}</parameter>
         <parameter key="webcam.command.video">streamer -t 0:0:2 -f rgb24 -r {{duration}} -o {{file}}</parameter>
         <!--<parameter key="webcam.command.photo">raspistill -o %s</parameter>-->
-
         <parameter key="webcam.device">/dev/video0</parameter>
         <parameter key="ifttt.key"></parameter>
 
@@ -33,8 +33,9 @@
             <parameter type="collection"><parameter key="name">arduino</parameter></parameter>
             <parameter type="collection"><parameter key="name">message-queue</parameter></parameter>
             <parameter type="collection"><parameter key="name">metawear</parameter></parameter>
-            <parameter type="collection"><parameter key="name">motion_ir</parameter></parameter>
-            <parameter type="collection"><parameter key="name">motion_webcam</parameter></parameter>
+            <parameter type="collection"><parameter key="name">motion-ir</parameter></parameter>
+            <parameter type="collection"><parameter key="name">motion-webcam</parameter></parameter>
+            <parameter type="collection"><parameter key="name">remote-control</parameter></parameter>
             <parameter type="collection"><parameter key="name">websocket</parameter></parameter>
         </parameter>
     </parameters>

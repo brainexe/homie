@@ -17,7 +17,7 @@ class SensorValueEventTest extends TestCase
         $sensorVo       = new SensorVO();
         $value          = 'value';
         $valueFormatted = 'valueFormatted';
-        $timestamp      = 'valueFormatted';
+        $timestamp      = 12345;
         $eventName      = 'eventName';
 
         $subject = new SensorValueEvent(

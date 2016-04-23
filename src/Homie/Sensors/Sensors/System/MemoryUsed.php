@@ -7,7 +7,6 @@ use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\Bytes;
 use Homie\Sensors\Sensors\AbstractSensor;
 use Homie\Sensors\SensorVO;
-use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @Sensor("Sensor.System.MemoryUsed")
@@ -36,7 +35,7 @@ class MemoryUsed extends AbstractSensor
     /**
      * {@inheritdoc}
      */
-    public function isSupported(SensorVO $sensor, OutputInterface $output) : bool
+    public function isSupported(SensorVO $sensor) : bool
     {
         return is_file(self::MEMINFO);
     }

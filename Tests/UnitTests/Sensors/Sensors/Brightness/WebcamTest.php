@@ -8,7 +8,6 @@ use Homie\Sensors\Sensors\Brightness\Webcam;
 use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
-use Symfony\Component\Console\Output\NullOutput;
 
 /**
  * @covers Homie\Sensors\Sensors\Brightness\Webcam
@@ -72,8 +71,7 @@ class WebcamTest extends TestCase
         $sensor = new SensorVO();
         $sensor->parameter = $parameter;
 
-        $output = new NullOutput();
-        $actual = $this->subject->isSupported($sensor, $output);
+        $actual = $this->subject->isSupported($sensor);
 
         $this->assertTrue($actual);
     }

@@ -8,7 +8,6 @@ use Homie\Sensors\Sensors\Barometer\BMP085;
 use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
-use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 
 /**
  * @covers Homie\Sensors\Sensors\Barometer\BMP085
@@ -87,11 +86,10 @@ class BMP085Test extends TestCase
     public function testIsSupported()
     {
         $parameter = 'not_exiting_file';
-        $output    = new DummyOutput();
 
         $sensor = new SensorVO();
         $sensor->parameter = $parameter;
-        $actual    = $this->subject->isSupported($sensor, $output);
+        $actual    = $this->subject->isSupported($sensor);
         $this->assertFalse($actual);
     }
 

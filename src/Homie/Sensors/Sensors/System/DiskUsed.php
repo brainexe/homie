@@ -8,7 +8,6 @@ use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\Bytes;
 use Homie\Sensors\Sensors\AbstractSensor;
 use Homie\Sensors\SensorVO;
-use Symfony\Component\Console\Output\OutputInterface;
 use BrainExe\Annotations\Annotations\Inject;
 
 /**
@@ -49,7 +48,7 @@ class DiskUsed extends AbstractSensor
     /**
      * {@inheritdoc}
      */
-    public function isSupported(SensorVO $sensorVO, OutputInterface $output) : bool
+    public function isSupported(SensorVO $sensorVO) : bool
     {
         return true;
     }

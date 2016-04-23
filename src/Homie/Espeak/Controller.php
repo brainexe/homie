@@ -56,11 +56,11 @@ class Controller
      */
     public function speak(Request $request) : bool
     {
-        $speaker   = $request->request->get('speaker');
-        $text      = $request->request->get('text');
+        $speaker   = (string)$request->request->get('speaker');
+        $text      = (string)$request->request->get('text');
         $volume    = $request->request->getInt('volume');
         $speed     = $request->request->getInt('speed');
-        $delayRaw  = $request->request->get('delay');
+        $delayRaw  = (string)$request->request->get('delay');
 
         $timestamp = $this->timeParser->parseString($delayRaw);
 

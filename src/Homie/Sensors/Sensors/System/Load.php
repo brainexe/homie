@@ -7,7 +7,6 @@ use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\Load as Formatter;
 use Homie\Sensors\Sensors\AbstractSensor;
 use Homie\Sensors\SensorVO;
-use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @Sensor("Sensor.System.Load")
@@ -30,7 +29,7 @@ class Load extends AbstractSensor
     /**
      * {@inheritdoc}
      */
-    public function isSupported(SensorVO $sensorVO, OutputInterface $output) : bool
+    public function isSupported(SensorVO $sensorVO) : bool
     {
         return true;
     }

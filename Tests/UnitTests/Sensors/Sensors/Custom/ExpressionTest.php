@@ -8,7 +8,6 @@ use Homie\Sensors\Sensors\Misc\Expression;
 use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
-use Symfony\Component\Console\Output\NullOutput;
 
 /**
  * @covers Homie\Sensors\Sensors\Misc\Expression
@@ -60,10 +59,9 @@ class ExpressionTest extends TestCase
             ->with($parameter)
             ->willReturn(5);
 
-        $output = new NullOutput();
         $sensor = new SensorVO();
         $sensor->parameter = $parameter;
-        $actual = $this->subject->isSupported($sensor, $output);
+        $actual = $this->subject->isSupported($sensor);
 
         $this->assertTrue($actual);
     }

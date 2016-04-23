@@ -8,6 +8,7 @@ use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Application\UserException;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Homie\Sensors\Builder;
+use Homie\Sensors\Exception\SensorException;
 use Homie\Sensors\GetValue\Event;
 use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\Interfaces\Searchable;
@@ -66,14 +67,14 @@ class Administration
      */
     public function addSensor(Request $request)
     {
-        $sensorType  = $request->request->get('type');
+        $sensorType  = $request->request->getAlpha('type');
         $name        = $request->request->get('name');
         $description = $request->request->get('description');
         $parameter   = $request->request->get('parameter');
         $interval    = $request->request->getInt('interval');
         $node        = $request->request->getInt('node');
         $color       = $request->request->get('color');
-        $formatter   = $request->request->get('formatter');
+        $formatter   = $request->request->getAlnum('formatter');
         $tags        = (array)$request->request->get('tags');
 
         if (empty($color)) {
@@ -181,7 +182,14 @@ class Administration
         $sensorVo = new SensorVO();
         $sensorVo->parameter = $parameter;
 
-        $isValid = $sensor->isSupported($sensorVo, $output);
+        try {
+            $isValid = $sensor->isSupported($sensorVo, $output);
+        } catch (SensorException $e) {
+            return [
+                'isValid' => false,
+                'message' => $e->getMessage()
+            ];
+        }
 
         return [
             'isValid' => $isValid,

@@ -10,7 +10,6 @@ use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\Temperature;
-use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 
 /**
  * @covers Homie\Sensors\Sensors\Temperature\OnBoard
@@ -35,7 +34,7 @@ class OnBoardTest extends TestCase
 
     public function setUp()
     {
-        $this->fileSystem = $this->getMock(Filesystem::class, [], [], '', false);
+        $this->fileSystem = $this->getMock(FileSystem::class, [], [], '', false);
         $this->glob       = $this->getMock(Glob::class, [], [], '', false);
 
         $this->subject = new OnBoard($this->fileSystem, $this->glob);
@@ -80,12 +79,15 @@ class OnBoardTest extends TestCase
         $sensor = new SensorVO();
         $sensor->parameter = $file;
 
-        $output       = new DummyOutput();
-        $actualResult = $this->subject->isSupported($sensor, $output);
+        $actual = $this->subject->isSupported($sensor);
 
-        $this->assertTrue($actualResult);
+        $this->assertTrue($actual);
     }
 
+    /**
+     * @expectedException \Homie\Sensors\Exception\InvalidSensorValueException
+     * @expectedExceptionMessage temperature.onboard: Thermal zone file does not exist: mockFile
+     */
     public function testIsSupportedWhenNotSupported()
     {
         $file = 'mockFile';
@@ -99,10 +101,7 @@ class OnBoardTest extends TestCase
         $sensor = new SensorVO();
         $sensor->parameter = $file;
 
-        $output       = new DummyOutput();
-        $actualResult = $this->subject->isSupported($sensor, $output);
-
-        $this->assertFalse($actualResult);
+        $this->subject->isSupported($sensor);
     }
 
     public function testGetDefinition()

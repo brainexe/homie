@@ -6,6 +6,7 @@ use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\EventDispatcher\AbstractEvent;
 use BrainExe\Core\EventDispatcher\Events\TimingEvent;
 use BrainExe\Core\Traits\EventDispatcherTrait;
+use BrainExe\Core\Traits\FileCacheTrait;
 use BrainExe\Core\Traits\LoggerTrait;
 use Exception;
 use ReflectionClass;
@@ -20,6 +21,7 @@ class Language extends ExpressionLanguage
 {
 
     use EventDispatcherTrait;
+    use FileCacheTrait;
     use LoggerTrait;
 
     /**
@@ -68,7 +70,7 @@ class Language extends ExpressionLanguage
             throw new Exception('event() not implemented');
         }, function (array $parameters, string $type, ...$eventArguments) {
             unset($parameters);
-            $events = (include ROOT.'/cache/events.php'); // TODO extract
+            $events = $this->includeFile('events');
 
             $reflection = new ReflectionClass($events[$type]['class']);
             /** @var AbstractEvent $event */

@@ -8,7 +8,6 @@ use Homie\Sensors\Sensors\Misc\Aggregator;
 use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
-use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 
 /**
  * @covers Homie\Sensors\Sensors\Misc\Aggregator
@@ -41,11 +40,10 @@ class AggregatorTest extends TestCase
     public function testIsSupported()
     {
         $parameter = '12';
-        $output = new DummyOutput();
 
         $sensor = new SensorVO();
         $sensor->parameter = $parameter;
-        $actual = $this->subject->isSupported($sensor, $output);
+        $actual = $this->subject->isSupported($sensor);
         $this->assertTrue($actual);
     }
 

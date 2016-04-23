@@ -4,27 +4,20 @@ namespace Homie\Sensors\Controller;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
-use BrainExe\Core\Annotations\Guest;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Authentication\Settings\Settings;
-use BrainExe\Core\Traits\EventDispatcherTrait;
 use Homie\Sensors\Builder;
 use Homie\Sensors\Chart;
-use Homie\Sensors\GetValue\Event;
 use Homie\Sensors\SensorBuilder;
 use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorValuesGateway;
-use Iterator;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @todo split into second controller for sensor values
  * @ControllerAnnotation("Sensors.Controller.Controller", requirements={"sensorId":"\d+"})
  */
 class Controller
 {
-
-    use EventDispatcherTrait;
 
     const SETTINGS_ACTIVE_SENSORS = 'sensors:active_sensors';
     const SETTINGS_TIMESPAN       = 'sensors:timespan';
@@ -136,67 +129,6 @@ class Controller
     }
 
     /**
-     * @param Request $request
-     * @param int $sensorId
-     * @return bool
-     * @Guest
-     * @Route("/sensors/{sensorId}/value/", name="sensor.submitValue", methods="POST")
-     */
-    public function addValue(Request $request, int $sensorId) : bool
-    {
-        $value    = $request->request->get('value');
-        $sensor   = $this->gateway->getSensor($sensorId);
-        $sensorVo = $this->voBuilder->buildFromArray($sensor);
-
-        $this->valuesGateway->addValue($sensorVo, $value);
-
-        return true;
-    }
-
-    /**
-     * @param Request $request
-     * @return Iterator
-     * @Route("/sensors/byTime/", name="sensor.getByTime")
-     */
-    public function getByTime(Request $request) : Iterator
-    {
-        $sensorIds = (string)$request->query->get('sensorIds');
-        $time      = (int)$request->query->get('timestamp'); // todo default time()
-
-        return $this->valuesGateway->getByTime(explode(',', $sensorIds), $time);
-    }
-
-    /**
-     * @param Request $request
-     * @param int $sensorId
-     * @return bool
-     * @Route("/sensors/{sensorId}/force/", name="sensor.forceGetValue", methods="POST")
-     */
-    public function forceGetValue(Request $request, int $sensorId)
-    {
-        unset($request);
-        $sensor   = $this->gateway->getSensor($sensorId);
-        $sensorVo = $this->voBuilder->buildFromArray($sensor);
-
-        $event = new Event($sensorVo);
-        $this->dispatchInBackground($event);
-
-        return true;
-    }
-
-    /**
-     * @param Request $request
-     * @param int $sensorId
-     * @Route("/sensors/{sensorId}/value/", name="sensor.value", methods="GET")
-     * @return array
-     */
-    public function getValue(Request $request, $sensorId)
-    {
-        unset($request);
-        return $this->gateway->getSensor($sensorId);
-    }
-
-    /**
      * @param int[] $activeSensorIds
      * @param array $sensorsRaw
      * @param int $from
@@ -226,7 +158,7 @@ class Controller
      * @param int $userId
      * @return string
      */
-    protected function getActiveSensorIds($activeSensorIds, $userId)
+    private function getActiveSensorIds($activeSensorIds, $userId)
     {
         if (empty($activeSensorIds)) {
             $activeSensorIds = $this->settings->get($userId, self::SETTINGS_ACTIVE_SENSORS) ?: '0';

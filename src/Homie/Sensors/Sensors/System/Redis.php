@@ -5,11 +5,11 @@ namespace Homie\Sensors\Sensors\System;
 use BrainExe\Core\Traits\RedisTrait;
 use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Definition;
+use Homie\Sensors\Exception\InvalidSensorValueException;
 use Homie\Sensors\Formatter\None;
 use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\Sensors\AbstractSensor;
 use Homie\Sensors\SensorVO;
-use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @Sensor("Sensor.System.Redis")
@@ -40,16 +40,14 @@ class Redis extends AbstractSensor implements Parameterized
     /**
      * {@inheritdoc}
      */
-    public function isSupported(SensorVO $sensor, OutputInterface $output) : bool
+    public function isSupported(SensorVO $sensor) : bool
     {
         if ($this->getValue($sensor) === null) {
-            $output->writeln(
-                sprintf(
-                    'Invalid stats key: "%s". Use "section.key", e.g. "memory.used_memory"',
-                    $sensor->parameter
-                )
+            $message = sprintf(
+                'Invalid stats key: "%s". Use "section.key", e.g. "memory.used_memory"',
+                $sensor->parameter
             );
-            return false;
+            throw new InvalidSensorValueException($sensor, $message);
         }
         return true;
     }

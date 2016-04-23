@@ -4,6 +4,7 @@ namespace Homie\Espeak;
 
 use BrainExe\Core\EventDispatcher\AbstractEvent;
 use BrainExe\Core\EventDispatcher\PushViaWebsocket;
+use BrainExe\Core\Traits\SerializableTrait;
 
 class EspeakEvent extends AbstractEvent implements PushViaWebsocket
 {
@@ -13,7 +14,7 @@ class EspeakEvent extends AbstractEvent implements PushViaWebsocket
     /**
      * @var EspeakVO
      */
-    private $espeak;
+    public $espeak;
 
     /**
      * @param EspeakVO $espeak

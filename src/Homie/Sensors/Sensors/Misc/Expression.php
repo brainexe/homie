@@ -10,7 +10,6 @@ use Homie\Sensors\Formatter\None;
 use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\Sensors\AbstractSensor;
 use Homie\Sensors\SensorVO;
-use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @Sensor("Sensor.Misc.Expression")
@@ -46,7 +45,7 @@ class Expression extends AbstractSensor implements Parameterized
     /**
      * {@inheritdoc}
      */
-    public function isSupported(SensorVO $sensor, OutputInterface $output) : bool
+    public function isSupported(SensorVO $sensor) : bool
     {
         $current = $this->getValue($sensor);
 

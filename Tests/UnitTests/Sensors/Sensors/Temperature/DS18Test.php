@@ -11,7 +11,6 @@ use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\Temperature;
-use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 
 /**
  * @covers Homie\Sensors\Sensors\Temperature\DS18
@@ -112,12 +111,15 @@ class DS18Test extends TestCase
         $sensor = new SensorVO();
         $sensor->parameter = $file;
 
-        $output = new DummyOutput();
-        $actualResult = $this->subject->isSupported($sensor, $output);
+        $actualResult = $this->subject->isSupported($sensor);
 
         $this->assertTrue($actualResult);
     }
 
+    /**
+     * @expectedException \Homie\Sensors\Exception\InvalidSensorValueException
+     * @expectedExceptionMessage temperature.ds18: w1 bus not exists: mockFile
+     */
     public function testIsSupportedWhenNotSupported()
     {
         $file = 'mockFile';
@@ -131,10 +133,7 @@ class DS18Test extends TestCase
         $sensor = new SensorVO();
         $sensor->parameter = $file;
 
-        $output       = new DummyOutput();
-        $actualResult = $this->subject->isSupported($sensor, $output);
-
-        $this->assertFalse($actualResult);
+        $this->subject->isSupported($sensor);
     }
 
     public function testGetDefinition()

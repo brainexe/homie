@@ -8,7 +8,6 @@ use Homie\Sensors\Sensors\Humid\DHT11;
 use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
@@ -94,12 +93,16 @@ class DHT11Test extends TestCase
 
         $sensor = new SensorVO();
         $sensor->parameter = $file;
-        $output = new DummyOutput();
-        $actualResult = $this->subject->isSupported($sensor, $output);
 
-        $this->assertTrue($actualResult);
+        $actual = $this->subject->isSupported($sensor);
+
+        $this->assertTrue($actual);
     }
 
+    /**
+     * @expectedException  \Homie\Sensors\Exception\InvalidSensorValueException
+     * @expectedExceptionMessage humid.dht11: Script not exists: mockFile
+     */
     public function testIsSupportedWhenNotSupported()
     {
         $file = 'mockFile';
@@ -112,10 +115,8 @@ class DHT11Test extends TestCase
 
         $sensor = new SensorVO();
         $sensor->parameter = $file;
-        $output = new DummyOutput();
-        $actualResult = $this->subject->isSupported($sensor, $output);
 
-        $this->assertFalse($actualResult);
+        $this->subject->isSupported($sensor);
     }
 
     public function testGetDefinition()

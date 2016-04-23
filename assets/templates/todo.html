@@ -19,7 +19,7 @@
 				</textarea>
 				<input
 						type="text"
-						placeholder="@daily"
+						placeholder="Interval. E.g. '@daily'"
 						ng-model="cronExpression"
 						ng-enter="addTodo()"
 						>
@@ -61,12 +61,17 @@
 				<div class="task-deadline" ng-if="item.deadline > 0">
 					<time-ago from-time="item.deadline" overdue="true"></time-ago>
 				</div>
-				<select
-						class="form-control"
-						ng-change="assign(item.todoId, item.userId)"
-						ng-model="item.userId"
-						ng-options="user.userId as user.name for user in userNames" >
-				</select>
+				<ui-select
+					ng-model="item.userId"
+					theme="bootstrap"
+				>
+					<ui-select-match placeholder="Select...">
+						{{$select.selected.name}}
+					</ui-select-match>
+					<ui-select-choices repeat="user.userId as user in userNames|propsFilter:{name:$select.search}">
+						<span ng-bind-html="user.name|highlight:$select.search"></span>
+					</ui-select-choices>
+				</ui-select>
 			</div>
 		</div>
 	</div>

@@ -8,7 +8,6 @@ use Homie\Sensors\Sensors\Misc\Script;
 use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
-use Symfony\Component\Console\Output\NullOutput;
 
 /**
  * @covers Homie\Sensors\Sensors\Misc\Script
@@ -60,10 +59,9 @@ class ScriptTest extends TestCase
             ->with($parameter)
             ->willReturn(1);
 
-        $output = new NullOutput();
         $sensor = new SensorVO();
         $sensor->parameter = $parameter;
-        $actual = $this->subject->isSupported($sensor, $output);
+        $actual = $this->subject->isSupported($sensor);
 
         $this->assertTrue($actual);
     }

@@ -4,9 +4,9 @@ namespace Homie\Sensors\Sensors;
 
 use BrainExe\Annotations\Annotations\Inject;
 use Homie\Client\ClientInterface;
+use Homie\Sensors\Exception\InvalidSensorValueException;
 use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\SensorVO;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
@@ -52,17 +52,18 @@ abstract class AbstractDHT11 extends AbstractSensor implements Parameterized
     /**
      * {@inheritdoc}
      */
-    public function isSupported(SensorVO $sensor, OutputInterface $output) : bool
+    public function isSupported(SensorVO $sensor) : bool
     {
         $file = explode(' ', $sensor->parameter)[0];
 
         if (!$this->filesystem->exists($file)) {
-            $output->writeln(sprintf(
-                '<error>%s: Script not exists: %s</error>',
+            $message = sprintf(
+                '%s: Script not exists: %s',
                 $this->getSensorType(),
                 $sensor->parameter
-            ));
-            return false;
+            );
+
+            throw new InvalidSensorValueException($sensor, $message);
         }
 
         return true;

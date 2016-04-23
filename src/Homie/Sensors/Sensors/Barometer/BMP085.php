@@ -10,7 +10,6 @@ use Homie\Sensors\Formatter\Barometer;
 use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\Sensors\AbstractSensor;
 use Homie\Sensors\SensorVO;
-use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @Sensor("Sensor.Barometer.BMP085")
@@ -58,7 +57,7 @@ class BMP085 extends AbstractSensor implements Parameterized
     /**
      * {@inheritdoc}
      */
-    public function isSupported(SensorVO $sensor, OutputInterface $output) : bool
+    public function isSupported(SensorVO $sensor) : bool
     {
         return is_file($sensor->parameter);
     }

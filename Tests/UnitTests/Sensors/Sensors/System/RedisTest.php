@@ -8,7 +8,6 @@ use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Predis\Client;
-use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 
 class RedisTest extends TestCase
 {
@@ -63,8 +62,6 @@ class RedisTest extends TestCase
 
     public function testIsSupported()
     {
-        $output = new DummyOutput();
-
         $this->redis
             ->expects($this->once())
             ->method('info')
@@ -78,15 +75,18 @@ class RedisTest extends TestCase
 
         $sensor = new SensorVO();
         $sensor->parameter = $parameter = 'memory.total_memory';
-        $actual = $this->subject->isSupported($sensor, $output);
+
+        $actual = $this->subject->isSupported($sensor);
 
         $this->assertTrue($actual);
     }
 
+    /**
+     * @expectedException \Homie\Sensors\Exception\InvalidSensorValueException
+     * @expectedExceptionMessage Invalid stats key: "memory.invalid"
+     */
     public function testIsNotSupported()
     {
-        $output = new DummyOutput();
-
         $this->redis
             ->expects($this->once())
             ->method('info')
@@ -100,9 +100,7 @@ class RedisTest extends TestCase
         $sensor = new SensorVO();
         $sensor->parameter = 'memory.invalid';
 
-        $actual = $this->subject->isSupported($sensor, $output);
-
-        $this->assertFalse($actual);
+        $this->subject->isSupported($sensor);
     }
 
     public function testSerialize()

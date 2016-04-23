@@ -12,7 +12,6 @@ use Homie\Sensors\Formatter\Temperature;
 use Homie\Sensors\Interfaces\Searchable;
 use Homie\Sensors\Sensors\AbstractSensor;
 use Homie\Sensors\SensorVO;
-use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @Sensor("Sensor.DS18.Temperature")
@@ -60,17 +59,16 @@ class DS18 extends AbstractSensor implements Searchable
     /**
      * {@inheritdoc}
      */
-    public function isSupported(SensorVO $sensor, OutputInterface $output) : bool
+    public function isSupported(SensorVO $sensor) : bool
     {
         if (!$this->fileSystem->exists($sensor->parameter)) {
-            $output->writeln(
-                sprintf(
-                    '<error>%s: w1 bus not exists: %s</error>',
-                    self::TYPE,
-                    $sensor->parameter
-                )
+            $message = sprintf(
+                '%s: w1 bus not exists: %s',
+                self::TYPE,
+                $sensor->parameter
             );
-            return false;
+
+            throw new InvalidSensorValueException($sensor, $message);
         }
 
         return true;

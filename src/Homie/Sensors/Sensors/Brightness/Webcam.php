@@ -9,7 +9,6 @@ use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\None;
 use Homie\Sensors\Sensors\AbstractSensor;
 use Homie\Sensors\SensorVO;
-use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @Sensor("Sensor.Brightness.Webcam")
@@ -58,7 +57,7 @@ class Webcam extends AbstractSensor
     /**
      * {@inheritdoc}
      */
-    public function isSupported(SensorVO $sensor, OutputInterface $output) : bool
+    public function isSupported(SensorVO $sensor) : bool
     {
         // todo check if camera is connected
         return true;

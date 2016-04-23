@@ -25,6 +25,7 @@
             <parameter>Middleware.Gentime</parameter>
         </parameter>
 
+        <!-- List of config keys which are available via /config/ -->
         <parameter key="config.public" type="collection">
             <parameter key="debug">%debug%</parameter>
             <parameter key="socketUrl">%socket.url%</parameter>
@@ -41,38 +42,21 @@
                 </service>
             </argument>
         </service>
-        <service id="CachedRemoteFilesystem" class="League\Flysystem\Filesystem" public="false">
+        <service id="WebdavRemoteFilesystem" class="League\Flysystem\Filesystem" public="false">
             <argument type="service">
-                <service class="League\Flysystem\Cached\CachedAdapter">
-                    <argument type="service">
-                        <service class="League\Flysystem\WebDAV\WebDAVAdapter">
-                            <argument type="service">
-                                <service class="Sabre\DAV\Client">
-                                    <argument type="collection">
-                                        <argument key="userName">%filesystem.remote.username%</argument>
-                                        <argument key="password">%filesystem.remote.password%</argument>
-                                        <argument key="baseUri">%filesystem.remote.url%</argument>
-                                        <argument key="authType">1</argument>
-                                    </argument>
-                                    <call method="addCurlSetting">
-                                        <argument type="constant">CURLOPT_SSL_VERIFYHOST</argument>
-                                        <argument>0</argument>
-                                    </call>
-                                    <call method="addCurlSetting">
-                                        <argument type="constant">CURLOPT_SSL_VERIFYPEER</argument>
-                                        <argument>0</argument>
-                                    </call>
-                                </service>
-                            </argument>
-                            <call method="setPathPrefix"><argument>%filesystem.remote.pathPrefix%</argument></call>
-                        </service>
-                    </argument>
-                    <argument type="service">
-                        <service class="League\Flysystem\Cached\Storage\Predis">
-                            <argument type="service" id="redis"/>
-                        </service>
-                    </argument>
-                </service>
+                 <service class="League\Flysystem\WebDAV\WebDAVAdapter">
+                     <argument type="service">
+                         <service class="Sabre\DAV\Client">
+                             <argument type="collection">
+                                 <argument key="userName">%filesystem.remote.username%</argument>
+                                 <argument key="password">%filesystem.remote.password%</argument>
+                                 <argument key="baseUri">%filesystem.remote.url%</argument>
+                                 <argument key="authType">1</argument>
+                             </argument>
+                         </service>
+                     </argument>
+                     <call method="setPathPrefix"><argument>%filesystem.remote.pathPrefix%</argument></call>
+                 </service>
             </argument>
         </service>
     </services>

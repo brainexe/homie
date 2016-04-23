@@ -8,7 +8,6 @@ use Homie\Sensors\Sensors\System\DiskUsedPercent;
 use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
-use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 
 /**
  * @covers Homie\Sensors\Sensors\System\DiskUsedPercent
@@ -68,8 +67,7 @@ class DiskUsedPercentTest extends TestCase
     {
         $sensor = new SensorVO();
 
-        $output = new DummyOutput();
-        $actual = $this->subject->isSupported($sensor, $output);
+        $actual = $this->subject->isSupported($sensor);
         $this->assertTrue($actual);
     }
 

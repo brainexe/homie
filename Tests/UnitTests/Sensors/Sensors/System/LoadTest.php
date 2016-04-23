@@ -5,7 +5,6 @@ namespace Tests\Homie\Sensors\Sensors\System;
 use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_TestCase as TestCase;
 use Homie\Sensors\Sensors\System\Load;
-use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 
 class LoadTest extends TestCase
 {
@@ -37,9 +36,8 @@ class LoadTest extends TestCase
 
     public function testIsSupported()
     {
-        $output = new DummyOutput();
         $sensor = new SensorVO();
-        $actual = $this->subject->isSupported($sensor, $output);
+        $actual = $this->subject->isSupported($sensor);
 
         $this->assertTrue($actual);
     }

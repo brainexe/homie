@@ -5,7 +5,6 @@ namespace Tests\Homie\Sensors\Controller;
 use ArrayIterator;
 use BrainExe\Core\Authentication\Settings\Settings;
 use Homie\Sensors\Controller\Controller;
-use Homie\Sensors\GetValue\Event;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\Formatter\Formatter;
@@ -16,7 +15,6 @@ use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorValuesGateway;
 use Homie\Sensors\Chart;
 use Homie\Sensors\SensorBuilder;
-use BrainExe\Core\EventDispatcher\EventDispatcher;
 
 /**
  * @covers Homie\Sensors\Controller\Controller
@@ -50,11 +48,6 @@ class ControllerTest extends TestCase
     private $builder;
 
     /**
-     * @var EventDispatcher|MockObject
-     */
-    private $dispatcher;
-
-    /**
      * @var Builder|MockObject
      */
     private $voBuilder;
@@ -70,7 +63,6 @@ class ControllerTest extends TestCase
         $this->valuesGateway = $this->getMock(SensorValuesGateway::class, [], [], '', false);
         $this->chart         = $this->getMock(Chart::class, [], [], '', false);
         $this->builder       = $this->getMock(SensorBuilder::class, [], [], '', false);
-        $this->dispatcher    = $this->getMock(EventDispatcher::class, [], [], '', false);
         $this->voBuilder     = $this->getMock(Builder::class, [], [], '', false);
         $this->settings      = $this->getMock(Settings::class, [], [], '', false);
 
@@ -82,7 +74,6 @@ class ControllerTest extends TestCase
             $this->voBuilder,
             $this->settings
         );
-        $this->subject->setEventDispatcher($this->dispatcher);
     }
 
     public function testIndexSensor()
@@ -214,67 +205,6 @@ class ControllerTest extends TestCase
         $this->assertEquals($expectedResult, $actualResult);
     }
 
-    public function testAddValue()
-    {
-        $sensorId = 12;
-        $value    = 42;
-        $request  = new Request();
-        $request->request->set('value', $value);
-
-        $sensorRaw = ['raw'];
-        $sensorVo  = new SensorVO();
-        $this->gateway
-            ->expects($this->once())
-            ->method('getSensor')
-            ->with($sensorId)
-            ->willReturn($sensorRaw);
-        $this->voBuilder
-            ->expects($this->once())
-            ->method('buildFromArray')
-            ->with($sensorRaw)
-            ->willReturn($sensorVo);
-
-        $this->valuesGateway
-            ->expects($this->once())
-            ->method('addValue')
-            ->with($sensorVo, $value);
-
-        $actual = $this->subject->addValue($request, $sensorId);
-
-        $this->assertTrue($actual);
-    }
-
-    public function testForceGetValue()
-    {
-        $sensorId = 12;
-        $value    = 42;
-        $request  = new Request();
-        $request->request->set('value', $value);
-
-        $sensorRaw = ['raw'];
-        $sensorVo  = new SensorVO();
-        $this->gateway
-            ->expects($this->once())
-            ->method('getSensor')
-            ->with($sensorId)
-            ->willReturn($sensorRaw);
-        $this->voBuilder
-            ->expects($this->once())
-            ->method('buildFromArray')
-            ->with($sensorRaw)
-            ->willReturn($sensorVo);
-
-        $event = new Event($sensorVo);
-
-        $this->dispatcher
-            ->expects($this->once())
-            ->method('dispatchInBackground')
-            ->with($event);
-
-        $actual = $this->subject->forceGetValue($request, $sensorId);
-
-        $this->assertTrue($actual);
-    }
 
     public function testSensors()
     {
@@ -319,50 +249,5 @@ class ControllerTest extends TestCase
         ];
 
         $this->assertEquals($expectedValue, $actualResult);
-    }
-
-    public function testGetByTime()
-    {
-        $request = new Request();
-
-        $request->query->set('time', $time = 122323);
-        $request->query->set('sensorIds', '12,13');
-
-        $iterator = new ArrayIterator(['test']);
-        $this->valuesGateway
-            ->expects($this->once())
-            ->method('getByTime')
-            ->with(['12', '13'])
-            ->willReturn($iterator);
-
-        $actual = $this->subject->getByTime($request);
-
-        $this->assertEquals($iterator, $actual);
-    }
-
-    public function testGetValue()
-    {
-        $sensorId    = 12;
-        $sensorValue = '100 grad';
-        $type        = 'sensor type';
-
-        $request = new Request();
-
-        $sensorRaw = [
-            'type'       => $type,
-            'lastValue'  => $sensorValue
-        ];
-
-        $this->gateway
-            ->expects($this->once())
-            ->method('getSensor')
-            ->with($sensorId)
-            ->willReturn($sensorRaw);
-
-        $actual = $this->subject->getValue($request, $sensorId);
-
-        $expected = $sensorRaw;
-
-        $this->assertEquals($expected, $actual);
     }
 }

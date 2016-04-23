@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-22 22:28+0100\n"
+"POT-Creation-Date: 2016-04-23 23:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: src/Homie/Switches/Controller/Controller.php:107
+#: src/Homie/Switches/Controller/Controller.php:112
 #, php-format
 msgid "Invalid switch type: %s"
 msgstr ""
 
-#: src/Homie/TodoList/Listener.php:35
+#: src/Homie/TodoList/Listener.php:37
 #, php-format
 msgid "Erinnerung: %s"
 msgstr ""
@@ -50,7 +50,7 @@ msgstr[1] ""
 msgid "one"
 msgstr ""
 
-#: src/Homie/Dashboard/Dashboard.php:68
+#: src/Homie/Dashboard/Dashboard.php:69
 msgid "Dashboard"
 msgstr ""
 
@@ -150,20 +150,12 @@ msgstr ""
 msgid "All time"
 msgstr ""
 
-#: src/Homie/Expression/Controller/Controller.php:90
+#: src/Homie/Expression/Controller/Controller.php:84
+msgid "No expression id defined"
+msgstr ""
+
+#: src/Homie/Expression/Controller/Controller.php:154
 msgid "No actions defined"
-msgstr ""
-
-#: vendor/brainexe/input-control/vendor/brainexe/core/src/Middleware/Authentication.php:76
-#: vendor/brainexe/totp/vendor/brainexe/core/src/Middleware/Authentication.php:76
-#: vendor/brainexe/core/src/Middleware/Authentication.php:76
-msgid "Not logged in"
-msgstr ""
-
-#: vendor/brainexe/input-control/vendor/brainexe/core/src/Middleware/CatchUserException.php:62
-#: vendor/brainexe/totp/vendor/brainexe/core/src/Middleware/CatchUserException.php:62
-#: vendor/brainexe/core/src/Middleware/CatchUserException.php:62
-msgid "An error occurred"
 msgstr ""
 
 #: vendor/brainexe/totp/src/OneTimePassword.php:84
@@ -187,7 +179,18 @@ msgstr ""
 msgid "Invalid username"
 msgstr ""
 
+#: vendor/brainexe/totp/vendor/brainexe/core/src/Authentication/Controller/UserController.php:63
 #: vendor/brainexe/core/src/Authentication/Controller/UserController.php:63
 #, php-format
 msgid "Invalid avatar: %s"
+msgstr ""
+
+#: vendor/brainexe/totp/vendor/brainexe/core/src/Middleware/Authentication.php:76
+#: vendor/brainexe/core/src/Middleware/Authentication.php:76
+msgid "Not logged in"
+msgstr ""
+
+#: vendor/brainexe/totp/vendor/brainexe/core/src/Middleware/CatchUserException.php:62
+#: vendor/brainexe/core/src/Middleware/CatchUserException.php:63
+msgid "An error occurred"
 msgstr ""

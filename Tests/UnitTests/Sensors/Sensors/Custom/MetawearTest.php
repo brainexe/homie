@@ -2,9 +2,11 @@
 
 namespace Tests\Homie\Sensors\Sensors\Misc;
 
+use Homie\Client\LocalClient;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Sensors\Misc\Metawear;
 use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
 /**
  * @covers Homie\Sensors\Sensors\Misc\Metawear
@@ -17,9 +19,26 @@ class MetawearTest extends TestCase
      */
     private $subject;
 
+    /**
+     * @var LocalClient|MockObject
+     */
+    private $client;
+
+    /**
+     * @var string
+     */
+    private $url;
+
     public function setUp()
     {
-        $this->subject = new Metawear();
+        $this->client  = $this->getMock(LocalClient::class, [], [], '', false);
+
+        $this->url = 'http://metawear:8081';
+        
+        $this->subject = new Metawear(
+            $this->client,
+            $this->url
+        );
     }
 
     public function testGetDefinition()

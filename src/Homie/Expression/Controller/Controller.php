@@ -6,9 +6,11 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Application\UserException;
+use BrainExe\Core\Traits\FileCacheTrait;
 use Homie\Expression\Entity;
 use Homie\Expression\Gateway;
 use Homie\Expression\Language;
+use Homie\Expression\Listener\WriteFunctionCache;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -16,6 +18,8 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class Controller
 {
+    use FileCacheTrait;
+
     /**
      * @var Gateway
      */
@@ -49,7 +53,7 @@ class Controller
     public function load()
     {
         return [
-            'expressions'   => $this->gateway->getAll(),
+            'expressions' => $this->gateway->getAll(),
         ];
     }
 
@@ -59,7 +63,7 @@ class Controller
      */
     public function functions()
     {
-        return include ROOT . 'cache/expression_functions.php';
+        return $this->includeFile(WriteFunctionCache::CACHE);
     }
 
     /**
@@ -68,7 +72,7 @@ class Controller
      */
     public function events()
     {
-        return include ROOT . 'cache/events.php';
+        return $this->includeFile('events');
     }
 
     /**

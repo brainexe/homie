@@ -8,7 +8,6 @@ use Homie\Sensors\Sensors\Temperature\DHT11;
 use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 use Symfony\Component\Filesystem\Filesystem;
 
 class DHT11Test extends TestCase
@@ -101,7 +100,6 @@ class DHT11Test extends TestCase
 
     public function testIsSupportedExisting()
     {
-        $output    = new DummyOutput();
         $parameter = 'parameter';
 
         $sensor = new SensorVO();
@@ -113,14 +111,17 @@ class DHT11Test extends TestCase
             ->with($parameter)
             ->willReturn(true);
 
-        $actual = $this->subject->isSupported($sensor, $output);
+        $actual = $this->subject->isSupported($sensor);
 
         $this->assertTrue($actual);
     }
 
+    /**
+     * @expectedException \Homie\Sensors\Exception\InvalidSensorValueException
+     * @expectedExceptionMessage temperature.dht11: Script not exists: parameter
+     */
     public function testIsSupportedNotExisting()
     {
-        $output    = new DummyOutput();
         $parameter = 'parameter';
 
         $this->fileSystem
@@ -132,7 +133,7 @@ class DHT11Test extends TestCase
         $sensor = new SensorVO();
         $sensor->parameter = $parameter;
 
-        $actual = $this->subject->isSupported($sensor, $output);
+        $actual = $this->subject->isSupported($sensor);
 
         $this->assertFalse($actual);
     }

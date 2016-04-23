@@ -8,7 +8,6 @@ use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\Percentage;
 use Homie\Sensors\Sensors\AbstractSensor;
 use Homie\Sensors\SensorVO;
-use Symfony\Component\Console\Output\OutputInterface;
 use BrainExe\Annotations\Annotations\Inject;
 
 /**
@@ -50,7 +49,7 @@ class DiskUsedPercent extends AbstractSensor
     /**
      * {@inheritdoc}
      */
-    public function isSupported(SensorVO $sensor, OutputInterface $output) : bool
+    public function isSupported(SensorVO $sensor) : bool
     {
         return true;
     }

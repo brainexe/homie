@@ -26,11 +26,10 @@ interface Sensor extends JsonSerializable
 
     /**
      * @param SensorVO $sensor
-     * @param OutputInterface $output
      * @throws InvalidSensorValueException
      * @return bool
      */
-    public function isSupported(SensorVO $sensor, OutputInterface $output) : bool;
+    public function isSupported(SensorVO $sensor) : bool;
 
     /**
      * @return Definition

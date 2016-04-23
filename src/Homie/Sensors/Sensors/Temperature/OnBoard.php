@@ -7,11 +7,11 @@ use BrainExe\Core\Util\FileSystem;
 use BrainExe\Core\Util\Glob;
 use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Definition;
+use Homie\Sensors\Exception\InvalidSensorValueException;
 use Homie\Sensors\Formatter\Temperature;
 use Homie\Sensors\Interfaces\Searchable;
 use Homie\Sensors\Sensors\AbstractSensor;
 use Homie\Sensors\SensorVO;
-use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @Sensor("Sensor.Temperature.OnBoard")
@@ -55,17 +55,16 @@ class OnBoard extends AbstractSensor implements Searchable
     /**
      * {@inheritdoc}
      */
-    public function isSupported(SensorVO $sensor, OutputInterface $output) : bool
+    public function isSupported(SensorVO $sensor) : bool
     {
         if (!$this->fileSystem->exists($sensor->parameter)) {
-            $output->writeln(
-                sprintf(
-                    '<error>%s: Thermal zone file does not exist: %s</error>',
-                    self::TYPE,
-                    $sensor->parameter
-                )
+            $message = sprintf(
+                '%s: Thermal zone file does not exist: %s',
+                self::TYPE,
+                $sensor->parameter
             );
-            return false;
+
+            throw new InvalidSensorValueException($sensor, $message);
         }
 
         return true;

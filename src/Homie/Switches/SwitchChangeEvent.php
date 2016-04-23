@@ -15,12 +15,12 @@ class SwitchChangeEvent extends AbstractEvent implements PushViaWebsocket
     /**
      * @var SwitchVO
      */
-    private $switch;
+    public $switch;
 
     /**
      * @var bool
      */
-    private $status;
+    public $status;
 
     /**
      * @param SwitchVO $switchVo
