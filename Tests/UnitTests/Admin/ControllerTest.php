@@ -32,7 +32,8 @@ class ControllerTest extends TestCase
     }
 
     public function testIndex()
-    {$userVo = new UserVO();
+    {
+        $userVo = new UserVO();
         $userVo->id = 'mockId';
         $userVo->username = 'mockName';
         $userVo->roles = 'mockRole';
@@ -197,7 +198,8 @@ class ControllerTest extends TestCase
         $this->userProvider
             ->expects($this->once())
             ->method('deleteUser')
-            ->with($userId);
+            ->with($userId)
+            ->willReturn(true);
 
         $actualResult = $this->subject->delete($request);
 

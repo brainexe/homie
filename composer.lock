@@ -9,20 +9,20 @@
     "packages": [
         {
             "name": "brainexe/annotations",
-            "version": "1.0.5",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brainexe/annotations.git",
-                "reference": "a98c7e6452accab571be7e1e08ce6666907f56d4"
+                "reference": "d8eb162e24a2d0cca08f68b2f211a8dd2c4b8715"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brainexe/annotations/zipball/a98c7e6452accab571be7e1e08ce6666907f56d4",
-                "reference": "a98c7e6452accab571be7e1e08ce6666907f56d4",
+                "url": "https://api.github.com/repos/brainexe/annotations/zipball/d8eb162e24a2d0cca08f68b2f211a8dd2c4b8715",
+                "reference": "d8eb162e24a2d0cca08f68b2f211a8dd2c4b8715",
                 "shasum": ""
             },
             "require": {
-                "doctrine/annotations": "1.2.*",
+                "doctrine/annotations": "~1.2",
                 "symfony/config": "~3.0",
                 "symfony/dependency-injection": "~3.0"
             },
@@ -52,20 +52,20 @@
             ],
             "description": "Simple @annotation library based on doctrine annotations for symfony dependency injection container",
             "homepage": "https://mdoetsch.de",
-            "time": "2016-04-05 19:53:26"
+            "time": "2016-04-28 19:30:30"
         },
         {
             "name": "brainexe/core",
-            "version": "2.0.6",
+            "version": "2.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brainexe/core.git",
-                "reference": "f34f8d495aba8c7e6f095e4234005e7e98719006"
+                "reference": "fc6c2e7c1e944138554ded8e80edad7629e3b04a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brainexe/core/zipball/f34f8d495aba8c7e6f095e4234005e7e98719006",
-                "reference": "f34f8d495aba8c7e6f095e4234005e7e98719006",
+                "url": "https://api.github.com/repos/brainexe/core/zipball/fc6c2e7c1e944138554ded8e80edad7629e3b04a",
+                "reference": "fc6c2e7c1e944138554ded8e80edad7629e3b04a",
                 "shasum": ""
             },
             "require": {
@@ -122,7 +122,7 @@
             ],
             "description": "Framework core - used for brainexe/homie",
             "homepage": "https://mdoetsch.de",
-            "time": "2016-04-23 14:17:02"
+            "time": "2016-04-28 20:00:09"
         },
         {
             "name": "brainexe/totp",
@@ -418,16 +418,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.21",
+            "version": "1.0.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "35a83cf67d80d7040f306c77b0a84b9fbcc4fbfb"
+                "reference": "bd73a91703969a2d20ab4bfbf971d6c2cbe36612"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/35a83cf67d80d7040f306c77b0a84b9fbcc4fbfb",
-                "reference": "35a83cf67d80d7040f306c77b0a84b9fbcc4fbfb",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/bd73a91703969a2d20ab4bfbf971d6c2cbe36612",
+                "reference": "bd73a91703969a2d20ab4bfbf971d6c2cbe36612",
                 "shasum": ""
             },
             "require": {
@@ -497,7 +497,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2016-04-22 10:56:25"
+            "time": "2016-04-28 06:53:12"
         },
         {
             "name": "league/flysystem-webdav",

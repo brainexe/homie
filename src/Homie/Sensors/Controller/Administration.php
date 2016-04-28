@@ -15,7 +15,6 @@ use Homie\Sensors\Interfaces\Searchable;
 use Homie\Sensors\SensorBuilder;
 use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorVO;
-use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -178,22 +177,19 @@ class Administration
 
         $sensor = $this->builder->build($sensorType);
 
-        $output   = new DummyOutput();
         $sensorVo = new SensorVO();
         $sensorVo->parameter = $parameter;
 
         try {
-            $isValid = $sensor->isSupported($sensorVo, $output);
+            return [
+                'isValid' => $sensor->isSupported($sensorVo),
+                'message' => ''
+            ];
         } catch (SensorException $e) {
             return [
                 'isValid' => false,
                 'message' => $e->getMessage()
             ];
         }
-
-        return [
-            'isValid' => $isValid,
-            'message' => $output->fetch()
-        ];
     }
 }

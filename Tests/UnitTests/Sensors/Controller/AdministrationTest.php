@@ -4,6 +4,7 @@ namespace Tests\Homie\Sensors\Controller;
 
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Homie\Sensors\Controller\Administration;
+use Homie\Sensors\Exception\InvalidSensorValueException;
 use Homie\Sensors\GetValue\Event;
 use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\Interfaces\Sensor;
@@ -11,7 +12,6 @@ use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\SensorVO;
 use Homie\Sensors\Builder;
-use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 use Symfony\Component\HttpFoundation\Request;
 use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorBuilder;
@@ -191,6 +191,7 @@ class AdministrationTest extends TestCase
 
         $this->assertTrue($actual);
     }
+
     public function testIsValid()
     {
         $sensorType = 'myType';
@@ -202,7 +203,37 @@ class AdministrationTest extends TestCase
         $sensorVo = new SensorVO();
         $sensorVo->parameter = $parameter;
 
-        $output = new DummyOutput();
+        $this->builder
+            ->expects($this->once())
+            ->method('build')
+            ->with($sensorType)
+            ->willReturn($sensor);
+
+        $sensor
+            ->expects($this->once())
+            ->method('isSupported')
+            ->with($sensorVo)
+            ->willReturn(true);
+
+        $actual = $this->subject->isValid($request, $sensorType, $parameter);
+
+        $expected = [
+            'isValid' => true,
+            'message' => ''
+        ];
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testIsValidWithException()
+    {
+        $sensorType = 'myType';
+        $parameter  = 'myParameter';
+        $request = new Request();
+
+        $sensor = $this->getMock(Parameterized::class);
+
+        $sensorVo = new SensorVO();
+        $sensorVo->parameter = $parameter;
 
         $this->builder
             ->expects($this->once())
@@ -213,14 +244,14 @@ class AdministrationTest extends TestCase
         $sensor
             ->expects($this->once())
             ->method('isSupported')
-            ->with($sensorVo, $output)
-            ->willReturn(true);
+            ->with($sensorVo)
+            ->willThrowException(new InvalidSensorValueException($sensorVo, 'invalid sensor'));
 
         $actual = $this->subject->isValid($request, $sensorType, $parameter);
 
         $expected = [
-            'isValid' => true,
-            'message' => ''
+            'isValid' => false,
+            'message' => 'invalid sensor'
         ];
         $this->assertEquals($expected, $actual);
     }

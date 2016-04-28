@@ -93,8 +93,6 @@ class Controller
     {
         $userId = $request->request->getInt('userId');
 
-        $this->userProvider->deleteUser($userId);
-
-        return true;
+        return $this->userProvider->deleteUser($userId);
     }
 }
