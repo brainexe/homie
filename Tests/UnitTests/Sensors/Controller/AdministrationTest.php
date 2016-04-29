@@ -5,7 +5,7 @@ namespace Tests\Homie\Sensors\Controller;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Homie\Sensors\Controller\Administration;
 use Homie\Sensors\Exception\InvalidSensorValueException;
-use Homie\Sensors\GetValue\Event;
+use Homie\Sensors\GetValue\GetSensorValueEvent;
 use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\Interfaces\Sensor;
 use PHPUnit_Framework_TestCase as TestCase;
@@ -102,7 +102,7 @@ class AdministrationTest extends TestCase
             ->method('addSensor')
             ->with($sensorVo);
 
-        $event = new Event($sensorVo);
+        $event = new GetSensorValueEvent($sensorVo);
         $this->dispatcher
             ->expects($this->once())
             ->method('dispatchInBackground')

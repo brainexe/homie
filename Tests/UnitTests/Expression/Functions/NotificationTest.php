@@ -1,22 +1,22 @@
 <?php
 
-namespace Tests\Homie\InputControl;
+namespace Tests\Homie\Expression\Functions;
 
 use BrainExe\Core\EventDispatcher\EventDispatcher;
-use BrainExe\Core\Mail\SendMailEvent;
-use Homie\InputControl\Mail;
+use BrainExe\Core\Notification\Notification as NotificationEvent;
+use Homie\Expression\Functions\Notification;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 
 /**
- * @covers Homie\InputControl\Mail
+ * @covers Homie\Expression\Functions\Notification
  */
-class MailTest extends TestCase
+class NotificationTest extends TestCase
 {
 
     /**
-     * @var Mail
+     * @var Notification
      */
     private $subject;
 
@@ -28,21 +28,21 @@ class MailTest extends TestCase
     public function setUp()
     {
         $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
-        $this->subject    = new Mail();
+        $this->subject    = new Notification();
         $this->subject->setEventDispatcher($this->dispatcher);
     }
 
-    public function testSendMailExpression()
+    public function testNotify()
     {
-        $recipient = 'myRecipient';
-        $subject = 'mySubject';
-        $body = 'myBody';
+        $message = 'message';
+        $subject = 'subject';
+        $level = 'level';
 
-        $mailEvent = new SendMailEvent($recipient, $subject, $body);
+        $mailEvent = new NotificationEvent($message, $subject, $level);
 
         $this->dispatcher
             ->expects($this->once())
-            ->method('dispatchInBackground')
+            ->method('dispatchEvent')
             ->with($mailEvent);
 
         /** @var ExpressionFunction $function */
@@ -51,23 +51,24 @@ class MailTest extends TestCase
         $this->assertInstanceOf(ExpressionFunction::class, $function);
 
         $evaluator = $function->getEvaluator();
-        $evaluator([], $recipient, $subject, $body);
+        $evaluator([], $message, $subject, $level);
     }
 
     /**
      * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Function addNotification() not available as condition
      */
-    public function testSendMailCompiler()
+    public function testNotifyCompiler()
     {
-        $recipient = 'myRecipient';
-        $subject = 'mySubject';
-        $body = 'myBody';
+        $message = 'message';
+        $subject = 'subject';
+        $level   = 'level';
 
         /** @var ExpressionFunction $function */
-        $actual = iterator_to_array($this->subject->getFunctions());
+        $actual   = iterator_to_array($this->subject->getFunctions());
         $function = $actual[0];
 
         $compiler = $function->getCompiler();
-        $compiler($recipient, $subject, $body);
+        $compiler($message, $subject, $level);
     }
 }

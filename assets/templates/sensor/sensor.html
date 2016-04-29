@@ -36,7 +36,7 @@
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li ng-repeat="(interval, label) in fromIntervals" ng-class="{active:(interval == currentFrom)}">
+                                <li ng-repeat="(interval, label) in fromIntervals" ng-class="{active:(interval == from)}">
                                     <a ng-click="sensorView(null, interval)">
                                         {{ label }}
                                     </a>

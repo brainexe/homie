@@ -29,7 +29,7 @@ abstract class SwitchVO
 
     /**
      * Current status of switch
-     * @var bool
+     * @var int
      */
     public $status;
 

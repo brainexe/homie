@@ -2,7 +2,7 @@
 
 namespace Tests\Homie\Sensors\Command;
 
-use Homie\Sensors\GetValue\Event;
+use Homie\Sensors\GetValue\GetSensorValueEvent;
 use Homie\Sensors\SensorValueEvent;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
@@ -105,7 +105,7 @@ class CronTest extends TestCase
             ->with($sensorRaw)
             ->willReturn($sensor);
 
-        $event = new Event($sensor);
+        $event = new GetSensorValueEvent($sensor);
 
         $this->dispatcher
             ->expects($this->once())

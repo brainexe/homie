@@ -18,7 +18,7 @@ class ExpressionLanguageBuilder extends ServiceDefinition
         /** @var Definition $definition */
         list($serviceId, $definition) = parent::build($reflectionClass, $annotation);
 
-        $definition->setPublic(false);
+        $definition->setPublic(false); // TODO wip
         $definition->addTag(RegisterProvider::TAG);
 
         return [$serviceId, $definition];

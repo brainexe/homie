@@ -66,19 +66,9 @@ class Controller
 
         $user = $this->userProvider->loadUserById($userId);
 
-        if ($email && $email !== $user->email) {
-            $user->email = $email;
-            $this->userProvider->setUserProperty($user, 'email');
-        }
-
-        if ($roles && $roles !== $user->roles) {
-            $user->roles = $roles;
-            $this->userProvider->setUserProperty($user, 'roles');
-        }
-
-        if ($password) {
-            $this->userProvider->changePassword($user, $password);
-        }
+        $this->changeEmail($email, $user);
+        $this->changeRoles($roles, $user);
+        $this->changePassword($password, $user);
 
         return $user;
     }
@@ -94,5 +84,40 @@ class Controller
         $userId = $request->request->getInt('userId');
 
         return $this->userProvider->deleteUser($userId);
+    }
+
+    /**
+     * @param string $email
+     * @param UserVO $user
+     */
+    private function changeEmail(string  $email, UserVO $user)
+    {
+        if ($email && $email !== $user->email) {
+            $user->email = $email;
+            $this->userProvider->setUserProperty($user, 'email');
+        }
+    }
+
+    /**
+     * @param $roles
+     * @param UserVO $user
+     */
+    private function changeRoles($roles, UserVO $user)
+    {
+        if ($roles && $roles !== $user->roles) {
+            $user->roles = $roles;
+            $this->userProvider->setUserProperty($user, 'roles');
+        }
+    }
+
+    /**
+     * @param string $password
+     * @param UserVO $user
+     */
+    private function changePassword(string $password, UserVO $user)
+    {
+        if ($password) {
+            $this->userProvider->changePassword($user, $password);
+        }
     }
 }

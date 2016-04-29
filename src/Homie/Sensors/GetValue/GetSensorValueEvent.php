@@ -5,7 +5,7 @@ namespace Homie\Sensors\GetValue;
 use BrainExe\Core\EventDispatcher\AbstractEvent;
 use Homie\Sensors\SensorVO;
 
-class Event extends AbstractEvent
+class GetSensorValueEvent extends AbstractEvent
 {
 
     const NAME = 'sensor.getValue';

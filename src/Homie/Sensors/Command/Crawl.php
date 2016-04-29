@@ -118,10 +118,10 @@ class Crawl extends Command
     private function hasSensor(string $type, $parameter) : bool
     {
         foreach ($this->sensorsRaw as $sensor) {
-            if ($sensor['type'] === $type) {
-                if (empty($parameter) || $parameter == $sensor['parameter']) {
-                    return true;
-                }
+            if ($sensor['type'] === $type &&
+                (empty($parameter) || $parameter == $sensor['parameter'])
+            ) {
+                return true;
             }
         }
 
@@ -148,7 +148,7 @@ class Crawl extends Command
      * @param OutputInterface $output
      * @param Sensor|Searchable $sensor
      */
-    protected function handleSearchable(
+    private function handleSearchable(
         InputInterface $input,
         OutputInterface $output,
         Searchable $sensor
@@ -181,10 +181,8 @@ class Crawl extends Command
         $type
     ) {
         /** @var QuestionHelper $helper */
-        $helper = $this->getHelperSet()->get('question');
-
-        $text     = $this->getText($sensor, $parameter, $type);
-        $question = new ConfirmationQuestion($text);
+        $helper   = $this->getHelperSet()->get('question');
+        $question = new ConfirmationQuestion($this->getText($sensor, $parameter, $type), false);
 
         if ($helper->ask($input, $output, $question)) {
             $arrayInput = new ArrayInput([

@@ -3,49 +3,24 @@
 namespace IntegrationTests;
 
 use BrainExe\Core\Application\AppKernel;
-
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
 use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-class RequestTest extends TestCase
+abstract class RequestTest extends TestCase
 {
-
-    public function testIndex()
-    {
-        $dic = $this->bootstrap();
-
-        $request = new Request();
-
-        /** @var AppKernel $kernel */
-        $kernel   = $dic->get('AppKernel');
-        $response = $kernel->handle($request);
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertContains('DOCTYPE html', $response->getContent());
-    }
-
-    public function test404()
-    {
-        $dic = $this->bootstrap();
-
-        $request = new Request();
-        $request->server->set('REQUEST_URI', '/notexistingloremipsum');
-
-        /** @var AppKernel $kernel */
-        $kernel   = $dic->get('AppKernel');
-        $response = $kernel->handle($request);
-
-        $this->assertEquals(404, $response->getStatusCode());
-        $this->assertContains('Page not found: /notexistingloremipsum', $response->getContent());
-    }
+    /**
+     * @var Container
+     */
+    private $container;
 
     /**
      * @return Container
      */
-    private function bootstrap()
+    protected function setUp()
     {
         /** @var Container $dic */
         global $dic;
@@ -53,6 +28,26 @@ class RequestTest extends TestCase
         $dic->set('logger', new Logger('', [new TestHandler()]));
         @session_start();
 
-        return $dic;
+        $this->container = $dic;
+    }
+
+    /**
+     * @param Request $request
+     * @return Response
+     */
+    protected function handleRequest(Request $request) : Response
+    {
+        /** @var AppKernel $kernel */
+        $kernel   = $this->getContainer()->get('AppKernel');
+
+        return $kernel->handle($request);
+    }
+
+    /**
+     * @return Container
+     */
+    protected function getContainer() : Container
+    {
+        return $this->container;
     }
 }

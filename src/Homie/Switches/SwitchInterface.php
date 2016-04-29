@@ -11,5 +11,5 @@ interface SwitchInterface
      * @param SwitchVO $switch
      * @param int $status
      */
-    public function setStatus(SwitchVO $switch, $status);
+    public function setStatus(SwitchVO $switch, int $status);
 }

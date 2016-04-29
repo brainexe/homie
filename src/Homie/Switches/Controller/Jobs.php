@@ -58,7 +58,7 @@ class Jobs
 
         $switch = $this->switches->get($switchId);
 
-        $event = new SwitchChangeEvent($switch, (bool)$status);
+        $event = new SwitchChangeEvent($switch, $status);
         $this->dispatchInBackground($event);
 
         return true;

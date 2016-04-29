@@ -2,10 +2,10 @@
 
 namespace Tests\Homie\Sensors\Command;
 
+use Homie\Sensors\DeleteOldValues;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\Command\CleanCron;
-use Homie\Sensors\SensorValuesGateway;
 use Homie\Sensors\SensorGateway;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -22,9 +22,9 @@ class CleanCronTest extends TestCase
     private $subject;
 
     /**
-     * @var SensorValuesGateway|MockObject
+     * @var DeleteOldValues|MockObject
      */
-    private $valuesGateway;
+    private $deleteOldValues;
 
     /**
      * @var SensorGateway|MockObject
@@ -33,11 +33,11 @@ class CleanCronTest extends TestCase
 
     public function setUp()
     {
-        $this->valuesGateway = $this->getMock(SensorValuesGateway::class, [], [], '', false);
-        $this->gateway       = $this->getMock(SensorGateway::class, [], [], '', false);
+        $this->deleteOldValues = $this->getMock(DeleteOldValues::class, [], [], '', false);
+        $this->gateway         = $this->getMock(SensorGateway::class, [], [], '', false);
 
         $this->subject = new CleanCron(
-            $this->valuesGateway,
+            $this->deleteOldValues,
             $this->gateway
         );
     }
@@ -58,9 +58,9 @@ class CleanCronTest extends TestCase
             ->method('getSensorIds')
             ->willReturn($sensorIds);
 
-        $this->valuesGateway
+        $this->deleteOldValues
             ->expects($this->at(0))
-            ->method('deleteOldValues')
+            ->method('deleteValues')
             ->with($sensorId)
             ->willReturn(5);
 

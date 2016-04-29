@@ -2,7 +2,8 @@
 App.controller('SensorController', ['$scope', '$uibModal', 'SensorGraph', function ($scope, uibModal, SensorGraph) {
     $scope.sensors         = {};
     $scope.activeSensorIds = '';
-    $scope.currentFrom     = 0;
+    $scope.from            = 0;
+    $scope.to              = 0;
     $scope.fromIntervals   = {};
     $scope.types           = {};
 

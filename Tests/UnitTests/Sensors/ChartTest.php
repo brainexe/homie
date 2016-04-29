@@ -54,7 +54,7 @@ class ChartTest extends TestCase
         $actual = $this->subject->formatJsonData($sensors, $sensorValues);
 
         $expected = [
-            [
+            $sensorId1 => [
                 'sensorId' => $sensorId1,
                 'name' => $sensorName,
                 'description' => $sensorDescription,
@@ -62,7 +62,7 @@ class ChartTest extends TestCase
                 'formatter' => 'mockFormatter',
                 'data' => [$timestamp, $sensorValue]
             ],
-            [
+            $sensorId2 => [
                 'sensorId' => $sensorId2,
                 'name' => 'name2',
                 'description' => 'description2',

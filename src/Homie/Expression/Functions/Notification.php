@@ -1,6 +1,6 @@
 <?php
 
-namespace Homie\InputControl;
+namespace Homie\Expression\Functions;
 
 use BrainExe\Core\Notification\Notification as NotificationEvent;
 use BrainExe\Core\Traits\EventDispatcherTrait;

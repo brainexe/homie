@@ -9,7 +9,7 @@ use BrainExe\Core\Application\UserException;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Homie\Sensors\Builder;
 use Homie\Sensors\Exception\SensorException;
-use Homie\Sensors\GetValue\Event;
+use Homie\Sensors\GetValue\GetSensorValueEvent;
 use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\Interfaces\Searchable;
 use Homie\Sensors\SensorBuilder;
@@ -72,13 +72,9 @@ class Administration
         $parameter   = $request->request->get('parameter');
         $interval    = $request->request->getInt('interval');
         $node        = $request->request->getInt('node');
-        $color       = $request->request->get('color');
+        $color       = $request->request->get('color') ?? '#aaaaaa';  // todo random color
         $formatter   = $request->request->getAlnum('formatter');
         $tags        = (array)$request->request->get('tags');
-
-        if (empty($color)) {
-            $color = '#aaaaaa'; // todo random color
-        }
 
         $sensorVo = $this->voBuilder->build(
             null,
@@ -95,7 +91,7 @@ class Administration
 
         $this->gateway->addSensor($sensorVo);
 
-        $event = new Event($sensorVo);
+        $event = new GetSensorValueEvent($sensorVo);
         $this->dispatchInBackground($event);
 
         return $sensorVo;

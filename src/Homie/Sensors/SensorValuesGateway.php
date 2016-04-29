@@ -17,6 +17,7 @@ class SensorValuesGateway
 
     const REDIS_SENSOR_VALUES = 'sensor_values:%d';
 
+    /** @deprecated */
     const FRAMES = [
         3  * 86400 => 30 * 60,  // after 3 days, just keep one entry each 30 minutes
         14 * 86400 => 3 * 3600, // after 2 weeks, just keep one entry each 3 hours
@@ -75,20 +76,13 @@ class SensorValuesGateway
     /**
      * @param int $sensorId
      * @param int $from
-     * @return array[]
+     * @param int $to
+     * @return float[]
      */
-    public function getSensorValues(int $sensorId, int $from) : array
+    public function getSensorValues(int $sensorId, int $from, int $to) : array
     {
-        $now = $this->now();
-
-        if ($from === -1) {
-            $from = 0;
-        } elseif ($from) {
-            $from = $now - $from;
-        }
-
         $key         = $this->getKey($sensorId);
-        $redisResult = $this->getRedis()->zrangebyscore($key, $from, $now, ['withscores' => true]);
+        $redisResult = $this->getRedis()->zrangebyscore($key, $from, $to, ['withscores' => true]);
         $result      = [];
 
         foreach ($redisResult as $part => $timestamp) {
@@ -97,38 +91,6 @@ class SensorValuesGateway
         }
 
         return $result;
-    }
-
-    /**
-     * @todo extarct to separate class
-     * @param int $sensorId
-     * @return int $deleted_rows
-     */
-    public function deleteOldValues(int $sensorId) : int
-    {
-        $redis   = $this->getRedis();
-        $now     = $this->now();
-        $deleted = 0;
-
-        foreach (self::FRAMES as $since => $threshHold) {
-            $untilTimestamp = $now - $since;
-            $key            = $this->getKey($sensorId);
-            $oldValues      = $redis->zrangebyscore($key, 0, $untilTimestamp, ['withscores' => true]);
-            $lastTimestamp  = 0;
-
-            foreach ($oldValues as $score => $timestamp) {
-                if ($lastTimestamp + $threshHold > $timestamp) {
-                    $redis->zrem($key, $score);
-
-                    $deleted += 1;
-                    continue;
-                }
-
-                $lastTimestamp = $timestamp;
-            }
-        }
-
-        return $deleted;
     }
 
     /**

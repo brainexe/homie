@@ -7,7 +7,7 @@ use BrainExe\Core\Util\Time;
 use Exception;
 use Homie\Sensors\Formatter\Formatter;
 use Homie\Sensors\GetValue\Listener;
-use Homie\Sensors\GetValue\Event;
+use Homie\Sensors\GetValue\GetSensorValueEvent;
 use Homie\Sensors\Interfaces\Sensor;
 use Homie\Sensors\SensorBuilder;
 use Homie\Sensors\SensorValueEvent;
@@ -87,7 +87,7 @@ class ListenerTest extends TestCase
             ->with('mockType')
             ->willReturn($sensor);
 
-        $event = new Event($sensorVo);
+        $event = new GetSensorValueEvent($sensorVo);
 
         $sensor
             ->expects($this->once())
@@ -109,7 +109,7 @@ class ListenerTest extends TestCase
             ->with('mockType')
             ->willReturn($sensor);
 
-        $event = new Event($sensorVo);
+        $event = new GetSensorValueEvent($sensorVo);
 
         $sensor
             ->expects($this->once())
@@ -179,7 +179,7 @@ class ListenerTest extends TestCase
             ->method('log')
             ->with(LogLevel::DEBUG);
 
-        $event = new Event($sensorVo);
+        $event = new GetSensorValueEvent($sensorVo);
         $this->subject->handle($event);
     }
 }

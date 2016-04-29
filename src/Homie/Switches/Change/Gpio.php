@@ -15,9 +15,9 @@ class Gpio implements SwitchInterface
 
     /**
      * @param SwitchVO|RadioVO $switch
-     * @param boolean $status
+     * @param int $status
      */
-    public function setStatus(SwitchVO $switch, $status)
+    public function setStatus(SwitchVO $switch, int $status)
     {
         // TODO implement GPIO switch
     }

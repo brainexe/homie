@@ -49,7 +49,7 @@ class WidgetMetadataVo
      * @param int $height
      * @return self
      */
-    public function setSize($width, $height)
+    public function setSize(int $width, int $height)
     {
         $this->width  = $width;
         $this->height = $height;

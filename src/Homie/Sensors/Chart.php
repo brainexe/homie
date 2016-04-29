@@ -22,24 +22,22 @@ class Chart
     {
         foreach ($sensors as $sensor) {
             $sensorId = $sensor['sensorId'];
-            if (empty($sensorValues[$sensorId])) {
-                continue;
-            }
+            if (!empty($sensorValues[$sensorId])) {
+                $sensorJson = [
+                    'sensorId'    => (int)$sensorId,
+                    'color'       => $sensor['color'],
+                    'name'        => $sensor['name'],
+                    'description' => $sensor['description'],
+                    'formatter'   => $sensor['formatter'],
+                    'data'        => [] // will be filled with x/y values
+                ];
 
-            $sensorJson = [
-                'sensorId'    => (int)$sensorId,
-                'color'       => $sensor['color'],
-                'name'        => $sensor['name'],
-                'description' => $sensor['description'],
-                'formatter'   => $sensor['formatter'],
-                'data'        => [] // will be filled with x/y values
-            ];
-
-            foreach ($sensorValues[$sensorId] as $timestamp => $value) {
-                $sensorJson['data'][] = (int)$timestamp;
-                $sensorJson['data'][] = (double)$value;
+                foreach ($sensorValues[$sensorId] as $timestamp => $value) {
+                    $sensorJson['data'][] = (int)$timestamp;
+                    $sensorJson['data'][] = (double)$value;
+                }
+                yield $sensorId => $sensorJson;
             }
-            yield $sensorJson;
         }
     }
 

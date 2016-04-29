@@ -1,6 +1,6 @@
 <?php
 
-namespace Homie\InputControl;
+namespace Homie\Expression\Functions;
 
 use BrainExe\Core\Mail\SendMailEvent;
 use BrainExe\Core\Traits\EventDispatcherTrait;

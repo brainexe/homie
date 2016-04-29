@@ -64,17 +64,18 @@ class CSVExport extends Command
     {
         $filename = $input->getArgument('file');
 
-        $file = fopen($filename, 'w+');
+        list ($row, $sensorIds) = $this->collectData();
 
-        $this->writeFile($file);
+        $file = fopen($filename, 'w+');
+        $this->writeFile($file, $row, $sensorIds);
 
         $output->writeln("Done");
     }
 
     /**
-     * @param resource $file
+     * @return array
      */
-    protected function writeFile($file)
+    protected function collectData()
     {
         $allSensors = $this->gateway->getSensors();
         $sensorIds  = [];
@@ -87,6 +88,16 @@ class CSVExport extends Command
             }
         }
 
+        return [$row, $sensorIds];
+    }
+
+    /**
+     * @param resource $file
+     * @param string[] $row
+     * @param int[] $sensorIds
+     */
+    private function writeFile($file, array $row, array $sensorIds)
+    {
         fputcsv($file, $row);
 
         $now = $this->now();

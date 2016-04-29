@@ -9,7 +9,7 @@ use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Traits\TimeTrait;
 use Homie\Sensors\Builder;
-use Homie\Sensors\GetValue\Event;
+use Homie\Sensors\GetValue\GetSensorValueEvent;
 use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorValuesGateway;
 use Iterator;
@@ -72,7 +72,7 @@ class Values
         if (empty($time)) {
             $time = $this->getTime()->now();
         }
-        
+
         return $this->valuesGateway->getByTime(explode(',', $sensorIds), $time);
     }
 
@@ -82,13 +82,13 @@ class Values
      * @return bool
      * @Route("/sensors/{sensorId}/force/", name="sensor.forceGetValue", methods="POST")
      */
-    public function forceGetValue(Request $request, int $sensorId)
+    public function forceGetValue(Request $request, int $sensorId) : bool
     {
         unset($request);
         $sensor   = $this->gateway->getSensor($sensorId);
         $sensorVo = $this->voBuilder->buildFromArray($sensor);
 
-        $event = new Event($sensorVo);
+        $event = new GetSensorValueEvent($sensorVo);
         $this->dispatchInBackground($event);
 
         return true;
@@ -100,7 +100,7 @@ class Values
      * @Route("/sensors/{sensorId}/value/", name="sensor.value", methods="GET")
      * @return array
      */
-    public function getValue(Request $request, $sensorId)
+    public function getValue(Request $request, int $sensorId) : array
     {
         unset($request);
         return $this->gateway->getSensor($sensorId);

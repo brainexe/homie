@@ -5,7 +5,7 @@ namespace Homie\Sensors\Command;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Core\Traits\TimeTrait;
-use Homie\Sensors\GetValue\Event;
+use Homie\Sensors\GetValue\GetSensorValueEvent;
 use Homie\Sensors\SensorBuilder;
 use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorValueEvent;
@@ -147,7 +147,7 @@ class Cron extends Command
      */
     protected function getValue($sensorVo)
     {
-        $event = new Event($sensorVo);
+        $event = new GetSensorValueEvent($sensorVo);
         $this->dispatcher->dispatchEvent($event);
     }
 
@@ -164,10 +164,10 @@ class Cron extends Command
      * @param array $sensorData
      * @param int $now
      */
-    protected function handleSensor(InputInterface $input, $sensorData, $now)
+    private function handleSensor(InputInterface $input, $sensorData, $now)
     {
         $sensorVo = $this->sensorVoBuilder->buildFromArray($sensorData);
-        $interval = $sensorVo->interval ?: 1;
+        $interval = $this->getInterval($sensorVo);
 
         if ($interval < 0) {
             return;
@@ -178,5 +178,14 @@ class Cron extends Command
         if ($delta > $interval * 60 || $input->getOption('force')) {
             $this->getValue($sensorVo);
         }
+    }
+
+    /**
+     * @param SensorVO $sensorVo
+     * @return int
+     */
+    private function getInterval($sensorVo) : int
+    {
+        return $sensorVo->interval ?: 1;
     }
 }

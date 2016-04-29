@@ -5,7 +5,7 @@ namespace Tests\Homie\Sensors\Controller;
 use ArrayIterator;
 use BrainExe\Core\Util\Time;
 use Homie\Sensors\Controller\Values;
-use Homie\Sensors\GetValue\Event;
+use Homie\Sensors\GetValue\GetSensorValueEvent;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\SensorVO;
@@ -119,7 +119,7 @@ class ValuesTest extends TestCase
             ->with($sensorRaw)
             ->willReturn($sensorVo);
 
-        $event = new Event($sensorVo);
+        $event = new GetSensorValueEvent($sensorVo);
 
         $this->dispatcher
             ->expects($this->once())

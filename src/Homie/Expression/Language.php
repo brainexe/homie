@@ -3,27 +3,18 @@
 namespace Homie\Expression;
 
 use BrainExe\Annotations\Annotations\Service;
-use BrainExe\Core\EventDispatcher\AbstractEvent;
 use BrainExe\Core\EventDispatcher\Events\TimingEvent;
-use BrainExe\Core\Traits\EventDispatcherTrait;
-use BrainExe\Core\Traits\FileCacheTrait;
-use BrainExe\Core\Traits\LoggerTrait;
 use Exception;
-use ReflectionClass;
 use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Symfony\Component\ExpressionLanguage\ParserCache\ParserCacheInterface;
 
 /**
+ * @todo avoid lazy service. Register providers lazy instead
  * @Service("Expression.Language", public=false, lazy=true)
  */
 class Language extends ExpressionLanguage
 {
-
-    use EventDispatcherTrait;
-    use FileCacheTrait;
-    use LoggerTrait;
-
     /**
      * {@inheritdoc}
      */
@@ -32,71 +23,9 @@ class Language extends ExpressionLanguage
         parent::__construct($cache, $providers);
 
         $this->registerNativeFunctions();
-
-        $this->register('setProperty', function (string $property, string $value) {
-            return sprintf('($entity->payload[%s] = %s)', $property, $value);
-        }, function (array $parameters, string $property, string $value) {
-            /** @var Entity $entity */
-            $entity = $parameters['entity'];
-            $entity->payload[$property] = $value;
-        });
-
-        $this->register('getProperty', function (string $property) {
-            return sprintf('$entity->payload[%s]', $property);
-        }, function (array $parameters, string $property) {
-            /** @var Entity $entity */
-            $entity = $parameters['entity'];
-
-            return $entity->payload[$property];
-        });
-
-        $this->register('isTiming', function (string $timingId) {
-            return sprintf('($eventName == \'%s\' && $event->timingId === %s)', TimingEvent::TIMING_EVENT, $timingId);
-        }, function (array $parameters, string $isTiming) {
-            if ($parameters['eventName'] !== TimingEvent::TIMING_EVENT) {
-                return false;
-            }
-
-            return $parameters['event']->timingId === $isTiming;
-        });
-
-        $this->register('isEvent', function (string $eventId) {
-            return sprintf('($eventName == %s)', $eventId);
-        }, function (array $parameters, string $eventId) {
-            return $parameters['eventName'] === $eventId;
-        });
-
-        $this->register('event', function () {
-            throw new Exception('event() not implemented');
-        }, function (array $parameters, string $type, ...$eventArguments) {
-            unset($parameters);
-            $events = $this->includeFile('events');
-
-            $reflection = new ReflectionClass($events[$type]['class']);
-            /** @var AbstractEvent $event */
-            $event = $reflection->newInstanceArgs($eventArguments);
-
-            $this->dispatchEvent($event);
-        });
-
-        $this->register('log', function () {
-            throw new Exception('log() not implemented');
-        }, function (array $parameters, $level, string $message, $context = null) {
-            unset($parameters);
-            $this->log($level, $message, ['channel' => $context]);
-        });
-
-        $this->register('increaseCounter', function () {
-            throw new Exception('increaseCounter() not implemented');
-        }, function (array $parameters) {
-            /** @var Entity $entity */
-            $entity = $parameters['entity'];
-            if (empty($entity->payload['counter'])) {
-                $entity->payload['counter'] = 1;
-            } else {
-                $entity->payload['counter']++;
-            }
-        });
+        $this->registerPropertyFunctions();
+        $this->registerTiming();
+        $this->registerCounter();
     }
 
     /**
@@ -106,7 +35,7 @@ class Language extends ExpressionLanguage
      */
     public function evaluate($expression, $values = array())
     {
-        if (!$expression) {
+        if (empty($expression)) {
             return '';
         }
 
@@ -153,5 +82,53 @@ class Language extends ExpressionLanguage
                 return $function(...$params);
             });
         }
+    }
+
+    private function registerPropertyFunctions()
+    {
+        $this->register('setProperty', function (string $property, string $value) {
+            return sprintf('($entity->payload[%s] = %s)', $property, $value);
+        }, function (array $parameters, string $property, string $value) {
+            /** @var Entity $entity */
+            $entity                     = $parameters['entity'];
+            $entity->payload[$property] = $value;
+        });
+
+        $this->register('getProperty', function (string $property) {
+            return sprintf('$entity->payload[%s]', $property);
+        }, function (array $parameters, string $property) {
+            /** @var Entity $entity */
+            $entity = $parameters['entity'];
+
+            return $entity->payload[$property];
+        });
+    }
+
+    private function registerCounter()
+    {
+        $this->register('increaseCounter', function () {
+            throw new Exception('increaseCounter() not implemented');
+        }, function (array $parameters) {
+            /** @var Entity $entity */
+            $entity = $parameters['entity'];
+            if (empty($entity->payload['counter'])) {
+                $entity->payload['counter'] = 1;
+            } else {
+                $entity->payload['counter']++;
+            }
+        });
+    }
+
+    private function registerTiming()
+    {
+        $this->register('isTiming', function (string $timingId) {
+            return sprintf('($eventName == \'%s\' && $event->timingId === %s)', TimingEvent::TIMING_EVENT, $timingId);
+        }, function (array $parameters, string $isTiming) {
+            if ($parameters['eventName'] !== TimingEvent::TIMING_EVENT) {
+                return false;
+            }
+
+            return $parameters['event']->timingId === $isTiming;
+        });
     }
 }

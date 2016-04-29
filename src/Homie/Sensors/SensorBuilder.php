@@ -41,7 +41,7 @@ class SensorBuilder
      * @param Sensor $sensor
      * @todo lazy load sensors
      */
-    public function addSensor($type, Sensor $sensor)
+    public function addSensor(string $type, Sensor $sensor)
     {
         $this->sensors[$type] = $sensor;
     }
@@ -50,7 +50,7 @@ class SensorBuilder
      * @param string $type
      * @param Formatter $formatter
      */
-    public function addFormatter($type, Formatter $formatter)
+    public function addFormatter(string $type, Formatter $formatter)
     {
         $this->formatter[$type] = $formatter;
     }
@@ -60,7 +60,7 @@ class SensorBuilder
      * @throws InvalidArgumentException
      * @return Sensor
      */
-    public function build($type) : Sensor
+    public function build(string $type) : Sensor
     {
         if (!empty($this->sensors[$type])) {
             return $this->sensors[$type];
@@ -74,7 +74,7 @@ class SensorBuilder
      * @throws InvalidArgumentException
      * @return Definition
      */
-    public function getDefinition($type) : Definition
+    public function getDefinition(string $type) : Definition
     {
         if (!empty($this->definitions[$type])) {
             return $this->definitions[$type];
@@ -87,7 +87,7 @@ class SensorBuilder
      * @param string $formatterType
      * @return Formatter
      */
-    public function getFormatter($formatterType) : Formatter
+    public function getFormatter(string $formatterType) : Formatter
     {
         if (isset($this->formatter[$formatterType])) {
             return $this->formatter[$formatterType];
@@ -99,7 +99,7 @@ class SensorBuilder
     /**
      * @return string[]
      */
-    public function getFormatters()
+    public function getFormatters() : array
     {
         return array_keys($this->formatter);
     }

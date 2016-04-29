@@ -56,14 +56,14 @@ class Listener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            Event::NAME => 'handle'
+            GetSensorValueEvent::NAME => 'handle'
         ];
     }
 
     /**
-     * @param Event $event
+     * @param GetSensorValueEvent $event
      */
-    public function handle(Event $event)
+    public function handle(GetSensorValueEvent $event)
     {
         $sensorVo = $event->getSensorVO();
 

@@ -135,39 +135,33 @@ No valid sensor found for myType...", trim($commandTester->getDisplay()));
         $sensorModels = [
             $sensorModel = $this->getMock(SearchableTestSensor2::class, [], [], '', false)
         ];
+        $this->gateway
+            ->expects($this->once())
+            ->method('getSensors')
+            ->willReturn($sensors);
 
-        $sensorModel
-            ->expects($this->exactly(2))
-            ->method('getSensorType')
-            ->willReturn($sensorType = 'myType');
-
+        $this->builder
+            ->expects($this->once())
+            ->method('getSensors')
+            ->willReturn($sensorModels);
         $sensorModel
             ->expects($this->once())
             ->method('search')
             ->willReturn($parameters = [
                 'myParameter'
             ]);
-
-        $this->builder
-            ->expects($this->once())
-            ->method('getSensors')
-            ->willReturn($sensorModels);
-
-        $this->gateway
-            ->expects($this->once())
-            ->method('getSensors')
-            ->willReturn($sensors);
-
-        $this->markTestIncomplete('TODO');
+        $sensorModel
+            ->expects($this->exactly(2))
+            ->method('getSensorType')
+            ->willReturn($sensorType = 'myType');
 
         $application = new Application();
         $application->add($this->subject);
         $input = [];
         $commandTester = new CommandTester($this->subject);
-        $commandTester->execute($input);
+        $commandTester->execute($input, ['interactive' => false]);
 
         $this->assertEquals("Handling myType...
-Searching...
-No valid sensor found for myType...", trim($commandTester->getDisplay()));
+Searching...", trim($commandTester->getDisplay()));
     }
 }

@@ -20,7 +20,7 @@ class Controller
 {
 
     /**
-     * @var Switches;
+     * @var Switches
      */
     private $switches;
 

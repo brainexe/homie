@@ -6,6 +6,7 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Authentication\Settings\Settings;
+use BrainExe\Core\Traits\TimeTrait;
 use Homie\Sensors\Builder;
 use Homie\Sensors\Chart;
 use Homie\Sensors\SensorBuilder;
@@ -18,6 +19,8 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class Controller
 {
+
+    use TimeTrait;
 
     const SETTINGS_ACTIVE_SENSORS = 'sensors:active_sensors';
     const SETTINGS_TIMESPAN       = 'sensors:timespan';
@@ -99,6 +102,7 @@ class Controller
     }
 
     /**
+     * @todo cleanup
      * @param Request $request
      * @param string $activeSensorIds
      * @return string
@@ -108,6 +112,7 @@ class Controller
     {
         $userId = (int)$request->attributes->get('user_id');
         $from   = $this->getFrom($request, $userId);
+        $now    = $this->getTime()->now();
 
         $activeSensorIds = $this->getActiveSensorIds($activeSensorIds, $userId);
         if ($request->query->get('save')) {
@@ -117,37 +122,29 @@ class Controller
 
         $activeSensorIds = array_unique(array_map('intval', explode(':', $activeSensorIds)));
         $sensorsRaw      = $this->gateway->getSensors($activeSensorIds);
-        $sensorValues    = $this->addValues($activeSensorIds, $sensorsRaw, $from);
+        $sensorValues    = $this->getValues($sensorsRaw, $now - $from, $now);
 
         $json = $this->chart->formatJsonData($sensorsRaw, $sensorValues);
 
         return [
-            'activeSensorIds' => array_values($activeSensorIds),
-            'json'            => iterator_to_array($json),
-            'currentFrom'     => $from
+            'json' => iterator_to_array($json),
+            'from' => $from,
+            'to'   => $now
         ];
     }
 
     /**
-     * @param int[] $activeSensorIds
      * @param array $sensorsRaw
      * @param int $from
+     * @param int $to
      * @return array
      */
-    private function addValues(array $activeSensorIds, array &$sensorsRaw, int $from) : array
+    private function getValues(array $sensorsRaw, int $from, int $to) : array
     {
         $sensorValues = [];
-        foreach ($sensorsRaw as &$sensor) {
+        foreach ($sensorsRaw as $sensor) {
             $sensorId = $sensor['sensorId'];
-
-            if (empty($activeSensorIds) || in_array($sensorId, $activeSensorIds)) {
-                if (!empty($sensor['lastValue'])) {
-                    $formatter = $this->builder->getFormatter($sensor['formatter']);
-                    $sensor['lastValue'] = $formatter->formatValue($sensor['lastValue']);
-                }
-
-                $sensorValues[$sensorId] = $this->valuesGateway->getSensorValues($sensorId, $from);
-            }
+            $sensorValues[$sensorId] = $this->valuesGateway->getSensorValues($sensorId, $from, $to);
         }
 
         return $sensorValues;
@@ -179,7 +176,7 @@ class Controller
      */
     private function getFrom(Request $request, int $userId) : int
     {
-        $from = (int)$request->query->get('from');
+        $from = $request->query->getInt('from');
         if (!$from) {
             return (int)$this->settings->get($userId, self::SETTINGS_TIMESPAN) ?: Chart::DEFAULT_TIME;
         }

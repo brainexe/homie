@@ -116,28 +116,38 @@ class Switches
      */
     private function buildSwitchVO(array $raw) : SwitchVO
     {
-        $type = $raw['type'];
-        switch ($type) {
+        $switch = $this->buildBaseVo($raw);
+        $switch->switchId    = $raw['switchId'];
+        $switch->name        = $raw['name'];
+        $switch->description = $raw['description'];
+
+        return $switch;
+    }
+
+    /**
+     * @param array $raw
+     * @return SwitchVO
+     * @throws Exception
+     */
+    private function buildBaseVo(array $raw) : SwitchVO
+    {
+        switch ($raw['type']) {
             case RadioVO::TYPE:
-                $switch = new RadioVO();
+                $switch       = new RadioVO();
                 $switch->code = $raw['code'];
                 $switch->pin  = $raw['pin'];
                 break;
             case GpioSwitchVO::TYPE:
-                $switch = new GpioSwitchVO();
+                $switch      = new GpioSwitchVO();
                 $switch->pin = $raw['pin'];
                 break;
             case ArduinoSwitchVO::TYPE:
-                $switch = new ArduinoSwitchVO();
+                $switch      = new ArduinoSwitchVO();
                 $switch->pin = $raw['pin'];
                 break;
             default:
-                throw new Exception(sprintf('Invalid switch type: %s', $type));
+                throw new Exception(sprintf('Invalid switch type: %s', $raw['type']));
         }
-
-        $switch->switchId    = $raw['switchId'];
-        $switch->name        = $raw['name'];
-        $switch->description = $raw['description'];
 
         return $switch;
     }

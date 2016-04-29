@@ -18,19 +18,22 @@ App.service('SensorGraph', ['Sensor', 'Sensor.Formatter', function (Sensor, Sens
             });
         }
 
+        // todo optimize
         function decompressData(data) {
-            for (var j = 0; j < data.json.length; j++) {
+            var final = [];
+            for (var sensorId in data.json) {
                 var graphData = [];
-                for (var i = 0; i < data.json[j].data.length; i += 2) {
+                for (var i = 0; i < data.json[sensorId].data.length; i += 2) {
                     graphData.push({
-                        x: data.json[j].data[i],
-                        y: data.json[j].data[i+1]
+                        x: data.json[sensorId].data[i],
+                        y: data.json[sensorId].data[i+1]
                     })
                 }
-                data.json[j].data = graphData;
+                data.json[sensorId].data = graphData;
+                final.push(data.json[sensorId]);
             }
 
-            return data.json;
+            return final;
         }
 
         function aggregateTags(rawSensors) {
@@ -61,9 +64,10 @@ App.service('SensorGraph', ['Sensor', 'Sensor.Formatter', function (Sensor, Sens
             $scope.tags          = aggregateTags(data.sensors);
 
             Sensor.getValues(sensors, parameters).success(function (data) {
-                $scope.activeSensorIds = data.activeSensorIds;
-                $scope.currentFrom     = data.currentFrom;
-                $scope.stats           = {};
+                $scope.activeSensorIds = data.activeSensorIds; // todo use Object.keys(data.json)
+                $scope.from   = data.from;
+                $scope.to     = data.to;
+                $scope.stats  = {};
 
                 $scope.graph = new Rickshaw.Graph({
                     element: element.querySelector('.chart'),
@@ -125,7 +129,7 @@ App.service('SensorGraph', ['Sensor', 'Sensor.Formatter', function (Sensor, Sens
          */
         $scope.sensorView = function (sensorId, from) {
             sensorId = ~~sensorId;
-            $scope.currentFrom = from = from || $scope.currentFrom;
+            $scope.from = from = from || $scope.from;
 
             if (sensorId) {
                 if ($scope.isSensorActive(sensorId)) {
@@ -137,7 +141,7 @@ App.service('SensorGraph', ['Sensor', 'Sensor.Formatter', function (Sensor, Sens
             }
 
             var activeIds  = $scope.activeSensorIds.join(':') || "0";
-            var parameters = '?from={0}&save=1'.format($scope.currentFrom);
+            var parameters = '?from={0}&save=1'.format($scope.from);
 
             Sensor.getValues(activeIds, parameters).success(function (data) {
                 updateGraph(decompressData(data));

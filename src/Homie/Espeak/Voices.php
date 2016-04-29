@@ -46,7 +46,7 @@ class Voices
         foreach (explode("\n", $raw) as $line) {
             list(, $language, $gender, $voiceName) = preg_split('/\s+/', $line);
 
-            yield $language => $voiceName;
+            yield $language => "$voiceName - $gender";
         }
     }
 }

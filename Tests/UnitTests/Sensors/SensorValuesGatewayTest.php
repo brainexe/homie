@@ -99,12 +99,7 @@ class SensorValuesGatewayTest extends TestCase
     {
         $sensorId = 10;
         $from     = 300;
-        $now      = 1000;
-
-        $this->time
-            ->expects($this->once())
-            ->method('now')
-            ->willReturn($now);
+        $to       = 1000;
 
         $redisResult = [
             "701-100" => 701,
@@ -114,10 +109,10 @@ class SensorValuesGatewayTest extends TestCase
         $this->redis
             ->expects($this->once())
             ->method('zrangebyscore')
-            ->with("sensor_values:$sensorId", 700, $now)
+            ->with("sensor_values:$sensorId", 300, $to)
             ->willReturn($redisResult);
 
-        $actual = $this->subject->getSensorValues($sensorId, $from);
+        $actual = $this->subject->getSensorValues($sensorId, $from, $to);
 
         $expected = [
             701 => 100,
@@ -156,82 +151,19 @@ class SensorValuesGatewayTest extends TestCase
     public function testGetAllSensorValuesWithEmptySet()
     {
         $sensorId = 10;
-        $from     = -1;
-        $now      = 1000;
-
-        $this->time
-            ->expects($this->once())
-            ->method('now')
-            ->willReturn($now);
+        $from     = 0;
+        $to       = 1000;
 
         $this->redis
             ->expects($this->once())
             ->method('zrangebyscore')
-            ->with("sensor_values:$sensorId", 0, $now)
+            ->with("sensor_values:$sensorId", 0, $to)
             ->willReturn([]);
 
-        $actualResult = $this->subject->getSensorValues($sensorId, $from);
+        $actual = $this->subject->getSensorValues($sensorId, $from, $to);
 
-        $expectedResult = [];
+        $expected = [];
 
-        $this->assertEquals($expectedResult, $actualResult);
-    }
-
-    public function testDeleteOldValues()
-    {
-        $sensorId = 10;
-        $now      = 3 * 86400 + 10;
-
-        $this->time
-            ->expects($this->once())
-            ->method('now')
-            ->willReturn($now);
-
-        $oldValues = [
-            "701-100" => 10000,
-            "702-101" => 10001,
-            "702-103" => 2330000,
-            "400-103" => 2330000,
-            "4334702-103" => 2330000,
-        ];
-
-        $this->redis
-            ->expects($this->exactly(count(SensorValuesGateway::FRAMES)))
-            ->method('zrangebyscore')
-            ->willReturn($oldValues);
-
-        $this->redis
-            ->expects($this->exactly(7))
-            ->method('zrem');
-
-        $actual = $this->subject->deleteOldValues($sensorId);
-
-        $this->assertEquals(7, $actual);
-    }
-
-    public function testDeleteOldValuesWithoutValues()
-    {
-        $sensorId = 10;
-        $now      = 3 * 86400 + 10;
-
-        $this->time
-            ->expects($this->once())
-            ->method('now')
-            ->willReturn($now);
-
-        $oldValues = [];
-
-        $this->redis
-            ->expects($this->exactly(count(SensorValuesGateway::FRAMES)))
-            ->method('zrangebyscore')
-            ->willReturn($oldValues);
-
-        $this->redis
-            ->expects($this->never())
-            ->method('zrem');
-
-        $actual = $this->subject->deleteOldValues($sensorId);
-
-        $this->assertEquals(0, $actual);
+        $this->assertEquals($expected, $actual);
     }
 }

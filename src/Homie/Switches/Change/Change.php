@@ -52,10 +52,10 @@ class Change implements SwitchInterface, TranslationProvider
 
     /**
      * @param SwitchVO $switch
-     * @param bool $status
+     * @param int $status
      * @throws Exception
      */
-    public function setStatus(SwitchVO $switch, $status)
+    public function setStatus(SwitchVO $switch, int $status)
     {
         if (isset($this->models[$switch->type])) {
             $controller = $this->models[$switch->type];
@@ -65,7 +65,7 @@ class Change implements SwitchInterface, TranslationProvider
 
         $controller->setStatus($switch, $status);
 
-        $switch->status = (bool)$status;
+        $switch->status = $status;
         $this->gateway->edit($switch);
     }
 

@@ -7,6 +7,7 @@ use BrainExe\Core\Annotations\Controller;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Authentication\LoadUser;
 use BrainExe\Core\Translation\TranslationProvider;
+use Generator;
 use Homie\TodoList\TodoList;
 use Homie\TodoList\VO\TodoItemVO;
 use Symfony\Component\HttpFoundation\Request;
@@ -118,7 +119,7 @@ class TodoListController implements TranslationProvider
      * @Route("/todo/{itemId}/", name="todo.delete")
      * @return bool
      */
-    public function deleteItem(Request $request, $itemId) : bool
+    public function deleteItem(Request $request, int $itemId) : bool
     {
         unset($request);
 
@@ -150,7 +151,7 @@ class TodoListController implements TranslationProvider
     }
 
     /**
-     * @return string[]
+     * @return Generator|string[]
      */
     public static function getTokens()
     {

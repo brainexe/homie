@@ -42,14 +42,14 @@ class Radio implements SwitchInterface
 
     /**
      * @param SwitchVO|RadioVO $switch
-     * @param boolean $status
+     * @param int $status
      */
-    public function setStatus(SwitchVO $switch, $status)
+    public function setStatus(SwitchVO $switch, int $status)
     {
         $this->client->execute($this->rcSwitchCommand, [
             $switch->code,
             (int)$switch->pin,
-            (int)$status
+            $status
         ]);
     }
 }

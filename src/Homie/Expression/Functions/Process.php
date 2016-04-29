@@ -1,6 +1,6 @@
 <?php
 
-namespace Homie\InputControl;
+namespace Homie\Expression\Functions;
 
 use BrainExe\Annotations\Annotations\Inject;
 use Generator;

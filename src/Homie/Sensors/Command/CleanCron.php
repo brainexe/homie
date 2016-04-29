@@ -3,8 +3,8 @@
 namespace Homie\Sensors\Command;
 
 use BrainExe\Annotations\Annotations\Inject;
+use Homie\Sensors\DeleteOldValues;
 use Homie\Sensors\SensorGateway;
-use Homie\Sensors\SensorValuesGateway;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -17,9 +17,9 @@ class CleanCron extends Command
 {
 
     /**
-     * @var SensorValuesGateway
+     * @var DeleteOldValues
      */
-    private $valuesGateway;
+    private $deleteOldValues;
 
     /**
      * @var SensorGateway
@@ -37,16 +37,19 @@ class CleanCron extends Command
     }
 
     /**
-     * @Inject({"@SensorValuesGateway", "@SensorGateway"})
-     * @param SensorValuesGateway $valuesGateway
+     * @Inject({
+     *     "@Sensors.DeleteOldValues",
+     *     "@SensorGateway"
+     * })
+     * @param DeleteOldValues $deleteOldValues
      * @param SensorGateway $gateway
      */
     public function __construct(
-        SensorValuesGateway $valuesGateway,
+        DeleteOldValues $deleteOldValues,
         SensorGateway $gateway
     ) {
-        $this->valuesGateway      = $valuesGateway;
-        $this->gateway            = $gateway;
+        $this->deleteOldValues = $deleteOldValues;
+        $this->gateway         = $gateway;
 
         parent::__construct();
     }
@@ -69,9 +72,9 @@ class CleanCron extends Command
      * @param OutputInterface $output
      * @param int $sensorId
      */
-    private function deleteOldValues(OutputInterface $output, $sensorId)
+    private function deleteOldValues(OutputInterface $output, int $sensorId)
     {
-        $deletedRows = $this->valuesGateway->deleteOldValues($sensorId);
+        $deletedRows = $this->deleteOldValues->deleteValues($sensorId);
 
         $output->writeln(
             sprintf(
