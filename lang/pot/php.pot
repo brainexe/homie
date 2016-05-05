@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-23 23:56+0200\n"
+"POT-Creation-Date: 2016-05-05 13:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -122,39 +122,39 @@ msgstr ""
 msgid "%0.1f Degree"
 msgstr ""
 
-#: src/Homie/Sensors/Chart.php:52
+#: src/Homie/Sensors/Chart.php:49
 msgid "Last hour"
 msgstr ""
 
-#: src/Homie/Sensors/Chart.php:53
+#: src/Homie/Sensors/Chart.php:50
 msgid "Last 3 hours"
 msgstr ""
 
-#: src/Homie/Sensors/Chart.php:54
+#: src/Homie/Sensors/Chart.php:51
 msgid "Last day"
 msgstr ""
 
-#: src/Homie/Sensors/Chart.php:55
+#: src/Homie/Sensors/Chart.php:52
 msgid "Last 3 days"
 msgstr ""
 
-#: src/Homie/Sensors/Chart.php:56
+#: src/Homie/Sensors/Chart.php:53
 msgid "Last week"
 msgstr ""
 
-#: src/Homie/Sensors/Chart.php:57
+#: src/Homie/Sensors/Chart.php:54
 msgid "Last month"
 msgstr ""
 
-#: src/Homie/Sensors/Chart.php:58
+#: src/Homie/Sensors/Chart.php:55
 msgid "All time"
 msgstr ""
 
-#: src/Homie/Expression/Controller/Controller.php:84
+#: src/Homie/Expression/Controller/Controller.php:88
 msgid "No expression id defined"
 msgstr ""
 
-#: src/Homie/Expression/Controller/Controller.php:154
+#: src/Homie/Expression/Controller/Controller.php:158
 msgid "No actions defined"
 msgstr ""
 
@@ -186,11 +186,11 @@ msgid "Invalid avatar: %s"
 msgstr ""
 
 #: vendor/brainexe/totp/vendor/brainexe/core/src/Middleware/Authentication.php:76
-#: vendor/brainexe/core/src/Middleware/Authentication.php:76
+#: vendor/brainexe/core/src/Middleware/Authentication.php:79
 msgid "Not logged in"
 msgstr ""
 
 #: vendor/brainexe/totp/vendor/brainexe/core/src/Middleware/CatchUserException.php:62
-#: vendor/brainexe/core/src/Middleware/CatchUserException.php:63
+#: vendor/brainexe/core/src/Middleware/CatchUserException.php:62
 msgid "An error occurred"
 msgstr ""

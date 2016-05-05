@@ -16,10 +16,10 @@ App.service('Widget.sensor', ['Sensor', '$rootScope', 'Sensor.Formatter', 'Senso
                 });
 
                 Sensor.getValues(widget.sensor_id, '?from={0}'.format(~~widget.from)).success(function (data) {
-                    if (!data.json) {
+                    if (!data.json || !data.json[widget.sensor_id]) {
                         return;
                     }
-                    $scope.stats = SensorStats.getStats(data.json[0]);
+                    $scope.stats = SensorStats.getStats(data.json[widget.sensor_id]);
                 });
             }
 

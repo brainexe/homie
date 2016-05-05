@@ -2,7 +2,7 @@
 
 namespace Tests\Homie\Sensors\Sensors\Misc;
 
-use Homie\Client\LocalClient;
+use Homie\Client\Adapter\LocalClient;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Sensors\Misc\Metawear;
 use PHPUnit_Framework_TestCase as TestCase;

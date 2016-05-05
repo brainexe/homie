@@ -57,7 +57,7 @@ class BMP085Test extends TestCase
             ->expects($this->once())
             ->method('executeWithReturn')
             ->with($parameter)
-            ->willReturn(null);
+            ->willReturn('');
 
         $sensor = new SensorVO();
         $sensor->parameter = $parameter;

@@ -3,6 +3,7 @@
 namespace IntegrationTests;
 
 use BrainExe\Core\Application\AppKernel;
+use BrainExe\Core\Authentication\UserVO;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
 use PHPUnit_Framework_TestCase as TestCase;
@@ -49,5 +50,23 @@ abstract class RequestTest extends TestCase
     protected function getContainer() : Container
     {
         return $this->container;
+    }
+
+    /**
+     * @param Request $request
+     * @param UserVO|null $user
+     * @return UserVO
+     */
+    protected function initUser(Request $request, UserVO $user = null) : UserVO
+    {
+        if (empty($user)) {
+            $user     = new UserVO();
+            $user->id = uniqid();
+        }
+
+        $request->attributes->set('user_id', $user->id);
+        $request->attributes->set('user', $user);
+
+        return $user;
     }
 }

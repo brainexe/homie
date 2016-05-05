@@ -1,11 +1,13 @@
 <?php
 
-namespace Homie\Client;
+namespace Homie\Client\Adapter;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\LoggerTrait;
+use Homie\Client\ClientInterface;
 use RuntimeException;
+use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
 /**
@@ -51,19 +53,29 @@ class LocalClient implements ClientInterface
             ->getProcess();
         $process->run();
 
-        $this->info(sprintf('LocalClient command: %s', $process->getCommandLine()));
-        if (!$process->isSuccessful()) {
-            throw new RuntimeException(
-                'command: ' . $process->getCommandLine() . PHP_EOL .
-                'status: ' . $process->getStatus() . PHP_EOL .
-                'output: ' . $process->getErrorOutput() . $process->getOutput()
-            );
-        }
+        $this->checkOutput($process);
 
         $output = $process->getOutput();
 
         $this->debug(sprintf('LocalClient command output: %s: %s', $process->getCommandLine(), $output));
 
         return $output;
+    }
+
+    /**
+     * @param Process $process
+     */
+    private function checkOutput(Process $process)
+    {
+        $this->info(sprintf('LocalClient command: %s', $process->getCommandLine()));
+
+        if (!$process->isSuccessful()) {
+            throw new RuntimeException(
+                'command: ' . $process->getCommandLine() . PHP_EOL .
+                'status: ' . $process->getStatus() . PHP_EOL .
+                'output: ' . $process->getErrorOutput() .
+                $process->getOutput()
+            );
+        }
     }
 }

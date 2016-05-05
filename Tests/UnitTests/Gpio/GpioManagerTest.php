@@ -7,7 +7,7 @@ use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Gpio\GpioManager;
 use Homie\Gpio\Pin;
 use Homie\Gpio\PinGateway;
-use Homie\Client\LocalClient;
+use Homie\Client\Adapter\LocalClient;
 use Homie\Gpio\PinLoader;
 use Homie\Gpio\PinsCollection;
 

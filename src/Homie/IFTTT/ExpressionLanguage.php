@@ -24,7 +24,7 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
     {
         $trigger = new ExpressionFunction('triggerIFTTT', function () {
             throw new InvalidArgumentException('triggerIFTTT() is not available in this context');
-        }, function (array $variables, $eventName, $value1 = null, $value2 = null, $value3 = null) {
+        }, function (array $variables, string $eventName, string $value1 = null, string $value2 = null, string $value3 = null) {
             unset($variables);
             $event = new TriggerEvent($eventName, $value1, $value2, $value3);
 

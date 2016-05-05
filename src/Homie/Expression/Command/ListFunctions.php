@@ -39,7 +39,7 @@ class ListFunctions extends SymfonyCommand
         $table->setHeaders(['Function', 'Parameters']);
 
         foreach ($functions as $function => $parameters) {
-            $table->addRow([$function, implode(', ', $parameters)]);
+            $table->addRow([$function, implode(', ', array_column($parameters, 'name'))]);
         }
 
         $table->render();

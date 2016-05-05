@@ -5,7 +5,7 @@ namespace Tests\Homie\Switches\Change;
 use Homie\Switches\Change\Radio;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Homie\Client\LocalClient;
+use Homie\Client\Adapter\LocalClient;
 use Homie\Switches\VO\RadioVO;
 
 /**

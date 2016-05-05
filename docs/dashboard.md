@@ -2,6 +2,7 @@
 # Dashboard
 
 ## Widgets
+- Command
 - Display
 - EggTimer
 - Expression

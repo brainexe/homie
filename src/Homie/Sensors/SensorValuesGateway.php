@@ -17,12 +17,6 @@ class SensorValuesGateway
 
     const REDIS_SENSOR_VALUES = 'sensor_values:%d';
 
-    /** @deprecated */
-    const FRAMES = [
-        3  * 86400 => 30 * 60,  // after 3 days, just keep one entry each 30 minutes
-        14 * 86400 => 3 * 3600, // after 2 weeks, just keep one entry each 3 hours
-    ];
-
     use RedisTrait;
     use TimeTrait;
     use IdGeneratorTrait;

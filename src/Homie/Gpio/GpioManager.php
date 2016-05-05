@@ -81,11 +81,11 @@ class GpioManager
 
     /**
      * @param int $pinId
-     * @param string $status
+     * @param bool $status
      * @param bool $value
      * @return Pin
      */
-    public function setPin(int $pinId, string $status, bool $value) : Pin
+    public function setPin(int $pinId, bool $status, bool $value) : Pin
     {
         $pin = $this->loader->loadPin($pinId);
 

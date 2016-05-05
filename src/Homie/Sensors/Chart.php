@@ -3,7 +3,7 @@
 namespace Homie\Sensors;
 
 use BrainExe\Annotations\Annotations\Service;
-use Generator;
+use Iterator;
 
 /**
  * @Service(public=false)
@@ -16,9 +16,9 @@ class Chart
     /**
      * @param array[] $sensors
      * @param array[] $sensorValues
-     * @return Generator
+     * @return Iterator
      */
-    public function formatJsonData(array $sensors, array $sensorValues)
+    public function formatJsonData(array $sensors, array $sensorValues) : Iterator
     {
         foreach ($sensors as $sensor) {
             $sensorId = $sensor['sensorId'];
@@ -27,7 +27,6 @@ class Chart
                     'sensorId'    => (int)$sensorId,
                     'color'       => $sensor['color'],
                     'name'        => $sensor['name'],
-                    'description' => $sensor['description'],
                     'formatter'   => $sensor['formatter'],
                     'data'        => [] // will be filled with x/y values
                 ];
@@ -44,7 +43,7 @@ class Chart
     /**
      * @return array
      */
-    public static function getTimeSpans()
+    public static function getTimeSpans() : array
     {
         return [
             3600        => _('Last hour'),

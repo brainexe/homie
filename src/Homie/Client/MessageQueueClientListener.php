@@ -5,11 +5,13 @@ namespace Homie\Client;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\EventListener;
 use BrainExe\Core\Traits\RedisTrait;
+use Homie\Client\Adapter\MessageQueueClient;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * @EventListener("Listener.MessageQueueClient")
  */
-class MessageQueueClientListener
+class MessageQueueClientListener implements EventSubscriberInterface
 {
 
     use RedisTrait;
@@ -43,9 +45,12 @@ class MessageQueueClientListener
      */
     public function handleExecuteEvent(ExecuteCommandEvent $event)
     {
-        $output = $this->client->executeWithReturn($event->command);
+        $output = $this->client->executeWithReturn(
+            $event->getCommand(),
+            $event->getArguments()
+        );
 
-        if ($event->returnNeeded) {
+        if ($event->isReturnNeeded()) {
             $this->getRedis()->lpush(MessageQueueClient::RETURN_CHANNEL, $output);
         }
     }

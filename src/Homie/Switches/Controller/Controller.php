@@ -91,27 +91,24 @@ class Controller
      */
     private function createSwitchVO(Request $request) : SwitchVO
     {
-        $type = $request->request->getAlnum('type');
-        switch ($type) {
+        switch ($request->request->get('type')) {
             case RadioVO::TYPE:
                 $pin = $request->request->getAlnum('pin');
                 $switchVo = new RadioVO();
                 $switchVo->code = $request->request->getAlnum('code');
                 $switchVo->pin  = $this->switches->getRadioPin($pin);
-                break;
+                return $switchVo;
             case GpioSwitchVO::TYPE:
                 $switchVo = new GpioSwitchVO();
                 $switchVo->pin = $request->request->getAlnum('pin');
-                break;
+                return $switchVo;
             case ArduinoSwitchVO::TYPE:
                 $switchVo = new ArduinoSwitchVO();
                 $switchVo->pin    = $request->request->getAlnum('pin');
                 $switchVo->nodeId = $request->request->getAlnum('node');
-                break;
+                return $switchVo;
             default:
-                throw new UserException(sprintf(_('Invalid switch type: %s'), $type));
+                throw new UserException(sprintf(_('Invalid switch type: %s'), $request->request->get('type')));
         }
-
-        return $switchVo;
     }
 }

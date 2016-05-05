@@ -16,5 +16,5 @@ interface ClientInterface
      * @param string[] $arguments
      * @return string
      */
-    public function executeWithReturn(string $command, array $arguments = []);
+    public function executeWithReturn(string $command, array $arguments = []) : string;
 }

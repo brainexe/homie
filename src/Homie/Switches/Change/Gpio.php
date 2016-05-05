@@ -2,9 +2,11 @@
 
 namespace Homie\Switches\Change;
 
+use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
+use Homie\Gpio\GpioManager;
 use Homie\Switches\SwitchInterface;
-use Homie\Switches\VO\RadioVO;
+use Homie\Switches\VO\GpioSwitchVO;
 use Homie\Switches\VO\SwitchVO;
 
 /**
@@ -12,13 +14,26 @@ use Homie\Switches\VO\SwitchVO;
  */
 class Gpio implements SwitchInterface
 {
+    /**
+     * @var GpioManager
+     */
+    private $manager;
 
     /**
-     * @param SwitchVO|RadioVO $switch
+     * @Inject({"@GPIO.GpioManager"})
+     * @param GpioManager $manager
+     */
+    public function __construct(GpioManager $manager)
+    {
+        $this->manager = $manager;
+    }
+
+    /**
+     * @param SwitchVO|GpioSwitchVO $switch
      * @param int $status
      */
     public function setStatus(SwitchVO $switch, int $status)
     {
-        // TODO implement GPIO switch
+        $this->manager->setPin($switch->pin, true, (bool)$status);
     }
 }

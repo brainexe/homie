@@ -15,7 +15,7 @@ class ExecuteCommandEvent extends AbstractEvent
     public $command;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $returnNeeded;
 
@@ -29,11 +29,36 @@ class ExecuteCommandEvent extends AbstractEvent
      * @param string[] $arguments
      * @param bool $returnNeeded
      */
-    public function __construct($command, array $arguments, $returnNeeded)
+    public function __construct(string $command, array $arguments, bool $returnNeeded = false)
     {
         parent::__construct(self::EXECUTE);
+
         $this->command      = $command;
-        $this->returnNeeded = $returnNeeded;
         $this->arguments    = $arguments;
+        $this->returnNeeded = $returnNeeded;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCommand() : string
+    {
+        return $this->command;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getArguments() : array
+    {
+        return $this->arguments;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isReturnNeeded() : bool
+    {
+        return $this->returnNeeded;
     }
 }

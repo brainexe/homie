@@ -54,7 +54,11 @@ class WriteFunctionCache implements EventSubscriberInterface
             $parameters = [];
             foreach ($reflection->getParameters() as $i => $parameter) {
                 if ($i >= 1) {
-                    $parameters[] = $parameter->getName();
+                    $type = $parameter->getType();
+                    $parameters[] = [
+                        'name' => $parameter->getName(),
+                        'type' => $type ? $type->__toString() : '',
+                    ];
                 }
             }
             $functions[$name] = $parameters;

@@ -7,9 +7,9 @@ use BrainExe\Tests\RedisMockTrait;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Client\ExecuteCommandEvent;
-use Homie\Client\MessageQueueClient;
+use Homie\Client\Adapter\MessageQueueClient;
 use Homie\Client\MessageQueueClientListener;
-use Homie\Client\LocalClient;
+use Homie\Client\Adapter\LocalClient;
 
 class MessageQueueClientListenerTest extends TestCase
 {
@@ -62,7 +62,7 @@ class MessageQueueClientListenerTest extends TestCase
         $this->client
             ->expects($this->once())
             ->method('executeWithReturn')
-            ->with($command)
+            ->with($command, [])
             ->willReturn($output);
 
         $this->subject->handleExecuteEvent($event);

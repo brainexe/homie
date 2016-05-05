@@ -1,18 +1,18 @@
 <?php
 
-namespace Tests\Homie\Client;
+namespace Tests\Homie\Adapter\Client;
 
 use Monolog\Logger;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Homie\Client\LocalClient;
+use Homie\Client\Adapter\LocalClient;
 use Psr\Log\LogLevel;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 use RuntimeException;
 
 /**
- * @covers Homie\Client\LocalClient
+ * @covers Homie\Client\Adapter\LocalClient
  */
 class LocalClientTest extends TestCase
 {

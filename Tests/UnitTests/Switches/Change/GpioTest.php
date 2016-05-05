@@ -2,8 +2,10 @@
 
 namespace Tests\Homie\Switches\Change;
 
+use Homie\Gpio\GpioManager;
 use Homie\Switches\Change\Gpio;
 use Homie\Switches\VO\GpioSwitchVO;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 
 /**
@@ -17,9 +19,15 @@ class GpioTest extends TestCase
      */
     private $subject;
 
+    /**
+     * @var GpioManager|MockObject
+     */
+    private $manager;
+
     public function setUp()
     {
-        $this->subject = new Gpio();
+        $this->manager = $this->getMock(GpioManager::class, [], [], '', false);
+        $this->subject = new Gpio($this->manager);
     }
 
     public function testSetStatus()
@@ -28,7 +36,11 @@ class GpioTest extends TestCase
         $switchVo->pin  = 2;
         $status = 1;
 
-        $this->markTestIncomplete('gpio switch not final');
+        $this->manager
+            ->expects($this->once())
+            ->method('setPin')
+            ->with(2, true, true);
+
         $this->subject->setStatus($switchVo, $status);
     }
 }

@@ -1,5 +1,5 @@
 
-App.controller('ExpressionController', ['$scope', '$rootScope', '$q', 'Expression', 'MessageQueue', 'Sensor', function ($scope, $rootScope, $q, Expression, MessageQueue, Sensor) {
+App.controller('ExpressionController', ['$scope', '$rootScope', '$q', 'Expression', 'MessageQueue', 'Sensor', 'Cache', function ($scope, $rootScope, $q, Expression, MessageQueue, Sensor, Cache) {
 	$scope.expressions    = {};
     $scope.editExpression = {actions:[''], conditions:[''], 'new': true};
     $scope.crons          = [];
@@ -45,7 +45,11 @@ App.controller('ExpressionController', ['$scope', '$rootScope', '$q', 'Expressio
         function generateParameterList(array) {
             var parameterList = [];
             array.forEach(function(parameter) {
-                parameterList.push('"' + parameter + '"');
+                if (typeof parameter == 'object') {
+                    parameterList.push('"' + parameter.name + '"');
+                } else {
+                    parameterList.push('"' + parameter + '"');
+                }
             });
             return parameterList.join(', ');
         }

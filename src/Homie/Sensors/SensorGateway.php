@@ -31,7 +31,7 @@ class SensorGateway
             $redis->hgetall($this->getKey($sensorId));
         }
 
-        return $redis->execute();
+        return array_filter($redis->execute());
     }
 
     /**

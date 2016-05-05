@@ -102,33 +102,32 @@ class Controller
     }
 
     /**
-     * @todo cleanup
      * @param Request $request
      * @param string $activeSensorIds
-     * @return string
+     * @return array
      * @Route("/sensors/load/{activeSensorIds}/", name="sensor.loadall")
      */
-    public function indexSensor(Request $request, $activeSensorIds)
+    public function indexSensor(Request $request, string $activeSensorIds) : array
     {
         $userId = (int)$request->attributes->get('user_id');
-        $from   = $this->getFrom($request, $userId);
+        $ago    = $this->getAgo($request, $userId);
         $now    = $this->getTime()->now();
 
         $activeSensorIds = $this->getActiveSensorIds($activeSensorIds, $userId);
         if ($request->query->get('save')) {
             $this->settings->set($userId, self::SETTINGS_ACTIVE_SENSORS, $activeSensorIds);
-            $this->settings->set($userId, self::SETTINGS_TIMESPAN, $from);
+            $this->settings->set($userId, self::SETTINGS_TIMESPAN, $ago);
         }
 
-        $activeSensorIds = array_unique(array_map('intval', explode(':', $activeSensorIds)));
-        $sensorsRaw      = $this->gateway->getSensors($activeSensorIds);
-        $sensorValues    = $this->getValues($sensorsRaw, $now - $from, $now);
+        $sensorsRaw   = $this->gateway->getSensors($activeSensorIds);
+        $sensorValues = $this->getValues($sensorsRaw, $now - $ago, $now);
 
         $json = $this->chart->formatJsonData($sensorsRaw, $sensorValues);
 
         return [
             'json' => iterator_to_array($json),
-            'from' => $from,
+            'ago'  => $ago,
+            'from' => $now - $ago,
             'to'   => $now
         ];
     }
@@ -153,17 +152,19 @@ class Controller
     /**
      * @param string $activeSensorIds
      * @param int $userId
-     * @return string
+     * @return int[]
      */
-    private function getActiveSensorIds($activeSensorIds, $userId)
+    private function getActiveSensorIds(string $activeSensorIds, int $userId) : array
     {
+        $activeSensorIds = array_filter(array_unique(array_map('intval', explode(':', $activeSensorIds))));
+
         if (empty($activeSensorIds)) {
-            $activeSensorIds = $this->settings->get($userId, self::SETTINGS_ACTIVE_SENSORS) ?: '0';
+            $activeSensorIds = (array)$this->settings->get($userId, self::SETTINGS_ACTIVE_SENSORS);
         }
 
         if (empty($activeSensorIds)) {
-            $availableSensorIds = $this->gateway->getSensorIds();
-            $activeSensorIds    = implode(':', $availableSensorIds);
+            // show all sensors as default
+            $activeSensorIds = $this->gateway->getSensorIds();
         }
 
         return $activeSensorIds;
@@ -174,7 +175,7 @@ class Controller
      * @param int $userId
      * @return int
      */
-    private function getFrom(Request $request, int $userId) : int
+    private function getAgo(Request $request, int $userId) : int
     {
         $from = $request->query->getInt('from');
         if (!$from) {

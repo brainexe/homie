@@ -42,7 +42,7 @@ class BMP085 extends AbstractSensor implements Parameterized
     {
         $content = $this->client->executeWithReturn($sensor->parameter);
 
-        if (!$content) {
+        if (empty($content)) {
             return null;
         }
 

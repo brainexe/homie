@@ -1,10 +1,12 @@
 <?php
 
-namespace Homie\Client;
+namespace Homie\Client\Adapter;
 
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Traits\RedisTrait;
+use Homie\Client\ClientInterface;
+use Homie\Client\ExecuteCommandEvent;
 
 /**
  * @todo

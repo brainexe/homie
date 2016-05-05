@@ -23,6 +23,9 @@ App.service('SensorGraph', ['Sensor', 'Sensor.Formatter', function (Sensor, Sens
             var final = [];
             for (var sensorId in data.json) {
                 var graphData = [];
+                if (!data.json[sensorId]) {
+                    continue;
+                }
                 for (var i = 0; i < data.json[sensorId].data.length; i += 2) {
                     graphData.push({
                         x: data.json[sensorId].data[i],
@@ -65,9 +68,9 @@ App.service('SensorGraph', ['Sensor', 'Sensor.Formatter', function (Sensor, Sens
 
             Sensor.getValues(sensors, parameters).success(function (data) {
                 $scope.activeSensorIds = data.activeSensorIds; // todo use Object.keys(data.json)
-                $scope.from   = data.from;
-                $scope.to     = data.to;
-                $scope.stats  = {};
+                $scope.ago   = data.ago;
+                $scope.to    = data.to;
+                $scope.stats = {};
 
                 $scope.graph = new Rickshaw.Graph({
                     element: element.querySelector('.chart'),
@@ -127,9 +130,9 @@ App.service('SensorGraph', ['Sensor', 'Sensor.Formatter', function (Sensor, Sens
          * @param {Number} sensorId
          * @param {Number} from
          */
-        $scope.sensorView = function (sensorId, from) {
+        $scope.sensorView = function (sensorId, ago) {
             sensorId = ~~sensorId;
-            $scope.from = from = from || $scope.from;
+            $scope.ago = ago || $scope.ago;
 
             if (sensorId) {
                 if ($scope.isSensorActive(sensorId)) {
@@ -141,7 +144,7 @@ App.service('SensorGraph', ['Sensor', 'Sensor.Formatter', function (Sensor, Sens
             }
 
             var activeIds  = $scope.activeSensorIds.join(':') || "0";
-            var parameters = '?from={0}&save=1'.format($scope.from);
+            var parameters = '?from={0}&save=1'.format($scope.ago);
 
             Sensor.getValues(activeIds, parameters).success(function (data) {
                 updateGraph(decompressData(data));
@@ -152,6 +155,6 @@ App.service('SensorGraph', ['Sensor', 'Sensor.Formatter', function (Sensor, Sens
     }
 
     return {
-        init:init
+        init: init
     }
 }]);

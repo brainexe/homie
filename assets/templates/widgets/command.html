@@ -1,17 +1,17 @@
-<label>{{sensor.name}}</label>
 <div class="input-group" role="group">
     <input
             class="form-control"
             type="text"
             ng-model="value"
-            ng-enter="submit(value)"
-            placeholder="{{'Current value'|translate}}"
+            ng-enter="execute(value)"
+            placeholder="{{'Command'|translate}}"
             />
     <a
-        ng-click="submit(value)"
-        uib-tooltip="{{'Submit'|translate}}"
+        ng-click="execute(value)"
+        uib-tooltip="{{'Execute'|translate}}"
         class="input-group-addon btn btn-default"
     >
         <span class="glyphicon glyphicon-play"></span>
     </a>
+    <div>{{output}}</div>
 </div>

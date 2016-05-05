@@ -34,7 +34,7 @@ class LanguageTest extends TestCase
     public function testGetFunctions()
     {
         $actual = $this->subject->getFunctions();
-        $this->assertInstanceOf(Generator::class, $actual);
+        $this->assertInternalType('array', $actual);
     }
 
     public function testGetSensor()
@@ -51,7 +51,8 @@ class LanguageTest extends TestCase
             ]);
 
         /** @var ExpressionFunction $function */
-        $actual = iterator_to_array($this->subject->getFunctions());
+        $actual = $this->subject->getFunctions();
+
         $function = $actual[1];
         $this->assertInstanceOf(ExpressionFunction::class, $function);
 
@@ -78,7 +79,7 @@ class LanguageTest extends TestCase
             ]);
 
         /** @var ExpressionFunction $function */
-        $functions = iterator_to_array($this->subject->getFunctions());
+        $functions = $this->subject->getFunctions();
         $function = $functions[0];
         $this->assertInstanceOf(ExpressionFunction::class, $function);
 

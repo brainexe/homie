@@ -86,14 +86,14 @@ class ControllerTest extends TestCase
 
     public function testIndexSensor()
     {
-        $from             = 10;
+        $ago             = 10;
         $now              = 1000;
-        $activeSensorIds  = null;
+        $activeSensorIds  = '';
         $lastValue        = 100;
         $type             = 'sensor_type';
 
         $request = new Request();
-        $request->query->set('from', $from);
+        $request->query->set('from', $ago);
         $request->query->set('save', 1);
         $request->attributes->set('user_id', $userId = 42);
 
@@ -133,12 +133,13 @@ class ControllerTest extends TestCase
         $this->settings
             ->expects($this->at(0))
             ->method('get')
-            ->with($userId, Controller::SETTINGS_ACTIVE_SENSORS);
+            ->with($userId, Controller::SETTINGS_ACTIVE_SENSORS)
+            ->willReturn([]);
 
         $this->settings
             ->expects($this->at(1))
             ->method('set')
-            ->with($userId, Controller::SETTINGS_ACTIVE_SENSORS, '12');
+            ->with($userId, Controller::SETTINGS_ACTIVE_SENSORS, [12]);
 
         $this->settings
             ->expects($this->at(2))
@@ -156,8 +157,9 @@ class ControllerTest extends TestCase
 
         $expected = [
             'json' => $json,
-            'from' => $from,
-            'to' => $now,
+            'from' => $now - $ago,
+            'ago'  => $ago,
+            'to'   => $now,
         ];
 
         $this->assertEquals($expected, $actual);
@@ -203,7 +205,8 @@ class ControllerTest extends TestCase
 
         $expected = [
             'json' => $json,
-            'from' => Chart::DEFAULT_TIME,
+            'ago'  => Chart::DEFAULT_TIME,
+            'from' => $now - Chart::DEFAULT_TIME,
             'to'   => $now,
         ];
 

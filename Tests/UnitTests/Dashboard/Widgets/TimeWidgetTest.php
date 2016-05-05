@@ -29,7 +29,7 @@ class TimeWidgetTest extends TestCase
     {
         $actualResult = $this->subject->getMetadata();
 
-        $this->assertInstanceOf(WidgetMetadataVO::class, $actualResult);
+        $this->assertInstanceOf(WidgetMetadataVo::class, $actualResult);
     }
 
     public function testJsonEncode()

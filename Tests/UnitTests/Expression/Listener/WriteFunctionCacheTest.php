@@ -46,7 +46,7 @@ class WriteFunctionCacheTest extends TestCase
     public function testRebuildCache()
     {
         $function = [];
-        $function['evaluator'] = function ($data, $test1, $test2) {
+        $function['evaluator'] = function (string $data, int $test1, array $test2) {
         };
 
         $this->language
@@ -58,7 +58,10 @@ class WriteFunctionCacheTest extends TestCase
             ->expects($this->once())
             ->method('dumpVariableToCache')
             ->with(WriteFunctionCache::CACHE, [
-                'function' => ['test1', 'test2']
+                'function' => [
+                    ['name' => 'test1', 'type' => 'int'],
+                    ['name' => 'test2', 'type' => 'array']
+                ]
             ]);
 
         $this->subject->rebuildCache();

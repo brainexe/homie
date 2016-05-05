@@ -5,7 +5,7 @@ namespace Tests\Homie\Espeak;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Espeak\Espeak;
-use Homie\Client\LocalClient;
+use Homie\Client\Adapter\LocalClient;
 
 /**
  * @covers Homie\Espeak\Espeak

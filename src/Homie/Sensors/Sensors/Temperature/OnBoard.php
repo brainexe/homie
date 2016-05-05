@@ -20,6 +20,8 @@ class OnBoard extends AbstractSensor implements Searchable
 {
 
     const TYPE = 'temperature.onboard';
+    
+    const GLOB = '/sys/class/thermal/*/temp';
 
     /**
      * @var FileSystem
@@ -75,7 +77,7 @@ class OnBoard extends AbstractSensor implements Searchable
      */
     public function search() : array
     {
-        return array_filter($this->glob->execGlob('/sys/class/thermal/*/temp'), function ($file) {
+        return array_filter($this->glob->execGlob(self::GLOB), function ($file) {
             return strpos($file, 'cooling') === false;
         });
     }
