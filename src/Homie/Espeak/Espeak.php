@@ -12,9 +12,9 @@ use Homie\Client\ClientInterface;
 class Espeak
 {
 
-    const DEFAULT_SPEAKER = 'de+m1';
-    const DEFAULT_SPEED = 75;
-    const DEFAULT_VOLUME = 120;
+    const DEFAULT_SPEAKER = 'de';
+    const DEFAULT_SPEED   = 75;
+    const DEFAULT_VOLUME  = 120;
 
     /**
      * @var ClientInterface
@@ -38,20 +38,6 @@ class Espeak
     {
         $this->client  = $client;
         $this->command = $command;
-    }
-
-    /**
-     * @todo cache espeak --voices
-     * @return array
-     */
-    public function getSpeakers() : array
-    {
-        return [
-            'de+m1' => 'DE Male',
-            'de+f1' => 'DE Female',
-            'en'    => 'EN',
-            'fr'    => 'FR'
-        ];
     }
 
     /**

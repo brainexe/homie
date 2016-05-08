@@ -27,4 +27,15 @@ class IndexTest extends RequestTest
         $this->assertEquals(404, $response->getStatusCode());
         $this->assertContains('Page not found: /notexistingloremipsum', $response->getContent());
     }
+
+    public function testRobots()
+    {
+        $request = new Request();
+        $request->server->set('REQUEST_URI', '/robots.txt');
+
+        $response = $this->handleRequest($request);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertStringStartsWith('User-agent: ', $response->getContent());
+    }
 }

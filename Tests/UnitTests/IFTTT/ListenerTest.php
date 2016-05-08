@@ -23,14 +23,8 @@ class ListenerTest extends TestCase
 
     public function setUp()
     {
-        $this->action  = $this->getMock(Trigger::class, [], [], '', false);
+        $this->action  = $this->getMockWithoutInvokingTheOriginalConstructor(Trigger::class);
         $this->subject = new Listener($this->action);
-    }
-
-    public function testGetSubscribedEvents()
-    {
-        $actualResult = $this->subject->getSubscribedEvents();
-        $this->assertInternalType('array', $actualResult);
     }
 
     public function testHandleEvent()

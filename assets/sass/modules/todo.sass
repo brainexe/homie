@@ -1,15 +1,17 @@
 
 @import "../common.sass"
 
+$taskWidth: 250px
+
 .task-list
-	width: 250px
+	width: $taskWidth
 	float: left
 	margin: 0 5px
 	height: 500px
 	padding-bottom: 15px
 	overflow-y: auto
 
-	input, textarea
+	> input, > textarea
 		width: 232px
 		margin: 1px 5px
 
@@ -31,6 +33,7 @@
 		height: 75px
 		line-height: 75px
 		text-align: center
+
 	.panel-body
 		padding: 3px
 
@@ -41,6 +44,9 @@
 	width: 231px
 	margin: 5px
 	padding: 5px
+
+	input, textarea
+		width: 219px
 
 	> .task-header
 		font-weight: bold
@@ -55,3 +61,4 @@
 
 	> .task-description, .todo-task > .task-user
 		font-size: smaller
+		width: 200px

@@ -36,8 +36,8 @@ class TodoListControllerTest extends TestCase
 
     public function setUp()
     {
-        $this->todoList = $this->getMock(TodoList::class, [], [], '', false);
-        $this->loadUser = $this->getMock(LoadUser::class, [], [], '', false);
+        $this->todoList = $this->getMockWithoutInvokingTheOriginalConstructor(TodoList::class);
+        $this->loadUser = $this->getMockWithoutInvokingTheOriginalConstructor(LoadUser::class);
 
         $this->subject = new TodoListController(
             $this->todoList,
@@ -70,7 +70,7 @@ class TodoListControllerTest extends TestCase
 
         $itemVo              = new TodoItemVO();
         $itemVo->name        = $name;
-        $itemVo->deadline    = strtotime($deadlineStr); // todo add to TimeTrait
+        $itemVo->deadline    = strtotime($deadlineStr);
         $itemVo->description = $description;
 
         $this->todoList
@@ -100,7 +100,7 @@ class TodoListControllerTest extends TestCase
             ->with($itemId, $changes)
             ->willReturn($itemVo);
 
-        $actual = $this->subject->setItemStatus($request);
+        $actual = $this->subject->editItem($request);
 
         $this->assertEquals($itemVo, $actual);
     }

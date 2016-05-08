@@ -8,7 +8,6 @@
     </imports>
     <parameters>
         <parameter key="application.name">homie</parameter>
-        <parameter key="application.registration_enabled">true</parameter>
 
         <parameter key="filesystem.remote.url"/>
         <parameter key="filesystem.remote.username"/>
@@ -20,6 +19,7 @@
             <parameter>Middleware.Session</parameter>
             <parameter>Middleware.Authentication</parameter>
             <parameter>Middleware.CatchUserException</parameter>
+            <parameter>Middleware.Cache</parameter>
             <!--<parameter>Middleware.Csrf</parameter>-->
             <!--<parameter>Middleware.Stats</parameter>-->
             <parameter>Middleware.Gentime</parameter>
@@ -30,6 +30,7 @@
             <parameter key="debug">%debug%</parameter>
             <parameter key="socketUrl">%socket.url%</parameter>
             <parameter key="locales">%locales%</parameter>
+            <parameter key="registrationEnabled">%application.registration_enabled%</parameter>
         </parameter>
     </parameters>
     <services>

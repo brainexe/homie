@@ -3,24 +3,25 @@
 namespace Homie\Switches;
 
 use BrainExe\Core\EventDispatcher\AbstractEvent;
-
 use BrainExe\Core\EventDispatcher\PushViaWebsocket;
+use BrainExe\Core\Traits\JsonSerializableTrait;
 use Homie\Switches\VO\SwitchVO;
 
 class SwitchChangeEvent extends AbstractEvent implements PushViaWebsocket
 {
+    use JsonSerializableTrait;
 
-    const CHANGE_RADIO = 'switch.change';
+    const CHANGE = 'switch.change';
 
     /**
      * @var SwitchVO
      */
-    public $switch;
+    private $switch;
 
     /**
      * @var int
      */
-    public $status;
+    private $status;
 
     /**
      * @param SwitchVO $switchVo
@@ -28,7 +29,7 @@ class SwitchChangeEvent extends AbstractEvent implements PushViaWebsocket
      */
     public function __construct(SwitchVO $switchVo, int $status)
     {
-        parent::__construct(self::CHANGE_RADIO);
+        parent::__construct(self::CHANGE);
         $this->switch = $switchVo;
         $this->status = $status;
     }

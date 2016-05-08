@@ -5,22 +5,13 @@ namespace Homie\Arduino;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\EventListener;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use BrainExe\Core\Annotations\Listen;
 
 /**
  * @EventListener("Arduino.Listener")
  */
-class Listener implements EventSubscriberInterface
+class Listener
 {
-    /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedEvents()
-    {
-        return [
-            SerialEvent::SERIAL => 'handleEvent'
-        ];
-    }
 
     /**
      * @var Device
@@ -38,6 +29,7 @@ class Listener implements EventSubscriberInterface
     }
 
     /**
+     * @Listen(SerialEvent::SERIAL)
      * @param SerialEvent $event
      */
     public function handleEvent(SerialEvent $event)

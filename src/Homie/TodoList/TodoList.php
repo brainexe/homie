@@ -9,6 +9,7 @@ use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Traits\IdGeneratorTrait;
 use BrainExe\Core\Traits\TimeTrait;
 use Generator;
+use Homie\TodoList\Exception\ItemNotFoundException;
 use Homie\TodoList\VO\TodoItemVO;
 
 /**
@@ -50,11 +51,11 @@ class TodoList
     {
         $now = $this->now();
 
-        $itemVo->todoId    = $this->generateUniqueId();
+        $itemVo->todoId    = $this->generateUniqueId('todolist');
         $itemVo->userId    = $user->id;
         $itemVo->userName  = $user->username;
         $itemVo->createdAt = $itemVo->lastChange = $now;
-        $itemVo->status    = TodoItemVO::STATUS_OPEN;
+        $itemVo->status    = $itemVo->status ?: TodoItemVO::STATUS_OPEN;
         if ($itemVo->deadline < $now) {
             $itemVo->deadline = 0;
         }
@@ -75,21 +76,21 @@ class TodoList
         $rawList = $this->gateway->getList();
 
         foreach ($rawList as $item) {
-            $itemVo = $this->builder->build($item);
-            yield $itemVo;
+            yield $this->builder->build($item);
         }
     }
 
     /**
      * @param int $itemId
-     * @return null|TodoItemVO
+     * @return TodoItemVO
+     * @throws ItemNotFoundException
      */
-    public function getItem(int $itemId)
+    public function getItem(int $itemId) : TodoItemVO
     {
         $raw = $this->gateway->getRawItem($itemId);
 
         if (empty($raw)) {
-            return null;
+            throw new ItemNotFoundException(sprintf('Invalid Todo list item: %d', $itemId));
         }
 
         return $this->builder->build($raw);
@@ -98,18 +99,15 @@ class TodoList
     /**
      * @param int $itemId
      * @param array $changes
-     * @return TodoItemVO|null
+     * @return TodoItemVO
      */
-    public function editItem(int $itemId, array $changes)
+    public function editItem(int $itemId, array $changes) : TodoItemVO
     {
         $itemVo = $this->getItem($itemId);
-        if (empty($itemVo)) {
-            return null;
-        }
 
         $this->gateway->editItem($itemId, $changes);
 
-        $event = new TodoListEvent($itemVo, TodoListEvent::EDIT);
+        $event = new TodoListEvent($itemVo, TodoListEvent::EDIT, $changes);
         $this->dispatchEvent($event);
 
         return $itemVo;
@@ -121,10 +119,6 @@ class TodoList
     public function deleteItem(int $itemId)
     {
         $itemVo = $this->getItem($itemId);
-
-        if (empty($itemVo)) {
-            return;
-        }
 
         $this->gateway->deleteItem($itemId);
 

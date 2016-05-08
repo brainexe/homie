@@ -26,14 +26,8 @@ class EspeakListenerTest extends TestCase
 
     public function setUp()
     {
-        $this->espeak  = $this->getMock(Espeak::class, [], [], '', false);
+        $this->espeak  = $this->getMockWithoutInvokingTheOriginalConstructor(Espeak::class);
         $this->subject = new EspeakListener($this->espeak);
-    }
-
-    public function testGetSubscribedEvents()
-    {
-        $actualResult = $this->subject->getSubscribedEvents();
-        $this->assertInternalType('array', $actualResult);
     }
 
     public function testHandleEspeakEvent()

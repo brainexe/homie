@@ -1,21 +1,21 @@
 <?php
 
-namespace Tests\Homie\TodoList\Controller;
+namespace Tests\Homie\ShoppingList;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Homie\TodoList\Controller\ShoppingListController;
-use Homie\TodoList\ShoppingList;
+use Homie\ShoppingList\Controller;
+use Homie\ShoppingList\ShoppingList;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @covers Homie\TodoList\Controller\ShoppingListController
+ * @covers Homie\ShoppingList\Controller
  */
-class ShoppingListControllerTest extends TestCase
+class ControllerTest extends TestCase
 {
 
     /**
-     * @var ShoppingListController
+     * @var Controller
      */
     private $subject;
 
@@ -29,7 +29,7 @@ class ShoppingListControllerTest extends TestCase
     {
         $this->shoppingList = $this->getMock(ShoppingList::class, [], [], '', false);
 
-        $this->subject = new ShoppingListController(
+        $this->subject = new Controller(
             $this->shoppingList
         );
     }

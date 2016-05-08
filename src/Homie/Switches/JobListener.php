@@ -4,13 +4,13 @@ namespace Homie\Switches;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\EventListener;
+use BrainExe\Core\Annotations\Listen;
 use Homie\Switches\Change\Change;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * @EventListener
  */
-class JobListener implements EventSubscriberInterface
+class JobListener
 {
 
     /**
@@ -30,16 +30,7 @@ class JobListener implements EventSubscriberInterface
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedEvents()
-    {
-        return [
-            SwitchChangeEvent::CHANGE_RADIO => 'handleChangeEvent'
-        ];
-    }
-
-    /**
+     * @Listen(SwitchChangeEvent::CHANGE)
      * @param SwitchChangeEvent $event
      */
     public function handleChangeEvent(SwitchChangeEvent $event)

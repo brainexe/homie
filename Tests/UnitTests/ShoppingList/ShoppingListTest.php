@@ -1,14 +1,14 @@
 <?php
 
-namespace Tests\Homie\TodoList;
+namespace Tests\Homie\ShoppingList;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Homie\TodoList\ShoppingList;
-use Homie\TodoList\Gateway;
+use Homie\ShoppingList\ShoppingList;
+use Homie\ShoppingList\Gateway;
 
 /**
- * @covers Homie\TodoList\ShoppingList
+ * @covers Homie\ShoppingList\ShoppingList
  */
 class ShoppingListTest extends TestCase
 {
@@ -25,7 +25,7 @@ class ShoppingListTest extends TestCase
 
     public function setUp()
     {
-        $this->gateway = $this->getMock(Gateway::class, [], [], '', false);
+        $this->gateway = $this->getMockWithoutInvokingTheOriginalConstructor(Gateway::class);
         $this->subject = new ShoppingList($this->gateway);
     }
 

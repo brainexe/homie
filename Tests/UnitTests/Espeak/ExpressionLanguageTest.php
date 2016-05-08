@@ -29,7 +29,7 @@ class ExpressionLanguageTest extends TestCase
 
     public function setUp()
     {
-        $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->dispatcher = $this->getMockWithoutInvokingTheOriginalConstructor(EventDispatcher::class);
 
         $this->subject = new ExpressionLanguage();
         $this->subject->setEventDispatcher($this->dispatcher);
@@ -46,7 +46,6 @@ class ExpressionLanguageTest extends TestCase
             ->method('dispatchInBackground')
             ->with($event);
 
-
         /** @var ExpressionFunction $function */
         $actual = iterator_to_array($this->subject->getFunctions());
         $function = $actual[0];
@@ -62,7 +61,6 @@ class ExpressionLanguageTest extends TestCase
      */
     public function testSetTimerCompiler()
     {
-        $time = '1h';
         $text = 'my text';
 
         /** @var Generator|ExpressionFunction $function */
@@ -71,6 +69,6 @@ class ExpressionLanguageTest extends TestCase
         $this->assertInstanceOf(ExpressionFunction::class, $function);
 
         $compiler = $function->getCompiler();
-        $compiler($time, $text);
+        $compiler($text, 100, 100);
     }
 }

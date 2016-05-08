@@ -4,16 +4,16 @@ namespace Homie\Expression\Listener;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\EventListener;
+use BrainExe\Core\Annotations\Listen;
 use BrainExe\Core\EventDispatcher\Events\ClearCacheEvent;
 use BrainExe\Core\Traits\FileCacheTrait;
 use Homie\Expression\Language;
 use ReflectionFunction;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * @EventListener("Expression.Listener.WriteFunction")
  */
-class WriteFunctionCache implements EventSubscriberInterface
+class WriteFunctionCache
 {
     const CACHE = 'expression_functions';
 
@@ -36,34 +36,37 @@ class WriteFunctionCache implements EventSubscriberInterface
     }
 
     /**
-     * @return array
+     * @Listen(ClearCacheEvent::NAME)
      */
-    public static function getSubscribedEvents()
-    {
-        return [
-            ClearCacheEvent::NAME => 'rebuildCache',
-        ];
-    }
-
     public function rebuildCache()
     {
         $functions = [];
         foreach ($this->language->getFunctions() as $name => $function) {
             $reflection = new ReflectionFunction($function['evaluator']);
 
-            $parameters = [];
-            foreach ($reflection->getParameters() as $i => $parameter) {
-                if ($i >= 1) {
-                    $type = $parameter->getType();
-                    $parameters[] = [
-                        'name' => $parameter->getName(),
-                        'type' => $type ? $type->__toString() : '',
-                    ];
-                }
-            }
-            $functions[$name] = $parameters;
+            $functions[$name] = $this->getParameters($reflection);
         }
 
         $this->dumpVariableToCache(self::CACHE, $functions);
+    }
+
+    /**
+     * @param ReflectionFunction $reflection
+     * @return array
+     */
+    private function getParameters(ReflectionFunction $reflection) : array
+    {
+        $parameters = [];
+        foreach ($reflection->getParameters() as $i => $parameter) {
+            if ($i >= 1) {
+                $type         = $parameter->getType();
+                $parameters[] = [
+                    'name' => $parameter->getName(),
+                    'type' => $type ? $type->__toString() : '',
+                ];
+            }
+        }
+
+        return $parameters;
     }
 }

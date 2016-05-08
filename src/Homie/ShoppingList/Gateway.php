@@ -1,12 +1,12 @@
 <?php
 
-namespace Homie\TodoList;
+namespace Homie\ShoppingList;
 
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\RedisTrait;
 
 /**
- * @Service(name="ShoppingListGateway", public=false)
+ * @Service(name="ShoppingList.Gateway", public=false)
  */
 class Gateway
 {

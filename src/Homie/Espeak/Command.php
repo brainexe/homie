@@ -9,6 +9,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
+ * @deprecated really needed? use expression language
  * @CommandAnnotation("Espeak.Command")
  */
 class Command extends SymfonyCommand

@@ -27,12 +27,6 @@ class WebcamListenerTest extends TestCase
         $this->subject  = new WebcamListener($this->recorder);
     }
 
-    public function testGetSubscribedEvents()
-    {
-        $actualResult = $this->subject->getSubscribedEvents();
-        $this->assertInternalType('array', $actualResult);
-    }
-
     public function testHandleWebcamEvent()
     {
         $name  = 'shoot 123';

@@ -1,17 +1,16 @@
 <?php
 
-namespace Homie\TodoList\Controller;
+namespace Homie\ShoppingList;
 
 use BrainExe\Annotations\Annotations\Inject;
-use BrainExe\Core\Annotations\Controller;
+use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
-use Homie\TodoList\ShoppingList;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Controller("TodoList.Controller.ShoppingListController")
+ * @ControllerAnnotation("ShoppingList.Controller")
  */
-class ShoppingListController
+class Controller
 {
 
     /**
@@ -62,7 +61,7 @@ class ShoppingListController
      * @return bool
      * @Route("/shopping/{name}/", name="todo.shopping.remove", methods="DELETE")
      */
-    public function removeItem(Request $request, string $name)
+    public function removeItem(Request $request, string $name) : bool
     {
         unset($request);
         $this->shoppingList->removeItem($name);

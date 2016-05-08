@@ -2,7 +2,8 @@
 
 namespace Tests\Homie\Dashboard\Widgets;
 
-use Homie\Espeak\Espeak;
+use Generator;
+use Homie\Espeak\Speakers;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Homie\Dashboard\Widgets\Speak;
@@ -17,31 +18,38 @@ class SpeakWidgetTest extends TestCase
     private $subject;
 
     /**
-     * @var Espeak|MockObject
+     * @var Speakers|MockObject
      */
-    private $espeak;
+    private $speakers;
 
     public function setUp()
     {
-        $this->espeak = $this->getMock(Espeak::class, [], [], '', false);
-        $this->subject = new Speak($this->espeak);
+        $this->speakers = $this->getMockWithoutInvokingTheOriginalConstructor(Speakers::class);
+        $this->subject  = new Speak($this->speakers);
     }
 
     public function testGetId()
     {
-        $actualResult = $this->subject->getId();
-        $this->assertEquals(Speak::TYPE, $actualResult);
+        $actual = $this->subject->getId();
+        $this->assertEquals(Speak::TYPE, $actual);
     }
 
     public function testSerialize()
     {
-        $actualResult = $this->subject->getMetadata();
+        $actual = $this->subject->getMetadata();
 
-        $this->assertInstanceOf(WidgetMetadataVo::class, $actualResult);
+        $this->assertInstanceOf(WidgetMetadataVo::class, $actual);
     }
+
     public function testJsonEncode()
     {
-        $actualResult = json_encode($this->subject);
-        $this->assertInternalType('string', $actualResult);
+        $actual = json_encode($this->subject);
+        $this->assertInternalType('string', $actual);
+    }
+
+    public function testGetTokens()
+    {
+        $actual = $this->subject->getTokens();
+        $this->assertInstanceOf(Generator::class, $actual);
     }
 }

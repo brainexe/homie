@@ -36,10 +36,10 @@ class WidgetMetadataVo
      * @param string $widgetId
      * @param array[] $parameters
      */
-    public function __construct($widgetId, array $parameters = [])
+    public function __construct(string $widgetId, array $parameters = [])
     {
-        $this->widgetId    = $widgetId;
-        $this->parameters  = $parameters;
+        $this->widgetId   = $widgetId;
+        $this->parameters = $parameters;
 
         $this->setSize(4, 2);
     }

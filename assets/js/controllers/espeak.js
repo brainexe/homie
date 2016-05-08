@@ -4,8 +4,8 @@ App.controller('EspeakController', ['$scope', 'Speak', 'MessageQueue', function 
     $scope.speakers = {};
     $scope.pending  = false;
 
-    Speak.getSpeakers().success(function (data) {
-        $scope.speakers = data.speakers;
+    Speak.getSpeakers().success(function (speakers) {
+        $scope.speakers = speakers;
     });
 
     MessageQueue.getJobs(Speak.JOB_ID).success(function(data) {

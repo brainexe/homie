@@ -11,7 +11,12 @@ class SendEventTest extends TestCase
     {
         $code  = 'myCode';
         $event = new SendEvent($code);
-        
+
         $this->assertEquals($code, $event->getCode());
+        $this->assertEquals(SendEvent::SEND, $event->getEventName());
+        $this->assertEquals([
+            'code'      => $code,
+            'eventName' => SendEvent::SEND
+        ], $event->jsonSerialize());
     }
 }

@@ -4,13 +4,20 @@ namespace Homie\TodoList;
 
 use BrainExe\Core\EventDispatcher\AbstractEvent;
 use BrainExe\Core\EventDispatcher\PushViaWebsocket;
+use BrainExe\Core\Traits\JsonSerializableTrait;
 use Homie\TodoList\VO\TodoItemVO;
+use JsonSerializable;
 
 class TodoListEvent extends AbstractEvent implements PushViaWebsocket
 {
-    const ADD    = 'todo.add';
-    const REMOVE = 'todo.remove';
-    const EDIT   = 'todo.edit';
+    use JsonSerializableTrait;
+
+    const ADD     = 'todo.add';
+    const REMOVE  = 'todo.remove';
+    const EDIT    = 'todo.edit'; // any edit action
+
+    // when cron expression was reached in pending state -> move to open + espeak
+    const PENDING = 'todo.pending';
 
     /**
      * @var TodoItemVO
@@ -18,14 +25,20 @@ class TodoListEvent extends AbstractEvent implements PushViaWebsocket
     private $itemVo;
 
     /**
+     * @var array
+     */
+    private $changes;
+
+    /**
      * @param TodoItemVO $itemVo
      * @param string $eventName
      */
-    public function __construct(TodoItemVO $itemVo, $eventName)
+    public function __construct(TodoItemVO $itemVo, string $eventName, array $changes = [])
     {
         parent::__construct($eventName);
 
-        $this->itemVo = $itemVo;
+        $this->itemVo  = $itemVo;
+        $this->changes = $changes;
     }
 
     /**
@@ -34,5 +47,13 @@ class TodoListEvent extends AbstractEvent implements PushViaWebsocket
     public function getItemVo() : TodoItemVO
     {
         return $this->itemVo;
+    }
+
+    /**
+     * @return array
+     */
+    public function getChanges() : array
+    {
+        return $this->changes;
     }
 }

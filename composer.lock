@@ -56,16 +56,16 @@
         },
         {
             "name": "brainexe/core",
-            "version": "2.0.8",
+            "version": "2.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brainexe/core.git",
-                "reference": "caa9e2a82ee1b676b8008d37e093195b64f94c54"
+                "reference": "90754c0973e814f2f6532a717e69dc61beb867f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brainexe/core/zipball/caa9e2a82ee1b676b8008d37e093195b64f94c54",
-                "reference": "caa9e2a82ee1b676b8008d37e093195b64f94c54",
+                "url": "https://api.github.com/repos/brainexe/core/zipball/90754c0973e814f2f6532a717e69dc61beb867f8",
+                "reference": "90754c0973e814f2f6532a717e69dc61beb867f8",
                 "shasum": ""
             },
             "require": {
@@ -122,7 +122,7 @@
             ],
             "description": "Framework core - used for brainexe/homie",
             "homepage": "https://mdoetsch.de",
-            "time": "2016-05-05 18:32:19"
+            "time": "2016-05-08 16:06:33"
         },
         {
             "name": "brainexe/totp",

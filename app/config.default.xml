@@ -3,6 +3,7 @@
     <parameters>
         <parameter key="environment">development</parameter>
         <parameter key="node.id">0</parameter>
+        <parameter key="application.registration_enabled">false</parameter>
 
         <!--<parameter key="socket.url">/socket</parameter>-->
         <parameter key="socket.internal.port">8081</parameter>

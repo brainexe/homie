@@ -4,15 +4,18 @@ namespace Homie\Remote\Event;
 
 use BrainExe\Core\EventDispatcher\AbstractEvent;
 use BrainExe\Core\EventDispatcher\PushViaWebsocket;
+use BrainExe\Core\Traits\JsonSerializableTrait;
 
 class ReceivedEvent extends AbstractEvent implements PushViaWebsocket
 {
+    use JsonSerializableTrait;
+
     const RECEIVED = 'remote.received';
 
     /**
      * @var string
      */
-    public $code;
+    private $code;
 
     /**
      * @param string $code

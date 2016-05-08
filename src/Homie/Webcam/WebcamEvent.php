@@ -4,9 +4,13 @@ namespace Homie\Webcam;
 
 use BrainExe\Core\EventDispatcher\AbstractEvent;
 use BrainExe\Core\EventDispatcher\PushViaWebsocket;
+use BrainExe\Core\Traits\JsonSerializableTrait;
+use JsonSerializable;
 
 class WebcamEvent extends AbstractEvent implements PushViaWebsocket
 {
+    use JsonSerializableTrait;
+
     const TAKE_PHOTO = 'webcam.take_photo';
     const TAKE_VIDEO = 'webcam.take_video';
     const TAKE_SOUND = 'webcam.take_sound';

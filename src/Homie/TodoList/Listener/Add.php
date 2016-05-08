@@ -1,39 +1,31 @@
 <?php
 
-namespace Homie\TodoList;
+namespace Homie\TodoList\Listener;
 
 use BrainExe\Core\Annotations\EventListener;
+use BrainExe\Core\Annotations\Listen;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Homie\Espeak\EspeakEvent;
 use Homie\Espeak\EspeakVO;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Homie\TodoList\TodoListEvent;
 
 /**
- * @EventListener("TodoListener")
+ * @EventListener("TodoList.Listener.Add")
  */
-class Listener implements EventSubscriberInterface
+class Add
 {
 
     use EventDispatcherTrait;
 
     /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedEvents()
-    {
-        return [
-            TodoListEvent::ADD => 'handleAddEvent'
-        ];
-    }
-
-    /**
+     * @Listen(TodoListEvent::ADD)
      * @param TodoListEvent $event
      */
     public function handleAddEvent(TodoListEvent $event)
     {
         $itemVo = $event->getItemVo();
 
-        if ($itemVo->deadline) {
+        if (!empty($itemVo->deadline)) {
             $espeakVo    = new EspeakVO(sprintf(_('Erinnerung: %s'), $itemVo->name));
             $espeakEvent = new EspeakEvent($espeakVo);
             $this->dispatchInBackground($espeakEvent, $itemVo->deadline);

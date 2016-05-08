@@ -3,7 +3,7 @@
 namespace Homie;
 
 use BrainExe\Annotations\Annotations\Service;
-use BrainExe\Core\Traits\SerializableTrait;
+use BrainExe\Core\Traits\JsonSerializableTrait;
 use BrainExe\Core\Translation\TranslationProvider;
 use JsonSerializable;
 
@@ -12,7 +12,7 @@ use JsonSerializable;
  */
 class Node implements JsonSerializable, TranslationProvider
 {
-    use SerializableTrait;
+    use JsonSerializableTrait;
 
     const TYPE_RASPBERRY = 'raspberry';
     const TYPE_ARDUINO   = 'arduino';

@@ -6,6 +6,7 @@ use BrainExe\Annotations\Annotations\Inject;
 use Homie\Dashbaord\Annotation\Widget;
 use Homie\Dashboard\AbstractWidget;
 use Homie\Espeak\Espeak;
+use Homie\Espeak\Speakers;
 
 /**
  * @Widget
@@ -16,17 +17,17 @@ class Speak extends AbstractWidget
     const TYPE = 'speak';
 
     /**
-     * @var Espeak
+     * @var Speakers
      */
-    private $espeak;
+    private $speakers;
 
     /**
-     * @Inject("@Espeak")
-     * @param Espeak $espeak
+     * @Inject({"@Espeak.Speakers"})
+     * @param Speakers $speakers
      */
-    public function __construct(Espeak $espeak)
+    public function __construct(Speakers $speakers)
     {
-        $this->espeak = $espeak;
+        $this->speakers = $speakers;
     }
 
     /**
@@ -39,7 +40,7 @@ class Speak extends AbstractWidget
             [
                 'speaker' => [
                     'name'    => gettext('Speaker'),
-                    'values'  => $this->espeak->getSpeakers(),
+                    'values'  => $this->speakers->getSpeakers(),
                     'type'    => WidgetMetadataVo::SINGLE_SELECT,
                     'default' => Espeak::DEFAULT_SPEAKER
                 ]

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-05 13:00+0200\n"
+"POT-Creation-Date: 2016-05-08 15:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: src/Homie/Switches/Controller/Controller.php:112
+#: src/Homie/Switches/Controller/Controller.php:111
 #, php-format
 msgid "Invalid switch type: %s"
 msgstr ""
 
-#: src/Homie/TodoList/Listener.php:37
+#: src/Homie/TodoList/Listener/Pending.php:77
+#, php-format
+msgid "Todo list item %s is open again"
+msgstr ""
+
+#: src/Homie/TodoList/Listener/Add.php:29
 #, php-format
 msgid "Erinnerung: %s"
 msgstr ""
@@ -84,7 +89,7 @@ msgstr ""
 msgid "Sensor"
 msgstr ""
 
-#: src/Homie/Dashboard/Widgets/Speak.php:41
+#: src/Homie/Dashboard/Widgets/Speak.php:42
 msgid "Speaker"
 msgstr ""
 
@@ -186,7 +191,7 @@ msgid "Invalid avatar: %s"
 msgstr ""
 
 #: vendor/brainexe/totp/vendor/brainexe/core/src/Middleware/Authentication.php:76
-#: vendor/brainexe/core/src/Middleware/Authentication.php:79
+#: vendor/brainexe/core/src/Middleware/Authentication.php:64
 msgid "Not logged in"
 msgstr ""
 

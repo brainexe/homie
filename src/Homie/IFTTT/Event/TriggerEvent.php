@@ -4,9 +4,12 @@ namespace Homie\IFTTT\Event;
 
 use BrainExe\Core\EventDispatcher\AbstractEvent;
 use BrainExe\Core\EventDispatcher\PushViaWebsocket;
+use BrainExe\Core\Traits\JsonSerializableTrait;
 
 class TriggerEvent extends AbstractEvent implements PushViaWebsocket
 {
+    use JsonSerializableTrait;
+ 
     const TRIGGER = 'ifttt.trigger';
 
     /**

@@ -4,12 +4,12 @@ namespace Homie\Espeak;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\EventListener;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use BrainExe\Core\Annotations\Listen;
 
 /**
  * @EventListener
  */
-class EspeakListener implements EventSubscriberInterface
+class EspeakListener
 {
 
     /**
@@ -27,16 +27,7 @@ class EspeakListener implements EventSubscriberInterface
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedEvents()
-    {
-        return [
-            EspeakEvent::SPEAK => 'handleEspeakEvent'
-        ];
-    }
-
-    /**
+     * @Listen(EspeakEvent::SPEAK)
      * @param EspeakEvent $event
      */
     public function handleEspeakEvent(EspeakEvent $event)
@@ -46,7 +37,7 @@ class EspeakListener implements EventSubscriberInterface
         $this->espeak->speak(
             $espeakVo->text,
             $espeakVo->volume ?: 100,
-            $espeakVo->speed ?: 100,
+            $espeakVo->speed  ?: 100,
             $espeakVo->speaker
         );
     }

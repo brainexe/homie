@@ -4,12 +4,12 @@ namespace Homie\Media;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\EventListener;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use BrainExe\Core\Annotations\Listen;
 
 /**
  * @EventListener("Media.Listener")
  */
-class Listener implements EventSubscriberInterface
+class Listener
 {
 
     /**
@@ -27,16 +27,7 @@ class Listener implements EventSubscriberInterface
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedEvents()
-    {
-        return [
-            SoundEvent::PLAY_SOUND => 'handleEvent',
-        ];
-    }
-
-    /**
+     * @Listen(SoundEvent::PLAY_SOUND)
      * @param SoundEvent $event
      */
     public function handleEvent(SoundEvent $event)

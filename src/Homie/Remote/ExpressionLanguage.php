@@ -23,13 +23,13 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
     public function getFunctions()
     {
         yield new ExpressionFunction('isRemoteCode', function (string $code) {
-            return sprintf('($eventName == \'%s\' && $event->code === %s)', ReceivedEvent::RECEIVED, $code);
+            return sprintf('($eventName == \'%s\' && $event->getCode() === %s)', ReceivedEvent::RECEIVED, $code);
         }, function (array $parameters, string $code) {
             if ($parameters['eventName'] !== ReceivedEvent::RECEIVED) {
                 return false;
             }
 
-            return $parameters['event']->code === $code;
+            return $parameters['event']->getCode() === $code;
         });
     }
 }

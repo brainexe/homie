@@ -5,6 +5,7 @@ namespace Homie\TodoList\Controller;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller;
 use BrainExe\Core\Annotations\Route;
+use BrainExe\Core\Authentication\Exception\UserNotFoundException;
 use BrainExe\Core\Authentication\LoadUser;
 use BrainExe\Core\Translation\TranslationProvider;
 use Generator;
@@ -13,7 +14,6 @@ use Homie\TodoList\VO\TodoItemVO;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @todo repeatable tasks
  * @Controller("TodoList.Controller.TodoListController")
  */
 class TodoListController implements TranslationProvider
@@ -87,10 +87,10 @@ class TodoListController implements TranslationProvider
      * @Route("/todo/", name="todo.edit", methods="PUT")
      * @return TodoItemVO
      */
-    public function setItemStatus(Request $request) : TodoItemVO
+    public function editItem(Request $request) : TodoItemVO
     {
         $itemId  = $request->request->getInt('id');
-        $changes = $request->request->get('changes');
+        $changes = (array)$request->request->get('changes');
 
         return $this->todo->editItem($itemId, $changes);
     }
@@ -99,6 +99,7 @@ class TodoListController implements TranslationProvider
      * @param Request $request
      * @Route("/todo/assign/", name="todo.assign", methods="POST")
      * @return TodoItemVO
+     * @throws UserNotFoundException
      */
     public function setAssignee(Request $request) : TodoItemVO
     {
@@ -116,7 +117,7 @@ class TodoListController implements TranslationProvider
     /**
      * @param Request $request
      * @param int $itemId
-     * @Route("/todo/{itemId}/", name="todo.delete")
+     * @Route("/todo/{itemId}/", name="todo.delete", requirements={"itemId":"\d+"})
      * @return bool
      */
     public function deleteItem(Request $request, int $itemId) : bool
@@ -131,7 +132,7 @@ class TodoListController implements TranslationProvider
     /**
      * @return array[]
      */
-    protected static function getStates()
+    private static function getStates() : array
     {
         return [
             TodoItemVO::STATUS_PENDING => [

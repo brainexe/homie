@@ -1,40 +1,44 @@
 <div class="container-fluid">
 	<div class="panel panel-primary task-list">
-		<div class="panel-heading" translate>Add a task</div>
+		<div class="panel-heading" translate ng-if="!currentItem.todoId">Add a task</div>
+		<div class="panel-heading" translate ng-if="currentItem.todoId">Edit a task</div>
 		<div class="panel-body">
-			<form ng-submit="addTodo()" class="form-group">
+			<form ng-submit="submit(currentItem)" class="form-group">
 				<input
-						ng-model="newTitle"
-						ng-enter="addTodo()"
+						ng-model="currentItem.name"
+						ng-enter="submit(currentItem)"
 						type="text"
 						class="form-control"
 						placeholder="{{'Title'|translate}}"
 				/>
 				<textarea
-						ng-model="newDescription"
-						ng-enter="addTodo()"
+						ng-model="currentItem.description"
+						ng-enter="submit(currentItem)"
 						class="form-control"
 						placeholder="{{'Description'|translate}}"
 						>
 				</textarea>
 				<input
 						type="text"
+						class="form-control"
 						placeholder="Interval. E.g. '@daily'"
-						ng-model="cronExpression"
-						ng-enter="addTodo()"
-						>
+						ng-model="currentItem.cronExpression"
+						ng-enter="submit(currentItem)"
+						/>
 				<!--todo fix datetime picker-->
 				<input
-						type="text" class="form-control"
+						type="text"
+						class="form-control"
 						uib-datepicker-popup="dd-MMMM-yyyy"
-						ng-model="newDateline"
+						ng-model="currentItem.deadline"
 						placeholder="{{'Deadline'|translate}}"
 						datepicker-options="{}"
 						date-disabled="disabled(date, mode)"
-						close-text="Close"
-						ng-enter="addTodo()"
+						close-text="{{'Close'|translate}}"
+						ng-enter="submit(currentItem)"
 				/>
-				<input type="submit" class="btn btn-primary" value="{{'Add Task'|translate}}" />
+				<input type="submit" class="btn btn-primary" value="{{'Add Task'|translate}}" ng-if="!currentItem.todoId"/>
+				<input type="submit" class="btn btn-primary" value="{{'Save'|translate}}" ng-if="currentItem.todoId"/>
 			</form>
 			<div class="delete-div" ui-on-Drop="onDelete($data)" translate>
 				Drag Here to Delete
@@ -61,17 +65,20 @@
 				<div class="task-deadline" ng-if="item.deadline > 0">
 					<time-ago from-time="item.deadline" overdue="true"></time-ago>
 				</div>
-				<ui-select
-					ng-model="item.userId"
-					theme="bootstrap"
-				>
-					<ui-select-match placeholder="Select...">
+				<div class="task-description" ng-if="item.cronExpression">
+					{{item.cronExpression}}
+				</div>
+				<ui-select ng-model="item.userId">
+					<ui-select-match placeholder="{{'Select...'|translate}}">
 						{{$select.selected.name}}
 					</ui-select-match>
 					<ui-select-choices repeat="user.userId as user in userNames|propsFilter:{name:$select.search}">
 						<span ng-bind-html="user.name|highlight:$select.search"></span>
 					</ui-select-choices>
 				</ui-select>
+				<a class="btn btn-primary" ng-click="setCurrent(item)" translate>
+					Edit
+				</a>
 			</div>
 		</div>
 	</div>

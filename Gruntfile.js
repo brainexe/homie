@@ -1,5 +1,7 @@
 var fs = require('fs');
 
+// todo extract functions into nodejs/grunt/*.js
+
 module.exports = function (grunt) {
     grunt.config('env', grunt.option('env') || process.env.ENVIRONMENT || 'development');
     var isProduction = grunt.config('env') == 'production';
@@ -16,6 +18,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-manifest');
     grunt.loadNpmTasks('grunt-exec');
+    grunt.loadNpmTasks('grunt-po2mo');
 
     grunt.registerTask('extract_lang', ['php_gettext_extract', 'nggettext_extract', 'pot_merge']);
     grunt.registerTask('compile_lang', ['nggettext_compile']);
@@ -346,6 +349,13 @@ module.exports = function (grunt) {
                     dest: 'assets/cache/',
                     ext: '.css'
                 }]
+            }
+        },
+        po2mo: {
+            files: {
+                // TODO
+                src: 'lang/*.po',
+                dest: 'lang/\1.po'
             }
         }
     });

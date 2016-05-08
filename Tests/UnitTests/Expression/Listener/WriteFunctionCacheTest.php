@@ -23,7 +23,7 @@ class WriteFunctionCacheTest extends TestCase
 
     public function setup()
     {
-        $this->language = $this->getMock(Language::class, [], [], '', false);
+        $this->language = $this->getMockWithoutInvokingTheOriginalConstructor(Language::class);
 
         $this->subject = $this->getMock(WriteFunctionCache::class, ['dumpVariableToCache'], [$this->language]);
     }

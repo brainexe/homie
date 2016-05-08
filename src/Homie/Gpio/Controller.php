@@ -43,17 +43,17 @@ class Controller
 
     /**
      * @param Request $request
-     * @param int $sensorId
-     * @param string $status
+     * @param int $pinId
+     * @param int $status
      * @param int $value
      * @return Pin
      * @Route("/gpio/set/{id}/{status}/{value}/", name="gpio.set", methods="POST")
      */
-    public function setStatus(Request $request, $sensorId, $status, $value) : Pin
+    public function setStatus(Request $request, int $pinId, int $status, int $value) : Pin
     {
         unset($request);
 
-        $pin = $this->manager->setPin($sensorId, $status, (bool)$value);
+        $pin = $this->manager->setPin($pinId, (bool)$status, (bool)$value);
 
         return $pin;
     }

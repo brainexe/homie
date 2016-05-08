@@ -105,7 +105,12 @@ class Controller
      * @param Request $request
      * @param string $activeSensorIds
      * @return array
-     * @Route("/sensors/load/{activeSensorIds}/", name="sensor.loadall")
+     * @Route(
+     *     "/sensors/load/{activeSensorIds}/",
+     *     name="sensor.loadall",
+     *     requirements={"activeSensorIds":"[\d:]+"},
+     *     options={"cache":30}
+     * )
      */
     public function indexSensor(Request $request, string $activeSensorIds) : array
     {

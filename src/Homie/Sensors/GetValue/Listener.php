@@ -4,6 +4,7 @@ namespace Homie\Sensors\GetValue;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\EventListener;
+use BrainExe\Core\Annotations\Listen;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Traits\LoggerTrait;
 use BrainExe\Core\Traits\TimeTrait;
@@ -12,12 +13,11 @@ use Homie\Sensors\SensorBuilder;
 use Homie\Sensors\SensorValueEvent;
 use Homie\Sensors\SensorValuesGateway;
 use Homie\Sensors\SensorVO;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * @EventListener("Sensor.GetValue.Listener")
  */
-class Listener implements EventSubscriberInterface
+class Listener
 {
 
     use TimeTrait;
@@ -51,16 +51,7 @@ class Listener implements EventSubscriberInterface
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedEvents()
-    {
-        return [
-            GetSensorValueEvent::NAME => 'handle'
-        ];
-    }
-
-    /**
+     * @Listen(GetSensorValueEvent::NAME)
      * @param GetSensorValueEvent $event
      */
     public function handle(GetSensorValueEvent $event)

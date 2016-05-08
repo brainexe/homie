@@ -4,9 +4,13 @@
  * License: Open source - MIT
  * Please visit http://opensource.org/licenses/MIT for more information
 
+$backgroundColor: #f9f9f9
+$logoHeight: 40px
+$leftSidebarWidth: 180px
+
 html, body
   min-height: 100%
-  background: #f9f9f9
+  background: $backgroundColor
 
 a
   color: #3c8dbc
@@ -45,19 +49,19 @@ body > .header
 /*right side - contins main content
 
 .right-side
-  background-color: #f9f9f9
-  margin-left: 180px
+  background-color: $backgroundColor
+  margin-left: $leftSidebarWidth
 
 /*left side - contains sidebar
 
 .left-side
   position: absolute
-  width: 180px
+  width: $leftSidebarWidth
   top: 0
 
 @media screen and (min-width: 992px)
   .left-side
-    top: 40px
+    top: $logoHeight
   /*Right side strech mode
   .right-side.strech
     margin-left: 0
@@ -65,7 +69,7 @@ body > .header
       margin-top: 0
   /* Left side collapse
   .left-side.collapse-left
-    left: -180px
+    left: -$leftSidebarWidth
 
 /*Give content full width on xs screens
 @media screen and (max-width: 992px)
@@ -76,7 +80,7 @@ body > .header
 
 .content
   padding-left: 5px
-  background: #f9f9f9
+  background: $backgroundColor
 
 /* Utility
 /* H1 - H6 font
@@ -86,8 +90,7 @@ h1, h2, h3, h4, h5, h6
 
 /* Change the color of the striped tables
 
-.table-striped > tbody > tr:nth-child(odd) >
-td, th
+.table-striped > tbody > tr:nth-child(odd) > td, th
   background-color: #f3f4f5
 
 /*
@@ -99,9 +102,9 @@ body > .header
   max-height: 100px
   z-index: 1030
   .navbar
-    height: 40px
+    height: $logoHeight
     margin-bottom: 0
-    margin-left: 180px
+    margin-left: $leftSidebarWidth
     .sidebar-toggle
       float: left
       padding: 9px 5px
@@ -133,9 +136,9 @@ body > .header
     line-height: 40px
     text-align: center
     padding: 0 10px
-    width: 180px
+    width: $leftSidebarWidth
     font-weight: 500
-    height: 40px
+    height: $logoHeight
     display: block
 
 .right-side > .content-header
@@ -173,8 +176,7 @@ body > .header
         position: relative !important
         margin: 0
     &.fixed
-      >
-      .header
+      > .header
         position: fixed
         .wrapper
           margin-top: 100px !important
@@ -238,23 +240,23 @@ body > .header
   .relative
     position: relative
   .row-offcanvas-right .sidebar-offcanvas
-    right: -180px
+    right: -$leftSidebarWidth
   .row-offcanvas-left .sidebar-offcanvas
-    left: -180px
+    left: -$leftSidebarWidth
     margin-top: -50px
   .row-offcanvas-right.active
-    right: 180px
+    right: $leftSidebarWidth
   .row-offcanvas-left.active
-    left: 180px
+    left: $leftSidebarWidth
   .sidebar-offcanvas
     left: 0
   body.fixed
     .sidebar-offcanvas
-      margin-top: 40px
-      left: -180px
+      margin-top: $logoHeight
+      left: -$leftSidebarWidth
     .row-offcanvas-left.active
       .navbar
-        left: 180px !important
+        left: $leftSidebarWidth !important
         right: 0
       .sidebar-offcanvas
         left: 0
@@ -287,8 +289,7 @@ body > .header
       padding: 10px
       background: #3c8dbc
       text-align: center
-      >
-      img
+      > img
         z-index: 5
         height: 90px
         width: 90px
@@ -296,7 +297,7 @@ body > .header
         border-color: rgba(255, 255, 255, 0.2)
         p
           z-index: 5
-          color: #f9f9f9
+          color: $backgroundColor
           color: rgba(255, 255, 255, 0.8)
           font-size: 17px
           text-shadow: 2px 2px 3px #333333
@@ -318,7 +319,7 @@ body > .header
       > div > a
         color: #0073b7
     &.user-footer
-      background-color: #f9f9f9
+      background-color: $backgroundColor
       padding: 10px
       &:before
         display: table
@@ -358,7 +359,6 @@ body > .header
     opacity: 1
     top: 100%
 
-
 @-webkit-keyframes fadeAnimation
   from
     opacity: 0
@@ -367,7 +367,6 @@ body > .header
   to
     opacity: 1
     top: 100%
-
 
 /* Fix dropdown menu for small screens to display correctly on small screens
 @media screen and (max-width: 767px)
@@ -528,9 +527,9 @@ body > .header
 
 .logo
   background-color: #333333
-  color: #f9f9f9
+  color: $backgroundColor
   > a
-    color: #f9f9f9
+    color: $backgroundColor
 
 /* Skin-red user panel
 

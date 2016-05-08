@@ -1,26 +1,23 @@
 <?php
 
-namespace Homie\Espeak;
+namespace Homie\Espeak\Controller;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Util\TimeParser;
+use Homie\Espeak\EspeakEvent;
+use Homie\Espeak\EspeakVO;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("Espeak.Controller")
+ * @ControllerAnnotation("Espeak.Controller.Speak")
  */
-class Controller
+class Speak
 {
 
     use EventDispatcherTrait;
-
-    /**
-     * @var Espeak
-     */
-    private $espeak;
 
     /**
      * @var TimeParser
@@ -28,25 +25,12 @@ class Controller
     private $timeParser;
 
     /**
-     * @Inject({"@Espeak", "@TimeParser"})
-     * @param Espeak $espeak
+     * @Inject({"@TimeParser"})
      * @param TimeParser $timeParser
      */
-    public function __construct(Espeak $espeak, TimeParser $timeParser)
+    public function __construct(TimeParser $timeParser)
     {
-        $this->espeak      = $espeak;
-        $this->timeParser  = $timeParser;
-    }
-
-    /**
-     * @return array
-     * @Route("/espeak/speakers/", name="espeak.speakers")
-     */
-    public function speakers()
-    {
-        return [
-            'speakers' => $this->espeak->getSpeakers(),
-        ];
+        $this->timeParser = $timeParser;
     }
 
     /**

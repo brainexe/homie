@@ -24,30 +24,32 @@ class BuilderTest extends TestCase
     public function testBuild()
     {
         $raw = [
-            'todoId'      => 'todoId',
-            'name'        => 'name',
-            'userId'      => 'userId',
-            'userName'    => 'userName',
-            'description' => 'description',
-            'status'      => 'status',
-            'deadline'    => 'deadline',
-            'createdAt'   => 'createdAt',
-            'lastChange'  => 'lastChange',
+            'todoId'         => 'todoId',
+            'name'           => 'name',
+            'userId'         => 'userId',
+            'userName'       => 'userName',
+            'description'    => 'description',
+            'status'         => 'status',
+            'deadline'       => 'deadline',
+            'createdAt'      => 'createdAt',
+            'lastChange'     => 'lastChange',
+            'cronExpression' => 'cronExpression',
         ];
 
-        $actualResult = $this->subject->build($raw);
+        $actual = $this->subject->build($raw);
 
-        $expectedResult = new TodoItemVO();
-        $expectedResult->todoId      = 'todoId';
-        $expectedResult->name        = 'name';
-        $expectedResult->userId      = 'userId';
-        $expectedResult->userName    = 'userName';
-        $expectedResult->description = 'description';
-        $expectedResult->status      = 'status';
-        $expectedResult->deadline    = 'deadline';
-        $expectedResult->createdAt   = 'createdAt';
-        $expectedResult->lastChange  = 'lastChange';
+        $expected = new TodoItemVO();
+        $expected->todoId         = 'todoId';
+        $expected->name           = 'name';
+        $expected->userId         = 'userId';
+        $expected->userName       = 'userName';
+        $expected->description    = 'description';
+        $expected->status         = 'status';
+        $expected->deadline       = 'deadline';
+        $expected->createdAt      = 'createdAt';
+        $expected->lastChange     = 'lastChange';
+        $expected->cronExpression = 'cronExpression';
 
-        $this->assertEquals($expectedResult, $actualResult);
+        $this->assertEquals($expected, $actual);
     }
 }

@@ -4,9 +4,11 @@ namespace Homie\Sensors;
 
 use BrainExe\Core\EventDispatcher\AbstractEvent;
 use BrainExe\Core\EventDispatcher\PushViaWebsocket;
+use BrainExe\Core\Traits\JsonSerializableTrait;
 
 class SensorValueEvent extends AbstractEvent implements PushViaWebsocket
 {
+    use JsonSerializableTrait;
 
     const VALUE = 'sensor.value';
     const ERROR = 'sensor.value.error';

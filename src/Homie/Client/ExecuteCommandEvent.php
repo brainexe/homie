@@ -4,6 +4,9 @@ namespace Homie\Client;
 
 use BrainExe\Core\EventDispatcher\AbstractEvent;
 
+/**
+ * @internal
+ */
 class ExecuteCommandEvent extends AbstractEvent
 {
 

@@ -1,6 +1,8 @@
 App.controller('TodoController', ['$scope', '_', 'Todo', 'UserManagement', function ($scope, _, Todo, UserManagement) {
     $scope.userNames = [];
 
+    $scope.currentItem = {};
+
     UserManagement.list().success(function (userNames) {
         for (var userId in userNames) {
             $scope.userNames.push({
@@ -18,31 +20,27 @@ App.controller('TodoController', ['$scope', '_', 'Todo', 'UserManagement', funct
         Todo.assign(itemId, userId);
     };
 
-    $scope.addTodo = function () {
-        var errorMessage = _("Name must not be empty"),
-            name, description, date, tempData;
+    $scope.setCurrent = function(item) {
+        $scope.currentItem = item;
+    };
 
-        description = $scope.newDescription;
-        name = $scope.newTitle;
-        date = $scope.newDateline;
-
-        if (!name) {
-            alert(errorMessage);
+    $scope.submit = function (item) {
+        if (!item.name) {
+            alert(_("Name must not be empty"));
             return;
         }
 
-        tempData = {
-            name: name,
-            deadline: date,
-            description: description,
-            status: 'open',
-            cronExpression: $scope.cronExpression
-        };
-
-        Todo.add(tempData).success(function (result) {
-            $scope.items.push(result);
-            $scope.newTitle = $scope.newDescription = $scope.newDateline = '';
-        });
+        if (item.todoId) {
+            Todo.edit(item).success(function (result) {
+                $scope.currentItem = {};
+            });
+        } else {
+            item.status = 'open';
+            Todo.add(item).success(function (result) {
+                $scope.items.push(result);
+                $scope.currentItem = {};
+            });
+        }
     };
 
     $scope.onDelete = function (data) {
@@ -64,5 +62,9 @@ App.controller('TodoController', ['$scope', '_', 'Todo', 'UserManagement', funct
         });
 
         Todo.edit(data);
+    };
+
+    $scope.editTodo = function (item) {
+        Todo.edit(item);
     };
 }]);

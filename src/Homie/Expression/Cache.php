@@ -15,6 +15,11 @@ class Cache
     use FileCacheTrait;
 
     const CACHE_FILE = 'expressions';
+    const BASE       = "use \\BrainExe\\Core\\EventDispatcher\\AbstractEvent;
+use \\Symfony\\Component\\DependencyInjection\\Container;
+return function(AbstractEvent \$event, string \$eventName, Container \$container) {
+%s
+};";
 
     /**
      * @var Gateway
@@ -36,13 +41,10 @@ class Cache
     {
         $all = $this->gateway->getAll();
 
-        $content = "use \\BrainExe\\Core\\EventDispatcher\\AbstractEvent;
-use \\Symfony\\Component\\DependencyInjection\\Container;
-return function(AbstractEvent \$event, string \$eventName, Container \$container) {
-";
+        $content = '';
         foreach ($all as $entity) {
             if ($entity->compiledCondition && $entity->enabled) {
-                $content .= sprintf(
+                $content = sprintf(
                     "\t\t\$entity = %s;\n\t\tif (%s) {\n\t\t\tyield \$entity;\n\t\t}\n",
                     var_export($entity, true),
                     $entity->compiledCondition
@@ -50,8 +52,6 @@ return function(AbstractEvent \$event, string \$eventName, Container \$container
             }
         }
 
-        $content .= "};";
-
-        $this->dumpCacheFile(self::CACHE_FILE, $content);
+        $this->dumpCacheFile(self::CACHE_FILE, sprintf(self::BASE, $content));
     }
 }

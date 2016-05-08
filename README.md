@@ -8,10 +8,8 @@ Homie is a software to automate you home using low-budget hardware, like a Raspb
 
 # Requirements
  - PHP7
- - nodejs 0.10 - 4.1
- - npm
+ - nodejs 0.10 - 4.1 + npm
  - redis-server
- - sass ([gem install sass](http://sass-lang.com/install))
 
 # Installation
   - composer install

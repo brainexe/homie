@@ -4,12 +4,12 @@ namespace Homie\Webcam;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\EventListener;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use BrainExe\Core\Annotations\Listen;
 
 /**
  * @EventListener("Webcam.WebcamListener")
  */
-class WebcamListener implements EventSubscriberInterface
+class WebcamListener
 {
 
     /**
@@ -27,18 +27,7 @@ class WebcamListener implements EventSubscriberInterface
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedEvents()
-    {
-        return [
-            WebcamEvent::TAKE_PHOTO => 'handlePictureEvent',
-            WebcamEvent::TAKE_VIDEO => 'handleVideoEvent',
-            WebcamEvent::TAKE_SOUND => 'handleSoundEvent',
-        ];
-    }
-
-    /**
+     * @Listen(WebcamEvent::TAKE_PHOTO)
      * @param WebcamEvent $event
      */
     public function handlePictureEvent(WebcamEvent $event)
@@ -47,6 +36,7 @@ class WebcamListener implements EventSubscriberInterface
     }
 
     /**
+     * @Listen(WebcamEvent::TAKE_VIDEO)
      * @param WebcamEvent $event
      */
     public function handleVideoEvent(WebcamEvent $event)
@@ -55,6 +45,7 @@ class WebcamListener implements EventSubscriberInterface
     }
 
     /**
+     * @Listen(WebcamEvent::TAKE_SOUND)
      * @param WebcamEvent $event
      */
     public function handleSoundEvent(WebcamEvent $event)

@@ -1,32 +1,26 @@
 <?php
 
-namespace Tests\Homie\Espeak;
+namespace Tests\Homie\Espeak\Controller;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Homie\Espeak\Controller;
+use Homie\Espeak\Controller\Speak;
 use Homie\Espeak\EspeakEvent;
 use Homie\Espeak\EspeakVO;
 use Symfony\Component\HttpFoundation\Request;
-use Homie\Espeak\Espeak;
 use BrainExe\Core\Util\TimeParser;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 
 /**
- * @covers Homie\Espeak\Controller
+ * @covers Homie\Espeak\Controller\Speak
  */
-class ControllerTest extends TestCase
+class SpeakTest extends TestCase
 {
 
     /**
-     * @var Controller
+     * @var Speak
      */
     private $subject;
-
-    /**
-     * @var Espeak|MockObject
-     */
-    private $espeak;
 
     /**
      * @var TimeParser|MockObject
@@ -40,30 +34,11 @@ class ControllerTest extends TestCase
 
     public function setUp()
     {
-        $this->espeak     = $this->getMock(Espeak::class, [], [], '', false);
         $this->timeParser = $this->getMock(TimeParser::class, [], [], '', false);
         $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-        $this->subject = new Controller($this->espeak, $this->timeParser);
+        $this->subject = new Speak($this->timeParser);
         $this->subject->setEventDispatcher($this->dispatcher);
-    }
-
-    public function testSpeakers()
-    {
-        $speakers = ['speakers'];
-
-        $this->espeak
-            ->expects($this->once())
-            ->method('getSpeakers')
-            ->willReturn($speakers);
-
-        $actualResult = $this->subject->speakers();
-
-        $expectedResult = [
-            'speakers' => $speakers,
-        ];
-
-        $this->assertEquals($expectedResult, $actualResult);
     }
 
     public function testSpeak()

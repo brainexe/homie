@@ -14,7 +14,7 @@ use Homie\Expression\Listener\WriteFunctionCache;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("Expression.Controller")
+ * @ControllerAnnotation("Expression.Controller", requirements={"expressionId":"\d+"})
  */
 class Controller
 {

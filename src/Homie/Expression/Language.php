@@ -122,13 +122,13 @@ class Language extends ExpressionLanguage
     private function registerTiming()
     {
         $this->register('isTiming', function (string $timingId) {
-            return sprintf('($eventName == \'%s\' && $event->timingId === %s)', TimingEvent::TIMING_EVENT, $timingId);
+            return sprintf('($eventName == \'%s\' && $event->getTimingId() === %s)', TimingEvent::TIMING_EVENT, $timingId);
         }, function (array $parameters, string $isTiming) {
             if ($parameters['eventName'] !== TimingEvent::TIMING_EVENT) {
                 return false;
             }
 
-            return $parameters['event']->timingId === $isTiming;
+            return $parameters['event']->getTimingId() === $isTiming;
         });
     }
 }

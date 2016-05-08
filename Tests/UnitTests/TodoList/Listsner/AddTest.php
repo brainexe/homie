@@ -1,19 +1,19 @@
 <?php
 
-namespace Tests\Homie\TodoList;
+namespace Tests\Homie\TodoList\Listener;
 
+use Homie\TodoList\Listener\Add;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Homie\TodoList\Listener;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Homie\TodoList\TodoListEvent;
 use Homie\TodoList\VO\TodoItemVO;
 use PHPUnit_Framework_TestCase as TestCase;
 
-class ListenerTest extends TestCase
+class AddTest extends TestCase
 {
 
     /**
-     * @var Listener
+     * @var Add
      */
     private $subject;
 
@@ -26,14 +26,8 @@ class ListenerTest extends TestCase
     {
         $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
 
-        $this->subject = new Listener();
+        $this->subject = new Add();
         $this->subject->setEventDispatcher($this->dispatcher);
-    }
-
-    public function testGetSubscribedEvents()
-    {
-        $actualResult = $this->subject->getSubscribedEvents();
-        $this->assertInternalType('array', $actualResult);
     }
 
     public function testHandleAddEventWithOutDeadline()

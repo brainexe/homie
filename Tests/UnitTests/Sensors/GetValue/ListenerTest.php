@@ -69,12 +69,6 @@ class ListenerTest extends TestCase
         $this->subject->setLogger($this->logger);
     }
 
-    public function testGetSubscribedEvents()
-    {
-        $actual = $this->subject->getSubscribedEvents();
-        $this->assertInternalType('array', $actual);
-    }
-
     public function testHandleWithFailedResult()
     {
         $sensorVo = new SensorVO();

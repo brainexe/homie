@@ -4,14 +4,14 @@ namespace Homie\Client;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\EventListener;
+use BrainExe\Core\Annotations\Listen;
 use BrainExe\Core\Traits\RedisTrait;
 use Homie\Client\Adapter\MessageQueueClient;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * @EventListener("Listener.MessageQueueClient")
  */
-class MessageQueueClientListener implements EventSubscriberInterface
+class MessageQueueClientListener
 {
 
     use RedisTrait;
@@ -31,16 +31,7 @@ class MessageQueueClientListener implements EventSubscriberInterface
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedEvents()
-    {
-        return [
-            ExecuteCommandEvent::EXECUTE => 'handleExecuteEvent'
-        ];
-    }
-
-    /**
+     * @Listen(ExecuteCommandEvent::EXECUTE)
      * @param ExecuteCommandEvent $event
      */
     public function handleExecuteEvent(ExecuteCommandEvent $event)

@@ -54,9 +54,9 @@ class Administration
         SensorBuilder $builder,
         Builder $voBuilder
     ) {
-        $this->gateway        = $gateway;
-        $this->builder        = $builder;
-        $this->voBuilder      = $voBuilder;
+        $this->gateway   = $gateway;
+        $this->builder   = $builder;
+        $this->voBuilder = $voBuilder;
     }
 
     /**
@@ -64,16 +64,16 @@ class Administration
      * @return SensorVO
      * @Route("/sensors/", name="sensors.add", methods="POST")
      */
-    public function addSensor(Request $request)
+    public function addSensor(Request $request) : SensorVO
     {
-        $sensorType  = $request->request->getAlpha('type');
+        $sensorType  = (string)$request->request->getAlpha('type');
         $name        = $request->request->get('name');
         $description = $request->request->get('description');
         $parameter   = $request->request->get('parameter');
         $interval    = $request->request->getInt('interval');
         $node        = $request->request->getInt('node');
         $color       = $request->request->get('color') ?? '#aaaaaa';  // todo random color
-        $formatter   = $request->request->getAlnum('formatter');
+        $formatter   = (string)$request->request->getAlnum('formatter');
         $tags        = (array)$request->request->get('tags');
 
         $sensorVo = $this->voBuilder->build(
@@ -114,11 +114,11 @@ class Administration
 
     /**
      * @Route("/sensors/{sensorId}/", name="sensor.edit", methods="PUT")
-     * @param int $sensorId
      * @param Request $request
+     * @param int $sensorId
      * @return SensorVO
      */
-    public function edit(Request $request, int $sensorId)
+    public function edit(Request $request, int $sensorId) : SensorVO
     {
         $sensor                = $this->gateway->getSensor($sensorId);
         $sensorVo              = $this->voBuilder->buildFromArray($sensor);

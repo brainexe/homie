@@ -1,12 +1,12 @@
 <?php
 
-namespace Homie\TodoList;
+namespace Homie\ShoppingList;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 
 /**
- * @Service(public=false)
+ * @Service("ShoppingList", public=false)
  */
 class ShoppingList
 {
@@ -17,7 +17,7 @@ class ShoppingList
     private $gateway;
 
     /**
-     * @Inject("@ShoppingListGateway")
+     * @Inject("@ShoppingList.Gateway")
      * @param Gateway $gateway
      */
     public function __construct(Gateway $gateway)

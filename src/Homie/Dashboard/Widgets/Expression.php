@@ -30,7 +30,7 @@ class Expression extends AbstractWidget
     /**
      * @return array
      */
-    protected function getParameters()
+    private function getParameters()
     {
         return [
             'template' => [

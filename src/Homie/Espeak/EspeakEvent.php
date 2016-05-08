@@ -4,17 +4,18 @@ namespace Homie\Espeak;
 
 use BrainExe\Core\EventDispatcher\AbstractEvent;
 use BrainExe\Core\EventDispatcher\PushViaWebsocket;
-use BrainExe\Core\Traits\SerializableTrait;
+use BrainExe\Core\Traits\JsonSerializableTrait;
 
 class EspeakEvent extends AbstractEvent implements PushViaWebsocket
 {
+    use JsonSerializableTrait;
 
     const SPEAK = 'espeak.speak';
 
     /**
      * @var EspeakVO
      */
-    public $espeak;
+    private $espeak;
 
     /**
      * @param EspeakVO $espeak
