@@ -71,11 +71,6 @@ class AppServer
 
             $raw = json_decode($raw[1], true);
 
-            if ($this->now() > $raw['server']['REQUEST_TIME_FLOAT'] + self::MAX_AGE) {
-                // ignore old requests
-                continue;
-            }
-
             $this->handle($raw);
         }
     }
@@ -85,6 +80,11 @@ class AppServer
      */
     private function handle(array $raw)
     {
+        if ($this->now() > $raw['server']['REQUEST_TIME_FLOAT'] + self::MAX_AGE) {
+            // ignore old requests
+            return;
+        }
+
         $request = $this->initRequest($raw);
 
         $response = $this->appKernel->handle($request);

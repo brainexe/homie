@@ -15,7 +15,6 @@ class SpeakersTest extends RequestTest
         $this->initUser($request);
         $response = $this->handleRequest($request);
 
-        $this->assertStringStartsWith('{', $response->getContent());
         $this->assertEquals(200, $response->getStatusCode());
     }
 }

@@ -7,6 +7,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Espeak\Espeak;
 use Homie\Client\Adapter\LocalClient;
+use RuntimeException;
 
 /**
  * @covers Homie\Espeak\Speakers
@@ -31,7 +32,6 @@ class SpeakersTest extends TestCase
         $this->subject = new Speakers($this->client, 'espeak', ['de', 'en']);
     }
 
-
     public function testSpeak()
     {
         $this->client
@@ -48,9 +48,22 @@ class SpeakersTest extends TestCase
             'en-us' => 'English-us - M',
             'en-wi' => 'En-westindies - M',
         ];
-        
+
         $actual  = $this->subject->getSpeakers();
 
         $this->assertEquals($expected, iterator_to_array($actual));
+    }
+
+    public function testSpeakWithException()
+    {
+        $this->client
+            ->expects($this->once())
+            ->method('executeWithReturn')
+            ->with('espeak', ['--voices'])
+            ->willThrowException(new RuntimeException());
+
+        $actual  = $this->subject->getSpeakers();
+
+        $this->assertEquals([], iterator_to_array($actual));
     }
 }

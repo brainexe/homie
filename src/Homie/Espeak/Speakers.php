@@ -49,14 +49,28 @@ class Speakers
      */
     public function getSpeakers() : Iterator
     {
-        $raw = $this->client->executeWithReturn($this->command, ['--voices']);
+        $raw = $this->getRawSpeakers();
 
-        foreach (explode("\n", $raw) as $idx => $line) {
+        foreach ($raw as $idx => $line) {
             @list(,, $language, $gender, $voiceName) = preg_split('/\s+/', $line);
 
             if (strlen($language) <= 5 && in_array(substr($language, 0, 2), $this->locales)) {
                 yield $language => ucfirst($voiceName) . " - $gender";
             }
+        }
+    }
+
+    /**
+     * @return string[]
+     */
+    private function getRawSpeakers() : array
+    {
+        try {
+            $raw = $this->client->executeWithReturn($this->command, ['--voices']);
+
+            return explode("\n", $raw);
+        } catch (\RuntimeException $e) {
+            return [];
         }
     }
 }
