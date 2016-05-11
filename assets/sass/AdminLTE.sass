@@ -19,18 +19,6 @@ a
     text-decoration: none
     color: #72afd2
 
-/* Layouts
-
-.wrapper
-  min-height: 100%
-  &:before
-    display: table
-    content: " "
-  &:after
-    display: table
-    content: " "
-    clear: both
-
 /* Header
 
 body > .header
@@ -79,7 +67,8 @@ body > .header
 /* Content
 
 .content
-  padding-left: 5px
+  padding-left: 3px
+  padding-top: 3px
   background: $backgroundColor
 
 /* Utility
@@ -239,27 +228,13 @@ body > .header
 @media screen and (max-width: 992px)
   .relative
     position: relative
-  .row-offcanvas-right .sidebar-offcanvas
-    right: -$leftSidebarWidth
-  .row-offcanvas-left .sidebar-offcanvas
+  .row-offcanvas .sidebar-offcanvas
     left: -$leftSidebarWidth
     margin-top: -50px
-  .row-offcanvas-right.active
-    right: $leftSidebarWidth
-  .row-offcanvas-left.active
+  .row-offcanvas.active
     left: $leftSidebarWidth
   .sidebar-offcanvas
     left: 0
-  body.fixed
-    .sidebar-offcanvas
-      margin-top: $logoHeight
-      left: -$leftSidebarWidth
-    .row-offcanvas-left.active
-      .navbar
-        left: $leftSidebarWidth !important
-        right: 0
-      .sidebar-offcanvas
-        left: 0
 
 /*
  *    Navbar custom dropdown menu

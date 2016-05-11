@@ -235,7 +235,7 @@ module.exports = function (grunt) {
                     mangle: isProduction ? {
                         toplevel: true
                     } : false,
-                    sourceMap: !isProduction,
+                    sourceMap: true,
                     sourceMapIncludeSources: true,
                     sourceMapName: 'web/app.map'
                 },
@@ -252,7 +252,7 @@ module.exports = function (grunt) {
                 options: {
                     compress: false,
                     mangle: false,
-                    sourceMap: !isProduction,
+                    sourceMap: true,
                     sourceMapIncludeSources: true,
                     sourceMapName: 'web/vendor.map'
                 },

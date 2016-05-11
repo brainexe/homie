@@ -4,12 +4,15 @@ namespace Homie\ShoppingList;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Traits\EventDispatcherTrait;
 
 /**
  * @Service("ShoppingList", public=false)
  */
 class ShoppingList
 {
+
+    use EventDispatcherTrait;
 
     /**
      * @var Gateway
@@ -36,16 +39,22 @@ class ShoppingList
     /**
      * @param string $name
      */
-    public function addItem($name)
+    public function addItem(string $name)
     {
         $this->gateway->addItem($name);
+
+        $event = new ShoppingListEvent(ShoppingListEvent::ADD, $name);
+        $this->dispatchEvent($event);
     }
 
     /**
      * @param string $name
      */
-    public function removeItem($name)
+    public function removeItem(string $name)
     {
         $this->gateway->removeItem($name);
+        
+        $event = new ShoppingListEvent(ShoppingListEvent::REMOVE, $name);
+        $this->dispatchEvent($event);
     }
 }

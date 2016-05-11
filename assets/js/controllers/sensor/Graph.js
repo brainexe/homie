@@ -23,9 +23,6 @@ App.service('SensorGraph', ['Sensor', 'Sensor.Formatter', function (Sensor, Sens
             var final = [];
             for (var sensorId in data.json) {
                 var graphData = [];
-                if (!data.json.legnth || !data.json[sensorId]) {
-                    continue;
-                }
                 for (var i = 0; i < data.json[sensorId].data.length; i += 2) {
                     graphData.push({
                         x: data.json[sensorId].data[i],

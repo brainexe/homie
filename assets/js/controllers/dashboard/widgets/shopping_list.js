@@ -2,6 +2,10 @@
 App.service('Widget.shopping_list', ['ShoppingList', function(ShoppingList) {
     return {
         render: function ($scope, widget) {
+            $scope.$on('shopping_list.add', function(event, data) {
+                $scope.shoppingList.push({text: data.item, done: false});
+            });
+
             $scope.todoText = '';
             ShoppingList.getData().success(function (data) {
                 $scope.shoppingList = data.shoppingList.map(function (text) {
@@ -18,7 +22,6 @@ App.service('Widget.shopping_list', ['ShoppingList', function(ShoppingList) {
 
                 ShoppingList.add(name);
 
-                $scope.shoppingList.push({text: name, done: false});
                 $scope.todoText = '';
             };
 

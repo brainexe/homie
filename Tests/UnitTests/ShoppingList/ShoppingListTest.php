@@ -2,6 +2,8 @@
 
 namespace Tests\Homie\ShoppingList;
 
+use BrainExe\Core\EventDispatcher\EventDispatcher;
+use Homie\ShoppingList\ShoppingListEvent;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\ShoppingList\ShoppingList;
@@ -23,10 +25,18 @@ class ShoppingListTest extends TestCase
      */
     private $gateway;
 
+    /**
+     * @var EventDispatcher|MockObject
+     */
+    private $dispatcher;
+
     public function setUp()
     {
-        $this->gateway = $this->getMockWithoutInvokingTheOriginalConstructor(Gateway::class);
+        $this->gateway    = $this->getMockWithoutInvokingTheOriginalConstructor(Gateway::class);
+        $this->dispatcher = $this->getMockWithoutInvokingTheOriginalConstructor(EventDispatcher::class);
+
         $this->subject = new ShoppingList($this->gateway);
+        $this->subject->setEventDispatcher($this->dispatcher);
     }
 
     public function testGetItems()
@@ -51,6 +61,12 @@ class ShoppingListTest extends TestCase
             ->method('addItem')
             ->with($name);
 
+        $event = new ShoppingListEvent(ShoppingListEvent::ADD, $name);
+        $this->dispatcher
+            ->expects($this->once())
+            ->method('dispatchEvent')
+            ->with($event);
+
         $this->subject->addItem($name);
     }
 
@@ -63,6 +79,11 @@ class ShoppingListTest extends TestCase
             ->method('removeItem')
             ->with($name);
 
+        $event = new ShoppingListEvent(ShoppingListEvent::REMOVE, $name);
+        $this->dispatcher
+            ->expects($this->once())
+            ->method('dispatchEvent')
+            ->with($event);
         $this->subject->removeItem($name);
     }
 }

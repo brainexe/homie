@@ -25,9 +25,11 @@ App.service('Widget.sensor', ['Sensor', '$rootScope', 'Sensor.Formatter', 'Senso
 
             update();
 
-            $rootScope.$on('sensor.update', function() {
-                $scope.updating = false;
-                update();
+            $rootScope.$on('sensor.update', function(event, data) {
+                if (data.sensorId == widget.sensor_id) {
+                    $scope.updating = false;
+                    update();
+                }
             });
 
             $scope.reload = function() {
