@@ -97,7 +97,7 @@ class Values
     /**
      * @param Request $request
      * @param int $sensorId
-     * @Route("/sensors/{sensorId}/value/", name="sensor.value", methods="GET", options={"cache":30})
+     * @Route("/sensors/{sensorId}/value/", name="sensor.value", methods="GET", options={"cache":10})
      * @return array
      */
     public function getValue(Request $request, int $sensorId) : array

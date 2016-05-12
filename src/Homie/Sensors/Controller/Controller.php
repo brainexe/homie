@@ -109,7 +109,7 @@ class Controller
      *     "/sensors/load/{activeSensorIds}/",
      *     name="sensor.loadall",
      *     requirements={"activeSensorIds":"[\d:]+"},
-     *     options={"cache":30}
+     *     options={"cache":10}
      * )
      */
     public function indexSensor(Request $request, string $activeSensorIds) : array

@@ -103,7 +103,7 @@ class Administration
      * @param Request $request
      * @return bool
      */
-    public function delete(Request $request, int $sensorId)
+    public function delete(Request $request, int $sensorId) : bool
     {
         unset($request);
 

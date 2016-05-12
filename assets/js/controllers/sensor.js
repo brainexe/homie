@@ -24,5 +24,5 @@ App.controller('SensorController', ['$scope', '$uibModal', 'SensorGraph', functi
     };
 
     var element = document.getElementsByClassName("chart_container")[0];
-    SensorGraph.init($scope, element, 500, '0');
+    SensorGraph.init($scope, element, 500, [0]);
 }]);
