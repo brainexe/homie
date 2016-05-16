@@ -9,6 +9,7 @@
     <parameters>
         <parameter key="application.name">homie</parameter>
 
+        <parameter key="filesystem.local.path">%cache.dir%filesystem/</parameter>
         <parameter key="filesystem.remote.url"/>
         <parameter key="filesystem.remote.username"/>
         <parameter key="filesystem.remote.password"/>
@@ -39,7 +40,14 @@
         <service id="RemoteFilesystem" class="League\Flysystem\Filesystem" public="false">
             <argument type="service">
                 <service class="League\Flysystem\Adapter\Local">
-                    <argument>%cache.dir%filesystem/</argument>
+                    <argument>%filesystem.local.path%</argument>
+                    <argument type="constant">LOCK_EX</argument>
+                    <argument type="constant">League\Flysystem\Adapter\Local::DISALLOW_LINKS</argument>
+                    <argument type="collection">
+                        <argument key="file" type="collection">
+                            <argument key="public">511</argument><!-- decimal for 0777 -->
+                        </argument>
+                    </argument>
                 </service>
             </argument>
         </service>

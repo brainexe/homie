@@ -93,7 +93,7 @@
                 <td>
                     <div ng-if="!sensor.edit && sensor.color" class="sensorColorPicker" ng-style="{'background-color':sensor.color}"></div>
                     <div ng-if="sensor.edit" class="input-group">
-                        <div colorpicker ng-model="sensor.color" ng-if="sensor.color" class="input-group-addon sensorColorPicker" style="border:darkgrey 1px solid; width: 20px; height: 20px" ng-style="{'background-color':sensor.color}"></div>
+                        <div colorpicker ng-model="sensor.color" ng-if="sensor.color" class="input-group-addon sensorColorPicker" ng-style="{'background-color':sensor.color}"></div>
                         <input ng-if="sensor.edit" colorpicker type="text" ng-model="sensor.color" />
                     </div>
                 </td>

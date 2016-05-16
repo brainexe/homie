@@ -8,16 +8,6 @@ class WebcamVO
     /**
      * @var string
      */
-    public $webcamId;
-
-    /**
-     * @var string
-     */
-    public $filePath;
-
-    /**
-     * @var string
-     */
     public $webPath;
 
     /**

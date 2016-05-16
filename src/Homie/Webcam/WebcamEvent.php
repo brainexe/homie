@@ -37,7 +37,7 @@ class WebcamEvent extends AbstractEvent implements PushViaWebsocket
     public function __construct(
         string $eventName,
         string $eventType,
-        int $duration = 0
+        int    $duration = 0
     ) {
         parent::__construct($eventType);
         $this->name     = $eventName;

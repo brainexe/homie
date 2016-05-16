@@ -1,4 +1,4 @@
-App.service('Widget.webcam', ['Webcam', function(Webcam) {
+App.service('Widget.webcam', ['Webcam', '_', function(Webcam, _) {
     return {
         render: function ($scope, widget) {
             $scope.loadRecentImage = function() {
@@ -16,12 +16,12 @@ App.service('Widget.webcam', ['Webcam', function(Webcam) {
             };
 
             $scope.takeVideo = function () {
-                var duration = prompt('Duration');
+                var duration = prompt(_('Duration'));
                 Webcam.takeVideo(duration);
             };
 
             $scope.takeSound = function () {
-                var duration = prompt('Duration');
+                var duration = prompt(_('Duration'));
                 Webcam.takeSound(duration);
             };
         }

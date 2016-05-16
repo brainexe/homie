@@ -35,12 +35,15 @@ App.service('Expression', ['$http', 'Cache', function($http, Cache) {
             return  $http.delete('/expressions/{0}/'.format(expressionId));
         },
 
-        deleteEvent: function(eventId) {
-            return $http.delete('/stats/event/?job_id={0}'.format(eventId));
+        addCron: function(cron) {
+            return $http.post('/cron/', cron);
         },
 
-        addCron: function(cron) {
-            return $http.post('/expressions/cron/', cron);
+        // todo cache until nextRun > now()
+        getNextCronRun: function(expression) {
+            return $http.get('/cron/next/', {
+                params: {expression: expression}
+            });
         },
 
         invalidate: function() {

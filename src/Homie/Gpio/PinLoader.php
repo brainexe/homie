@@ -68,7 +68,7 @@ class PinLoader
             $matches = array_map('trim', $r);
 
             $pin = new Pin();
-            $pin->setWiringId((int)$matches[1]);
+            $pin->setSoftwareId((int)$matches[1]);
             $pin->setName($matches[2]);
             $pin->setMode($matches[3]);
             $pin->setValue((bool)$matches[4]);

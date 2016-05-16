@@ -51,7 +51,7 @@ class PinsCollectionTest extends TestCase
         $pinName = 'name';
 
         $pin = new Pin();
-        $pin->setWiringId($pinId);
+        $pin->setSoftwareId($pinId);
         $pin->setName($pinName);
         $pin->setPhysicalId(11880);
 
@@ -63,7 +63,7 @@ class PinsCollectionTest extends TestCase
 
         $this->assertEquals($pin, $actualResult);
         $this->assertInternalType('array', $jsonResult);
-        $this->assertEquals($pinId, $jsonResult['wiringId']);
+        $this->assertEquals($pinId, $jsonResult['softwareId']);
         $this->assertEquals($pinName, $actualResult->getName());
         $this->assertEquals($pinName, $jsonResult['name']);
         $this->assertEquals(11880, $pin->getPhysicalId());

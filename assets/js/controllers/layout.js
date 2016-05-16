@@ -1,26 +1,46 @@
 
-App.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gettextCatalog', 'BrowserNotification', 'SocketServer', 'Cache', function ($scope, UserManagement, Config, gettextCatalog, BrowserNotification, SocketServer, Cache) {
-    $scope.flashBag  = [];
+App.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gettextCatalog', 'SocketServer', 'Cache', function ($scope, UserManagement, Config, gettextCatalog, SocketServer, Cache) {
+    $scope.flashBag    = [];
+    $scope.currentUser = {};
+    $scope.locales     = [];
 
     var language = 'en';
     if (localStorage.getItem('language')) {
         language = localStorage.getItem('language');
     }
-
     gettextCatalog.cache = Cache;
     gettextCatalog.setCurrentLanguage(language);
     gettextCatalog.loadRemote("/lang/" + language + ".json");
-
-    $scope.currentUser = {};
 
     UserManagement.loadCurrentUser().success(function(user){
         $scope.currentUser = user;
     });
 
-    $scope.$watch(function() {
-        return UserManagement.getCurrentUser();
-    }, function (user) {
+    Config.getAll().success(function(config) {
+        $scope.locales = config.locales;
+        if (config.debug) {
+            // live reload via "grunt watch"
+            var s  = document.createElement('script');
+            s.type = 'text/javascript';
+            s.src  =' //localhost:35729/livereload.js';
+            document.body.appendChild(s);
+
+            // gettext debug mode
+            gettextCatalog.debug       = true;
+            gettextCatalog.debugPrefix = '?';
+        }
+    });
+
+    $scope.$on('currentuser.update', function(event, user) {
         $scope.currentUser = user;
+    });
+
+    $scope.$on('flash', function (type, args) {
+        $scope.addFlash(args[0], args[1]);
+    });
+
+    $scope.$on('cache.clear', function () {
+        $scope.flushCache()
     });
 
     $scope.changeLanguage = function(lang) {
@@ -45,10 +65,6 @@ App.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gette
         $scope.flashBag.splice(index, 1);
     };
 
-    $scope.$on('flash', function (type, args) {
-        $scope.addFlash(args[0], args[1]);
-    });
-
     /**
      * @param {String} message
      * @param {String} type (success, warning, info, danger)
@@ -72,42 +88,5 @@ App.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gette
             }
         }, 5000);
     };
-
-    Config.get('debug', 'locales').then(function(config) {
-        var debug   = config[0];
-        var locales = config[1];
-
-        $scope.locales = locales;
-        if (debug) {
-            // purge cache on page reload
-            Cache.removeAll();
-
-            // live reload via "grunt watch"
-            var s  = document.createElement('script');
-            s.type = 'text/javascript';
-            s.src  =' //localhost:35729/livereload.js';
-            document.body.appendChild(s);
-
-            // gettext debug mode
-            gettextCatalog.debug       = true;
-            gettextCatalog.debugPrefix = '?';
-        }
-    });
-
-    // todo extract into separate service
-    var sensorValues = {};
-    $scope.$on('sensor.value', function (eventName, event) {
-        var old = sensorValues[event.sensorVo.sensorId];
-        var text;
-        if (old != event.valueFormatted) {
-            sensorValues[event.sensorVo.sensorId] = event.valueFormatted;
-            if (old) {
-                text = '{0}: {1} -> {2}'.format(event.sensorVo.name, old, event.valueFormatted);
-            } else {
-                text = '{0}: {1}'.format(event.sensorVo.name, event.valueFormatted);
-            }
-            BrowserNotification.show(text);
-        }
-    });
 }]);
 

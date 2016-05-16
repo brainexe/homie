@@ -1,13 +1,34 @@
 
-App.controller('GpioController', ['$scope', 'Gpio', function ($scope, Gpio) {
-
-    $scope.gpios    = {};
+App.controller('GpioController', ['$scope', 'Gpio', 'Nodes', function ($scope, Gpio, Nodes) {
+    $scope.gpios    = [];
     $scope.editMode = false;
     $scope.orderBy  = 'physicalId';
 
-    Gpio.getData().success(function (data) {
-        $scope.gpios = data.pins;
+    // current selected node
+    $scope.nodeId = 0;
+
+    var supportedNodes = [
+        'arduino',
+        'raspberry'
+    ];
+
+    Nodes.getData().success(function(data) {
+        $scope.nodes = data.nodes.filter(function(node) {
+            return supportedNodes.indexOf(node.type) > -1;
+        });
     });
+
+    $scope.selectNode = function (node) {
+        $scope.nodeId = node.nodeId;
+
+        Gpio.getData(node.nodeId).success(function (data) {
+            $scope.gpios = data.pins;
+        });
+    };
+
+    $scope.toggleEditMode = function () {
+        $scope.editMode = !$scope.editMode;
+    };
 
     $scope.setOrderBy = function(key) {
         if ($scope.orderBy == key) {
@@ -21,7 +42,7 @@ App.controller('GpioController', ['$scope', 'Gpio', function ($scope, Gpio) {
      * @param {Object} pin
      */
     function savePin(pin) {
-        Gpio.savePin(pin.id, pin.direction, pin.value).success(function (pin) {
+        Gpio.savePin($scope.nodeId, pin.id, pin.direction, pin.value).success(function (pin) {
             $scope.gpios[pin.id] = pin;
         });
     }
@@ -30,7 +51,7 @@ App.controller('GpioController', ['$scope', 'Gpio', function ($scope, Gpio) {
      * @param {Object} pin
      */
     $scope.saveDescription = function (pin) {
-        Gpio.setDescription(pin.id, pin.description);
+        Gpio.setDescription($scope.nodeId, pin.physicalId, pin.description);
     };
 
     /**

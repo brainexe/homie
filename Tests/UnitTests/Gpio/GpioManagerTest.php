@@ -52,7 +52,8 @@ class GpioManagerTest extends TestCase
         ];
 
         $pin = new Pin();
-        $pin->setWiringId($pinId);
+        $pin->setSoftwareId($pinId);
+        $pin->setPhysicalId($pinId);
 
         $collection = new PinsCollection();
         $collection->add($pin);
@@ -80,7 +81,7 @@ class GpioManagerTest extends TestCase
         $value  = true;
 
         $pin = new Pin();
-        $pin->setWiringId($gpioId);
+        $pin->setSoftwareId($gpioId);
 
         $this->pinLoader
             ->expects($this->once())

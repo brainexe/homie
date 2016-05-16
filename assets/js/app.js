@@ -41,7 +41,7 @@ var App = angular.module('homie', [
                 }
             };
         }]);
-    }]).run(['$routeProvider', '$httpProvider', 'controllers', '$rootScope', '$http', 'CacheFactory', function ($routeProvider, $httpProvider, controllers, $rootScope, $http, CacheFactory) {
+    }]).run(['$routeProvider', '$httpProvider', '$rootScope', 'controllers', 'Listeners', function ($routeProvider, $httpProvider, $rootScope, controllers, Listeners) {
         // init routing
         controllers = controllers();
         for (var i in controllers) {
@@ -57,7 +57,11 @@ var App = angular.module('homie', [
             }
             return response;
         });
+        $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
         $rootScope.prompt = prompt.bind(window);
+
+        // init all listeners
+        Listeners();
     }]
 );

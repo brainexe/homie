@@ -1,7 +1,7 @@
 
 App.service('Cache', ['CacheFactory', '$interval', '$rootScope', function(CacheFactory, $interval, $rootScope) {
     var cache = CacheFactory('default', {
-        maxAge: 300 * 1000, // 5 minutes
+        maxAge: 600 * 1000, // 10 minutes
         deleteOnExpire: 'aggressive',
         storageMode:    'localStorage',
         storagePrefix:  ''

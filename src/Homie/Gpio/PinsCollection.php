@@ -55,7 +55,7 @@ class PinsCollection
     public function getByWiringId(int $pinId) : Pin
     {
         foreach ($this->pins as $pin) {
-            if ($pin->getWiringId() === $pinId) {
+            if ($pin->getSoftwareId() === $pinId) {
                 return $pin;
             }
         }

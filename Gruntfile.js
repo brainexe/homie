@@ -160,7 +160,12 @@ module.exports = function (grunt) {
         copy: {
             index: {
                 files: [
-                    {expand: true, flatten: true, src: ['vendor/brainexe/core/scripts/index.php'], dest: 'web/'}
+                    {
+                        expand: true,
+                        flatten: true,
+                        src: ['vendor/brainexe/core/scripts/index.php'],
+                        dest: 'web/'
+                    }
                 ]
             },
             static: {
@@ -188,7 +193,6 @@ module.exports = function (grunt) {
                     'bower_components/rickshaw/rickshaw.css',
                     'bower_components/ui-select/dist/select.min.css',
                     'bower_components/angular-bootstrap-colorpicker/css/colorpicker.min.css',
-                    //'bower_components/ng-sortable/dist/ng-sortable.style.min.css', // todo
                     'assets/**/*.css'
                 ],
                 dest: 'web/app.css',
@@ -244,7 +248,8 @@ module.exports = function (grunt) {
                         'assets/js/app.js',
                         'assets/js/util/**/*.js',
                         'assets/js/models/**/*.js',
-                        'assets/js/controllers/**/*.js'
+                        'assets/js/controllers/**/*.js',
+                        'assets/js/listeners/**/*.js'
                     ]
                 }
             },

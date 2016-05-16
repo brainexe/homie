@@ -140,9 +140,9 @@ App.controller('ExpressionController', ['$scope', '$rootScope', '$q', 'Expressio
         });
     };
 
-    $scope.deleteCron = function(eventId) {
-        Expression.deleteEvent(eventId).success(function() {
-            delete $scope.crons[eventId];
+    $scope.deleteCron = function(jobId) {
+        MessageQueue.deleteJob(jobId).success(function() {
+            delete $scope.crons[jobId];
         });
     };
 }]);

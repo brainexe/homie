@@ -54,7 +54,7 @@ class PinLoaderTest extends TestCase
 
         $pin = new Pin();
         $pin->setPhysicalId(11);
-        $pin->setWiringId(1);
+        $pin->setSoftwareId(1);
         $pin->setName('GPIO. 0');
         $pin->setMode('IN');
         $pin->setValue(false);
@@ -62,7 +62,7 @@ class PinLoaderTest extends TestCase
 
         $pin = new Pin();
         $pin->setPhysicalId(12);
-        $pin->setWiringId(2);
+        $pin->setSoftwareId(2);
         $pin->setName('GPIO. 1');
         $pin->setMode('IN');
         $pin->setValue(false);

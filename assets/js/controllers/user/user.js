@@ -1,7 +1,9 @@
 
 App.controller('UserController', ['$scope', 'UserManagement', 'UserManagement.Avatar', function ($scope, UserManagement, Avatar) {
 
-    $scope.user = UserManagement.getCurrentUser();
+    $scope.user = UserManagement.loadCurrentUser().success(function(user) {
+        $scope.user = user;
+    });
 
     Avatar.getList().success(function(avatars) {
         $scope.avatars = avatars;

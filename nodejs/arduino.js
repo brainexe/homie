@@ -58,7 +58,7 @@ client.on('message', function (channel, command) {
         case 'lcd':
             var lcd = new arduino.LCD({
                 board: board,
-                pins: {rs:12, rw:11, e:10, data:[5, 4, 3, 2]}
+                pins: {rs:12, rw:11, e:10, data:[5, 4, 3, 2]} // todo make LCD-Display configurable
             });
             lcd.begin(1, 1);
             lcd.print(value);

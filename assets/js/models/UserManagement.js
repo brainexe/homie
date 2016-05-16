@@ -1,8 +1,10 @@
 
-App.service('UserManagement', ['$http', 'Cache', function($http, Cache) {
+App.service('UserManagement', ['$http', '$rootScope', 'Cache', function($http, $rootScope, Cache) {
     Cache.intervalClear('^/user/$', 60);
 
     var current = {};
+    var setCurrentUser;
+    var loadUserPromise;
 
     return {
         register: function(payload) {
@@ -24,12 +26,16 @@ App.service('UserManagement', ['$http', 'Cache', function($http, Cache) {
             return $http.get('/user/list/', {cache:Cache});
         },
 
-        setCurrentUser: function (user) {
-            current = user;
-        },
+        setCurrentUser: setCurrentUser = function (user, clearCache) {
+            if (clearCache) {
+                Cache.clear('^/user/$');
+            }
 
-        getCurrentUser: function () {
-            return current;
+            if (current.userId != user.userId) {
+                $rootScope.$broadcast('currentuser.update', user);
+            }
+
+            current = user;
         },
 
         isLoggedIn: function(user) {
@@ -38,10 +44,15 @@ App.service('UserManagement', ['$http', 'Cache', function($http, Cache) {
         },
 
         loadCurrentUser: function () {
-            var promise = $http.get('/user/', {cache:Cache});
+            if (loadUserPromise) {
+                return loadUserPromise;
+            }
+
+                var promise = loadUserPromise = $http.get('/user/', {cache:Cache});
 
             promise.success(function(user) {
-                current = user;
+                setCurrentUser(user, true);
+                loadUserPromise = null;
             });
 
             return promise;

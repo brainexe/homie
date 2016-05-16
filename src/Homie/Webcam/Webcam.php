@@ -81,12 +81,10 @@ class Webcam
     private function formatFile(array $file) : WebcamVO
     {
         $fileVo = new WebcamVO();
-        $fileVo->filePath  = $file['path'];
         $fileVo->name      = $file['basename'];
-        $fileVo->webcamId  = $file['basename'];
         $fileVo->extension = $file['extension'] ?? '';
         $fileVo->timestamp = $file['timestamp'] ?? null;
-        $fileVo->webPath   = sprintf('%s%s', self::ROOT, $fileVo->name);
+        $fileVo->webPath   = sprintf('%s%s', self::ROOT, $file['basename']);
 
         return $fileVo;
     }

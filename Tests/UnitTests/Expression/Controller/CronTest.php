@@ -2,6 +2,7 @@
 
 namespace Tests\Homie\Expression\Controller;
 
+use BrainExe\Core\Cron\Expression;
 use BrainExe\Core\EventDispatcher\CronEvent;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Core\EventDispatcher\Events\TimingEvent;
@@ -23,12 +24,19 @@ class CronTest extends TestCase
      */
     private $dispatcher;
 
+    /**
+     * @var Expression|MockObject
+     */
+    private $expression;
+
     public function setup()
     {
         $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->expression = $this->getMock(Expression::class, [], [], '', false);
 
         $this->subject = new Cron(
-            $this->dispatcher
+            $this->dispatcher,
+            $this->expression
         );
     }
 
@@ -49,5 +57,21 @@ class CronTest extends TestCase
         $actual = $this->subject->addCron($request);
 
         $this->assertTrue($actual);
+    }
+
+    public function testNext()
+    {
+        $this->expression
+            ->expects($this->once())
+            ->method('getNextRun')
+            ->with('@daily')
+            ->willReturn(123456);
+
+        $request = new Request();
+        $request->request->set('expression', '@daily');
+
+        $actual = $this->subject->getNextTime($request);
+
+        $this->assertEquals(123456, $actual);
     }
 }

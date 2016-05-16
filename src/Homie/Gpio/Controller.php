@@ -28,28 +28,33 @@ class Controller
     }
 
     /**
-     * @Route("/gpio/", name="gpio.index");
+     * @Route("/gpio/{nodeId}/", name="gpio.index", requirements={"nodeId":"\d+"});
+     * @param Request $request
+     * @param int $nodeId
      * @return array
      */
-    public function index() : array
+    public function index(Request $request, int $nodeId) : array
     {
+        unset($request);
+
         $pins = $this->manager->getPins();
 
         return [
-            'pins' => $pins->getAll(),
+            'pins' => array_values($pins->getAll()),
             'type' => $pins->getType()
         ];
     }
 
     /**
      * @param Request $request
+     * @param int $nodeId
      * @param int $pinId
      * @param int $status
      * @param int $value
      * @return Pin
-     * @Route("/gpio/set/{id}/{status}/{value}/", name="gpio.set", methods="POST")
+     * @Route("/gpio/set/{nodeId}/{id}/{status}/{value}/", name="gpio.set", methods="POST")
      */
-    public function setStatus(Request $request, int $pinId, int $status, int $value) : Pin
+    public function setStatus(Request $request, int $nodeId, int $pinId, int $status, int $value) : Pin
     {
         unset($request);
 
@@ -65,7 +70,7 @@ class Controller
      */
     public function setDescription(Request $request) : bool
     {
-        $pinId       = $request->request->get('pinId');
+        $pinId       = $request->request->getInt('pinId');
         $description = $request->request->get('description');
 
         $this->manager->setDescription($pinId, $description);

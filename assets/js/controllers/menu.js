@@ -1,25 +1,40 @@
 
-App.controller('MenuController', ['$scope', '$rootScope', '$route', '$location', 'controllers', 'UserManagement', 'UserManagement.Settings', function ($scope, $rootScope, $route, $location, controllers, UserManagement, Settings) {
-    $scope.controllers = controllers();
+App.controller('MenuController', ['$scope', '$q', '$location', 'controllers', 'UserManagement', 'UserManagement.Settings', 'Config', function ($scope, $q, $location, controllers, UserManagement, Settings, Config) {
     $scope.$on('$routeChangeSuccess', function (event, current) {
         if (current.$$route && current.$$route.name) {
             document.title = current.$$route.name;
         }
+
+        if (current.$$route && !current.$$route.isPublic) {
+            UserManagement.loadCurrentUser().success(function (user) {
+                if (!UserManagement.isLoggedIn(user)) {
+                    $location.path("/login");
+                }
+            });
+        }
     });
 
     $scope.$on('gettextLanguageChanged', function() {
-        $scope.controllers = controllers();
+        update();
+    });
+
+    $scope.$on('currentuser.update', function() {
         update();
     });
 
     function update() {
-        var user = UserManagement.getCurrentUser();
-        var isLoggedIn = UserManagement.isLoggedIn();
-
-        Settings.getAll().success(function(settings) {
+        $q.all([
+            Config.getAll(),
+            UserManagement.loadCurrentUser(),
+            Settings.getAll()
+        ]).then(function(data) {
+            var config   = data[0].data;
+            var user     = data[1].data;
+            var settings = data[2].data;
+            var isLoggedIn = user && user.userId > 0;
             var disabled = settings.hiddenMenus;
 
-            $scope.menu = $scope.controllers.filter(function (item) {
+            $scope.menu = controllers().filter(function (item) {
                 if (!item.name) {
                     // hidden menu entry without name
                     return false;
@@ -27,6 +42,10 @@ App.controller('MenuController', ['$scope', '$rootScope', '$route', '$location',
 
                 if (disabled && disabled[item.controller]) {
                     // disabled via settings
+                    return false;
+                }
+
+                if (item.checkConfig && !item.checkConfig(config)) {
                     return false;
                 }
 
@@ -47,14 +66,6 @@ App.controller('MenuController', ['$scope', '$rootScope', '$route', '$location',
                 return true;
             });
         });
-
     }
-
-    $scope.$watch(function() {
-        return UserManagement.getCurrentUser(); // todo throw event only
-    }, update);
-    $scope.$on('currentuser.update', function() {
-        update();
-    });
 }]);
 

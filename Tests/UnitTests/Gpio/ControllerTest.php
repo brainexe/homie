@@ -35,18 +35,22 @@ class ControllerTest extends TestCase
 
     public function testIndex()
     {
+        $nodeId = 10;
+
         $pin  = new Pin();
         $pins = new PinsCollection('Type');
         $pins->add($pin);
+
+        $request = new Request();
 
         $this->manager
             ->expects($this->once())
             ->method('getPins')
             ->willReturn($pins);
 
-        $actual = $this->subject->index();
+        $actual = $this->subject->index($request, $nodeId);
         $expected = [
-            'pins' => $pins->getAll(),
+            'pins' => array_values($pins->getAll()),
             'type' => 'Type'
         ];
 
@@ -56,6 +60,7 @@ class ControllerTest extends TestCase
     public function testSetStatus()
     {
         $request = new Request();
+        $nodeId  = 1;
         $gpioId  = 10;
         $status  = true;
         $value   = false;
@@ -67,18 +72,20 @@ class ControllerTest extends TestCase
             ->with($gpioId, $status, $value)
             ->willReturn($pin);
 
-        $actualResult = $this->subject->setStatus($request, $gpioId, $status, $value);
+        $actual = $this->subject->setStatus($request, $nodeId, $gpioId, $status, $value);
 
-        $this->assertEquals($pin, $actualResult);
+        $this->assertEquals($pin, $actual);
     }
 
     public function testSetDescription()
     {
+        $nodeId      = 10;
         $pinId       = 100;
         $description = 'test';
 
         $request = new Request();
         $request->request->set('pinId', $pinId);
+        $request->request->set('nodeId', $nodeId);
         $request->request->set('description', $description);
 
         $this->manager

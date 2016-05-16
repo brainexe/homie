@@ -1,5 +1,4 @@
 
-// todo dynamically add controllers
 App.service('controllers', ['_', function(_) {
     return function() {
         return [
@@ -24,7 +23,9 @@ App.service('controllers', ['_', function(_) {
 
             // private
             {controller:'LoginController', name: _('Login'), url: 'login', icon: 'user', isPublic: true, templateUrl: '/templates/user/login.html'},
-            {controller:'RegisterController', name: _('Register'), url: 'register', icon: 'user', isPublic: true, templateUrl: '/templates/user/register.html'},
+            {controller:'RegisterController', name: _('Register'), url: 'register', icon: 'user', isPublic: true, templateUrl: '/templates/user/register.html', checkConfig:function(config) {
+                return config.registrationEnabled;
+            }},
 
             // hidden controllers
             {url: 'logout', templateUrl: "/templates/index.html", controller: "LogoutController"},

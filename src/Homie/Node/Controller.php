@@ -49,7 +49,7 @@ class Controller
     public function index() : array
     {
         return [
-            'nodes'     => $this->gateway->getAll(),
+            'nodes'     => array_values($this->gateway->getAll()),
             'currentId' => $this->currentId,
             'types'     => Node::TYPES
         ];

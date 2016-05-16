@@ -19,16 +19,19 @@ App.service('Dashboard', ['$http', 'Cache', function($http, Cache) {
 
         add: function(payload) {
             Cache.clear('^/dashboard/.*');
+
             return $http.post('/dashboard/', payload);
         },
 
         deleteDashboard: function(dashboardId) {
-            Cache.clear('^/dashboard/.*');
+            Cache.clear('^/dashboard/');
+
             return $http.delete('/dashboard/{0}/'.format(dashboardId));
         },
 
         saveOrder: function(dashboardId, order) {
-            Cache.clear('^/dashboard/.*');
+            Cache.clear('^/dashboard/');
+
             return updateDashboard(dashboardId, {
                 order: order.join(',')
             });
@@ -41,12 +44,13 @@ App.service('Dashboard', ['$http', 'Cache', function($http, Cache) {
         },
 
         deleteWidget: function(dashboardId, widgetId) {
-            Cache.clear('^/dashboard/.*');
+            Cache.clear('^/dashboard/');
+
             return $http.delete('/dashboard/{0}/{1}/'.format(dashboardId, widgetId))
         },
 
         updateWidget: function(dashboardId, widget) {
-            Cache.clear('^/dashboard/.*');
+            Cache.clear('^/dashboard/');
 
             var url = '/dashboard/widget/{0}/{1}/'.format(dashboardId, widget.id);
             return $http.put(url, widget)

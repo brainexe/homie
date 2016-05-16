@@ -1,22 +1,23 @@
 
 App.service('Gpio', ['$http', function($http) {
     return {
-        getData: function() {
-            return $http.get('/gpio/');
+        getData: function(nodeId) {
+            return $http.get('/gpio/{0}/'.format(nodeId));
         },
 
-        setDescription: function(pin, description) {
+        setDescription: function(nodeId, pin, description) {
             return $http.post(
                 '/gpio/description/',
                 {
                     pinId: pin,
+                    nodeId: nodeId,
                     description: description
                 }
             );
         },
 
-        savePin: function(pin, direction, value) {
-            var url = '/gpio/set/{0}/{1}/{2}/'.format(~~pin, ~~direction, ~~value);
+        savePin: function(nodeId, pin, direction, value) {
+            var url = '/gpio/set/{0}/{1}/{2}/{3}/'.format(nodeId, ~~pin, ~~direction, ~~value);
             return $http.post(url, {});
         }
     }

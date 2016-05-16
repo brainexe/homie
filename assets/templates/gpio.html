@@ -1,10 +1,20 @@
 
-<table style="max-width: 800px" ng-if="gpios|notEmpty" class="table table-bordered table-striped table-hover">
+<ui-select
+		class="gpio-node-selection"
+		on-select="selectNode($item.value)"
+		ng-model="node">
+	<ui-select-match placeholder="{{'Select a node...'|translate}}">{{$select.selected.value.name}}</ui-select-match>
+	<ui-select-choices repeat="node.key as node in nodes|toObjectArray">
+		<span>{{node.value.name}} ({{node.value.type}})</span>
+	</ui-select-choices>
+</ui-select>
+
+<table ng-if="gpios|notEmpty" class="gpio-table table table-bordered table-hover table-striped">
 	<thead>
 		<tr>
 			<th width="30">
-				<a ng-click="setOrderBy('wiringId')" class="order" translate translate-context="gpio">
-					#wiring
+				<a ng-click="setOrderBy('softwareId')" class="order" translate translate-context="gpio">
+					#software
 				</a>
 			</th>
 			<th width="30">
@@ -32,7 +42,7 @@
 	<tbody>
 		<tr ng-repeat="pin in gpios|orderObjectBy:orderBy">
 			<td>
-				<span ng-if="pin.wiringId">#{{ pin.wiringId }}</span>
+				<span ng-if="pin.softwareId">#{{ pin.softwareId }}</span>
 			</td>
 			<td>#{{ pin.physicalId }}</td>
 			<td>
@@ -44,17 +54,18 @@
                 </div>
             </td>
 			<td>
-				<a ng-click="changeMode(pin)" ng-if="pin.wiringId" class="btn btn-{{ pin.mode ? 'success' : 'info'}}">
+				<a ng-click="changeMode(pin)" ng-if="pin.softwareId" class="btn btn-{{ pin.mode ? 'success' : 'info'}}">
 					{{ pin.mode ? 'OUT' : 'IN'}}
 				</a>
 			</td>
 			<td>
-				<a ng-click="changeValue(pin)"  ng-if="pin.wiringId" class="btn btn-{{ pin.value ? 'success' : 'danger'}}">
+				<a ng-click="changeValue(pin)"  ng-if="pin.softwareId" class="btn btn-{{ pin.value ? 'success' : 'danger'}}">
 					{{ pin.value ? 'OFF' : 'ON' }}
 				</a>
 			</td>
 		</tr>
 	</tbody>
 </table>
-<button class="btn btn-primary" ng-click="editMode = !editMode" translate>Edit Mode</button>
+
+<button ng-if="gpios|notEmpty" class="btn btn-primary" ng-click="toggleEditMode()" translate>Edit Mode</button>
 

@@ -58,8 +58,6 @@ class WebcamTest extends TestCase
             ->willReturn($files);
 
         $expectedWebcam            = new WebcamVO();
-        $expectedWebcam->filePath  = $filePath;
-        $expectedWebcam->webcamId  = $fileBaseName;
         $expectedWebcam->name      = $fileBaseName;
         $expectedWebcam->webPath   = 'Webcam/relative.ext';
         $expectedWebcam->timestamp = $fileCTime;
@@ -98,8 +96,6 @@ class WebcamTest extends TestCase
             ->willReturn($files);
 
         $expected            = new WebcamVO();
-        $expected->filePath  = $filePath;
-        $expected->webcamId  = $fileBaseName;
         $expected->name      = $fileBaseName;
         $expected->webPath   = 'Webcam/relative.ext';
         $expected->timestamp = $fileCTime;

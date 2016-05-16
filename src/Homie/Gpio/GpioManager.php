@@ -71,8 +71,8 @@ class GpioManager
 
         foreach ($pins->getAll() as $pin) {
             /** @var Pin $pin */
-            if (!empty($descriptions[$pin->getWiringId()])) {
-                $pin->setDescription($descriptions[$pin->getWiringId()]);
+            if (!empty($descriptions[$pin->getPhysicalId()])) {
+                $pin->setDescription($descriptions[$pin->getPhysicalId()]);
             }
         }
 
@@ -116,7 +116,7 @@ class GpioManager
         $command = sprintf(
             self::GPIO_COMMAND_DIRECTION,
             $this->gpioExecutable,
-            $pin->getWiringId(),
+            $pin->getSoftwareId(),
             escapeshellarg($pin->getMode())
         );
         $this->client->execute($command);
@@ -124,7 +124,7 @@ class GpioManager
         $command = sprintf(
             self::GPIO_COMMAND_VALUE,
             $this->gpioExecutable,
-            $pin->getWiringId(),
+            $pin->getSoftwareId(),
             $pinValue
         );
         $this->client->execute($command);

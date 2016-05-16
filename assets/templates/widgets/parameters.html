@@ -2,7 +2,8 @@
     <label>{{parameter.name}}</label>
 
     <div ng-if="parameter.default && payload[type] == undefined" ng-init="payload[type] = parameter.default"></div>
-    <div ng-if="type == 'title' && !parameter.default && payload[type] == undefined" ng-init="payload[type] = (widget.widgetId|translateToken:'dashboard.widget.{0}.name')"></div>
+    <div ng-if="type == 'title' && !parameter.default && payload[type] == undefined"
+         ng-init="payload[type] = (widget.widgetId|translateToken:'dashboard.widget.{0}.name')"></div>
 
     <div ng-switch="parameter.type">
         <div ng-switch-when="multi_select">
@@ -10,7 +11,8 @@
                 <ui-select-match placeholder="Select...">
                     {{$item.value}}
                 </ui-select-match>
-                <ui-select-choices repeat="element.key as element in parameter.values|toObjectArray|propsFilter:{value:$select.search}">
+                <ui-select-choices
+                        repeat="element.key as element in parameter.values|toObjectArray|propsFilter:{value:$select.search}">
                     <span ng-bind-html="element.value|highlight:$select.search"></span>
                 </ui-select-choices>
             </ui-select>
@@ -19,13 +21,14 @@
             <ui-select
                     ng-if="parameter.type == 'single_select'"
                     ng-model="payload[type]"
-                    style="width: 300px"
+                    style="width: 400px"
                     theme="bootstrap"
-                    >
+            >
                 <ui-select-match placeholder="Select...">
                     {{$select.selected.value}}
                 </ui-select-match>
-                <ui-select-choices repeat="element.key as element in parameter.values|toObjectArray|propsFilter:{value:$select.search}">
+                <ui-select-choices
+                        repeat="element.key as element in parameter.values|toObjectArray|propsFilter:{value:$select.search}">
                     <span ng-bind-html="element.value|highlight:$select.search"></span>
                 </ui-select-choices>
             </ui-select>
@@ -35,7 +38,7 @@
                     style="width: 400px"
                     ng-model="payload[type]"
                     type="text"
-                    class="form-control input-sm" />
+                    class="form-control input-sm"/>
         </div>
         <div ng-switch-when="text_area">
             <textarea
@@ -51,7 +54,7 @@
                     class="big-checkbox"
                     ng-model="payload[type]"/>
         </div>
-        <div ng-switch-when="key_value_list" >
+        <div ng-switch-when="key_value_list">
             <div ng-repeat="(key, value) in payload[type]" class="input-group">
                 <span class="input-group-addon" ng-bind="key"></span>
                 <input ng-model="payload[type][key]" type="text" class="form-control"/>
@@ -64,20 +67,24 @@
             </a>
         </div>
         <div ng-switch-when="number" class="input-group">
+
+            <span class="input-group-btn">
+                <a ng-click="payload[type] = payload[type] - 1" class="btn btn-danger btn">
+                    <span class="glyphicon glyphicon-minus"></span>
+                </a>
+            </span>
             <input
                     ng-model="payload[type]"
                     type="number"
                     size="3"
                     min="{{parameter.min}}"
                     max="{{parameter.max}}"
-                    class="form-control input-sm" />
-
-                <a ng-click="payload[type] = payload[type] - 1" class="input-group-addon btn btn-danger btn-xs">
-                    <span class="glyphicon glyphicon-minus"></span>
-                </a>
-                <a ng-click="payload[type] = payload[type] + 1" class="input-group-addon btn btn-info btn-xs">
+                    class="form-control"/>
+            <span class="input-group-btn">
+                <a ng-click="payload[type] = payload[type] + 1" class="btn btn-info btn">
                     <span class="glyphicon glyphicon-plus"></span>
                 </a>
+            </span>
         </div>
         <div ng-switch-default>
             <span class="alert-danger">Unkown parameter {{parameter.type}}</span>

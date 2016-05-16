@@ -1,5 +1,26 @@
 
 App.service('SensorGraph', ['Sensor', 'Sensor.Formatter', function (Sensor, SensorFormatter) {
+    function getAxisFormatter(data) {
+        var formatter = Rickshaw.Fixtures.Number.formatKMBT;
+        var formatterName;
+
+        for (var sensorId in data) {
+            var currentFormatterName = data[sensorId].formatter;
+            if (formatterName && currentFormatterName != formatterName) {
+                // other formatter is already registered :(
+                return formatter;
+            }
+
+            formatterName = currentFormatterName;
+        }
+
+        if (formatterName) {
+            return SensorFormatter.getFormatter(formatterName);
+        }
+
+        return formatter;
+    }
+
     function init($scope, element, height, sensorIds, parameters) {
         $scope.$on('sensor.update', function(event, data) {
             if ($scope.isSensorActive(data.sensorId)) {
@@ -14,6 +35,8 @@ App.service('SensorGraph', ['Sensor', 'Sensor.Formatter', function (Sensor, Sens
             $scope.tags          = aggregateTags(data.sensors);
 
             Sensor.getValues(sensorIds.join(':'), parameters).success(function (data) {
+                var yAxisFormatter = getAxisFormatter(data.json);
+
                 $scope.activeSensorIds = Object.keys(data.json).map(function(i) {return ~~i});
                 $scope.ago   = data.ago;
                 $scope.to    = data.to;
@@ -28,13 +51,12 @@ App.service('SensorGraph', ['Sensor', 'Sensor.Formatter', function (Sensor, Sens
                     renderer: 'line',
                     series: decompressData(data)
                 });
-                // TODO FIX
-                // new Rickshaw.Graph.Axis.Time({graph: $scope.graph});
+                new Rickshaw.Graph.Axis.Time({graph: $scope.graph});
                 new Rickshaw.Graph.Axis.Y({
                     graph: $scope.graph,
                     orientation: 'right',
-                    tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
-                    element: element.querySelector('.y_axis')
+                    element: element.querySelector('.y_axis'),
+                    tickFormat: yAxisFormatter
                 });
 
                 new Rickshaw.Graph.HoverDetail({
@@ -50,7 +72,6 @@ App.service('SensorGraph', ['Sensor', 'Sensor.Formatter', function (Sensor, Sens
                         );
                         return dateString + series.name + ": " + formatter(y);
                     },
-                    // todo yFormatter?
                     xFormatter: function (x) {
                         return new Date(x * 1000).toDateString();
                     }
@@ -82,9 +103,9 @@ App.service('SensorGraph', ['Sensor', 'Sensor.Formatter', function (Sensor, Sens
             });
         }
 
-        function update() {
+        function update(parameter) {
             var activeIds  = $scope.activeSensorIds.join(':') || "0";
-            var parameters = '?from={0}&save=1'.format($scope.ago);
+            var parameters = '?from={0}'.format($scope.ago) + parameter;
 
             Sensor.getValues(activeIds, parameters).success(function (data) {
                 updateGraph(decompressData(data));
@@ -155,7 +176,7 @@ App.service('SensorGraph', ['Sensor', 'Sensor.Formatter', function (Sensor, Sens
                 }
             }
 
-            update();
+            update('&save=1');
 
             return false;
         };

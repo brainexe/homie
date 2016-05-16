@@ -1,39 +1,46 @@
-<div ng-show="files" class="container">
-	<div class="row">
-		<div ng-repeat="file in files" class="col-xs-4">
-			<div ng-switch="file.extension">
-				<div ng-switch-when="mp3">
-					<a ng-href="/webcam/file/?file={{ file.webPath }}" class="img-thumbnail thumbnail">mp3</a>
-				</div>
-				<div ng-switch-when="wav">
-					<a ng-href="/webcam/file/?file={{ file.webPath }}" class="img-thumbnail thumbnail">wav</a>
-				</div>
-				<div ng-switch-when="avi">
-					<a ng-href="/webcam/file/?file={{ file.webPath }}" class="img-thumbnail thumbnail">avi</a>
-					<!--<video>-->
-						<!--<source ng-src="/webcam/file/?file={{file.webPath}}" type="video/avi" />-->
-					<!--</video>-->
-				</div>
-				<div ng-switch-when="jpg">
-					<a target="_blank" ng-href="/webcam/file/?file={{ file.webPath }}">
-						<img ng-src="/webcam/file/?file={{ file.webPath }}" class="img-thumbnail thumbnail"/>
-					</a>
-				</div>
-			</div>
-
-			<a
-					ng-hide="file.deleting"
-					ng-click="removeFile($index)"
-					title="{{'Delete'|translate}}"
-					class="tip btn btn-danger btn-sm">
-				<span class="glyphicon glyphicon-remove"></span>
-			</a>
-		</div>
-	</div>
+<div class="btn-group">
+    <a class="btn btn-primary" ng-click="takeShot()" translate>Take Photo</a>
+    <a class="btn btn-primary" ng-click="takeVideo()" translate>Take Video</a>
+    <a class="btn btn-primary" ng-click="takeSound()" translate>Take Sound</a>
 </div>
 
-<div class="btn-group">
-	<a class="btn btn-primary" ng-click="takeShot()" translate>Take Photo</a>
-	<a class="btn btn-primary" ng-click="takeVideo()" translate>Take Video</a>
-	<a class="btn btn-primary" ng-click="takeSound()" translate>Take Sound</a>
+<hr/>
+
+<div ng-show="files" class="container">
+    <div class="row">
+        <div ng-repeat="file in files" class="col-xs-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{file.name}}
+                    <a
+                            ng-hide="file.deleting"
+                            ng-click="removeFile($index)"
+                            title="{{'Delete'|translate}}"
+                            class="pull-right tip btn btn-danger btn-xs">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                </div>
+                <div class="panel-body" ng-switch="file.extension">
+                    <div ng-switch-when="mp3">
+                        <a ng-href="/webcam/file/?file={{ file.webPath }}" class="img-thumbnail thumbnail">mp3</a>
+                    </div>
+                    <div ng-switch-when="wav">
+                        <a ng-href="/webcam/file/?file={{ file.webPath }}" class="img-thumbnail thumbnail">wav</a>
+                    </div>
+                    <div ng-switch-when="avi">
+                        <a ng-href="/webcam/file/?file={{ file.webPath }}" class="img-thumbnail thumbnail">avi</a>
+                        <video>
+                            <source ng-src="/webcam/file/?file={{file.webPath}}" type="video/avi"/>
+                        </video>
+                    </div>
+                    <div ng-switch-when="jpg">
+                        <a target="_blank" ng-href="/webcam/file/?file={{ file.webPath }}">
+                            <img ng-src="/webcam/file/?file={{ file.webPath }}" class="img-thumbnail thumbnail"/>
+                        </a>
+                    </div>
+                    <time-ago from-time="file.timestamp"></time-ago>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

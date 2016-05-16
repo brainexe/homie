@@ -50,7 +50,7 @@ class Controller
      * @return Entity[]
      * @Route("/expressions/", name="expressions.load", methods="GET")
      */
-    public function load()
+    public function load() : array
     {
         return [
             'expressions' => $this->gateway->getAll(),
