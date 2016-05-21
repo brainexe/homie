@@ -33,7 +33,7 @@ class Gateway
     public function get(int $nodeId) : Node
     {
         $raw = $this->getRedis()->hget(self::REDIS_KEY, $nodeId);
-        if (!$raw) {
+        if (empty($raw)) {
             throw new Exception(sprintf('Invalid node: %s', $nodeId));
         }
 
@@ -50,10 +50,10 @@ class Gateway
 
     /**
      * @param int $nodeId
-     * @return int
+     * @return bool
      */
-    public function delete(int $nodeId)
+    public function delete(int $nodeId) : bool
     {
-        return $this->getRedis()->hdel(self::REDIS_KEY, [$nodeId]);
+        return (bool)$this->getRedis()->hdel(self::REDIS_KEY, [$nodeId]);
     }
 }

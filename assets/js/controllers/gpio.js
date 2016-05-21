@@ -3,9 +3,7 @@ App.controller('GpioController', ['$scope', 'Gpio', 'Nodes', function ($scope, G
     $scope.gpios    = [];
     $scope.editMode = false;
     $scope.orderBy  = 'physicalId';
-
-    // current selected node
-    $scope.nodeId = 0;
+    $scope.nodeId   = 0; // current selected node
 
     var supportedNodes = [
         'arduino',
@@ -43,6 +41,7 @@ App.controller('GpioController', ['$scope', 'Gpio', 'Nodes', function ($scope, G
      */
     function savePin(pin) {
         Gpio.savePin($scope.nodeId, pin.id, pin.direction, pin.value).success(function (pin) {
+            // todo replace in array
             $scope.gpios[pin.id] = pin;
         });
     }

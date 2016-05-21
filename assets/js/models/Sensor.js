@@ -1,9 +1,7 @@
 
 App.service('Sensor', ['$http', '$rootScope', 'Cache', function($http, $rootScope, Cache) {
-    Cache.intervalClear('^/sensors/', 60);
-
     $rootScope.$on('sensor.value', function(event, data) {
-        Cache.clear('/sensors/.*');
+        Cache.clear('/sensors/');
         $rootScope.$broadcast('sensor.update', data.sensorVo);
     });
 
@@ -27,25 +25,30 @@ App.service('Sensor', ['$http', '$rootScope', 'Cache', function($http, $rootScop
         },
 
         deleteSensor: function(sensorId) {
-            Cache.clear('^/sensors/.*');
+            Cache.clear('^/sensors/');
+
             return $http.delete('/sensors/{0}/'.format(sensorId));
         },
 
         addValue: function(sensorId, value) {
+            Cache.clear('^/sensors/');
+
             return $http.post('/sensors/{0}/value/'.format(sensorId), {value:value});
         },
 
         forceReadValue: function(sensorId) {
+            Cache.clear('^/sensors/');
+
             return $http.post('/sensors/{0}/force/'.format(sensorId), {});
         },
 
         edit: function(sensor) {
-            Cache.clear('^/sensors/.*');
+            Cache.clear('^/sensors/');
             return $http.put('/sensors/{0}/'.format(sensor.sensorId), sensor);
         },
 
         add: function(sensor) {
-            Cache.clear('^/sensors/.*');
+            Cache.clear('^/sensors/');
             return $http.post('/sensors/', sensor);
         },
 

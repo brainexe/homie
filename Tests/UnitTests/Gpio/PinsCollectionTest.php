@@ -18,7 +18,7 @@ class PinsCollectionTest extends TestCase
         $pinId = 10;
 
         $pinCollection = new PinsCollection();
-        $pinCollection->getByWiringId($pinId);
+        $pinCollection->getBySoftwareId($pinId);
     }
     /**
      * @expectedException \InvalidArgumentException
@@ -53,18 +53,22 @@ class PinsCollectionTest extends TestCase
         $pin = new Pin();
         $pin->setSoftwareId($pinId);
         $pin->setName($pinName);
+        $pin->setValue(2);
+        $pin->setMode(Pin::DIRECTION_OUT);
         $pin->setPhysicalId(11880);
 
         $collection = new PinsCollection('type');
         $collection->add($pin);
 
-        $actualResult = $collection->getByWiringId($pinId);
+        $actual = $collection->getBySoftwareId($pinId);
         $jsonResult = $pin->jsonSerialize();
 
-        $this->assertEquals($pin, $actualResult);
+        $this->assertEquals($pin, $actual);
         $this->assertInternalType('array', $jsonResult);
         $this->assertEquals($pinId, $jsonResult['softwareId']);
-        $this->assertEquals($pinName, $actualResult->getName());
+        $this->assertEquals($pinName, $actual->getName());
+        $this->assertEquals(2, $actual->getValue());
+        $this->assertEquals(Pin::DIRECTION_OUT, $actual->getMode());
         $this->assertEquals($pinName, $jsonResult['name']);
         $this->assertEquals(11880, $pin->getPhysicalId());
         $this->assertEquals('type', $collection->getType());

@@ -18,12 +18,12 @@ class NodeTest extends TestCase
         $nodeId  = 42;
         $type    = 'type';
         $name    = 'name';
-        $address = 'address';
+        $options = ['options'];
 
-        $this->subject = new Node($nodeId, $type, $name, $address);
+        $this->subject = new Node($nodeId, $type, $name, $options);
         $this->assertEquals($nodeId, $this->subject->getNodeId());
 
-        $this->subject->setAddress('newAddress');
+        $this->subject->setOptions($options);
         $this->subject->setName('newName');
 
         $this->assertEquals($type, $this->subject->getType());
@@ -31,7 +31,7 @@ class NodeTest extends TestCase
         $expected = [
             'nodeId' => $nodeId,
             'name' => 'newName',
-            'address' => 'newAddress',
+            'options' => $options,
             'type' => $type,
         ];
 

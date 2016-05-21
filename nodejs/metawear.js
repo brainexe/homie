@@ -18,12 +18,18 @@ devices.discover(function(device) {
 });
 console.log('start server on port ' + port + '...');
 
-http.createServer(function(request, response){
+http.createServer(function(request, response) {
     function writeResponse(code, body) {
-        response.writeHeader(code, {"Content-Type": "text/plain"});
-        response.write(body);
-        response.end();
+        if (!response.finished) {
+            response.writeHeader(code, {"Content-Type": "text/plain"});
+            response.write(body);
+            response.end();
+        }
     }
+
+    setTimeout(function () {
+        writeResponse(503, 'Timeout');
+    }, 5000);
 
     console.log('HTTP request - ' + request.url);
 

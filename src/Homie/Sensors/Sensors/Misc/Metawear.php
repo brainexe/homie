@@ -48,7 +48,9 @@ class Metawear extends AbstractSensor implements Searchable
     public function getValue(SensorVO $sensor)
     {
         $url = sprintf('%s/%s/', $this->url, $sensor->parameter);
-        $content = file_get_contents($url); // todo use client
+
+        $context  = stream_context_create(['http' => ['timeout' => 5]]);
+        $content = file_get_contents($url, false, $context); // todo use LocalClient/HttpClient
         if ($content === false) {
             return null;
         }

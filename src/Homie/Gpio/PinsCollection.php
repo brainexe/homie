@@ -52,7 +52,7 @@ class PinsCollection
      * @return Pin
      * @throws InvalidArgumentException
      */
-    public function getByWiringId(int $pinId) : Pin
+    public function getBySoftwareId(int $pinId) : Pin
     {
         foreach ($this->pins as $pin) {
             if ($pin->getSoftwareId() === $pinId) {

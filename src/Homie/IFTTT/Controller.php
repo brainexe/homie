@@ -26,9 +26,9 @@ class Controller
     public function action(Request $request) : bool
     {
         $eventName = $request->query->get('event');
-        $value1 = $request->query->get('value1');
-        $value2 = $request->query->get('value2');
-        $value3 = $request->query->get('value3');
+        $value1    = $request->query->get('value1');
+        $value2    = $request->query->get('value2');
+        $value3    = $request->query->get('value3');
 
         $event = new ActionEvent(
             $eventName,

@@ -5,6 +5,7 @@ namespace Homie\Gpio;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
+use Homie\Node\Gateway;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -17,14 +18,23 @@ class Controller
      * @var GpioManager;
      */
     private $manager;
+    /**
+     * @var Gateway
+     */
+    private $nodes;
 
     /**
-     * @Inject("@Gpio.GpioManager")
+     * @Inject({
+     *     "@Gpio.GpioManager",
+     *     "@Node.Gateway"
+     * })
      * @param GpioManager $manager
+     * @param Gateway $nodes
      */
-    public function __construct(GpioManager $manager)
+    public function __construct(GpioManager $manager, Gateway $nodes)
     {
         $this->manager = $manager;
+        $this->nodes   = $nodes;
     }
 
     /**
@@ -37,7 +47,8 @@ class Controller
     {
         unset($request);
 
-        $pins = $this->manager->getPins();
+        $node = $this->nodes->get($nodeId);
+        $pins = $this->manager->getPins($node);
 
         return [
             'pins' => array_values($pins->getAll()),
@@ -58,7 +69,8 @@ class Controller
     {
         unset($request);
 
-        $pin = $this->manager->setPin($pinId, (bool)$status, (bool)$value);
+        $node = $this->nodes->get($nodeId);
+        $pin = $this->manager->setPin($node, $pinId, (bool)$status, (bool)$value);
 
         return $pin;
     }
@@ -71,9 +83,11 @@ class Controller
     public function setDescription(Request $request) : bool
     {
         $pinId       = $request->request->getInt('pinId');
+        $nodeId      = $request->request->getInt('nodeId');
         $description = $request->request->get('description');
+        $node        = $this->nodes->get($nodeId);
 
-        $this->manager->setDescription($pinId, $description);
+        $this->manager->setDescription($node, $pinId, $description);
 
         return true;
     }

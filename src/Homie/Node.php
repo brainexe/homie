@@ -43,35 +43,34 @@ class Node implements JsonSerializable, TranslationProvider
     private $name;
 
     /**
-     * e.g. IP or GPIO-PIN
-     * @var string
+     * @var array
      */
-    private $address;
+    private $options;
 
     /**
      * @param int $nodeId
      * @param string $type
      * @param string $name
-     * @param string $address
+     * @param array $options
      */
     public function __construct(
         int $nodeId,
         string $type,
-        string $name,
-        string $address
+        string $name = '',
+        array $options = []
     ) {
         $this->nodeId  = $nodeId;
         $this->type    = $type;
-        $this->address = $address;
+        $this->options = $options;
         $this->name    = $name;
     }
 
     /**
-     * @param string $address
+     * @param array $options
      */
-    public function setAddress(string $address)
+    public function setOptions(array $options)
     {
-        $this->address = $address;
+        $this->options = $options;
     }
 
     /**
@@ -96,6 +95,14 @@ class Node implements JsonSerializable, TranslationProvider
     public function getType() : string
     {
         return $this->type;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOptions() : array
+    {
+        return $this->options;
     }
 
     /**

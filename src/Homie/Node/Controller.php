@@ -64,10 +64,10 @@ class Controller
     {
         $nodeId  = $this->generateUniqueId();
         $type    = $request->request->get('type');
-        $address = $request->request->get('address');
-        $name    = $request->request->get('name');
+        $options = (array)$request->request->get('options', []);
+        $name    = $request->request->get('name', '');
 
-        $node = new Node($nodeId, $type, $name, $address);
+        $node = new Node($nodeId, $type, $name, $options);
 
         $this->gateway->save($node);
 
@@ -82,11 +82,11 @@ class Controller
      */
     public function edit(Request $request, int $nodeId) : Node
     {
-        $address = $request->request->get('address');
+        $options = (array)$request->request->get('options');
         $name    = $request->request->get('name');
 
         $node = $this->gateway->get($nodeId);
-        $node->setAddress($address);
+        $node->setOptions($options);
         $node->setName($name);
 
         $this->gateway->save($node);

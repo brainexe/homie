@@ -2,6 +2,8 @@
 
 namespace Tests\Homie\Gpio;
 
+use Homie\Node;
+use Homie\Node\Gateway;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Gpio\Controller;
@@ -26,11 +28,20 @@ class ControllerTest extends TestCase
      */
     private $manager;
 
+    /**
+     * @var Gateway|MockObject
+     */
+    private $nodeGateway;
+
     public function setUp()
     {
-        $this->manager = $this->getMock(GpioManager::class, [], [], '', false);
+        $this->manager     = $this->getMock(GpioManager::class, [], [], '', false);
+        $this->nodeGateway = $this->getMock(Gateway::class, [], [], '', false);
 
-        $this->subject = new Controller($this->manager);
+        $this->subject = new Controller(
+            $this->manager,
+            $this->nodeGateway
+        );
     }
 
     public function testIndex()
@@ -41,11 +52,20 @@ class ControllerTest extends TestCase
         $pins = new PinsCollection('Type');
         $pins->add($pin);
 
+        $node = new Node($nodeId, Node::TYPE_ARDUINO);
+
         $request = new Request();
+
+        $this->nodeGateway
+            ->expects($this->once())
+            ->method('get')
+            ->with($nodeId)
+            ->willReturn($node);
 
         $this->manager
             ->expects($this->once())
             ->method('getPins')
+            ->with($node)
             ->willReturn($pins);
 
         $actual = $this->subject->index($request, $nodeId);
@@ -66,10 +86,18 @@ class ControllerTest extends TestCase
         $value   = false;
         $pin     = new Pin();
 
+        $node = new Node($nodeId, Node::TYPE_ARDUINO);
+
+        $this->nodeGateway
+            ->expects($this->once())
+            ->method('get')
+            ->with($nodeId)
+            ->willReturn($node);
+
         $this->manager
             ->expects($this->once())
             ->method('setPin')
-            ->with($gpioId, $status, $value)
+            ->with($node, $gpioId, $status, $value)
             ->willReturn($pin);
 
         $actual = $this->subject->setStatus($request, $nodeId, $gpioId, $status, $value);
@@ -83,6 +111,14 @@ class ControllerTest extends TestCase
         $pinId       = 100;
         $description = 'test';
 
+        $node = new Node($nodeId, Node::TYPE_ARDUINO);
+
+        $this->nodeGateway
+            ->expects($this->once())
+            ->method('get')
+            ->with($nodeId)
+            ->willReturn($node);
+
         $request = new Request();
         $request->request->set('pinId', $pinId);
         $request->request->set('nodeId', $nodeId);
@@ -91,7 +127,7 @@ class ControllerTest extends TestCase
         $this->manager
             ->expects($this->once())
             ->method('setDescription')
-            ->with($pinId, $description);
+            ->with($node, $pinId, $description);
 
         $actualResult = $this->subject->setDescription($request);
 

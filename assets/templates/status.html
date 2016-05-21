@@ -1,29 +1,3 @@
-<h1 translate>Stats</h1>
-<uib-accordion>
-	<uib-accordion-group ng-repeat="(section, values) in statsGroup" heading="{{section}}">
-		<table class="table table-striped table-bordered table-hover">
-			<thead>
-				<tr>
-					<th translate>Key</th>
-					<th translate>Value</th>
-					<th translate>Reset</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="(key, value) in values">
-					<th>{{ key }}</th>
-					<td>{{ value }}</td>
-					<td>
-						<a confirm="resetStats(key)" class="btn btn-default">
-							<span class="glyphicon glyphicon-remove"></span>
-						</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</uib-accordion-group>
-</uib-accordion>
-
 <h1 translate>Message-Queue</h1>
 <table ng-if="jobs|notEmpty" class="table table-striped table-bordered table-hover">
 	<thead>
@@ -79,7 +53,7 @@
 	</uib-accordion-group>
 </uib-accordion>
 
-<h1 translate>Cache</h1>
+<h1 translate>Browser Cache</h1>
 <table class="table table-striped table-bordered table-hover">
 	<thead>
 	<tr>

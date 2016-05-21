@@ -1,23 +1,20 @@
 <?php
 
-namespace Tests\Homie\Gpio;
+namespace Tests\Homie\Gpio\Adapter;
 
 use Exception;
+use Homie\Gpio\Adapter\Raspberry;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Gpio\Pin;
-use Homie\Gpio\PinLoader;
 use Homie\Client\Adapter\LocalClient;
 use Homie\Gpio\PinsCollection;
 
-/**
- * @covers Homie\Gpio\PinLoader
- */
-class PinLoaderTest extends TestCase
+class RaspberryTest extends TestCase
 {
 
     /**
-     * @var PinLoader
+     * @var Raspberry
      */
     private $subject;
 
@@ -29,7 +26,7 @@ class PinLoaderTest extends TestCase
     public function setUp()
     {
         $this->client  = $this->getMock(LocalClient::class, [], [], '', false);
-        $this->subject = new PinLoader($this->client, './gpio');
+        $this->subject = new Raspberry($this->client, './gpio');
     }
 
     public function testGetPins()
@@ -75,7 +72,7 @@ class PinLoaderTest extends TestCase
         $actual = $this->subject->loadPins();
         $this->assertEquals($expected, $actual);
 
-        $this->assertEquals($pin, $this->subject->loadPin(2));
+        $this->assertEquals($pin, $this->subject->loadPin(12));
     }
 
     public function testGetPinsFallback()
@@ -89,5 +86,27 @@ class PinLoaderTest extends TestCase
         $actual = $this->subject->loadPins();
 
         $this->assertCount(40, $actual->getAll());
+    }
+
+    public function testUpdate()
+    {
+        $gpioId = 10;
+
+        $pin = new Pin();
+        $pin->setPhysicalId($gpioId);
+        $pin->setMode(Pin::DIRECTION_OUT);
+        $pin->setValue(1);
+
+        $this->client
+            ->expects($this->at(0))
+            ->method('execute')
+            ->with('./gpio mode 10 \'OUT\'');
+
+        $this->client
+            ->expects($this->at(1))
+            ->method('execute')
+            ->with('./gpio write 10 1');
+
+        $this->subject->updatePin($pin);
     }
 }

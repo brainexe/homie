@@ -100,7 +100,7 @@ class GatewayTest extends TestCase
             ->method('hset')
             ->with(Gateway::REDIS_KEY, $nodeId);
 
-        $node = new Node($nodeId, 'type', 'name', 'address');
+        $node = new Node($nodeId, 'type', 'name', ['options']);
         $this->subject->save($node);
     }
 }

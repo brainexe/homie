@@ -6,17 +6,6 @@
 
 @import "common.sass"
 
-html, body
-  min-height: 100%
-  background: $backgroundColor
-
-a
-  color: #3c8dbc
-  &:hover, &:active, &:focus
-    outline: none
-    text-decoration: none
-    color: #72afd2
-
 /* Define 2 column template
 .right-side, .left-side
   min-height: 100%
@@ -38,18 +27,6 @@ a
 .content
   padding-left: 3px
   padding-top: 3px
-  background: $backgroundColor
-
-/* Utility
-/* H1 - H6 font
-
-h1, h2, h3, h4, h5, h6
-  font-family: 'Source Sans Pro', sans-serif
-
-/* Change the color of the striped tables
-
-//.table-striped > tbody > tr:nth-child(even) > td, th
-//  background-color: #f3f4f5
 
 /*
  *    Components: navbar, logo and content header
@@ -98,7 +75,7 @@ body > .header
     font-weight: 500
     height: $logoHeight
     display: block
-    color: $backgroundColor
+    color: $body-bg
 
 @media (min-width: 992px)
   .left-side
@@ -235,7 +212,7 @@ body > .header
         border-color: rgba(255, 255, 255, 0.2)
         p
           z-index: 5
-          color: $backgroundColor
+          color: $body-bg
           color: rgba(255, 255, 255, 0.8)
           font-size: 17px
           text-shadow: 2px 2px 3px $sidebarColor
@@ -295,32 +272,8 @@ body > .header
 .checkbox, .radio
   padding-left: 0
 
-/*
- *    Component: alert
- *------------------------
-
-.alert
-  padding-left: 30px
-  margin-left: 15px
-  position: relative
-  > .glyphicon
-    position: absolute
-    left: -15px
-    top: -15px
-    width: 35px
-    height: 35px
-    -webkit-border-radius: 50%
-    -moz-border-radius: 50%
-    border-radius: 50%
-    line-height: 35px
-    text-align: center
-    background: inherit
-    border: inherit
-
 /* navbar
-
 .navbar
-  background-color: #ffffff
   border-bottom: 1px solid #eee
   .nav
     a
@@ -343,7 +296,7 @@ body > .header
     .icon-bar
       background: $sidebarColor
     &:hover .icon-bar
-      background: #999999 !important
+      background: $body-bg !important
 
 /* user panel
 

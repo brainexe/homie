@@ -4,7 +4,7 @@
             <th translate width="30">Id</th>
             <th translate>Type</th>
             <th translate>Name</th>
-            <th translate>Address</th>
+            <th translate>Options</th>
             <th><span class="glyphicon glyphicon-pencil"></span></th>
         </tr>
     </thead>
@@ -24,9 +24,9 @@
                 </div>
             </td>
             <td>
-                <div ng-if="!node.edit" ng-bind="node.address"></div>
+                <div ng-if="!node.edit" ng-bind="node.options"></div>
                 <div ng-if="node.edit">
-                    <input type="text" placeholder="{{'Address'|translate}}" class="form-control" ng-model="node.address"/>
+                    <input type="text" placeholder="{{'Options'|translate}}" class="form-control" ng-model="node.options"/>
                 </div>
             </td>
             <td class="btn-group">
@@ -61,7 +61,7 @@
             </th>
             <th>
                 <input
-                        ng-model="newNode.address"
+                        ng-model="newNode.options"
                         type="text"
                         class="form-control"
                 />

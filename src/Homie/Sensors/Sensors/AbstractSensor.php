@@ -5,6 +5,7 @@ namespace Homie\Sensors\Sensors;
 use BrainExe\Core\Translation\TranslationProvider;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Interfaces\Sensor;
+use Homie\Sensors\SensorVO;
 
 abstract class AbstractSensor implements Sensor, TranslationProvider
 {

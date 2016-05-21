@@ -5,6 +5,8 @@ namespace Homie\Switches\Change;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use Homie\Gpio\GpioManager;
+use Homie\Node;
+use Homie\Node\Gateway;
 use Homie\Switches\SwitchInterface;
 use Homie\Switches\VO\GpioSwitchVO;
 use Homie\Switches\VO\SwitchVO;
@@ -20,12 +22,19 @@ class Gpio implements SwitchInterface
     private $manager;
 
     /**
-     * @Inject({"@GPIO.GpioManager"})
-     * @param GpioManager $manager
+     * @var Gateway
      */
-    public function __construct(GpioManager $manager)
+    private $nodes;
+
+    /**
+     * @Inject({"@GPIO.GpioManager", "@Node.Gateway"})
+     * @param GpioManager $manager
+     * @param Gateway $nodes
+     */
+    public function __construct(GpioManager $manager, Gateway $nodes)
     {
         $this->manager = $manager;
+        $this->nodes   = $nodes;
     }
 
     /**
@@ -34,6 +43,8 @@ class Gpio implements SwitchInterface
      */
     public function setStatus(SwitchVO $switch, int $status)
     {
-        $this->manager->setPin($switch->pin, true, (bool)$status);
+        $node = $this->nodes->get($switch->nodeId);
+
+        $this->manager->setPin($node, $switch->pin, true, (bool)$status);
     }
 }

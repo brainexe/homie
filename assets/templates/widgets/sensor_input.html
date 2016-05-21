@@ -5,7 +5,7 @@
             type="text"
             ng-model="value"
             ng-enter="submit(value)"
-            placeholder="{{'Current value'|translate}}"
+            placeholder="{{'Current value'|translate}}: {{sensor.lastValue}}"
             />
     <a
         ng-click="submit(value)"

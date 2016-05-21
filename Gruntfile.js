@@ -179,7 +179,7 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         src: ['**/*.woff', '**/*.woff2'],
-                        cwd: 'bower_components/bootstrap/fonts/',
+                        cwd: 'bower_components/bootstrap-sass/assets-fonts/',
                         dest: 'web/fonts/'
                     }
                 ]
@@ -189,11 +189,10 @@ module.exports = function (grunt) {
         concat: {
             'app.css': {
                 src: [
-                    'bower_components/bootstrap/dist/css/bootstrap.min.css',
+                    'assets/**/*.css',
                     'bower_components/rickshaw/rickshaw.css',
                     'bower_components/ui-select/dist/select.min.css',
-                    'bower_components/angular-bootstrap-colorpicker/css/colorpicker.min.css',
-                    'assets/**/*.css'
+                    'bower_components/angular-bootstrap-colorpicker/css/colorpicker.min.css'
                 ],
                 dest: 'web/app.css',
                 nonull: true
@@ -255,7 +254,7 @@ module.exports = function (grunt) {
             },
             vendor: {
                 options: {
-                    compress: false,
+                    compress: isProduction,
                     mangle: false,
                     sourceMap: true,
                     sourceMapIncludeSources: true,

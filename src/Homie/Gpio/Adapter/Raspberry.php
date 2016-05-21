@@ -1,18 +1,25 @@
 <?php
 
-namespace Homie\Gpio;
+namespace Homie\Gpio\Adapter;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use Exception;
 use Generator;
 use Homie\Client\ClientInterface;
+use Homie\Gpio\Adapter;
+use Homie\Gpio\GpioManager;
+use Homie\Gpio\Pin;
+use Homie\Gpio\PinsCollection;
 
 /**
- * @Service(public=false)
+ * @Service("Gpio.Adapter.Raspberry", public=false)
  */
-class PinLoader
+class Raspberry extends Adapter
 {
+    const GPIO_COMMAND_READALL   = '%s readall';
+    const GPIO_COMMAND_DIRECTION = '%s mode %d %s';
+    const GPIO_COMMAND_VALUE     = '%s write %d %d';
 
     /**
      * @var ClientInterface
@@ -39,19 +46,8 @@ class PinLoader
      */
     public function __construct(ClientInterface $client, string $gpioExecutable)
     {
-        $this->client = $client;
+        $this->client         = $client;
         $this->gpioExecutable = $gpioExecutable;
-    }
-
-    /**
-     * @param string $pin
-     * @return Pin
-     */
-    public function loadPin($pin) : Pin
-    {
-        $pins = $this->loadPins();
-
-        return $pins->getByWiringId($pin);
     }
 
     /**
@@ -109,10 +105,34 @@ class PinLoader
     protected function loadFile() : string
     {
         try {
-            $command = sprintf(GpioManager::GPIO_COMMAND_READALL, $this->gpioExecutable);
+            $command = sprintf(self::GPIO_COMMAND_READALL, $this->gpioExecutable);
             return $this->client->executeWithReturn($command);
         } catch (Exception $e) {
-            return file_get_contents(__DIR__ . '/gpio.txt');
+            return file_get_contents(__DIR__ . '/raspberry.txt');
         }
+    }
+
+    /**
+     * @param Pin $pin Pin
+     */
+    public function updatePin(Pin $pin)
+    {
+        $pinValue = $pin->getValue();
+
+        $command = sprintf(
+            self::GPIO_COMMAND_DIRECTION,
+            $this->gpioExecutable,
+            $pin->getPhysicalId(),
+            escapeshellarg($pin->getMode())
+        );
+        $this->client->execute($command);
+
+        $command = sprintf(
+            self::GPIO_COMMAND_VALUE,
+            $this->gpioExecutable,
+            $pin->getPhysicalId(),
+            $pinValue
+        );
+        $this->client->execute($command);
     }
 }

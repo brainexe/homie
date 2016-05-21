@@ -4,70 +4,51 @@ namespace Homie\Gpio;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
-use Homie\Client\ClientInterface;
+use Homie\Gpio\Adapter\Factory;
+use Homie\Node;
 
 /**
  * @Service("GPIO.GpioManager", public=false)
  */
 class GpioManager
 {
-
-    const GPIO_COMMAND_READALL   = '%s readall';
-    const GPIO_COMMAND_DIRECTION = '%s mode %d %s';
-    const GPIO_COMMAND_VALUE     = '%s write %d %d';
-
-    /**
-     * @var ClientInterface
-     */
-    private $client;
-
     /**
      * @var PinGateway
      */
     private $gateway;
 
     /**
-     * @var PinLoader
+     * @var Factory
      */
-    private $loader;
-
-    /**
-     * @var string
-     */
-    private $gpioExecutable;
+    private $adapterFactory;
 
     /**
      * @Inject({
      *     "@GPIO.PinGateway",
-     *     "@HomieClient",
-     *     "@PinLoader",
-     *     "%gpio.command%"
+     *     "@Gpio.Adapter.Factory",
      * })
      * @param PinGateway $gateway
-     * @param ClientInterface $client
-     * @param PinLoader $loader
-     * @param $gpioExecutable
+     * @param Factory $adapterFactory
      */
     public function __construct(
         PinGateway $gateway,
-        ClientInterface $client,
-        PinLoader $loader,
-        string $gpioExecutable
+        Factory    $adapterFactory
     ) {
         $this->gateway        = $gateway;
-        $this->client         = $client;
-        $this->loader         = $loader;
-        $this->gpioExecutable = $gpioExecutable;
+        $this->adapterFactory = $adapterFactory;
     }
 
     /**
+     * @param Node $node
      * @return PinsCollection
      */
-    public function getPins() : PinsCollection
+    public function getPins(Node $node) : PinsCollection
     {
         $descriptions = $this->gateway->getPinDescriptions();
 
-        $pins = $this->loader->loadPins();
+        $adapter = $this->adapterFactory->getForNode($node);
+        
+        $pins = $adapter->loadPins();
 
         foreach ($pins->getAll() as $pin) {
             /** @var Pin $pin */
@@ -80,53 +61,44 @@ class GpioManager
     }
 
     /**
+     * @param Node $node
      * @param int $pinId
      * @param bool $status
      * @param bool $value
      * @return Pin
      */
-    public function setPin(int $pinId, bool $status, bool $value) : Pin
+    public function setPin(Node $node, int $pinId, bool $status, bool $value) : Pin
     {
-        $pin = $this->loader->loadPin($pinId);
+        $adapter = $this->adapterFactory->getForNode($node);
+
+        $pin = $adapter->loadPin($pinId);
 
         $pin->setMode($status ? Pin::DIRECTION_OUT : Pin::DIRECTION_IN);
         $pin->setValue($value ? 1 : 0);
 
-        $this->updatePin($pin);
+        $this->updatePin($node, $pin);
 
         return $pin;
     }
 
     /**
+     * @param Node $node
      * @param int $pinId
      * @param string $description
      */
-    public function setDescription(int $pinId, string $description)
+    public function setDescription(Node $node, int $pinId, string $description)
     {
         $this->gateway->setDescription($pinId, $description);
     }
 
     /**
+     * @param Node $node
      * @param Pin $pin Pin
      */
-    private function updatePin(Pin $pin)
+    private function updatePin(Node $node, Pin $pin)
     {
-        $pinValue = (bool)$pin->getValue();
+        $adapter = $this->adapterFactory->getForNode($node);
 
-        $command = sprintf(
-            self::GPIO_COMMAND_DIRECTION,
-            $this->gpioExecutable,
-            $pin->getSoftwareId(),
-            escapeshellarg($pin->getMode())
-        );
-        $this->client->execute($command);
-
-        $command = sprintf(
-            self::GPIO_COMMAND_VALUE,
-            $this->gpioExecutable,
-            $pin->getSoftwareId(),
-            $pinValue
-        );
-        $this->client->execute($command);
+        $adapter->updatePin($pin);
     }
 }
