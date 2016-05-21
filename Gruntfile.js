@@ -9,7 +9,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-angular-gettext');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -78,7 +77,7 @@ module.exports = function (grunt) {
         child.stderr.pipe(process.stderr);
     });
 
-    var defaultTasks = ['compile_lang', 'copy', 'uglify', 'htmlmin', 'sass', 'concat', 'cssmin', 'manifest'];
+    var defaultTasks = ['compile_lang', 'copy', 'uglify', 'htmlmin', 'sass', 'cssmin', 'manifest'];
     if (isProduction) {
         defaultTasks.push('compress');
     }
@@ -129,8 +128,8 @@ module.exports = function (grunt) {
                 }
             },
             css: {
-                files: ['assets/**/*.css'],
-                tasks: ['concat', 'cssmin', 'copy:static'],
+                files: ['assets/**/*.sass'],
+                tasks: ['sass', 'cssmin', 'copy:static'],
                 options: {
                     livereload: true
                 }
@@ -178,35 +177,30 @@ module.exports = function (grunt) {
                     },
                     {
                         expand: true,
-                        src: ['**/*.woff', '**/*.woff2'],
-                        cwd: 'bower_components/bootstrap-sass/assets-fonts/',
+                        src: ['*'],
+                        cwd: 'bower_components/bootstrap-sass/assets/fonts/bootstrap/',
                         dest: 'web/fonts/'
                     }
                 ]
             }
         },
-        clean: ["web/**"],
-        concat: {
-            'app.css': {
-                src: [
-                    'assets/**/*.css',
-                    'bower_components/rickshaw/rickshaw.css',
-                    'bower_components/ui-select/dist/select.min.css',
-                    'bower_components/angular-bootstrap-colorpicker/css/colorpicker.min.css'
-                ],
-                dest: 'web/app.css',
-                nonull: true
-            }
-        },
+        clean: [
+            'web/**',
+            'assets/cache/**'
+        ],
         cssmin: {
-            target: {
-                files: [{
-                    expand: true,
-                    cwd: 'web/',
-                    src: ['*.css', '!*.min.css'],
-                    dest: 'web/',
-                    ext: '.min.css'
-                }]
+            app: {
+                options: {
+                    semanticMerging: true
+                },
+                files: {
+                    'web/app.css': [
+                        'assets/**/*.css',
+                        'bower_components/rickshaw/rickshaw.css',
+                        'bower_components/ui-select/dist/select.min.css',
+                        'bower_components/angular-bootstrap-colorpicker/css/colorpicker.min.css'
+                    ]
+                }
             }
         },
         htmlmin: {
@@ -306,6 +300,9 @@ module.exports = function (grunt) {
                     '**/*.jpg',
                     '**/*.woff',
                     '**/*.woff2',
+                    '**/*.ttf',
+                    '**/*.svg',
+                    '**/*.eot',
                     '**/*.ico'
                 ],
                 dest: 'web/manifest.appcache'
@@ -322,7 +319,7 @@ module.exports = function (grunt) {
                     {expand: true, src: ['web/**/*.js'],   dest: '.', ext: '.js.gz'},
                     {expand: true, src: ['web/**/*.json'], dest: '.', ext: '.json.gz'},
                     {expand: true, src: ['web/**/*.html'], dest: '.', ext: '.html.gz'},
-                    {expand: true, src: ['web/**/*.min.css'],  dest: '.', ext: '.min.css.gz'},
+                    {expand: true, src: ['web/**/*.css'],  dest: '.', ext: '.css.gz'},
                     {expand: true, src: ['web/**/*.map'],  dest: '.', ext: '.map.gz'},
                     {expand: true, src: ['web/*.appcache'],  dest: '.', ext: '.appcache.gz'}
                 ]
