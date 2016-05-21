@@ -71,7 +71,8 @@ class Language extends ExpressionLanguage
             'microtime',
             'rand',
             'round',
-            'sleep'
+            'sleep',
+            'preg_match'
         ];
 
         foreach ($functions as $function) {
