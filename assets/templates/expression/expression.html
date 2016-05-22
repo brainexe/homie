@@ -1,7 +1,12 @@
 
-<button ng-click="newExpression()" class="btn btn-primary" translate>New Action</button>
-<button ng-if="!showDisabled" ng-click="showDisabledExpression(true)" class="btn btn-primary" translate>Show disabled</button>
-<button ng-if="showDisabled" ng-click="showDisabledExpression(false)" class="btn btn-primary" translate>Hide disabled</button>
+<div class="btn-group">
+    <button ng-click="newExpression()" class="btn btn-primary" translate>New Action</button>
+    <button ng-if="!showDisabled" ng-click="showDisabledExpression(true)" class="btn btn-primary" translate>Show disabled</button>
+    <button ng-if="showDisabled" ng-click="showDisabledExpression(false)" class="btn btn-primary" translate>Hide disabled</button>
+
+    <button ng-if="!editMode" ng-click="setEditMode(true)" class="btn btn-primary" translate>Edit mode</button>
+    <button ng-if="editMode" ng-click="setEditMode(false)" class="btn btn-success" translate>Edit mode</button>
+</div>
 
 <div
         ng-if="editExpression"

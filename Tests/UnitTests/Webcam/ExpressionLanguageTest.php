@@ -42,7 +42,7 @@ class ExpressionLanguageTest extends TestCase
 
     public function testEvaluator()
     {
-        $randomId = 'randomId';
+        $randomId = 100;
 
         $mailEvent = new WebcamEvent($randomId, WebcamEvent::TAKE_PHOTO);
 
@@ -52,7 +52,8 @@ class ExpressionLanguageTest extends TestCase
             ->with($mailEvent);
         $this->idGenerator
             ->expects($this->once())
-            ->method('generateRandomId')
+            ->method('generateUniqueId')
+            ->with('webcam')
             ->willReturn($randomId);
 
         /** @var ExpressionFunction $function */

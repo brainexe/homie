@@ -10,7 +10,7 @@ App.service('Listener.Speech', ['$rootScope', 'Speech', function($rootScope, Spe
 
     // recognition.interimResults = true;
     recognition.onresult = function(event) {
-        var result = event.results[0][0];
+        var result = event.results[event.resultIndex][0];
         $rootScope.$broadcast('flash', [result.transcript, 'success']);
         Speech.sendText(result.transcript)
     };

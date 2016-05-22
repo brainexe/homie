@@ -1,10 +1,10 @@
 
 App.controller('DisplaysController', ['$scope', 'Displays', function ($scope, Displays) {
-
+    $scope.editMode = false;
     $scope.screens       = {};
     $scope.currentScreen = {
         content: ["''", "''", "''", "''"],
-        lines: 4,
+        lines:   4,
         columns: 10
     };
 
@@ -26,6 +26,7 @@ App.controller('DisplaysController', ['$scope', 'Displays', function ($scope, Di
     };
 
     $scope.setScreen = function(screen) {
+        $scope.editMode = true;
         $scope.currentScreen = screen;
     }
 }]);

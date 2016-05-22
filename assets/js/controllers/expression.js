@@ -1,6 +1,7 @@
 
 App.controller('ExpressionController', ['$scope', '$rootScope', '$q', 'Expression', 'MessageQueue', 'Sensor', 'Cache', function ($scope, $rootScope, $q, Expression, MessageQueue, Sensor, Cache) {
 	$scope.expressions    = {};
+    $scope.editMode       = false;
     $scope.editExpression = null;
     $scope.showDisabled   = false;
     $scope.crons          = [];
@@ -132,6 +133,11 @@ App.controller('ExpressionController', ['$scope', '$rootScope', '$q', 'Expressio
             expression.actions.push('');
         }
     };
+
+    $scope.setEditMode = function(mode) {
+        $scope.editMode = mode;
+    };
+
     $scope.deleteCondition = function(index) {
         $scope.editExpression.conditions.splice(index, 1);
     };

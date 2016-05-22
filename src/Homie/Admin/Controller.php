@@ -62,7 +62,7 @@ class Controller
         $userId    = $request->request->getInt('userId');
         $email     = $request->request->get('email');
         $roles     = $request->request->get('roles');
-        $password  = $request->request->get('password');
+        $password  = (string)$request->request->get('password');
 
         $user = $this->userProvider->loadUserById($userId);
 

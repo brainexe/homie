@@ -24,7 +24,7 @@ class Controller
     {
         $text = $request->get('text');
 
-        $event = new VoiceEvent($text);
+        $event = new VoiceEvent(trim($text));
 
         $this->dispatchEvent($event);
 

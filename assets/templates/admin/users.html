@@ -19,14 +19,14 @@
             </td>
             <td>
                 <span ng-if="!user.edit">{{ user.email }}</span>
-                <input type="email" ng-if="user.edit" ng-model="user.email" placeholder="{{'Email'|translate}}"/>
+                <input class="form-control" type="email" ng-if="user.edit" ng-model="user.email" placeholder="{{'Email'|translate}}"/>
             </td>
             <td>
                 <a ng-click="newPassword(user)" class="btn btn-default glyphicon glyphicon-lock"></a>
             </td>
             <td>
-                <ui-select multiple ng-disabled="!user.edit" ng-model="user.roles">
-                    <ui-select-match placeholder="Select role...">{{$item}}</ui-select-match>
+                <ui-select ng-if="user.edit || (user.roles|notEmpty)" multiple ng-disabled="!user.edit" ng-model="user.roles">
+                    <ui-select-match placeholder="{{'Select roles'|translate}}">{{$item}}</ui-select-match>
                     <ui-select-choices repeat="role in rights">
                         <div ng-bind="role"></div>
                     </ui-select-choices>

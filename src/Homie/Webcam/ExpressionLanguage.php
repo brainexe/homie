@@ -18,7 +18,7 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
 
     use EventDispatcherTrait;
     use IdGeneratorTrait;
-    
+
     /**
      * @return Generator|ExpressionFunction[] An array of Function instances
      */
@@ -27,7 +27,7 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
         yield new ExpressionFunction('takePhoto', function () {
             throw new InvalidArgumentException('Function takePhoto() not available as condition');
         }, function () {
-            $name  = $this->generateRandomId();
+            $name  = $this->generateUniqueId('webcam');
             $event = new WebcamEvent($name, WebcamEvent::TAKE_PHOTO);
 
             $this->dispatchInBackground($event);

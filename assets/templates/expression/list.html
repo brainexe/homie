@@ -2,12 +2,12 @@
     <thead>
         <tr>
             <th translate>Id</th>
-            <th translate>Enabled</th>
+            <th ng-if="editMode" translate>Enabled</th>
             <th translate>Condition</th>
             <th translate>Actions</th>
             <th translate>Payload</th>
-            <th><span class="glyphicon glyphicon-edit"></span></th>
-            <th><span class="glyphicon glyphicon-remove"></span></th>
+            <th ng-if="editMode"><span class="glyphicon glyphicon-edit"></span></th>
+            <th ng-if="editMode"><span class="glyphicon glyphicon-remove"></span></th>
         </tr>
     </thead>
     <tbody>
@@ -15,7 +15,7 @@
         <td>
             {{expression.expressionId}}
         </td>
-        <td>
+        <td ng-if="editMode">
             <input
                     class="big-checkbox"
                     type="checkbox"
@@ -37,7 +37,7 @@
                         {{ action }}
                     </code>
                     <a ng-click="evaluateAction(expression, action)" uib-tooltip="{{'Evaluate'|translate}}" class="btn btn-xs btn-success">
-                        <span class="glyphicon glyphicon-refresh"></span>
+                        <span class="glyphicon glyphicon-play"></span>
                     </a>
                 </li>
             </ul>
@@ -47,7 +47,7 @@
                 <li ng-repeat="(key, value) in expression.payload">{{key}}: {{ value }}</li>
             </ul>
         </td>
-        <td>
+        <td ng-if="editMode">
             <a
                     ng-click="edit(expression)"
                     class="cursor btn btn-default btn-sm"
@@ -55,7 +55,7 @@
                 <span class="glyphicon glyphicon-edit"></span>
             </a>
         </td>
-        <td>
+        <td ng-if="editMode">
             <a confirm="delete(expressionId)" class="btn btn-danger btn-sm">
                 <span class="glyphicon glyphicon-remove"></span>
             </a>

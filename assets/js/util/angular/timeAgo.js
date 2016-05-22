@@ -22,7 +22,7 @@ App.directive('timeAgo', ['$filter', 'timeAgo', 'nowTime', function ($filter, ti
                 if (scope.overdue && nowTime() > fromTime) {
                     elem[0].style.color = '#c00';
                     elem[0].style.fontWeight = 'bold';
-                } else if (elem[0].style.color == '#c00'){
+                } else {
                     elem[0].style.color = '';
                     elem[0].style.fontWeight = 'normal';
                 }

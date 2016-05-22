@@ -1,10 +1,10 @@
-<table class="table table-striped table-bordered table-hover">
+<table ng-if="crons|notEmpty" class="table table-striped table-bordered table-hover">
     <thead>
         <tr>
             <th translate>Cron-ID</th>
             <th translate>Next Run</th>
             <th translate>Expression</th>
-            <th translate>Delete</th>
+            <th ng-if="editMode" translate>Delete</th>
         </tr>
     </thead>
     <tbody>
@@ -16,14 +16,14 @@
                 <time-ago from-time="cron.timestamp" overdue="true"></time-ago>
             </th>
             <th>{{ cron.event.expression}}</th>
-            <td>
+            <td ng-if="editMode">
                 <a confirm="deleteCron(cron.jobId)" class="btn btn-danger btn-sm">
                     <span class="glyphicon glyphicon-remove"></span>
                 </a>
             </td>
         </tr>
     </tbody>
-    <tfoot>
+    <tfoot ng-if="editMode">
         <tr>
             <th>
                 <input

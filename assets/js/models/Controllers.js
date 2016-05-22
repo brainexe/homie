@@ -8,7 +8,7 @@ App.service('controllers', ['_', function(_) {
             {controller:'SensorController', name: _('Sensors'), url: 'sensor', icon:'stats', templateUrl: '/templates/sensor/sensor.html', collapsible:true},
             {controller:'ExpressionController', name: _('Actions'), url: 'expression', icon:'link', templateUrl: '/templates/expression/expression.html', collapsible:true},
             {controller:'GpioController', name: _('GPIO'), url: 'gpio', icon:'flash', templateUrl: '/templates/gpio.html', collapsible:true},
-            {controller:'DisplaysController', name: _('Displays'), url: 'displays', icon:'text-background', templateUrl: '/templates/displays.html', collapsible:true},
+            {controller:'DisplaysController', name: _('Displays'), url: 'displays', icon:'text-background', templateUrl: '/templates/displays/displays.html', collapsible:true},
             {controller:'EspeakController', name: _('Speak'), url: 'speak', icon:'bullhorn', templateUrl: '/templates/espeak.html', collapsible:true},
             {controller:'EggTimerController', name: _('Egg Timer'), url: 'egg_timer', icon:'time', templateUrl: '/templates/egg_timer.html', collapsible:true},
             {controller:'TodoController', name: _('ToDo List'), url: 'todo', icon:'list', templateUrl: '/templates/todo.html', collapsible:true},

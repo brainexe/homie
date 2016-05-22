@@ -1,3 +1,10 @@
+
+<div class="btn-group">
+	<button class="btn btn-primary switch-edit-button" ng-click="editMode = !editMode" translate>Edit Mode</button>
+</div>
+
+<hr />
+
 <table ng-if="switches|notEmpty" class="table table-bordered table-striped table-hover">
 	<thead>
 		<tr>
@@ -56,13 +63,11 @@
 	</tbody>
 </table>
 
-<button class="btn btn-primary switch-edit-button" ng-click="editMode = !editMode" translate>Edit Mode</button>
-
 <div
 		ng-if="jobs|notEmpty"
 		ng-include="'/templates/switch/jobs.html'"></div>
 
-<hr />
+<br />
 
 <div
 		ng-if="switches|notEmpty"

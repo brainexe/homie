@@ -191,7 +191,7 @@ module.exports = function (grunt) {
         cssmin: {
             app: {
                 options: {
-                    semanticMerging: true
+                    semanticMerging: false
                 },
                 files: {
                     'web/app.css': [
