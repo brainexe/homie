@@ -37,8 +37,9 @@ class Gateway
 
     /**
      * @param Entity $entity
+     * @param bool $updateCache
      */
-    public function save(Entity $entity)
+    public function save(Entity $entity, bool $updateCache = true)
     {
         $entity->expressionId = $entity->expressionId ?: $this->generateUniqueId('expressionid');
         $entity->payload      = $entity->payload ?: [];
@@ -54,7 +55,9 @@ class Gateway
             serialize($entity)
         );
 
-        $this->updateCache();
+        if ($updateCache) {
+            $this->updateCache();
+        }
     }
 
     /**

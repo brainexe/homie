@@ -29,7 +29,7 @@ class Cron
     /**
      * @Inject({
      *  "@EventDispatcher",
-     *  "Core.Cron.Expression"
+     *  "@Core.Cron.Expression"
      * })
      * @param EventDispatcher $dispatcher
      * @param Expression $cron

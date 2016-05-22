@@ -2,15 +2,15 @@
 
 namespace Tests\Homie\Webcam;
 
+use BrainExe\Core\EventDispatcher\EventDispatcher;
+use BrainExe\Core\Util\IdGenerator;
+use Homie\Webcam\Controller;
+use Homie\Webcam\Webcam;
+use Homie\Webcam\WebcamEvent;
 use League\Flysystem\Filesystem;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Homie\Webcam\Controller;
-use Homie\Webcam\WebcamEvent;
 use Symfony\Component\HttpFoundation\Request;
-use Homie\Webcam\Webcam;
-use BrainExe\Core\EventDispatcher\EventDispatcher;
-use BrainExe\Core\Util\IdGenerator;
 
 /**
  * @covers Homie\Webcam\Controller

@@ -1,9 +1,17 @@
 
 App.controller('ExpressionController', ['$scope', '$rootScope', '$q', 'Expression', 'MessageQueue', 'Sensor', 'Cache', function ($scope, $rootScope, $q, Expression, MessageQueue, Sensor, Cache) {
 	$scope.expressions    = {};
-    $scope.editExpression = {actions:[''], conditions:[''], 'new': true};
+    $scope.editExpression = null;
+    $scope.showDisabled   = false;
     $scope.crons          = [];
     $scope.functions      = [];
+
+    $scope.$on('message_queue.handled', function(event, data) {
+        var job = data.job;
+        if ($scope.crons[job.jobId]) {
+            $scope.crons[job.jobId] = job;
+        }
+    });
 
     $scope.reloadCrons = function() {
         return MessageQueue.getJobs('message_queue.cron').success(function(data) {
@@ -83,12 +91,13 @@ App.controller('ExpressionController', ['$scope', '$rootScope', '$q', 'Expressio
         }
     });
 
-    $scope.$on('message_queue.handled', function(event, data) {
-        var job = data.job;
-        if ($scope.crons[job.jobId]) {
-            $scope.crons[job.jobId] = job;
-        }
-    });
+    $scope.newExpression = function () {
+        $scope.editExpression = {actions:[''], conditions:[''], 'new': true};
+    };
+
+    $scope.showDisabledExpression = function (show) {
+        $scope.showDisabled = show;
+    };
 
     $scope.save = function(expression) {
         Expression.save(expression).success(function(data) {

@@ -11,8 +11,8 @@ App.service('Listener.Speech', ['$rootScope', 'Speech', function($rootScope, Spe
     // recognition.interimResults = true;
     recognition.onresult = function(event) {
         var result = event.results[0][0];
-        console.log(result);
-        Speech.sendEvent(result.transcript)
+        $rootScope.$broadcast('flash', [result.transcript, 'success']);
+        Speech.sendText(result.transcript)
     };
 
     recognition.start();

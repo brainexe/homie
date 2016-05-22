@@ -126,16 +126,16 @@
         },
         {
             "name": "brainexe/totp",
-            "version": "2.0.2",
+            "version": "2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brainexe/totp.git",
-                "reference": "93b407e67c8df42d89a8525b9aead83ae226ba70"
+                "reference": "53c7ad6a78e3c766aedab7ec4ea645710be6c67e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brainexe/totp/zipball/93b407e67c8df42d89a8525b9aead83ae226ba70",
-                "reference": "93b407e67c8df42d89a8525b9aead83ae226ba70",
+                "url": "https://api.github.com/repos/brainexe/totp/zipball/53c7ad6a78e3c766aedab7ec4ea645710be6c67e",
+                "reference": "53c7ad6a78e3c766aedab7ec4ea645710be6c67e",
                 "shasum": ""
             },
             "require": {
@@ -168,7 +168,7 @@
                 }
             ],
             "description": "Timebased One Time Password component for brainexe core library",
-            "time": "2016-05-16 15:17:48"
+            "time": "2016-05-22 11:47:56"
         },
         {
             "name": "christian-riesen/base32",

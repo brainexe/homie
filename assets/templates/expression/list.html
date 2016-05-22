@@ -1,17 +1,17 @@
 <table class="table table-bordered table-striped table-hover">
     <thead>
-    <tr>
-        <th translate>Id</th>
-        <th translate>Enabled</th>
-        <th translate>Condition</th>
-        <th translate>Actions</th>
-        <th translate>Payload</th>
-        <th><span class="glyphicon glyphicon-edit"></span></th>
-        <th><span class="glyphicon glyphicon-remove"></span></th>
-    </tr>
+        <tr>
+            <th translate>Id</th>
+            <th translate>Enabled</th>
+            <th translate>Condition</th>
+            <th translate>Actions</th>
+            <th translate>Payload</th>
+            <th><span class="glyphicon glyphicon-edit"></span></th>
+            <th><span class="glyphicon glyphicon-remove"></span></th>
+        </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="(expressionId, expression) in expressions">
+    <tr ng-repeat="(expressionId, expression) in expressions" ng-if="showDisabled || expression.enabled">
         <td>
             {{expression.expressionId}}
         </td>

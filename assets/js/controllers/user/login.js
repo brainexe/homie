@@ -41,7 +41,7 @@ App.controller('LoginController', ['$scope', '$location', 'UserManagement', 'Use
         }
 
         TOTP.sendMail($scope.username).success(function () {
-            alert(_('Email was sent'));
+            $scope.$broadcast('flash', [_('Email was sent'), 'success']);
         });
     };
 }]);

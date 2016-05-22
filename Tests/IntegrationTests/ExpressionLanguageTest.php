@@ -98,6 +98,7 @@ class ExpressionLanguageTest extends TestCase
             ['round(eventName)', "round(\$eventName)"],
             ['isEvent("foo")', '($eventName == "foo")'],
             ['isTiming("timingId")', '($eventName == \'timing\' && $event->getTimingId() === "timingId")'],
+            ['voice("/Hallo (.*)/")', '($eventName == \'voice.text\' && preg_match("/Hallo (.*)/", $event->getText(), $entity->payload[\'voice\']))'],
         ];
     }
 

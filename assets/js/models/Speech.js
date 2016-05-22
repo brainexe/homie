@@ -1,7 +1,7 @@
 
 App.service('Speech', ['$http', function($http) {
     return {
-        sendEvent: function (text) {
+        sendText: function (text) {
             var payload = {
                 text: text
             };

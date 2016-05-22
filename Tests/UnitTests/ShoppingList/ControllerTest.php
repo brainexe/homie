@@ -2,10 +2,10 @@
 
 namespace Tests\Homie\ShoppingList;
 
-use PHPUnit_Framework_TestCase as TestCase;
-use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\ShoppingList\Controller;
 use Homie\ShoppingList\ShoppingList;
+use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Symfony\Component\HttpFoundation\Request;
 
 /**

@@ -22,7 +22,7 @@ class Controller
      */
     public function text(Request $request) : bool
     {
-        $text = $request->request->get('text');
+        $text = $request->get('text');
 
         $event = new VoiceEvent($text);
 
