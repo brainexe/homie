@@ -3,10 +3,10 @@
 namespace Homie\EggTimer;
 
 use BrainExe\Annotations\Annotations\Inject;
+use Homie\Expression\Action;
 use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Generator;
-use InvalidArgumentException;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
@@ -37,9 +37,7 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
      */
     public function getFunctions()
     {
-        yield new ExpressionFunction('eggTimer', function () {
-            throw new InvalidArgumentException('eggTimer() is not available in this context');
-        }, function (array $variables, string $time, string $text) {
+        yield new Action('eggTimer', function (array $variables, string $time, string $text) {
             unset($variables);
             $this->eggTimer->addNewJob($time, $text);
         });

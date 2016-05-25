@@ -2,8 +2,11 @@
 
 namespace Tests\Homie\TodoList;
 
+use BrainExe\Core\Authentication\AnonymusUserVO;
 use Homie\TodoList\ExpressionLanguage;
+use Homie\TodoList\TodoList;
 use Homie\TodoList\TodoReminder;
+use Homie\TodoList\VO\TodoItemVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 
@@ -23,13 +26,23 @@ class ExpressionLanguageTest extends TestCase
      */
     private $reminder;
 
+    /**
+     * @var TodoList|MockObject
+     */
+    private $todoList;
+
     public function setUp()
     {
-        $this->reminder = $this->getMock(TodoReminder::class, [], [], '', false);
-        $this->subject  = new ExpressionLanguage($this->reminder);
+        $this->reminder = $this->getMockWithoutInvokingTheOriginalConstructor(TodoReminder::class);
+        $this->todoList = $this->getMockWithoutInvokingTheOriginalConstructor(TodoList::class);
+
+        $this->subject  = new ExpressionLanguage(
+            $this->reminder,
+            $this->todoList
+        );
     }
 
-    public function testGetFunctions()
+    public function testSendNotificationFunctions()
     {
         $this->reminder
             ->expects($this->once())
@@ -44,15 +57,45 @@ class ExpressionLanguageTest extends TestCase
         $this->assertInternalType('array', $actual);
     }
 
+    public function testAddItem()
+    {
+        $user = new AnonymusUserVO();
+        $item = new TodoItemVO();
+        $item->name = 'myItem';
+
+        $actual = iterator_to_array($this->subject->getFunctions());
+
+        $this->todoList
+            ->expects($this->once())
+            ->method('addItem')
+            ->with($user, $item);
+
+        /** @var callable $function */
+        $function = $actual[1]->getEvaluator();
+        $function([], 'myItem');
+    }
+
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
+     * @expectedExceptionMessage Function "sayTodoList" is not allowed as trigger
+     */
+    public function testSayCompiler()
+    {
+        /** @var callable $compiler */
+        $actual = iterator_to_array($this->subject->getFunctions());
+        $compiler = $actual[0]->getCompiler();
+        $compiler();
+    }
+
+    /**
+     * @expectedException \Exception
+     * @expectedExceptionMessage Function "addTodoTodoItem" is not allowed as trigger
      */
     public function testCompiler()
     {
         /** @var callable $compiler */
         $actual = iterator_to_array($this->subject->getFunctions());
-        $compiler = $actual[0]->getCompiler();
-
-        $compiler([]);
+        $compiler = $actual[1]->getCompiler();
+        $compiler();
     }
 }

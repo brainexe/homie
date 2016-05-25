@@ -33,14 +33,14 @@ class ExpressionLanguageTest extends TestCase
 
     public function setUp()
     {
-        $this->idGenerator = $this->getMock(IdGenerator::class, [], [], '', false);
-        $this->dispatcher  = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->idGenerator = $this->getMockWithoutInvokingTheOriginalConstructor(IdGenerator::class);
+        $this->dispatcher  = $this->getMockWithoutInvokingTheOriginalConstructor(EventDispatcher::class);
         $this->subject     = new ExpressionLanguage();
         $this->subject->setEventDispatcher($this->dispatcher);
         $this->subject->setIdGenerator($this->idGenerator);
     }
 
-    public function testEvaluator()
+    public function testTakePhoto()
     {
         $randomId = 100;
 
@@ -63,5 +63,30 @@ class ExpressionLanguageTest extends TestCase
 
         $evaluator = $function->getEvaluator();
         $evaluator([]);
+    }
+
+    public function testTakeVideo()
+    {
+        $randomId = 100;
+
+        $mailEvent = new WebcamEvent($randomId, WebcamEvent::TAKE_VIDEO, 5);
+
+        $this->dispatcher
+            ->expects($this->once())
+            ->method('dispatchInBackground')
+            ->with($mailEvent);
+        $this->idGenerator
+            ->expects($this->once())
+            ->method('generateUniqueId')
+            ->with('webcam')
+            ->willReturn($randomId);
+
+        /** @var ExpressionFunction $function */
+        $actual = iterator_to_array($this->subject->getFunctions());
+        $function = $actual[1];
+        $this->assertInstanceOf(ExpressionFunction::class, $function);
+
+        $evaluator = $function->getEvaluator();
+        $evaluator([], 5);
     }
 }

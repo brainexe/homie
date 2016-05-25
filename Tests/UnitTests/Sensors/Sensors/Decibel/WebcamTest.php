@@ -35,11 +35,11 @@ class WebcamTest extends TestCase
     public function testGetValue()
     {
         $this->client
-            ->expects($this->once())
-            ->method('execute');
+            ->expects($this->at(0))
+            ->method('executeWithReturn');
 
         $this->client
-            ->expects($this->once())
+            ->expects($this->at(1))
             ->method('executeWithReturn')
             ->willReturn('Maximum amplitude: 12');
 

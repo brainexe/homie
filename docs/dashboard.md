@@ -16,10 +16,9 @@
 - Time
 - TodoList
 - Webcam
-- WidgetMetadataVo
 
 ```
-ls src/Homie/Dashboard/Widgets/*.php | awk -F "/" '{print "- " substr($5, 0, length($5)-3)}'
+ls src/Homie/Dashboard/Widgets/*.php | awk -F "/" '{print "- " substr($5, 0, length($5)-3)}' | grep -v WidgetMetadataVo
 ```
 
 ## Add a new widget

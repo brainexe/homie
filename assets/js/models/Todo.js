@@ -21,7 +21,7 @@ App.service('Todo', ['$http', function($http) {
         },
 
         edit: function(data) {
-            $http.put('/todo/', {
+            return $http.put('/todo/', {
                 id: data.todoId,
                 changes: data
             });

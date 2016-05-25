@@ -5,6 +5,7 @@ namespace Homie\Expression\Functions;
 use BrainExe\Core\Mail\SendMailEvent;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Generator;
+use Homie\Expression\Action;
 use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
 use InvalidArgumentException;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
@@ -23,10 +24,7 @@ class Mail implements ExpressionFunctionProviderInterface
      */
     public function getFunctions()
     {
-        yield new ExpressionFunction('sendMail', function (string $recipient, string $subject, string $body) {
-            unset($recipient, $subject, $body);
-            throw new InvalidArgumentException('Function sendMail() not available as condition');
-        }, function (array $variables, string $recipient, string $subject, string $body) {
+        yield new Action('sendMail', function (array $variables, string $recipient, string $subject, string $body) {
             unset($variables);
             $event = new SendMailEvent($recipient, $subject, $body);
 

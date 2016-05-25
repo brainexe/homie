@@ -1,0 +1,57 @@
+<?php
+
+namespace Homie\Expression;
+
+use BrainExe\Annotations\Annotations\Service;
+use Homie\Expression\CompilerPass\DefaultExpression;
+
+/**
+ * @Service("Expressions.DefaultExpressions", public=false, tags={{"name"="default_expressions"}})
+ */
+class DefaultExpressions implements DefaultExpression
+{
+
+    /**
+     * @return Entity[]
+     */
+    public static function getDefaultExpressions()
+    {
+        yield from self::getTodoListActions();
+
+        $item = new Entity();
+        $item->expressionId = 'addShoppingListItem';
+        $item->conditions   = [
+            'voice("/setze? (.*) auf die (Liste|Einkaufsliste)$/i")'
+        ];
+        $item->actions = [
+            'addShoppingListItem(voice(1))',
+            'say("Ich habe " ~ voice(1) ~ " auf die Einkaufsliste gesetzt")',
+
+        ];
+        yield $item;
+    }
+
+    private static function getTodoListActions()
+    {
+        $item = new Entity();
+        $item->expressionId = 'voiceReminder';
+        $item->conditions   = [
+            'voice("/^erinnere? mich an (.*)$/i")'
+        ];
+        $item->actions      = [
+            'say("Ich werde dich an " ~ voice(1) ~ " erinnern")',
+            'addTodoTodoItem(voice(1))'
+        ];
+        yield $item;
+
+        $item = new Entity();
+        $item->expressionId = 'voiceSayTodoList';
+        $item->conditions   = [
+            'voice("/^was gibt es (für|an) Aufgaben/i")'
+        ];
+        $item->actions = [
+            'sayTodoList()'
+        ];
+        yield $item;
+    }
+}

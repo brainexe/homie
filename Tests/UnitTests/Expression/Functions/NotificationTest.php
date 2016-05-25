@@ -55,20 +55,16 @@ class NotificationTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Function addNotification() not available as condition
+     * @expectedException \Exception
+     * @expectedExceptionMessage Function "addNotification" is not allowed as trigger
      */
     public function testNotifyCompiler()
     {
-        $message = 'message';
-        $subject = 'subject';
-        $level   = 'level';
-
         /** @var ExpressionFunction $function */
         $actual   = iterator_to_array($this->subject->getFunctions());
         $function = $actual[0];
 
         $compiler = $function->getCompiler();
-        $compiler($message, $subject, $level);
+        $compiler();
     }
 }

@@ -56,7 +56,7 @@ class RecorderTest extends TestCase
 
         $this->client
             ->expects($this->once())
-            ->method('execute')
+            ->method('executeWithReturn')
             ->with($this->stringStartsWith("photo command /tmp/web"));
 
         $event = new WebcamEvent($name.'.jpg', WebcamEvent::TOOK_PHOTO);
@@ -80,7 +80,7 @@ class RecorderTest extends TestCase
 
         $this->client
             ->expects($this->once())
-            ->method('execute')
+            ->method('executeWithReturn')
             ->with($this->stringStartsWith("video command /tmp/web"));
 
         $event = new WebcamEvent($name.'.avi', WebcamEvent::TOOK_VIDEO);
@@ -104,7 +104,7 @@ class RecorderTest extends TestCase
 
         $this->client
             ->expects($this->once())
-            ->method('execute')
+            ->method('executeWithReturn')
             ->with($this->stringStartsWith("sound command /tmp/web"));
 
         $event = new WebcamEvent($name.'.wav', WebcamEvent::TOOK_SOUND);

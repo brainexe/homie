@@ -14,6 +14,7 @@ useful documentation: http://cylonjs.com/documentation/platforms/raspberry-pi/
  - arecord
  - streamer
  - raspistill
+ - libusb-dev
 
 ### i2c display:
  - i2c-tools

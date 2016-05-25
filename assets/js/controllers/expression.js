@@ -1,5 +1,5 @@
 
-App.controller('ExpressionController', ['$scope', '$rootScope', '$q', 'Expression', 'MessageQueue', 'Sensor', 'Cache', function ($scope, $rootScope, $q, Expression, MessageQueue, Sensor, Cache) {
+App.controller('ExpressionController', ['$scope', '$q', 'Expression', 'MessageQueue', 'Expression.Functions', function ($scope, $q, Expression, MessageQueue, ExpressionFunctions) {
 	$scope.expressions    = {};
     $scope.editMode       = false;
     $scope.editExpression = null;
@@ -14,83 +14,19 @@ App.controller('ExpressionController', ['$scope', '$rootScope', '$q', 'Expressio
         }
     });
 
+    $q.all([
+        Expression.getData(),
+        ExpressionFunctions
+    ]).then(function(data) {
+        $scope.expressions = data[0].data.expressions;
+        $scope.functions   = data[1];
+    });
+
     $scope.reloadCrons = function() {
         return MessageQueue.getJobs('message_queue.cron').success(function(data) {
             $scope.crons = data;
         });
     };
-
-    // todo cache + outsource
-    $q.all([
-        $scope.reloadCrons(),
-        Expression.getData(),
-        Expression.getEvents(),
-        Expression.getFunctions(),
-        Sensor.getCachedData()
-    ]).then(function(data) {
-        var crons       = data[0].data;
-        var expressions = data[1].data;
-        var events      = data[2].data;
-        var functions   = data[3].data;
-        var sensors     = data[4].data.sensors;
-
-        $scope.expressions  = expressions.expressions;
-
-        function add(functionName2, parameters, label) {
-            var parameterList = generateParameterList(parameters);
-            var expression = functionName2 + '(' + parameterList + ')';
-            var expressionLabel = expression;
-
-            if (label) {
-                expressionLabel += ' # ' + label;
-            }
-
-            $scope.functions.push({
-                label: expressionLabel,
-                expression: expression
-            });
-        }
-
-        function generateParameterList(array) {
-            var parameterList = [];
-            array.forEach(function(parameter) {
-                if (typeof parameter == 'object') {
-                    parameterList.push('"' + parameter.name + '"');
-                } else {
-                    parameterList.push('"' + parameter + '"');
-                }
-            });
-            return parameterList.join(', ');
-        }
-
-        for (var functionName in functions) {
-            switch (functionName) {
-                case 'isEvent':
-                    for (var eventName in events) {
-                        add(functionName, [eventName]);
-                    }
-                    break;
-                case 'isSensorValue':
-                case 'getSensorValue':
-                    for (var sensorIdx in sensors) {
-                        add(functionName, [sensors[sensorIdx].sensorId], sensors[sensorIdx].name);
-                    }
-                    break;
-                case 'event':
-                    //for (var eventName in events) {
-                    //    var parameters = [eventName].concat(events[eventName].parameters);
-                    //    add(functionName, parameters);
-                    //}
-                    break;
-                case 'isTiming':
-                    for (var cron in crons) {
-                        add(functionName, [crons[cron].event.event.timingId], crons[cron].event.expression);
-                    }
-                    break;
-            }
-            add(functionName, functions[functionName]);
-        }
-    });
 
     $scope.newExpression = function () {
         $scope.editExpression = {actions:[''], conditions:[''], 'new': true};

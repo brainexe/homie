@@ -72,7 +72,7 @@ class TodoListController implements TranslationProvider
         $itemVo->name           = $request->request->get('name');
         $itemVo->description    = $request->request->get('description');
         $itemVo->status         = $request->request->get('status');
-        $itemVo->deadline       = strtotime($request->request->get('deadline'));
+        $itemVo->deadline       = strtotime($request->request->get('deadline')) ?? null;
         $itemVo->cronExpression = $request->request->get('cronExpression');
 
         $user = $request->attributes->get('user');

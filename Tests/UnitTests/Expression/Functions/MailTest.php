@@ -55,20 +55,16 @@ class MailTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Function sendMail() not available as condition
+     * @expectedException \Exception
+     * @expectedExceptionMessage Function "sendMail" is not allowed as trigger
      */
     public function testSendMailCompiler()
     {
-        $recipient = 'myRecipient';
-        $subject = 'mySubject';
-        $body = 'myBody';
-
         /** @var ExpressionFunction $function */
         $actual = iterator_to_array($this->subject->getFunctions());
         $function = $actual[0];
 
         $compiler = $function->getCompiler();
-        $compiler($recipient, $subject, $body);
+        $compiler();
     }
 }

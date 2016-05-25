@@ -2,7 +2,8 @@
 If you want to trigger a motion event, make an GET/POST HTTP request to your "/motion/add/" path. This will trigger an MotionEvent (motion.motion)
 
 ## Installation of "motion"
-http://www.lavrsen.dk/foswiki/bin/view/Motion/
+- http://www.lavrsen.dk/foswiki/bin/view/Motion/
+- install "libudev-dev"
 
 ## Configuration
 Edit file "/etc/motion/motion.conf"

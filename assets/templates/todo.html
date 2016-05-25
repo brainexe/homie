@@ -25,20 +25,30 @@
 						ng-model="currentItem.cronExpression"
 						ng-enter="submit(currentItem)"
 						/>
-				<!--todo fix datetime picker-->
-				<input
-						type="text"
-						class="form-control"
-						uib-datepicker-popup="dd-MMMM-yyyy"
-						ng-model="currentItem.deadline"
-						placeholder="{{'Deadline'|translate}}"
-						datepicker-options="{}"
-						date-disabled="disabled(date, mode)"
-						close-text="{{'Close'|translate}}"
-						ng-enter="submit(currentItem)"
-				/>
-				<input type="submit" class="btn btn-primary" value="{{'Add Task'|translate}}" ng-if="!currentItem.todoId"/>
-				<input type="submit" class="btn btn-primary" value="{{'Save'|translate}}" ng-if="currentItem.todoId"/>
+
+				<p class="input-group">
+					<input
+							type="text"
+							class="form-control"
+							uib-datepicker-popup="dd-MM-yyyy"
+							ng-model="currentItem.deadline"
+							placeholder="{{'Deadline'|translate}}"
+							datepicker-options="{'showWeeks':false}"
+							close-text="{{'Close'|translate}}"
+							is-open="isDateOpen"
+					/>
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default" ng-click="isDateOpen = !isDateOpen">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</button>
+					</span>
+				</p>
+				<div class="btn-group btn-group-justified">
+					<div class="btn-group" role="group">
+						<input type="submit" class="btn btn-primary" value="{{'Add Task'|translate}}" ng-if="!currentItem.todoId"/>
+						<input type="submit" class="btn btn-primary" value="{{'Save'|translate}}" ng-if="currentItem.todoId"/>
+					</div>
+				</div>
 			</form>
 			<div class="delete-div" ui-on-Drop="onDelete($data)" translate>
 				Drag Here to Delete
@@ -76,9 +86,11 @@
 						<span ng-bind-html="user.name|highlight:$select.search"></span>
 					</ui-select-choices>
 				</ui-select>
-				<a class="btn btn-primary" ng-click="setCurrent(item)" translate>
-					Edit
-				</a>
+				<div class="btn-group btn-group-justified">
+					<a class="btn btn-primary" ng-click="setCurrent(item)" translate>
+						Edit
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>

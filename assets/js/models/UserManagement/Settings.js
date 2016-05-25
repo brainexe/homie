@@ -1,8 +1,11 @@
 
 App.service('UserManagement.Settings', ['$http', 'Cache', function($http, Cache) {
+    // todo implement some generic solution
     var metaData = {
         'browserNotification' : {},
-        'hiddenMenus' : {}
+        'hiddenMenus' : {},
+        'espeakBrowserOutput': {},
+        'voiceControl': {}
     };
 
     return {
@@ -11,7 +14,8 @@ App.service('UserManagement.Settings', ['$http', 'Cache', function($http, Cache)
         },
 
         set: function(key, value) {
-            Cache.intervalClear('^/settings/$', 60);
+            Cache.clear('^/settings/');
+
             return $http.post('/settings/{0}/'.format(key), {
                 value: value
             });

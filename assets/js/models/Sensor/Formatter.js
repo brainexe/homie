@@ -5,26 +5,6 @@ App.service('Sensor.Formatter', [function() {
         return (~~Math.round(number * factor)) / factor;
     }
 
-    function temperature(value) {
-        return round(value, 2) + '°';
-    }
-
-    function percentage(value) {
-        return round(value, 2) + '%';
-    }
-
-    function barometer(value) {
-        return round(value, 2) + 'hPa';
-    }
-
-    function noop(value) {
-        return round(value, 3);
-    }
-
-    function bytes(bytes) {
-        return number(bytes) + 'B';
-    }
-
     /**
      * @source http://stackoverflow.com/questions/10420352/converting-file-size-in-bytes-to-human-readable
      */
@@ -43,23 +23,35 @@ App.service('Sensor.Formatter', [function() {
         return number.toFixed(1)+' '+units[u];
     }
 
+    var formatter = {
+        temperature: function (value) {
+            return round(value, 2) + '°';
+        },
+
+        percentage: function (value) {
+            return round(value, 2) + '%';
+        },
+
+        barometer: function (value) {
+            return round(value, 2) + 'hPa';
+        },
+
+        noop: function noop(value) {
+            return round(value, 3);
+        },
+
+        bytes: function (bytes) {
+            return number(bytes) + 'B';
+        }
+    };
 
     return {
         getFormatter: function(type) {
-            switch (type) {
-                case 'temperature':
-                    return temperature;
-                case 'percentage':
-                    return percentage;
-                case 'barometer':
-                    return barometer;
-                case 'bytes':
-                    return bytes;
-                case 'number':
-                    return number;
-                default:
-                    return noop;
+            if (formatter[type]) {
+                return formatter[type];
             }
+
+            return formatter.noop;
         }
     };
 }]);

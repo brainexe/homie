@@ -28,29 +28,16 @@ App.controller('MenuController', ['$scope', '$q', '$location', 'controllers', 'U
             UserManagement.loadCurrentUser(),
             Settings.getAll()
         ]).then(function(data) {
-            var config   = data[0].data;
-            var user     = data[1].data;
-            var settings = data[2].data;
+            var config     = data[0].data;
+            var user       = data[1].data;
+            var settings   = data[2].data;
             var isLoggedIn = user && user.userId > 0;
-            var disabled = settings.hiddenMenus;
+            var disabled   = settings.hiddenMenus;
 
             $scope.menu = controllers().filter(function (item) {
-                if (!item.name) {
-                    // hidden menu entry without name
+                if (!checkItem(item, disabled, config)) {
                     return false;
-                }
-
-                if (disabled && disabled[item.controller]) {
-                    // disabled via settings
-                    return false;
-                }
-
-                if (item.checkConfig && !item.checkConfig(config)) {
-                    return false;
-                }
-
-                // check permissions
-                if (!isLoggedIn && !item.isPublic) {
+                } else if (!isLoggedIn && !item.isPublic) {
                     return false;
                 } else if (isLoggedIn && item.isPublic === true) {
                     return false;
@@ -66,6 +53,20 @@ App.controller('MenuController', ['$scope', '$q', '$location', 'controllers', 'U
                 return true;
             });
         });
+    }
+
+    function checkItem(item, disabled, config) {
+        if (!item.name) {
+            // hidden menu entry without name
+            return false;
+        }
+
+        if (disabled && disabled[item.controller]) {
+            // disabled via settings
+            return false;
+        }
+
+        return !(item.checkConfig && !item.checkConfig(config));
     }
 }]);
 

@@ -38,7 +38,7 @@ class Webcam extends AbstractSensor
     public function getValue(SensorVO $sensor)
     {
         $tmpFile = sys_get_temp_dir() . '/tmp_rec.wav';
-        $this->client->execute('arecord', ['-d', 2, $tmpFile]);
+        $this->client->executeWithReturn('arecord', ['-d', 2, $tmpFile]);
 
         $content = $this->client->executeWithReturn('sox', ['-t', '.wav', $tmpFile, '-n', 'stat']);
 

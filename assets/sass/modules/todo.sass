@@ -7,20 +7,13 @@ $taskWidth: 250px
 	width: $taskWidth
 	float: left
 	margin: 0 5px
-	height: 500px
+	min-height: 600px
 	padding-bottom: 15px
 	overflow-y: auto
 
-	> input, > textarea
-		width: 232px
-		margin: 1px 5px
-
-	input
-		height: 30px
-
-	input[type="button"]
-		width: 100px
-		margin: 5px
+	input, textarea
+		width: $taskWidth - 15px
+		margin: 3px
 
 	.completed .todo-task
 		text-decoration: line-through
@@ -41,24 +34,20 @@ $taskWidth: 250px
 	@include border(5)
 
 	background-color: #fff
-	width: 231px
+	width: $taskWidth - 19px
 	margin: 5px
 	padding: 5px
 
-	input, textarea
-		width: 219px
+	input, textarea, .ui-select-container
+		width: 215px
+		margin: 3px
 
 	> .task-header
 		font-weight: bold
 
-	> .task-date
+	> .task-date, > .task-deadline
 		font-size: small
 		font-style: italic
 
-	> .task-deadline
-		font-size: small
-		font-style: italic
-
-	> .task-description, .todo-task > .task-user
+	> .task-description
 		font-size: smaller
-		width: 200px

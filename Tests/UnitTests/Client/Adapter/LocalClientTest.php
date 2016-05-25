@@ -164,7 +164,6 @@ class LocalClientTest extends TestCase
     public function testExecute()
     {
         $command = 'command';
-        $output  = 'output';
         $process = $this->getMock(Process::class, [], [], '', false);
 
         $this->processBuilder
@@ -192,20 +191,10 @@ class LocalClientTest extends TestCase
 
         $process
             ->expects($this->once())
-            ->method('run');
+            ->method('start');
 
         $process
             ->expects($this->once())
-            ->method('isSuccessful')
-            ->willReturn(true);
-
-        $process
-            ->expects($this->once())
-            ->method('getOutput')
-            ->willReturn($output);
-
-        $process
-            ->expects($this->exactly(2))
             ->method('getCommandLine')
             ->willReturn('commandLine');
 
@@ -213,11 +202,6 @@ class LocalClientTest extends TestCase
             ->expects($this->at(0))
             ->method('log')
             ->with(LogLevel::INFO, 'LocalClient command: commandLine');
-
-        $this->logger
-            ->expects($this->at(1))
-            ->method('log')
-            ->with(LogLevel::DEBUG, 'LocalClient command output: commandLine: output');
 
         $this->subject->execute($command);
     }

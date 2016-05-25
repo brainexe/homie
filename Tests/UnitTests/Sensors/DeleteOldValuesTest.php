@@ -41,7 +41,6 @@ class DeleteOldValuesTest extends TestCase
         $this->subject->setRedis($this->redis);
         $this->subject->setTime($this->time);
     }
-    
 
     public function testDeleteOldValues()
     {
@@ -67,12 +66,12 @@ class DeleteOldValuesTest extends TestCase
             ->willReturn($oldValues);
 
         $this->redis
-            ->expects($this->exactly(7))
+            ->expects($this->exactly(6))
             ->method('zrem');
 
         $actual = $this->subject->deleteValues($sensorId);
 
-        $this->assertEquals(7, $actual);
+        $this->assertEquals(6, $actual);
     }
 
     public function testDeleteOldValuesWithoutValues()

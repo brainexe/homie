@@ -9,6 +9,7 @@ var port = homieConfig['motion.port'];
 
 motionConfig['videodevice']    = homieConfig['webcam.device'];
 motionConfig['on_event_start'] = "curl -X GET http://" + homieConfig['server.host'] + "/motion/add/";
+motionConfig['target_dir']     = homieConfig['filesystem.local.path'] + "Webcam";
 
 var motion = new MotionHandler();
 var config = new MotionConfig({

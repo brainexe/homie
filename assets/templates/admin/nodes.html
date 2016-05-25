@@ -29,16 +29,21 @@
                     <input type="text" placeholder="{{'Options'|translate}}" class="form-control" ng-model="node.options"/>
                 </div>
             </td>
-            <td class="btn-group">
-                <a ng-if="!node.edit" ng-click="node.edit = !node.edit" class="btn btn-default">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                </a>
-                <a ng-if="node.edit" ng-click="edit(node)" class="btn btn-default">
-                    <span class="glyphicon glyphicon-save"></span>
-                </a>
-                <a class="btn btn-danger" confirm="remove(node)">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </a>
+            <td>
+                <div class="btn-group">
+                    <a ng-if="!node.edit" uib-tooltip="{{'Edit'|translate}}" ng-click="node.edit = !node.edit" class="btn btn-default">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    <a ng-if="node.edit" uib-tooltip="{{'Save'|translate}}" ng-click="edit(node)" class="btn btn-default">
+                        <span class="glyphicon glyphicon-save"></span>
+                    </a>
+                    <a ng-if="node.edit" uib-tooltip="{{'Cancel'|translate}}" ng-click="node.edit = !node.edit" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                    <a ng-if="!node.edit" class="btn btn-danger" uib-tooltip="{{'Remove'|translate}}" confirm="remove(node)">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                </div>
             </td>
         </tr>
     </tbody>

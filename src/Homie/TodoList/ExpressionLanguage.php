@@ -2,15 +2,16 @@
 
 namespace Homie\TodoList;
 
-use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Core\Authentication\AnonymusUserVO;
 use Generator;
-use InvalidArgumentException;
-use Symfony\Component\ExpressionLanguage\ExpressionFunction;
+use Homie\Expression\Action;
+use Homie\TodoList\VO\TodoItemVO;
+use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
 /**
- * @Service("TodoList.ExpressionLanguage", public=false)
+ * @ExpressionLanguageAnnotation("TodoList.ExpressionLanguage", public=false)
  */
 class ExpressionLanguage implements ExpressionFunctionProviderInterface
 {
@@ -21,12 +22,22 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
     private $todoReminder;
 
     /**
-     * @Inject("@TodoList.TodoReminder")
-     * @param TodoReminder $todoReminder
+     * @var TodoList
      */
-    public function __construct(TodoReminder $todoReminder)
+    private $todoList;
+
+    /**
+     * @Inject({
+     *     "@TodoList.TodoReminder",
+     *     "@TodoList"
+     * })
+     * @param TodoReminder $todoReminder
+     * @param TodoList $todoList
+     */
+    public function __construct(TodoReminder $todoReminder, TodoList $todoList)
     {
         $this->todoReminder = $todoReminder;
+        $this->todoList     = $todoList;
     }
 
     /**
@@ -34,10 +45,18 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
      */
     public function getFunctions()
     {
-        yield new ExpressionFunction('sayTodoList', function () {
-            throw new InvalidArgumentException('Function sayTodoList() is not implemented as trigger');
-        }, function () {
+        yield new Action('sayTodoList', function () {
             $this->todoReminder->sendNotification();
+        });
+
+        yield new Action('addTodoTodoItem', function (array $parameters, string $name) {
+            unset($parameters);
+
+            $user = new AnonymusUserVO();
+            $item = new TodoItemVO();
+            $item->name = $name;
+
+            $this->todoList->addItem($user, $item);
         });
     }
 }

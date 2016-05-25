@@ -38,7 +38,14 @@ class LocalClient implements ClientInterface
      */
     public function execute(string $command, array $arguments = [])
     {
-        $this->executeWithReturn($command, $arguments);
+        $process = $this->processBuilder
+            ->setPrefix(explode(' ', $command))
+            ->setArguments($arguments)
+            ->setTimeout(self::TIMEOUT)
+            ->getProcess();
+        $process->start();
+
+        $this->info(sprintf('LocalClient command: %s', $process->getCommandLine()));
     }
 
     /**

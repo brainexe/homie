@@ -32,6 +32,7 @@ class TodoListEvent extends AbstractEvent implements PushViaWebsocket
     /**
      * @param TodoItemVO $itemVo
      * @param string $eventName
+     * @param array $changes
      */
     public function __construct(TodoItemVO $itemVo, string $eventName, array $changes = [])
     {

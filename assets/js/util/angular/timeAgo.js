@@ -104,7 +104,7 @@ App.directive('timeAgo', ['$filter', 'timeAgo', 'nowTime', function ($filter, ti
         }
 
         var words =
-            seconds < 5 && substitute($l.fewSeconds, Math.round(seconds)) ||
+            seconds < 3 && substitute($l.fewSeconds, Math.round(seconds)) ||
             seconds <= 60 && substitute($l.seconds, Math.round(seconds)) ||
             seconds < 90 && substitute($l.minute, 1) ||
             minutes < 45 && substitute($l.minutes, Math.round(minutes)) ||

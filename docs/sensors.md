@@ -3,6 +3,7 @@
  - Barometer	BMP085
  - Brightness	Webcam
  - Decibel	Webcam
+ - Humid	Absolute
  - Humid	DHT11
  - Misc	Metawear
  - Misc	Script

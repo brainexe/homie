@@ -109,7 +109,7 @@ class Recorder
     {
         $temp = tempnam(sys_get_temp_dir(), 'webcam');
 
-        $this->client->execute(str_replace('{{file}}', $temp, $command));
+        $this->client->executeWithReturn(str_replace('{{file}}', $temp, $command));
 
         $this->filesystem->writeStream(Webcam::ROOT . $filename, fopen($temp, 'r'), [
             'visibility' => 'public'

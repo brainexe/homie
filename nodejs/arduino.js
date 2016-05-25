@@ -1,3 +1,4 @@
+
 var redis   = require('./lib/redis'),
     config  = require('./lib/config'),
     debug   = require('debug')('arduino'),
@@ -21,6 +22,29 @@ function registerGpioListener(pin) {
     });
 }
 
+function handleServo(board, pin) {
+    var servo;
+    if (servos[pin]) {
+        servo = servos[pin];
+    } else {
+        servo = new arduino.Servo({
+            board: board,
+            pin: pin
+        });
+        servo.attach();
+    }
+
+    servo.write(value);
+}
+
+function handleDigital(board, pin, value) {
+    if (value == '1') {
+        board.digitalWrite(pin, board.HIGH);
+    } else {
+        board.digitalWrite(pin, board.LOW);
+    }
+}
+
 client.on('message', function (channel, command) {
     var parts = command.split(':');
 
@@ -32,28 +56,13 @@ client.on('message', function (channel, command) {
 
     switch (action) {
         case 'd':
-            if (value == '1') {
-                board.digitalWrite(pin, board.HIGH);
-            } else {
-                board.digitalWrite(pin, board.LOW);
-            }
+            handleDigital(board, pin, value);
             break;
         case 'a':
             board.analogWrite(pin, value);
             break;
         case 's':
-            var servo;
-            if (servos[pin]) {
-                servo = servos[pin];
-            } else {
-                servo = new arduino.Servo({
-                    board: board,
-                    pin: pin
-                });
-                servo.attach();
-            }
-
-            servo.write(value);
+            handleServo(board, pin);
             break;
         case 'lcd':
             var lcd = new arduino.LCD({

@@ -5,7 +5,7 @@ namespace Homie\Expression\Functions;
 use BrainExe\Core\Notification\Notification as NotificationEvent;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Generator;
-use InvalidArgumentException;
+use Homie\Expression\Action;
 use Monolog\Logger;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
@@ -24,10 +24,7 @@ class Notification implements ExpressionFunctionProviderInterface
      */
     public function getFunctions()
     {
-        yield new ExpressionFunction('addNotification', function (string $message, string $subject, $level = Logger::ALERT) {
-            unset($message, $subject,$level);
-            throw new InvalidArgumentException('Function addNotification() not available as condition');
-        }, function (array $variables, string $message, string $subject, $level = Logger::ALERT) {
+        yield new Action('addNotification', function (array $variables, string $message, string $subject, $level = Logger::ALERT) {
             unset($variables);
             $event = new NotificationEvent($message, $subject, $level);
 

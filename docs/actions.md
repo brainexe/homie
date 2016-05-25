@@ -15,17 +15,20 @@ php console expression:list
  - microtime([bool])
  - rand([number, number])
  - round(number)
+ - sleep(number)
+ - preg_match()
+ - constant
  
 ## Dealing with events
  - isEvent(string $eventName)
  - isTiming(string $timingId) // check for timing/cron event
- - event(string EventName, ...parameters) // throw an internal event
+ - event(string EventName, ...parameters) // dispatch an internal event
 
 ## Store data 
  - setProperty(key, value)
  - getProperty(key)
- - increaseCounter()  
- 
+ - increaseCounter()
+
 ## Sensor
  - getSensorValue(int $sensorId)
  - getSensor(int $sensorId)
@@ -33,11 +36,20 @@ php console expression:list
   
 ## Misc
  - say(string $text)
- - mail(recipientMail, subject, body)
+ - sendMail(recipientMail, subject, body)
  - exec(string $inputControl)
  - log(string $level, string $message, $context = null)
  - executeExpression TODO
  - triggerIFTTT(eventId)
+ - takePhoto()
+ - takeVideo()
+ - addShoppingListItem()
+ - sayTodoList()
+ - removeShoppingListItem()
+ - setSwitch(witchId, status)
+ - voice() voice control
+ - eggTimer(time, text)
+ - isRemoteCode()
 
 # Examples
 
@@ -64,24 +76,3 @@ Actions:
 
 # Events
 http://homie/expressions/
-
-# "Input control" (deprecated)
- - send mail "(.*)" "(.*)" "(.*)"
- - radio (on|off) (\s+)
- - switch (on|off) (\s+)
- - (say|speak) (.*)
- - webcam
- - webcam video (\d+) seconds
- - add shopping item (.*)
- - delete shopping item (.*)
- - add item (.*)
- - delete item (\d+)
- - assign item (\d+) to (\s+)
- - set item status (\d+) to (\d+)
- - todo list
- - play sound (.*)
- - sensor say (\d+)
- - echo (.*)
-
-php console input:list
-```

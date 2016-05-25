@@ -122,28 +122,28 @@ module.exports = function (grunt) {
         watch: {
             js: {
                 files: ['assets/**/*.js'],
-                tasks: ['uglify:app', 'copy:static'],
+                tasks: ['uglify:app'],
                 options: {
                     livereload: true
                 }
             },
-            css: {
-                files: ['assets/**/*.sass'],
-                tasks: ['sass', 'cssmin', 'copy:static'],
+            sass: {
+                files: ['assets/**/*.sass', 'assets/**/*.scss'],
+                tasks: ['sass', 'cssmin'],
                 options: {
                     livereload: true
                 }
             },
             templates: {
                 files: ['assets/**/*.html'],
-                tasks: ['htmlmin', 'copy:static'],
+                tasks: ['htmlmin'],
                 options: {
                     livereload: true
                 }
             },
             po: {
                 files: ['lang/*.po'],
-                tasks: ['compile_lang', 'copy:static'],
+                tasks: ['compile_lang'],
                 options: {
                     livereload: true
                 }
@@ -341,7 +341,8 @@ module.exports = function (grunt) {
             dist: {
                 options: {
                     style: 'expanded',
-                    sourcemap: 'none'
+                    sourcemap: 'none',
+                    cacheLocation: 'cache/sass/'
                 },
                 files: [{
                     expand: true,

@@ -38,8 +38,22 @@
                         class="big-checkbox"
                         ng-model="settings.browserNotification"
                         ng-change="set('browserNotification', settings.browserNotification)"/>
-
-                <i class="glyphicon glyphicon-envelope"></i>
+            </li>
+            <li>
+                <label translate>Espeak browser output</label>
+                <input
+                        type="checkbox"
+                        class="big-checkbox"
+                        ng-model="settings.espeakBrowserOutput"
+                        ng-change="set('espeakBrowserOutput', settings.espeakBrowserOutput)"/>
+            </li>
+            <li>
+                <label translate>Voice control</label>
+                <input
+                        type="checkbox"
+                        class="big-checkbox"
+                        ng-model="settings.voiceControl"
+                        ng-change="set('voiceControl', settings.voiceControl)"/>
             </li>
         </ul>
     </div>

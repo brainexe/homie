@@ -134,18 +134,14 @@ App.service('SensorGraph', ['Sensor', 'Sensor.Formatter', function (Sensor, Sens
             var tags = {};
             for (var idx in rawSensors) {
                 var sensor = rawSensors[idx];
-                if (!sensor.tags) {
-                    continue;
-                }
-                for (var tagId in sensor.tags) {
-                    if (!tagId || tagId != ~~ tagId) {
-                        continue; // todo ugly fix
+                if (sensor.tags) {
+                    for (var tagId in sensor.tags) {
+                        var tag = sensor.tags[tagId];
+                        if (!tags[tag]) {
+                            tags[tag] = [];
+                        }
+                        tags[tag].push(sensor);
                     }
-                    var tag = sensor.tags[tagId];
-                    if (!tags[tag]) {
-                        tags[tag] = [];
-                    }
-                    tags[tag].push(sensor);
                 }
             }
             return tags;

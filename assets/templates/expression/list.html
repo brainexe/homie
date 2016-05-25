@@ -1,13 +1,12 @@
-<table class="table table-bordered table-striped table-hover">
+<table class="table table-bordered table-striped table-hover expression-table">
     <thead>
         <tr>
             <th translate>Id</th>
-            <th ng-if="editMode" translate>Enabled</th>
+            <th ng-if="editMode || showDisabled" translate>Enabled</th>
             <th translate>Condition</th>
             <th translate>Actions</th>
             <th translate>Payload</th>
             <th ng-if="editMode"><span class="glyphicon glyphicon-edit"></span></th>
-            <th ng-if="editMode"><span class="glyphicon glyphicon-remove"></span></th>
         </tr>
     </thead>
     <tbody>
@@ -15,7 +14,7 @@
         <td>
             {{expression.expressionId}}
         </td>
-        <td ng-if="editMode">
+        <td ng-if="editMode || showDisabled">
             <input
                     class="big-checkbox"
                     type="checkbox"
@@ -30,15 +29,15 @@
                 </li>
             </ul>
         </td>
-        <td>
+        <td class="actions">
             <ul>
                 <li ng-repeat="action in expression.actions">
-                    <code>
-                        {{ action }}
-                    </code>
                     <a ng-click="evaluateAction(expression, action)" uib-tooltip="{{'Evaluate'|translate}}" class="btn btn-xs btn-success">
                         <span class="glyphicon glyphicon-play"></span>
                     </a>
+                    <code>
+                        {{ action }}
+                    </code>
                 </li>
             </ul>
         </td>
@@ -47,18 +46,18 @@
                 <li ng-repeat="(key, value) in expression.payload">{{key}}: {{ value }}</li>
             </ul>
         </td>
-        <td ng-if="editMode">
-            <a
-                    ng-click="edit(expression)"
-                    class="cursor btn btn-default btn-sm"
-            >
-                <span class="glyphicon glyphicon-edit"></span>
-            </a>
-        </td>
-        <td ng-if="editMode">
-            <a confirm="delete(expressionId)" class="btn btn-danger btn-sm">
-                <span class="glyphicon glyphicon-remove"></span>
-            </a>
+        <td ng-if="editMode" style="width:90px">
+            <div class="btn-group btn-group-sm">
+                <a
+                        ng-click="edit(expression)"
+                        class="btn btn-sm btn-default"
+                >
+                    <span class="glyphicon glyphicon-edit"></span>
+                </a>
+                <a confirm="delete(expressionId)" class="btn btn-sm btn-danger">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </a>
+            </div>
         </td>
     </tr>
     </tbody>

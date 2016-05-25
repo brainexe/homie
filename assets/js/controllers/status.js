@@ -1,6 +1,6 @@
 
 App.controller('StatusController', ['$scope', 'Status', 'Cache', function ($scope, Status, Cache) {
-    var REFRESH_INTERVAL = 20000;
+    var REFRESH_INTERVAL = 30000;
 
     $scope.jobs    = {};
     $scope.cache   = Cache;
@@ -23,6 +23,7 @@ App.controller('StatusController', ['$scope', 'Status', 'Cache', function ($scop
 
     $scope.update();
 
+    // todo $interval
     setInterval(function () {
         $scope.update();
     }, REFRESH_INTERVAL);

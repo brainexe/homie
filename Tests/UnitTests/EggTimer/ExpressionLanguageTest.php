@@ -57,8 +57,8 @@ class ExpressionLanguageTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage eggTimer() is not available in this context
+     * @expectedException \Exception
+     * @expectedExceptionMessage Function "eggTimer" is not allowed as trigger
      */
     public function testSetTimerCompiler()
     {
