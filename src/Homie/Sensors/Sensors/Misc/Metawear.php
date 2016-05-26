@@ -49,7 +49,7 @@ class Metawear extends AbstractSensor implements Searchable
     {
         $url = sprintf('%s/%s/', $this->url, $sensor->parameter);
 
-        $context  = stream_context_create(['http' => ['timeout' => 5]]);
+        $context = stream_context_create(['http' => ['timeout' => 5]]);
         $content = file_get_contents($url, false, $context); // todo use LocalClient/HttpClient
         if ($content === false) {
             return null;
