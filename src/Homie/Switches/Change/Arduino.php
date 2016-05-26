@@ -7,7 +7,6 @@ use BrainExe\Core\Traits\EventDispatcherTrait;
 use Homie\Arduino\SerialEvent;
 use Homie\Switches\SwitchInterface;
 use Homie\Switches\VO\ArduinoSwitchVO;
-use Homie\Switches\VO\RadioVO;
 use Homie\Switches\VO\SwitchVO;
 
 /**
