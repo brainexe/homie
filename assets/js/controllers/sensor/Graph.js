@@ -1,26 +1,5 @@
 
 App.service('SensorGraph', ['Sensor', 'Sensor.Formatter', function (Sensor, SensorFormatter) {
-    function getAxisFormatter(data) {
-        var formatter = Rickshaw.Fixtures.Number.formatKMBT;
-        var formatterName;
-
-        for (var sensorId in data) {
-            var currentFormatterName = data[sensorId].formatter;
-            if (formatterName && currentFormatterName != formatterName) {
-                // other formatter is already registered :(
-                return formatter;
-            }
-
-            formatterName = currentFormatterName;
-        }
-
-        if (formatterName) {
-            return SensorFormatter.getFormatter(formatterName);
-        }
-
-        return formatter;
-    }
-
     function init($scope, element, height, sensorIds, parameters) {
         $scope.$on('sensor.update', function(event, data) {
             if ($scope.isSensorActive(data.sensorId)) {
@@ -112,41 +91,6 @@ App.service('SensorGraph', ['Sensor', 'Sensor.Formatter', function (Sensor, Sens
             });
         }
 
-        // todo optimize
-        function decompressData(data) {
-            var final = [];
-            for (var sensorId in data.json) {
-                var graphData = [];
-                for (var i = 0; i < data.json[sensorId].data.length; i += 2) {
-                    graphData.push({
-                        x: data.json[sensorId].data[i],
-                        y: data.json[sensorId].data[i+1]
-                    })
-                }
-                data.json[sensorId].data = graphData;
-                final.push(data.json[sensorId]);
-            }
-
-            return final;
-        }
-
-        function aggregateTags(rawSensors) {
-            var tags = {};
-            for (var idx in rawSensors) {
-                var sensor = rawSensors[idx];
-                if (sensor.tags) {
-                    for (var tagId in sensor.tags) {
-                        var tag = sensor.tags[tagId];
-                        if (!tags[tag]) {
-                            tags[tag] = [];
-                        }
-                        tags[tag].push(sensor);
-                    }
-                }
-            }
-            return tags;
-        }
-
         /**
          * @param {Number} sensorId
          * @returns {boolean}
@@ -176,6 +120,62 @@ App.service('SensorGraph', ['Sensor', 'Sensor.Formatter', function (Sensor, Sens
 
             return false;
         };
+    }
+
+    function getAxisFormatter(data) {
+        var formatter = Rickshaw.Fixtures.Number.formatKMBT;
+        var formatterName;
+
+        for (var sensorId in data) {
+            var currentFormatterName = data[sensorId].formatter;
+            if (formatterName && currentFormatterName != formatterName) {
+                // other formatter is already registered :(
+                return formatter;
+            }
+
+            formatterName = currentFormatterName;
+        }
+
+        if (formatterName) {
+            return SensorFormatter.getFormatter(formatterName);
+        }
+
+        return formatter;
+    }
+
+    // todo optimize
+    function decompressData(data) {
+        var final = [];
+        for (var sensorId in data.json) {
+            var graphData = [];
+            for (var i = 0; i < data.json[sensorId].data.length; i += 2) {
+                graphData.push({
+                    x: data.json[sensorId].data[i],
+                    y: data.json[sensorId].data[i+1]
+                })
+            }
+            data.json[sensorId].data = graphData;
+            final.push(data.json[sensorId]);
+        }
+
+        return final;
+    }
+
+    function aggregateTags(rawSensors) {
+        var tags = {};
+        for (var idx in rawSensors) {
+            var sensor = rawSensors[idx];
+            if (sensor.tags) {
+                for (var tagId in sensor.tags) {
+                    var tag = sensor.tags[tagId];
+                    if (!tags[tag]) {
+                        tags[tag] = [];
+                    }
+                    tags[tag].push(sensor);
+                }
+            }
+        }
+        return tags;
     }
 
     return {

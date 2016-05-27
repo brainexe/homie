@@ -18,37 +18,56 @@ devices.discover(function(device) {
 });
 console.log('start server on port ' + port + '...');
 
-function handleRequest(request) {
+function writeResponse(response, code, body) {
+    if (!response.finished) {
+        response.writeHeader(code, {"Content-Type": "text/plain"});
+        response.write(body);
+        response.end();
+    }
+}
+function handleTemperature(response) {
+    var temperature = new currentDevice.Temperature(
+        currentDevice,
+        currentDevice.Temperature.ON_BOARD_THERMISTOR
+    );
+
+    temperature.getValue(function (value) {
+        writeResponse(response, 200, "" + value);
+    });
+}
+
+function handleBrightness(response) {
+    var light = new currentDevice.AmbiantLight(currentDevice);
+
+    light.enable(function (value) {
+        writeResponse(response, 200, "" + value);
+        light.disable();
+    });
+}
+
+function handlePressure(response) {
+    var barometer = new currentDevice.Barometer(currentDevice);
+
+    barometer.enablePressure(function (value) {
+        writeResponse(response, 200, "" + value);
+        barometer.disable();
+    });
+}
+
+function handleRequest(request, response) {
     switch (request.url) {
         case '/':
         case '/info/':
-            writeResponse(200, 'OK');
+            writeResponse(response, 200, 'OK');
             break;
         case '/temperature/':
-            var temperature = new currentDevice.Temperature(
-                currentDevice,
-                currentDevice.Temperature.ON_BOARD_THERMISTOR
-            );
-
-            temperature.getValue(function (value) {
-                writeResponse(200, "" + value);
-            });
+            handleTemperature(response);
             break;
         case '/pressure/':
-            var barometer = new currentDevice.Barometer(currentDevice);
-
-            barometer.enablePressure(function (value) {
-                writeResponse(200, "" + value);
-                barometer.disable();
-            });
+            handlePressure(response);
             break;
         case '/brightness/':
-            var light = new currentDevice.AmbiantLight(currentDevice);
-
-            light.enable(function (value) {
-                writeResponse(200, "" + value);
-                light.disable();
-            });
+            handleBrightness(response);
             break;
         default:
             writeResponse(404, "Route not found");
@@ -56,25 +75,17 @@ function handleRequest(request) {
 }
 
 http.createServer(function(request, response) {
-    function writeResponse(code, body) {
-        if (!response.finished) {
-            response.writeHeader(code, {"Content-Type": "text/plain"});
-            response.write(body);
-            response.end();
-        }
-    }
-
     setTimeout(function () {
-        writeResponse(503, 'Timeout');
+        writeResponse(response, 503, 'Timeout');
     }, 5000);
 
     console.log('HTTP request - ' + request.url);
 
     if (!currentDevice) {
-        writeResponse(503, "metawear not ready yet");
+        writeResponse(response, 503, "metawear not ready yet");
         console.error('Device not ready..');
         return;
     }
 
-    handleRequest(request);
+    handleRequest(request, response);
 }).listen(port);

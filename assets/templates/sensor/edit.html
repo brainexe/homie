@@ -44,6 +44,9 @@
                         <b>{{sensor.type|translateToken:'sensor.{0}.name'}}</b>
                         <br />
                         <span class="small" ng-if="sensor.parameter">({{ sensor.parameter }})</span>
+                        <p>
+                            {{sensor.tags}}
+                        </p>
                     </div>
                     <div ng-if="sensor.edit">
                         <ui-select ng-model="sensor.type" required uib-tooltip="{{'Type'|translate}}">
@@ -68,7 +71,6 @@
                                         {{tag}}
                                     </ui-select-choices>
                                 </ui-select>
-                                {{newSensor.tags}}
                             </div>
                         </div>
                         <input

@@ -1,5 +1,7 @@
 
 App.service('UserManagement', ['$http', '$rootScope', 'Cache', function($http, $rootScope, Cache) {
+    // clear the user in cache initially
+    Cache.clear('^/user/$');
     Cache.intervalClear('^/user/$', 60);
 
     var current = {};
@@ -26,11 +28,7 @@ App.service('UserManagement', ['$http', '$rootScope', 'Cache', function($http, $
             return $http.get('/user/list/', {cache:Cache});
         },
 
-        setCurrentUser: setCurrentUser = function (user, clearCache) {
-            if (clearCache) {
-                Cache.clear('^/user/$');
-            }
-
+        setCurrentUser: setCurrentUser = function (user) {
             if (current.userId != user.userId) {
                 $rootScope.$broadcast('currentuser.update', user);
             }
@@ -48,10 +46,10 @@ App.service('UserManagement', ['$http', '$rootScope', 'Cache', function($http, $
                 return loadUserPromise;
             }
 
-                var promise = loadUserPromise = $http.get('/user/', {cache:Cache});
+            var promise = loadUserPromise = $http.get('/user/', {cache:Cache});
 
             promise.success(function(user) {
-                setCurrentUser(user, true);
+                setCurrentUser(user);
                 loadUserPromise = null;
             });
 

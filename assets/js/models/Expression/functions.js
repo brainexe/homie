@@ -1,5 +1,8 @@
 
 App.service('Expression.Functions', ['$q', 'Expression', 'MessageQueue', 'Sensor', 'Cache', function ($q, Expression, MessageQueue, Sensor, Cache) {
+    // todo caching
+    var cacheKey = 'expressionFunctions';
+
     var allFunctions = [];
 
     return $q.all([
@@ -16,20 +19,14 @@ App.service('Expression.Functions', ['$q', 'Expression', 'MessageQueue', 'Sensor
         for (var functionName in functions) {
             switch (functionName) {
                 case 'isEvent':
-                    for (var eventName in events) {
-                        add(functionName, [eventName]);
-                    }
+                    handleEvent(functionName, events);
                     break;
                 case 'isSensorValue':
                 case 'getSensorValue':
-                    for (var sensorIdx in sensors) {
-                        add(functionName, [sensors[sensorIdx].sensorId], sensors[sensorIdx].name);
-                    }
+                    handleSensor(functionName, sensors);
                     break;
                 case 'isTiming':
-                    for (var cron in crons) {
-                        add(functionName, [crons[cron].event.event.timingId], crons[cron].event.expression);
-                    }
+                    handleCrons(functionName, crons);
                     break;
             }
             add(functionName, functions[functionName]);
@@ -39,8 +36,8 @@ App.service('Expression.Functions', ['$q', 'Expression', 'MessageQueue', 'Sensor
     });
 
     function add(functionName2, parameters, label) {
-        var parameterList = generateParameterList(parameters);
-        var expression = functionName2 + '(' + parameterList + ')';
+        var parameterList   = generateParameterList(parameters);
+        var expression      = functionName2 + '(' + parameterList + ')';
         var expressionLabel = expression;
 
         if (label) {
@@ -63,5 +60,23 @@ App.service('Expression.Functions', ['$q', 'Expression', 'MessageQueue', 'Sensor
             }
         });
         return parameterList.join(', ');
+    }
+
+    function handleEvent(functionName, events) {
+        for (var eventName in events) {
+            add(functionName, [eventName]);
+        }
+    }
+
+    function handleCrons(functionName, crons) {
+        for (var cron in crons) {
+            add(functionName, [crons[cron].event.event.timingId], crons[cron].event.expression);
+        }
+    }
+
+    function handleSensor(functionName, sensors) {
+        for (var sensorIdx in sensors) {
+            add(functionName, [sensors[sensorIdx].sensorId], sensors[sensorIdx].name);
+        }
     }
 }]);

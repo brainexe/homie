@@ -1,9 +1,10 @@
 
-App.controller('DashboardController', ['$scope', '$uibModal', '$q', 'Dashboard', 'WidgetFactory', function($scope, $uibModal, $q, Dashboard, WidgetFactory) {
+App.controller('DashboardController', ['$scope', '$uibModal', '$q', 'Dashboard', function($scope, $uibModal, $q, Dashboard) {
     $scope.editMode = false;
 
     function selectDashboard(dashboard) {
         var order = [];
+        // todo use settings!
         localStorage['selectedDashboardId'] = dashboard.dashboardId;
 
         if (dashboard.order) {
