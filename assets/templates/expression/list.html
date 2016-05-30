@@ -1,16 +1,19 @@
+
+<hr />
+
 <table class="table table-bordered table-striped table-hover expression-table">
     <thead>
         <tr>
-            <th translate>Id</th>
+            <th translate>Name</th>
             <th ng-if="editMode || showDisabled" translate>Enabled</th>
             <th translate>Condition</th>
             <th translate>Actions</th>
-            <th translate>Payload</th>
+            <th ng-if="editMode" translate>Payload</th>
             <th ng-if="editMode"><span class="glyphicon glyphicon-edit"></span></th>
         </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="(expressionId, expression) in expressions" ng-if="showDisabled || expression.enabled">
+    <tr ng-repeat="expression in searchExpression(search) track by $index">
         <td>
             {{expression.expressionId}}
         </td>
@@ -41,7 +44,7 @@
                 </li>
             </ul>
         </td>
-        <td>
+        <td ng-if="editMode">
             <ul>
                 <li ng-repeat="(key, value) in expression.payload">{{key}}: {{ value }}</li>
             </ul>
@@ -54,7 +57,7 @@
                 >
                     <span class="glyphicon glyphicon-edit"></span>
                 </a>
-                <a confirm="delete(expressionId)" class="btn btn-sm btn-danger">
+                <a confirm="delete(expression.expressionId, $index)" class="btn btn-sm btn-danger">
                     <span class="glyphicon glyphicon-remove"></span>
                 </a>
             </div>

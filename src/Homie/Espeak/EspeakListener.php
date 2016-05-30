@@ -34,11 +34,13 @@ class EspeakListener
     {
         $espeakVo = $event->getEspeak();
 
-        $this->espeak->speak(
-            $espeakVo->text,
-            $espeakVo->volume ?: 100,
-            $espeakVo->speed  ?: 100,
-            $espeakVo->speaker
-        );
+        if ($espeakVo->devices & EspeakVO::DEVICE_SPEAKER) {
+            $this->espeak->speak(
+                $espeakVo->text,
+                $espeakVo->volume ?: 100,
+                $espeakVo->speed  ?: 100,
+                $espeakVo->speaker
+            );
+        }
     }
 }

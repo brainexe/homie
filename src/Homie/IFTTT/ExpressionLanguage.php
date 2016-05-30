@@ -3,11 +3,11 @@
 namespace Homie\IFTTT;
 
 use BrainExe\Core\Traits\EventDispatcherTrait;
+use Homie\Expression\Action;
+use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
 use Homie\IFTTT\Event\TriggerEvent;
-use InvalidArgumentException;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
-use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
 
 /**
  * @ExpressionLanguageAnnotation("IFTTT.ExpressionLanguage")
@@ -22,9 +22,7 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
      */
     public function getFunctions()
     {
-        $trigger = new ExpressionFunction('triggerIFTTT', function () {
-            throw new InvalidArgumentException('triggerIFTTT() is not available in this context');
-        }, function (array $variables, string $eventName, string $value1 = null, string $value2 = null, string $value3 = null) {
+        $trigger = new Action('triggerIFTTT', function (array $variables, string $eventName, string $value1 = null, string $value2 = null, string $value3 = null) {
             unset($variables);
             $event = new TriggerEvent($eventName, $value1, $value2, $value3);
 

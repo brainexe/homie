@@ -37,7 +37,7 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
      */
     public function getFunctions()
     {
-        yield new Action('eggTimer', function (array $variables, string $time, string $text) {
+        yield new Action('eggTimer', function (array $variables, string $time, string $text = '') {
             unset($variables);
             $this->eggTimer->addNewJob($time, $text);
         });

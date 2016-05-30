@@ -6,7 +6,7 @@ App.service('Widget.command', ['Command', function(Command) {
                 Command.execute(value).success(function(output) {
                     $scope.output = output;
                 });
-                
+
                 $scope.command = '';
             }
         }

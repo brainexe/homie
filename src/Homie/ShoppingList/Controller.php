@@ -64,7 +64,7 @@ class Controller
     public function removeItem(Request $request, string $name) : bool
     {
         unset($request);
-        $this->shoppingList->removeItem($name);
+        $this->shoppingList->removeItem(urldecode($name));
 
         return true;
     }

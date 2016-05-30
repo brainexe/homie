@@ -13,22 +13,8 @@ App.service('Widget.expression', ['$compile', '$interval', 'Expression', functio
                     });
                 });
 
-                var funcs = [];
-                Expression.getData(true).success(function(data) {
-                    element[0].querySelector('.template').innerHTML = widget.template;
-                    $compile(element[0].querySelector('.template'))($scope);
-
-                    return; // TODO implement
-                    funcs = data.functions;
-                    for (var i in funcs) {
-                        var functionName = ""+funcs[i];
-                        $scope[functionName] = function() {
-                            arguments = [];
-                            var command = functionName + '(' + arguments.join(', ') + ')';
-                            Expression.evaluate.call(this, command);
-                        };
-                    }
-                });
+                element[0].querySelector('.template').innerHTML = widget.template;
+                $compile(element[0].querySelector('.template'))($scope);
             }
 
             load(true);
@@ -37,7 +23,7 @@ App.service('Widget.expression', ['$compile', '$interval', 'Expression', functio
                 load(false);
             };
 
-                $scope.evaluate = function(expression) {
+            $scope.evaluate = function(expression) {
                 Expression.evaluate(expression, false);
             };
 

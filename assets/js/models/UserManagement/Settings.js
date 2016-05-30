@@ -5,7 +5,8 @@ App.service('UserManagement.Settings', ['$http', 'Cache', function($http, Cache)
         'browserNotification' : {},
         'hiddenMenus' : {},
         'espeakBrowserOutput': {},
-        'voiceControl': {}
+        'voiceControl': {},
+        'selectedDashboardId': {}
     };
 
     return {

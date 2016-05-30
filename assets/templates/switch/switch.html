@@ -33,13 +33,6 @@
 					<div ng-if="!switch.edit">
 						{{ switch.name }}
 						<small ng-if="switch.description">({{ switch.description }})</small>
-						<a
-								class="btn btn-sm btn-primary"
-								ng-if="editMode"
-								ng-click="switch.edit=true"
-						>
-							<span class="glyphicon glyphicon-pencil"></span>
-						</a>
 					</div>
 				</div>
 			</td>
@@ -55,9 +48,14 @@
 				</a>
 			</td>
 			<td ng-if="editMode">
-				<a confirm="delete(switch.switchId)" class="btn btn-sm btn-danger">
-					<span class="glyphicon glyphicon-remove"></span>
-				</a>
+				<div class="btn-group">
+					<a ng-if="editMode && !switch.edit" class="btn btn-primary" ng-click="switch.edit=true">
+						<span class="glyphicon glyphicon-pencil"></span>
+					</a>
+					<a confirm="delete(switch.switchId)" class="btn btn-danger">
+						<span class="glyphicon glyphicon-remove"></span>
+					</a>
+				</div>
 			</td>
 		</tr>
 	</tbody>

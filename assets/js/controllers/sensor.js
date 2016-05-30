@@ -1,5 +1,5 @@
 
-App.controller('SensorController', ['$scope', '$uibModal', 'SensorGraph', function ($scope, uibModal, SensorGraph) {
+App.controller('SensorController', ['$scope', '$uibModal', 'SensorGraph', 'UserManagement.Settings', function ($scope, uibModal, SensorGraph, Settings) {
     $scope.sensors         = {};
     $scope.activeSensorIds = '';
     $scope.from            = 0;
@@ -10,16 +10,14 @@ App.controller('SensorController', ['$scope', '$uibModal', 'SensorGraph', functi
     $scope.editModal = function () {
         uibModal.open({
             templateUrl: '/templates/sensor/edit.html',
-            controller : 'EditSensorsController',
-            windowClass: 'dialog_1200'
+            controller : 'EditSensorsController'
         });
     };
 
     $scope.addModal = function () {
         uibModal.open({
             templateUrl: '/templates/sensor/add.html',
-            controller : 'AddSensorsController',
-            windowClass: 'dialog_1200'
+            controller : 'AddSensorsController'
         });
     };
 

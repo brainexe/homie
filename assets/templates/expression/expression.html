@@ -1,6 +1,6 @@
 
 <div class="btn-group">
-    <button ng-click="newExpression()" class="btn btn-primary" translate>New Action</button>
+    <button ng-if="!editExpression" ng-click="newExpression()" class="btn btn-primary" translate>New Action</button>
     <button ng-if="!showDisabled" ng-click="showDisabledExpression(true)" class="btn btn-primary" translate>Show disabled</button>
     <button ng-if="showDisabled" ng-click="showDisabledExpression(false)" class="btn btn-primary" translate>Hide disabled</button>
 
@@ -8,15 +8,18 @@
     <button ng-if="editMode" ng-click="setEditMode(false)" class="btn btn-success" translate>Edit mode</button>
 </div>
 
+<br />
+
+<input ng-model="search" style="width: 250px;margin-top: 10px" class="form-control" placeholder="{{'Search'|translate}}"/>
+
 <div
         ng-if="editExpression"
         ng-include="'/templates/expression/edit.html'"></div>
-
-<hr />
 
 <div
         ng-if="expressions|notEmpty"
         ng-include="'/templates/expression/list.html'"></div>
 
-<h2 translate>Crons</h2>
-<div ng-include="'/templates/crons.html'"></div>
+<div
+        ng-if="crons|notEmpty"
+        ng-include="'/templates/crons.html'"></div>

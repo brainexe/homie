@@ -56,8 +56,8 @@ class ExpressionLanguageTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage say() is not available in this context
+     * @expectedException \Exception
+     * @expectedExceptionMessage Function "say" is not allowed as trigger
      */
     public function testSetTimerCompiler()
     {

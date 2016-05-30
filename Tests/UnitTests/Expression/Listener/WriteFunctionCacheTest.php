@@ -59,8 +59,12 @@ class WriteFunctionCacheTest extends TestCase
             ->method('dumpVariableToCache')
             ->with(WriteFunctionCache::CACHE, [
                 'function' => [
-                    ['name' => 'test1', 'type' => 'int'],
-                    ['name' => 'test2', 'type' => 'array']
+                    'parameters' => [
+                        ['name' => 'test1', 'type' => 'int'],
+                        ['name' => 'test2', 'type' => 'array']
+                    ],
+                    'isAction'    => true,
+                    'isTrigger' => true,
                 ]
             ]);
 

@@ -5,10 +5,10 @@ namespace Homie\Expression\Functions;
 use BrainExe\Annotations\Annotations\Inject;
 use Generator;
 use Homie\Client\ClientInterface;
-use InvalidArgumentException;
+use Homie\Expression\Action;
+use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
-use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
 
 /**
  * @ExpressionLanguageAnnotation("InputControl.Process")
@@ -35,10 +35,7 @@ class Process implements ExpressionFunctionProviderInterface
      */
     public function getFunctions()
     {
-        yield new ExpressionFunction('executeCommand', function (string $command, array $arguments = array()) {
-            unset($command, $arguments);
-            throw new InvalidArgumentException('Function executeCommand() not available as condition');
-        }, function (array $variables, string $command, array $arguments = array()) {
+        yield new Action('executeCommand', function (array $variables, string $command, array $arguments = array()) {
             unset($variables);
             return $this->client->executeWithReturn($command, $arguments);
         });

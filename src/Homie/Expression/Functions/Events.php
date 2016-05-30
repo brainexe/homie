@@ -7,6 +7,7 @@ use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Traits\FileCacheTrait;
 use Exception;
 use Generator;
+use Homie\Expression\Action;
 use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
 use ReflectionClass;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
@@ -32,9 +33,7 @@ class Events implements ExpressionFunctionProviderInterface
             return $parameters['eventName'] === $eventId;
         });
 
-        yield new ExpressionFunction('event', function () {
-            throw new Exception('event() not implemented');
-        }, function (array $parameters, string $type, ...$eventArguments) {
+        yield new Action('event', function (array $parameters, string $type, ...$eventArguments) {
             unset($parameters);
             $events = $this->includeFile('events');
 

@@ -29,6 +29,17 @@ class DefaultExpressions implements DefaultExpression
 
         ];
         yield $item;
+
+        $item = new Entity();
+        $item->expressionId = 'eggTimer';
+        $item->conditions   = [
+            'voice(\'/(Timer|Wecker) (in|auf) ([0-9]+) Minuten?/i\')'
+        ];
+        $item->actions = [
+            'eggTimer(voice(3) ~ "m")',
+            'say("Timer ist auf " ~ voice(3) ~ " Minuten gestellt")',
+        ];
+        yield $item;
     }
 
     private static function getTodoListActions()

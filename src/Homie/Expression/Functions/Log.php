@@ -3,8 +3,8 @@
 namespace Homie\Expression\Functions;
 
 use BrainExe\Core\Traits\LoggerTrait;
-use Exception;
 use Generator;
+use Homie\Expression\Action;
 use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
@@ -22,9 +22,7 @@ class Log implements ExpressionFunctionProviderInterface
      */
     public function getFunctions()
     {
-        yield new ExpressionFunction('log', function () {
-            throw new Exception('log() not implemented');
-        }, function (array $parameters, $level, string $message, string $context = null) {
+        yield new Action('log', function (array $parameters, $level, string $message, string $context = null) {
             unset($parameters);
             $this->log($level, $message, ['channel' => $context]);
         });

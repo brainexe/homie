@@ -248,7 +248,7 @@ module.exports = function (grunt) {
             },
             vendor: {
                 options: {
-                    compress: isProduction,
+                    compress: false, // todo light compress?
                     mangle: false,
                     sourceMap: true,
                     sourceMapIncludeSources: true,

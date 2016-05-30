@@ -18,7 +18,7 @@ App.controller('ExpressionController', ['$scope', '$q', 'Expression', 'MessageQu
         Expression.getData(),
         ExpressionFunctions
     ]).then(function(data) {
-        $scope.expressions = data[0].data.expressions;
+        $scope.expressions = data[0].data;
         $scope.functions   = data[1];
     });
 
@@ -32,19 +32,37 @@ App.controller('ExpressionController', ['$scope', '$q', 'Expression', 'MessageQu
         $scope.editExpression = {actions:[''], conditions:[''], 'new': true};
     };
 
+    $scope.searchExpression = function (search) {
+        return $scope.expressions.filter(function(expression) {
+            if (!expression.enabled && !$scope.showDisabled) {
+                // hide disabled
+                return false;
+            } else if (!search) {
+                // no search criteria -> show
+                return true;
+            }
+
+            var text = expression.expressionId +
+                expression.conditions.join(' ') +
+                expression.actions.join(' ');
+
+            return text.toLowerCase().indexOf(search.toLowerCase()) > -1;
+        })
+    };
+
     $scope.showDisabledExpression = function (show) {
         $scope.showDisabled = show;
     };
 
-    $scope.save = function(expression) {
+    $scope.save = function(expression, $index) {
         Expression.save(expression).success(function(data) {
-            $scope.expressions[data.expressionId] = data;
+            $scope.expressions[$index] = data; // TODO
         });
     };
 
-    $scope.delete = function(expressionId) {
+    $scope.delete = function(expressionId, $index) {
        Expression.deleteExpression(expressionId).success(function() {
-            delete $scope.expressions[expressionId];
+            delete $scope.expressions[$index];
         });
     };
 

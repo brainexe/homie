@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-08 15:20+0200\n"
+"POT-Creation-Date: 2016-05-27 21:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -190,7 +190,7 @@ msgstr ""
 msgid "Invalid avatar: %s"
 msgstr ""
 
-#: vendor/brainexe/totp/vendor/brainexe/core/src/Middleware/Authentication.php:76
+#: vendor/brainexe/totp/vendor/brainexe/core/src/Middleware/Authentication.php:64
 #: vendor/brainexe/core/src/Middleware/Authentication.php:64
 msgid "Not logged in"
 msgstr ""

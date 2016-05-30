@@ -8,6 +8,7 @@ App.service('Expression', ['$http', 'Cache', function($http, Cache) {
                 cache: cached ? Cache : false
             });
         },
+
         getEvents: function() {
             return $http.get('/expressions/events/', {
                 cache: Cache

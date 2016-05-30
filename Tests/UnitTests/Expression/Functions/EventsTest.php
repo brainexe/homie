@@ -99,7 +99,7 @@ class EventsTest extends TestCase
 
     /**
      * @expectedException \Exception
-     * @expectedExceptionMessage event() not implemented
+     * @expectedExceptionMessage Function "event" is not allowed as trigger
      */
     public function testCompilerDispatch()
     {

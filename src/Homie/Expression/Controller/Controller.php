@@ -14,7 +14,7 @@ use Homie\Expression\Listener\WriteFunctionCache;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("Expression.Controller", requirements={"expressionId":"\d+"})
+ * @ControllerAnnotation("Expression.Controller")
  */
 class Controller
 {
@@ -52,9 +52,7 @@ class Controller
      */
     public function load() : array
     {
-        return [
-            'expressions' => $this->gateway->getAll(),
-        ];
+        return array_values($this->gateway->getAll());
     }
 
     /**

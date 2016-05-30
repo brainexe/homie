@@ -6,13 +6,14 @@
         ng-model="parameter"
         placeholder="{{'e.g. isTiming(10 minutes)'|translate}}"
 />
+<hr />
 <ui-select
         ng-model="uiSelectParameter"
         on-select="onUiSelect($item)"
         style="width: 500px"
         theme="bootstrap"
 >
-    <ui-select-match placeholder="Select...">
+    <ui-select-match placeholder="{{'Select...'|translate}}">
         {{$select.selected.label}}
     </ui-select-match>
     <ui-select-choices repeat="function in (functions | filter: $select.search) track by function.expression">

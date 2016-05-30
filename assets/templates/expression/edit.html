@@ -1,4 +1,4 @@
-<hr/>
+<hr />
 
 <div class="panel panel-primary">
     <div class="panel-heading" translate>Action</div>
@@ -25,26 +25,28 @@
             </div>
             <div class="form-group" ng-repeat="(key, condition) in editExpression.conditions track by $index">
                 <label>{{ $index + 1 }}.)&nbsp;</label>
-                <expression-parameter
-                        functions="functions"
-                        type="condition"
-                        parameter="editExpression.conditions[$index]"></expression-parameter>
-                <div class="btn-group">
-                    <a
-                            ng-if="condition && $index == editExpression.conditions.length - 1"
-                            class="btn btn-success"
-                            ng-click="addCondition(editExpression)"
-                    >
-                        <span class="glyphicon glyphicon-plus"></span>
-                    </a>
-                    <a
-                            ng-if="editExpression.conditions.length > 1"
-                            class="btn btn-danger"
-                            ng-click="deleteCondition($index)"
-                    >
-                        <span class="glyphicon glyphicon-minus"></span>
-                    </a>
-                </div>
+                <p>
+                    <expression-parameter
+                            functions="functions"
+                            type="condition"
+                            parameter="editExpression.conditions[$index]"></expression-parameter>
+                    <div class="btn-group">
+                        <a
+                                ng-if="condition && $index == editExpression.conditions.length - 1"
+                                class="btn btn-success"
+                                ng-click="addCondition(editExpression)"
+                        >
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </a>
+                        <a
+                                ng-if="editExpression.conditions.length > 1"
+                                class="btn btn-danger"
+                                ng-click="deleteCondition($index)"
+                        >
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </a>
+                    </div>
+                </p>
             </div>
 
             <div class="form-group">
@@ -52,46 +54,47 @@
             </div>
             <div class="form-group" ng-repeat="(key, action) in editExpression.actions track by $index">
                 <label>{{ $index + 1 }}.)&nbsp;</label>
-                <expression-parameter
-                        type="action"
-                        parameter="editExpression.actions[$index]"
-                        functions="functions">
-                </expression-parameter>
+                <div>
+                    <expression-parameter
+                            type="action"
+                            parameter="editExpression.actions[$index]"
+                            functions="functions">
+                    </expression-parameter>
 
-                <div class="btn-group">
-                    <a
-                            ng-if="action"
-                            ng-click="evaluateAction(editExpression, action)"
-                            uib-tooltip="{{'Evaluate'|translate}}"
-                            class="btn btn-success"
-                    >
-                        <span class="glyphicon glyphicon-play"></span>
-                    </a>
-                    <a
-                            ng-if="action && $index == editExpression.actions.length - 1"
-                            class="btn btn-success"
-                            ng-click="addAction(editExpression)"
-                    >
-                        <span class="glyphicon glyphicon-plus"></span>
-                    </a>
-                    <a
-                            ng-if="editExpression.actions.length > 1"
-                            class="btn btn-danger"
-                            ng-click="deleteAction($index)"
-                    >
-                        <span class="glyphicon glyphicon-minus"></span>
-                    </a>
+                    <div class="btn-group">
+                        <a
+                                ng-if="action"
+                                ng-click="evaluateAction(editExpression, action)"
+                                uib-tooltip="{{'Evaluate'|translate}}"
+                                class="btn btn-success"
+                        >
+                            <span class="glyphicon glyphicon-play"></span>
+                        </a>
+                        <a
+                                ng-if="action && $index == editExpression.actions.length - 1"
+                                class="btn btn-success"
+                                ng-click="addAction(editExpression)"
+                        >
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </a>
+                        <a
+                                ng-if="editExpression.actions.length > 1"
+                                class="btn btn-danger"
+                                ng-click="deleteAction($index)"
+                        >
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </a>
+                    </div>
                 </div>
             </div>
 
             <div class="form-group" ng-if="editExpression.payload|notEmpty">
                 <label translate>Payload</label>
             </div>
+
             <div class="form-group" ng-repeat="(key, value) in editExpression.payload">
                 <label class="control-label">{{ key }}:&nbsp</label>
-                <div>
-                    <input ng-model="value" class="form-control" type="text"/>
-                </div>
+                <input ng-model="value" class="form-control" type="text"/>
             </div>
 
             <button

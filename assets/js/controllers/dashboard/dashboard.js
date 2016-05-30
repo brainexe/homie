@@ -1,11 +1,10 @@
 
-App.controller('DashboardController', ['$scope', '$uibModal', '$q', 'Dashboard', function($scope, $uibModal, $q, Dashboard) {
+App.controller('DashboardController', ['$scope', '$uibModal', '$q', 'Dashboard', 'UserManagement.Settings', function($scope, $uibModal, $q, Dashboard, Settings) {
     $scope.editMode = false;
 
     function selectDashboard(dashboard) {
         var order = [];
-        // todo use settings!
-        localStorage['selectedDashboardId'] = dashboard.dashboardId;
+        Settings.set('selectedDashboardId', dashboard.dashboardId);
 
         if (dashboard.order) {
             order = dashboard.order.split(',').map(function(id) {
@@ -23,17 +22,19 @@ App.controller('DashboardController', ['$scope', '$uibModal', '$q', 'Dashboard',
 
     $q.all([
         Dashboard.getCachedMetadata(),
-        Dashboard.getDashboards()
+        Dashboard.getDashboards(),
+        Settings.getAll()
     ]).then(function(data) {
         var metadata     = data[0].data,
             dashboards   = data[1].data,
+            settings     = data[2].data,
             dashboardIds = Object.keys(dashboards.dashboards),
             selectedId;
 
         $scope.dashboards = dashboards.dashboards;
         $scope.widgets    = metadata.widgets;
 
-        selectedId = localStorage['selectedDashboardId'];
+        selectedId = settings.selectedDashboardId;
         if (!selectedId || dashboardIds.indexOf(selectedId) == -1) {
             selectedId = dashboardIds[0];
         }

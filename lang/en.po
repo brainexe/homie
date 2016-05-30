@@ -12,30 +12,29 @@ msgstr ""
 "X-Generator: Poedit 1.8.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: assets/templates/sensor/edit.html:105
+#: assets/templates/sensor/edit.html:107
 msgid "{{ sensor.interval }} minutes"
 msgstr "{{ sensor.interval }} minutes"
 
-#: assets/templates/gpio.html:11
+#: assets/templates/gpio.html:23
 msgctxt "gpio"
 msgid "#phy"
 msgstr ""
 
-#: assets/templates/gpio.html:6
+#: assets/templates/gpio.html:18
 msgctxt "gpio"
-msgid "#wiring"
+msgid "#software"
 msgstr ""
 
 #: assets/js/controllers/switch.js:11
 msgid "443 MHz Radio"
 msgstr ""
 
-#: assets/templates/expression/expression.html:3
+#: assets/templates/expression/edit.html:4
 msgid "Action"
 msgstr ""
 
-#: assets/js/models/Controllers.js:10
-#: assets/templates/expression/expression.html:51
+#: assets/js/models/Controllers.js:9 assets/templates/expression/edit.html:53
 #: assets/templates/expression/list.html:7
 msgid "Actions"
 msgstr ""
@@ -45,7 +44,7 @@ msgstr ""
 #: assets/templates/sensor/sensor.html:27
 #: assets/templates/shopping_list.html:26
 #: assets/templates/switch/add_job.html:43 assets/templates/switch/add.html:46
-#: assets/templates/user/tokens.html:38 assets/templates/widgets/new.html:48
+#: assets/templates/user/tokens.html:38 assets/templates/widgets/new.html:49
 #: assets/templates/widgets/shopping_list.html:23
 #: assets/templates/widgets/todo_list.html:32
 msgid "Add"
@@ -76,16 +75,12 @@ msgstr ""
 msgid "Add Switch"
 msgstr ""
 
-#: assets/templates/todo.html:37
+#: assets/templates/todo.html:48
 msgid "Add Task"
 msgstr ""
 
 #: assets/templates/widgets/new.html:9
 msgid "Add Widget"
-msgstr ""
-
-#: assets/templates/admin/nodes.html:29 assets/templates/admin/nodes.html:7
-msgid "Address"
 msgstr ""
 
 #: assets/js/controllers/switch.js:13
@@ -105,14 +100,15 @@ msgstr ""
 msgid "Avg"
 msgstr ""
 
+#: assets/templates/status.html:56
+msgid "Browser Cache"
+msgstr ""
+
 #: assets/templates/user/settings.html:35
 msgid "Browser Notification"
 msgstr ""
 
-#: assets/templates/status.html:82
-msgid "Cache"
-msgstr ""
-
+#: assets/templates/admin/nodes.html:40 assets/templates/admin/users.html:43
 #: assets/templates/modal/confirm.html:8
 msgid "Cancel"
 msgstr ""
@@ -125,17 +121,26 @@ msgstr ""
 msgid "Change avatar"
 msgstr ""
 
+#: assets/templates/admin/users.html:25
+msgid "Change password"
+msgstr ""
+
 #: assets/templates/user/change_password.html:1
 #: assets/templates/user/menu.html:6
 msgid "Change Password"
 msgstr ""
 
-#: assets/templates/displays.html:30
+#: assets/templates/displays/edit.html:30
 msgid "Characters per Row"
 msgstr ""
 
-#: assets/templates/sensor/add.html:122 assets/templates/sensor/edit.html:142
-#: assets/templates/widgets/edit.html:25 assets/templates/widgets/new.html:47
+#: assets/js/controllers/webcam.js:17
+msgid "Cheese..."
+msgstr ""
+
+#: assets/templates/sensor/add.html:122 assets/templates/sensor/edit.html:144
+#: assets/templates/todo.html:37 assets/templates/widgets/edit.html:25
+#: assets/templates/widgets/new.html:48
 msgid "Close"
 msgstr ""
 
@@ -147,11 +152,11 @@ msgstr ""
 msgid "Color"
 msgstr ""
 
-#: assets/templates/displays.html:37
+#: assets/templates/displays/edit.html:37
 msgid "Columns"
 msgstr ""
 
-#: assets/templates/widgets/command.html:6
+#: assets/templates/widgets/command.html:7
 msgid "Command"
 msgstr ""
 
@@ -159,7 +164,7 @@ msgstr ""
 msgid "Condition"
 msgstr ""
 
-#: assets/templates/expression/expression.html:25
+#: assets/templates/expression/edit.html:24
 msgid "Conditions"
 msgstr ""
 
@@ -171,7 +176,7 @@ msgstr ""
 msgid "Cron-ID"
 msgstr ""
 
-#: assets/templates/expression/expression.html:108
+#: assets/templates/expression/expression.html:21
 msgid "Crons"
 msgstr ""
 
@@ -183,11 +188,11 @@ msgstr ""
 msgid "Current Node"
 msgstr ""
 
-#: assets/templates/widgets/sensor_input.html:7
+#: assets/templates/widgets/sensor_input.html:8
 msgid "Current value"
 msgstr ""
 
-#: assets/js/models/Controllers.js:7 assets/templates/widgets/new.html:15
+#: assets/js/models/Controllers.js:6 assets/templates/widgets/new.html:15
 msgid "Dashboard"
 msgstr ""
 
@@ -303,23 +308,23 @@ msgstr "Take shots"
 msgid "dashboard.widget.webcam.name"
 msgstr "Webcam"
 
-#: assets/templates/status.html:33
+#: assets/templates/status.html:7
 msgid "Date"
 msgstr ""
 
-#: assets/templates/todo.html:31
+#: assets/templates/todo.html:35
 msgid "Deadline"
 msgstr ""
 
-#: assets/templates/egg_timer.html:19 assets/templates/espeak.html:12
+#: assets/templates/egg_timer.html:19 assets/templates/espeak.html:13
 msgid "Delay"
 msgstr ""
 
-#: assets/templates/crons.html:7 assets/templates/dashboard.html:105
-#: assets/templates/displays.html:60 assets/templates/egg_timer.html:42
-#: assets/templates/espeak.html:88 assets/templates/status.html:34
-#: assets/templates/switch/jobs.html:8 assets/templates/switch/switch.html:7
-#: assets/templates/webcam.html:27
+#: assets/templates/admin/users.html:46 assets/templates/crons.html:7
+#: assets/templates/dashboard.html:105 assets/templates/displays/edit.html:64
+#: assets/templates/egg_timer.html:42 assets/templates/espeak.html:89
+#: assets/templates/status.html:8 assets/templates/switch/jobs.html:8
+#: assets/templates/switch/switch.html:14 assets/templates/webcam.html:18
 msgid "Delete"
 msgstr ""
 
@@ -328,8 +333,8 @@ msgid "Delete this token?"
 msgstr ""
 
 #: assets/templates/sensor/add.html:41 assets/templates/sensor/add.html:47
-#: assets/templates/sensor/edit.html:90 assets/templates/switch/add.html:31
-#: assets/templates/switch/add.html:37 assets/templates/todo.html:17
+#: assets/templates/sensor/edit.html:92 assets/templates/switch/add.html:31
+#: assets/templates/switch/add.html:37 assets/templates/todo.html:18
 msgid "Description"
 msgstr ""
 
@@ -337,23 +342,29 @@ msgstr ""
 msgid "Disable One Time Secret"
 msgstr ""
 
-#: assets/templates/sensor/edit.html:124
+#: assets/templates/sensor/edit.html:126
 msgid "disabled"
 msgstr ""
 
-#: assets/js/models/Controllers.js:12
+#: assets/js/models/Controllers.js:11
 msgid "Displays"
 msgstr ""
 
-#: assets/templates/todo.html:39
+#: assets/templates/todo.html:53
 msgid "Drag Here to Delete"
+msgstr ""
+
+#: assets/js/controllers/dashboard/widgets/webcam.js:19
+#: assets/js/controllers/dashboard/widgets/webcam.js:24
+#: assets/js/controllers/webcam.js:22 assets/js/controllers/webcam.js:27
+msgid "Duration"
 msgstr ""
 
 #: assets/templates/crons.html:39
 msgid "e.g. @daily, or 2 * * * *"
 msgstr ""
 
-#: assets/templates/egg_timer.html:29 assets/templates/espeak.html:22
+#: assets/templates/egg_timer.html:29 assets/templates/espeak.html:23
 msgid "e.g. 10s, 30m, 1h"
 msgstr ""
 
@@ -361,17 +372,29 @@ msgstr ""
 msgid "e.g. isTiming(10 minutes)"
 msgstr ""
 
+#: assets/templates/admin/nodes.html:34 assets/templates/admin/users.html:37
 #: assets/templates/dashboard.html:44 assets/templates/dashboard.html:95
-#: assets/templates/displays.html:73 assets/templates/sensor/edit.html:38
-#: assets/templates/sensor/sensor.html:24
+#: assets/templates/displays/displays.html:16
+#: assets/templates/sensor/edit.html:38 assets/templates/sensor/sensor.html:24
+#: assets/templates/todo.html:90
 msgid "Edit"
 msgstr ""
 
-#: assets/templates/displays.html:3
+#: assets/templates/todo.html:4
+msgid "Edit a task"
+msgstr ""
+
+#: assets/templates/displays/edit.html:3
 msgid "Edit Display"
 msgstr ""
 
-#: assets/templates/gpio.html:59 assets/templates/switch/switch.html:59
+#: assets/templates/displays/displays.html:3
+#: assets/templates/expression/expression.html:7
+#: assets/templates/expression/expression.html:8
+msgid "Edit mode"
+msgstr ""
+
+#: assets/templates/gpio.html:12 assets/templates/switch/switch.html:3
 msgid "Edit Mode"
 msgstr ""
 
@@ -379,7 +402,7 @@ msgstr ""
 msgid "Edit Widget"
 msgstr ""
 
-#: assets/js/models/Controllers.js:14 assets/templates/egg_timer.html:2
+#: assets/js/models/Controllers.js:13 assets/templates/egg_timer.html:2
 msgid "Egg Timer"
 msgstr ""
 
@@ -392,17 +415,21 @@ msgstr ""
 msgid "Email was sent"
 msgstr ""
 
-#: assets/templates/expression/expression.html:18
+#: assets/templates/expression/edit.html:17
 #: assets/templates/expression/list.html:5
 msgid "Enabled"
 msgstr ""
 
-#: assets/templates/expression/expression.html:59
-#: assets/templates/expression/list.html:39
+#: assets/templates/user/settings.html:43
+msgid "Espeak browser output"
+msgstr ""
+
+#: assets/templates/expression/edit.html:68
+#: assets/templates/expression/list.html:35
 msgid "Evaluate"
 msgstr ""
 
-#: assets/templates/widgets/command.html:10
+#: assets/templates/widgets/command.html:11
 msgid "Execute"
 msgstr ""
 
@@ -411,7 +438,7 @@ msgid "Expression"
 msgstr ""
 
 #: assets/templates/sensor/add.html:94 assets/templates/sensor/add.html:97
-#: assets/templates/sensor/edit.html:56 assets/templates/sensor/edit.html:57
+#: assets/templates/sensor/edit.html:59 assets/templates/sensor/edit.html:60
 msgid "Formatter"
 msgstr ""
 
@@ -419,12 +446,16 @@ msgstr ""
 msgid "Go to files"
 msgstr ""
 
-#: assets/js/models/Controllers.js:11
+#: assets/js/models/Controllers.js:10
 msgid "GPIO"
 msgstr ""
 
 #: assets/index.html:84
 msgid "Hello {{ currentUser.username }}!"
+msgstr ""
+
+#: assets/templates/expression/expression.html:5
+msgid "Hide disabled"
 msgstr ""
 
 #: assets/templates/user/settings.html:8
@@ -437,12 +468,11 @@ msgid "Homie"
 msgstr ""
 
 #: assets/templates/admin/nodes.html:4 assets/templates/admin/users.html:4
-#: assets/templates/expression/expression.html:7
 #: assets/templates/expression/list.html:4
 msgid "Id"
 msgstr ""
 
-#: assets/templates/sensor/add.html:89 assets/templates/sensor/edit.html:115
+#: assets/templates/sensor/add.html:89 assets/templates/sensor/edit.html:117
 msgid "Interval"
 msgstr ""
 
@@ -455,28 +485,28 @@ msgstr ""
 msgid "Interval in minutes"
 msgstr ""
 
-#: assets/templates/sensor/edit.html:104
+#: assets/templates/sensor/edit.html:106
 msgid "Interval:"
 msgstr ""
 
-#: assets/templates/status.html:31
+#: assets/templates/status.html:5
 msgid "Job-ID"
 msgstr ""
 
-#: assets/templates/status.html:68 assets/templates/status.html:7
-#: assets/templates/status.html:86
+#: assets/templates/status.html:42 assets/templates/status.html:60
 msgid "Key"
 msgstr ""
 
-#: assets/templates/status.html:92
+#: assets/templates/status.html:66
 msgid "Keys"
 msgstr ""
 
-#: assets/templates/displays.html:26 assets/templates/displays.html:43
+#: assets/templates/displays/edit.html:26
+#: assets/templates/displays/edit.html:43
 msgid "Lines"
 msgstr ""
 
-#: assets/js/models/Controllers.js:26 assets/templates/user/login.html:2
+#: assets/js/models/Controllers.js:25 assets/templates/user/login.html:2
 msgid "Login"
 msgstr ""
 
@@ -492,7 +522,7 @@ msgstr ""
 msgid "Median"
 msgstr ""
 
-#: assets/templates/status.html:27
+#: assets/templates/status.html:1
 msgid "Message-Queue"
 msgstr ""
 
@@ -500,18 +530,9 @@ msgstr ""
 msgid "Min"
 msgstr ""
 
-#: assets/templates/gpio.html:21
+#: assets/templates/gpio.html:33
 msgctxt "gpio"
 msgid "Mode"
-msgstr ""
-
-#: assets/templates/admin/nodes.html:23 assets/templates/admin/nodes.html:6
-#: assets/templates/admin/users.html:5 assets/templates/dashboard.html:60
-#: assets/templates/displays.html:8 assets/templates/sensor/add.html:28
-#: assets/templates/sensor/add.html:36 assets/templates/sensor/edit.html:89
-#: assets/templates/switch/add.html:19 assets/templates/switch/add.html:26
-#: assets/templates/switch/switch.html:4
-msgid "Name"
 msgstr ""
 
 #: assets/templates/sensor/edit.html:23
@@ -519,13 +540,27 @@ msgctxt "sensor"
 msgid "Name"
 msgstr ""
 
-#: assets/templates/gpio.html:16
+#: assets/templates/gpio.html:28
 msgctxt "gpio"
 msgid "Name"
 msgstr ""
 
-#: assets/js/controllers/todo.js:22
+#: assets/templates/admin/nodes.html:23 assets/templates/admin/nodes.html:6
+#: assets/templates/admin/users.html:5 assets/templates/dashboard.html:60
+#: assets/templates/displays/edit.html:8
+#: assets/templates/expression/edit.html:8 assets/templates/sensor/add.html:28
+#: assets/templates/sensor/add.html:36 assets/templates/sensor/edit.html:91
+#: assets/templates/switch/add.html:19 assets/templates/switch/add.html:26
+#: assets/templates/switch/switch.html:11
+msgid "Name"
+msgstr ""
+
+#: assets/js/controllers/todo.js:29
 msgid "Name must not be empty"
+msgstr ""
+
+#: assets/templates/expression/expression.html:3
+msgid "New Action"
 msgstr ""
 
 #: assets/templates/widgets/new.html:20
@@ -561,7 +596,7 @@ msgstr "Raspberry Pi"
 msgid "node.server.name"
 msgstr "Server"
 
-#: assets/js/models/Controllers.js:23
+#: assets/js/models/Controllers.js:22
 msgid "Nodes"
 msgstr ""
 
@@ -585,8 +620,12 @@ msgstr ""
 msgid "One Time Token"
 msgstr ""
 
+#: assets/templates/admin/nodes.html:29 assets/templates/admin/nodes.html:7
+msgid "Options"
+msgstr ""
+
 #: assets/templates/sensor/add.html:52 assets/templates/sensor/add.html:58
-#: assets/templates/sensor/edit.html:77 assets/templates/sensor/edit.html:78
+#: assets/templates/sensor/edit.html:79 assets/templates/sensor/edit.html:80
 msgid "Parameter"
 msgstr ""
 
@@ -597,7 +636,7 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: assets/templates/expression/expression.html:81
+#: assets/templates/expression/edit.html:92
 #: assets/templates/expression/list.html:8
 msgid "Payload"
 msgstr ""
@@ -608,7 +647,7 @@ msgstr ""
 msgid "Pin"
 msgstr ""
 
-#: assets/templates/displays.html:79
+#: assets/templates/displays/displays.html:22
 msgid "Preview"
 msgstr ""
 
@@ -621,15 +660,15 @@ msgstr ""
 msgid "RaspberryPi Pin"
 msgstr ""
 
-#: assets/templates/status.html:62
+#: assets/templates/status.html:36
 msgid "Redis Stats"
 msgstr ""
 
-#: assets/templates/displays.html:74
+#: assets/templates/displays/displays.html:17
 msgid "Refresh"
 msgstr ""
 
-#: assets/js/models/Controllers.js:27 assets/templates/user/register.html:18
+#: assets/js/models/Controllers.js:26 assets/templates/user/register.html:18
 #: assets/templates/user/register.html:2
 msgid "Register"
 msgstr ""
@@ -637,6 +676,10 @@ msgstr ""
 #: assets/templates/widgets/sensor.html:13
 #: assets/templates/widgets/webcam.html:24
 msgid "Reload"
+msgstr ""
+
+#: assets/templates/admin/nodes.html:43
+msgid "Remove"
 msgstr ""
 
 #: assets/js/controllers/switch.js:50
@@ -651,10 +694,6 @@ msgstr ""
 msgid "Request One Time Secret"
 msgstr ""
 
-#: assets/templates/status.html:9
-msgid "Reset"
-msgstr ""
-
 #: assets/templates/user/tokens.html:10 assets/templates/user/tokens.html:25
 msgid "Revoke"
 msgstr ""
@@ -663,17 +702,18 @@ msgstr ""
 msgid "Roles"
 msgstr ""
 
-#: assets/templates/displays.html:18
+#: assets/templates/displays/edit.html:18
 msgid "Rows"
 msgstr ""
 
+#: assets/templates/admin/nodes.html:37 assets/templates/admin/users.html:40
 #: assets/templates/dashboard.html:67
-#: assets/templates/expression/expression.html:90
+#: assets/templates/expression/edit.html:100 assets/templates/todo.html:49
 #: assets/templates/widgets/edit.html:26
 msgid "Save"
 msgstr ""
 
-#: assets/templates/displays.html:71
+#: assets/templates/displays/displays.html:14
 msgid "Screen #{{screen.displayId}}"
 msgstr ""
 
@@ -682,13 +722,21 @@ msgstr ""
 msgid "Secret:"
 msgstr ""
 
-#: assets/templates/sensor/add.html:72
+#: assets/templates/gpio.html:6 assets/templates/sensor/add.html:72
 #: assets/templates/switch/addForm/arduino.html:18
 msgid "Select a node..."
 msgstr ""
 
 #: assets/templates/sensor/add.html:19 assets/templates/switch/add.html:11
 msgid "Select a type..."
+msgstr ""
+
+#: assets/templates/admin/users.html:29
+msgid "Select roles"
+msgstr ""
+
+#: assets/templates/todo.html:82
+msgid "Select..."
 msgstr ""
 
 #: assets/templates/user/login.html:34
@@ -819,7 +867,7 @@ msgstr "Temperature (DS18)"
 msgid "sensor.temperature.onboard.name"
 msgstr "Temperature (on Chip)"
 
-#: assets/js/models/Controllers.js:9 assets/templates/sensor/edit.html:11
+#: assets/js/models/Controllers.js:8 assets/templates/sensor/edit.html:11
 msgid "Sensors"
 msgstr ""
 
@@ -832,8 +880,12 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: assets/js/models/Controllers.js:16 assets/templates/shopping_list.html:3
+#: assets/js/models/Controllers.js:15 assets/templates/shopping_list.html:3
 msgid "Shopping List"
+msgstr ""
+
+#: assets/templates/expression/expression.html:4
+msgid "Show disabled"
 msgstr ""
 
 #: assets/templates/user/login.html:28
@@ -844,35 +896,31 @@ msgstr ""
 msgid "Sign out"
 msgstr ""
 
-#: assets/templates/status.html:96
+#: assets/templates/status.html:70
 msgid "Size"
 msgstr ""
 
-#: assets/js/models/Controllers.js:13 assets/templates/espeak.html:2
+#: assets/js/models/Controllers.js:12 assets/templates/espeak.html:3
 #: assets/templates/widgets/speak.html:14
 msgid "Speak"
 msgstr ""
 
-#: assets/templates/espeak.html:59
+#: assets/templates/espeak.html:60
 msgid "Speaker"
 msgstr ""
 
-#: assets/templates/espeak.html:43
+#: assets/templates/espeak.html:44
 msgid "Speed"
 msgstr ""
 
-#: assets/templates/status.html:1
-msgid "Stats"
-msgstr ""
-
-#: assets/js/models/Controllers.js:19 assets/templates/switch/add_job.html:31
-#: assets/templates/switch/jobs.html:7 assets/templates/switch/switch.html:5
+#: assets/js/models/Controllers.js:18 assets/templates/switch/add_job.html:31
+#: assets/templates/switch/jobs.html:7 assets/templates/switch/switch.html:12
 msgid "Status"
 msgstr ""
 
-#: assets/templates/displays.html:57 assets/templates/egg_timer.html:32
-#: assets/templates/espeak.html:71
-#: assets/templates/widgets/sensor_input.html:11
+#: assets/templates/displays/edit.html:61 assets/templates/egg_timer.html:32
+#: assets/templates/espeak.html:72
+#: assets/templates/widgets/sensor_input.html:12
 msgid "Submit"
 msgstr ""
 
@@ -888,42 +936,38 @@ msgstr "GPIO Pin"
 msgid "switch.radio.name"
 msgstr "443 MHz radio switch"
 
-#: assets/js/models/Controllers.js:8
+#: assets/js/models/Controllers.js:7
 msgid "Switches"
 msgstr ""
 
-#: assets/templates/sensor/add.html:106 assets/templates/sensor/edit.html:63
+#: assets/templates/sensor/add.html:106 assets/templates/sensor/edit.html:66
 msgid "Tags"
 msgstr ""
 
-#: assets/templates/webcam.html:36 assets/templates/widgets/webcam.html:2
+#: assets/templates/webcam.html:2 assets/templates/widgets/webcam.html:2
 msgid "Take Photo"
 msgstr ""
 
-#: assets/templates/webcam.html:38 assets/templates/widgets/webcam.html:8
+#: assets/templates/webcam.html:4 assets/templates/widgets/webcam.html:8
 msgid "Take Sound"
 msgstr ""
 
-#: assets/templates/webcam.html:37 assets/templates/widgets/webcam.html:5
+#: assets/templates/webcam.html:3 assets/templates/widgets/webcam.html:5
 msgid "Take Video"
 msgstr ""
 
-#: assets/templates/widgets/sensor.html:48
-msgid "Tend"
-msgstr ""
-
 #: assets/templates/egg_timer.html:14 assets/templates/egg_timer.html:41
-#: assets/templates/egg_timer.html:6 assets/templates/espeak.html:6
-#: assets/templates/espeak.html:87 assets/templates/widgets/speak.html:5
+#: assets/templates/egg_timer.html:6 assets/templates/espeak.html:7
+#: assets/templates/espeak.html:88 assets/templates/widgets/speak.html:5
 msgid "Text"
 msgstr ""
 
-#: assets/templates/egg_timer.html:40 assets/templates/espeak.html:86
+#: assets/templates/egg_timer.html:40 assets/templates/espeak.html:87
 #: assets/templates/switch/add_job.html:18 assets/templates/switch/jobs.html:5
 msgid "Time"
 msgstr ""
 
-#: assets/templates/switch/switch.html:6
+#: assets/templates/switch/switch.html:13
 msgid "Timer"
 msgstr ""
 
@@ -935,11 +979,11 @@ msgstr ""
 msgid "Timing-ID"
 msgstr ""
 
-#: assets/templates/todo.html:11 assets/templates/widgets/todo_list.html:27
+#: assets/templates/todo.html:12 assets/templates/widgets/todo_list.html:27
 msgid "Title"
 msgstr ""
 
-#: assets/js/models/Controllers.js:15
+#: assets/js/models/Controllers.js:14
 msgid "ToDo List"
 msgstr ""
 
@@ -975,15 +1019,12 @@ msgstr ""
 msgid "Tokens"
 msgstr ""
 
-#: assets/templates/user/menu.html:12 assets/templates/user/otp.html:1
-msgid "Two Factor Authentication"
+#: assets/templates/widgets/sensor.html:48
+msgid "Trend"
 msgstr ""
 
-#: assets/templates/admin/nodes.html:5 assets/templates/sensor/add.html:16
-#: assets/templates/sensor/edit.html:49 assets/templates/sensor/edit.html:50
-#: assets/templates/status.html:32 assets/templates/switch/add.html:8
-#: assets/templates/widgets/new.html:26
-msgid "Type"
+#: assets/templates/user/menu.html:12 assets/templates/user/otp.html:1
+msgid "Two Factor Authentication"
 msgstr ""
 
 #: assets/templates/sensor/edit.html:18
@@ -991,11 +1032,18 @@ msgctxt "sensor"
 msgid "Type"
 msgstr ""
 
+#: assets/templates/admin/nodes.html:5 assets/templates/sensor/add.html:16
+#: assets/templates/sensor/edit.html:52 assets/templates/sensor/edit.html:53
+#: assets/templates/status.html:6 assets/templates/switch/add.html:8
+#: assets/templates/widgets/new.html:26
+msgid "Type"
+msgstr ""
+
 #: assets/templates/user/user.html:1
 msgid "User"
 msgstr ""
 
-#: assets/js/models/Controllers.js:18
+#: assets/js/models/Controllers.js:17
 msgid "User Settings"
 msgstr ""
 
@@ -1003,17 +1051,11 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-#: assets/js/models/Controllers.js:22
+#: assets/js/models/Controllers.js:21
 msgid "Users"
 msgstr ""
 
-#: assets/templates/gpio.html:26
-msgctxt "gpio"
-msgid "Value"
-msgstr ""
-
-#: assets/templates/status.html:69 assets/templates/status.html:8
-#: assets/templates/status.html:87
+#: assets/templates/status.html:43 assets/templates/status.html:61
 msgid "Value"
 msgstr ""
 
@@ -1022,11 +1064,20 @@ msgctxt "sensor"
 msgid "Value"
 msgstr ""
 
-#: assets/templates/espeak.html:26
+#: assets/templates/gpio.html:38
+msgctxt "gpio"
+msgid "Value"
+msgstr ""
+
+#: assets/templates/user/settings.html:51
+msgid "Voice control"
+msgstr ""
+
+#: assets/templates/espeak.html:27
 msgid "Volume"
 msgstr ""
 
-#: assets/js/models/Controllers.js:17
+#: assets/js/models/Controllers.js:16
 msgid "Webcam"
 msgstr ""
 
@@ -1042,12 +1093,17 @@ msgstr ""
 msgid "Your current avatar"
 msgstr ""
 
-#: src/Homie/Switches/Controller/Controller.php:112
+#: src/Homie/Switches/Controller/Controller.php:111
 #, php-format
 msgid "Invalid switch type: %s"
 msgstr ""
 
-#: src/Homie/TodoList/Listener.php:37
+#: src/Homie/TodoList/Listener/Pending.php:77
+#, php-format
+msgid "Todo list item %s is open again"
+msgstr ""
+
+#: src/Homie/TodoList/Listener/Add.php:29
 #, php-format
 msgid "Erinnerung: %s"
 msgstr ""
@@ -1189,8 +1245,8 @@ msgstr ""
 msgid "Invalid avatar: %s"
 msgstr ""
 
-#: vendor/brainexe/totp/vendor/brainexe/core/src/Middleware/Authentication.php:76
-#: vendor/brainexe/core/src/Middleware/Authentication.php:79
+#: vendor/brainexe/totp/vendor/brainexe/core/src/Middleware/Authentication.php:64
+#: vendor/brainexe/core/src/Middleware/Authentication.php:64
 msgid "Not logged in"
 msgstr ""
 

@@ -3,7 +3,9 @@
 namespace Homie\ShoppingList;
 
 use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Core\Traits\EventDispatcherTrait;
 use Generator;
+use Homie\Espeak\EspeakEvent;
 use Homie\Expression\Action;
 use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
@@ -13,6 +15,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
  */
 class ExpressionLanguage implements ExpressionFunctionProviderInterface
 {
+    use EventDispatcherTrait;
 
     /**
      * @var ShoppingList
@@ -43,6 +46,13 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
         yield new Action('removeShoppingListItem', function (array $parameters, string $name) {
             unset($parameters);
             $this->list->removeItem($name);
+        });
+
+        yield new Action('sayShoppingList', function () {
+            $text = implode('. ', $this->list->getItems());
+
+            $event = new EspeakEvent($text);
+            $this->dispatchEvent($event);
         });
     }
 }

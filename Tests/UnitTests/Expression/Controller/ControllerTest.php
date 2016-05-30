@@ -81,7 +81,7 @@ class ControllerTest extends TestCase
         $request->query->set('expression', '1 + 2');
         $actual = $this->subject->load();
 
-        $this->assertEquals(['expressions'], $actual['expressions']);
+        $this->assertEquals(['expressions'], $actual);
     }
 
     public function testEvents()

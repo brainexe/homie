@@ -44,8 +44,16 @@ class WriteFunctionCache
         foreach ($this->language->getFunctions() as $name => $function) {
             $reflection = new ReflectionFunction($function['evaluator']);
 
-            $functions[$name] = $this->getParameters($reflection);
+            $functions[$name] = [
+                'parameters' => array_merge(
+                    $this->getParameters($reflection)
+                ),
+                'isAction'  => true, // TODO implement somehow
+                'isTrigger' => true  // TODO implement somehow
+            ];
         }
+
+        ksort($functions);
 
         $this->dumpVariableToCache(self::CACHE, $functions);
     }

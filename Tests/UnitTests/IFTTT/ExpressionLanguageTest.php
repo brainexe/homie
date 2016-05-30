@@ -54,7 +54,8 @@ class ExpressionLanguageTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
+     * @expectedExceptionMessage Function "triggerIFTTT" is not allowed as trigger
      */
     public function testCompiler()
     {
