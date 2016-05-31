@@ -19,7 +19,7 @@ class MemoryUsed extends AbstractSensor
     /**
      * {@inheritdoc}
      */
-    public function getValue(SensorVO $sensor)
+    public function getValue(SensorVO $sensor) : float
     {
         $content = file_get_contents(self::MEMINFO);
 

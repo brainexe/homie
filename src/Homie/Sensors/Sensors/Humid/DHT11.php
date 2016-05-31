@@ -4,6 +4,7 @@ namespace Homie\Sensors\Sensors\Humid;
 
 use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Definition;
+use Homie\Sensors\Exception\InvalidSensorValueException;
 use Homie\Sensors\Formatter\Percentage;
 use Homie\Sensors\Sensors\AbstractDHT11;
 use Homie\Sensors\SensorVO;
@@ -22,12 +23,12 @@ class DHT11 extends AbstractDHT11
     /**
      * {@inheritdoc}
      */
-    public function getValue(SensorVO $sensor)
+    public function getValue(SensorVO $sensor) : float
     {
         $output = $this->getContent($sensor->parameter);
 
         if (!preg_match('/(Hum|Humidity) = ([\d\.]+) %/', $output, $matches)) {
-            return null;
+            throw new InvalidSensorValueException($sensor, sprintf('Invalid humidity value: %s', $output));
         }
 
         return $this->round($matches[2], 0.01);

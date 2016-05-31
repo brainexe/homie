@@ -79,7 +79,11 @@ class DHT11Test extends TestCase
 
         $this->assertEquals(-1.8, $actualResult);
     }
-
+    
+    /**
+     * @expectedException \Homie\Sensors\Exception\InvalidSensorValueException
+     * @expectedExceptionMessage Invalid value: Temp = ERROR %
+     */
     public function testGetValueWitInvalidOutput()
     {
         $parameter = 3;
@@ -93,9 +97,7 @@ class DHT11Test extends TestCase
             ->method('executeWithReturn')
             ->willReturn($output);
 
-        $actual = $this->subject->getValue($sensor);
-
-        $this->assertEquals(null, $actual);
+        $this->subject->getValue($sensor);
     }
 
     public function testIsSupportedExisting()

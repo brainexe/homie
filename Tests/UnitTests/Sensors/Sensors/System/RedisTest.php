@@ -83,7 +83,7 @@ class RedisTest extends TestCase
 
     /**
      * @expectedException \Homie\Sensors\Exception\InvalidSensorValueException
-     * @expectedExceptionMessage Invalid stats key: "memory.invalid"
+     * @expectedExceptionMessage Not supported section: memory.invalid
      */
     public function testIsNotSupported()
     {

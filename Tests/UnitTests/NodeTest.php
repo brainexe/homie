@@ -36,5 +36,6 @@ class NodeTest extends TestCase
         ];
 
         $this->assertEquals($expected, $this->subject->jsonSerialize());
+        $this->assertEquals($options, $this->subject->getOptions());
     }
 }

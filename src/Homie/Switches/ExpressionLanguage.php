@@ -5,10 +5,10 @@ namespace Homie\Switches;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Generator;
-use InvalidArgumentException;
+use Homie\Expression\Action;
+use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
-use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
 
 /**
  * @ExpressionLanguageAnnotation(name="Switches.ExpressionLanguage")
@@ -37,10 +37,7 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
      */
     public function getFunctions()
     {
-        yield new ExpressionFunction('setSwitch', function (int $switchId, bool $status) {
-            unset($switchId, $status);
-            throw new InvalidArgumentException('Function addNotification() not available as condition');
-        }, function (array $variables, int $switchId, bool $status) {
+        yield new Action('setSwitch', function (array $variables, int $switchId, bool $status) {
             unset($variables);
             $switch = $this->switches->get($switchId);
 

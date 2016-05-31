@@ -48,6 +48,10 @@ class WebcamTest extends TestCase
         $this->assertEquals(3, $actual);
     }
 
+    /**
+     * @expectedException \Homie\Sensors\Exception\InvalidSensorValueException
+     * @expectedExceptionMessage No gray value found: black
+     */
     public function testGetValueInvalid()
     {
         $this->client
@@ -60,20 +64,7 @@ class WebcamTest extends TestCase
 
         $sensor = new SensorVO();
         $sensor->parameter = $parameter = 10;
-        $actual = $this->subject->getValue($sensor);
-
-        $this->assertNull($actual);
-    }
-
-    public function testIsSupported()
-    {
-        $parameter = null;
-        $sensor = new SensorVO();
-        $sensor->parameter = $parameter;
-
-        $actual = $this->subject->isSupported($sensor);
-
-        $this->assertTrue($actual);
+        $this->subject->getValue($sensor);
     }
 
     public function testGetDefinition()

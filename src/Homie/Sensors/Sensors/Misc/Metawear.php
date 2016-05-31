@@ -3,13 +3,15 @@
 namespace Homie\Sensors\Sensors\Misc;
 
 use BrainExe\Annotations\Annotations\Inject;
-use Homie\Client\ClientInterface;
+use GuzzleHttp\Client;
 use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Definition;
+use Homie\Sensors\Exception\InvalidSensorValueException;
 use Homie\Sensors\Formatter\None;
 use Homie\Sensors\Interfaces\Searchable;
 use Homie\Sensors\Sensors\AbstractSensor;
 use Homie\Sensors\SensorVO;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @Sensor("Sensor.Misc.Metawear")
@@ -19,51 +21,51 @@ class Metawear extends AbstractSensor implements Searchable
 
     const TYPE = 'custom.metawear';
 
+    const SUPPORTED_TYPES = [
+        'temperature',
+        'pressure',
+        'brightness'
+    ];
+
     /**
      * @var string
      */
-    private $url;
+    private $baseUrl;
 
     /**
-     * @var ClientInterface
+     * @var Client
      */
     private $client;
 
     /**
-     * @Inject({"@HomieClient", "%metawear.url%"})
-     * @param ClientInterface $client
+     * @Inject({"@WebserviceClient", "%metawear.url%"})
+     * @param Client $client
      * @param string $url
      */
     public function __construct(
-        ClientInterface $client,
+        Client $client,
         string $url
     ) {
-        $this->client = $client;
-        $this->url    = $url;
+        $this->client  = $client;
+        $this->baseUrl = $url;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getValue(SensorVO $sensor)
+    public function getValue(SensorVO $sensor) : float
     {
-        $url = sprintf('%s/%s/', $this->url, $sensor->parameter);
+        $url = sprintf('%s/%s/', $this->baseUrl, $sensor->parameter);
 
-        $context = stream_context_create(['http' => ['timeout' => 5]]);
-        $content = file_get_contents($url, false, $context); // todo use LocalClient/HttpClient
-        if ($content === false) {
-            return null;
+        /** @var ResponseInterface $response */
+        $response = $this->client->request('GET', $url, ['timeout' => 5]);
+
+        $body = $response->getBody();
+        if ($response->getStatusCode() != 200) {
+            throw new InvalidSensorValueException($sensor, sprintf('Invalid metawear response: %s', $body));
         }
 
-        return (float)$content;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isSupported(SensorVO $sensor) : bool
-    {
-        return $this->getValue($sensor) !== null;
+        return (float)$body;
     }
 
     /**
@@ -83,10 +85,6 @@ class Metawear extends AbstractSensor implements Searchable
      */
     public function search() : array
     {
-        return [
-            'temperature',
-            'pressure',
-            'brightness'
-        ];
+        return self::SUPPORTED_TYPES;
     }
 }

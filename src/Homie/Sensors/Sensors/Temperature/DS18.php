@@ -45,33 +45,15 @@ class DS18 extends AbstractSensor implements Searchable
     /**
      * {@inheritdoc}
      */
-    public function getValue(SensorVO $sensor)
+    public function getValue(SensorVO $sensor) : float
     {
         if (!$this->fileSystem->exists($sensor->parameter)) {
-            return null;
+            throw new InvalidSensorValueException($sensor, sprintf('Invalid file: %s', $sensor->parameter));
         }
 
         $content = $this->fileSystem->fileGetContents($sensor->parameter);
 
         return $this->parseContent($sensor, $content);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isSupported(SensorVO $sensor) : bool
-    {
-        if (!$this->fileSystem->exists($sensor->parameter)) {
-            $message = sprintf(
-                '%s: w1 bus not exists: %s',
-                self::TYPE,
-                $sensor->parameter
-            );
-
-            throw new InvalidSensorValueException($sensor, $message);
-        }
-
-        return true;
     }
 
     /**

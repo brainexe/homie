@@ -6,6 +6,7 @@ use BrainExe\Annotations\Annotations\Inject;
 use Homie\Client\ClientInterface;
 use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Definition;
+use Homie\Sensors\Exception\InvalidSensorValueException;
 use Homie\Sensors\Formatter\None;
 use Homie\Sensors\Sensors\AbstractSensor;
 use Homie\Sensors\SensorVO;
@@ -35,7 +36,7 @@ class Webcam extends AbstractSensor
     /**
      * {@inheritdoc}
      */
-    public function getValue(SensorVO $sensor)
+    public function getValue(SensorVO $sensor) : float
     {
         $tmpFile = sys_get_temp_dir() . '/tmp_rec.wav';
         $this->client->executeWithReturn('arecord', ['-d', 2, $tmpFile]);
@@ -43,22 +44,13 @@ class Webcam extends AbstractSensor
         $content = $this->client->executeWithReturn('sox', ['-t', '.wav', $tmpFile, '-n', 'stat']);
 
         if (!preg_match('/^Maximum amplitude:\s*([\d\.]+?)$/m', $content, $match)) {
-            return null;
+            throw new InvalidSensorValueException($sensor, sprintf('No Maximum amplitude found: %s', $content));
         }
 
         $value = (float)trim($match[1]);
         $value = 20 * log($value) / log(10);
 
         return $this->round($value, 0.01);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isSupported(SensorVO $sensor) : bool
-    {
-        // todo check if micro is connected
-        return true;
     }
 
     /**

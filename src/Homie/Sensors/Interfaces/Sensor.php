@@ -17,12 +17,11 @@ interface Sensor extends JsonSerializable
     public function getSensorType() : string;
 
     /**
-     * @todo return typehint: float
      * @param SensorVO $sensor
      * @throws InvalidSensorValueException
      * @return float
      */
-    public function getValue(SensorVO $sensor);
+    public function getValue(SensorVO $sensor) : float;
 
     /**
      * @param SensorVO $sensor

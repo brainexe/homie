@@ -4,6 +4,7 @@ namespace Homie\Sensors\Command;
 
 use BrainExe\Annotations\Annotations\Inject;
 use Exception;
+use Homie\Sensors\Exception\InvalidSensorValueException;
 use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\Interfaces\Searchable;
 use Homie\Sensors\Interfaces\Sensor;
@@ -101,14 +102,14 @@ class Add extends Command
         $formatter   = $sensor->getDefinition()->formatter;
 
         // get test value
-        $testValue = $sensor->getValue($sensorVo);
-        if ($testValue !== null) {
+        try {
+            $testValue = $sensor->getValue($sensorVo);
             $formatterModel = $this->builder->getFormatter($formatter);
             $output->writeln(
                 sprintf('<info>Sensor value: %s</info>', $formatterModel->formatValue($testValue))
             );
-        } else {
-            $output->writeln('<error>Sensor returned invalid data.</error>');
+        } catch (InvalidSensorValueException $e) {
+            $output->writeln(sprintf('<error>Sensor returned invalid data: %s</error>', $e->getMessage()));
             $this->askForTermination();
         }
 
@@ -197,7 +198,7 @@ class Add extends Command
         $name = $this->helper->ask(
             $this->input,
             $this->output,
-            new Question(sprintf("Sensor name? (default: %s)\n", $default), $sensor->getSensorType())
+            new Question(sprintf('Sensor name? (default: %s)' . PHP_EOL, $default), $sensor->getSensorType())
         );
 
         return $name;
@@ -225,7 +226,7 @@ class Add extends Command
         return (int)$this->helper->ask(
             $this->input,
             $this->output,
-            new Question("Interval in minutes (default: 5)\n", 5)
+            new Question('Interval in minutes (default: 5)' . PHP_EOL, 5)
         );
     }
 
@@ -241,7 +242,7 @@ class Add extends Command
         return (int)$this->helper->ask(
             $this->input,
             $this->output,
-            new Question("Node? (only for advanced users needed)\n")
+            new Question('Node? (only for advanced users needed)' . PHP_EOL)
         );
     }
 
@@ -257,7 +258,7 @@ class Add extends Command
         $description = $this->helper->ask(
             $this->input,
             $this->output,
-            new Question("Description (optional)?\n")
+            new Question('Description (optional)?' . PHP_EOL)
         );
 
         return $description;
@@ -275,9 +276,9 @@ class Add extends Command
             if (!$possible) {
                 throw new Exception('No possible sensor found');
             }
-            $question = new ChoiceQuestion("Parameter", $possible);
+            $question = new ChoiceQuestion('Parameter', $possible);
         } else {
-            $question = new Question("Parameter?\n");
+            $question = new Question('Parameter?' . PHP_EOL);
         }
 
         return $this->helper->ask($this->input, $this->output, $question);

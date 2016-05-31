@@ -48,6 +48,10 @@ class DS18Test extends TestCase
         $this->assertEquals(DS18::TYPE, $actualResult);
     }
 
+    /**
+     * @expectedException \Homie\Sensors\Exception\InvalidSensorValueException
+     * @expectedExceptionMessage Invalid file: mockFile
+     */
     public function testGetValueWhenNotSupported()
     {
         $file = 'mockFile';
@@ -61,9 +65,7 @@ class DS18Test extends TestCase
         $sensor = new SensorVO();
         $sensor->parameter = $file;
 
-        $actual = $this->subject->getValue($sensor);
-
-        $this->assertNull($actual);
+        $this->subject->getValue($sensor);
     }
 
     /**
@@ -96,44 +98,6 @@ class DS18Test extends TestCase
         $actual = $this->subject->getValue($sensor);
 
         $this->assertEquals($expected, $actual);
-    }
-
-    public function testIsSupported()
-    {
-        $file = "mockFile";
-
-        $this->fileSystem
-            ->expects($this->once())
-            ->method('exists')
-            ->with($file)
-            ->willReturn(true);
-
-        $sensor = new SensorVO();
-        $sensor->parameter = $file;
-
-        $actualResult = $this->subject->isSupported($sensor);
-
-        $this->assertTrue($actualResult);
-    }
-
-    /**
-     * @expectedException \Homie\Sensors\Exception\InvalidSensorValueException
-     * @expectedExceptionMessage temperature.ds18: w1 bus not exists: mockFile
-     */
-    public function testIsSupportedWhenNotSupported()
-    {
-        $file = 'mockFile';
-
-        $this->fileSystem
-            ->expects($this->once())
-            ->method('exists')
-            ->with($file)
-            ->willReturn(false);
-
-        $sensor = new SensorVO();
-        $sensor->parameter = $file;
-
-        $this->subject->isSupported($sensor);
     }
 
     public function testGetDefinition()

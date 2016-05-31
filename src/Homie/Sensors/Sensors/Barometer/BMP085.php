@@ -6,6 +6,7 @@ use BrainExe\Annotations\Annotations\Inject;
 use Homie\Client\ClientInterface;
 use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Definition;
+use Homie\Sensors\Exception\InvalidSensorValueException;
 use Homie\Sensors\Formatter\Barometer;
 use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\Sensors\AbstractSensor;
@@ -38,28 +39,16 @@ class BMP085 extends AbstractSensor implements Parameterized
     /**
      * {@inheritdoc}
      */
-    public function getValue(SensorVO $sensor)
+    public function getValue(SensorVO $sensor) : float
     {
         $content = $this->client->executeWithReturn($sensor->parameter);
 
-        if (empty($content)) {
-            return null;
-        }
-
-        if (preg_match('/Pressure: (.*?) hPa/', $content, $matches)) {
+        if (!empty($content) && preg_match('/Pressure: (.*?) hPa/', $content, $matches)) {
             $pressure = trim($matches[1]);
             return (float)$pressure;
         }
 
-        return null;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isSupported(SensorVO $sensor) : bool
-    {
-        return is_file($sensor->parameter);
+        throw new InvalidSensorValueException($sensor, sprintf('Invalid response: %s', $content));
     }
 
     /**

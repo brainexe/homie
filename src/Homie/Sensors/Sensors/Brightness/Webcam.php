@@ -6,6 +6,7 @@ use BrainExe\Annotations\Annotations\Inject;
 use Homie\Client\ClientInterface;
 use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Definition;
+use Homie\Sensors\Exception\InvalidSensorValueException;
 use Homie\Sensors\Formatter\None;
 use Homie\Sensors\Sensors\AbstractSensor;
 use Homie\Sensors\SensorVO;
@@ -35,7 +36,7 @@ class Webcam extends AbstractSensor
     /**
      * {@inheritdoc}
      */
-    public function getValue(SensorVO $sensor)
+    public function getValue(SensorVO $sensor) : float
     {
         $tmpFile = tempnam('/tmp', self::TYPE);
         $this->client->executeWithReturn('fswebcam', [$tmpFile]);
@@ -48,19 +49,10 @@ class Webcam extends AbstractSensor
         unlink($tmpFile);
 
         if (!preg_match('/gray\((\d+)\)/', $result, $matches)) {
-            return null;
+            throw new InvalidSensorValueException($sensor, sprintf('No gray value found: %s', $result));
         }
 
         return $this->round($matches[1], 0.1);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isSupported(SensorVO $sensor) : bool
-    {
-        // todo check if camera is connected
-        return true;
     }
 
     /**

@@ -37,19 +37,9 @@ class Script extends AbstractSensor implements Parameterized
     /**
      * {@inheritdoc}
      */
-    public function getValue(SensorVO $sensor)
+    public function getValue(SensorVO $sensor) : float
     {
         return (float)$this->client->executeWithReturn((string)$sensor->parameter);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isSupported(SensorVO $sensor) : bool
-    {
-        $current = $this->getValue($sensor);
-
-        return $current !== null;
     }
 
     /**

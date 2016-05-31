@@ -5,7 +5,7 @@ App.controller('ExpressionController', ['$scope', '$q', 'Expression', 'MessageQu
     $scope.editExpression = null;
     $scope.showDisabled   = false;
     $scope.crons          = [];
-    $scope.functions      = [];
+    $scope.functions      = {};
 
     $scope.$on('message_queue.handled', function(event, data) {
         var job = data.job;

@@ -42,14 +42,13 @@ class WriteFunctionCache
     {
         $functions = [];
         foreach ($this->language->getFunctions() as $name => $function) {
-            $reflection = new ReflectionFunction($function['evaluator']);
+            $evaluator = new ReflectionFunction($function['evaluator']);
+            $compiler  = new ReflectionFunction($function['compiler']);
 
             $functions[$name] = [
-                'parameters' => array_merge(
-                    $this->getParameters($reflection)
-                ),
-                'isAction'  => true, // TODO implement somehow
-                'isTrigger' => true  // TODO implement somehow
+                'parameters' => $this->getParameters($evaluator),
+                'isAction'  => strpos($evaluator->getDocComment(), '@throws') === false,
+                'isTrigger' => strpos($compiler->getDocComment(), '@throws') === false
             ];
         }
 

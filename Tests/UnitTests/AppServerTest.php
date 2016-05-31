@@ -7,9 +7,9 @@ use BrainExe\Core\Redis\Predis;
 use BrainExe\Core\Util\Time;
 use BrainExe\Tests\RedisMockTrait;
 use Homie\AppServer;
+use Homie\Node;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
-use Homie\Node;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -127,6 +127,7 @@ class AppServerTest extends TestCase
                 'files' => [],
                 'raw' => '',
                 'requestId' => 'requestId',
+                'sessionId' => 'mySid'
             ])
         ];
 
@@ -148,6 +149,11 @@ class AppServerTest extends TestCase
             ->method('brpop')
             ->with(AppServer::REQUEST, $this->timeout)
             ->willReturn([]);
+
+        $this->session
+            ->expects($this->once())
+            ->method('setId')
+            ->with('mySid');
 
         $expected = '{"requestId":"requestId","sessionId":null,"status":200,"body":"{\"'
             . 'test\":1}","headers":{"cache-control":["no-cache"],"content-type":["application\/json"]}}';

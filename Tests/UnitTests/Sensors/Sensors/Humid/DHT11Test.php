@@ -64,6 +64,10 @@ class DHT11Test extends TestCase
         $this->assertEquals($humid, $actual);
     }
 
+    /**
+     * @expectedException \Homie\Sensors\Exception\InvalidSensorValueException
+     * @expectedExceptionMessage Invalid humidity value: Hum = %
+     */
     public function testGetValueWitInvalidOutput()
     {
         $parameter = 3;
@@ -76,9 +80,7 @@ class DHT11Test extends TestCase
 
         $sensor = new SensorVO();
         $sensor->parameter = $parameter;
-        $actual = $this->subject->getValue($sensor);
-
-        $this->assertNull($actual);
+        $this->subject->getValue($sensor);
     }
 
     public function testIsSupported()

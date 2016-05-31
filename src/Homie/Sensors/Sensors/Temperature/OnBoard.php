@@ -47,7 +47,7 @@ class OnBoard extends AbstractSensor implements Searchable
     /**
      * {@inheritdoc}
      */
-    public function getValue(SensorVO $sensor)
+    public function getValue(SensorVO $sensor) : float
     {
         $content = $this->fileSystem->fileGetContents($sensor->parameter);
 

@@ -56,7 +56,7 @@ class TodoReminder
 
             /** @var TodoItemVO $todo */
             foreach ($issuesPerStatus as $todo) {
-                $text .= sprintf('%s: %s. . .', $todo->userName, $todo->name);
+                $text .= sprintf('%s.', $todo->name);
             }
         }
 

@@ -42,7 +42,7 @@ class SensorGateway
     {
         $sensors = $this->getSensors();
 
-        return array_filter($sensors, function ($sensor) use ($node) {
+        return array_filter($sensors, function (array $sensor) use ($node) {
             return $sensor['node'] == $node;
         });
     }

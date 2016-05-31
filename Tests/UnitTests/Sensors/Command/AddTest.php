@@ -3,6 +3,7 @@
 namespace Tests\Homie\Sensors\Command;
 
 use Homie\Sensors\Definition;
+use Homie\Sensors\Exception\InvalidSensorValueException;
 use Homie\Sensors\Formatter\Formatter;
 use Homie\Sensors\Interfaces\Searchable;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
@@ -224,11 +225,6 @@ class AddTest extends TestCase
             ->with($this->isInstanceOf(SensorVO::class), $output)
             ->willReturn(true);
 
-        $sensor2
-            ->expects($this->once())
-            ->method('getValue')
-            ->willReturn(null);
-
         $expectedVo              = new SensorVO();
         $expectedVo->name        = $name;
         $expectedVo->type        = $sensorType2;
@@ -238,6 +234,11 @@ class AddTest extends TestCase
         $expectedVo->node        = $node;
         $expectedVo->color       = '#b06893';
         $expectedVo->formatter   = 'formatter';
+
+        $sensor2
+            ->expects($this->once())
+            ->method('getValue')
+            ->willThrowException(new InvalidSensorValueException($expectedVo, 'Invalid format xyz'));
 
         $this->gateway
             ->expects($this->once())
@@ -249,7 +250,7 @@ class AddTest extends TestCase
 
         $display = $commandTester->getDisplay();
         $this->assertEquals(
-            "Sensor is supported\nSensor returned invalid data.\n",
+            "Sensor is supported\nSensor returned invalid data: Invalid format xyz\n",
             $display
         );
     }

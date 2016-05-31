@@ -23,7 +23,7 @@ class Redis extends AbstractSensor implements Parameterized
     /**
      * {@inheritdoc}
      */
-    public function getValue(SensorVO $sensor)
+    public function getValue(SensorVO $sensor) : float
     {
         list ($section, $key) = explode('.', $sensor->parameter, 2);
 
@@ -31,25 +31,10 @@ class Redis extends AbstractSensor implements Parameterized
         $data = $this->getRedis()->info($section);
 
         if (empty($data) || !array_key_exists($key, $data[$section])) {
-            return null;
+            throw new InvalidSensorValueException($sensor, sprintf('Not supported section: %s', $sensor->parameter));
         }
 
-        return $data[$section][$key];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isSupported(SensorVO $sensor) : bool
-    {
-        if ($this->getValue($sensor) === null) {
-            $message = sprintf(
-                'Invalid stats key: "%s". Use "section.key", e.g. "memory.used_memory"',
-                $sensor->parameter
-            );
-            throw new InvalidSensorValueException($sensor, $message);
-        }
-        return true;
+        return (float)$data[$section][$key];
     }
 
     /**

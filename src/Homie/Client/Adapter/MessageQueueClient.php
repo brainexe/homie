@@ -9,7 +9,6 @@ use Homie\Client\ClientInterface;
 use Homie\Client\ExecuteCommandEvent;
 
 /**
- * @todo
  * @Service("MessageQueueClient.Local", public=false)
  */
 class MessageQueueClient implements ClientInterface

@@ -5,6 +5,7 @@ namespace Homie\Sensors\Sensors\System;
 use Homie\Client\ClientInterface;
 use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Definition;
+use Homie\Sensors\Exception\InvalidSensorValueException;
 use Homie\Sensors\Formatter\Percentage;
 use Homie\Sensors\Sensors\AbstractSensor;
 use Homie\Sensors\SensorVO;
@@ -35,15 +36,15 @@ class DiskUsedPercent extends AbstractSensor
     /**
      * {@inheritdoc}
      */
-    public function getValue(SensorVO $sensor)
+    public function getValue(SensorVO $sensor) : float
     {
         $content = $this->client->executeWithReturn('df .');
 
         if (preg_match('/\s(\d+)%/', $content, $matches)) {
-            return $matches[1];
+            return (float)$matches[1];
         }
 
-        return null;
+        throw new InvalidSensorValueException($sensor, sprintf('No disk value found: %s', $content));
     }
 
     /**

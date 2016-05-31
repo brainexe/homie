@@ -19,11 +19,11 @@ class Load extends AbstractSensor
     /**
      * {@inheritdoc}
      */
-    public function getValue(SensorVO $sensor)
+    public function getValue(SensorVO $sensor) : float
     {
         unset($sensor);
 
-        return sys_getloadavg()[0];
+        return (float)sys_getloadavg()[0];
     }
 
     /**

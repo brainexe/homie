@@ -50,15 +50,25 @@ class WebcamTest extends TestCase
         $this->assertEquals(21.58, $actual);
     }
 
-    public function testIsSupported()
+    /**
+     * @expectedException \Homie\Sensors\Exception\InvalidSensorValueException
+     * @expectedExceptionMessage No Maximum amplitude found: invalid value
+     */
+    public function testGetInvalidValue()
     {
-        $parameter = null;
+        $this->client
+            ->expects($this->at(0))
+            ->method('executeWithReturn');
+
+        $this->client
+            ->expects($this->at(1))
+            ->method('executeWithReturn')
+            ->willReturn('invalid value');
 
         $sensor = new SensorVO();
-        $sensor->parameter = $parameter;
-        $actual = $this->subject->isSupported($sensor);
+        $sensor->parameter = 10;
 
-        $this->assertTrue($actual);
+        $this->subject->getValue($sensor);
     }
 
     public function testGetDefinition()

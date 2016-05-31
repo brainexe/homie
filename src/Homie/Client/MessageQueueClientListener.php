@@ -36,13 +36,18 @@ class MessageQueueClientListener
      */
     public function handleExecuteEvent(ExecuteCommandEvent $event)
     {
-        $output = $this->client->executeWithReturn(
-            $event->getCommand(),
-            $event->getArguments()
-        );
-
         if ($event->isReturnNeeded()) {
+            $output = $this->client->executeWithReturn(
+                $event->getCommand(),
+                $event->getArguments()
+            );
+
             $this->getRedis()->lpush(MessageQueueClient::RETURN_CHANNEL, $output);
+        } else {
+            $this->client->execute(
+                $event->getCommand(),
+                $event->getArguments()
+            );
         }
     }
 }

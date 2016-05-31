@@ -1,7 +1,10 @@
 
 App.service('Expression.Functions', ['$q', 'Expression', 'MessageQueue', 'Sensor', 'Cache', function ($q, Expression, MessageQueue, Sensor, Cache) {
     var cacheKey = 'expressionFunctions';
-    var allFunctions = [];
+    var allFunctions = {
+        actions: [],
+        triggers: []
+    };
 
     if (Cache.get(cacheKey)) {
         return $q(function(resolve) {
@@ -50,10 +53,17 @@ App.service('Expression.Functions', ['$q', 'Expression', 'MessageQueue', 'Sensor
             expressionLabel += ' # ' + label;
         }
 
-        allFunctions.push({
+        var data = {
             label: expressionLabel,
             expression: expression
-        });
+        };
+
+        if (functionData.isTrigger) {
+            allFunctions.triggers.push(data);
+        }
+        if (functionData.isAction) {
+            allFunctions.actions.push(data);
+        }
     }
 
     function generateParameterList(array) {
@@ -70,19 +80,31 @@ App.service('Expression.Functions', ['$q', 'Expression', 'MessageQueue', 'Sensor
 
     function handleEvent(functionName, events) {
         for (var eventName in events) {
-            add(functionName, {parameters: [eventName]});
+            add(functionName, {
+                parameters: [eventName],
+                isTrigger: true,
+                isAction: false
+            });
         }
     }
 
     function handleCrons(functionName, crons) {
         for (var cron in crons) {
-            add(functionName, {parameters: [crons[cron].event.event.timingId]}, crons[cron].event.expression);
+            add(functionName, {
+                parameters: [crons[cron].event.event.timingId],
+                isTrigger: true,
+                isAction: false
+            }, crons[cron].event.expression);
         }
     }
 
     function handleSensor(functionName, sensors) {
         for (var sensorIdx in sensors) {
-            add(functionName, {parameters: [sensors[sensorIdx].sensorId]}, sensors[sensorIdx].name);
+            add(functionName, {
+                parameters: [sensors[sensorIdx].sensorId],
+                isTrigger: true,
+                isAction: true
+            }, sensors[sensorIdx].name);
         }
     }
 }]);

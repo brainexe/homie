@@ -5,6 +5,7 @@ namespace Homie\Sensors\Sensors\System;
 use Homie\Client\ClientInterface;
 use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Definition;
+use Homie\Sensors\Exception\InvalidSensorValueException;
 use Homie\Sensors\Formatter\Bytes;
 use Homie\Sensors\Sensors\AbstractSensor;
 use Homie\Sensors\SensorVO;
@@ -34,7 +35,7 @@ class DiskUsed extends AbstractSensor
     /**
      * {@inheritdoc}
      */
-    public function getValue(SensorVO $sensor)
+    public function getValue(SensorVO $sensor) : float
     {
         $content = $this->client->executeWithReturn('df', ['.', '--output=used']);
 
@@ -42,7 +43,7 @@ class DiskUsed extends AbstractSensor
             return (int)$matches[1] * 1000; // -> we get kb
         }
 
-        return null;
+        throw new InvalidSensorValueException($sensor, sprintf('No disk value found: %s', $content));
     }
 
     /**

@@ -51,22 +51,5 @@
                 </service>
             </argument>
         </service>
-        <service id="WebdavRemoteFilesystem" class="League\Flysystem\Filesystem" public="false">
-            <argument type="service">
-                 <service class="League\Flysystem\WebDAV\WebDAVAdapter">
-                     <argument type="service">
-                         <service class="Sabre\DAV\Client">
-                             <argument type="collection">
-                                 <argument key="userName">%filesystem.remote.username%</argument>
-                                 <argument key="password">%filesystem.remote.password%</argument>
-                                 <argument key="baseUri">%filesystem.remote.url%</argument>
-                                 <argument key="authType">1</argument>
-                             </argument>
-                         </service>
-                     </argument>
-                     <call method="setPathPrefix"><argument>%filesystem.remote.pathPrefix%</argument></call>
-                 </service>
-            </argument>
-        </service>
     </services>
 </container>

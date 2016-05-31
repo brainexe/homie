@@ -4,6 +4,7 @@ namespace Homie\Sensors\Sensors\Temperature;
 
 use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Definition;
+use Homie\Sensors\Exception\InvalidSensorValueException;
 use Homie\Sensors\Formatter\Temperature;
 use Homie\Sensors\Sensors\AbstractDHT11;
 use Homie\Sensors\SensorVO;
@@ -19,12 +20,12 @@ class DHT11 extends AbstractDHT11
     /**
      * {@inheritdoc}
      */
-    public function getValue(SensorVO $sensor)
+    public function getValue(SensorVO $sensor) : float
     {
         $output = $this->getContent($sensor->parameter);
 
         if (!preg_match('/Temperature = ([-\d.]+)/', $output, $matches)) {
-            return null;
+            throw new InvalidSensorValueException($sensor, sprintf('Invalid value: %s', $output));
         }
 
         return $this->round($matches[1], 0.01);

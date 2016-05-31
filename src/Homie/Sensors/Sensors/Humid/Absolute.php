@@ -46,12 +46,12 @@ class Absolute extends Expression implements Parameterized
     /**
      * {@inheritdoc}
      */
-    public function getValue(SensorVO $sensor)
+    public function getValue(SensorVO $sensor) : float
     {
         list ($temperatureId, $humidId) = explode(":", $sensor->parameter);
 
         $temperature = sprintf('getSensorValue(%d)', $temperatureId);
-        $humidity   = sprintf('getSensorValue(%d)', $humidId);
+        $humidity    = sprintf('getSensorValue(%d)', $humidId);
 
         $expression = sprintf(
             '1000 * 18.016/8314.3 * 6.1078 * %s * 10**((7.5*%s)/(237.3+%s))/(%s + 273.15)',

@@ -27,7 +27,7 @@
                 <label>{{ $index + 1 }}.)&nbsp;</label>
                 <p>
                     <expression-parameter
-                            functions="functions"
+                            functions="functions.triggers"
                             type="condition"
                             parameter="editExpression.conditions[$index]"></expression-parameter>
                     <div class="btn-group">
@@ -58,7 +58,7 @@
                     <expression-parameter
                             type="action"
                             parameter="editExpression.actions[$index]"
-                            functions="functions">
+                            functions="functions.actions">
                     </expression-parameter>
 
                     <div class="btn-group">

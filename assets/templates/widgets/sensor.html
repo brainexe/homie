@@ -1,6 +1,6 @@
-<table class="table table-bordered table-striped table-hover" style="width:100%">
+<table ng-if="sensor|notEmpty" class="table table-bordered table-striped table-hover" style="width:100%">
     <tr>
-        <th><b translate>Current</b></th>
+        <th translate>Current</th>
         <td>
             {{ format(value) }}
         </td>
@@ -11,7 +11,7 @@
             <a
                     ng-click="reload()"
                     uib-tooltip="{{'Reload'|translate}}"
-                    class="btn btn-default btn-sm glyphicon glyphicon-repeat"></a>
+                    class="btn btn-default btn-sm glyphicon glyphicon-repeat pull-right"></a>
         </td>
     </tr>
     <tr>
@@ -45,7 +45,7 @@
         </td>
     </tr>
     <tr>
-        <th><b translate>Trend</b></th>
+        <th translate>Trend</th>
         <td colspan="2">
             <span class="glyphicon glyphicon-arrow-{{stats.lastChange == 0 ? 'right' : (stats.lastChange > 0 ? 'up' : 'down')}}" uib-tooltip="{{format(stats.lastChange)}}"></span>
         </td>

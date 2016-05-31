@@ -65,10 +65,6 @@ class AppServer
     {
         ini_set('session.use_cookies', false);
         while ($raw = $this->redis->brpop(self::REQUEST, $this->timeout)) {
-            if (empty($raw)) {
-                break;
-            }
-
             $raw = json_decode($raw[1], true);
 
             $this->handle($raw);

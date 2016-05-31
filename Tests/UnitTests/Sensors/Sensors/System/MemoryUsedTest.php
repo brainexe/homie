@@ -35,7 +35,7 @@ class MemoryUsedTest extends TestCase
     {
         $sensor = new SensorVO();
         $actual = $this->subject->getValue($sensor);
-        $this->assertInternalType('int', $actual);
+        $this->assertInternalType('float', $actual);
     }
 
     public function testGetDefinition()

@@ -30,6 +30,17 @@ abstract class AbstractSensor implements Sensor, TranslationProvider
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function isSupported(SensorVO $sensor) : bool
+    {
+        // try to fetch current value. In case of error InvalidSensorValueException, just pass it trough
+        $this->getValue($sensor);
+
+        return true;
+    }
+
+    /**
      * @param float $value
      * @param int $multiplier
      * @return float

@@ -13,6 +13,9 @@ class Action extends ExpressionFunction
      */
     public function __construct(string $name, callable $evaluator)
     {
+        /**
+         * @throws Exception
+         */
         $compiler = function () use ($name) {
             throw new Exception(sprintf('Function "%s" is not allowed as trigger', $name));
         };

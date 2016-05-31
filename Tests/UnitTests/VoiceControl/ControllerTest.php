@@ -10,7 +10,7 @@ use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @covers Homie\Webcam\VoiceControl
+ * @covers Homie\VoiceControl\Controller
  */
 class ControllerTest extends TestCase
 {

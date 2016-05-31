@@ -48,6 +48,8 @@ class WriteFunctionCacheTest extends TestCase
         $function = [];
         $function['evaluator'] = function (string $data, int $test1, array $test2) {
         };
+        $function['compiler'] = function (string $data, int $test1, array $test2) {
+        };
 
         $this->language
             ->expects($this->once())
@@ -63,7 +65,7 @@ class WriteFunctionCacheTest extends TestCase
                         ['name' => 'test1', 'type' => 'int'],
                         ['name' => 'test2', 'type' => 'array']
                     ],
-                    'isAction'    => true,
+                    'isAction'  => true,
                     'isTrigger' => true,
                 ]
             ]);

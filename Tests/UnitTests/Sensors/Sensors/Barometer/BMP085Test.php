@@ -49,6 +49,10 @@ class BMP085Test extends TestCase
         $this->assertEquals(1024, $actual);
     }
 
+    /**
+     * @expectedException \Homie\Sensors\Exception\InvalidSensorValueException
+     * @expectedExceptionMessage Invalid response:
+     */
     public function testGetValueWithoutValue()
     {
         $parameter = "foo.sh";
@@ -61,11 +65,13 @@ class BMP085Test extends TestCase
 
         $sensor = new SensorVO();
         $sensor->parameter = $parameter;
-        $actual = $this->subject->getValue($sensor);
-
-        $this->assertNull($actual);
+        $this->subject->getValue($sensor);
     }
 
+    /**
+     * @expectedException \Homie\Sensors\Exception\InvalidSensorValueException
+     * @expectedExceptionMessage Invalid response: invalid
+     */
     public function testGetValueInvalidValue()
     {
         $parameter = "foo.sh";
@@ -78,19 +84,8 @@ class BMP085Test extends TestCase
 
         $sensor = new SensorVO();
         $sensor->parameter = $parameter;
-        $actual = $this->subject->getValue($sensor);
 
-        $this->assertNull($actual);
-    }
-
-    public function testIsSupported()
-    {
-        $parameter = 'not_exiting_file';
-
-        $sensor = new SensorVO();
-        $sensor->parameter = $parameter;
-        $actual    = $this->subject->isSupported($sensor);
-        $this->assertFalse($actual);
+        $this->subject->getValue($sensor);
     }
 
     public function testGetDefinition()

@@ -147,6 +147,40 @@ class ControllerTest extends TestCase
         $this->assertEquals($entity, $actual);
     }
 
+    public function testSaveNew()
+    {
+        $request = new Request();
+        $request->request->set('expressionId', 'new');
+        $request->request->set('actions', ['action1']);
+        $request->request->set('conditions', ['condition1']);
+        $request->request->set('enables', true);
+
+        $this->gateway
+            ->expects($this->once())
+            ->method('getAll')
+            ->willReturn([
+            ]);
+
+        $entity = new Entity();
+        $entity->expressionId = 'new';
+        $entity->conditions = ['condition1'];
+        $entity->actions    = ['action1'];
+        $entity->enabled    = false;
+
+        $this->language
+            ->expects($this->exactly(2))
+            ->method('parse');
+
+        $this->gateway
+            ->expects($this->once())
+            ->method('save')
+            ->with($entity);
+
+        $actual = $this->subject->save($request);
+
+        $this->assertEquals($entity, $actual);
+    }
+
     /**
      * @expectedException \BrainExe\Core\Application\UserException
      * @expectedExceptionMessage No actions defined

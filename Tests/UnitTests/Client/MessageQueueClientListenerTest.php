@@ -44,6 +44,20 @@ class MessageQueueClientListenerTest extends TestCase
     {
         $command = 'command';
 
+        $event = new ExecuteCommandEvent($command, [], false);
+
+        $this->client
+            ->expects($this->once())
+            ->method('execute')
+            ->with($command, []);
+
+        $this->subject->handleExecuteEvent($event);
+    }
+
+    public function testHandleExecuteEventWithReturn()
+    {
+        $command = 'command';
+
         $event = new ExecuteCommandEvent($command, [], true);
 
         $output = 'output';

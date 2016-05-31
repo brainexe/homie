@@ -37,6 +37,10 @@ class DiskUsedTest extends TestCase
         $this->assertEquals(DiskUsed::TYPE, $actual);
     }
 
+    /**
+     * @expectedException \Homie\Sensors\Exception\InvalidSensorValueException
+     * @expectedExceptionMessage No disk value found: ads
+     */
     public function testGetValueInvalid()
     {
         $this->client
@@ -45,9 +49,7 @@ class DiskUsedTest extends TestCase
             ->willReturn('ads');
 
         $sensor = new SensorVO();
-        $actual = $this->subject->getValue($sensor);
-
-        $this->assertNull($actual);
+        $this->subject->getValue($sensor);
     }
 
     public function testGetValue()

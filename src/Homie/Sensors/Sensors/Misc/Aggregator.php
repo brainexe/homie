@@ -37,7 +37,7 @@ class Aggregator extends AbstractSensor implements Parameterized
     /**
      * {@inheritdoc}
      */
-    public function getValue(SensorVO $sensor)
+    public function getValue(SensorVO $sensor) : float
     {
         return (float)$this->aggregated->getCurrent($sensor->parameter);
     }
