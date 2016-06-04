@@ -22,7 +22,7 @@ before_install:
   - php console cc
 
 script:
-  - phpunit --coverage-clover build/logs/clover.xml --coverage-clover=coverage.clover
+  - php vendor/bin/phpunit --coverage-clover build/logs/clover.xml --coverage-clover=coverage.clover
 
 after_script:
   - php ocular.phar code-coverage:upload --format=php-clover coverage.clover

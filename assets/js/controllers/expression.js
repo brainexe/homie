@@ -29,7 +29,12 @@ App.controller('ExpressionController', ['$scope', '$q', 'Expression', 'MessageQu
     };
 
     $scope.newExpression = function () {
-        $scope.editExpression = {actions:[''], conditions:[''], 'new': true};
+        $scope.editExpression = {
+            actions:    [''],
+            conditions: [''],
+            enabled:    true,
+            'new':      true
+        };
     };
 
     $scope.searchExpression = function (search) {
@@ -101,6 +106,10 @@ App.controller('ExpressionController', ['$scope', '$q', 'Expression', 'MessageQu
         if (expression.conditions.indexOf('') == -1) {
             expression.conditions.push('');
         }
+    };
+
+    $scope.deleteParameter = function(expression, key) {
+        delete expression.payload[key];
     };
 
     $scope.addCron = function(cron) {

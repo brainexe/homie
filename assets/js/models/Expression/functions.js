@@ -26,6 +26,9 @@ App.service('Expression.Functions', ['$q', 'Expression', 'MessageQueue', 'Sensor
         for (var functionName in functions) {
             switch (functionName) {
                 case 'isEvent':
+                    handleIsEvent(functionName, events);
+                    break;
+                case 'event':
                     handleEvent(functionName, events);
                     break;
                 case 'isSensorValue':
@@ -78,12 +81,22 @@ App.service('Expression.Functions', ['$q', 'Expression', 'MessageQueue', 'Sensor
         return parameterList.join(', ');
     }
 
-    function handleEvent(functionName, events) {
+    function handleIsEvent(functionName, events) {
         for (var eventName in events) {
             add(functionName, {
                 parameters: [eventName],
                 isTrigger: true,
                 isAction: false
+            });
+        }
+    }
+
+    function handleEvent(functionName, events) {
+        for (var eventName in events) {
+            add(functionName, {
+                parameters: [eventName],
+                isTrigger: false,
+                isAction: true
             });
         }
     }

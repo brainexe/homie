@@ -6,6 +6,7 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Generator;
 use Homie\Espeak\EspeakEvent;
+use Homie\Espeak\EspeakVO;
 use Homie\Expression\Action;
 use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
@@ -50,8 +51,9 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
 
         yield new Action('sayShoppingList', function () {
             $text = implode('. ', $this->list->getItems());
+            $espeakVo = new EspeakVO($text, null, null, null, EspeakVO::BROWSER_ONLY);
 
-            $event = new EspeakEvent($text);
+            $event = new EspeakEvent($espeakVo);
             $this->dispatchEvent($event);
         });
     }

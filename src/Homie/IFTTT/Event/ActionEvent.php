@@ -9,7 +9,7 @@ use BrainExe\Core\Traits\JsonSerializableTrait;
 class ActionEvent extends AbstractEvent implements PushViaWebsocket
 {
     use JsonSerializableTrait;
-    
+
     const ACTION  = 'ifttt.action';
 
     /**

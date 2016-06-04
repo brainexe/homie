@@ -17,18 +17,7 @@ class DefaultExpressions implements DefaultExpression
     public static function getDefaultExpressions()
     {
         yield from self::getTodoListActions();
-
-        $item = new Entity();
-        $item->expressionId = 'addShoppingListItem';
-        $item->conditions   = [
-            'voice("/setze? (.*) auf die (Liste|Einkaufsliste)$/i")'
-        ];
-        $item->actions = [
-            'addShoppingListItem(voice(1))',
-            'say("Ich habe " ~ voice(1) ~ " auf die Einkaufsliste gesetzt")',
-
-        ];
-        yield $item;
+        yield from self::getShoppingListActions();
 
         $item = new Entity();
         $item->expressionId = 'eggTimer';
@@ -65,4 +54,30 @@ class DefaultExpressions implements DefaultExpression
         ];
         yield $item;
     }
+
+    private static function getShoppingListActions()
+    {
+        $item = new Entity();
+        $item->expressionId = 'addShoppingListItem';
+        $item->conditions   = [
+            'voice("/setze? (.*) auf die (Liste|Einkaufsliste)$/i")'
+        ];
+        $item->actions = [
+            'addShoppingListItem(voice(1))',
+            'say("Ich habe " ~ voice(1) ~ " auf die Einkaufsliste gesetzt")',
+
+        ];
+        yield $item;
+
+        $item = new Entity();
+        $item->expressionId = 'sayShoppingList';
+        $item->conditions   = [
+            'voice("/^was steht auf der (Liste|Einkaufsliste)$/i")'
+        ];
+        $item->actions = [
+            'sayShoppingList()',
+        ];
+        yield $item;
+    }
+
 }

@@ -94,7 +94,12 @@
 
             <div class="form-group" ng-repeat="(key, value) in editExpression.payload">
                 <label class="control-label">{{ key }}:&nbsp</label>
-                <input ng-model="value" class="form-control" type="text"/>
+                <div class="input-group">
+                    <input ng-model="value" class="form-control" type="text"/>
+                    <a ng-click="deleteParameter(editExpression, key)" class="input-group-addon btn btn-danger">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </a>
+                </div>
             </div>
 
             <button

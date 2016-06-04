@@ -33,8 +33,7 @@ class Expressions implements DefaultExpression
             'isTiming("daily")'
         ];
         $cleanCron->actions = [
-            'event("console.run", "cron:clean")',
-            'increaseCounter()'
+            'event("console.run", "cron:clean")'
         ];
         yield $cleanCron;
     }
