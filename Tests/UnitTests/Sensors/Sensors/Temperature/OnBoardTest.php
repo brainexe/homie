@@ -34,8 +34,8 @@ class OnBoardTest extends TestCase
 
     public function setUp()
     {
-        $this->fileSystem = $this->getMock(FileSystem::class, [], [], '', false);
-        $this->glob       = $this->getMock(Glob::class, [], [], '', false);
+        $this->fileSystem = $this->createMock(FileSystem::class);
+        $this->glob       = $this->createMock(Glob::class);
 
         $this->subject = new OnBoard($this->fileSystem, $this->glob);
     }

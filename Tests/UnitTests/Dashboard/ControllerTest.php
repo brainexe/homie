@@ -28,7 +28,7 @@ class ControllerTest extends TestCase
 
     public function setUp()
     {
-        $this->dashboard = $this->getMock(Dashboard::class, [], [], '', false);
+        $this->dashboard = $this->createMock(Dashboard::class);
         $this->subject   = new Controller($this->dashboard);
     }
 

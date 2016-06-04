@@ -24,7 +24,7 @@ class SwitchWidgetTest extends TestCase
 
     public function setUp()
     {
-        $this->radios  = $this->getMock(Switches::class, [], [], '', false);
+        $this->radios  = $this->createMock(Switches::class);
         $this->subject = new SwitchWidget($this->radios);
     }
 

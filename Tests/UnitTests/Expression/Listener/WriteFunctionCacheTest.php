@@ -23,8 +23,9 @@ class WriteFunctionCacheTest extends TestCase
 
     public function setup()
     {
-        $this->language = $this->getMockWithoutInvokingTheOriginalConstructor(Language::class);
+        $this->language = $this->createMock(Language::class);
 
+        // TODO matze createMock
         $this->subject = $this->getMock(WriteFunctionCache::class, ['dumpVariableToCache'], [$this->language]);
     }
 

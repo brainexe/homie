@@ -12,7 +12,7 @@ class SensorFormatterTest extends TestCase
     public function testBuild()
     {
         /** @var Reader $reader */
-        $reader = $this->getMock(Reader::class);
+        $reader = $this->createMock(Reader::class);
 
         $annotation = new SensorFormatter([]);
         $builder = $annotation::getBuilder($reader);

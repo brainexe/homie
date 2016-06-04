@@ -23,7 +23,7 @@ class CacheTest extends TestCase
 
     public function setup()
     {
-        $this->gateway = $this->getMockWithoutInvokingTheOriginalConstructor(Gateway::class);
+        $this->gateway = $this->createMock(Gateway::class);
 
         $this->subject = $this->getMock(Cache::class, ['dumpCacheFile'], [$this->gateway]);
     }

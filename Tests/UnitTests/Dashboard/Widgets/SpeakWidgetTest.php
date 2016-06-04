@@ -24,7 +24,7 @@ class SpeakWidgetTest extends TestCase
 
     public function setUp()
     {
-        $this->speakers = $this->getMockWithoutInvokingTheOriginalConstructor(Speakers::class);
+        $this->speakers = $this->createMock(Speakers::class);
         $this->subject  = new Speak($this->speakers);
     }
 

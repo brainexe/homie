@@ -49,11 +49,11 @@ class TodoListTest extends TestCase
 
     public function setUp()
     {
-        $this->gateway = $this->getMock(TodoListGateway::class, [], [], '', false);
-        $this->eventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
-        $this->idGenerator     = $this->getMock(IdGenerator::class, [], [], '', false);
-        $this->time            = $this->getMock(Time::class, [], [], '', false);
-        $this->builder         = $this->getMock(Builder::class, [], [], '', false);
+        $this->gateway = $this->createMock(TodoListGateway::class);
+        $this->eventDispatcher = $this->createMock(EventDispatcher::class);
+        $this->idGenerator     = $this->createMock(IdGenerator::class);
+        $this->time            = $this->createMock(Time::class);
+        $this->builder         = $this->createMock(Builder::class);
 
         $this->subject = new TodoList($this->gateway, $this->builder);
         $this->subject->setEventDispatcher($this->eventDispatcher);

@@ -24,7 +24,7 @@ class JobListenerTest extends TestCase
 
     public function setUp()
     {
-        $this->change = $this->getMockWithoutInvokingTheOriginalConstructor(Change::class);
+        $this->change = $this->createMock(Change::class);
 
         $this->subject = new JobListener($this->change);
     }

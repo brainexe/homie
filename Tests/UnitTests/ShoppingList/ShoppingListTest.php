@@ -32,8 +32,8 @@ class ShoppingListTest extends TestCase
 
     public function setUp()
     {
-        $this->gateway    = $this->getMockWithoutInvokingTheOriginalConstructor(Gateway::class);
-        $this->dispatcher = $this->getMockWithoutInvokingTheOriginalConstructor(EventDispatcher::class);
+        $this->gateway    = $this->createMock(Gateway::class);
+        $this->dispatcher = $this->createMock(EventDispatcher::class);
 
         $this->subject = new ShoppingList($this->gateway);
         $this->subject->setEventDispatcher($this->dispatcher);

@@ -27,7 +27,7 @@ class AbsoluteTest extends TestCase
 
     public function setUp()
     {
-        $this->language = $this->getMock(Language::class, [], [], '', false);
+        $this->language = $this->createMock(Language::class);
         $this->subject  = new Absolute($this->language);
     }
 

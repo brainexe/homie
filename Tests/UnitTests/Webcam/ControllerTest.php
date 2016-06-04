@@ -45,10 +45,10 @@ class ControllerTest extends TestCase
 
     public function setUp()
     {
-        $this->webcam          = $this->getMock(Webcam::class, [], [], '', false);
-        $this->eventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
-        $this->idGenerator     = $this->getMock(IdGenerator::class, [], [], '', false);
-        $this->filesystem      = $this->getMock(Filesystem::class, ['readStream', 'getMimeType'], [], '', false);
+        $this->webcam          = $this->createMock(Webcam::class);
+        $this->eventDispatcher = $this->createMock(EventDispatcher::class);
+        $this->idGenerator     = $this->createMock(IdGenerator::class);
+        $this->filesystem      = $this->createMock(Filesystem::class);
 
         $this->subject = new Controller($this->webcam, $this->filesystem);
         $this->subject->setEventDispatcher($this->eventDispatcher);

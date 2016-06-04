@@ -27,7 +27,7 @@ SwitchesTest extends TestCase
 
     public function setUp()
     {
-        $this->gateway = $this->getMock(Gateway::class);
+        $this->gateway = $this->createMock(Gateway::class);
 
         $this->subject = new Switches($this->gateway);
     }

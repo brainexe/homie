@@ -37,9 +37,9 @@ class ControllerTest extends TestCase
 
     public function setUp()
     {
-        $this->gateway    = $this->getMock(Gateway::class, [], [], '', false);
-        $this->renderer   = $this->getMock(Renderer::class, [], [], '', false);
-        $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->gateway    = $this->createMock(Gateway::class);
+        $this->renderer   = $this->createMock(Renderer::class);
+        $this->dispatcher = $this->createMock(EventDispatcher::class);
         $this->subject    = new Controller($this->gateway, $this->renderer);
         $this->subject->setEventDispatcher($this->dispatcher);
     }

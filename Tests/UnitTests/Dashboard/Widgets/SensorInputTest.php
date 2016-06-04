@@ -26,7 +26,7 @@ class SensorInputTest extends TestCase
 
     public function setUp()
     {
-        $this->gateway = $this->getMock(SensorGateway::class, [], [], '', false);
+        $this->gateway = $this->createMock(SensorGateway::class);
         $this->subject = new SensorInput($this->gateway);
     }
 

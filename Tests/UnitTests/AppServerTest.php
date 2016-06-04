@@ -51,10 +51,10 @@ class AppServerTest extends TestCase
 
     public function setUp()
     {
-        $this->appKernel = $this->getMockWithoutInvokingTheOriginalConstructor(AppKernel::class);
+        $this->appKernel = $this->createMock(AppKernel::class);
         $this->predis    = $this->getRedisMock();
-        $this->session   = $this->getMockWithoutInvokingTheOriginalConstructor(Session::class);
-        $this->time      = $this->getMock(Time::class);
+        $this->session   = $this->createMock(Session::class);
+        $this->time      = $this->createMock(Time::class);
 
         $this->timeout = 10;
 

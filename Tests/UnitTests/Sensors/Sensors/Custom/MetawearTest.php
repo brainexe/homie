@@ -33,7 +33,7 @@ class MetawearTest extends TestCase
 
     public function setUp()
     {
-        $this->client  = $this->getMockWithoutInvokingTheOriginalConstructor(Client::class);
+        $this->client  = $this->createMock(Client::class);
 
         $this->url = 'http://metawear:8081';
 
@@ -48,7 +48,7 @@ class MetawearTest extends TestCase
         $sensor = new SensorVO();
         $sensor->parameter = 'temperature';
 
-        $response = $this->getMock(ResponseInterface::class);
+        $response = $this->createMock(ResponseInterface::class);
 
         $response
             ->expects($this->once())
@@ -80,7 +80,7 @@ class MetawearTest extends TestCase
         $sensor = new SensorVO();
         $sensor->parameter = 'temperature';
 
-        $response = $this->getMock(ResponseInterface::class);
+        $response = $this->createMock(ResponseInterface::class);
 
         $response
             ->expects($this->once())

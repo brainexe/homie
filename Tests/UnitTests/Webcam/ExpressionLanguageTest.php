@@ -33,8 +33,8 @@ class ExpressionLanguageTest extends TestCase
 
     public function setUp()
     {
-        $this->idGenerator = $this->getMockWithoutInvokingTheOriginalConstructor(IdGenerator::class);
-        $this->dispatcher  = $this->getMockWithoutInvokingTheOriginalConstructor(EventDispatcher::class);
+        $this->idGenerator = $this->createMock(IdGenerator::class);
+        $this->dispatcher  = $this->createMock(EventDispatcher::class);
         $this->subject     = new ExpressionLanguage();
         $this->subject->setEventDispatcher($this->dispatcher);
         $this->subject->setIdGenerator($this->idGenerator);

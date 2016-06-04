@@ -34,8 +34,8 @@ class LocalClientTest extends TestCase
 
     public function setUp()
     {
-        $this->processBuilder = $this->getMock(ProcessBuilder::class, [], [], '', false);
-        $this->logger = $this->getMock(Logger::class, [], [], '', false);
+        $this->processBuilder = $this->createMock(ProcessBuilder::class);
+        $this->logger = $this->createMock(Logger::class);
 
         $this->subject = new LocalClient($this->processBuilder);
         $this->subject->setLogger($this->logger);
@@ -49,7 +49,7 @@ class LocalClientTest extends TestCase
     {
         $command = 'command';
 
-        $process = $this->getMock(Process::class, [], [], '', false);
+        $process = $this->createMock(Process::class);
 
         $this->processBuilder
             ->expects($this->once())
@@ -104,7 +104,7 @@ class LocalClientTest extends TestCase
     {
         $command = 'command';
         $output  = 'output';
-        $process = $this->getMock(Process::class, [], [], '', false);
+        $process = $this->createMock(Process::class);
 
         $this->processBuilder
             ->expects($this->once())
@@ -164,7 +164,7 @@ class LocalClientTest extends TestCase
     public function testExecute()
     {
         $command = 'command';
-        $process = $this->getMock(Process::class, [], [], '', false);
+        $process = $this->createMock(Process::class);
 
         $this->processBuilder
             ->expects($this->once())

@@ -23,7 +23,7 @@ class ControllerTest extends TestCase
 
     public function setUp()
     {
-        $this->client = $this->getMock(LocalClient::class, [], [], '', false);
+        $this->client = $this->createMock(LocalClient::class);
 
         $this->subject = new Controller($this->client);
     }

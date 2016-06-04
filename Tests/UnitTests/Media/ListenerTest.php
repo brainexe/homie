@@ -23,7 +23,7 @@ class ListenerTest extends TestCase
 
     public function setUp()
     {
-        $this->sound   = $this->getMockWithoutInvokingTheOriginalConstructor(Sound::class);
+        $this->sound   = $this->createMock(Sound::class);
         $this->subject = new Listener($this->sound);
     }
 

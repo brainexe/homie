@@ -30,14 +30,14 @@ class CompilerPassTest extends TestCase
     public function setUp()
     {
         $this->subject   = new Sensor();
-        $this->container = $this->getMock(ContainerBuilder::class);
+        $this->container = $this->createMock(ContainerBuilder::class);
     }
 
     public function testProcess()
     {
-        $sensorBuilder    = $this->getMock(Definition::class);
-        $sensorDefinition = $this->getMock(Definition::class);
-        $sensor           = $this->getMock(SensorInterface::class);
+        $sensorBuilder    = $this->createMock(Definition::class);
+        $sensorDefinition = $this->createMock(Definition::class);
+        $sensor           = $this->createMock(SensorInterface::class);
         $sensorId         = 'sensor_1';
 
         $this->container

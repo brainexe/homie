@@ -40,9 +40,9 @@ class CSVExportTest extends TestCase
 
     public function setUp()
     {
-        $this->valuesGateway = $this->getMock(SensorValuesGateway::class, [], [], '', false);
-        $this->gateway       = $this->getMock(SensorGateway::class, [], [], '', false);
-        $this->time          = $this->getMock(Time::class);
+        $this->valuesGateway = $this->createMock(SensorValuesGateway::class);
+        $this->gateway       = $this->createMock(SensorGateway::class);
+        $this->time          = $this->createMock(Time::class);
 
         $this->subject = new CSVExport(
             $this->gateway,

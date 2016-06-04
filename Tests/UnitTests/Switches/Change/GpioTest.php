@@ -33,8 +33,8 @@ class GpioTest extends TestCase
 
     public function setUp()
     {
-        $this->manager = $this->getMock(GpioManager::class, [], [], '', false);
-        $this->nodes   = $this->getMock(Gateway::class, [], [], '', false);
+        $this->manager = $this->createMock(GpioManager::class);
+        $this->nodes   = $this->createMock(Gateway::class);
         $this->subject = new Gpio($this->manager, $this->nodes);
     }
 

@@ -29,8 +29,8 @@ class WebcamTest extends TestCase
 
     public function setUp()
     {
-        $this->filesystem = $this->getMock(Filesystem::class, [], [], '', false);
-        $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->filesystem = $this->createMock(Filesystem::class);
+        $this->dispatcher = $this->createMock(EventDispatcher::class);
 
         $this->subject = new Webcam($this->filesystem);
         $this->subject->setEventDispatcher($this->dispatcher);

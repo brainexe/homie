@@ -30,8 +30,8 @@ class EggTimerTest extends TestCase
 
     public function setUp()
     {
-        $this->timeParser = $this->getMock(TimeParser::class, [], [], '', false);
-        $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->timeParser = $this->createMock(TimeParser::class);
+        $this->dispatcher = $this->createMock(EventDispatcher::class);
 
         $this->subject = new EggTimer($this->timeParser);
         $this->subject->setEventDispatcher($this->dispatcher);

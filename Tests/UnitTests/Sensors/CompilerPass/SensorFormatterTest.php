@@ -30,14 +30,14 @@ class CompilerFormatterPassTest extends TestCase
     public function setUp()
     {
         $this->subject   = new SensorFormatter();
-        $this->container = $this->getMock(ContainerBuilder::class);
+        $this->container = $this->createMock(ContainerBuilder::class);
     }
 
     public function testProcess()
     {
-        $sensorBuilder    = $this->getMock(Definition::class);
-        $sensorDefinition = $this->getMock(Definition::class);
-        $formatter        = $this->getMock(Formatter::class);
+        $sensorBuilder    = $this->createMock(Definition::class);
+        $sensorDefinition = $this->createMock(Definition::class);
+        $formatter        = $this->createMock(Formatter::class);
         $sensorId         = 'sensor_1';
 
         $this->container

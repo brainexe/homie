@@ -32,8 +32,8 @@ class GpioManagerTest extends TestCase
 
     public function setUp()
     {
-        $this->pinGateway     = $this->getMock(PinGateway::class, [], [], '', false);
-        $this->adapterFactory = $this->getMock(Factory::class, [], [], '', false);
+        $this->pinGateway     = $this->createMock(PinGateway::class);
+        $this->adapterFactory = $this->createMock(Factory::class);
 
         $this->subject = new GpioManager($this->pinGateway, $this->adapterFactory);
     }
@@ -54,7 +54,7 @@ class GpioManagerTest extends TestCase
         $collection = new PinsCollection();
         $collection->add($pin);
 
-        $adapter = $this->getMock(Adapter::class);
+        $adapter = $this->createMock(Adapter::class);
 
         $this->adapterFactory
             ->expects($this->once())
@@ -89,7 +89,7 @@ class GpioManagerTest extends TestCase
         $pin = new Pin();
         $pin->setPhysicalId($gpioId);
 
-        $adapter = $this->getMock(Adapter::class);
+        $adapter = $this->createMock(Adapter::class);
 
         $this->adapterFactory
             ->expects($this->exactly(2))

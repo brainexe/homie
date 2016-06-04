@@ -41,8 +41,8 @@ class ControllerTest extends TestCase
 
     public function setUp()
     {
-        $this->idGenerator = $this->getMock(IdGenerator::class);
-        $this->gateway     = $this->getMock(Gateway::class);
+        $this->idGenerator = $this->createMock(IdGenerator::class);
+        $this->gateway     = $this->createMock(Gateway::class);
 
         $this->subject = new Controller($this->gateway, $this->nodeId);
         $this->subject->setIdGenerator($this->idGenerator);

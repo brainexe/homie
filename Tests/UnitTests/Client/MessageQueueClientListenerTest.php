@@ -33,7 +33,7 @@ class MessageQueueClientListenerTest extends TestCase
 
     public function setUp()
     {
-        $this->client = $this->getMockWithoutInvokingTheOriginalConstructor(LocalClient::class);
+        $this->client = $this->createMock(LocalClient::class);
         $this->redis  = $this->getRedisMock();
 
         $this->subject = new MessageQueueClientListener($this->client);

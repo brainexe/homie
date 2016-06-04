@@ -26,7 +26,7 @@ class LogTest extends TestCase
 
     public function setUp()
     {
-        $this->logger = $this->getMock(Logger::class, [], [], '', false);
+        $this->logger = $this->createMock(Logger::class);
 
         $this->subject = new Log();
         $this->subject->setLogger($this->logger);

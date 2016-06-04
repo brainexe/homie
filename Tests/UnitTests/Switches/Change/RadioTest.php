@@ -32,7 +32,7 @@ class RadioTest extends TestCase
     public function setUp()
     {
         $this->rcSwitchCommand = '/opt/rc_switch';
-        $this->client          = $this->getMock(LocalClient::class, [], [], '', false);
+        $this->client          = $this->createMock(LocalClient::class);
         $this->subject         = new Radio(
             $this->client,
             $this->rcSwitchCommand

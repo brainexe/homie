@@ -23,7 +23,7 @@ class WebcamListenerTest extends TestCase
 
     public function setUp()
     {
-        $this->recorder = $this->getMock(Recorder::class, [], [], '', false);
+        $this->recorder = $this->createMock(Recorder::class);
         $this->subject  = new WebcamListener($this->recorder);
     }
 

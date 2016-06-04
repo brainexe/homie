@@ -36,9 +36,9 @@ class RecorderTest extends TestCase
 
     public function setUp()
     {
-        $this->filesystem = $this->getMock(Filesystem::class, [], [], '', false);
-        $this->client     = $this->getMock(ClientInterface::class, [], [], '', false);
-        $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->filesystem = $this->createMock(Filesystem::class);
+        $this->client     = $this->createMock(ClientInterface::class);
+        $this->dispatcher = $this->createMock(EventDispatcher::class);
 
         $this->subject = new Recorder(
             $this->client,

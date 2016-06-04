@@ -29,13 +29,13 @@ class WidgetCompilerPassTest extends TestCase
     public function setUp()
     {
         $this->subject   = new WidgetCompilerPass();
-        $this->container = $this->getMock(ContainerBuilder::class);
+        $this->container = $this->createMock(ContainerBuilder::class);
     }
 
     public function testProcess()
     {
-        $widgetFactory    = $this->getMock(Definition::class);
-        $widgetDefinition = $this->getMock(Definition::class);
+        $widgetFactory    = $this->createMock(Definition::class);
+        $widgetDefinition = $this->createMock(Definition::class);
         $widgetId         = 'widget_1';
 
         $this->container

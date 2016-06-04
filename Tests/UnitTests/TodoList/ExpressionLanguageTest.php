@@ -33,8 +33,8 @@ class ExpressionLanguageTest extends TestCase
 
     public function setUp()
     {
-        $this->reminder = $this->getMockWithoutInvokingTheOriginalConstructor(TodoReminder::class);
-        $this->todoList = $this->getMockWithoutInvokingTheOriginalConstructor(TodoList::class);
+        $this->reminder = $this->createMock(TodoReminder::class);
+        $this->todoList = $this->createMock(TodoList::class);
 
         $this->subject  = new ExpressionLanguage(
             $this->reminder,

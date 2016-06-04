@@ -28,7 +28,7 @@ class CommandTest extends TestCase
 
     public function setUp()
     {
-        $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->dispatcher = $this->createMock(EventDispatcher::class);
         $this->subject = new Command();
         $this->subject->setEventDispatcher($this->dispatcher);
     }

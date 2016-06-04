@@ -35,9 +35,9 @@ class ClearCacheTest extends TestCase
 
     public function setup()
     {
-        $this->cache   = $this->getMock(Cache::class, [], [], '', false);
-        $this->gateway = $this->getMock(Gateway::class, [], [], '', false);
-        $this->logger  = $this->getMock(Logger::class, [], [], '', false);
+        $this->cache   = $this->createMock(Cache::class);
+        $this->gateway = $this->createMock(Gateway::class);
+        $this->logger  = $this->createMock(Logger::class);
 
         $this->subject = new ClearCache(
             $this->cache,

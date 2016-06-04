@@ -26,7 +26,7 @@ class SpeakersTest extends TestCase
 
     public function setUp()
     {
-        $this->speakers = $this->getMockWithoutInvokingTheOriginalConstructor(SpeakersModel::class);
+        $this->speakers = $this->createMock(SpeakersModel::class);
 
         $this->subject = new Speakers($this->speakers);
     }

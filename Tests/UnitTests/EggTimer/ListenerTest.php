@@ -35,8 +35,8 @@ class ListenerTest extends TestCase
 
     public function setUp()
     {
-        $this->sound      = $this->getMock(Sound::class, [], [], '', false);
-        $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->sound      = $this->createMock(Sound::class);
+        $this->dispatcher = $this->createMock(EventDispatcher::class);
 
         $this->subject = new Listener($this->sound);
         $this->subject->setEventDispatcher($this->dispatcher);

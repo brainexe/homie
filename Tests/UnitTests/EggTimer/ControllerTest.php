@@ -26,7 +26,7 @@ class ControllerTest extends TestCase
 
     public function setUp()
     {
-        $this->timer   = $this->getMock(EggTimer::class, [], [], '', false);
+        $this->timer   = $this->createMock(EggTimer::class);
         $this->subject = new Controller($this->timer);
     }
 

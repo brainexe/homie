@@ -54,11 +54,11 @@ class ListenerTest extends TestCase
 
     public function setUp()
     {
-        $this->valuesGateway = $this->getMock(SensorValuesGateway::class, [], [], '', false);
-        $this->builder       = $this->getMock(SensorBuilder::class, [], [], '', false);
-        $this->dispatcher    = $this->getMock(EventDispatcher::class, [], [], '', false);
-        $this->time          = $this->getMock(Time::class, [], [], '', false);
-        $this->logger        = $this->getMock(Logger::class, [], [], '', false);
+        $this->valuesGateway = $this->createMock(SensorValuesGateway::class);
+        $this->builder       = $this->createMock(SensorBuilder::class);
+        $this->dispatcher    = $this->createMock(EventDispatcher::class);
+        $this->time          = $this->createMock(Time::class);
+        $this->logger        = $this->createMock(Logger::class);
 
         $this->subject = new Listener(
             $this->builder,
@@ -74,7 +74,7 @@ class ListenerTest extends TestCase
     {
         $sensorVo = new SensorVO();
         $sensorVo->type = 'mockType';
-        $sensor = $this->getMock(Sensor::class);
+        $sensor = $this->createMock(Sensor::class);
 
         $this->builder
             ->expects($this->once())
@@ -96,7 +96,7 @@ class ListenerTest extends TestCase
     {
         $sensorVo = new SensorVO();
         $sensorVo->type = 'mockType';
-        $sensor = $this->getMock(Sensor::class);
+        $sensor = $this->createMock(Sensor::class);
 
         $this->builder
             ->expects($this->once())
@@ -125,8 +125,8 @@ class ListenerTest extends TestCase
         $sensorVo->formatter = 'formatter';
 
         /** @var Sensor|MockObject $sensor */
-        $sensor = $this->getMock(Sensor::class);
-        $formatter = $this->getMock(Formatter::class);
+        $sensor = $this->createMock(Sensor::class);
+        $formatter = $this->createMock(Formatter::class);
 
         $value = 42;
         $now = 100;

@@ -39,9 +39,9 @@ class ChangeTest extends TestCase
 
     public function setUp()
     {
-        $this->radio = $this->getMock(Radio::class, [], [], '', false);
-        $this->gpio  = $this->getMock(Gpio::class, [], [], '', false);
-        $this->gateway  = $this->getMock(Gateway::class, [], [], '', false);
+        $this->radio = $this->createMock(Radio::class);
+        $this->gpio  = $this->createMock(Gpio::class);
+        $this->gateway  = $this->createMock(Gateway::class);
 
         $this->subject = new Change(
             $this->radio,

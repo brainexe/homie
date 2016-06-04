@@ -35,8 +35,8 @@ class DS18Test extends TestCase
 
     public function setUp()
     {
-        $this->fileSystem = $this->getMock(FileSystem::class, [], [], '', false);
-        $this->glob       = $this->getMock(Glob::class, [], [], '', false);
+        $this->fileSystem = $this->createMock(FileSystem::class);
+        $this->glob       = $this->createMock(Glob::class);
 
         $this->subject = new DS18($this->fileSystem, $this->glob);
     }

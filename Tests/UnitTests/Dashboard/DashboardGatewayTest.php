@@ -36,7 +36,7 @@ class DashboardGatewayTest extends TestCase
     public function setUp()
     {
         $this->redis       = $this->getRedisMock();
-        $this->idGenerator = $this->getMock(IdGenerator::class);
+        $this->idGenerator = $this->createMock(IdGenerator::class);
 
         $this->subject = new DashboardGateway();
         $this->subject->setRedis($this->redis);

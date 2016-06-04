@@ -36,7 +36,7 @@ class TodoListGatewayTest extends TestCase
     public function setUp()
     {
         $this->redis = $this->getRedisMock();
-        $this->time  = $this->getMock(Time::class, [], [], '', false);
+        $this->time  = $this->createMock(Time::class);
 
         $this->subject = new TodoListGateway();
         $this->subject->setRedis($this->redis);

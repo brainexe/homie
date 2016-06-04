@@ -27,7 +27,7 @@ class LanguageTest extends TestCase
 
     public function setUp()
     {
-        $this->sensorGateway = $this->getMock(SensorGateway::class);
+        $this->sensorGateway = $this->createMock(SensorGateway::class);
         $this->subject = new Language($this->sensorGateway);
     }
 

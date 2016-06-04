@@ -34,8 +34,8 @@ class SerialTest extends TestCase
 
     public function setUp()
     {
-        $this->glob    = $this->getMock(Glob::class, [], [], '', false);
-        $this->client  = $this->getMock(ClientInterface::class, [], [], '', false);
+        $this->glob    = $this->createMock(Glob::class);
+        $this->client  = $this->createMock(ClientInterface::class);
         $this->subject = new Serial($this->glob, $this->client, '/dev/ttyACM*', 57600);
     }
 

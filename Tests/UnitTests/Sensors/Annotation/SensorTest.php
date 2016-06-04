@@ -13,7 +13,7 @@ class SensorTest extends TestCase
     public function testBuild()
     {
         /** @var Reader $reader */
-        $reader = $this->getMock(Reader::class);
+        $reader = $this->createMock(Reader::class);
 
         $subject = new Sensor([]);
         $actual  = $subject->getBuilder($reader);

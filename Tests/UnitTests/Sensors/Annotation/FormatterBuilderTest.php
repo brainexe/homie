@@ -17,7 +17,7 @@ class FormatterBuilderTest extends TestCase
     public function testBuild()
     {
         /** @var Reader $reader */
-        $reader = $this->getMock(Reader::class);
+        $reader = $this->createMock(Reader::class);
 
         $subject = new FormatterBuilder($reader);
 
@@ -26,7 +26,7 @@ class FormatterBuilderTest extends TestCase
         $annotation->name = 'name';
 
         /** @var ReflectionClass|MockObject $class */
-        $class = $this->getMock(ReflectionClass::class, [], [], '', false);
+        $class = $this->createMock(ReflectionClass::class);
         $class->expects($this->once())
             ->method('getMethods')
             ->willReturn([]);

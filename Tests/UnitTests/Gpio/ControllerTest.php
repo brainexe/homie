@@ -35,8 +35,8 @@ class ControllerTest extends TestCase
 
     public function setUp()
     {
-        $this->manager     = $this->getMock(GpioManager::class, [], [], '', false);
-        $this->nodeGateway = $this->getMock(Gateway::class, [], [], '', false);
+        $this->manager     = $this->createMock(GpioManager::class);
+        $this->nodeGateway = $this->createMock(Gateway::class);
 
         $this->subject = new Controller(
             $this->manager,

@@ -31,8 +31,8 @@ class CronTest extends TestCase
 
     public function setup()
     {
-        $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
-        $this->expression = $this->getMock(Expression::class, [], [], '', false);
+        $this->dispatcher = $this->createMock(EventDispatcher::class);
+        $this->expression = $this->createMock(Expression::class);
 
         $this->subject = new Cron(
             $this->dispatcher,

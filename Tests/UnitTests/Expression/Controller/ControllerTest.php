@@ -30,8 +30,8 @@ class ControllerTest extends TestCase
 
     public function setup()
     {
-        $this->gateway  = $this->getMock(Gateway::class, [], [], '', false);
-        $this->language = $this->getMock(Language::class);
+        $this->gateway  = $this->createMock(Gateway::class);
+        $this->language = $this->createMock(Language::class);
 
         $this->subject = new Controller(
             $this->gateway,

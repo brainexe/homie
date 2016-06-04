@@ -42,9 +42,9 @@ class JobsTest extends TestCase
 
     public function setUp()
     {
-        $this->switches   = $this->getMock(Switches::class, [], [], '', false);
-        $this->job        = $this->getMock(Job::class, [], [], '', false);
-        $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->switches   = $this->createMock(Switches::class);
+        $this->job        = $this->createMock(Job::class);
+        $this->dispatcher = $this->createMock(EventDispatcher::class);
 
         $this->subject = new Jobs($this->switches, $this->job);
         $this->subject->setEventDispatcher($this->dispatcher);

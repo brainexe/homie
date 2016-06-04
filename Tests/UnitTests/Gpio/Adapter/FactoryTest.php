@@ -37,8 +37,8 @@ class FactoryTest extends TestCase
 
     public function setUp()
     {
-        $this->raspberry = $this->getMockWithoutInvokingTheOriginalConstructor(Raspberry::class);
-        $this->arduino   = $this->getMockWithoutInvokingTheOriginalConstructor(Arduino::class);
+        $this->raspberry = $this->createMock(Raspberry::class);
+        $this->arduino   = $this->createMock(Arduino::class);
 
         $this->subject = new Factory(
             $this->raspberry,

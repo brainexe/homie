@@ -38,8 +38,8 @@ class CrawlTest extends TestCase
 
     public function setUp()
     {
-        $this->gateway = $this->getMock(SensorGateway::class, [], [], '', false);
-        $this->builder = $this->getMock(SensorBuilder::class, [], [], '', false);
+        $this->gateway = $this->createMock(SensorGateway::class);
+        $this->builder = $this->createMock(SensorBuilder::class);
 
         $this->subject = new Crawl(
             $this->gateway,
@@ -55,7 +55,7 @@ class CrawlTest extends TestCase
         ];
 
         $sensorModels = [
-            $sensorModel = $this->getMock(Sensor::class, [], [], '', false)
+            $sensorModel = $this->createMock(Sensor::class)
         ];
 
         $sensorModel
@@ -91,7 +91,7 @@ Sensor \"myType\" with parameter \"\" already exists", trim($commandTester->getD
         ];
 
         $sensorModels = [
-            $sensorModel = $this->getMock(SearchableTestSensor2::class, [], [], '', false)
+            $sensorModel = $this->createMock(SearchableTestSensor2::class)
         ];
 
         $sensorModel
@@ -133,7 +133,7 @@ No valid sensor found for myType...", trim($commandTester->getDisplay()));
         ];
 
         $sensorModels = [
-            $sensorModel = $this->getMock(SearchableTestSensor2::class, [], [], '', false)
+            $sensorModel = $this->createMock(SearchableTestSensor2::class)
         ];
         $this->gateway
             ->expects($this->once())

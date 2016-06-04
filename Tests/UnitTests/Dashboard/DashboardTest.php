@@ -38,9 +38,9 @@ class DashboardTest extends TestCase
 
     public function setUp()
     {
-        $this->widgetFactory = $this->getMock(WidgetFactory::class, [], [], '', false);
-        $this->gateway       = $this->getMock(DashboardGateway::class, [], [], '', false);
-        $this->idGenerator   = $this->getMock(IdGenerator::class, [], [], '', false);
+        $this->widgetFactory = $this->createMock(WidgetFactory::class);
+        $this->gateway       = $this->createMock(DashboardGateway::class);
+        $this->idGenerator   = $this->createMock(IdGenerator::class);
 
         $this->subject = new Dashboard($this->gateway, $this->widgetFactory);
         $this->subject->setIdGenerator($this->idGenerator);

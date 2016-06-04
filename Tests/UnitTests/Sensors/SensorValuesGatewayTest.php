@@ -43,8 +43,8 @@ class SensorValuesGatewayTest extends TestCase
     public function setUp()
     {
         $this->redis = $this->getRedisMock();
-        $this->time  = $this->getMock(Time::class, [], [], '', false);
-        $this->idGenerator  = $this->getMock(IdGenerator::class, [], [], '', false);
+        $this->time  = $this->createMock(Time::class);
+        $this->idGenerator  = $this->createMock(IdGenerator::class);
 
         $this->subject = new SensorValuesGateway();
         $this->subject->setRedis($this->redis);

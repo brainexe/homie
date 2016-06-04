@@ -53,11 +53,11 @@ class ValuesTest extends TestCase
 
     public function setUp()
     {
-        $this->gateway       = $this->getMock(SensorGateway::class, [], [], '', false);
-        $this->valuesGateway = $this->getMock(SensorValuesGateway::class, [], [], '', false);
-        $this->voBuilder     = $this->getMock(Builder::class, [], [], '', false);
-        $this->dispatcher    = $this->getMock(EventDispatcher::class, [], [], '', false);
-        $this->time          = $this->getMock(Time::class, [], [], '', false);
+        $this->gateway       = $this->createMock(SensorGateway::class);
+        $this->valuesGateway = $this->createMock(SensorValuesGateway::class);
+        $this->voBuilder     = $this->createMock(Builder::class);
+        $this->dispatcher    = $this->createMock(EventDispatcher::class);
+        $this->time          = $this->createMock(Time::class);
 
         $this->subject = new Values(
             $this->gateway,

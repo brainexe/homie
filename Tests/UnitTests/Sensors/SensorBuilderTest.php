@@ -26,7 +26,7 @@ class SensorBuilderTest extends TestCase
     public function testGetSensors()
     {
         /** @var Sensor|MockObject $sensor */
-        $sensor = $this->getMock(Sensor::class);
+        $sensor = $this->createMock(Sensor::class);
         $sensorType = 'sensor_123';
 
         $this->subject->addSensor($sensorType, $sensor);
@@ -38,7 +38,7 @@ class SensorBuilderTest extends TestCase
     public function testGetDefinition()
     {
         /** @var Sensor|MockObject $sensorMock */
-        $sensorMock = $this->getMock(Sensor::class);
+        $sensorMock = $this->createMock(Sensor::class);
         $sensorType = 'sensor_123';
 
         $definition = new Definition();
@@ -82,7 +82,7 @@ class SensorBuilderTest extends TestCase
     public function testBuildValid()
     {
         /** @var Sensor|MockObject $sensorMock */
-        $sensorMock = $this->getMock(Sensor::class);
+        $sensorMock = $this->createMock(Sensor::class);
         $sensorType = 'sensor_123';
 
         $this->subject->addSensor($sensorType, $sensorMock);
@@ -97,7 +97,7 @@ class SensorBuilderTest extends TestCase
         $type = 'mockType';
 
         /** @var Formatter $formatter */
-        $formatter = $this->getMock(Formatter::class);
+        $formatter = $this->createMock(Formatter::class);
 
         $this->subject->addFormatter($type, $formatter);
 
@@ -111,7 +111,7 @@ class SensorBuilderTest extends TestCase
         $type = 'mockType';
 
         /** @var Formatter $formatter */
-        $formatter = $this->getMock(Formatter::class);
+        $formatter = $this->createMock(Formatter::class);
         $this->subject->addFormatter(None::TYPE, $formatter);
 
         $actual = $this->subject->getFormatter($type);
@@ -122,7 +122,7 @@ class SensorBuilderTest extends TestCase
     public function testGetFormatters()
     {
         /** @var Formatter $formatter */
-        $formatter = $this->getMock(Formatter::class);
+        $formatter = $this->createMock(Formatter::class);
         $this->subject->addFormatter('foo', $formatter);
 
         $actual = $this->subject->getFormatters();

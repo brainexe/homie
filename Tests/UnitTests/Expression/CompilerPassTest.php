@@ -18,9 +18,9 @@ class CompilerPassTest extends TestCase
         $subject = new RegisterProvider();
 
         /** @var ContainerBuilder|MockObject $container */
-        $container  = $this->getMock(ContainerBuilder::class, ['getDefinition', 'findTaggedServiceIds']);
-        $definition = $this->getMock(Definition::class);
-        $language   = $this->getMock(Definition::class);
+        $container  = $this->createMock(ContainerBuilder::class);
+        $definition = $this->createMock(Definition::class);
+        $language   = $this->createMock(Definition::class);
 
         $container
             ->expects($this->at(0))

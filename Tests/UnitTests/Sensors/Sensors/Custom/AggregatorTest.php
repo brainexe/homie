@@ -27,7 +27,7 @@ class AggregatorTest extends TestCase
 
     public function setUp()
     {
-        $this->aggregated = $this->getMock(Aggregated::class, [], [], '', false);
+        $this->aggregated = $this->createMock(Aggregated::class);
         $this->subject    = new Aggregator($this->aggregated);
     }
 

@@ -64,13 +64,13 @@ class ControllerTest extends TestCase
 
     public function setUp()
     {
-        $this->gateway       = $this->getMock(SensorGateway::class, [], [], '', false);
-        $this->valuesGateway = $this->getMock(SensorValuesGateway::class, [], [], '', false);
-        $this->chart         = $this->getMock(Chart::class, [], [], '', false);
-        $this->builder       = $this->getMock(SensorBuilder::class, [], [], '', false);
-        $this->voBuilder     = $this->getMock(Builder::class, [], [], '', false);
-        $this->settings      = $this->getMock(Settings::class, [], [], '', false);
-        $this->time          = $this->getMock(Time::class, [], [], '', false);
+        $this->gateway       = $this->createMock(SensorGateway::class);
+        $this->valuesGateway = $this->createMock(SensorValuesGateway::class);
+        $this->chart         = $this->createMock(Chart::class);
+        $this->builder       = $this->createMock(SensorBuilder::class);
+        $this->voBuilder     = $this->createMock(Builder::class);
+        $this->settings      = $this->createMock(Settings::class);
+        $this->time          = $this->createMock(Time::class);
 
         $this->subject = new Controller(
             $this->gateway,

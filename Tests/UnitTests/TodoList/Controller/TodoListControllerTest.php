@@ -36,8 +36,8 @@ class TodoListControllerTest extends TestCase
 
     public function setUp()
     {
-        $this->todoList = $this->getMockWithoutInvokingTheOriginalConstructor(TodoList::class);
-        $this->loadUser = $this->getMockWithoutInvokingTheOriginalConstructor(LoadUser::class);
+        $this->todoList = $this->createMock(TodoList::class);
+        $this->loadUser = $this->createMock(LoadUser::class);
 
         $this->subject = new TodoListController(
             $this->todoList,

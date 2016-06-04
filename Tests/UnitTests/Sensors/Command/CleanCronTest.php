@@ -33,8 +33,8 @@ class CleanCronTest extends TestCase
 
     public function setUp()
     {
-        $this->deleteOldValues = $this->getMock(DeleteOldValues::class, [], [], '', false);
-        $this->gateway         = $this->getMock(SensorGateway::class, [], [], '', false);
+        $this->deleteOldValues = $this->createMock(DeleteOldValues::class);
+        $this->gateway         = $this->createMock(SensorGateway::class);
 
         $this->subject = new CleanCron(
             $this->deleteOldValues,

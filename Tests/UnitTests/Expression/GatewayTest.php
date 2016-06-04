@@ -45,9 +45,9 @@ class GatewayTest extends TestCase
     public function setup()
     {
         $this->redis       = $this->getRedisMock();
-        $this->idGenerator = $this->getMock(IdGenerator::class);
-        $this->language    = $this->getMock(Language::class);
-        $this->dispatcher  = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->idGenerator = $this->createMock(IdGenerator::class);
+        $this->language    = $this->createMock(Language::class);
+        $this->dispatcher  = $this->createMock(EventDispatcher::class);
 
         $this->subject = new Gateway($this->language);
         $this->subject->setRedis($this->redis);

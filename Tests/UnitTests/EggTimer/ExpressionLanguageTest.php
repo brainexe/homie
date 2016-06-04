@@ -27,7 +27,7 @@ class ExpressionLanguageTest extends TestCase
 
     public function setUp()
     {
-        $this->eggTimer = $this->getMock(EggTimer::class, [], [], '', false);
+        $this->eggTimer = $this->createMock(EggTimer::class);
         $this->subject  = new ExpressionLanguage($this->eggTimer);
     }
 

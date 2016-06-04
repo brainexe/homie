@@ -27,7 +27,7 @@ class DiskUsedTest extends TestCase
 
     public function setUp()
     {
-        $this->client = $this->getMock(ClientInterface::class);
+        $this->client = $this->createMock(ClientInterface::class);
         $this->subject = new DiskUsed($this->client);
     }
 

@@ -26,7 +26,7 @@ class ListenerTest extends TestCase
 
     public function setUp()
     {
-        $this->serial  = $this->getMockWithoutInvokingTheOriginalConstructor(Serial::class);
+        $this->serial  = $this->createMock(Serial::class);
         $this->subject = new Listener($this->serial);
     }
 

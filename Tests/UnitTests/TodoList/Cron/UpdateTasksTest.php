@@ -33,8 +33,8 @@ class UpdateTasksTest extends TestCase
 
     public function setUp()
     {
-        $this->todoList = $this->getMock(TodoList::class, [], [], '', false);
-        $this->time     = $this->getMock(Time::class);
+        $this->todoList = $this->createMock(TodoList::class);
+        $this->time     = $this->createMock(Time::class);
 
         $this->subject = new UpdateTasks($this->todoList);
         $this->subject->setTime($this->time);

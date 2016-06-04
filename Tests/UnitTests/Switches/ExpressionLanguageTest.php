@@ -34,8 +34,8 @@ class ExpressionLanguageTest extends TestCase
 
     public function setUp()
     {
-        $this->switches   = $this->getMock(Switches::class, [], [], '', false);
-        $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->switches   = $this->createMock(Switches::class);
+        $this->dispatcher = $this->createMock(EventDispatcher::class);
 
         $this->subject = new ExpressionLanguage($this->switches);
         $this->subject->setEventDispatcher($this->dispatcher);

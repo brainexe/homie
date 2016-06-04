@@ -27,7 +27,7 @@ class ControllerTest extends TestCase
 
     public function setUp()
     {
-        $this->shoppingList = $this->getMock(ShoppingList::class, [], [], '', false);
+        $this->shoppingList = $this->createMock(ShoppingList::class);
 
         $this->subject = new Controller(
             $this->shoppingList

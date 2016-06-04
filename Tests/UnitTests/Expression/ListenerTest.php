@@ -36,9 +36,9 @@ class ListenerTest extends TestCase
 
     public function setup()
     {
-        $this->language  = $this->getMock(Language::class, [], [], '', false);
-        $this->gateway   = $this->getMock(Gateway::class, [], [], '', false);
-        $this->container = $this->getMock(Container::class, [], [], '', false);
+        $this->language  = $this->createMock(Language::class);
+        $this->gateway   = $this->createMock(Gateway::class);
+        $this->container = $this->createMock(Container::class);
 
         $this->subject = new Listener(
             $this->gateway,
@@ -51,7 +51,7 @@ class ListenerTest extends TestCase
     {
         $this->subject->setCachedFunctions(null);
 
-        $event = $this->getMock(AbstractEvent::class, [], ['testinvalid']);
+        $event = $this->createMock(AbstractEvent::class);
 
         $this->subject->dispatch('testinvalid', $event);
     }
@@ -60,14 +60,14 @@ class ListenerTest extends TestCase
     {
         $this->subject->setCachedFunctions(null);
 
-        $event = $this->getMock(AbstractEvent::class, [], ['testinvalid']);
+        $event = $this->createMock(AbstractEvent::class);
 
         $this->subject->dispatch('testinvalid', $event);
     }
 
     public function testEvent()
     {
-        $event = $this->getMock(AbstractEvent::class, [], ['event']);
+        $event = $this->createMock(AbstractEvent::class);
 
         $entity = new Entity();
         $entity->actions = ['action'];

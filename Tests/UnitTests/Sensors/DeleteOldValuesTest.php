@@ -35,7 +35,7 @@ class DeleteOldValuesTest extends TestCase
     public function setUp()
     {
         $this->redis = $this->getRedisMock();
-        $this->time  = $this->getMock(Time::class, [], [], '', false);
+        $this->time  = $this->createMock(Time::class);
 
         $this->subject = new DeleteOldValues();
         $this->subject->setRedis($this->redis);

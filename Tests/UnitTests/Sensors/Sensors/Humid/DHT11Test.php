@@ -33,8 +33,8 @@ class DHT11Test extends TestCase
 
     public function setUp()
     {
-        $this->client     = $this->getMock(ClientInterface::class, [], [], '', false);
-        $this->fileSystem = $this->getMock(Filesystem::class, [], [], '', false);
+        $this->client     = $this->createMock(ClientInterface::class);
+        $this->fileSystem = $this->createMock(Filesystem::class);
 
         $this->subject = new DHT11($this->client, $this->fileSystem, '/ada/');
     }

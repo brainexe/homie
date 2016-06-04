@@ -36,7 +36,7 @@ class SensorGatewayTest extends TestCase
     public function setUp()
     {
         $this->redis       = $this->getRedisMock();
-        $this->idGenerator = $this->getMock(IdGenerator::class);
+        $this->idGenerator = $this->createMock(IdGenerator::class);
 
         $this->subject = new SensorGateway();
         $this->subject->setRedis($this->redis);

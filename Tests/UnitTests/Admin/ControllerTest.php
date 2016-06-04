@@ -26,7 +26,7 @@ class ControllerTest extends TestCase
 
     public function setUp()
     {
-        $this->userProvider = $this->getMock(UserProvider::class, [], [], '', false);
+        $this->userProvider = $this->createMock(UserProvider::class);
 
         $this->subject = new Controller($this->userProvider);
     }

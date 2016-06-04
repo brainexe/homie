@@ -24,7 +24,7 @@ class SensorGraphWidgetTest extends TestCase
 
     public function setUp()
     {
-        $this->gateway = $this->getMock(SensorGateway::class);
+        $this->gateway = $this->createMock(SensorGateway::class);
         $this->subject = new SensorGraph($this->gateway);
     }
 

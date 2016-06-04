@@ -50,8 +50,8 @@ class AddTest extends TestCase
 
     public function setUp()
     {
-        $this->gateway = $this->getMock(SensorGateway::class, [], [], '', false);
-        $this->builder = $this->getMock(SensorBuilder::class, [], [], '', false);
+        $this->gateway = $this->createMock(SensorGateway::class);
+        $this->builder = $this->createMock(SensorBuilder::class);
 
         $this->subject = new Add(
             $this->gateway,
@@ -69,8 +69,8 @@ class AddTest extends TestCase
         $application->add($this->subject);
         $tester = new CommandTester($this->subject);
 
-        $sensor1 = $this->getMock(TestSensorParameterized::class);
-        $sensor2 = $this->getMock(TestSensorParameterized::class);
+        $sensor1 = $this->createMock(TestSensorParameterized::class);
+        $sensor2 = $this->createMock(TestSensorParameterized::class);
 
         $sensors = [
             $sensorType1 = 'type_1' => $sensor1,
@@ -86,11 +86,11 @@ class AddTest extends TestCase
             ->willReturn($sensors);
 
         /** @var HelperSet|MockObject $helperSet */
-        $helperSet = $this->getMock(HelperSet::class);
+        $helperSet = $this->createMock(HelperSet::class);
         $this->subject->setHelperSet($helperSet);
 
         /** @var QuestionHelper|MockObject $helper_set */
-        $questionHelper = $this->getMock(QuestionHelper::class);
+        $questionHelper = $this->createMock(QuestionHelper::class);
 
         $helperSet
             ->expects($this->once())
@@ -131,8 +131,8 @@ class AddTest extends TestCase
         $application->add($this->subject);
         $commandTester = new CommandTester($this->subject);
 
-        $sensor1 = $this->getMock(TestSensorParameterized::class);
-        $sensor2 = $this->getMock(TestSensorParameterized::class);
+        $sensor1 = $this->createMock(TestSensorParameterized::class);
+        $sensor2 = $this->createMock(TestSensorParameterized::class);
 
         $sensors = [
             'type_1' => $sensor1,
@@ -145,7 +145,7 @@ class AddTest extends TestCase
             ->willReturn($sensors);
 
         /** @var HelperSet|MockObject $helperSet */
-        $helperSet = $this->getMock(HelperSet::class);
+        $helperSet = $this->createMock(HelperSet::class);
         $this->subject->setHelperSet($helperSet);
 
         $sensor2
@@ -162,7 +162,7 @@ class AddTest extends TestCase
             ->willReturn($definition2);
 
         /** @var QuestionHelper|MockObject $helper_set */
-        $helper = $this->getMock(QuestionHelper::class);
+        $helper = $this->createMock(QuestionHelper::class);
 
         $name        = 'name';
         $description = 'description';
@@ -261,8 +261,8 @@ class AddTest extends TestCase
         $application->add($this->subject);
         $commandTester = new CommandTester($this->subject);
 
-        $sensor1 = $this->getMock(TestSensorParameterized::class);
-        $sensor2 = $this->getMock(Sensor::class);
+        $sensor1 = $this->createMock(TestSensorParameterized::class);
+        $sensor2 = $this->createMock(Sensor::class);
 
         $definition2 = new Definition();
         $definition2->formatter = 'formatter';
@@ -283,7 +283,7 @@ class AddTest extends TestCase
             ->willReturn($sensors);
 
         /** @var HelperSet|MockObject $helperSet */
-        $helperSet = $this->getMock(HelperSet::class);
+        $helperSet = $this->createMock(HelperSet::class);
         $this->subject->setHelperSet($helperSet);
 
         $sensor2
@@ -292,7 +292,7 @@ class AddTest extends TestCase
             ->willReturn('type_2');
 
         /** @var QuestionHelper|MockObject $helper_set */
-        $helper = $this->getMock(QuestionHelper::class);
+        $helper = $this->createMock(QuestionHelper::class);
 
         $name        = 'name';
         $description = 'description';
@@ -311,7 +311,7 @@ class AddTest extends TestCase
             ->method('getValue')
             ->willReturn(12);
 
-        $formatter = $this->getMock(Formatter::class);
+        $formatter = $this->createMock(Formatter::class);
         $formatter
             ->expects($this->once())
             ->method('formatValue')
@@ -359,7 +359,7 @@ class AddTest extends TestCase
     public function testAddNoParametrized()
     {
         /** @var Sensor $sensor */
-        $sensor = $this->getMock(Sensor::class);
+        $sensor = $this->createMock(Sensor::class);
 
         $sensorVo = new SensorVO();
 
@@ -372,12 +372,12 @@ class AddTest extends TestCase
     {
         $parameter = 'parameter';
         /** @var TestSensorParameterized $sensor */
-        $sensor    = $this->getMock(TestSensorParameterized::class);
+        $sensor    = $this->createMock(TestSensorParameterized::class);
 
         /** @var OutputInterface|MockObject $output */
-        $output = $this->getMock(OutputInterface::class);
+        $output = $this->createMock(OutputInterface::class);
         /** @var InputInterface|MockObject $input */
-        $input  = $this->getMock(InputInterface::class);
+        $input  = $this->createMock(InputInterface::class);
 
         $input
             ->expects($this->exactly(2))
@@ -400,12 +400,12 @@ class AddTest extends TestCase
     public function testAddWithoutSearch()
     {
         /** @var SearchableTestSensor|MockObject $sensor */
-        $sensor    = $this->getMock(SearchableTestSensor::class);
+        $sensor    = $this->createMock(SearchableTestSensor::class);
 
         /** @var OutputInterface|MockObject $output */
-        $output = $this->getMock(OutputInterface::class);
+        $output = $this->createMock(OutputInterface::class);
         /** @var InputInterface|MockObject $input */
-        $input  = $this->getMock(InputInterface::class);
+        $input  = $this->createMock(InputInterface::class);
 
         $sensor
             ->expects($this->once())

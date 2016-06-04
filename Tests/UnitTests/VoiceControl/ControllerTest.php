@@ -27,7 +27,7 @@ class ControllerTest extends TestCase
 
     public function setUp()
     {
-        $this->dispatcher  = $this->getMockWithoutInvokingTheOriginalConstructor(EventDispatcher::class);
+        $this->dispatcher  = $this->createMock(EventDispatcher::class);
 
         $this->subject = new Controller();
         $this->subject->setEventDispatcher($this->dispatcher);

@@ -38,9 +38,9 @@ class PendingTest extends TestCase
 
     public function setUp()
     {
-        $this->dispatcher = $this->getMockWithoutInvokingTheOriginalConstructor(EventDispatcher::class);
-        $this->todoList   = $this->getMockWithoutInvokingTheOriginalConstructor(TodoList::class);
-        $this->cron       = $this->getMockWithoutInvokingTheOriginalConstructor(Expression::class);
+        $this->dispatcher = $this->createMock(EventDispatcher::class);
+        $this->todoList   = $this->createMock(TodoList::class);
+        $this->cron       = $this->createMock(Expression::class);
 
         $this->subject = new Pending(
             $this->todoList,

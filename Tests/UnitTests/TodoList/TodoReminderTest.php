@@ -32,8 +32,8 @@ class TodoReminderTest extends TestCase
 
     public function setUp()
     {
-        $this->todoList        = $this->getMock(TodoList::class, [], [], '', false);
-        $this->eventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->todoList        = $this->createMock(TodoList::class);
+        $this->eventDispatcher = $this->createMock(EventDispatcher::class);
 
         $this->subject = new TodoReminder($this->todoList);
         $this->subject->setEventDispatcher($this->eventDispatcher);

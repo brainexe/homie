@@ -35,7 +35,7 @@ class MessageQueueClientTest extends TestCase
     public function setUp()
     {
         $this->redis = $this->getRedisMock();
-        $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->dispatcher = $this->createMock(EventDispatcher::class);
         $this->subject = new MessageQueueClient();
         $this->subject->setRedis($this->redis);
         $this->subject->setEventDispatcher($this->dispatcher);

@@ -25,7 +25,7 @@ class EspeakTest extends TestCase
 
     public function setUp()
     {
-        $this->client  = $this->getMockWithoutInvokingTheOriginalConstructor(LocalClient::class);
+        $this->client  = $this->createMock(LocalClient::class);
 
         $this->subject = new Espeak($this->client, 'espeak');
     }
