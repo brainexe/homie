@@ -18,9 +18,9 @@ class Builder
     public function build(array $raw) : TodoItemVO
     {
         $itemVo = new TodoItemVO();
-        $itemVo->todoId         = $raw['todoId'];
+        $itemVo->todoId         = (int)$raw['todoId'];
         $itemVo->name           = $raw['name'];
-        $itemVo->userId         = $raw['userId'];
+        $itemVo->userId         = (int)$raw['userId'];
         $itemVo->userName       = $raw['userName'];
         $itemVo->description    = $raw['description'];
         $itemVo->status         = $raw['status'];

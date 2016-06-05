@@ -4,7 +4,7 @@ App.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gette
     $scope.currentUser = {};
     $scope.locales     = [];
 
-    var language = 'en';
+    var language = 'en_US';
     if (localStorage.getItem('language')) {
         language = localStorage.getItem('language');
     }

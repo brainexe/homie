@@ -79,5 +79,4 @@ class DefaultExpressions implements DefaultExpression
         ];
         yield $item;
     }
-
 }

@@ -24,9 +24,9 @@ class BuilderTest extends TestCase
     public function testBuild()
     {
         $raw = [
-            'todoId'         => 'todoId',
+            'todoId'         => 1212,
             'name'           => 'name',
-            'userId'         => 'userId',
+            'userId'         => 3343,
             'userName'       => 'userName',
             'description'    => 'description',
             'status'         => 'status',
@@ -39,9 +39,9 @@ class BuilderTest extends TestCase
         $actual = $this->subject->build($raw);
 
         $expected = new TodoItemVO();
-        $expected->todoId         = 'todoId';
+        $expected->todoId         = 1212;
         $expected->name           = 'name';
-        $expected->userId         = 'userId';
+        $expected->userId         = 3343;
         $expected->userName       = 'userName';
         $expected->description    = 'description';
         $expected->status         = 'status';

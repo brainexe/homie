@@ -45,7 +45,7 @@ App.controller('TodoController', ['$scope', '_', 'Todo', 'UserManagement', funct
 
     $scope.onDelete = function (data) {
         Todo.deleteItem(data.todoId).success(function() {
-            removeByValue($scope.items, data, 'todoId');
+            removeByValue($scope.items, data.todoId, 'todoId');
         });
     };
 

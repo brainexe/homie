@@ -28,12 +28,12 @@ msgstr ""
 
 #: assets/js/models/Controllers.js:9
 #: assets/templates/expression/edit.html:53
-#: assets/templates/expression/list.html:7
+#: assets/templates/expression/list.html:10
 msgid "Actions"
 msgstr ""
 
 #. add switch
-#: assets/templates/crons.html:49
+#: assets/templates/crons.html:51
 #: assets/templates/sensor/add.html:118
 #: assets/templates/sensor/sensor.html:27
 #: assets/templates/shopping_list.html:26
@@ -160,7 +160,7 @@ msgstr ""
 msgid "Command"
 msgstr ""
 
-#: assets/templates/expression/list.html:6
+#: assets/templates/expression/list.html:9
 msgid "Condition"
 msgstr ""
 
@@ -173,11 +173,11 @@ msgstr ""
 msgid "Confirm"
 msgstr ""
 
-#: assets/templates/crons.html:4
+#: assets/templates/crons.html:6
 msgid "Cron-ID"
 msgstr ""
 
-#: assets/templates/expression/expression.html:21
+#: assets/templates/crons.html:1
 msgid "Crons"
 msgstr ""
 
@@ -324,7 +324,7 @@ msgid "Delay"
 msgstr ""
 
 #: assets/templates/admin/users.html:46
-#: assets/templates/crons.html:7
+#: assets/templates/crons.html:9
 #: assets/templates/dashboard.html:105
 #: assets/templates/displays/edit.html:64
 #: assets/templates/egg_timer.html:42
@@ -372,7 +372,7 @@ msgstr ""
 msgid "Duration"
 msgstr ""
 
-#: assets/templates/crons.html:39
+#: assets/templates/crons.html:41
 msgid "e.g. @daily, or 2 * * * *"
 msgstr ""
 
@@ -435,7 +435,7 @@ msgid "Email was sent"
 msgstr ""
 
 #: assets/templates/expression/edit.html:17
-#: assets/templates/expression/list.html:5
+#: assets/templates/expression/list.html:8
 msgid "Enabled"
 msgstr ""
 
@@ -444,7 +444,7 @@ msgid "Espeak browser output"
 msgstr ""
 
 #: assets/templates/expression/edit.html:68
-#: assets/templates/expression/list.html:35
+#: assets/templates/expression/list.html:38
 msgid "Evaluate"
 msgstr ""
 
@@ -452,7 +452,7 @@ msgstr ""
 msgid "Execute"
 msgstr ""
 
-#: assets/templates/crons.html:6
+#: assets/templates/crons.html:8
 msgid "Expression"
 msgstr ""
 
@@ -491,17 +491,16 @@ msgstr ""
 
 #: assets/templates/admin/nodes.html:4
 #: assets/templates/admin/users.html:4
-#: assets/templates/expression/list.html:4
 msgid "Id"
-msgstr ""
-
-#: assets/templates/sensor/add.html:89
-#: assets/templates/sensor/edit.html:117
-msgid "Interval"
 msgstr ""
 
 #: assets/templates/sensor/edit.html:34
 msgctxt "sensor"
+msgid "Interval"
+msgstr ""
+
+#: assets/templates/sensor/add.html:89
+#: assets/templates/sensor/edit.html:117
 msgid "Interval"
 msgstr ""
 
@@ -511,6 +510,10 @@ msgstr ""
 
 #: assets/templates/sensor/edit.html:106
 msgid "Interval:"
+msgstr ""
+
+#: assets/templates/todo.html:24
+msgid "Interval. E.g. '@daily'"
 msgstr ""
 
 #: assets/templates/status.html:5
@@ -561,8 +564,19 @@ msgctxt "gpio"
 msgid "Mode"
 msgstr ""
 
-#: assets/templates/sensor/edit.html:23
-msgctxt "sensor"
+#: assets/templates/admin/nodes.html:23
+#: assets/templates/admin/nodes.html:6
+#: assets/templates/admin/users.html:5
+#: assets/templates/dashboard.html:60
+#: assets/templates/displays/edit.html:8
+#: assets/templates/expression/edit.html:8
+#: assets/templates/expression/list.html:7
+#: assets/templates/sensor/add.html:28
+#: assets/templates/sensor/add.html:36
+#: assets/templates/sensor/edit.html:91
+#: assets/templates/switch/add.html:19
+#: assets/templates/switch/add.html:26
+#: assets/templates/switch/switch.html:11
 msgid "Name"
 msgstr ""
 
@@ -571,18 +585,8 @@ msgctxt "gpio"
 msgid "Name"
 msgstr ""
 
-#: assets/templates/admin/nodes.html:23
-#: assets/templates/admin/nodes.html:6
-#: assets/templates/admin/users.html:5
-#: assets/templates/dashboard.html:60
-#: assets/templates/displays/edit.html:8
-#: assets/templates/expression/edit.html:8
-#: assets/templates/sensor/add.html:28
-#: assets/templates/sensor/add.html:36
-#: assets/templates/sensor/edit.html:91
-#: assets/templates/switch/add.html:19
-#: assets/templates/switch/add.html:26
-#: assets/templates/switch/switch.html:11
+#: assets/templates/sensor/edit.html:23
+msgctxt "sensor"
 msgid "Name"
 msgstr ""
 
@@ -602,7 +606,7 @@ msgstr ""
 msgid "New Widget"
 msgstr ""
 
-#: assets/templates/crons.html:5
+#: assets/templates/crons.html:7
 msgid "Next Run"
 msgstr ""
 
@@ -672,7 +676,7 @@ msgid "Password"
 msgstr ""
 
 #: assets/templates/expression/edit.html:92
-#: assets/templates/expression/list.html:8
+#: assets/templates/expression/list.html:11
 msgid "Payload"
 msgstr ""
 
@@ -748,7 +752,7 @@ msgstr ""
 #: assets/templates/admin/nodes.html:37
 #: assets/templates/admin/users.html:40
 #: assets/templates/dashboard.html:67
-#: assets/templates/expression/edit.html:100
+#: assets/templates/expression/edit.html:105
 #: assets/templates/todo.html:49
 #: assets/templates/widgets/edit.html:26
 msgid "Save"
@@ -756,6 +760,10 @@ msgstr ""
 
 #: assets/templates/displays/displays.html:14
 msgid "Screen #{{screen.displayId}}"
+msgstr ""
+
+#: assets/templates/expression/expression.html:13
+msgid "Search"
 msgstr ""
 
 #. otp
@@ -778,6 +786,7 @@ msgstr ""
 msgid "Select roles"
 msgstr ""
 
+#: assets/templates/expression/parameter.html:16
 #: assets/templates/todo.html:82
 msgid "Select..."
 msgstr ""
@@ -1035,7 +1044,7 @@ msgstr ""
 msgid "Timespan"
 msgstr ""
 
-#: assets/templates/crons.html:31
+#: assets/templates/crons.html:33
 msgid "Timing-ID"
 msgstr ""
 
@@ -1122,11 +1131,6 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
-#: assets/templates/status.html:43
-#: assets/templates/status.html:61
-msgid "Value"
-msgstr ""
-
 #: assets/templates/sensor/edit.html:29
 msgctxt "sensor"
 msgid "Value"
@@ -1134,6 +1138,11 @@ msgstr ""
 
 #: assets/templates/gpio.html:38
 msgctxt "gpio"
+msgid "Value"
+msgstr ""
+
+#: assets/templates/status.html:43
+#: assets/templates/status.html:61
 msgid "Value"
 msgstr ""
 

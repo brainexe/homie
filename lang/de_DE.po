@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: homie\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
 "Last-Translator: Matthias Dötsch <matze@mdoetsch.de>\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.4\n"
-"Plural-Forms: Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: assets/templates/sensor/edit.html:107
 msgid "{{ sensor.interval }} minutes"
@@ -35,12 +35,12 @@ msgid "Action"
 msgstr "Aktion"
 
 #: assets/js/models/Controllers.js:9 assets/templates/expression/edit.html:53
-#: assets/templates/expression/list.html:7
+#: assets/templates/expression/list.html:10
 msgid "Actions"
 msgstr "Aktionen"
 
 #. add switch
-#: assets/templates/crons.html:49 assets/templates/sensor/add.html:118
+#: assets/templates/crons.html:51 assets/templates/sensor/add.html:118
 #: assets/templates/sensor/sensor.html:27
 #: assets/templates/shopping_list.html:26
 #: assets/templates/switch/add_job.html:43 assets/templates/switch/add.html:46
@@ -158,9 +158,9 @@ msgstr "Spalten"
 
 #: assets/templates/widgets/command.html:7
 msgid "Command"
-msgstr ""
+msgstr "Befehl"
 
-#: assets/templates/expression/list.html:6
+#: assets/templates/expression/list.html:9
 msgid "Condition"
 msgstr "Bedingung"
 
@@ -172,11 +172,11 @@ msgstr "Bedingungen"
 msgid "Confirm"
 msgstr "Bestätigen"
 
-#: assets/templates/crons.html:4
+#: assets/templates/crons.html:6
 msgid "Cron-ID"
 msgstr "Cron-ID"
 
-#: assets/templates/expression/expression.html:21
+#: assets/templates/crons.html:1
 msgid "Crons"
 msgstr "Crons"
 
@@ -320,7 +320,7 @@ msgstr "Deadline"
 msgid "Delay"
 msgstr "Verzögerung"
 
-#: assets/templates/admin/users.html:46 assets/templates/crons.html:7
+#: assets/templates/admin/users.html:46 assets/templates/crons.html:9
 #: assets/templates/dashboard.html:105 assets/templates/displays/edit.html:64
 #: assets/templates/egg_timer.html:42 assets/templates/espeak.html:89
 #: assets/templates/status.html:8 assets/templates/switch/jobs.html:8
@@ -361,7 +361,7 @@ msgstr "Hierhin ziehen zum Löschen"
 msgid "Duration"
 msgstr "Richtung"
 
-#: assets/templates/crons.html:39
+#: assets/templates/crons.html:41
 msgid "e.g. @daily, or 2 * * * *"
 msgstr "z.B. @daily, or 2 * * * *"
 
@@ -417,7 +417,7 @@ msgid "Email was sent"
 msgstr "Email wurde gesendet"
 
 #: assets/templates/expression/edit.html:17
-#: assets/templates/expression/list.html:5
+#: assets/templates/expression/list.html:8
 msgid "Enabled"
 msgstr "An"
 
@@ -426,7 +426,7 @@ msgid "Espeak browser output"
 msgstr "Sprachausgabe im Browser"
 
 #: assets/templates/expression/edit.html:68
-#: assets/templates/expression/list.html:35
+#: assets/templates/expression/list.html:38
 msgid "Evaluate"
 msgstr "Ausführen"
 
@@ -434,7 +434,7 @@ msgstr "Ausführen"
 msgid "Execute"
 msgstr "Ausführen"
 
-#: assets/templates/crons.html:6
+#: assets/templates/crons.html:8
 msgid "Expression"
 msgstr "Ausdruck"
 
@@ -456,9 +456,8 @@ msgid "Hello {{ currentUser.username }}!"
 msgstr "Hallo {{ currentUser.username }}!"
 
 #: assets/templates/expression/expression.html:5
-#, fuzzy
 msgid "Hide disabled"
-msgstr "aus"
+msgstr "Deaktivierte ausblenden"
 
 #: assets/templates/user/settings.html:8
 msgid "Hide menu entries"
@@ -470,16 +469,15 @@ msgid "Homie"
 msgstr "Homie"
 
 #: assets/templates/admin/nodes.html:4 assets/templates/admin/users.html:4
-#: assets/templates/expression/list.html:4
 msgid "Id"
 msgstr "Id"
 
-#: assets/templates/sensor/add.html:89 assets/templates/sensor/edit.html:117
+#: assets/templates/sensor/edit.html:34
+msgctxt "sensor"
 msgid "Interval"
 msgstr "Intervall"
 
-#: assets/templates/sensor/edit.html:34
-msgctxt "sensor"
+#: assets/templates/sensor/add.html:89 assets/templates/sensor/edit.html:117
 msgid "Interval"
 msgstr "Intervall"
 
@@ -490,6 +488,10 @@ msgstr "Intervall in Minuten"
 #: assets/templates/sensor/edit.html:106
 msgid "Interval:"
 msgstr "Intervall:"
+
+#: assets/templates/todo.html:24
+msgid "Interval. E.g. '@daily'"
+msgstr "Intervall. Z.B. '@daily'"
 
 #: assets/templates/status.html:5
 msgid "Job-ID"
@@ -537,8 +539,14 @@ msgctxt "gpio"
 msgid "Mode"
 msgstr "Modus"
 
-#: assets/templates/sensor/edit.html:23
-msgctxt "sensor"
+#: assets/templates/admin/nodes.html:23 assets/templates/admin/nodes.html:6
+#: assets/templates/admin/users.html:5 assets/templates/dashboard.html:60
+#: assets/templates/displays/edit.html:8
+#: assets/templates/expression/edit.html:8
+#: assets/templates/expression/list.html:7 assets/templates/sensor/add.html:28
+#: assets/templates/sensor/add.html:36 assets/templates/sensor/edit.html:91
+#: assets/templates/switch/add.html:19 assets/templates/switch/add.html:26
+#: assets/templates/switch/switch.html:11
 msgid "Name"
 msgstr "Name"
 
@@ -547,13 +555,8 @@ msgctxt "gpio"
 msgid "Name"
 msgstr "Name"
 
-#: assets/templates/admin/nodes.html:23 assets/templates/admin/nodes.html:6
-#: assets/templates/admin/users.html:5 assets/templates/dashboard.html:60
-#: assets/templates/displays/edit.html:8
-#: assets/templates/expression/edit.html:8 assets/templates/sensor/add.html:28
-#: assets/templates/sensor/add.html:36 assets/templates/sensor/edit.html:91
-#: assets/templates/switch/add.html:19 assets/templates/switch/add.html:26
-#: assets/templates/switch/switch.html:11
+#: assets/templates/sensor/edit.html:23
+msgctxt "sensor"
 msgid "Name"
 msgstr "Name"
 
@@ -573,7 +576,7 @@ msgstr "Neues Dashboard"
 msgid "New Widget"
 msgstr "Neues Widget"
 
-#: assets/templates/crons.html:5
+#: assets/templates/crons.html:7
 msgid "Next Run"
 msgstr "Nächster Lauf"
 
@@ -639,7 +642,7 @@ msgid "Password"
 msgstr "Passwort"
 
 #: assets/templates/expression/edit.html:92
-#: assets/templates/expression/list.html:8
+#: assets/templates/expression/list.html:11
 msgid "Payload"
 msgstr "Payload"
 
@@ -710,7 +713,7 @@ msgstr "Zeilen"
 
 #: assets/templates/admin/nodes.html:37 assets/templates/admin/users.html:40
 #: assets/templates/dashboard.html:67
-#: assets/templates/expression/edit.html:100 assets/templates/todo.html:49
+#: assets/templates/expression/edit.html:105 assets/templates/todo.html:49
 #: assets/templates/widgets/edit.html:26
 msgid "Save"
 msgstr "Speichern"
@@ -718,6 +721,10 @@ msgstr "Speichern"
 #: assets/templates/displays/displays.html:14
 msgid "Screen #{{screen.displayId}}"
 msgstr "Screen #{{screen.displayId}}"
+
+#: assets/templates/expression/expression.html:13
+msgid "Search"
+msgstr "Suchen"
 
 #. otp
 #: assets/templates/user/otp.html:9
@@ -734,11 +741,10 @@ msgid "Select a type..."
 msgstr "Wähle einen Typ"
 
 #: assets/templates/admin/users.html:29
-#, fuzzy
 msgid "Select roles"
-msgstr "Einen Node wählen..."
+msgstr "Wähle Rollen"
 
-#: assets/templates/todo.html:82
+#: assets/templates/expression/parameter.html:16 assets/templates/todo.html:82
 msgid "Select..."
 msgstr "Wähle..."
 
@@ -888,9 +894,8 @@ msgid "Shopping List"
 msgstr "Einkaufsliste"
 
 #: assets/templates/expression/expression.html:4
-#, fuzzy
 msgid "Show disabled"
-msgstr "aus"
+msgstr "Deaktivierte einblenden"
 
 #: assets/templates/user/login.html:28
 msgid "Sign in"
@@ -979,7 +984,7 @@ msgstr "Timer"
 msgid "Timespan"
 msgstr "Zeitspanne"
 
-#: assets/templates/crons.html:31
+#: assets/templates/crons.html:33
 msgid "Timing-ID"
 msgstr "Timing-ID"
 
@@ -1059,10 +1064,6 @@ msgstr "Benutzername"
 msgid "Users"
 msgstr "Benutzer"
 
-#: assets/templates/status.html:43 assets/templates/status.html:61
-msgid "Value"
-msgstr "Wert"
-
 #: assets/templates/sensor/edit.html:29
 msgctxt "sensor"
 msgid "Value"
@@ -1070,6 +1071,10 @@ msgstr "Wert"
 
 #: assets/templates/gpio.html:38
 msgctxt "gpio"
+msgid "Value"
+msgstr "Wert"
+
+#: assets/templates/status.html:43 assets/templates/status.html:61
 msgid "Value"
 msgstr "Wert"
 
@@ -1214,17 +1219,17 @@ msgstr "Letzter Monat"
 msgid "All time"
 msgstr "Gesamte Zeit"
 
-#: src/Homie/Expression/Controller/Controller.php:88
+#: src/Homie/Expression/Controller/Controller.php:86
 msgid "No expression id defined"
 msgstr "Keine Expression-ID definiert"
 
-#: src/Homie/Expression/Controller/Controller.php:158
+#: src/Homie/Expression/Controller/Controller.php:156
 msgid "No actions defined"
 msgstr "Keine Aktionen definiert"
 
 #: vendor/brainexe/totp/src/OneTimePassword.php:84
 msgid "No one time secret requested"
-msgstr ""
+msgstr "Kein \"One-Time-Secret\" eingestellt"
 
 #: vendor/brainexe/totp/src/OneTimePassword.php:88
 msgid "No one time token given"
@@ -1237,7 +1242,7 @@ msgstr "Ungültiger Token: \"%s\"!"
 
 #: vendor/brainexe/totp/src/OneTimePassword.php:118
 msgid "No email address defined for this user"
-msgstr ""
+msgstr "Keine Email-Adresse definiert"
 
 #: vendor/brainexe/totp/src/OneTimePassword.php:125
 msgid "Invalid username"
@@ -1304,9 +1309,6 @@ msgstr "Es ist ein Fehler aufgetreten"
 
 #~ msgid "Screen"
 #~ msgstr "Bildschirm"
-
-#~ msgid "Search..."
-#~ msgstr "Suchen..."
 
 #~ msgid "Start Time"
 #~ msgstr "Startzeit"

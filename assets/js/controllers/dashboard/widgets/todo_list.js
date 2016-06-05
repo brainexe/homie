@@ -31,7 +31,7 @@ App.service('Widget.todo_list', ['Todo', "_", function(Todo, _) {
             $scope.setStatus = function (item, status) {
                 if (status == 'delete') {
                     Todo.deleteItem(item.todoId);
-                    removeByValue($scope.items, item, item.todoId);
+                    removeByValue($scope.items, item.todoId, 'todoId');
                 } else {
                     item.status = status;
                     Todo.edit(item);
