@@ -88,7 +88,7 @@ class ControllerTest extends TestCase
         $request = new Request();
         $request->request->set('type', $type = 'mockType');
         $request->request->set('name', $name = 'mockName');
-        $request->request->set('options', $options = []);
+        $request->request->set('options', $options = '[1]');
         $nodeId = 42;
 
         $this->idGenerator
@@ -96,7 +96,7 @@ class ControllerTest extends TestCase
             ->method('generateUniqueId')
             ->willReturn($nodeId);
 
-        $node = new Node($nodeId, $type, $name, $options);
+        $node = new Node($nodeId, $type, $name, [1]);
 
         $this->gateway
             ->expects($this->once())
@@ -112,11 +112,11 @@ class ControllerTest extends TestCase
     {
         $request = new Request();
         $request->request->set('name', $name = 'mockName');
-        $request->request->set('options', $options = ['options']);
+        $request->request->set('options', $options = '[2]');
         $nodeId = 42;
 
-        $node = new Node($nodeId, 'type', $name, $options);
-        $node->setOptions($options);
+        $node = new Node($nodeId, 'type', $name, [2]);
+        $node->setOptions([2]);
         $node->setName($name);
 
         $this->gateway

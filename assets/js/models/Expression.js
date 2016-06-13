@@ -28,6 +28,13 @@ App.service('Expression', ['$http', 'Cache', function($http, Cache) {
             });
         },
 
+        validate: function(expression) {
+            return $http.get('/expressions/validate/', {
+                params: {expression: expression},
+                cache: Cache
+            });
+        },
+
         save: function(expression) {
             return $http.put('/expressions/', expression);
         },

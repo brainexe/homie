@@ -1,6 +1,6 @@
 
 App.controller('AdminNodesController', ['$scope', 'Nodes', function ($scope, Nodes) {
-    $scope.nodes      = {};
+    $scope.nodes      = [];
     $scope.currentId  = [];
     $scope.types      = [];
     $scope.newNode    = {};
@@ -13,20 +13,20 @@ App.controller('AdminNodesController', ['$scope', 'Nodes', function ($scope, Nod
 
     $scope.addNode = function(node) {
         Nodes.add(node).success(function(newNode) {
-            $scope.nodes[newNode.nodeId] = newNode
+            $scope.nodes.push(newNode);
         });
     };
 
-    $scope.edit = function(node) {
+    $scope.edit = function($index, node) {
         Nodes.edit(node).success(function(newNode) {
-            $scope.nodes[newNode.nodeId] = newNode;
+            $scope.nodes[$index] = newNode;
             $scope.newNode = {};
         });
     };
 
-    $scope.remove = function(node) {
+    $scope.remove = function($index, node) {
         Nodes.remove(node).success(function() {
-            delete $scope.nodes[node.nodeId];
+            $scope.nodes.splice($index, 1);
         });
     }
 }]);

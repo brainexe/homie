@@ -9,7 +9,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="(nodeId, node) in nodes">
+        <tr ng-repeat="(nodeId, node) in nodes track by $index">
             <td>
                 {{ node.nodeId }}
                 <div ng-if="node.nodeId == currentId" translate>Current Node</div>
@@ -24,7 +24,11 @@
                 </div>
             </td>
             <td>
-                <div ng-if="!node.edit" ng-bind="node.options"></div>
+                <div ng-if="!node.edit">
+                    <ul>
+                        <li ng-repeat="(key, value) in node.options">{{key}}: {{ value }}</li>
+                    </ul>
+                </div>
                 <div ng-if="node.edit">
                     <input type="text" placeholder="{{'Options'|translate}}" class="form-control" ng-model="node.options"/>
                 </div>
@@ -34,13 +38,13 @@
                     <a ng-if="!node.edit" uib-tooltip="{{'Edit'|translate}}" ng-click="node.edit = !node.edit" class="btn btn-default">
                         <span class="glyphicon glyphicon-pencil"></span>
                     </a>
-                    <a ng-if="node.edit" uib-tooltip="{{'Save'|translate}}" ng-click="edit(node)" class="btn btn-default">
+                    <a ng-if="node.edit" uib-tooltip="{{'Save'|translate}}" ng-click="edit($index, node)" class="btn btn-default">
                         <span class="glyphicon glyphicon-save"></span>
                     </a>
                     <a ng-if="node.edit" uib-tooltip="{{'Cancel'|translate}}" ng-click="node.edit = !node.edit" class="btn btn-danger">
                         <span class="glyphicon glyphicon-remove"></span>
                     </a>
-                    <a ng-if="!node.edit" class="btn btn-danger" uib-tooltip="{{'Remove'|translate}}" confirm="remove(node)">
+                    <a ng-if="!node.edit" class="btn btn-danger" uib-tooltip="{{'Remove'|translate}}" confirm="remove($index, node)">
                         <span class="glyphicon glyphicon-remove"></span>
                     </a>
                 </div>

@@ -6,6 +6,7 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Application\UserException;
+use BrainExe\Core\Translation\TranslationTrait;
 use Homie\Switches\Switches;
 use Homie\Switches\VO\ArduinoSwitchVO;
 use Homie\Switches\VO\GpioSwitchVO;
@@ -18,6 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class Controller
 {
+    use TranslationTrait;
 
     /**
      * @var Switches
@@ -108,7 +110,9 @@ class Controller
                 $switchVo->nodeId = $request->request->getAlnum('node');
                 return $switchVo;
             default:
-                throw new UserException(sprintf(_('Invalid switch type: %s'), $request->request->get('type')));
+                throw new UserException(
+                    $this->translate('Invalid switch type: %s', $request->request->get('type'))
+                );
         }
     }
 }

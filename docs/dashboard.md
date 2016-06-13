@@ -5,6 +5,7 @@
 - Command
 - Display
 - EggTimer
+- ExecuteExpression
 - Expression
 - SensorGraph
 - SensorInput

@@ -5,6 +5,7 @@ namespace Homie\TodoList;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\EventDispatcherTrait;
+use BrainExe\Core\Translation\TranslationTrait;
 use Homie\Espeak\EspeakEvent;
 use Homie\Espeak\EspeakVO;
 use Homie\TodoList\VO\TodoItemVO;
@@ -16,6 +17,7 @@ class TodoReminder
 {
 
     use EventDispatcherTrait;
+    use TranslationTrait;
 
     /**
      * @var TodoList
@@ -47,7 +49,7 @@ class TodoReminder
      */
     private function doSendNotification(array $issuesPerState)
     {
-        $text = gettext('Erinnerung');
+        $text = $this->translate('Erinnerung');
         $text .= ': ';
 
         foreach ($issuesPerState as $state => $issuesPerStatus) {
@@ -111,7 +113,7 @@ class TodoReminder
     {
         switch ($count) {
             case 1:
-                return gettext('one');
+                return $this->translate('one');
             default:
                 return (string)$count;
         }

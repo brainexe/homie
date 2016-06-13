@@ -4,6 +4,7 @@ namespace Tests\Homie\Expression;
 
 use Homie\Expression\Language;
 use PHPUnit_Framework_TestCase as TestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class LanguageTest extends TestCase
 {
@@ -15,7 +16,10 @@ class LanguageTest extends TestCase
 
     public function setup()
     {
-        $this->subject = new Language();
+        /** @var ContainerInterface */
+        global $dic;
+
+        $this->subject = new Language($dic);
     }
 
     public function testTime()

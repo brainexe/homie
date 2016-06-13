@@ -18,12 +18,14 @@ class Node implements JsonSerializable, TranslationProvider
     const TYPE_ARDUINO   = 'arduino';
     const TYPE_METAWEAR  = 'metawear';
     const TYPE_SERVER    = 'server';
+    const TYPE_PARTICLE  = 'particle';
 
     const TYPES = [
         self::TYPE_RASPBERRY,
         self::TYPE_ARDUINO,
         self::TYPE_METAWEAR,
         self::TYPE_SERVER,
+        self::TYPE_PARTICLE,
     ];
 
     /**

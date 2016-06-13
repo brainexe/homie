@@ -11,7 +11,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
 /**
- * @ExpressionLanguageAnnotation(name="Switches.ExpressionLanguage")
+ * @ExpressionLanguageAnnotation("Switches.ExpressionLanguage")
  */
 class ExpressionLanguage implements ExpressionFunctionProviderInterface
 {

@@ -7,6 +7,7 @@ use BrainExe\Core\Annotations\EventListener;
 use BrainExe\Core\Annotations\Listen;
 use BrainExe\Core\Cron\Expression;
 use BrainExe\Core\Traits\EventDispatcherTrait;
+use BrainExe\Core\Translation\TranslationTrait;
 use Homie\Espeak\EspeakEvent;
 use Homie\Espeak\EspeakVO;
 use Homie\TodoList\Exception\ItemNotFoundException;
@@ -21,6 +22,7 @@ class Pending
 {
 
     use EventDispatcherTrait;
+    use TranslationTrait;
 
     /**
      * @var TodoList
@@ -74,7 +76,7 @@ class Pending
 
         if (TodoItemVO::STATUS_PENDING == $currentItem->status) {
             $espeakVo = new EspeakVO(
-                sprintf(_('Todo list item %s is open again'), $currentItem->name)
+                $this->translate('Todo list item %s is open again', $currentItem->name)
             );
             $espeakEvent = new EspeakEvent($espeakVo);
             $this->dispatchInBackground($espeakEvent);

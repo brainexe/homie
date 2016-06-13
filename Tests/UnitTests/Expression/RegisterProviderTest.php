@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
-class CompilerPassTest extends TestCase
+class RegisterProviderTest extends TestCase
 {
 
     public function testProcess()
@@ -42,6 +42,11 @@ class CompilerPassTest extends TestCase
             ->expects($this->once())
             ->method('addMethodCall')
             ->with('addCatchall', [new Reference('Expression.Listener')]);
+
+        $language
+            ->expects($this->once())
+            ->method('setArguments')
+            ->with([new Reference('service_container')]);
 
         $subject->process($container);
     }

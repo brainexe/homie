@@ -7,6 +7,8 @@ use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Application\UserException;
 use BrainExe\Core\Traits\FileCacheTrait;
+use BrainExe\Core\Translation\TranslationTrait;
+use Exception;
 use Homie\Expression\Entity;
 use Homie\Expression\Gateway;
 use Homie\Expression\Language;
@@ -19,6 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
 class Controller
 {
     use FileCacheTrait;
+    use TranslationTrait;
 
     /**
      * @var Gateway
@@ -83,7 +86,7 @@ class Controller
     {
         $expressionId = $request->request->get('expressionId');
         if (empty($expressionId)) {
-            throw new UserException(_('No expression id defined'));
+            throw new UserException($this->translate('No expression id defined'));
         }
 
         $entity = $this->getEntity($expressionId);
@@ -121,6 +124,24 @@ class Controller
         return $this->language->evaluate($expression, array());
     }
 
+    /**
+     * @param Request $request
+     * @return bool
+     * @throws UserException
+     * @Route("/expressions/validate/", name="expressions.validate", methods="GET")
+     */
+    public function validateAction(Request $request)
+    {
+        $expression = $request->query->get('expression');
+
+        try {
+            $this->validate($expression);
+
+            return true;
+        } catch (Exception $e) {
+            throw new UserException($e->getMessage());
+        }
+    }
 
     /**
      * @param string $expression
@@ -153,7 +174,7 @@ class Controller
     private function saveEntity(Entity $entity)
     {
         if (empty($entity->actions)) {
-            throw new UserException(_('No actions defined'));
+            throw new UserException($this->translate('No actions defined'));
         }
 
         foreach ($entity->actions as $action) {

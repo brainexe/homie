@@ -38,7 +38,7 @@ module.exports = function (grunt) {
     grunt.registerTask('php_gettext_extract', function () {
         var done = this.async();
         var exec = require('child_process').exec;
-        exec('xgettext --from-code=utf-8 -o lang/pot/php.pot $(find src vendor/brainexe -name *.php)', function(err, stdout, stderr) {
+        exec('xgettext --from-code=utf-8 -o lang/pot/php.pot --keyword=translate $(find src vendor/brainexe -name *.php)', function(err, stdout, stderr) {
             done();
         });
     });

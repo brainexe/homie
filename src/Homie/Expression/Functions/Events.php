@@ -14,7 +14,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
 /**
- * @ExpressionLanguageAnnotation("InputControl.Events")
+ * @ExpressionLanguageAnnotation("Expression.Functions.Events")
  */
 class Events implements ExpressionFunctionProviderInterface
 {

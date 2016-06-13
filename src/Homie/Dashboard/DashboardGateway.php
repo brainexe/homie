@@ -36,7 +36,7 @@ class DashboardGateway
      * @param int $dashboardId
      * @return DashboardVo
      */
-    public function getDashboard($dashboardId) : DashboardVo
+    public function getDashboard(int $dashboardId) : DashboardVo
     {
         $dashboard = new DashboardVo();
         $dashboard->dashboardId = $dashboardId;

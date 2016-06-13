@@ -10,7 +10,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
 /**
- * @ExpressionLanguageAnnotation("InputControl.Log")
+ * @ExpressionLanguageAnnotation("Expression.Functions.Log")
  */
 class Log implements ExpressionFunctionProviderInterface
 {

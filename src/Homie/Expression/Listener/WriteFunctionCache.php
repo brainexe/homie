@@ -40,6 +40,8 @@ class WriteFunctionCache
      */
     public function rebuildCache()
     {
+        $this->language->loadAll();
+
         $functions = [];
         foreach ($this->language->getFunctions() as $name => $function) {
             $evaluator = new ReflectionFunction($function['evaluator']);

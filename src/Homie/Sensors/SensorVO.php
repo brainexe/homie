@@ -36,7 +36,7 @@ class SensorVO
     public $interval;
 
     /**
-     * @var integer
+     * @var int
      */
     public $node;
 

@@ -64,7 +64,7 @@ class Controller
     {
         $nodeId  = $this->generateUniqueId();
         $type    = $request->request->get('type');
-        $options = (array)$request->request->get('options', []);
+        $options = $this->getOptions($request);
         $name    = $request->request->get('name', '');
 
         $node = new Node($nodeId, $type, $name, $options);
@@ -82,7 +82,7 @@ class Controller
      */
     public function edit(Request $request, int $nodeId) : Node
     {
-        $options = (array)$request->request->get('options');
+        $options = $this->getOptions($request);
         $name    = $request->request->get('name');
 
         $node = $this->gateway->get($nodeId);
@@ -105,5 +105,14 @@ class Controller
         unset($request);
 
         return $this->gateway->delete($nodeId);
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    protected function getOptions(Request $request) : array
+    {
+        return (array)json_decode($request->request->get('options'), true);
     }
 }

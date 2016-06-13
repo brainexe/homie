@@ -2,6 +2,7 @@
 
 namespace Tests\Homie\Expression\Controller;
 
+use Exception;
 use Homie\Expression\Controller\Controller;
 use Homie\Expression\Entity;
 use Homie\Expression\Gateway;
@@ -96,6 +97,43 @@ class ControllerTest extends TestCase
         $actual = $this->subject->functions();
 
         $this->assertInternalType('array', $actual);
+    }
+
+    public function testValidateSuccess()
+    {
+        $expression = 'myExpression';
+
+        $request = new Request();
+        $request->query->set('expression', $expression);
+
+        $this->language
+            ->expects($this->once())
+            ->method('parse')
+            ->with($expression);
+
+        $actual = $this->subject->validateAction($request);
+
+        $this->assertTrue($actual);
+    }
+
+    /**
+     * @expectedException \BrainExe\Core\Application\UserException
+     * @expectedExceptionMessage some error
+     */
+    public function testValidateError()
+    {
+        $expression = 'myExpression';
+
+        $request = new Request();
+        $request->query->set('expression', $expression);
+
+        $this->language
+            ->expects($this->once())
+            ->method('parse')
+            ->with($expression)
+            ->willThrowException(new Exception('some error'));
+
+        $this->subject->validateAction($request);
     }
 
     /**

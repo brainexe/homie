@@ -2,6 +2,7 @@
 
 namespace Homie\Sensors\Formatter;
 
+use BrainExe\Core\Translation\TranslationTrait;
 use Homie\Sensors\CompilerPass\Annotation\SensorFormatter;
 
 /**
@@ -10,6 +11,8 @@ use Homie\Sensors\CompilerPass\Annotation\SensorFormatter;
 class Percentage extends Formatter
 {
     const TYPE = 'percentage';
+
+    use TranslationTrait;
 
     /**
      * @param double $value
@@ -26,6 +29,6 @@ class Percentage extends Formatter
      */
     public function getEspeakText($value) : string
     {
-        return sprintf(_('%d Percent'), $value);
+        return $this->translate('%d Percent', $value);
     }
 }

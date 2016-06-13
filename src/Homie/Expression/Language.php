@@ -2,30 +2,79 @@
 
 namespace Homie\Expression;
 
+use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
-use BrainExe\Core\EventDispatcher\Events\TimingEvent;
-use Exception;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\ExpressionLanguage\Expression;
+use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
-use Symfony\Component\ExpressionLanguage\ParserCache\ParserCacheInterface;
 
 /**
- * @todo avoid lazy service. Register providers lazy instead
- * @Service("Expression.Language", public=false, lazy=true)
+ * @Service("Expression.Language", public=false)
  */
 class Language extends ExpressionLanguage
 {
     /**
-     * {@inheritdoc}
+     * @var array
      */
-    public function __construct(ParserCacheInterface $cache = null, array $providers = [])
+    public $lazyLoad = [];
+
+    /**
+     * @var ContainerInterface
+     */
+    private $container;
+
+    /**
+     * @Inject({"@service_container"})
+     * @param ContainerInterface $container
+     */
+    public function __construct(ContainerInterface $container)
     {
-        parent::__construct($cache, $providers);
+        parent::__construct();
 
         $this->registerNativeFunctions();
-        $this->registerPropertyFunctions();
-        $this->registerTiming();
-        $this->registerCounter();
+
+        $this->container = $container;
+    }
+
+    /**
+     * @param string $functionName
+     * @param string $serviceId
+     */
+    public function lazyRegister(string $functionName, string $serviceId)
+    {
+        $this->lazyLoad[$serviceId] = true;
+
+        $this->register($functionName, function (...$params) use ($serviceId, $functionName) {
+            $this->ensureLoaded($serviceId);
+
+            return $this->getFunctions()[$functionName]['compiler'](...$params);
+        }, function (...$params) use ($functionName, $serviceId) {
+            $this->ensureLoaded($serviceId);
+
+            return $this->getFunctions()[$functionName]['evaluator'](...$params);
+        });
+    }
+
+    public function loadAll()
+    {
+        foreach (array_keys($this->lazyLoad) as $serviceId) {
+            $this->ensureLoaded($serviceId);
+        }
+    }
+
+    /**
+     * @param string $serviceId
+     */
+    private function ensureLoaded(string $serviceId)
+    {
+        if (isset($this->lazyLoad[$serviceId])) {
+            /** @var ExpressionFunctionProviderInterface $provider */
+            $provider = $this->container->get($serviceId);
+            $this->registerProvider($provider);
+
+            unset($this->lazyLoad[$serviceId]);
+        }
     }
 
     /**
@@ -83,53 +132,5 @@ class Language extends ExpressionLanguage
                 return $function(...$params);
             });
         }
-    }
-
-    private function registerPropertyFunctions()
-    {
-        $this->register('setProperty', function (string $property, string $value) {
-            return sprintf('($entity->payload[%s] = %s)', $property, $value);
-        }, function (array $parameters, string $property, string $value) {
-            /** @var Entity $entity */
-            $entity                     = $parameters['entity'];
-            $entity->payload[$property] = $value;
-        });
-
-        $this->register('getProperty', function (string $property) {
-            return sprintf('$entity->payload[%s]', $property);
-        }, function (array $parameters, string $property) {
-            /** @var Entity $entity */
-            $entity = $parameters['entity'];
-
-            return $entity->payload[$property];
-        });
-    }
-
-    private function registerCounter()
-    {
-        $this->register('increaseCounter', function () {
-            throw new Exception('increaseCounter() not implemented');
-        }, function (array $parameters) {
-            /** @var Entity $entity */
-            $entity = $parameters['entity'];
-            if (empty($entity->payload['counter'])) {
-                $entity->payload['counter'] = 1;
-            } else {
-                $entity->payload['counter']++;
-            }
-        });
-    }
-
-    private function registerTiming()
-    {
-        $this->register('isTiming', function (string $timingId) {
-            return sprintf('($eventName == \'%s\' && $event->getTimingId() === %s)', TimingEvent::TIMING_EVENT, $timingId);
-        }, function (array $parameters, string $isTiming) {
-            if ($parameters['eventName'] !== TimingEvent::TIMING_EVENT) {
-                return false;
-            }
-
-            return $parameters['event']->getTimingId() === $isTiming;
-        });
     }
 }

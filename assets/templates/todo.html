@@ -21,7 +21,7 @@
 				<input
 						type="text"
 						class="form-control"
-						placeholder="Interval. E.g. '@daily'"
+						placeholder="{{'Interval. E.g. \'@daily\''|translate}}"
 						ng-model="currentItem.cronExpression"
 						ng-enter="submit(currentItem)"
 						/>
@@ -95,5 +95,5 @@
 		</div>
 	</div>
 
-	<div style="clear:both;"></div>
+	<div class="clearfix"></div>
 </div>
