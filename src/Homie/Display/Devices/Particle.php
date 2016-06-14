@@ -5,13 +5,13 @@ namespace Homie\Display\Devices;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
-use Homie\Arduino\SerialEvent;
+use Homie\Expression\Event\EvaluateEvent;
 use Homie\Node;
 
 /**
- * @Service("Display.Devices.Arduino", public=false)
+ * @Service("Display.Devices.Particle", public=false)
  */
-class Arduino implements DeviceInterface
+class Particle implements DeviceInterface
 {
 
     /**
@@ -34,9 +34,16 @@ class Arduino implements DeviceInterface
      */
     public function display(Node $node, string $content)
     {
-        $pin = (int)$node->getOption('displayPin');
+        $function = $node->getOption('displayFunction');
 
-        $event = new SerialEvent(SerialEvent::LCD, $pin, $content);
+        $call = sprintf(
+            'callParticleFunction(%s, "%s", "%s")',
+            $node->getNodeId(),
+            $function,
+            $content
+        );
+
+        $event = new EvaluateEvent($call);
 
         $this->dispatcher->dispatchInBackground($event);
     }

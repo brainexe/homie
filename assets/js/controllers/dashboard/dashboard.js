@@ -2,9 +2,12 @@
 App.controller('DashboardController', ['$scope', '$uibModal', '$q', 'Dashboard', 'UserManagement.Settings', function($scope, $uibModal, $q, Dashboard, Settings) {
     $scope.editMode = false;
 
-    function selectDashboard(dashboard) {
+    function selectDashboard(dashboard, notSaveOption) {
         var order = [];
-        Settings.set('selectedDashboardId', dashboard.dashboardId);
+
+        if (!notSaveOption) {
+            Settings.set('selectedDashboardId', dashboard.dashboardId);
+        }
 
         if (dashboard.order) {
             order = dashboard.order.split(',').map(function(id) {
@@ -40,7 +43,7 @@ App.controller('DashboardController', ['$scope', '$uibModal', '$q', 'Dashboard',
         }
 
         if (selectedId) {
-            selectDashboard(dashboards.dashboards[selectedId]);
+            selectDashboard(dashboards.dashboards[selectedId], true);
         }
     });
 
@@ -141,7 +144,7 @@ App.controller('DashboardController', ['$scope', '$uibModal', '$q', 'Dashboard',
             }
         });
         modal.result.then(function(data) {
-            selectDashboard(data);
+            selectDashboard(data, true);
         });
 	}
 }]);

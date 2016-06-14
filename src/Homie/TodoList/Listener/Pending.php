@@ -51,7 +51,7 @@ class Pending
      */
     public function handleEditEvent(TodoListEvent $event)
     {
-        $itemVo = $event->getItemVo();
+        $itemVo   = $event->getItemVo();
         $newState = $event->getChanges()['status'] ?? '';
 
         if (TodoItemVO::STATUS_PENDING == $newState && !empty($itemVo->cronExpression)) {

@@ -65,7 +65,33 @@ class PendingTest extends TestCase
         $this->subject->handleEditEvent($event);
     }
 
-    public function testHandlePendingEventWithExpiredItm()
+    public function testHandleEditEventWithCronExpression()
+    {
+        $itemVo = new TodoItemVO();
+        $itemVo->cronExpression = '@daily';
+        $nextRun = 100000;
+
+        $event = new TodoListEvent($itemVo, TodoListEvent::EDIT, [
+            'status' => TodoItemVO::STATUS_PENDING
+        ]);
+
+        $newEvent = new TodoListEvent($itemVo, TodoListEvent::PENDING);
+
+        $this->cron
+            ->expects($this->once())
+            ->method('getNextRun')
+            ->with('@daily')
+            ->willReturn($nextRun);
+
+        $this->dispatcher
+            ->expects($this->once())
+            ->method('dispatchInBackground')
+            ->with($newEvent, $nextRun);
+
+        $this->subject->handleEditEvent($event);
+    }
+
+    public function testHandlePendingEventWithExpiredItem()
     {
         $itemVo = new TodoItemVO();
         $itemVo->todoId = 42;

@@ -2,9 +2,12 @@
 
 namespace Tests\Homie\Expression;
 
+use Homie\Expression\Action;
 use Homie\Expression\Language;
 use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\ExpressionLanguage\ExpressionFunction;
+use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
 class LanguageTest extends TestCase
 {
@@ -55,5 +58,37 @@ class LanguageTest extends TestCase
         $actual = $this->subject->getFunctions();
 
         $this->assertInternalType('array', $actual);
+    }
+
+    public function testLazyLoad()
+    {
+        /** @var ContainerInterface $dic */
+        global $dic;
+
+        $serviceId    = 'testservice';
+        $functionName = 'myFunction';
+
+        $this->subject->lazyRegister($functionName, $serviceId);
+
+        $testExpression = new class implements ExpressionFunctionProviderInterface {
+            /**
+             * @return ExpressionFunction[] An array of Function instances
+             */
+            public function getFunctions()
+            {
+                yield new Action('myFunction', function (array $params, $a, $b, $c) {
+                    unset($params);
+                    return "$a/$b/$c";
+                });
+            }
+        };
+
+        $dic->set($serviceId, $testExpression);
+
+        $this->subject->loadAll();
+
+        $actual = $this->subject->evaluate('myFunction(1, 2, 3)');
+
+        $this->assertEquals('1/2/3', $actual);
     }
 }

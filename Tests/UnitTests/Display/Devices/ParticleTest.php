@@ -3,20 +3,20 @@
 namespace Tests\Homie\Display\Devices;
 
 use BrainExe\Core\EventDispatcher\EventDispatcher;
-use Homie\Arduino\SerialEvent;
-use Homie\Display\Devices\Arduino;
+use Homie\Expression\Event\EvaluateEvent;
+use Homie\Display\Devices\Particle;
 use Homie\Node;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 
 /**
- * @covers Homie\Display\Devices\Arduino
+ * @covers Homie\Display\Devices\Particle
  */
-class ArduinoTest extends TestCase
+class ParticleTest extends TestCase
 {
 
     /**
-     * @var Arduino
+     * @var Particle
      */
     private $subject;
 
@@ -29,18 +29,17 @@ class ArduinoTest extends TestCase
     {
         $this->dispatcher = $this->createMock(EventDispatcher::class);
 
-        $this->subject = new Arduino($this->dispatcher);
+        $this->subject = new Particle($this->dispatcher);
     }
 
     public function testOutput()
     {
         $string = "foo";
-        $pin    = 10;
 
-        $event = new SerialEvent(SerialEvent::LCD, $pin, $string);
+        $node = new Node(1010, Node::TYPE_SERVER);
+        $node->setOptions(['displayFunction' => 'drawDisplay']);
 
-        $node = new Node(1, Node::TYPE_SERVER);
-        $node->setOptions(['displayPin' => $pin]);
+        $event = new EvaluateEvent('callParticleFunction(1010, "drawDisplay", "foo")');
 
         $this->dispatcher
             ->expects($this->once())

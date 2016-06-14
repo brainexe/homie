@@ -68,16 +68,27 @@ class ParticleRequest implements ExpressionFunctionProviderInterface
                 $args
             );
 
-            try {
-                /** @var Response $response */
-                $response = $this->client->request('POST', $url, $options);
-
-                $json = json_decode($response->getBody()->getContents(), true);
-
-                return $json['return_value'];
-            } catch (Exception $e) {
-                return $e->getMessage();
-            }
+            return $this->makeRequest('POST', $url);
         });
     }
+
+    /**
+     * @param string $method
+     * @param string $url
+     * @return string
+     */
+    private function makeRequest(string $method, string $url) : string
+    {
+        try {
+            /** @var Response $response */
+            $response = $this->client->request($method, $url);
+
+            $json = json_decode($response->getBody()->getContents(), true);
+
+            return $json['return_value'];
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
 }

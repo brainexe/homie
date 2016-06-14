@@ -5,6 +5,7 @@ namespace Homie;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\JsonSerializableTrait;
 use BrainExe\Core\Translation\TranslationProvider;
+use InvalidArgumentException;
 use JsonSerializable;
 
 /**
@@ -105,6 +106,19 @@ class Node implements JsonSerializable, TranslationProvider
     public function getOptions() : array
     {
         return $this->options;
+    }
+
+    /**
+     * @param string $key
+     * @return string
+     */
+    public function getOption(string $key) : string
+    {
+        if (!array_key_exists($key, $this->options)) {
+            throw new InvalidArgumentException(sprintf('Invalid option: %s', $key));
+        }
+
+        return $this->options[$key];
     }
 
     /**

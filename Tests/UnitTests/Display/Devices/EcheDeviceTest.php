@@ -3,6 +3,7 @@
 namespace Tests\Homie\Display\Devices;
 
 use Homie\Display\Devices\EchoDevice;
+use Homie\Node;
 use PHPUnit_Framework_TestCase as TestCase;
 
 /**
@@ -25,8 +26,10 @@ class GatewayTest extends TestCase
     {
         $string = "foo\nbar";
 
+        $node = new Node(1, Node::TYPE_SERVER);
+
         $this->expectOutputString($string);
 
-        $this->subject->display($string);
+        $this->subject->display($node, $string);
     }
 }

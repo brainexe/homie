@@ -18,7 +18,7 @@ class NodeTest extends TestCase
         $nodeId  = 42;
         $type    = 'type';
         $name    = 'name';
-        $options = ['options'];
+        $options = ['key' => 'value'];
 
         $this->subject = new Node($nodeId, $type, $name, $options);
         $this->assertEquals($nodeId, $this->subject->getNodeId());
@@ -37,5 +37,24 @@ class NodeTest extends TestCase
 
         $this->assertEquals($expected, $this->subject->jsonSerialize());
         $this->assertEquals($options, $this->subject->getOptions());
+        $this->assertEquals('value', $this->subject->getOption('key'));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Invalid option: undefinedKey
+     */
+    public function testUndefinedOption()
+    {
+        $nodeId  = 42;
+        $type    = 'type';
+        $name    = 'name';
+        $options = ['key' => 'value'];
+
+        $this->subject = new Node($nodeId, $type, $name, $options);
+
+        $this->assertEquals('value', $this->subject->getOption('key'));
+
+        $this->subject->getOption('undefinedKey');
     }
 }

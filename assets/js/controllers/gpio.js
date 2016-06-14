@@ -7,7 +7,8 @@ App.controller('GpioController', ['$scope', 'Gpio', 'Nodes', function ($scope, G
 
     var supportedNodes = [
         'arduino',
-        'raspberry'
+        'raspberry',
+        'particle'
     ];
 
     Nodes.getData().success(function(data) {
@@ -39,10 +40,9 @@ App.controller('GpioController', ['$scope', 'Gpio', 'Nodes', function ($scope, G
     /**
      * @param {Object} pin
      */
-    function savePin(pin) {
+    function savePin(pin, $index) {
         Gpio.savePin($scope.nodeId, pin.id, pin.direction, pin.value).success(function (pin) {
-            // todo replace in array
-            $scope.gpios[pin.id] = pin;
+            $scope.gpios[$index] = pin;
         });
     }
 
@@ -55,18 +55,20 @@ App.controller('GpioController', ['$scope', 'Gpio', 'Nodes', function ($scope, G
 
     /**
      * @param {Object} pin
+     * @param $index
      */
-    $scope.changeValue = function (pin) {
+    $scope.changeValue = function (pin, $index) {
         pin.value = pin.value ? 0 : 1;
-        savePin(pin);
+        savePin(pin, $index);
     };
 
     /**
      * @param {Object} pin
+     * @param $index
      */
-    $scope.changeMode = function (pin) {
+    $scope.changeMode = function (pin, $index) {
         // todo IN|OUT
         pin.mode = pin.mode ? 0 : 1;
-        savePin(pin);
+        savePin(pin, $index);
     };
 }]);

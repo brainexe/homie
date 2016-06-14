@@ -42,7 +42,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="pin in gpios|orderObjectBy:orderBy">
+		<tr ng-repeat="pin in gpios|orderObjectBy:orderBy track by $index">
 			<td>
 				<span ng-if="pin.softwareId">#{{ pin.softwareId }}</span>
 			</td>
@@ -56,12 +56,12 @@
                 </div>
             </td>
 			<td>
-				<a ng-click="changeMode(pin)" ng-if="pin.softwareId" class="btn btn-{{ pin.mode ? 'success' : 'info'}}">
+				<a ng-click="changeMode(pin, $index)" ng-if="pin.softwareId" class="btn btn-{{ pin.mode ? 'success' : 'info'}}">
 					{{ pin.mode ? 'OUT' : 'IN'}}
 				</a>
 			</td>
 			<td>
-				<a ng-click="changeValue(pin)"  ng-if="pin.softwareId" class="btn btn-{{ pin.value ? 'success' : 'danger'}}">
+				<a ng-click="changeValue(pin, $index)"  ng-if="pin.softwareId" class="btn btn-{{ pin.value ? 'success' : 'danger'}}">
 					{{ pin.value ? 'OFF' : 'ON' }}
 				</a>
 			</td>
