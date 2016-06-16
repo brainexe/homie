@@ -1,3 +1,4 @@
+
 <div class="modal-content">
 	<div class="modal-header">
 		<button
@@ -11,7 +12,17 @@
 		<h4 class="modal-title" translate>Sensors</h4>
 	</div>
 	<div class="modal-body navbar-forms navbar-lefts">
-		<table class="table table-bordered table-striped table-hover">
+        <input
+                ng-model="search"
+                class="expression-search form-control"
+                type="text"
+                placeholder="{{'Search'|translate}}"
+        />
+        <input ng-model="showDisabled" class="big-checkbox" type="checkbox" />
+
+        <br />
+
+        <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
                     <th>
@@ -38,14 +49,14 @@
                     <th translate>Edit</th>
                 </tr>
             </thead>
-            <tr ng-repeat="sensor in sensors|orderObjectBy:orderBy">
+            <tr ng-repeat="sensor in searchSensor(search)|orderObjectBy:orderBy track by $index">
                 <td>
                     <div ng-if="!sensor.edit" uib-tooltip="{{ sensor.sensorId }}">
                         <b>{{sensor.type|translateToken:'sensor.{0}.name'}}</b>
                         <br />
                         <span class="small" ng-if="sensor.parameter">({{ sensor.parameter }})</span>
                         <p>
-                            {{sensor.tags}}
+                            {{sensor.tags|join:', '}}
                         </p>
                     </div>
                     <div ng-if="sensor.edit">
@@ -132,7 +143,7 @@
                         <a ng-click="edit(sensor)" class="btn btn-primary btn-sm">
                             <span class="glyphicon glyphicon-edit"></span>
                         </a>
-                        <a confirm="deleteSensor(sensor)" class="btn btn-danger btn-sm">
+                        <a confirm="deleteSensor(sensor, $index)" class="btn btn-danger btn-sm">
                             <span class="glyphicon glyphicon-remove"></span>
                         </a>
                     </div>

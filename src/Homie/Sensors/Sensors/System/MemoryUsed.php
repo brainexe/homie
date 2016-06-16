@@ -26,7 +26,6 @@ class MemoryUsed extends AbstractSensor
         preg_match('/MemTotal:\s*(\d+) kB/', $content, $total);
         preg_match('/MemAvailable:\s*(\d+) kB/', $content, $available);
 
-        // todo
         $usedkb = @$total[1] - @$available[1];
 
         return $usedkb * 1000; // -> Bytes

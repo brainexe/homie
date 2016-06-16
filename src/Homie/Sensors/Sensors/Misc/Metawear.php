@@ -4,6 +4,7 @@ namespace Homie\Sensors\Sensors\Misc;
 
 use BrainExe\Annotations\Annotations\Inject;
 use GuzzleHttp\Client;
+use Homie\Node;
 use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Exception\InvalidSensorValueException;
@@ -76,6 +77,7 @@ class Metawear extends AbstractSensor implements Searchable
         $definition            = new Definition();
         $definition->type      = Definition::TYPE_NONE;
         $definition->formatter = None::TYPE;
+        $definition->requiredNode = [Node::TYPE_METAWEAR];
 
         return $definition;
     }

@@ -64,7 +64,7 @@ class ParticleRequestTest extends TestCase
             ->method('request')
             ->with(
                 'POST',
-                'https://api.particle.io/v1/devices/myDeviceId/myFunction?access_token=myAccessToken&args=args'
+                'https://api.particle.io/v1/devices/myDeviceId/myFunction?access_token=myAccessToken&format=raw&args=args'
             )
             ->willThrowException(new Exception('myException'));
 
@@ -88,12 +88,7 @@ class ParticleRequestTest extends TestCase
         ]);
 
         $body = new BufferStream();
-        $body->write('{
-          "id": "d957040100c6c8ec4272cb6b",
-          "last_app": "",
-          "connected": true,
-          "return_value": 18150
-        }');
+        $body->write('18150');
 
         $response = new Response();
         $response = $response->withBody($body);
@@ -109,7 +104,7 @@ class ParticleRequestTest extends TestCase
             ->method('request')
             ->with(
                 'POST',
-                'https://api.particle.io/v1/devices/myDeviceId/myFunction?access_token=myAccessToken&args=args'
+                'https://api.particle.io/v1/devices/myDeviceId/myFunction?access_token=myAccessToken&format=raw&args=args'
             )
             ->willReturn($response);
 
@@ -133,6 +128,20 @@ class ParticleRequestTest extends TestCase
         /** @var ExpressionFunction $function */
         $actual = iterator_to_array($this->subject->getFunctions());
         $function = $actual[0];
+
+        $compiler = $function->getCompiler();
+        $compiler();
+    }
+
+    /**
+     * @expectedException Exception
+     * @expectedExceptionMessage Function "getParticleFunction" is not allowed as trigger
+     */
+    public function testGetParticleFunctionCompiler()
+    {
+        /** @var ExpressionFunction $function */
+        $actual = iterator_to_array($this->subject->getFunctions());
+        $function = $actual[1];
 
         $compiler = $function->getCompiler();
         $compiler();

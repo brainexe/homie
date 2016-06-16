@@ -18,7 +18,8 @@ use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
  */
 class ParticleRequest implements ExpressionFunctionProviderInterface
 {
-    const FUNCTION_URL = 'https://api.particle.io/v1/devices/%s/%s?access_token=%s&args=%s';
+    const DEVICE_URL   = 'https://api.particle.io/v1/devices/%s?access_token=%s&args=%s';
+    const FUNCTION_URL = 'https://api.particle.io/v1/devices/%s/%s?access_token=%s&format=raw&args=%s';
 
     /**
      * @var Client
@@ -41,7 +42,7 @@ class ParticleRequest implements ExpressionFunctionProviderInterface
     public function __construct(Client $client, Gateway $node)
     {
         $this->client = $client;
-        $this->node = $node;
+        $this->node   = $node;
     }
 
     /**
@@ -57,18 +58,36 @@ class ParticleRequest implements ExpressionFunctionProviderInterface
         ) {
             unset($variables);
 
-            $node    = $this->node->get($nodeId);
-            $options = $node->getOptions();
+            $node = $this->node->get($nodeId);
 
             $url = sprintf(
                 self::FUNCTION_URL,
-                $options['deviceId'],
+                $node->getOption('deviceId'),
                 $function,
-                $options['accessToken'],
+                $node->getOption('accessToken'),
                 $args
             );
 
             return $this->makeRequest('POST', $url);
+        });
+
+        yield new Action('getParticleFunction', function (
+            array $variables,
+            int $nodeId
+        ) {
+            unset($variables);
+
+            $node = $this->node->get($nodeId);
+
+            $url = sprintf(
+                self::DEVICE_URL,
+                $node->getOption('deviceId'),
+                $node->getOption('accessToken')
+            );
+
+            $data = json_decode($this->makeRequest('GET', $url), true);
+
+            return $data['functions'];
         });
     }
 
@@ -77,15 +96,13 @@ class ParticleRequest implements ExpressionFunctionProviderInterface
      * @param string $url
      * @return string
      */
-    private function makeRequest(string $method, string $url) : string
+    private function makeRequest(string $method, string $url)
     {
         try {
             /** @var Response $response */
             $response = $this->client->request($method, $url);
 
-            $json = json_decode($response->getBody()->getContents(), true);
-
-            return $json['return_value'];
+            return $response->getBody()->getContents();
         } catch (Exception $e) {
             return $e->getMessage();
         }

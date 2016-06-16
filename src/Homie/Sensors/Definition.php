@@ -2,6 +2,7 @@
 
 namespace Homie\Sensors;
 
+use Homie\Node;
 use Homie\Sensors\Formatter\None;
 
 class Definition
@@ -29,4 +30,10 @@ class Definition
      * @var string
      */
     public $unit;
+
+    /**
+     * @see \Homie\Node
+     * @var string[]
+     */
+    public $requiredNode = [];
 }

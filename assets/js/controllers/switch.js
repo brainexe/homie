@@ -79,5 +79,9 @@ App.controller('SwitchController', ['$scope', 'Switches', 'Nodes', 'MessageQueue
         MessageQueue.deleteJob(jobId).then(function() {
             delete $scope.jobs[jobId];
         });
-    }
+    };
+
+    $scope.save = function () {
+        // TODO
+    };
 }]);

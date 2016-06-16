@@ -84,9 +84,20 @@
                             type="number"
                             min="-1"
                             required
-                            max="2000"
+                            max="86400"
                             class="form-control"
                             placeholder="{{'Interval'|translate}}"
+                    />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" translate>Color</label>
+                <div class="col-sm-10">
+                    <input
+                            ng-model="newSensor.color"
+                            type="text"
+                            class="form-control"
+                            placeholder="{{'Color'|translate}}"
                     />
                 </div>
             </div>
@@ -111,7 +122,6 @@
                             {{tag}}
                         </ui-select-choices>
                     </ui-select>
-                    {{newSensor.tags}}
                 </div>
             </div>
 

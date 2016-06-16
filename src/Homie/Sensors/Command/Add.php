@@ -101,6 +101,8 @@ class Add extends Command
         $type        = $sensor->getSensorType();
         $formatter   = $sensor->getDefinition()->formatter;
 
+        $sensorVo->node = $node;
+
         // get test value
         try {
             $testValue = $sensor->getValue($sensorVo);
@@ -117,7 +119,6 @@ class Add extends Command
         $sensorVo->type        = $type;
         $sensorVo->description = $description;
         $sensorVo->interval    = $interval;
-        $sensorVo->node        = $node;
         $sensorVo->formatter   = $formatter;
         $sensorVo->color       = '#' . substr(md5($name), 0, 6);
 

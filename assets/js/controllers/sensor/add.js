@@ -1,18 +1,25 @@
 
-App.controller('AddSensorsController', ['$scope', '$rootScope', '$uibModalInstance', 'Sensor', 'Nodes', function($scope, $rootScope, $uibModalInstance, Sensor, Nodes) {
+App.controller('AddSensorsController', ['$scope', '$rootScope', '$uibModalInstance', 'Sensor', 'Nodes', 'Sensor.Tags', function($scope, $rootScope, $uibModalInstance, Sensor, Nodes, Tags) {
     $scope.sensors    = [];
     $scope.parameters = false;
     $scope.nodes      = {};
-    $scope.tags       = []; // todo add Tags
+    $scope.tags       = [];
     $scope.newSensor  = {
         interval: 5,
-        tags: []
+        tags: [],
+        color: randomHexColor()
     };
+
+    function randomHexColor() {
+        return '#' + Math.floor(Math.random() * 16777215).toString(16);
+    }
 
     Sensor.getAll().success(function(data) {
         $scope.sensors    = data.sensors;
         $scope.types      = data.types;
         $scope.formatters = data.formatters;
+
+        $scope.tags = Tags.getTagsFromSensors(data.sensors);
     });
 
     Nodes.getData().success(function(data) {
