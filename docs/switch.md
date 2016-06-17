@@ -8,5 +8,6 @@
  - add templates/switch/addForm/XXX.html
  - implement SwitchVO in PHP
  - implement SwitchInterface in PHP
+ - add to SwitchVO::TYPES
  - add creation of new VO to Switches/Controller/Add.php
  - add creation of new VO to Switches/Switches.php

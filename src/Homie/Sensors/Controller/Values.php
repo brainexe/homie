@@ -110,7 +110,6 @@ class Values
      * @param Request $request
      * @param int $sensorId
      * @return bool
-     * @Guest
      * @Route("/sensors/{sensorId}/value/", name="sensor.submitValue", methods="POST")
      */
     public function addValue(Request $request, int $sensorId) : bool

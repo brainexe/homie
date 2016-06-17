@@ -52,8 +52,8 @@
                                             ng-click="changeLanguage(locale)"
                                             ng-repeat="locale in locales"
                                             class="btn btn-default btn-flat"
-                                            ng-bind="locale"
                                     >
+                                        {{locale|translateToken:'locale.{0}'}}
                                     </a>
                                 </div>
 

@@ -11,8 +11,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Basepath: pot\n"
+"X-Poedit-SearchPath-0: all.pot\n"
 
-#: assets/templates/sensor/edit.html:107
+#: assets/templates/sensor/edit.html:118
 msgid "{{ sensor.interval }} minutes"
 msgstr "{{ sensor.interval }} Minuten"
 
@@ -40,8 +42,8 @@ msgid "Actions"
 msgstr "Aktionen"
 
 #. add switch
-#: assets/templates/crons.html:51 assets/templates/sensor/add.html:118
-#: assets/templates/sensor/sensor.html:27
+#: assets/templates/crons.html:51 assets/templates/sensor/add.html:128
+#: assets/templates/sensor/sensor.html:28
 #: assets/templates/shopping_list.html:26
 #: assets/templates/switch/add_job.html:43 assets/templates/switch/add.html:46
 #: assets/templates/user/tokens.html:38 assets/templates/widgets/new.html:49
@@ -108,7 +110,7 @@ msgstr "Browser Cache"
 msgid "Browser Notification"
 msgstr "Browser Benachrichtigungen"
 
-#: assets/templates/admin/nodes.html:40 assets/templates/admin/users.html:43
+#: assets/templates/admin/nodes.html:44 assets/templates/admin/users.html:43
 #: assets/templates/modal/confirm.html:8
 msgid "Cancel"
 msgstr "Abbrechen"
@@ -138,7 +140,7 @@ msgstr "Zeichen pro Zeile"
 msgid "Cheese..."
 msgstr "Cheese..."
 
-#: assets/templates/sensor/add.html:122 assets/templates/sensor/edit.html:144
+#: assets/templates/sensor/add.html:132 assets/templates/sensor/edit.html:155
 #: assets/templates/todo.html:37 assets/templates/widgets/edit.html:25
 #: assets/templates/widgets/new.html:48
 msgid "Close"
@@ -148,7 +150,8 @@ msgstr "Schließen"
 msgid "Code"
 msgstr "Code"
 
-#: assets/templates/sensor/edit.html:27
+#: assets/templates/sensor/add.html:100 assets/templates/sensor/add.html:94
+#: assets/templates/sensor/edit.html:38
 msgid "Color"
 msgstr "Farbe"
 
@@ -221,90 +224,98 @@ msgid "dashboard.widget.egg_timer.name"
 msgstr "Eieruhr"
 
 #: cache/translation_token.html:7
+msgid "dashboard.widget.execute_expression.description"
+msgstr ""
+
+#: cache/translation_token.html:8
+msgid "dashboard.widget.execute_expression.name"
+msgstr "Ausdruck ausführen"
+
+#: cache/translation_token.html:9
 msgid "dashboard.widget.expression.description"
 msgstr "Evaluiert jeden Beliebigen Ausdruck"
 
-#: cache/translation_token.html:8
+#: cache/translation_token.html:10
 msgid "dashboard.widget.expression.name"
 msgstr "Ausdruck"
 
-#: cache/translation_token.html:11
+#: cache/translation_token.html:13
 msgid "dashboard.widget.sensor_graph.description"
 msgstr "Zeigt ein Diagramm von einem oder mehreren Sensoren"
 
-#: cache/translation_token.html:12
+#: cache/translation_token.html:14
 msgid "dashboard.widget.sensor_graph.name"
 msgstr "Sensor Diagramm"
 
-#: cache/translation_token.html:13
+#: cache/translation_token.html:15
 msgid "dashboard.widget.sensor_input.description"
 msgstr "Sensor-Werte eingeben"
 
-#: cache/translation_token.html:14
+#: cache/translation_token.html:16
 msgid "dashboard.widget.sensor_input.name"
 msgstr "Sensor Diagramm"
 
-#: cache/translation_token.html:9
+#: cache/translation_token.html:11
 msgid "dashboard.widget.sensor.description"
 msgstr "Zeige die Übersicht eines Sensors "
 
-#: cache/translation_token.html:10
+#: cache/translation_token.html:12
 msgid "dashboard.widget.sensor.name"
 msgstr "Sensor Übersiht"
 
-#: cache/translation_token.html:15
+#: cache/translation_token.html:17
 msgid "dashboard.widget.shopping_list.description"
 msgstr "Simple einkaufsliste"
 
-#: cache/translation_token.html:16
+#: cache/translation_token.html:18
 msgid "dashboard.widget.shopping_list.name"
 msgstr "Einkaufsliste"
 
-#: cache/translation_token.html:17
+#: cache/translation_token.html:19
 msgid "dashboard.widget.speak.description"
 msgstr "Spricht einen gewünschten Satz"
 
-#: cache/translation_token.html:18
+#: cache/translation_token.html:20
 msgid "dashboard.widget.speak.name"
 msgstr "Sprechen"
 
-#: cache/translation_token.html:19
+#: cache/translation_token.html:21
 msgid "dashboard.widget.status.description"
 msgstr "Zeigt den Status über das Homie-System"
 
-#: cache/translation_token.html:20
+#: cache/translation_token.html:22
 msgid "dashboard.widget.status.name"
 msgstr "Status"
 
-#: cache/translation_token.html:21
+#: cache/translation_token.html:23
 msgid "dashboard.widget.switch.description"
 msgstr "Schalter direkt via Dashboard schalten"
 
-#: cache/translation_token.html:22
+#: cache/translation_token.html:24
 msgid "dashboard.widget.switch.name"
 msgstr "Schalter"
 
-#: cache/translation_token.html:23
+#: cache/translation_token.html:25
 msgid "dashboard.widget.time.description"
 msgstr "Zeigt die aktuelle Uhrzeit"
 
-#: cache/translation_token.html:24
+#: cache/translation_token.html:26
 msgid "dashboard.widget.time.name"
 msgstr "Zeit"
 
-#: cache/translation_token.html:25
+#: cache/translation_token.html:27
 msgid "dashboard.widget.todo_list.description"
 msgstr "Simple Todo-Liste"
 
-#: cache/translation_token.html:26
+#: cache/translation_token.html:28
 msgid "dashboard.widget.todo_list.name"
 msgstr "Todo-Liste"
 
-#: cache/translation_token.html:27
+#: cache/translation_token.html:29
 msgid "dashboard.widget.webcam.description"
 msgstr "Schnappschüsse über das Dashboard machen"
 
-#: cache/translation_token.html:28
+#: cache/translation_token.html:30
 msgid "dashboard.widget.webcam.name"
 msgstr "Webcam"
 
@@ -333,7 +344,7 @@ msgid "Delete this token?"
 msgstr "Diesen Token löschen?"
 
 #: assets/templates/sensor/add.html:41 assets/templates/sensor/add.html:47
-#: assets/templates/sensor/edit.html:92 assets/templates/switch/add.html:31
+#: assets/templates/sensor/edit.html:103 assets/templates/switch/add.html:31
 #: assets/templates/switch/add.html:37 assets/templates/todo.html:18
 msgid "Description"
 msgstr "Beschreibung"
@@ -342,7 +353,7 @@ msgstr "Beschreibung"
 msgid "Disable One Time Secret"
 msgstr "One Time Secret deaktivieren"
 
-#: assets/templates/sensor/edit.html:126
+#: assets/templates/sensor/edit.html:137
 msgid "disabled"
 msgstr "aus"
 
@@ -373,10 +384,10 @@ msgstr "z.B. 10s, 30m, 1h"
 msgid "e.g. isTiming(10 minutes)"
 msgstr "z.B. isTiming(10 minutes)"
 
-#: assets/templates/admin/nodes.html:34 assets/templates/admin/users.html:37
+#: assets/templates/admin/nodes.html:38 assets/templates/admin/users.html:37
 #: assets/templates/dashboard.html:44 assets/templates/dashboard.html:95
 #: assets/templates/displays/displays.html:16
-#: assets/templates/sensor/edit.html:38 assets/templates/sensor/sensor.html:24
+#: assets/templates/sensor/edit.html:49 assets/templates/sensor/sensor.html:25
 #: assets/templates/todo.html:90
 msgid "Edit"
 msgstr "Editieren"
@@ -431,15 +442,17 @@ msgid "Evaluate"
 msgstr "Ausführen"
 
 #: assets/templates/widgets/command.html:11
+#: assets/templates/widgets/execute_expression.html:11
 msgid "Execute"
 msgstr "Ausführen"
 
 #: assets/templates/crons.html:8
+#: assets/templates/widgets/execute_expression.html:7
 msgid "Expression"
 msgstr "Ausdruck"
 
-#: assets/templates/sensor/add.html:94 assets/templates/sensor/add.html:97
-#: assets/templates/sensor/edit.html:59 assets/templates/sensor/edit.html:60
+#: assets/templates/sensor/add.html:105 assets/templates/sensor/add.html:108
+#: assets/templates/sensor/edit.html:70 assets/templates/sensor/edit.html:71
 msgid "Formatter"
 msgstr "Formatierer"
 
@@ -451,7 +464,7 @@ msgstr "Gehe zu Dateien"
 msgid "GPIO"
 msgstr "GPIO"
 
-#: assets/index.html:84
+#: assets/index.html:85
 msgid "Hello {{ currentUser.username }}!"
 msgstr "Hallo {{ currentUser.username }}!"
 
@@ -472,12 +485,12 @@ msgstr "Homie"
 msgid "Id"
 msgstr "Id"
 
-#: assets/templates/sensor/edit.html:34
+#: assets/templates/sensor/edit.html:45
 msgctxt "sensor"
 msgid "Interval"
 msgstr "Intervall"
 
-#: assets/templates/sensor/add.html:89 assets/templates/sensor/edit.html:117
+#: assets/templates/sensor/add.html:89 assets/templates/sensor/edit.html:128
 msgid "Interval"
 msgstr "Intervall"
 
@@ -485,7 +498,7 @@ msgstr "Intervall"
 msgid "Interval in minutes"
 msgstr "Intervall in Minuten"
 
-#: assets/templates/sensor/edit.html:106
+#: assets/templates/sensor/edit.html:117
 msgid "Interval:"
 msgstr "Intervall:"
 
@@ -509,6 +522,14 @@ msgstr "Schlüssel"
 #: assets/templates/displays/edit.html:43
 msgid "Lines"
 msgstr "Zeilen"
+
+#: cache/translation_token.html:31
+msgid "locale.de_DE"
+msgstr "Deutsch"
+
+#: cache/translation_token.html:32
+msgid "locale.en_US"
+msgstr "Englisch"
 
 #: assets/js/models/Controllers.js:25 assets/templates/user/login.html:2
 msgid "Login"
@@ -544,19 +565,19 @@ msgstr "Modus"
 #: assets/templates/displays/edit.html:8
 #: assets/templates/expression/edit.html:8
 #: assets/templates/expression/list.html:7 assets/templates/sensor/add.html:28
-#: assets/templates/sensor/add.html:36 assets/templates/sensor/edit.html:91
+#: assets/templates/sensor/add.html:36 assets/templates/sensor/edit.html:102
 #: assets/templates/switch/add.html:19 assets/templates/switch/add.html:26
 #: assets/templates/switch/switch.html:11
 msgid "Name"
 msgstr "Name"
 
-#: assets/templates/gpio.html:28
-msgctxt "gpio"
+#: assets/templates/sensor/edit.html:34
+msgctxt "sensor"
 msgid "Name"
 msgstr "Name"
 
-#: assets/templates/sensor/edit.html:23
-msgctxt "sensor"
+#: assets/templates/gpio.html:28
+msgctxt "gpio"
 msgid "Name"
 msgstr "Name"
 
@@ -585,19 +606,23 @@ msgstr "Nächster Lauf"
 msgid "Node"
 msgstr "Knoten"
 
-#: cache/translation_token.html:29
+#: cache/translation_token.html:33
 msgid "node.arduino.name"
 msgstr "Arduino"
 
-#: cache/translation_token.html:30
+#: cache/translation_token.html:34
 msgid "node.metawear.name"
 msgstr "Metawear"
 
-#: cache/translation_token.html:31
+#: cache/translation_token.html:35
+msgid "node.particle.name"
+msgstr "Particle"
+
+#: cache/translation_token.html:36
 msgid "node.raspberry.name"
 msgstr "Raspberry Pi"
 
-#: cache/translation_token.html:32
+#: cache/translation_token.html:37
 msgid "node.server.name"
 msgstr "Server"
 
@@ -625,12 +650,12 @@ msgstr "An"
 msgid "One Time Token"
 msgstr "Einmal-Token"
 
-#: assets/templates/admin/nodes.html:29 assets/templates/admin/nodes.html:7
+#: assets/templates/admin/nodes.html:33 assets/templates/admin/nodes.html:7
 msgid "Options"
 msgstr "Optionen"
 
 #: assets/templates/sensor/add.html:52 assets/templates/sensor/add.html:58
-#: assets/templates/sensor/edit.html:79 assets/templates/sensor/edit.html:80
+#: assets/templates/sensor/edit.html:90 assets/templates/sensor/edit.html:91
 msgid "Parameter"
 msgstr "Parameter"
 
@@ -683,7 +708,7 @@ msgstr "Registrieren"
 msgid "Reload"
 msgstr "Neu laden"
 
-#: assets/templates/admin/nodes.html:43
+#: assets/templates/admin/nodes.html:47
 msgid "Remove"
 msgstr "Entfernen"
 
@@ -711,7 +736,7 @@ msgstr "Rollen"
 msgid "Rows"
 msgstr "Zeilen"
 
-#: assets/templates/admin/nodes.html:37 assets/templates/admin/users.html:40
+#: assets/templates/admin/nodes.html:41 assets/templates/admin/users.html:40
 #: assets/templates/dashboard.html:67
 #: assets/templates/expression/edit.html:105 assets/templates/todo.html:49
 #: assets/templates/widgets/edit.html:26
@@ -723,6 +748,7 @@ msgid "Screen #{{screen.displayId}}"
 msgstr "Screen #{{screen.displayId}}"
 
 #: assets/templates/expression/expression.html:13
+#: assets/templates/sensor/edit.html:19
 msgid "Search"
 msgstr "Suchen"
 
@@ -752,131 +778,135 @@ msgstr "Wähle..."
 msgid "Send Token via Mail"
 msgstr "Token per Mail schicken"
 
-#: cache/translation_token.html:33
+#: cache/translation_token.html:38
 msgid "sensor.barometer.bmp085.name"
 msgstr "Barometer (BMP085)"
 
-#: cache/translation_token.html:34
+#: cache/translation_token.html:39
 msgid "sensor.brightness.webcam.name"
 msgstr "Helligkeit (via Webcam)"
 
-#: cache/translation_token.html:35
+#: cache/translation_token.html:40
 msgid "sensor.custom.aggregator.name"
 msgstr "Aggregator"
 
-#: cache/translation_token.html:36
+#: cache/translation_token.html:41
 msgid "sensor.custom.expression.name"
 msgstr "Expression"
 
-#: cache/translation_token.html:37
+#: cache/translation_token.html:42
 msgid "sensor.custom.metawear.name"
 msgstr "Metawear"
 
-#: cache/translation_token.html:38
+#: cache/translation_token.html:43
+msgid "sensor.custom.particle.name"
+msgstr "Particle"
+
+#: cache/translation_token.html:44
 msgid "sensor.custom.script.name"
 msgstr "Script"
 
-#: cache/translation_token.html:39
+#: cache/translation_token.html:45
 msgid "sensor.decibel.webcam.name"
 msgstr "Dezibell (via Webcam)"
 
-#: cache/translation_token.html:40
+#: cache/translation_token.html:46
 msgid "sensor.formatter.barometer.description"
 msgstr ""
 
-#: cache/translation_token.html:41
+#: cache/translation_token.html:47
 msgid "sensor.formatter.barometer.name"
 msgstr "Barometer"
 
-#: cache/translation_token.html:42
+#: cache/translation_token.html:48
 msgid "sensor.formatter.bytes.description"
 msgstr ""
 
-#: cache/translation_token.html:43
+#: cache/translation_token.html:49
 msgid "sensor.formatter.bytes.name"
 msgstr "Bytes"
 
-#: cache/translation_token.html:44
+#: cache/translation_token.html:50
 msgid "sensor.formatter.load.description"
 msgstr ""
 
-#: cache/translation_token.html:45
+#: cache/translation_token.html:51
 msgid "sensor.formatter.load.name"
 msgstr "Load"
 
-#: cache/translation_token.html:46
+#: cache/translation_token.html:52
 msgid "sensor.formatter.none.description"
 msgstr ""
 
-#: cache/translation_token.html:47
+#: cache/translation_token.html:53
 msgid "sensor.formatter.none.name"
 msgstr "Keine"
 
-#: cache/translation_token.html:48
+#: cache/translation_token.html:54
 msgid "sensor.formatter.number.description"
 msgstr ""
 
-#: cache/translation_token.html:49
+#: cache/translation_token.html:55
 msgid "sensor.formatter.number.name"
 msgstr "Nummer"
 
-#: cache/translation_token.html:50
+#: cache/translation_token.html:56
 msgid "sensor.formatter.percentage.description"
 msgstr ""
 
-#: cache/translation_token.html:51
+#: cache/translation_token.html:57
 msgid "sensor.formatter.percentage.name"
 msgstr "Prozent"
 
-#: cache/translation_token.html:52
+#: cache/translation_token.html:58
 msgid "sensor.formatter.temperature.description"
 msgstr ""
 
-#: cache/translation_token.html:53
+#: cache/translation_token.html:59
 msgid "sensor.formatter.temperature.name"
 msgstr "Temperatur"
 
-#: cache/translation_token.html:54
+#: cache/translation_token.html:60
 msgid "sensor.humid.absolute.name"
 msgstr "Absolute Feuchtigkeit"
 
-#: cache/translation_token.html:55
+#: cache/translation_token.html:61
 msgid "sensor.humid.dht11.name"
 msgstr "Feuchtigkeit (DHT11)"
 
-#: cache/translation_token.html:57
+#: cache/translation_token.html:63
 msgid "sensor.system.disk_used_percent.name"
 msgstr "Festplatte in %"
 
-#: cache/translation_token.html:56
+#: cache/translation_token.html:62
 msgid "sensor.system.disk_used.name"
 msgstr "Festplatte in Bytes"
 
-#: cache/translation_token.html:58
+#: cache/translation_token.html:64
 msgid "sensor.system.load.name"
 msgstr "System Load"
 
-#: cache/translation_token.html:59
+#: cache/translation_token.html:65
 msgid "sensor.system.memory_used.name"
 msgstr "Verb. RAM"
 
-#: cache/translation_token.html:60
+#: cache/translation_token.html:66
 msgid "sensor.system.redis.name"
 msgstr "Redis Statstik"
 
-#: cache/translation_token.html:61
+#: cache/translation_token.html:67
 msgid "sensor.temperature.dht11.name"
 msgstr "Temperatur (DHT11)"
 
-#: cache/translation_token.html:62
+#: cache/translation_token.html:68
 msgid "sensor.temperature.ds18.name"
 msgstr "Temperatur (DS18)"
 
-#: cache/translation_token.html:63
+#: cache/translation_token.html:69
 msgid "sensor.temperature.onboard.name"
 msgstr "Temperatur (Chip)"
 
-#: assets/js/models/Controllers.js:8 assets/templates/sensor/edit.html:11
+#: assets/js/models/Controllers.js:8 assets/templates/sensor/edit.html:12
 msgid "Sensors"
 msgstr "Sensoren"
 
@@ -901,7 +931,7 @@ msgstr "Deaktivierte einblenden"
 msgid "Sign in"
 msgstr "Login"
 
-#: assets/index.html:61
+#: assets/index.html:62
 msgid "Sign out"
 msgstr "Log-Out"
 
@@ -937,11 +967,15 @@ msgstr "Abschicken"
 msgid "Switch"
 msgstr "Schalter"
 
-#: cache/translation_token.html:64
+#: cache/translation_token.html:70
+msgid "switch.arduino.name"
+msgstr "Arduino"
+
+#: cache/translation_token.html:71
 msgid "switch.gpio.name"
 msgstr "GPIO Pin"
 
-#: cache/translation_token.html:65
+#: cache/translation_token.html:72
 msgid "switch.radio.name"
 msgstr "443 MHz Funkstecker"
 
@@ -949,7 +983,7 @@ msgstr "443 MHz Funkstecker"
 msgid "Switches"
 msgstr "Schalter"
 
-#: assets/templates/sensor/add.html:106 assets/templates/sensor/edit.html:66
+#: assets/templates/sensor/add.html:117 assets/templates/sensor/edit.html:77
 msgid "Tags"
 msgstr "Tags"
 
@@ -980,7 +1014,7 @@ msgstr "Zeit"
 msgid "Timer"
 msgstr "Timer"
 
-#: assets/templates/sensor/sensor.html:34
+#: assets/templates/sensor/sensor.html:35
 msgid "Timespan"
 msgstr "Zeitspanne"
 
@@ -996,27 +1030,27 @@ msgstr "Titel"
 msgid "ToDo List"
 msgstr "ToDo-Liste"
 
-#: cache/translation_token.html:66
+#: cache/translation_token.html:73
 msgid "todo.status.completed.name"
 msgstr "Abgeschlossen"
 
-#: cache/translation_token.html:67
+#: cache/translation_token.html:74
 msgid "todo.status.delete.name"
 msgstr "Löschen"
 
-#: cache/translation_token.html:68
+#: cache/translation_token.html:75
 msgid "todo.status.open.name"
 msgstr "Offen"
 
-#: cache/translation_token.html:69
+#: cache/translation_token.html:76
 msgid "todo.status.pending.name"
 msgstr "Ausstehend"
 
-#: cache/translation_token.html:70
+#: cache/translation_token.html:77
 msgid "todo.status.progress.name"
 msgstr "In Arbeit"
 
-#: assets/templates/sensor/sensor.html:5
+#: assets/templates/sensor/sensor.html:6
 msgid "Toggle navigation"
 msgstr "Navigation klappen"
 
@@ -1036,15 +1070,15 @@ msgstr "Trend"
 msgid "Two Factor Authentication"
 msgstr "Zwei-Faktor Authentifizierung"
 
-#: assets/templates/sensor/edit.html:18
-msgctxt "sensor"
+#: assets/templates/admin/nodes.html:5 assets/templates/sensor/add.html:16
+#: assets/templates/sensor/edit.html:63 assets/templates/sensor/edit.html:64
+#: assets/templates/status.html:6 assets/templates/switch/add.html:8
+#: assets/templates/widgets/new.html:26
 msgid "Type"
 msgstr "Typ"
 
-#: assets/templates/admin/nodes.html:5 assets/templates/sensor/add.html:16
-#: assets/templates/sensor/edit.html:52 assets/templates/sensor/edit.html:53
-#: assets/templates/status.html:6 assets/templates/switch/add.html:8
-#: assets/templates/widgets/new.html:26
+#: assets/templates/sensor/edit.html:29
+msgctxt "sensor"
 msgid "Type"
 msgstr "Typ"
 
@@ -1064,8 +1098,7 @@ msgstr "Benutzername"
 msgid "Users"
 msgstr "Benutzer"
 
-#: assets/templates/sensor/edit.html:29
-msgctxt "sensor"
+#: assets/templates/status.html:43 assets/templates/status.html:61
 msgid "Value"
 msgstr "Wert"
 
@@ -1074,7 +1107,8 @@ msgctxt "gpio"
 msgid "Value"
 msgstr "Wert"
 
-#: assets/templates/status.html:43 assets/templates/status.html:61
+#: assets/templates/sensor/edit.html:40
+msgctxt "sensor"
 msgid "Value"
 msgstr "Wert"
 
@@ -1102,40 +1136,40 @@ msgstr "Willkommen zurück {0}!"
 msgid "Your current avatar"
 msgstr "Dein aktueller Avatar"
 
-#: src/Homie/Switches/Controller/Controller.php:111
+#: src/Homie/Switches/Controller/Controller.php:114
 #, php-format
 msgid "Invalid switch type: %s"
 msgstr "Nicht unterstützter Typ: %s"
 
-#: src/Homie/TodoList/Listener/Pending.php:77
+#: src/Homie/TodoList/Listener/Pending.php:79
 #, php-format
 msgid "Todo list item %s is open again"
-msgstr ""
+msgstr "Aufgabe %s wurde erneut geöffnet"
 
-#: src/Homie/TodoList/Listener/Add.php:29
+#: src/Homie/TodoList/Listener/Add.php:31
 #, php-format
 msgid "Erinnerung: %s"
 msgstr "Erinnerung: %s"
 
-#: src/Homie/TodoList/TodoReminder.php:50
+#: src/Homie/TodoList/TodoReminder.php:52
 msgid "Erinnerung"
 msgstr "Erinnerung"
 
-#: src/Homie/TodoList/TodoReminder.php:99
+#: src/Homie/TodoList/TodoReminder.php:101
 #, php-format
 msgid "%d task in progress"
 msgid_plural "%d tasks in progress"
 msgstr[0] "%d Aufgabe in Arbeit"
 msgstr[1] "%d Aufgaben in Arbeit"
 
-#: src/Homie/TodoList/TodoReminder.php:102
+#: src/Homie/TodoList/TodoReminder.php:104
 #, php-format
 msgid "%d open task"
 msgid_plural "%d open tasks"
 msgstr[0] "%d offene Aufgabe"
 msgstr[1] "%d offene Aufgaben"
 
-#: src/Homie/TodoList/TodoReminder.php:114
+#: src/Homie/TodoList/TodoReminder.php:116
 msgid "one"
 msgstr "eine"
 
@@ -1181,7 +1215,7 @@ msgstr "Display"
 msgid "Show recent image"
 msgstr "Aktuelles Bild anzeigen"
 
-#: src/Homie/Sensors/Formatter/Percentage.php:29
+#: src/Homie/Sensors/Formatter/Percentage.php:32
 #, php-format
 msgid "%d Percent"
 msgstr "%d Prozent"
@@ -1219,57 +1253,56 @@ msgstr "Letzter Monat"
 msgid "All time"
 msgstr "Gesamte Zeit"
 
-#: src/Homie/Expression/Controller/Controller.php:86
+#: src/Homie/Expression/Controller/Controller.php:89
 msgid "No expression id defined"
 msgstr "Keine Expression-ID definiert"
 
-#: src/Homie/Expression/Controller/Controller.php:156
+#: src/Homie/Expression/Controller/Controller.php:177
 msgid "No actions defined"
 msgstr "Keine Aktionen definiert"
 
-#: vendor/brainexe/totp/src/OneTimePassword.php:84
+#: vendor/brainexe/totp/src/OneTimePassword.php:86
 msgid "No one time secret requested"
 msgstr "Kein \"One-Time-Secret\" eingestellt"
 
-#: vendor/brainexe/totp/src/OneTimePassword.php:88
+#: vendor/brainexe/totp/src/OneTimePassword.php:90
 msgid "No one time token given"
 msgstr "Kein Token übergeben"
 
-#: vendor/brainexe/totp/src/OneTimePassword.php:94
+#: vendor/brainexe/totp/src/OneTimePassword.php:96
 #, php-format
 msgid "Invalid token: \"%s\"!"
 msgstr "Ungültiger Token: \"%s\"!"
 
-#: vendor/brainexe/totp/src/OneTimePassword.php:118
+#: vendor/brainexe/totp/src/OneTimePassword.php:120
 msgid "No email address defined for this user"
 msgstr "Keine Email-Adresse definiert"
 
-#: vendor/brainexe/totp/src/OneTimePassword.php:125
+#: vendor/brainexe/totp/src/OneTimePassword.php:127
 msgid "Invalid username"
 msgstr "Ungültiger Username"
 
 #: vendor/brainexe/totp/vendor/brainexe/core/src/Authentication/Controller/UserController.php:63
-#: vendor/brainexe/core/src/Authentication/Controller/UserController.php:63
+#: vendor/brainexe/core/src/Authentication/Controller/UserController.php:66
 #, php-format
 msgid "Invalid avatar: %s"
 msgstr "Ungültiger Avatar: %s"
 
 #: vendor/brainexe/totp/vendor/brainexe/core/src/Middleware/Authentication.php:64
-#: vendor/brainexe/core/src/Middleware/Authentication.php:64
+#: vendor/brainexe/core/src/Middleware/Authentication.php:112
+#: vendor/brainexe/core/src/Middleware/TokenAuthentication.php:112
 msgid "Not logged in"
 msgstr "Nicht eingeloggt"
 
 #: vendor/brainexe/totp/vendor/brainexe/core/src/Middleware/CatchUserException.php:62
-#: vendor/brainexe/core/src/Middleware/CatchUserException.php:62
+#: vendor/brainexe/core/src/Middleware/CatchUserException.php:64
 msgid "An error occurred"
 msgstr "Es ist ein Fehler aufgetreten"
 
-#~ msgctxt "gpio"
-#~ msgid "#wiring"
-#~ msgstr "#wiring"
-
-#~ msgid "Address"
-#~ msgstr "Adresse"
+#: vendor/brainexe/core/src/Middleware/CatchUserException.php:35
+#, php-format
+msgid "You are not allowed to access the page. Allowed methods: %s"
+msgstr "Du darft diese Seite nicht aufrufen. Erlaubte Methoden: %s"
 
 #~ msgid "Cache"
 #~ msgstr "Cache"
@@ -1282,9 +1315,6 @@ msgstr "Es ist ein Fehler aufgetreten"
 
 #~ msgid "GPIO Pin"
 #~ msgstr "GPIO Pin"
-
-#~ msgid "Edit Widget - {{widget.name}}"
-#~ msgstr "Widget bearbeiten - {{widget.name}}"
 
 #~ msgid "Completed"
 #~ msgstr "Abgeschlossen"
@@ -1303,9 +1333,6 @@ msgstr "Es ist ein Fehler aufgetreten"
 
 #~ msgid "Next run"
 #~ msgstr "Nächster Lauf"
-
-#~ msgid "QR-code"
-#~ msgstr "QR-Code"
 
 #~ msgid "Screen"
 #~ msgstr "Bildschirm"

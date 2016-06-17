@@ -1,7 +1,5 @@
 var fs = require('fs');
 
-// todo extract functions into nodejs/grunt/*.js
-
 module.exports = function (grunt) {
     grunt.config('env', grunt.option('env') || process.env.ENVIRONMENT || 'development');
     var isProduction = grunt.config('env') == 'production';
@@ -19,7 +17,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-exec');
     grunt.loadNpmTasks('grunt-po2mo');
 
-    grunt.registerTask('extract_lang', ['php_gettext_extract', 'nggettext_extract', 'pot_merge']);
+    grunt.registerTask('extract_lang', ['php_gettext_extract', 'nggettext_extract', 'pot_prepare', 'exec:potMerge']);
     grunt.registerTask('compile_lang', ['nggettext_compile']);
 
     grunt.registerTask('bower', function () {
@@ -43,7 +41,7 @@ module.exports = function (grunt) {
         });
     });
 
-    grunt.registerTask('pot_merge', function () {
+    grunt.registerTask('pot_prepare', function () {
         var done = this.async();
 
         var potStream = fs.createWriteStream('lang/pot/all.pot', {flags: 'w'});
@@ -51,6 +49,21 @@ module.exports = function (grunt) {
         var child = grunt.util.spawn({
             cmd: 'msgcat',
             args: ['--use-first', 'lang/pot/frontend.pot', 'lang/pot/php.pot']
+        }, function (err, out) {
+            done();
+        });
+        child.stdout.pipe(potStream);
+        child.stderr.pipe(process.stderr);
+    });
+
+    grunt.registerTask('pot_merge', function () {
+        var done = this.async();
+
+        var potStream = fs.createWriteStream('lang/pot/all.pot', {flags: 'w'});
+
+        var child = grunt.util.spawn({
+            cmd: 'msgmerge',
+            args: ['lang/de_DE.po', 'lang/pot/all.pot']
         }, function (err, out) {
             done();
         });
@@ -333,6 +346,15 @@ module.exports = function (grunt) {
                         'grunt bower',
                         'bower install',
                         'php console cc'
+                    ].join(' && ');
+                }
+            },
+            potMerge: {
+                command: function () {
+                    // todo fetch locales automatically
+                    return [
+                        'msgmerge lang/de_DE.po lang/pot/all.pot -U',
+                        'msgmerge lang/en_US.po lang/pot/all.pot -U'
                     ].join(' && ');
                 }
             }

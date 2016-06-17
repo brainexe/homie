@@ -74,12 +74,7 @@ class Change implements SwitchInterface, TranslationProvider
      */
     public static function getTokens()
     {
-        $types = [
-            GpioSwitchVO::TYPE,
-            RadioVO::TYPE
-        ];
-
-        foreach ($types as $type) {
+        foreach (SwitchVO::TYPES as $type) {
             yield sprintf(self::TOKEN_NAME, $type);
         }
     }

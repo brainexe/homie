@@ -61,7 +61,7 @@ abstract class RequestTest extends TestCase
     {
         if (empty($user)) {
             $user     = new UserVO();
-            $user->id = uniqid();
+            $user->id = rand(1, 1000000);
         }
 
         $request->attributes->set('user_id', $user->id);

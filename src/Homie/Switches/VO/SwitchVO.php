@@ -5,6 +5,12 @@ namespace Homie\Switches\VO;
 abstract class SwitchVO
 {
 
+    const TYPES = [
+        ArduinoSwitchVO::TYPE,
+        GpioSwitchVO::TYPE,
+        RadioVO::TYPE,
+    ];
+
     const TYPE = 'unknown';
 
     /**

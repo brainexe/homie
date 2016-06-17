@@ -22,7 +22,6 @@ class Controller
      * @param string $code
      * @return bool
      * @Route("/remote/receive/{code}/", name="remote.receive")
-     * @Guest
      */
     public function action(Request $request, string $code) : bool
     {

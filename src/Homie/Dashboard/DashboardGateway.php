@@ -29,7 +29,7 @@ class DashboardGateway
 
         $dashboardIds = $redis->smembers(self::IDS_KEY);
         foreach ($dashboardIds as $dashboardId) {
-            yield $dashboardId => $this->getDashboard($dashboardId);
+            yield (int)$dashboardId => $this->getDashboard($dashboardId);
         }
     }
     /**

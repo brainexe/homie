@@ -38,7 +38,8 @@ App.controller('DashboardController', ['$scope', '$uibModal', '$q', 'Dashboard',
         $scope.widgets    = metadata.widgets;
 
         selectedId = settings.selectedDashboardId;
-        if (!selectedId || dashboardIds.indexOf(selectedId) == -1) {
+
+        if (!selectedId || dashboardIds.indexOf("" + selectedId) == -1) {
             selectedId = dashboardIds[0];
         }
 

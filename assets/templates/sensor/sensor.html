@@ -10,7 +10,7 @@
 			</button>
             <div class="navbar-collapse" ng-class="{collapse:!isCollapsed}">
                 <ul class="nav navbar-nav">
-                    <li ng-repeat="sensor in sensors" ng-class="{'active':isSensorActive(sensor.sensorId)}">
+                    <li ng-repeat="sensor in removeDisabled(sensors)" ng-class="{'active':isSensorActive(sensor.sensorId)}">
                         <a
                                 class="tip cursor"
                                 data-placement="bottom"

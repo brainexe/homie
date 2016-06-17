@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-05 10:52+0200\n"
+"POT-Creation-Date: 2016-06-17 20:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,40 +18,40 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: src/Homie/Switches/Controller/Controller.php:111
+#: src/Homie/Switches/Controller/Controller.php:114
 #, php-format
 msgid "Invalid switch type: %s"
 msgstr ""
 
-#: src/Homie/TodoList/Listener/Pending.php:77
+#: src/Homie/TodoList/Listener/Pending.php:79
 #, php-format
 msgid "Todo list item %s is open again"
 msgstr ""
 
-#: src/Homie/TodoList/Listener/Add.php:29
+#: src/Homie/TodoList/Listener/Add.php:31
 #, php-format
 msgid "Erinnerung: %s"
 msgstr ""
 
-#: src/Homie/TodoList/TodoReminder.php:50
+#: src/Homie/TodoList/TodoReminder.php:52
 msgid "Erinnerung"
 msgstr ""
 
-#: src/Homie/TodoList/TodoReminder.php:99
+#: src/Homie/TodoList/TodoReminder.php:101
 #, php-format
 msgid "%d task in progress"
 msgid_plural "%d tasks in progress"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Homie/TodoList/TodoReminder.php:102
+#: src/Homie/TodoList/TodoReminder.php:104
 #, php-format
 msgid "%d open task"
 msgid_plural "%d open tasks"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Homie/TodoList/TodoReminder.php:114
+#: src/Homie/TodoList/TodoReminder.php:116
 msgid "one"
 msgstr ""
 
@@ -117,7 +117,7 @@ msgstr ""
 msgid "Show recent image"
 msgstr ""
 
-#: src/Homie/Sensors/Formatter/Percentage.php:29
+#: src/Homie/Sensors/Formatter/Percentage.php:32
 #, php-format
 msgid "%d Percent"
 msgstr ""
@@ -155,47 +155,53 @@ msgstr ""
 msgid "All time"
 msgstr ""
 
-#: src/Homie/Expression/Controller/Controller.php:86
+#: src/Homie/Expression/Controller/Controller.php:89
 msgid "No expression id defined"
 msgstr ""
 
-#: src/Homie/Expression/Controller/Controller.php:156
+#: src/Homie/Expression/Controller/Controller.php:177
 msgid "No actions defined"
 msgstr ""
 
-#: vendor/brainexe/totp/src/OneTimePassword.php:84
+#: vendor/brainexe/totp/src/OneTimePassword.php:86
 msgid "No one time secret requested"
 msgstr ""
 
-#: vendor/brainexe/totp/src/OneTimePassword.php:88
+#: vendor/brainexe/totp/src/OneTimePassword.php:90
 msgid "No one time token given"
 msgstr ""
 
-#: vendor/brainexe/totp/src/OneTimePassword.php:94
+#: vendor/brainexe/totp/src/OneTimePassword.php:96
 #, php-format
 msgid "Invalid token: \"%s\"!"
 msgstr ""
 
-#: vendor/brainexe/totp/src/OneTimePassword.php:118
+#: vendor/brainexe/totp/src/OneTimePassword.php:120
 msgid "No email address defined for this user"
 msgstr ""
 
-#: vendor/brainexe/totp/src/OneTimePassword.php:125
+#: vendor/brainexe/totp/src/OneTimePassword.php:127
 msgid "Invalid username"
 msgstr ""
 
 #: vendor/brainexe/totp/vendor/brainexe/core/src/Authentication/Controller/UserController.php:63
-#: vendor/brainexe/core/src/Authentication/Controller/UserController.php:63
+#: vendor/brainexe/core/src/Authentication/Controller/UserController.php:66
 #, php-format
 msgid "Invalid avatar: %s"
 msgstr ""
 
 #: vendor/brainexe/totp/vendor/brainexe/core/src/Middleware/Authentication.php:64
-#: vendor/brainexe/core/src/Middleware/Authentication.php:64
+#: vendor/brainexe/core/src/Middleware/Authentication.php:112
+#: vendor/brainexe/core/src/Middleware/TokenAuthentication.php:112
 msgid "Not logged in"
 msgstr ""
 
 #: vendor/brainexe/totp/vendor/brainexe/core/src/Middleware/CatchUserException.php:62
-#: vendor/brainexe/core/src/Middleware/CatchUserException.php:62
+#: vendor/brainexe/core/src/Middleware/CatchUserException.php:64
 msgid "An error occurred"
+msgstr ""
+
+#: vendor/brainexe/core/src/Middleware/CatchUserException.php:35
+#, php-format
+msgid "You are not allowed to access the page. Allowed methods: %s"
 msgstr ""

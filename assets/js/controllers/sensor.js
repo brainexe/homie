@@ -1,6 +1,6 @@
 
 App.controller('SensorController', ['$scope', '$uibModal', 'SensorGraph', 'UserManagement.Settings', function ($scope, uibModal, SensorGraph, Settings) {
-    $scope.sensors         = {};
+    $scope.sensors         = [];
     $scope.activeSensorIds = '';
     $scope.from            = 0;
     $scope.to              = 0;
@@ -18,6 +18,12 @@ App.controller('SensorController', ['$scope', '$uibModal', 'SensorGraph', 'UserM
         uibModal.open({
             templateUrl: '/templates/sensor/add.html',
             controller : 'AddSensorsController'
+        });
+    };
+
+    $scope.removeDisabled = function (sensors) {
+        return sensors.filter(function(sensor) {
+            return sensor.interval >= 1;
         });
     };
 
