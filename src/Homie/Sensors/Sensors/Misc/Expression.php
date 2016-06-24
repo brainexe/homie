@@ -39,10 +39,7 @@ class Expression extends AbstractSensor implements Parameterized
      */
     public function getValue(SensorVO $sensor) : float
     {
-        return (float)$this->language->evaluate($sensor->parameter, [
-            'sensor' => $sensor,
-            'nodeId' => $sensor->node,
-        ]);
+        return (float)$this->getPlainValue($sensor);
     }
 
     /**
@@ -73,5 +70,17 @@ class Expression extends AbstractSensor implements Parameterized
     protected function getLanguage()
     {
         return $this->language;
+    }
+
+    /**
+     * @param SensorVO $sensor
+     * @return string
+     */
+    protected function getPlainValue(SensorVO $sensor)
+    {
+        return $this->language->evaluate($sensor->parameter, [
+            'sensor' => $sensor,
+            'nodeId' => $sensor->node,
+        ]);
     }
 }

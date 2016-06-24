@@ -1,8 +1,13 @@
-var fs = require('fs');
+var fs   = require('fs');
+var glob = require('glob');
 
 module.exports = function (grunt) {
     grunt.config('env', grunt.option('env') || process.env.ENVIRONMENT || 'development');
     var isProduction = grunt.config('env') == 'production';
+
+    var locales = glob.sync('*.po', {cwd:'lang/'}).map(function(filename) {
+        return filename.replace('.po', '');
+    });
 
     grunt.loadNpmTasks('grunt-angular-gettext');
     grunt.loadNpmTasks('grunt-contrib-watch');
@@ -16,9 +21,10 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-manifest');
     grunt.loadNpmTasks('grunt-exec');
     grunt.loadNpmTasks('grunt-po2mo');
+    grunt.loadNpmTasks('grunt-uniqueify');
 
     grunt.registerTask('extract_lang', ['php_gettext_extract', 'nggettext_extract', 'pot_prepare', 'exec:potMerge']);
-    grunt.registerTask('compile_lang', ['nggettext_compile']);
+    grunt.registerTask('compile_lang', ['nggettext_compile', 'po2mo']);
 
     grunt.registerTask('bower', function () {
         var done = this.async();
@@ -90,8 +96,20 @@ module.exports = function (grunt) {
         child.stderr.pipe(process.stderr);
     });
 
-    var defaultTasks = ['compile_lang', 'copy', 'uglify', 'htmlmin', 'sass', 'cssmin', 'manifest'];
+    var defaultTasks = [
+        'clean',
+        'compile_lang',
+        'copy:index',
+        'copy:static',
+        'uglify',
+        'htmlmin',
+        'sass',
+        'cssmin',
+        'manifest'
+    ];
+
     if (isProduction) {
+        defaultTasks.push('uniqueify');
         defaultTasks.push('compress');
     }
 
@@ -261,7 +279,7 @@ module.exports = function (grunt) {
             },
             vendor: {
                 options: {
-                    compress: false, // todo light compress?
+                    compress: false,
                     mangle: false,
                     sourceMap: true,
                     sourceMapIncludeSources: true,
@@ -299,9 +317,7 @@ module.exports = function (grunt) {
                     exclude: ['manifest.appcache'],
                     preferOnline: true,
                     basePath: 'web',
-                    verbose: true,
-                    timestamp: true,
-                    hash: true,
+                    timestamp: false,
                     master: ['index.html']
                 },
                 src: [
@@ -342,7 +358,7 @@ module.exports = function (grunt) {
             install: {
                 command: function () {
                     return [
-                        'composer install',
+                        'composer install -o',
                         'grunt bower',
                         'bower install',
                         'php console cc'
@@ -351,11 +367,9 @@ module.exports = function (grunt) {
             },
             potMerge: {
                 command: function () {
-                    // todo fetch locales automatically
-                    return [
-                        'msgmerge lang/de_DE.po lang/pot/all.pot -U',
-                        'msgmerge lang/en_US.po lang/pot/all.pot -U'
-                    ].join(' && ');
+                    return locales.map(function(locale) {
+                        return 'msgmerge lang/' + locale + '.po lang/pot/all.pot -U';
+                    }).join(' && ');
                 }
             }
         },
@@ -375,12 +389,40 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        po2mo: {
-            files: {
-                // TODO
-                src: 'lang/*.po',
-                dest: 'lang/\1.po'
+        po2mo: locales.map(function(locale) {
+            return {
+                src: 'lang/' + locale + '.po',
+                dest: 'cache/lang/' + locale + '/LC_MESSAGES/messages.mo'
             }
+        }),
+        uniqueify: {
+             static: {
+                 options: {
+                     replaceSrc: ['web/*.{html,appcache}']
+                 },
+                 files: [{
+                     cwd: 'web/',
+                     src: ['**/*.{js,css,ico,appcache}']
+                 }]
+             },
+             html: {
+                 options: {
+                     replaceSrc: ['web/*.{js,appcache}', 'web/*/**/*.html']
+                 },
+                 files: [{
+                     cwd: 'web/',
+                     src: ['*/**/*.html']
+                 }]
+             },
+             map: {
+                 options: {
+                     replaceSrc: ['web/*.{js,css}']
+                 },
+                 files: [{
+                     cwd: 'web/',
+                     src: ['*.map']
+                 }]
+             }
         }
     });
 };

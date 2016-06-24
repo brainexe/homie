@@ -476,7 +476,7 @@ msgstr "Deaktivierte ausblenden"
 msgid "Hide menu entries"
 msgstr "Menüpunkte ausblenden"
 
-#: assets/index.html:15 assets/index.html:7
+#: assets/index.html:16 assets/index.html:8
 #: assets/js/util/BrowserNotification.js:31
 msgid "Homie"
 msgstr "Homie"
@@ -646,7 +646,7 @@ msgstr "Altes Passwort"
 msgid "On"
 msgstr "An"
 
-#: assets/templates/user/login.html:27
+#: assets/templates/user/login.html:29
 msgid "One Time Token"
 msgstr "Einmal-Token"
 
@@ -662,7 +662,7 @@ msgstr "Parameter"
 #: assets/templates/admin/users.html:7
 #: assets/templates/user/change_password.html:17
 #: assets/templates/user/change_password.html:30
-#: assets/templates/user/login.html:20 assets/templates/user/register.html:15
+#: assets/templates/user/login.html:22 assets/templates/user/register.html:16
 msgid "Password"
 msgstr "Passwort"
 
@@ -681,7 +681,7 @@ msgstr "Pin"
 msgid "Preview"
 msgstr "Vorschau"
 
-#: assets/index.html:47 assets/templates/user/menu.html:3
+#: assets/index.html:48 assets/templates/user/menu.html:3
 msgid "Profile"
 msgstr "Profil"
 
@@ -698,7 +698,7 @@ msgstr "Redis Statistik"
 msgid "Refresh"
 msgstr "Neu laden"
 
-#: assets/js/models/Controllers.js:26 assets/templates/user/register.html:18
+#: assets/js/models/Controllers.js:26 assets/templates/user/register.html:19
 #: assets/templates/user/register.html:2
 msgid "Register"
 msgstr "Registrieren"
@@ -774,7 +774,7 @@ msgstr "Wähle Rollen"
 msgid "Select..."
 msgstr "Wähle..."
 
-#: assets/templates/user/login.html:34
+#: assets/templates/user/login.html:36
 msgid "Send Token via Mail"
 msgstr "Token per Mail schicken"
 
@@ -927,7 +927,7 @@ msgstr "Einkaufsliste"
 msgid "Show disabled"
 msgstr "Deaktivierte einblenden"
 
-#: assets/templates/user/login.html:28
+#: assets/templates/user/login.html:30
 msgid "Sign in"
 msgstr "Login"
 
@@ -1090,7 +1090,7 @@ msgstr "Benutzer"
 msgid "User Settings"
 msgstr "Einstellungen"
 
-#: assets/templates/user/login.html:10 assets/templates/user/register.html:7
+#: assets/templates/user/login.html:11 assets/templates/user/register.html:7
 msgid "Username"
 msgstr "Benutzername"
 
@@ -1295,11 +1295,16 @@ msgid "Not logged in"
 msgstr "Nicht eingeloggt"
 
 #: vendor/brainexe/totp/vendor/brainexe/core/src/Middleware/CatchUserException.php:62
-#: vendor/brainexe/core/src/Middleware/CatchUserException.php:64
+#: vendor/brainexe/core/src/Middleware/CatchUserException.php:71
 msgid "An error occurred"
 msgstr "Es ist ein Fehler aufgetreten"
 
-#: vendor/brainexe/core/src/Middleware/CatchUserException.php:35
+#: vendor/brainexe/core/src/Middleware/CatchUserException.php:32
+#, php-format
+msgid "Page not found: %s"
+msgstr "Seite nicht gefunden: %s"
+
+#: vendor/brainexe/core/src/Middleware/CatchUserException.php:42
 #, php-format
 msgid "You are not allowed to access the page. Allowed methods: %s"
 msgstr "Du darft diese Seite nicht aufrufen. Erlaubte Methoden: %s"

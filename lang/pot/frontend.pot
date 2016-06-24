@@ -495,8 +495,8 @@ msgstr ""
 msgid "Hide menu entries"
 msgstr ""
 
-#: assets/index.html:15
-#: assets/index.html:7
+#: assets/index.html:16
+#: assets/index.html:8
 #: assets/js/util/BrowserNotification.js:31
 msgid "Homie"
 msgstr ""
@@ -675,7 +675,7 @@ msgstr ""
 msgid "On"
 msgstr ""
 
-#: assets/templates/user/login.html:27
+#: assets/templates/user/login.html:29
 msgid "One Time Token"
 msgstr ""
 
@@ -694,8 +694,8 @@ msgstr ""
 #: assets/templates/admin/users.html:7
 #: assets/templates/user/change_password.html:17
 #: assets/templates/user/change_password.html:30
-#: assets/templates/user/login.html:20
-#: assets/templates/user/register.html:15
+#: assets/templates/user/login.html:22
+#: assets/templates/user/register.html:16
 msgid "Password"
 msgstr ""
 
@@ -714,7 +714,7 @@ msgstr ""
 msgid "Preview"
 msgstr ""
 
-#: assets/index.html:47
+#: assets/index.html:48
 #: assets/templates/user/menu.html:3
 msgid "Profile"
 msgstr ""
@@ -733,7 +733,7 @@ msgid "Refresh"
 msgstr ""
 
 #: assets/js/models/Controllers.js:26
-#: assets/templates/user/register.html:18
+#: assets/templates/user/register.html:19
 #: assets/templates/user/register.html:2
 msgid "Register"
 msgstr ""
@@ -816,7 +816,7 @@ msgstr ""
 msgid "Select..."
 msgstr ""
 
-#: assets/templates/user/login.html:34
+#: assets/templates/user/login.html:36
 msgid "Send Token via Mail"
 msgstr ""
 
@@ -972,7 +972,7 @@ msgstr ""
 msgid "Show disabled"
 msgstr ""
 
-#: assets/templates/user/login.html:28
+#: assets/templates/user/login.html:30
 msgid "Sign in"
 msgstr ""
 
@@ -1155,7 +1155,7 @@ msgstr ""
 msgid "User Settings"
 msgstr ""
 
-#: assets/templates/user/login.html:10
+#: assets/templates/user/login.html:11
 #: assets/templates/user/register.html:7
 msgid "Username"
 msgstr ""

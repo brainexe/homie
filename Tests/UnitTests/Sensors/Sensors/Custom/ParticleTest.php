@@ -66,6 +66,26 @@ class ParticleTest extends TestCase
         $this->assertEquals(343, $actual);
     }
 
+    /**
+     * @expectedException \Homie\Sensors\Exception\InvalidSensorValueException
+     * @expectedExceptionMessage Failed request error
+     */
+    public function testError()
+    {
+        $parameter = 'temperature';
+
+        $this->language
+            ->expects($this->once())
+            ->method('evaluate')
+            ->with('callParticleFunction(nodeId, "temperature")')
+            ->willReturn("Failed request error");
+
+        $sensor = new SensorVO();
+        $sensor->parameter = $parameter;
+
+        $this->subject->getValue($sensor);
+    }
+
     public function testIsSupported()
     {
         $sensor = new SensorVO();

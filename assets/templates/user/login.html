@@ -6,6 +6,7 @@
 			ng-min-length="2"
 			ng-enter="login()"
 			class="form-control"
+			autocomplete="false"
             ng-blur="usernameBlur()"
 			placeholder="{{'Username'|translate}}"
             required
@@ -17,6 +18,7 @@
             ng-model="password"
             class="form-control"
 			ng-enter="login()"
+			autocomplete="false"
 			placeholder="{{'Password'|translate}}"
             required>
 	<input

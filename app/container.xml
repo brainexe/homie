@@ -18,12 +18,15 @@
         <parameter key="application.middlewares" type="collection">
             <parameter>Middleware.Parameter</parameter>
             <parameter>Middleware.Session</parameter>
+            <parameter>Middleware.TokenAuthentication</parameter>
             <parameter>Middleware.Authentication</parameter>
+            <parameter>Middleware.Locale</parameter>
             <parameter>Middleware.CatchUserException</parameter>
-            <parameter>Middleware.Cache</parameter>
+            <parameter>Middleware.Security</parameter>
+            <parameter>Middleware.Gentime</parameter>
+            <!--<parameter>Middleware.Cache</parameter>-->
             <!--<parameter>Middleware.Csrf</parameter>-->
             <!--<parameter>Middleware.Stats</parameter>-->
-            <parameter>Middleware.Gentime</parameter>
         </parameter>
 
         <!-- List of config keys which are available via /config/ -->

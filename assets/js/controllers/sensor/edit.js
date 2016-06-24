@@ -65,7 +65,9 @@ App.controller('EditSensorsController', ['$scope', '$uibModalInstance', 'Sensor'
 
             var parts = [];
             parts.push(sensor.name);
+            parts.push(sensor.type);
             parts.push(sensor.description);
+            parts.push(sensor.parameter);
             parts.concat(sensor.tags);
 
             var text = parts.join(' ').toLowerCase();

@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "glob": "^7.0.5",
     "grunt": "^0.4.5",
     "grunt-angular-gettext": "~2.2",
     "grunt-contrib-clean": "^1.0.0",
@@ -10,9 +11,10 @@
     "grunt-contrib-sass": "^1.0.0",
     "grunt-contrib-uglify": "^1.0.1",
     "grunt-contrib-watch": "^1.0.0",
-    "grunt-exec": "~0.4",
+    "grunt-exec": "~1.0",
     "grunt-manifest": "^0.4.4",
-    "grunt-po2mo": "^0.1.2"
+    "grunt-po2mo": "^0.1.2",
+    "grunt-uniqueify": "brainexe/grunt-uniqueify"
   },
   "license": "MIT",
   "scripts": {

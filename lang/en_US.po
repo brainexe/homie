@@ -475,7 +475,7 @@ msgstr ""
 msgid "Hide menu entries"
 msgstr ""
 
-#: assets/index.html:15 assets/index.html:7
+#: assets/index.html:16 assets/index.html:8
 #: assets/js/util/BrowserNotification.js:31
 msgid "Homie"
 msgstr ""
@@ -645,7 +645,7 @@ msgstr ""
 msgid "On"
 msgstr ""
 
-#: assets/templates/user/login.html:27
+#: assets/templates/user/login.html:29
 msgid "One Time Token"
 msgstr ""
 
@@ -661,7 +661,7 @@ msgstr ""
 #: assets/templates/admin/users.html:7
 #: assets/templates/user/change_password.html:17
 #: assets/templates/user/change_password.html:30
-#: assets/templates/user/login.html:20 assets/templates/user/register.html:15
+#: assets/templates/user/login.html:22 assets/templates/user/register.html:16
 msgid "Password"
 msgstr ""
 
@@ -680,7 +680,7 @@ msgstr ""
 msgid "Preview"
 msgstr ""
 
-#: assets/index.html:47 assets/templates/user/menu.html:3
+#: assets/index.html:48 assets/templates/user/menu.html:3
 msgid "Profile"
 msgstr ""
 
@@ -697,7 +697,7 @@ msgstr ""
 msgid "Refresh"
 msgstr ""
 
-#: assets/js/models/Controllers.js:26 assets/templates/user/register.html:18
+#: assets/js/models/Controllers.js:26 assets/templates/user/register.html:19
 #: assets/templates/user/register.html:2
 msgid "Register"
 msgstr ""
@@ -773,7 +773,7 @@ msgstr ""
 msgid "Select..."
 msgstr ""
 
-#: assets/templates/user/login.html:34
+#: assets/templates/user/login.html:36
 msgid "Send Token via Mail"
 msgstr ""
 
@@ -926,7 +926,7 @@ msgstr ""
 msgid "Show disabled"
 msgstr ""
 
-#: assets/templates/user/login.html:28
+#: assets/templates/user/login.html:30
 msgid "Sign in"
 msgstr ""
 
@@ -967,9 +967,8 @@ msgid "Switch"
 msgstr ""
 
 #: cache/translation_token.html:70
-#, fuzzy
 msgid "switch.arduino.name"
-msgstr "443 MHz radio switch"
+msgstr "Arduino"
 
 #: cache/translation_token.html:71
 msgid "switch.gpio.name"
@@ -1090,7 +1089,7 @@ msgstr ""
 msgid "User Settings"
 msgstr ""
 
-#: assets/templates/user/login.html:10 assets/templates/user/register.html:7
+#: assets/templates/user/login.html:11 assets/templates/user/register.html:7
 msgid "Username"
 msgstr ""
 
@@ -1295,11 +1294,16 @@ msgid "Not logged in"
 msgstr ""
 
 #: vendor/brainexe/totp/vendor/brainexe/core/src/Middleware/CatchUserException.php:62
-#: vendor/brainexe/core/src/Middleware/CatchUserException.php:64
+#: vendor/brainexe/core/src/Middleware/CatchUserException.php:71
 msgid "An error occurred"
 msgstr ""
 
-#: vendor/brainexe/core/src/Middleware/CatchUserException.php:35
+#: vendor/brainexe/core/src/Middleware/CatchUserException.php:32
+#, php-format
+msgid "Page not found: %s"
+msgstr ""
+
+#: vendor/brainexe/core/src/Middleware/CatchUserException.php:42
 #, php-format
 msgid "You are not allowed to access the page. Allowed methods: %s"
 msgstr ""
