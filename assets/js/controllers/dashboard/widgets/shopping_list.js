@@ -1,6 +1,7 @@
 
 App.service('Widget.shopping_list', ['ShoppingList', function(ShoppingList) {
     return {
+        template: '/templates/widgets/shopping_list.html',
         render: function ($scope, widget) {
             $scope.$on('shopping_list.add', function(event, data) {
                 $scope.shoppingList.push({text: data.item, done: false});

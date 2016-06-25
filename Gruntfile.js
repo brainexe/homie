@@ -318,6 +318,7 @@ module.exports = function (grunt) {
                     preferOnline: true,
                     basePath: 'web',
                     timestamp: false,
+                    verbose: false,
                     master: ['index.html']
                 },
                 src: [

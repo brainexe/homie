@@ -8,6 +8,7 @@ App.service('Widget.egg_timer', ['EggTimer', 'MessageQueue', '_', function(EggTi
     }
 
     return {
+        template: '/templates/widgets/egg_timer.html',
         render: function($scope) {
             $scope.times = [
                 '2m',

@@ -1,6 +1,7 @@
 
 App.service('Widget.todo_list', ['Todo', "_", function(Todo, _) {
     return {
+        template: '/templates/widgets/todo_list.html',
         render: function ($scope, widget) {
             $scope.newTitle = '';
             $scope.items    = [];

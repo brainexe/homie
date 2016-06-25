@@ -7,13 +7,13 @@ App.directive('contentItem', ['$compile', 'TemplateLoader', 'WidgetFactory', fun
             scope.$parent.title = title;
         };
 
-        var template = TemplateLoader('/templates/widgets/' + widget.type + '.html');
+        var renderer = WidgetFactory(widget.type);
+        var template = TemplateLoader(renderer.template || '/templates/widgets/' + widget.type + '.html');
 
         template.success(function(html) {
             element[0].innerHTML = html;
             $compile(element.contents())(scope);
 
-            var renderer = WidgetFactory(widget.type);
             renderer.render(scope, widget, element);
         });
     };

@@ -1,6 +1,7 @@
 
 App.service('Widget.sensor', ['Sensor', '$rootScope', 'Sensor.Formatter', 'Sensor.Stats', function(Sensor, $rootScope, SensorFormatter, SensorStats) {
     return {
+        template: '/templates/widgets/sensor.html',
         render: function ($scope, widget) {
             $scope.updating = false;
             $scope.format   = SensorFormatter.getFormatter('noop');

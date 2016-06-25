@@ -1,6 +1,7 @@
 
 App.service('Widget.command', ['Command', function(Command) {
     return {
+        template: '/templates/widgets/command.html',
         render: function ($scope, widget) {
             $scope.value = '';
 

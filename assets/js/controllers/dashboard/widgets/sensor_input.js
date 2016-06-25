@@ -1,6 +1,7 @@
 
 App.service('Widget.sensor_input', ['Sensor', function(Sensor) {
     return {
+        template: '/templates/widgets/sensor_input.html',
         render: function ($scope, widget) {
             $scope.value = '';
 

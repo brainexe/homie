@@ -1,6 +1,7 @@
 
 App.service('Widget.execute_expression', ['Expression', function(Expression) {
     return {
+        template: '/templates/widgets/execute_expression.html',
         render: function ($scope, widget) {
             $scope.value = '';
 

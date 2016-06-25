@@ -9,6 +9,7 @@ App.service('Widget.status', ['Status', '_', function(Status, _) {
     }
 
     return {
+        template: '/templates/widgets/status.html',
         render: function ($scope, widget) {
             update($scope);
 

@@ -1,5 +1,6 @@
 App.service('Widget.webcam', ['Webcam', '_', function(Webcam, _) {
     return {
+        template: '/templates/widgets/webcam.html',
         render: function ($scope, widget) {
             $scope.loadRecentImage = function() {
                 Webcam.getRecent().success(function(data) {

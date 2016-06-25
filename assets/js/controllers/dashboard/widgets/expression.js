@@ -1,6 +1,7 @@
 
 App.service('Widget.expression', ['$compile', '$interval', 'Expression', function($compile, $interval, Expression) {
     return {
+        template: '/templates/widgets/expression.html',
         render: function ($scope, widget, element) {
             function load(cached) {
                 var expression;

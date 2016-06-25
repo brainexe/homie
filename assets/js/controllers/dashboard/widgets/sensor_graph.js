@@ -1,6 +1,7 @@
 
 App.service('Widget.sensor_graph', ['SensorGraph', function(SensorGraph) {
     return {
+        template: '/templates/widgets/sensor_graph.html',
         render: function ($scope, widget) {
             var sensorIds = widget.sensor_ids.map(function(i) {
                 return parseInt(i);
