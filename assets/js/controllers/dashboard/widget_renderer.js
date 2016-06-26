@@ -8,7 +8,7 @@ App.directive('contentItem', ['$compile', 'TemplateLoader', 'WidgetFactory', fun
         };
 
         var renderer = WidgetFactory(widget.type);
-        var template = TemplateLoader(renderer.template || '/templates/widgets/' + widget.type + '.html');
+        var template = TemplateLoader(renderer.template);
 
         template.success(function(html) {
             element[0].innerHTML = html;
