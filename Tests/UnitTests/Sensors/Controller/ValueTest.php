@@ -149,6 +149,24 @@ class ValuesTest extends TestCase
         $this->assertEquals($iterator, $actual);
     }
 
+    public function testDeleteValues()
+    {
+        $request = new Request();
+
+        $sensorId  = 42;
+        $timestamp = 12121;
+
+        $this->valuesGateway
+            ->expects($this->once())
+            ->method('deleteValue')
+            ->with($sensorId, $timestamp)
+            ->willReturn(true);
+
+        $actual = $this->subject->delete($request, $sensorId, $timestamp);
+
+        $this->assertEquals(true, $actual);
+    }
+
     public function testGetByTimeWithoutTimeShouldReturnCurrentValue()
     {
         $request = new Request();

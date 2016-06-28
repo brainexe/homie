@@ -89,6 +89,20 @@ class SensorValuesGateway
 
     /**
      * @param int $sensorId
+     * @param int $timestamp
+     * @return bool
+     */
+    public function deleteValue(int $sensorId, int $timestamp) : bool
+    {
+        return (bool)$this->getRedis()->zremrangebyscore(
+            sprintf(SensorValuesGateway::REDIS_SENSOR_VALUES, $sensorId),
+            $timestamp,
+            $timestamp
+        );
+    }
+
+    /**
+     * @param int $sensorId
      * @return string
      */
     private function getKey(int $sensorId) : string

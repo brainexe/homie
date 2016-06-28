@@ -30,6 +30,12 @@ App.service('Sensor', ['$http', '$rootScope', 'Cache', function($http, $rootScop
             return $http.delete('/sensors/{0}/'.format(sensorId));
         },
 
+        deleteValue: function(sensorId, values) {
+            Cache.clear('^/sensors/');
+
+            return $http.delete('/sensors/{0}/values/{1}/'.format(sensorId, values));
+        },
+
         addValue: function(sensorId, value) {
             Cache.clear('^/sensors/');
 

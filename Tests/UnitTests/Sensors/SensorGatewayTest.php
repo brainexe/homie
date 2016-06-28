@@ -114,14 +114,14 @@ class SensorGatewayTest extends TestCase
             ->method('execute')
             ->willReturn($result);
 
-        $actualResult = $this->subject->getSensorsForNode($node);
+        $actual = $this->subject->getSensorsForNode($node);
 
-        $expectedResult = [
+        $expected = [
             1 => [
                 'node' => $node
             ]
         ];
-        $this->assertEquals($expectedResult, $actualResult);
+        $this->assertEquals($expected, $actual);
     }
 
     public function testGetSensorIds()
@@ -136,9 +136,9 @@ class SensorGatewayTest extends TestCase
             ->with(SensorGateway::SENSOR_IDS)
             ->willReturn($sensorIds);
 
-        $actualResult = $this->subject->getSensorIds();
+        $actual = $this->subject->getSensorIds();
 
-        $this->assertEquals($sensorIds, $actualResult);
+        $this->assertEquals($sensorIds, $actual);
     }
 
     public function testAddSensor()
@@ -190,9 +190,9 @@ class SensorGatewayTest extends TestCase
             ->with("sensor:$sensorId")
             ->willReturn($sensor);
 
-        $actualResult = $this->subject->getSensor($sensorId);
+        $actual = $this->subject->getSensor($sensorId);
 
-        $this->assertEquals($sensor, $actualResult);
+        $this->assertEquals($sensor, $actual);
     }
 
     public function testSave()

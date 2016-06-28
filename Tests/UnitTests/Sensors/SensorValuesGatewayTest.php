@@ -166,4 +166,20 @@ class SensorValuesGatewayTest extends TestCase
 
         $this->assertEquals($expected, $actual);
     }
+
+    public function testDeleteSensorValue()
+    {
+        $sensorId  = 10;
+        $timestamp = 11111;
+
+        $this->redis
+            ->expects($this->once())
+            ->method('ZREMRANGEBYSCORE')
+            ->with("sensor_values:$sensorId", $timestamp, $timestamp)
+            ->willReturn(1);
+
+        $actual = $this->subject->deleteValue($sensorId, $timestamp);
+
+        $this->assertEquals(true, $actual);
+    }
 }

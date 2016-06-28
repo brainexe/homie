@@ -6,10 +6,10 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Authentication\Settings\Settings;
+use BrainExe\Core\Traits\FileCacheTrait;
 use BrainExe\Core\Traits\TimeTrait;
 use Homie\Sensors\Builder;
 use Homie\Sensors\Chart;
-use Homie\Sensors\SensorBuilder;
 use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorValuesGateway;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,6 +21,7 @@ class Controller
 {
 
     use TimeTrait;
+    use FileCacheTrait;
 
     const SETTINGS_ACTIVE_SENSORS = 'sensors:active_sensors';
     const SETTINGS_TIMESPAN       = 'sensors:timespan';
@@ -41,11 +42,6 @@ class Controller
     private $voBuilder;
 
     /**
-     * @var SensorBuilder;
-     */
-    private $builder;
-
-    /**
      * @var Chart
      */
     private $chart;
@@ -60,14 +56,12 @@ class Controller
      *  "@SensorGateway",
      *  "@SensorValuesGateway",
      *  "@Chart",
-     *  "@SensorBuilder",
      *  "@Sensor.VOBuilder",
      *  "@User.Settings"
      * })
      * @param SensorGateway $gateway
      * @param SensorValuesGateway $valuesGateway
      * @param Chart $chart
-     * @param SensorBuilder $builder
      * @param Builder $voBuilder
      * @param Settings $settings
      */
@@ -75,14 +69,12 @@ class Controller
         SensorGateway $gateway,
         SensorValuesGateway $valuesGateway,
         Chart $chart,
-        SensorBuilder $builder,
         Builder $voBuilder,
         Settings $settings
     ) {
         $this->gateway        = $gateway;
         $this->valuesGateway  = $valuesGateway;
         $this->chart          = $chart;
-        $this->builder        = $builder;
         $this->voBuilder      = $voBuilder;
         $this->settings       = $settings;
     }
@@ -94,10 +86,13 @@ class Controller
     public function sensors()
     {
         return [
-            'types'         => $this->builder->getSensors(),
-            'formatters'    => $this->builder->getFormatters(),
+            'types'         => $this->includeFile('sensors'),
+            'formatters'    => $this->includeFile('sensor_formatter'),
             'fromIntervals' => Chart::getTimeSpans(),
-            'sensors'       => array_map([$this->voBuilder, 'buildFromArray'], $this->gateway->getSensors())
+            'sensors'       => array_map(
+                [$this->voBuilder, 'buildFromArray'],
+                $this->gateway->getSensors()
+            )
         ];
     }
 

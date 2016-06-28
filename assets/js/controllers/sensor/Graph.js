@@ -37,7 +37,15 @@ App.service('SensorGraph', ['Sensor', 'Sensor.Formatter', function (Sensor, Sens
                     element: element.querySelector('.y_axis'),
                     tickFormat: yAxisFormatter
                 });
-
+                new Rickshaw.Graph.ClickDetail({
+                    graph: $scope.graph,
+                    clickHandler: function(value){
+                        // TODO show dialog
+                        if (confirm(value.series.sensorId, value.x)) {
+                            Sensor.deleteValue(value.series.sensorId, value.x);
+                        }
+                    }
+                });
                 new Rickshaw.Graph.HoverDetail({
                     graph: $scope.graph,
                     formatter: function (series, x, y) {

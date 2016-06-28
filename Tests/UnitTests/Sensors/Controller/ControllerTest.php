@@ -6,15 +6,14 @@ use ArrayIterator;
 use BrainExe\Core\Authentication\Settings\Settings;
 use BrainExe\Core\Util\Time;
 use Homie\Sensors\Controller\Controller;
-use PHPUnit_Framework_TestCase as TestCase;
-use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\SensorVO;
 use Homie\Sensors\Builder;
-use Symfony\Component\HttpFoundation\Request;
 use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorValuesGateway;
 use Homie\Sensors\Chart;
-use Homie\Sensors\SensorBuilder;
+use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @covers Homie\Sensors\Controller\Controller
@@ -43,11 +42,6 @@ class ControllerTest extends TestCase
     private $chart;
 
     /**
-     * @var SensorBuilder|MockObject
-     */
-    private $builder;
-
-    /**
      * @var Builder|MockObject
      */
     private $voBuilder;
@@ -67,7 +61,6 @@ class ControllerTest extends TestCase
         $this->gateway       = $this->createMock(SensorGateway::class);
         $this->valuesGateway = $this->createMock(SensorValuesGateway::class);
         $this->chart         = $this->createMock(Chart::class);
-        $this->builder       = $this->createMock(SensorBuilder::class);
         $this->voBuilder     = $this->createMock(Builder::class);
         $this->settings      = $this->createMock(Settings::class);
         $this->time          = $this->createMock(Time::class);
@@ -76,7 +69,6 @@ class ControllerTest extends TestCase
             $this->gateway,
             $this->valuesGateway,
             $this->chart,
-            $this->builder,
             $this->voBuilder,
             $this->settings
         );
@@ -86,7 +78,7 @@ class ControllerTest extends TestCase
 
     public function testIndexSensor()
     {
-        $ago             = 10;
+        $ago              = 10;
         $now              = 1000;
         $activeSensorIds  = '';
         $lastValue        = 100;
@@ -217,7 +209,6 @@ class ControllerTest extends TestCase
     {
         $sensorRaw = [0 => ['sensor']];
         $sensors = [0 => new SensorVO()];
-        $types   = ['sensorsBuilder'];
 
         $this->voBuilder
             ->expects($this->once())
@@ -229,24 +220,12 @@ class ControllerTest extends TestCase
             ->expects($this->once())
             ->method('getSensors')
             ->willReturn($sensorRaw);
-        $this->builder
-            ->expects($this->once())
-            ->method('getSensors')
-            ->willReturn($types);
-        $this->builder
-            ->expects($this->once())
-            ->method('getFormatters')
-            ->willReturn(['formatter']);
 
         $actual = $this->subject->sensors();
 
-        $expected = [
-            'types'         => $types,
-            'sensors'       => $sensors,
-            'formatters'    => ['formatter'],
-            'fromIntervals' => Chart::getTimeSpans()
-        ];
-
-        $this->assertEquals($expected, $actual);
+        $this->assertInternalType('array', $actual['types']);
+        $this->assertInternalType('array', $actual['formatters']);
+        $this->assertEquals($sensors, $actual['sensors']);
+        $this->assertEquals(Chart::getTimeSpans(), $actual['fromIntervals']);
     }
 }

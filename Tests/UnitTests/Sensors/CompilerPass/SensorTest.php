@@ -2,9 +2,9 @@
 
 namespace Tests\Homie\Sensors\CompilerPass;
 
+use Homie\Sensors\Definition as SensorDefinition;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Homie\Sensors\CompilerPass;
 use Homie\Sensors\CompilerPass\Sensor;
 use Homie\Sensors\Interfaces\Sensor as SensorInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -18,7 +18,7 @@ class CompilerPassTest extends TestCase
 {
 
     /**
-     * @var Sensor
+     * @var Sensor|MockObject
      */
     private $subject;
 
@@ -29,7 +29,10 @@ class CompilerPassTest extends TestCase
 
     public function setUp()
     {
-        $this->subject   = new Sensor();
+        $this->subject = $this->getMockBuilder(Sensor::class)
+                              ->setMethods(['dumpVariableToCache'])
+                              ->getMock();
+
         $this->container = $this->createMock(ContainerBuilder::class);
     }
 
@@ -64,10 +67,21 @@ class CompilerPassTest extends TestCase
              ->method('getSensorType')
              ->willReturn($sensorId);
 
+        $definition = new SensorDefinition();
+        $sensor->expects($this->once())
+             ->method('getDefinition')
+             ->willReturn($definition);
+
         $sensorBuilder
             ->expects($this->once())
             ->method('addMethodCall')
             ->with('addSensor', [$sensorId, new Reference($sensorId)]);
+        $this->subject
+            ->expects($this->once())
+            ->method('dumpVariableToCache')
+            ->with('sensors', [
+                $sensorId => (array)$definition
+            ]);
 
         $this->subject->process($this->container);
     }

@@ -109,6 +109,19 @@ class Values
     /**
      * @param Request $request
      * @param int $sensorId
+     * @param int $timestamp
+     * @return bool
+     * @Route("/sensors/{sensorId}/values/{timestamp}/", name="sensor.value.delete", methods="DELETE")
+     */
+    public function delete(Request $request, int $sensorId, int $timestamp) : bool
+    {
+        unset($request);
+        return $this->valuesGateway->deleteValue($sensorId, $timestamp);
+    }
+
+    /**
+     * @param Request $request
+     * @param int $sensorId
      * @return bool
      * @Route("/sensors/{sensorId}/value/", name="sensor.submitValue", methods="POST")
      */

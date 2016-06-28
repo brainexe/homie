@@ -105,10 +105,10 @@ module.exports = function (grunt) {
         'htmlmin',
         'sass',
         'cssmin',
-        'manifest'
     ];
 
     if (isProduction) {
+        defaultTasks.push('manifest');
         defaultTasks.push('uniqueify');
         defaultTasks.push('compress');
     }
@@ -322,18 +322,7 @@ module.exports = function (grunt) {
                     master: ['index.html']
                 },
                 src: [
-                    '**/*.html',
-                    '**/*.js',
-                    '**/*.json',
-                    '**/*.min.css',
-                    '**/*.png',
-                    '**/*.jpg',
-                    '**/*.woff',
-                    '**/*.woff2',
-                    '**/*.ttf',
-                    '**/*.svg',
-                    '**/*.eot',
-                    '**/*.ico'
+                    '**/*.{html,js,json,css,jpg,png,woff,woff2,ttf,svg,eot,ico}',
                 ],
                 dest: 'web/manifest.appcache'
             }
@@ -342,16 +331,16 @@ module.exports = function (grunt) {
             main: {
                 cwd: 'web/',
                 options: {
-                    mode: 'gzip',
-                    level: 9
+                    mode: 'gzip'
                 },
                 files: [
-                    {expand: true, src: ['web/**/*.js'],   dest: '.', ext: '.js.gz'},
-                    {expand: true, src: ['web/**/*.json'], dest: '.', ext: '.json.gz'},
-                    {expand: true, src: ['web/**/*.html'], dest: '.', ext: '.html.gz'},
-                    {expand: true, src: ['web/**/*.css'],  dest: '.', ext: '.css.gz'},
-                    {expand: true, src: ['web/**/*.map'],  dest: '.', ext: '.map.gz'},
-                    {expand: true, src: ['web/*.appcache'],  dest: '.', ext: '.appcache.gz'}
+                    {
+                        expand: true,
+                        src: ['web/**/*.{js,json,css,html,map,appcache}'],
+                        rename: function(dest, matchedSrcPath) {
+                            return './' + matchedSrcPath + '.gz';
+                        }
+                    }
                 ]
             }
         },

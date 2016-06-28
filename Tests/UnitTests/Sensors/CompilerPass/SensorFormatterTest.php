@@ -14,11 +14,11 @@ use Symfony\Component\DependencyInjection\Reference;
 /**
  * @covers Homie\Sensors\CompilerPass\SensorFormatter
  */
-class CompilerFormatterPassTest extends TestCase
+class FormatterPassTest extends TestCase
 {
 
     /**
-     * @var SensorFormatter
+     * @var SensorFormatter|MockObject
      */
     private $subject;
 
@@ -29,7 +29,10 @@ class CompilerFormatterPassTest extends TestCase
 
     public function setUp()
     {
-        $this->subject   = new SensorFormatter();
+        $this->subject = $this->getMockBuilder(SensorFormatter::class)
+                              ->setMethods(['dumpVariableToCache'])
+                              ->getMock();
+
         $this->container = $this->createMock(ContainerBuilder::class);
     }
 
@@ -68,6 +71,13 @@ class CompilerFormatterPassTest extends TestCase
             ->expects($this->once())
             ->method('addMethodCall')
             ->with('addFormatter', [$sensorId, new Reference($sensorId)]);
+
+        $this->subject
+            ->expects($this->once())
+            ->method('dumpVariableToCache')
+            ->with('sensor_formatter', [
+                0 => $sensorId
+            ]);
 
         $this->subject->process($this->container);
     }
