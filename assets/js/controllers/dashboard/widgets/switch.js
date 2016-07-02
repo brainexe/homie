@@ -1,7 +1,7 @@
 
 App.service('Widget.switch', ['Switches', function(Switches) {
     return {
-        template: '/templates/widgets/radio.html',
+        template: '/templates/widgets/switch.html',
         render: function ($scope, widget) {
             $scope.switches = [];
 

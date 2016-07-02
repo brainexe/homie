@@ -1,5 +1,5 @@
 
-App.service('SensorGraph', ['Sensor', 'Sensor.Formatter', function (Sensor, SensorFormatter) {
+App.service('SensorGraph', ['$uibModal', 'Sensor', 'Sensor.Formatter', function ($uibModal, Sensor, SensorFormatter) {
     function init($scope, element, height, sensorIds, parameters) {
         $scope.$on('sensor.update', function(event, data) {
             if ($scope.isSensorActive(data.sensorId)) {
@@ -40,10 +40,17 @@ App.service('SensorGraph', ['Sensor', 'Sensor.Formatter', function (Sensor, Sens
                 new Rickshaw.Graph.ClickDetail({
                     graph: $scope.graph,
                     clickHandler: function(value){
-                        // TODO show dialog
-                        if (confirm(value.series.sensorId, value.x)) {
-                            Sensor.deleteValue(value.series.sensorId, value.x);
-                        }
+                        $uibModal.open({
+                            templateUrl: '/templates/sensor/sensor_value_detail.html',
+                            controller: 'SensorValueDetailModal',
+                            resolve: {
+                                value: function() {
+                                    return value;
+                                }
+                            }
+                        }).result.then(function() {
+                            update();
+                        });
                     }
                 });
                 new Rickshaw.Graph.HoverDetail({
