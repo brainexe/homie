@@ -36,6 +36,7 @@ class SensorBuilderIntegrationTest extends \PHPUnit_Framework_TestCase
     public function providerSensors()
     {
         global $dic;
+        /** @var SensorBuilder $builder */
         $builder = $dic->get('SensorBuilder');
 
         return array_map(function (Sensor $sensor) {

@@ -9,6 +9,7 @@ abstract class SwitchVO
         ArduinoSwitchVO::TYPE,
         GpioSwitchVO::TYPE,
         RadioVO::TYPE,
+        ParticleVO::TYPE,
     ];
 
     const TYPE = 'unknown';

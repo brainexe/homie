@@ -5,8 +5,11 @@ App.service('UserManagement.Tokens', ['$http', function($http) {
             return $http.get('/user/tokens/');
         },
 
-        add: function(roles) {
-            return $http.post('/user/tokens/', {roles: roles});
+        add: function(roles, name) {
+            return $http.post('/user/tokens/', {
+                roles: roles,
+                name: name
+            });
         },
 
         deleteToken: function(token) {

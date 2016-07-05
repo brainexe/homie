@@ -5,6 +5,7 @@ namespace Homie\Tests\Switches;
 use BrainExe\Core\Application\UserException;
 use Homie\Switches\VO\ArduinoSwitchVO;
 use Homie\Switches\VO\GpioSwitchVO;
+use Homie\Switches\VO\ParticleVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Homie\Switches\Gateway;
@@ -62,13 +63,23 @@ SwitchesTest extends TestCase
             'name'     => 'test2',
             'description' => 'description2',
             'pin'      => 102,
+            'nodeId'   => 1213,
             'type'     => ArduinoSwitchVO::TYPE,
+        ];
+
+        $particle = [
+            'switchId'    => 3,
+            'name'        => 'test2',
+            'description' => 'description2',
+            'function'    => 'myFunction',
+            'nodeId'      => 1213,
+            'type'        => ParticleVO::TYPE,
         ];
 
         $this->gateway
             ->expects($this->once())
             ->method('getAll')
-            ->willReturn([$radio, $arduino]);
+            ->willReturn([$radio, $arduino, $particle]);
 
         $actual = $this->subject->getAll();
 
@@ -82,11 +93,20 @@ SwitchesTest extends TestCase
         $expected2->switchId    = $arduino['switchId'];
         $expected2->name        = $arduino['name'];
         $expected2->description = $arduino['description'];
+        $expected2->nodeId      = $arduino['nodeId'];
         $expected2->pin         = $arduino['pin'];
+
+        $expected3              = new ParticleVO();
+        $expected3->switchId    = $particle['switchId'];
+        $expected3->name        = $particle['name'];
+        $expected3->description = $particle['description'];
+        $expected3->nodeId      = $particle['nodeId'];
+        $expected3->function    = $particle['function'];
 
         $this->assertEquals([
             $radio['switchId']   => $expected,
-            $arduino['switchId'] => $expected2
+            $arduino['switchId'] => $expected2,
+            $particle['switchId'] => $expected3,
         ], iterator_to_array($actual));
     }
 

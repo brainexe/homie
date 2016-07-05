@@ -8,9 +8,10 @@ App.controller('SwitchController', ['$scope', 'Switches', 'Nodes', 'MessageQueue
     $scope.newSwitch = {};
     $scope.nodes     = {};
     $scope.types     = {
-        'radio':    {name: _('443 MHz Radio')},
-        'gpio':     {name: _('RaspberryPi Pin')},
-        'arduino':  {name: _('Arduino Pin')}
+        'radio':    {name: _('443 MHz Radio'), template: '/templates/switch/addForm/radio.html'},
+        'gpio':     {name: _('RaspberryPi Pin'), template: '/templates/switch/addForm/raspberry.html'},
+        'arduino':  {name: _('Arduino Pin'), template: '/templates/switch/addForm/arduino.html'},
+        'particle': {name: _('Particle'), template: '/templates/switch/addForm/particle.html'}
     };
 
     Switches.getData().success(function (data) {

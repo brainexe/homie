@@ -21,7 +21,6 @@ class Controller
      * @param Request $request
      * @return bool
      * @Route("/ifttt/", name="ifttt.action")
-     * @Guest
      */
     public function action(Request $request) : bool
     {

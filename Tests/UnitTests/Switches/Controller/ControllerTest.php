@@ -5,6 +5,7 @@ namespace Tests\Homie\Switches\Controller;
 use ArrayIterator;
 use Homie\Switches\VO\ArduinoSwitchVO;
 use Homie\Switches\VO\GpioSwitchVO;
+use Homie\Switches\VO\ParticleVO;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Switches\Controller\Controller;
@@ -136,13 +137,43 @@ class ControllerTest extends TestCase
         $request->request->set('name', $name);
         $request->request->set('description', $description);
         $request->request->set('pin', $pin);
-        $request->request->set('node', $node);
+        $request->request->set('nodeId', $node);
         $request->request->set('type', ArduinoSwitchVO::TYPE);
 
         $switch = new ArduinoSwitchVO();
         $switch->name        = $name;
         $switch->description = $description;
         $switch->pin         = $pin;
+        $switch->nodeId      = $node;
+
+        $this->switches
+            ->expects($this->once())
+            ->method('add')
+            ->with($switch);
+
+        $actual = $this->subject->add($request);
+
+        $this->assertEquals($switch, $actual);
+    }
+
+    public function testAddParticle()
+    {
+        $name        = 'name';
+        $description = 'description';
+        $function    = 'myFunction';
+        $node        = 42;
+
+        $request = new Request();
+        $request->request->set('name', $name);
+        $request->request->set('description', $description);
+        $request->request->set('function', $function);
+        $request->request->set('nodeId', $node);
+        $request->request->set('type', ParticleVO::TYPE);
+
+        $switch = new ParticleVO();
+        $switch->name        = $name;
+        $switch->description = $description;
+        $switch->function    = $function;
         $switch->nodeId      = $node;
 
         $this->switches

@@ -6,33 +6,48 @@
     <thead>
         <tr>
             <th translate>Token</th>
+            <th translate>Name</th>
             <th translate>Roles</th>
             <th translate>Revoke</th>
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="(token, tokenRoles) in tokens">
-            <td>{{token}}</td>
+        <tr ng-repeat="(token, tokenData) in tokens">
+            <td><b>{{token}}</b></td>
+            <td>{{tokenData.name}}</td>
             <td>
-                {{tokenRoles}}
-                <ui-select multiple ng-model="tokenRoles">
-                    <ui-select-match placeholder="Select roles...">{{$item}}</ui-select-match>
-                    <ui-select-choices repeat="role in availableRoles">
-                        <div ng-bind="role"></div>
-                    </ui-select-choices>
-                </ui-select>
+                {{tokenData.roles|join:', '}}
             </td>
-            <td><a class="btn btn-danger" ng-click="revoke(token)" translate>Revoke</a></td>
+            <td>
+                <a
+                        class="btn btn-danger"
+                        confirm-text="{{'Delete this token?'|translate}}"
+                        confirm="revoke(token)"
+                        translate>
+                    Revoke
+                </a>
+            </td>
         </tr>
     </tbody>
 </table>
 
 <h2 translate>Add new token</h2>
 <ui-select multiple ng-model="roles">
-    <ui-select-match placeholder="Select roles...">{{$item}}</ui-select-match>
+    <ui-select-match placeholder="{'Select roles...'|translate}">{{$item}}</ui-select-match>
     <ui-select-choices repeat="role in availableRoles">
         <div ng-bind="role"></div>
     </ui-select-choices>
 </ui-select>
-{{roles}}
-<input type="button" ng-click="add(roles)" value="{{'Add'|translate}}"/>
+
+<input
+        type="text"
+        ng-model="name"
+        placeholder="{{'Name'|translate}}"
+        class="form-control"
+/>
+<input
+        class="btn btn-primary"
+        type="button"
+        ng-click="add(roles, name)"
+        value="{{'Add'|translate}}"
+/>

@@ -1,0 +1,23 @@
+<div class="form-group">
+    <label class="col-sm-2 control-label" translate>Node</label>
+    <div class="col-sm-10">
+        <ui-select ng-model="newSwitch.nodeId">
+            <ui-select-match placeholder="{{'Select a node...'|translate}}">{{$select.selected.name}}</ui-select-match>
+            <ui-select-choices repeat="node.nodeId as node in nodes|toArray|propsFilter:{type:'particle'}">
+                <span ng-bind-html="node.name"></span>
+            </ui-select-choices>
+        </ui-select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label" translate>Function</label>
+    <div class="col-sm-10">
+        <input
+                type="text"
+                class="form-control"
+                required="required"
+                ng-model="newSwitch.function"
+        />
+    </div>
+</div>

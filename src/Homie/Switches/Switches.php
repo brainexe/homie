@@ -9,6 +9,7 @@ use Exception;
 use Generator;
 use Homie\Switches\VO\ArduinoSwitchVO;
 use Homie\Switches\VO\GpioSwitchVO;
+use Homie\Switches\VO\ParticleVO;
 use Homie\Switches\VO\SwitchVO;
 use InvalidArgumentException;
 use Homie\Switches\VO\RadioVO;
@@ -142,11 +143,19 @@ class Switches
                 $switch->pin = $raw['pin'];
                 break;
             case ArduinoSwitchVO::TYPE:
-                $switch      = new ArduinoSwitchVO();
-                $switch->pin = $raw['pin'];
+                $switch         = new ArduinoSwitchVO();
+                $switch->pin    = $raw['pin'];
+                $switch->nodeId = $raw['nodeId'];
+                break;
+            case ParticleVO::TYPE:
+                $switch           = new ParticleVO();
+                $switch->function = $raw['function'];
+                $switch->nodeId   = $raw['nodeId'];
                 break;
             default:
-                throw new Exception(sprintf('Invalid switch type: %s', $raw['type']));
+                throw new Exception(
+                    sprintf('Invalid switch type: %s', $raw['type'])
+                );
         }
 
         return $switch;

@@ -8,7 +8,7 @@ use Homie\Sensors\Formatter\Formatter;
 use Homie\Sensors\Interfaces\Sensor;
 
 /**
- * @Service("SensorBuilder", public=false)
+ * @Service("SensorBuilder")
  */
 class SensorBuilder
 {

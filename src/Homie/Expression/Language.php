@@ -10,7 +10,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
 /**
- * @Service("Expression.Language", public=false)
+ * @Service("Expression.Language")
  */
 class Language extends ExpressionLanguage
 {

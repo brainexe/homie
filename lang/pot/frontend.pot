@@ -39,7 +39,7 @@ msgstr ""
 #: assets/templates/shopping_list.html:26
 #: assets/templates/switch/add_job.html:43
 #: assets/templates/switch/add.html:46
-#: assets/templates/user/tokens.html:38
+#: assets/templates/user/tokens.html:52
 #: assets/templates/widgets/new.html:49
 #: assets/templates/widgets/shopping_list.html:23
 #: assets/templates/widgets/todo_list.html:32
@@ -59,7 +59,7 @@ msgstr ""
 msgid "Add Job"
 msgstr ""
 
-#: assets/templates/user/tokens.html:30
+#: assets/templates/user/tokens.html:34
 msgid "Add new token"
 msgstr ""
 
@@ -138,6 +138,7 @@ msgstr ""
 
 #: assets/templates/sensor/add.html:132
 #: assets/templates/sensor/edit.html:155
+#: assets/templates/sensor/sensor_value_detail.html:7
 #: assets/templates/todo.html:37
 #: assets/templates/widgets/edit.html:25
 #: assets/templates/widgets/new.html:48
@@ -339,6 +340,7 @@ msgstr ""
 #: assets/templates/displays/edit.html:64
 #: assets/templates/egg_timer.html:42
 #: assets/templates/espeak.html:89
+#: assets/templates/sensor/sensor_value_detail.html:8
 #: assets/templates/status.html:8
 #: assets/templates/switch/jobs.html:8
 #: assets/templates/switch/switch.html:14
@@ -346,7 +348,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: assets/js/controllers/user/settings/tokens.js:21
+#: assets/templates/user/tokens.html:24
 msgid "Delete this token?"
 msgstr ""
 
@@ -375,8 +377,8 @@ msgstr ""
 msgid "Drag Here to Delete"
 msgstr ""
 
-#: assets/js/controllers/dashboard/widgets/webcam.js:19
-#: assets/js/controllers/dashboard/widgets/webcam.js:24
+#: assets/js/controllers/dashboard/widgets/webcam.js:20
+#: assets/js/controllers/dashboard/widgets/webcam.js:25
 #: assets/js/controllers/webcam.js:22
 #: assets/js/controllers/webcam.js:27
 msgid "Duration"
@@ -475,6 +477,10 @@ msgstr ""
 msgid "Formatter"
 msgstr ""
 
+#: assets/templates/switch/addForm/particle.html:14
+msgid "Function"
+msgstr ""
+
 #: assets/templates/widgets/webcam.html:11
 msgid "Go to files"
 msgstr ""
@@ -483,7 +489,7 @@ msgstr ""
 msgid "GPIO"
 msgstr ""
 
-#: assets/index.html:85
+#: assets/index.html:86
 msgid "Hello {{ currentUser.username }}!"
 msgstr ""
 
@@ -495,7 +501,7 @@ msgstr ""
 msgid "Hide menu entries"
 msgstr ""
 
-#: assets/index.html:16
+#: assets/index.html:17
 #: assets/index.html:8
 #: assets/js/util/BrowserNotification.js:31
 msgid "Homie"
@@ -584,6 +590,11 @@ msgctxt "gpio"
 msgid "Mode"
 msgstr ""
 
+#: assets/templates/sensor/edit.html:34
+msgctxt "sensor"
+msgid "Name"
+msgstr ""
+
 #: assets/templates/admin/nodes.html:23
 #: assets/templates/admin/nodes.html:6
 #: assets/templates/admin/users.html:5
@@ -597,11 +608,8 @@ msgstr ""
 #: assets/templates/switch/add.html:19
 #: assets/templates/switch/add.html:26
 #: assets/templates/switch/switch.html:11
-msgid "Name"
-msgstr ""
-
-#: assets/templates/sensor/edit.html:34
-msgctxt "sensor"
+#: assets/templates/user/tokens.html:45
+#: assets/templates/user/tokens.html:9
 msgid "Name"
 msgstr ""
 
@@ -632,6 +640,7 @@ msgstr ""
 
 #: assets/templates/sensor/add.html:69
 #: assets/templates/switch/addForm/arduino.html:15
+#: assets/templates/switch/addForm/particle.html:2
 msgid "Node"
 msgstr ""
 
@@ -691,6 +700,10 @@ msgstr ""
 msgid "Parameter"
 msgstr ""
 
+#: assets/js/controllers/switch.js:14
+msgid "Particle"
+msgstr ""
+
 #: assets/templates/admin/users.html:7
 #: assets/templates/user/change_password.html:17
 #: assets/templates/user/change_password.html:30
@@ -714,7 +727,7 @@ msgstr ""
 msgid "Preview"
 msgstr ""
 
-#: assets/index.html:48
+#: assets/index.html:49
 #: assets/templates/user/menu.html:3
 msgid "Profile"
 msgstr ""
@@ -747,7 +760,7 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: assets/js/controllers/switch.js:50
+#: assets/js/controllers/switch.js:51
 msgid "Remove this Job?"
 msgstr ""
 
@@ -759,13 +772,13 @@ msgstr ""
 msgid "Request One Time Secret"
 msgstr ""
 
-#: assets/templates/user/tokens.html:10
-#: assets/templates/user/tokens.html:25
+#: assets/templates/user/tokens.html:11
+#: assets/templates/user/tokens.html:22
 msgid "Revoke"
 msgstr ""
 
 #: assets/templates/admin/users.html:8
-#: assets/templates/user/tokens.html:9
+#: assets/templates/user/tokens.html:10
 msgid "Roles"
 msgstr ""
 
@@ -799,6 +812,7 @@ msgstr ""
 #: assets/templates/gpio.html:6
 #: assets/templates/sensor/add.html:72
 #: assets/templates/switch/addForm/arduino.html:18
+#: assets/templates/switch/addForm/particle.html:5
 msgid "Select a node..."
 msgstr ""
 
@@ -818,6 +832,10 @@ msgstr ""
 
 #: assets/templates/user/login.html:36
 msgid "Send Token via Mail"
+msgstr ""
+
+#: assets/templates/sensor/sensor_value_detail.html:3
+msgid "Sensor Value"
 msgstr ""
 
 #: cache/translation_token.html:38
@@ -953,7 +971,7 @@ msgstr ""
 msgid "Sensors"
 msgstr ""
 
-#: assets/js/controllers/dashboard/widgets/egg_timer.js:32
+#: assets/js/controllers/dashboard/widgets/egg_timer.js:33
 msgid "Set Time"
 msgstr ""
 
@@ -976,7 +994,7 @@ msgstr ""
 msgid "Sign in"
 msgstr ""
 
-#: assets/index.html:62
+#: assets/index.html:63
 msgid "Sign out"
 msgstr ""
 
@@ -1026,6 +1044,10 @@ msgid "switch.gpio.name"
 msgstr ""
 
 #: cache/translation_token.html:72
+msgid "switch.particle.name"
+msgstr ""
+
+#: cache/translation_token.html:73
 msgid "switch.radio.name"
 msgstr ""
 
@@ -1090,23 +1112,23 @@ msgstr ""
 msgid "ToDo List"
 msgstr ""
 
-#: cache/translation_token.html:73
+#: cache/translation_token.html:74
 msgid "todo.status.completed.name"
 msgstr ""
 
-#: cache/translation_token.html:74
+#: cache/translation_token.html:75
 msgid "todo.status.delete.name"
 msgstr ""
 
-#: cache/translation_token.html:75
+#: cache/translation_token.html:76
 msgid "todo.status.open.name"
 msgstr ""
 
-#: cache/translation_token.html:76
+#: cache/translation_token.html:77
 msgid "todo.status.pending.name"
 msgstr ""
 
-#: cache/translation_token.html:77
+#: cache/translation_token.html:78
 msgid "todo.status.progress.name"
 msgstr ""
 
@@ -1132,6 +1154,11 @@ msgstr ""
 msgid "Two Factor Authentication"
 msgstr ""
 
+#: assets/templates/sensor/edit.html:29
+msgctxt "sensor"
+msgid "Type"
+msgstr ""
+
 #: assets/templates/admin/nodes.html:5
 #: assets/templates/sensor/add.html:16
 #: assets/templates/sensor/edit.html:63
@@ -1139,11 +1166,6 @@ msgstr ""
 #: assets/templates/status.html:6
 #: assets/templates/switch/add.html:8
 #: assets/templates/widgets/new.html:26
-msgid "Type"
-msgstr ""
-
-#: assets/templates/sensor/edit.html:29
-msgctxt "sensor"
 msgid "Type"
 msgstr ""
 
@@ -1164,13 +1186,13 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
-#: assets/templates/status.html:43
-#: assets/templates/status.html:61
+#: assets/templates/gpio.html:38
+msgctxt "gpio"
 msgid "Value"
 msgstr ""
 
-#: assets/templates/gpio.html:38
-msgctxt "gpio"
+#: assets/templates/status.html:43
+#: assets/templates/status.html:61
 msgid "Value"
 msgstr ""
 

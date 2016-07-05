@@ -10,6 +10,7 @@ use BrainExe\Core\Translation\TranslationTrait;
 use Homie\Switches\Switches;
 use Homie\Switches\VO\ArduinoSwitchVO;
 use Homie\Switches\VO\GpioSwitchVO;
+use Homie\Switches\VO\ParticleVO;
 use Homie\Switches\VO\RadioVO;
 use Homie\Switches\VO\SwitchVO;
 use Symfony\Component\HttpFoundation\Request;
@@ -107,7 +108,12 @@ class Controller
             case ArduinoSwitchVO::TYPE:
                 $switchVo = new ArduinoSwitchVO();
                 $switchVo->pin    = $request->request->getAlnum('pin');
-                $switchVo->nodeId = $request->request->getAlnum('node');
+                $switchVo->nodeId = $request->request->getAlnum('nodeId');
+                return $switchVo;
+            case ParticleVO::TYPE:
+                $switchVo = new ParticleVO();
+                $switchVo->function = $request->request->getAlnum('function');
+                $switchVo->nodeId   = $request->request->getAlnum('nodeId');
                 return $switchVo;
             default:
                 throw new UserException(

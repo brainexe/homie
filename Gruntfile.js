@@ -104,7 +104,7 @@ module.exports = function (grunt) {
         'uglify',
         'htmlmin',
         'sass',
-        'cssmin',
+        'cssmin'
     ];
 
     if (isProduction) {
@@ -229,7 +229,8 @@ module.exports = function (grunt) {
                         'assets/**/*.css',
                         'bower_components/rickshaw/rickshaw.css',
                         'bower_components/ui-select/dist/select.min.css',
-                        'bower_components/angular-bootstrap-colorpicker/css/colorpicker.min.css'
+                        'bower_components/angular-bootstrap-colorpicker/css/colorpicker.min.css',
+                        'bower_components/angular-loading-bar/build/loading-bar.min.css'
                     ]
                 }
             }
@@ -298,6 +299,7 @@ module.exports = function (grunt) {
                         'bower_components/ng-sortable/dist/ng-sortable.min.js',
                         'bower_components/ui-select/dist/select.min.js',
                         'bower_components/sockjs-client/dist/sockjs.min.js',
+                        'bower_components/angular-loading-bar/build/loading-bar.min.js',
 
                         // needed for sensor module
                         'bower_components/rickshaw/vendor/d3.min.js',

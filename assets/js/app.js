@@ -8,7 +8,8 @@ var App = angular.module('homie', [
         'ui.select',
         'as.sortable',
         'colorpicker.module',
-        'gettext'
+        'gettext',
+        'angular-loading-bar'
     ]).config(['$routeProvider', '$httpProvider', '$provide', function ($routeProvider, $httpProvider, $provide) {
         // needed for translated routes
         $provide.factory('$routeProvider', function () {

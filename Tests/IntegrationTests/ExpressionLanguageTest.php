@@ -40,7 +40,7 @@ class ExpressionLanguageTest extends TestCase
         $dic = $this->bootstrap();
 
         /** @var Language $language */
-        $language   = $dic->get('Expression.Language');
+        $language = $dic->get('Expression.Language');
 
         $actual = $language->compile($expression, $language->getParameterNames());
 
