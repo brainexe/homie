@@ -10,7 +10,7 @@ var App = angular.module('homie', [
         'colorpicker.module',
         'gettext',
         'angular-loading-bar'
-    ]).config(['$routeProvider', '$httpProvider', '$provide', function ($routeProvider, $httpProvider, $provide) {
+    ]).config(['$routeProvider', '$httpProvider', '$provide', 'cfpLoadingBarProvider', function ($routeProvider, $httpProvider, $provide, cfpLoadingBarProvider) {
         // needed for translated routes
         $provide.factory('$routeProvider', function () {
             return $routeProvider;
@@ -42,6 +42,8 @@ var App = angular.module('homie', [
                 }
             };
         }]);
+        cfpLoadingBarProvider.includeSpinner   = false;
+        cfpLoadingBarProvider.latencyThreshold = 200;
     }]).run(['$routeProvider', '$httpProvider', '$rootScope', 'controllers', 'Listeners', function ($routeProvider, $httpProvider, $rootScope, controllers, Listeners) {
         // init routing
         controllers = controllers();

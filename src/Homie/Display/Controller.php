@@ -123,6 +123,8 @@ class Controller
         $settings->lines    = $request->request->getInt('lines');
         $settings->columns  = $request->request->getInt('columns');
         $settings->content  = (array)$request->request->get('content');
+        $settings->nodeId   = $request->request->getInt('nodeId');
+
         $settings->rendered = $this->renderer->render($settings);
 
         return $settings;

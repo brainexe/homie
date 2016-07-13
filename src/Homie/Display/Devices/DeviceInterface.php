@@ -11,4 +11,9 @@ interface DeviceInterface
      * @param string $content
      */
     public function display(Node $node, string $content);
+
+    /**
+     * @return string
+     */
+    public static function getType() : string;
 }

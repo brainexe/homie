@@ -3,16 +3,18 @@
 namespace Homie\Display\Devices;
 
 use BrainExe\Annotations\Annotations\Inject;
-use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
+use Homie\Display\Annotation\DisplayDevice;
 use Homie\Expression\Event\EvaluateEvent;
 use Homie\Node;
 
 /**
- * @Service("Display.Devices.Particle", public=false)
+ * @DisplayDevice("Display.Devices.Particle")
  */
 class Particle implements DeviceInterface
 {
+
+    const TYPE = 'particle';
 
     /**
      * @var EventDispatcher
@@ -46,5 +48,13 @@ class Particle implements DeviceInterface
         $event = new EvaluateEvent($call);
 
         $this->dispatcher->dispatchInBackground($event);
+    }
+
+    /**
+     * @return string
+     */
+    public static function getType() : string
+    {
+        return self::TYPE;
     }
 }

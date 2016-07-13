@@ -14,13 +14,20 @@ class EvaluateEvent extends AbstractEvent
     private $expression;
 
     /**
-     * @param string $expression
+     * @var array
      */
-    public function __construct(string $expression)
+    private $variables;
+
+    /**
+     * @param string $expression
+     * @param array $variables
+     */
+    public function __construct(string $expression, array $variables = [])
     {
         parent::__construct(self::EVALUATE);
 
         $this->expression = $expression;
+        $this->variables  = $variables;
     }
 
     /**
@@ -29,5 +36,13 @@ class EvaluateEvent extends AbstractEvent
     public function getExpression() : string
     {
         return $this->expression;
+    }
+
+    /**
+     * @return array
+     */
+    public function getVariables(): array
+    {
+        return $this->variables;
     }
 }

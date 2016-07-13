@@ -30,7 +30,7 @@ class Speakers
 
     /**
      * @return Iterator
-     * @Route("/espeak/speakers/", name="espeak.speakers", options={"cache":3600})
+     * @Route("/espeak/speakers/", name="espeak.speakers", options={"cache":86400})
      */
     public function speakers() : Iterator
     {

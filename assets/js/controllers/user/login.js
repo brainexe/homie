@@ -17,7 +17,6 @@ App.controller('LoginController', ['$scope', '$location', 'UserManagement', 'Use
             var message = _("Welcome back {0}!").format(result.username);
 
             $scope.$broadcast('flash', [message, 'success']);
-            UserManagement.setCurrentUser(result);
             $location.path("/dashboard");
         });
     };

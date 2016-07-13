@@ -23,7 +23,7 @@ class Expressions implements DefaultExpression
             'isTiming("minute")'
         ];
         $sensorCron->actions = [
-            'event("console.run", "cron:sensor")'
+            'console("cron:sensor")',
         ];
         yield $sensorCron;
 
@@ -33,8 +33,10 @@ class Expressions implements DefaultExpression
             'isTiming("daily")'
         ];
         $cleanCron->actions = [
-            'event("console.run", "cron:clean")'
+            'console("cron:clean")',
+            'console("messagequeue:clean")',
         ];
+
         yield $cleanCron;
     }
 }

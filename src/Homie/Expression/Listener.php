@@ -4,16 +4,18 @@ namespace Homie\Expression;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Core\Traits\FileCacheTrait;
 use Generator;
+use Homie\Expression\Event\EvaluateEvent;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\EventDispatcher\Event;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher;
 
 /**
  * @Service("Expression.Listener", public=false)
  */
-class Listener extends EventDispatcher
+class Listener extends SymfonyEventDispatcher
 {
 
     use FileCacheTrait;
@@ -24,9 +26,9 @@ class Listener extends EventDispatcher
     private $gateway;
 
     /**
-     * @var Language
+     * @var EventDispatcher
      */
-    private $language;
+    private $dispatcher;
 
     /**
      * @var Container
@@ -41,21 +43,21 @@ class Listener extends EventDispatcher
     /**
      * @Inject({
      *     "@Expression.Gateway",
-     *     "@Expression.Language",
+     *     "@EventDispatcher",
      *     "@service_container",
      * })
      * @param Gateway $gateway
-     * @param Language $language
+     * @param EventDispatcher $dispatcher
      * @param Container $container
      */
     public function __construct(
         Gateway $gateway,
-        Language $language,
+        EventDispatcher $dispatcher,
         Container $container
     ) {
-        $this->gateway   = $gateway;
-        $this->language  = $language;
-        $this->container = $container;
+        $this->gateway    = $gateway;
+        $this->dispatcher = $dispatcher;
+        $this->container  = $container;
 
         $this->cachedFunctions = $this->includeFile(Cache::CACHE_FILE);
     }
@@ -89,7 +91,8 @@ class Listener extends EventDispatcher
 
             $oldParams = $entity->payload;
             foreach ($entity->actions as $action) {
-                $this->language->evaluate($action, $parameters);
+                $evaluateEvent = new EvaluateEvent($action, $parameters);
+                $this->dispatcher->dispatchEvent($evaluateEvent);
             }
 
             if ($entity->payload != $oldParams) {

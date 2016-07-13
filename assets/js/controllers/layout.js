@@ -43,10 +43,10 @@ App.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gette
         $scope.flushCache()
     });
 
-    $scope.changeLanguage = function(lang) {
-        gettextCatalog.setCurrentLanguage(lang);
-        localStorage.setItem('language', lang);
-        //window.location.reload();
+    $scope.changeLanguage = function(language) {
+        gettextCatalog.loadRemote("/lang/" + language + ".json");
+        gettextCatalog.setCurrentLanguage(language);
+        localStorage.setItem('language', language);
     };
 
     $scope.flushCache = function() {

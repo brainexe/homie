@@ -6,6 +6,7 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use Homie\Client\ClientInterface;
 use Iterator;
+use RuntimeException;
 
 /**
  * @Service("Espeak.Speakers", public=false)
@@ -51,10 +52,14 @@ class Speakers
     {
         $raw = $this->getRawSpeakers();
 
+        $shortLocales = array_map(function (string $locale) {
+            return substr($locale, 0, 2);
+        }, $this->locales);
+
         foreach ($raw as $idx => $line) {
             @list(,, $language, $gender, $voiceName) = preg_split('/\s+/', $line);
 
-            if (strlen($language) <= 5 && in_array(substr($language, 0, 2), $this->locales)) {
+            if (strlen($language) <= 5 && in_array($language, $shortLocales)) {
                 yield $language => ucfirst($voiceName) . " - $gender";
             }
         }
@@ -69,7 +74,7 @@ class Speakers
             $raw = $this->client->executeWithReturn($this->command, ['--voices']);
 
             return explode("\n", $raw);
-        } catch (\RuntimeException $e) {
+        } catch (RuntimeException $e) {
             return [];
         }
     }

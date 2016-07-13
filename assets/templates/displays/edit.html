@@ -10,7 +10,20 @@
                             type="text"
                             ng-model="currentScreen.name"
                             class="form-control"
+                            required="required"
+                            ng-minlength="3"
                     />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <label translate>Node</label>
+                    <ui-select ng-model="currentScreen.nodeId">
+                        <ui-select-match placeholder="{{'Select a node...'|translate}}">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="node.nodeId as node in nodes|toArray">
+                            <span ng-bind-html="node.name"></span>
+                        </ui-select-choices>
+                    </ui-select>
                 </div>
             </div>
             <div class="form-group">
@@ -22,6 +35,7 @@
                             type="number"
                             min="1"
                             max="200"
+                            required
                             class="form-control input-lg"
                             placeholder="{{'Lines'|translate}}"
                     />
@@ -33,6 +47,7 @@
                             type="number"
                             min="1"
                             max="200"
+                            required
                             class="form-control input-lg"
                             placeholder="{{'Columns'|translate}}"
                     />
@@ -58,10 +73,10 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-6">
-                    <button type="submit" class="btn btn-primary" translate>Submit</button>
+                    <button type="submit" class="btn btn-primary" translate>Save</button>
                 </div>
                 <div ng-if="currentScreen.displayId" class="col-sm-6">
-                    <button type="button" class="btn btn-danger" translate>Delete</button>
+                    <button type="button" confirm="deleteDisplay(currentScreen)" class="btn btn-danger" translate>Delete</button>
                 </div>
             </div>
         </form>

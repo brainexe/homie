@@ -12,6 +12,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
 /**
  * @ExpressionLanguageAnnotation("Expression.Functions.Process")
+ * @deprecated too insecure!
  */
 class Process implements ExpressionFunctionProviderInterface
 {

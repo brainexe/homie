@@ -300,6 +300,7 @@ module.exports = function (grunt) {
                         'bower_components/ui-select/dist/select.min.js',
                         'bower_components/sockjs-client/dist/sockjs.min.js',
                         'bower_components/angular-loading-bar/build/loading-bar.min.js',
+                        'bower_components/lodash/dist/lodash.min.js',
 
                         // needed for sensor module
                         'bower_components/rickshaw/vendor/d3.min.js',

@@ -2,14 +2,16 @@
 
 namespace Homie\Display\Devices;
 
-use BrainExe\Annotations\Annotations\Service;
+use Homie\Display\Annotation\DisplayDevice;
 use Homie\Node;
 
 /**
- * @Service("Display.Devices.EchoDevice", public=false)
+ * @DisplayDevice("Display.Devices.EchoDevice")
  */
 class EchoDevice implements DeviceInterface
 {
+
+    const TYPE = 'echo';
 
     /**
      * @param Node $node
@@ -20,5 +22,13 @@ class EchoDevice implements DeviceInterface
         unset($node);
 
         echo $content;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getType() : string
+    {
+        return self::TYPE;
     }
 }

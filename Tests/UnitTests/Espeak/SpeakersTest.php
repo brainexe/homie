@@ -43,10 +43,6 @@ class SpeakersTest extends TestCase
         $expected = [
             'de'    => 'German - M',
             'en'    => 'Default - M',
-            'en-gb' => 'English - M',
-            'en-sc' => 'En-scottish - M',
-            'en-us' => 'English-us - M',
-            'en-wi' => 'En-westindies - M',
         ];
 
         $actual  = $this->subject->getSpeakers();

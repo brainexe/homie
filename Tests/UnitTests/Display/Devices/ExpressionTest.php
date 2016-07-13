@@ -3,20 +3,20 @@
 namespace Tests\Homie\Display\Devices;
 
 use BrainExe\Core\EventDispatcher\EventDispatcher;
-use Homie\Arduino\SerialEvent;
-use Homie\Display\Devices\Arduino;
+use Homie\Display\Devices\Expression;
+use Homie\Expression\Event\EvaluateEvent;
 use Homie\Node;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 
 /**
- * @covers Homie\Display\Devices\Arduino
+ * @covers Homie\Display\Devices\Expression
  */
-class ArduinoTest extends TestCase
+class ExpressionTest extends TestCase
 {
 
     /**
-     * @var Arduino
+     * @var Expression
      */
     private $subject;
 
@@ -29,23 +29,19 @@ class ArduinoTest extends TestCase
     {
         $this->dispatcher = $this->createMock(EventDispatcher::class);
 
-        $this->subject = new Arduino($this->dispatcher);
-    }
-
-    public function testGetType()
-    {
-        $this->assertEquals(Arduino::TYPE, Arduino::getType());
+        $this->subject = new Expression($this->dispatcher);
     }
 
     public function testOutput()
     {
         $string = "foo";
-        $pin    = 10;
 
-        $event = new SerialEvent(SerialEvent::LCD, $pin, $string);
+        $node = new Node(1010, Node::TYPE_SERVER);
+        $node->setOptions(['displayFunction' => 'drawDisplay(content)']);
 
-        $node = new Node(1, Node::TYPE_SERVER);
-        $node->setOptions(['displayPin' => $pin]);
+        $event = new EvaluateEvent('drawDisplay(content)', [
+            'content' => $string
+        ]);
 
         $this->dispatcher
             ->expects($this->once())

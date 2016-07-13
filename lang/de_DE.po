@@ -132,7 +132,7 @@ msgstr "Passwort ändern"
 msgid "Change Password"
 msgstr "Passwort ändern"
 
-#: assets/templates/displays/edit.html:30
+#: assets/templates/displays/edit.html:44
 msgid "Characters per Row"
 msgstr "Zeichen pro Zeile"
 
@@ -156,7 +156,7 @@ msgstr "Code"
 msgid "Color"
 msgstr "Farbe"
 
-#: assets/templates/displays/edit.html:37
+#: assets/templates/displays/edit.html:52
 msgid "Columns"
 msgstr "Spalten"
 
@@ -225,9 +225,8 @@ msgid "dashboard.widget.egg_timer.name"
 msgstr "Eieruhr"
 
 #: cache/translation_token.html:7
-#, fuzzy
 msgid "dashboard.widget.execute_expression.description"
-msgstr "Evaluiert jeden Beliebigen Ausdruck"
+msgstr ""
 
 #: cache/translation_token.html:8
 msgid "dashboard.widget.execute_expression.name"
@@ -334,7 +333,7 @@ msgid "Delay"
 msgstr "Verzögerung"
 
 #: assets/templates/admin/users.html:46 assets/templates/crons.html:9
-#: assets/templates/dashboard.html:105 assets/templates/displays/edit.html:64
+#: assets/templates/dashboard.html:105 assets/templates/displays/edit.html:79
 #: assets/templates/egg_timer.html:42 assets/templates/espeak.html:89
 #: assets/templates/sensor/sensor_value_detail.html:8
 #: assets/templates/status.html:8 assets/templates/switch/jobs.html:8
@@ -352,7 +351,7 @@ msgstr "Diesen Token löschen?"
 msgid "Description"
 msgstr "Beschreibung"
 
-#: assets/templates/user/otp.html:16
+#: assets/templates/user/otp.html:22
 msgid "Disable One Time Secret"
 msgstr "One Time Secret deaktivieren"
 
@@ -426,7 +425,7 @@ msgstr "Eieruhr"
 msgid "Email"
 msgstr "Email"
 
-#: assets/js/controllers/user/login.js:44
+#: assets/js/controllers/user/login.js:43
 msgid "Email was sent"
 msgstr "Email wurde gesendet"
 
@@ -525,8 +524,8 @@ msgstr "Key"
 msgid "Keys"
 msgstr "Schlüssel"
 
-#: assets/templates/displays/edit.html:26
-#: assets/templates/displays/edit.html:43
+#: assets/templates/displays/edit.html:40
+#: assets/templates/displays/edit.html:58
 msgid "Lines"
 msgstr "Zeilen"
 
@@ -567,6 +566,11 @@ msgctxt "gpio"
 msgid "Mode"
 msgstr "Modus"
 
+#: assets/templates/gpio.html:28
+msgctxt "gpio"
+msgid "Name"
+msgstr "Name"
+
 #: assets/templates/sensor/edit.html:34
 msgctxt "sensor"
 msgid "Name"
@@ -581,11 +585,6 @@ msgstr "Name"
 #: assets/templates/switch/add.html:19 assets/templates/switch/add.html:26
 #: assets/templates/switch/switch.html:11 assets/templates/user/tokens.html:45
 #: assets/templates/user/tokens.html:9
-msgid "Name"
-msgstr "Name"
-
-#: assets/templates/gpio.html:28
-msgctxt "gpio"
 msgid "Name"
 msgstr "Name"
 
@@ -609,7 +608,7 @@ msgstr "Neues Widget"
 msgid "Next Run"
 msgstr "Nächster Lauf"
 
-#: assets/templates/sensor/add.html:69
+#: assets/templates/displays/edit.html:20 assets/templates/sensor/add.html:69
 #: assets/templates/switch/addForm/arduino.html:15
 #: assets/templates/switch/addForm/particle.html:2
 msgid "Node"
@@ -620,18 +619,22 @@ msgid "node.arduino.name"
 msgstr "Arduino"
 
 #: cache/translation_token.html:34
+msgid "node.display.name"
+msgstr "Display"
+
+#: cache/translation_token.html:35
 msgid "node.metawear.name"
 msgstr "Metawear"
 
-#: cache/translation_token.html:35
+#: cache/translation_token.html:36
 msgid "node.particle.name"
 msgstr "Particle"
 
-#: cache/translation_token.html:36
+#: cache/translation_token.html:37
 msgid "node.raspberry.name"
 msgstr "Raspberry Pi"
 
-#: cache/translation_token.html:37
+#: cache/translation_token.html:38
 msgid "node.server.name"
 msgstr "Server"
 
@@ -733,7 +736,7 @@ msgstr "Diesen Job löschen?"
 msgid "Repeat Password"
 msgstr "Passwort wiederholen"
 
-#: assets/templates/user/otp.html:20
+#: assets/templates/user/otp.html:26
 msgid "Request One Time Secret"
 msgstr "One Time Secret anfordern"
 
@@ -745,12 +748,12 @@ msgstr "Zurückziehen"
 msgid "Roles"
 msgstr "Rollen"
 
-#: assets/templates/displays/edit.html:18
+#: assets/templates/displays/edit.html:31
 msgid "Rows"
 msgstr "Zeilen"
 
 #: assets/templates/admin/nodes.html:41 assets/templates/admin/users.html:40
-#: assets/templates/dashboard.html:67
+#: assets/templates/dashboard.html:67 assets/templates/displays/edit.html:76
 #: assets/templates/expression/edit.html:105 assets/templates/todo.html:49
 #: assets/templates/widgets/edit.html:26
 msgid "Save"
@@ -770,7 +773,8 @@ msgstr "Suchen"
 msgid "Secret:"
 msgstr "Secret"
 
-#: assets/templates/gpio.html:6 assets/templates/sensor/add.html:72
+#: assets/templates/displays/edit.html:22 assets/templates/gpio.html:6
+#: assets/templates/sensor/add.html:72
 #: assets/templates/switch/addForm/arduino.html:18
 #: assets/templates/switch/addForm/particle.html:5
 msgid "Select a node..."
@@ -796,138 +800,138 @@ msgstr "Token per Mail schicken"
 msgid "Sensor Value"
 msgstr "Sensor Wert"
 
-#: cache/translation_token.html:38
+#: cache/translation_token.html:39
 msgid "sensor.barometer.bmp085.name"
 msgstr "Barometer (BMP085)"
 
-#: cache/translation_token.html:39
+#: cache/translation_token.html:40
 msgid "sensor.brightness.webcam.name"
 msgstr "Helligkeit (via Webcam)"
 
-#: cache/translation_token.html:40
+#: cache/translation_token.html:41
 msgid "sensor.custom.aggregator.name"
 msgstr "Aggregator"
 
-#: cache/translation_token.html:41
+#: cache/translation_token.html:42
 msgid "sensor.custom.expression.name"
 msgstr "Expression"
 
-#: cache/translation_token.html:42
+#: cache/translation_token.html:43
 msgid "sensor.custom.metawear.name"
 msgstr "Metawear"
 
-#: cache/translation_token.html:43
+#: cache/translation_token.html:44
 msgid "sensor.custom.particle.name"
 msgstr "Particle"
 
-#: cache/translation_token.html:44
+#: cache/translation_token.html:45
 msgid "sensor.custom.script.name"
 msgstr "Script"
 
-#: cache/translation_token.html:45
+#: cache/translation_token.html:46
 msgid "sensor.decibel.webcam.name"
 msgstr "Dezibell (via Webcam)"
 
-#: cache/translation_token.html:46
+#: cache/translation_token.html:47
 #, fuzzy
 msgid "sensor.formatter.barometer.description"
 msgstr "Barometer"
 
-#: cache/translation_token.html:47
+#: cache/translation_token.html:48
 msgid "sensor.formatter.barometer.name"
 msgstr "Barometer"
 
-#: cache/translation_token.html:48
+#: cache/translation_token.html:49
 #, fuzzy
 msgid "sensor.formatter.bytes.description"
 msgstr "Bytes"
 
-#: cache/translation_token.html:49
+#: cache/translation_token.html:50
 msgid "sensor.formatter.bytes.name"
 msgstr "Bytes"
 
-#: cache/translation_token.html:50
+#: cache/translation_token.html:51
 #, fuzzy
 msgid "sensor.formatter.load.description"
 msgstr "Load"
 
-#: cache/translation_token.html:51
+#: cache/translation_token.html:52
 msgid "sensor.formatter.load.name"
 msgstr "Load"
 
-#: cache/translation_token.html:52
+#: cache/translation_token.html:53
 #, fuzzy
 msgid "sensor.formatter.none.description"
 msgstr "Keine"
 
-#: cache/translation_token.html:53
+#: cache/translation_token.html:54
 msgid "sensor.formatter.none.name"
 msgstr "Keine"
 
-#: cache/translation_token.html:54
+#: cache/translation_token.html:55
 #, fuzzy
 msgid "sensor.formatter.number.description"
 msgstr "Nummer"
 
-#: cache/translation_token.html:55
+#: cache/translation_token.html:56
 msgid "sensor.formatter.number.name"
 msgstr "Nummer"
 
-#: cache/translation_token.html:56
+#: cache/translation_token.html:57
 #, fuzzy
 msgid "sensor.formatter.percentage.description"
 msgstr "Prozent"
 
-#: cache/translation_token.html:57
+#: cache/translation_token.html:58
 msgid "sensor.formatter.percentage.name"
 msgstr "Prozent"
 
-#: cache/translation_token.html:58
+#: cache/translation_token.html:59
 #, fuzzy
 msgid "sensor.formatter.temperature.description"
 msgstr "Temperatur"
 
-#: cache/translation_token.html:59
+#: cache/translation_token.html:60
 msgid "sensor.formatter.temperature.name"
 msgstr "Temperatur"
 
-#: cache/translation_token.html:60
+#: cache/translation_token.html:61
 msgid "sensor.humid.absolute.name"
 msgstr "Absolute Feuchtigkeit"
 
-#: cache/translation_token.html:61
+#: cache/translation_token.html:62
 msgid "sensor.humid.dht11.name"
 msgstr "Feuchtigkeit (DHT11)"
 
-#: cache/translation_token.html:63
+#: cache/translation_token.html:64
 msgid "sensor.system.disk_used_percent.name"
 msgstr "Festplatte in %"
 
-#: cache/translation_token.html:62
+#: cache/translation_token.html:63
 msgid "sensor.system.disk_used.name"
 msgstr "Festplatte in Bytes"
 
-#: cache/translation_token.html:64
+#: cache/translation_token.html:65
 msgid "sensor.system.load.name"
 msgstr "System Load"
 
-#: cache/translation_token.html:65
+#: cache/translation_token.html:66
 msgid "sensor.system.memory_used.name"
 msgstr "Verb. RAM"
 
-#: cache/translation_token.html:66
+#: cache/translation_token.html:67
 msgid "sensor.system.redis.name"
 msgstr "Redis Statstik"
 
-#: cache/translation_token.html:67
+#: cache/translation_token.html:68
 msgid "sensor.temperature.dht11.name"
 msgstr "Temperatur (DHT11)"
 
-#: cache/translation_token.html:68
+#: cache/translation_token.html:69
 msgid "sensor.temperature.ds18.name"
 msgstr "Temperatur (DS18)"
 
-#: cache/translation_token.html:69
+#: cache/translation_token.html:70
 msgid "sensor.temperature.onboard.name"
 msgstr "Temperatur (Chip)"
 
@@ -982,8 +986,7 @@ msgstr "Geschwindigkeit"
 msgid "Status"
 msgstr "Status"
 
-#: assets/templates/displays/edit.html:61 assets/templates/egg_timer.html:32
-#: assets/templates/espeak.html:72
+#: assets/templates/egg_timer.html:32 assets/templates/espeak.html:72
 #: assets/templates/widgets/sensor_input.html:12
 msgid "Submit"
 msgstr "Abschicken"
@@ -992,19 +995,19 @@ msgstr "Abschicken"
 msgid "Switch"
 msgstr "Schalter"
 
-#: cache/translation_token.html:70
+#: cache/translation_token.html:71
 msgid "switch.arduino.name"
 msgstr "Arduino"
 
-#: cache/translation_token.html:71
+#: cache/translation_token.html:72
 msgid "switch.gpio.name"
 msgstr "GPIO Pin"
 
-#: cache/translation_token.html:72
+#: cache/translation_token.html:73
 msgid "switch.particle.name"
 msgstr "Particle"
 
-#: cache/translation_token.html:73
+#: cache/translation_token.html:74
 msgid "switch.radio.name"
 msgstr "443 MHz Funkstecker"
 
@@ -1059,23 +1062,23 @@ msgstr "Titel"
 msgid "ToDo List"
 msgstr "ToDo-Liste"
 
-#: cache/translation_token.html:74
+#: cache/translation_token.html:75
 msgid "todo.status.completed.name"
 msgstr "Abgeschlossen"
 
-#: cache/translation_token.html:75
+#: cache/translation_token.html:76
 msgid "todo.status.delete.name"
 msgstr "Löschen"
 
-#: cache/translation_token.html:76
+#: cache/translation_token.html:77
 msgid "todo.status.open.name"
 msgstr "Offen"
 
-#: cache/translation_token.html:77
+#: cache/translation_token.html:78
 msgid "todo.status.pending.name"
 msgstr "Ausstehend"
 
-#: cache/translation_token.html:78
+#: cache/translation_token.html:79
 msgid "todo.status.progress.name"
 msgstr "In Arbeit"
 

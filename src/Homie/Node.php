@@ -20,6 +20,7 @@ class Node implements JsonSerializable, TranslationProvider
     const TYPE_METAWEAR  = 'metawear';
     const TYPE_SERVER    = 'server';
     const TYPE_PARTICLE  = 'particle';
+    const TYPE_DISPLAY   = 'display';
 
     const TYPES = [
         self::TYPE_RASPBERRY,
@@ -27,6 +28,7 @@ class Node implements JsonSerializable, TranslationProvider
         self::TYPE_METAWEAR,
         self::TYPE_SERVER,
         self::TYPE_PARTICLE,
+        self::TYPE_DISPLAY,
     ];
 
     /**

@@ -6,16 +6,17 @@ use Homie\Expression\Event\EvaluateEvent;
 use PHPUnit_Framework_TestCase as TestCase;
 
 /**
- * @covers Homie\Expression\Event\Evaluate
+ * @covers Homie\Expression\Event\EvaluateEvent
  */
-class EvaluateTest extends TestCase
+class EvaluateEventTest extends TestCase
 {
 
     public function testEvent()
     {
-        $event = new EvaluateEvent('test()');
+        $event = new EvaluateEvent('test()', ['foo']);
 
         $this->assertEquals(EvaluateEvent::EVALUATE, $event->getEventName());
         $this->assertEquals('test()', $event->getExpression());
+        $this->assertEquals(['foo'], $event->getVariables());
     }
 }

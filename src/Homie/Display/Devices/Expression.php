@@ -4,16 +4,17 @@ namespace Homie\Display\Devices;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
-use Homie\Arduino\SerialEvent;
 use Homie\Display\Annotation\DisplayDevice;
+use Homie\Expression\Event\EvaluateEvent;
 use Homie\Node;
 
 /**
- * @DisplayDevice("Display.Devices.Arduino")
+ * @DisplayDevice("Display.Devices.Expression")
  */
-class Arduino implements DeviceInterface
+class Expression implements DeviceInterface
 {
-    const TYPE = 'ardiono';
+
+    const TYPE = 'expression';
 
     /**
      * @var EventDispatcher
@@ -35,9 +36,11 @@ class Arduino implements DeviceInterface
      */
     public function display(Node $node, string $content)
     {
-        $pin = (int)$node->getOption('displayPin');
+        $function = $node->getOption('displayFunction');
 
-        $event = new SerialEvent(SerialEvent::LCD, $pin, $content);
+        $event = new EvaluateEvent($function, [
+            'content' => $content
+        ]);
 
         $this->dispatcher->dispatchInBackground($event);
     }

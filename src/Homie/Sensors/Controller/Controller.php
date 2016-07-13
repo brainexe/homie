@@ -108,7 +108,7 @@ class Controller
      */
     public function indexSensor(Request $request, string $activeSensorIds) : array
     {
-        $userId = (int)$request->attributes->get('user_id');
+        $userId = $request->attributes->getInt('user_id');
         $ago    = $this->getAgo($request, $userId);
         $now    = $this->getTime()->now();
 

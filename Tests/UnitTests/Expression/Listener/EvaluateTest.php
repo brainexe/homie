@@ -32,12 +32,12 @@ class EvaluateTest extends TestCase
 
     public function testEvaluate()
     {
-        $event = new EvaluateEvent('myExpression');
+        $event = new EvaluateEvent('myExpression', ['foo']);
 
         $this->language
             ->expects($this->once())
             ->method('evaluate')
-            ->with('myExpression');
+            ->with('myExpression', ['foo']);
 
         $this->subject->evaluate($event);
     }

@@ -76,7 +76,7 @@ class Controller
     /**
      * @param Request $request
      * @return bool
-     * @Route("/admin/user/delete/", name="admin.user.delete")
+     * @Route("/admin/users/delete/", name="admin.user.delete")
      * @Role(UserVO::ROLE_ADMIN)
      */
     public function delete(Request $request) : bool

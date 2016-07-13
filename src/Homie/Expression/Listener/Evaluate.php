@@ -35,6 +35,9 @@ class Evaluate
      */
     public function evaluate(EvaluateEvent $event)
     {
-        $this->language->evaluate($event->getExpression());
+        $this->language->evaluate(
+            $event->getExpression(),
+            $event->getVariables()
+        );
     }
 }

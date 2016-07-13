@@ -29,4 +29,9 @@ class Settings
      * @var string[]
      */
     public $rendered;
+
+    /**
+     * @var int
+     */
+    public $nodeId;
 }

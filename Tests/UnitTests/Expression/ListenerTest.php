@@ -3,7 +3,9 @@
 namespace Tests\Homie\Expression;
 
 use BrainExe\Core\EventDispatcher\AbstractEvent;
+use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Homie\Expression\Entity;
+use Homie\Expression\Event\EvaluateEvent;
 use Homie\Expression\Gateway;
 use Homie\Expression\Listener;
 use Homie\Expression\Language;
@@ -30,19 +32,19 @@ class ListenerTest extends TestCase
     private $gateway;
 
     /**
-     * @var Language|MockObject
+     * @var EventDispatcher|MockObject
      */
-    private $language;
+    private $dispatcher;
 
     public function setup()
     {
-        $this->language  = $this->createMock(Language::class);
-        $this->gateway   = $this->createMock(Gateway::class);
-        $this->container = $this->createMock(Container::class);
+        $this->dispatcher = $this->createMock(EventDispatcher::class);
+        $this->gateway    = $this->createMock(Gateway::class);
+        $this->container  = $this->createMock(Container::class);
 
         $this->subject = new Listener(
             $this->gateway,
-            $this->language,
+            $this->dispatcher,
             $this->container
         );
     }
@@ -72,14 +74,16 @@ class ListenerTest extends TestCase
         $entity = new Entity();
         $entity->actions = ['action'];
 
-        $this->language
+        $newEvent = new EvaluateEvent('action', [
+            'event' => $event,
+            'eventName' => 'event',
+            'entity' => $entity
+        ]);
+
+        $this->dispatcher
             ->expects($this->once())
-            ->method('evaluate')
-            ->with('action', [
-                'event' => $event,
-                'eventName' => 'event',
-                'entity' => $entity
-            ]);
+            ->method('dispatchEvent')
+            ->with($newEvent);
 
         $this->subject->setCachedFunctions(function () use ($entity) {
             yield $entity;

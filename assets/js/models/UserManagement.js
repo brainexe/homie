@@ -21,7 +21,10 @@ App.service('UserManagement', ['$http', '$rootScope', 'Cache', function($http, $
 
         login: function(payload) {
             Cache.clear('^/user/$');
-            return $http.post('/login/', payload);
+            return $http.post('/login/', payload).success(function() {
+                Cache.clear('^/user/$');
+                UserManagement.setCurrentUser(result);
+            });
         },
 
         list: function() {

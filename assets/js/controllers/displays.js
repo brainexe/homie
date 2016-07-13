@@ -1,12 +1,16 @@
 
-App.controller('DisplaysController', ['$scope', 'Displays', function ($scope, Displays) {
+App.controller('DisplaysController', ['$scope', 'Displays', 'Nodes', function ($scope, Displays, Nodes) {
     $scope.editMode = false;
-    $scope.screens       = {};
+    $scope.screens  = {};
     $scope.currentScreen = {
         content: ["''", "''", "''", "''"],
         lines:   4,
         columns: 10
     };
+
+    Nodes.getData().success(function(data) {
+        $scope.nodes = data.nodes;
+    });
 
     Displays.getData().success(function (data) {
         $scope.screens = data.screens;

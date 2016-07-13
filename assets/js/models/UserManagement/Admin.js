@@ -7,6 +7,10 @@ App.service('UserManagement.Admin', ['$http', function($http) {
 
         edit: function(user) {
             return $http.put('/admin/users/', user);
+        },
+
+        delete: function(user) {
+            return $http.delete('/admin/users/{0}/'.format(user.userId));
         }
     };
 }]);

@@ -109,7 +109,7 @@ App.controller('DashboardController', ['$scope', '$uibModal', '$q', 'Dashboard',
     $scope.deleteDashboard = function(dashboardId) {
         Dashboard.deleteDashboard(dashboardId).success(function() {
             delete $scope.dashboards[dashboardId];
-            // todo what to show?
+            selectDashboard(_.first($scope.dashboards));
         });
     };
 

@@ -7,7 +7,13 @@
 
 	<hr />
 	<label translate translate-comment="otp">Secret:</label>&nbsp;
-    <input type="text" size="25" readonly autofocus="" value="{{oneTimePassword.secret}}" />
+    <input
+			type="text"
+			size="25"
+			readonly
+			class="form-control"
+			autofocus=""
+			value="{{oneTimePassword.secret}}" />
 
 	<hr />
 	<a href="{{oneTimePassword.url}}">{{oneTimePassword.url}}</a>
