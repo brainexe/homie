@@ -1,5 +1,5 @@
 
-App.service('Widget.todo_list', ['Todo', "_", function(Todo, _) {
+App.service('Widget.todo_list', ['Todo', '_', 'lodash', function(Todo, _, lodash) {
     return {
         template: '/templates/widgets/todo_list.html',
         render: function ($scope, widget) {
@@ -32,7 +32,7 @@ App.service('Widget.todo_list', ['Todo', "_", function(Todo, _) {
             $scope.setStatus = function (item, status) {
                 if (status == 'delete') {
                     Todo.deleteItem(item.todoId);
-                    removeByValue($scope.items, item.todoId, 'todoId');
+                    lodash.pullAllBy($scope.items, [{'todoId': item.todoId}], 'todoId');
                 } else {
                     item.status = status;
                     Todo.edit(item);

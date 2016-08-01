@@ -1,6 +1,7 @@
 
 App.controller('ShoppingListController', ['$scope', 'ShoppingList', function ($scope, ShoppingList) {
     $scope.shoppingList = [];
+    $scope.itemText = '';
 
     ShoppingList.getData().success(function (data) {
         $scope.shoppingList = data.shoppingList.map(function (text) {
@@ -9,8 +10,7 @@ App.controller('ShoppingListController', ['$scope', 'ShoppingList', function ($s
     });
 
     $scope.addShoppingItem = function () {
-        var name = $scope.todoText;
-
+        var name = $scope.itemText;
         if (!name) {
             return;
         }
@@ -18,7 +18,7 @@ App.controller('ShoppingListController', ['$scope', 'ShoppingList', function ($s
         ShoppingList.add(name);
 
         $scope.shoppingList.push({text: name, done: false});
-        $scope.todoText = '';
+        $scope.itemText = '';
     };
 
     $scope.change = function (item) {

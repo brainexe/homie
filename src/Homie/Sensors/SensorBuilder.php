@@ -2,10 +2,12 @@
 
 namespace Homie\Sensors;
 
+use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use InvalidArgumentException;
 use Homie\Sensors\Formatter\Formatter;
 use Homie\Sensors\Interfaces\Sensor;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @Service("SensorBuilder")
@@ -19,31 +21,46 @@ class SensorBuilder
     private $sensors;
 
     /**
+     * @var string[]
+     */
+    private $sensorTypes = [];
+
+    /**
      * @var Formatter[]
      */
     private $formatter = [];
 
     /**
-     * @var Definition[]
+     * @var ContainerInterface
      */
-    private $definitions = [];
+    private $container;
+
+    /**
+     * @Inject({"@service_container"})
+     * @param ContainerInterface $container
+     */
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
 
     /**
      * @return Sensor[]
      */
     public function getSensors()
     {
-        return $this->sensors;
+        $keys = array_keys($this->sensorTypes);
+
+        return array_map([$this, 'build'], array_combine($keys, $keys));
     }
 
     /**
      * @param string $type
-     * @param Sensor $sensor
-     * @todo lazy load sensors
+     * @param string $serviceId
      */
-    public function addSensor(string $type, Sensor $sensor)
+    public function addSensor(string $type, string $serviceId)
     {
-        $this->sensors[$type] = $sensor;
+        $this->sensorTypes[$type] = $serviceId;
     }
 
     /**
@@ -66,21 +83,13 @@ class SensorBuilder
             return $this->sensors[$type];
         }
 
-        throw new InvalidArgumentException(sprintf('Invalid sensor type: %s', $type));
-    }
-
-    /**
-     * @param string $type
-     * @throws InvalidArgumentException
-     * @return Definition
-     */
-    public function getDefinition(string $type) : Definition
-    {
-        if (!empty($this->definitions[$type])) {
-            return $this->definitions[$type];
+        if (!empty($this->sensorTypes[$type])) {
+            /** @var Sensor $sensor */
+            $sensor = $this->container->get($this->sensorTypes[$type]);
+            return $this->sensors[$type] = $sensor;
         }
 
-        return $this->definitions[$type] = $this->build($type)->getDefinition();
+        throw new InvalidArgumentException(sprintf('Invalid sensor type: %s', $type));
     }
 
     /**
@@ -94,13 +103,5 @@ class SensorBuilder
         }
 
         return $this->getFormatter(Definition::TYPE_NONE);
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getFormatters() : array
-    {
-        return array_keys($this->formatter);
     }
 }

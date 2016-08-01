@@ -29,7 +29,10 @@ App.service('Widget.expression', ['$compile', '$interval', 'Expression', functio
             };
 
             if (widget.reloadInterval > 0) {
-                $interval($scope.reload.bind(this), widget.reloadInterval * 1000);
+                var interval = $interval($scope.reload.bind(this), widget.reloadInterval * 1000);
+                $scope.$on('$destroy', function() {
+                    $interval.cancel(interval);
+                });
             }
         }
     };

@@ -11,6 +11,6 @@ wget https://jenkins.mdoetsch.de/job/BuildHomie-Web/lastSuccessfulBuild/artifact
 
 (rm cache/dic* && composer install --prefer-dist --no-dev -o && php console cc && echo "updated composer + backend caches")
 
-(cd nodejs && npm set progress=false && NODE_ENV=production npm install --production && echo "updated nodejs")
+(npm set progress=false && NODE_ENV=production npm install --production && echo "updated nodejs")
 
 echo "done"

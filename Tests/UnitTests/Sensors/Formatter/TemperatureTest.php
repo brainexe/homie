@@ -33,18 +33,6 @@ class TemperatureTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @dataProvider provideEspeak
-     * @param string $value
-     * @param string $expected
-     */
-    public function testGetEspeakText($value, $expected)
-    {
-        $actual = $this->subject->getEspeakText($value);
-
-        $this->assertEquals($expected, $actual);
-    }
-
     public function testGetType()
     {
         $actualResult = $this->subject->getType();
@@ -54,25 +42,14 @@ class TemperatureTest extends TestCase
     /**
      * @return array[]
      */
-    public function provideEspeak()
-    {
-        return [
-            ['12', "12,0 Degree"],
-            ['12.22', "12,2 Degree"],
-            [12.22, "12,2 Degree"],
-            [12.9999, "13,0 Degree"],
-        ];
-    }
-
-    /**
-     * @return array[]
-     */
     public function provideValues()
     {
         return [
-            ['12', "12°"],
-            ['12.22', "12.22°"],
-            ['0', "0°"]
+            ['12',     "12°"],
+            ['-12.2',  "-12.2°"],
+            ['12.22',  "12.22°"],
+            ['12.2',   "12.2°"],
+            ['0',      "0°"],
         ];
     }
 }

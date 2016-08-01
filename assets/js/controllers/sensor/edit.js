@@ -20,7 +20,7 @@ App.controller('EditSensorsController', ['$scope', '$uibModalInstance', 'Sensor'
         $scope.sensors[index] = sensorVo;
     });
 
-    // todo use $index
+    // todo lodash
     function getSensorIndex(sensor) {
         var index = $scope.sensors.indexOf(sensor);
         if (index != -1) {

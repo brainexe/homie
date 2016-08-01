@@ -3,22 +3,20 @@ App.service('Sensor.Tags', ['Cache', function(Cache) {
     var CACHE_KEY = 'sensor.tags';
 
     return {
+        // todo lodash
         getTagsFromSensors: function(sensors) {
-            var tags = {};
+            return Cache.closure(CACHE_KEY, function() {
+                var tags = {};
+                sensors.forEach(function(sensor) {
+                    sensor.tags.forEach(function (tag) {
+                        if (tag) {
+                            tags[tag] = true;
+                        }
+                    })
+                });
 
-            sensors.forEach(function(sensor) {
-                sensor.tags.forEach(function (tag) {
-                    if (tag) {
-                        tags[tag] = true;
-                    }
-                })
+                return Object.keys(tags);
             });
-
-            tags = Object.keys(tags);
-
-            Cache.put(CACHE_KEY, tags);
-
-            return tags;
         }
     }
 }]);

@@ -55,7 +55,7 @@ class Controller
      */
     public function load() : array
     {
-        return array_values($this->gateway->getAll());
+        return $this->gateway->getAll();
     }
 
     /**

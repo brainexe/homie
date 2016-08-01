@@ -4,5 +4,6 @@ App.service('Listeners', ['$injector', function($injector) {
         $injector.get('Listener.BrowserSensorNotification');
         $injector.get('Listener.SpeechRecognition');
         $injector.get('Listener.SpeechOutput');
+        $injector.get('Listener.Sidebar');
     }
 }]);

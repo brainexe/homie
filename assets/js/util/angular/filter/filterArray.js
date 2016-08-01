@@ -5,14 +5,9 @@ App.filter('filterArray', function() {
             return items;
         }
 
-        var out = [];
         needle = needle.toLowerCase();
-        items.forEach(function(item) {
-            if (item.toString().toLowerCase().indexOf(needle) !== -1) {
-                out.push(item);
-            }
+        return items.filter(function(item) {
+            return item.toString().toLowerCase().indexOf(needle) !== -1;
         });
-
-        return out;
     }
 });

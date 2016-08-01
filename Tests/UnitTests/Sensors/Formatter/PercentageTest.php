@@ -33,35 +33,10 @@ class PercentageTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @dataProvider provideEspeak
-     * @param string $value
-     * @param string $expected
-     */
-    public function testGetEspeakText($value, $expected)
-    {
-        $actual = $this->subject->getEspeakText($value);
-
-        $this->assertEquals($expected, $actual);
-    }
-
     public function testGetType()
     {
         $actualResult = $this->subject->getType();
         $this->assertEquals(Percentage::TYPE, $actualResult);
-    }
-
-    /**
-     * @return array[]
-     */
-    public function provideEspeak()
-    {
-        return [
-            ['12', "12 Percent"],
-            ['12.22', "12 Percent"],
-            [12.22, "12 Percent"],
-            [12.9999, "12 Percent"],
-        ];
     }
 
     /**

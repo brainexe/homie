@@ -1,17 +1,26 @@
 
-App.controller('StatusController', ['$scope', 'Status', 'Cache', function ($scope, Status, Cache) {
-    var REFRESH_INTERVAL = 30000;
+App.controller('StatusController', ['$scope', '$interval', 'Status', 'Cache', function ($scope, $interval, Status, Cache) {
+    var REFRESH_INTERVAL = 10000;
 
     $scope.jobs    = {};
     $scope.cache   = Cache;
-    $scope.cacheSize     = JSON.stringify(Cache.info().storageImpl).length / 1000;
     $scope.redisSections = {};
+    $scope.cacheSize = 0;
+
+    var interval = $interval(function () {
+        $scope.update();
+    }, REFRESH_INTERVAL);
 
     $scope.$on('message_queue.handled', function(event, data) {
         var job = data.job;
         if ($scope.jobs[job.jobId]) {
             $scope.jobs[job.jobId] = job;
         }
+    });
+
+    $scope.$on('$destroy', function() {
+        $scope.cacheSize = JSON.stringify(Cache.info().storageImpl).length / 1000;
+        $interval.cancel(interval);
     });
 
     $scope.update = function () {
@@ -22,11 +31,6 @@ App.controller('StatusController', ['$scope', 'Status', 'Cache', function ($scop
     };
 
     $scope.update();
-
-    // todo $interval
-    setInterval(function () {
-        $scope.update();
-    }, REFRESH_INTERVAL);
 
     /**
      * @param {String} eventId

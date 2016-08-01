@@ -4,11 +4,11 @@ namespace Homie\Tests\Sensors;
 
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
-use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\Formatter;
 use Homie\Sensors\Formatter\None;
 use Homie\Sensors\Interfaces\Sensor;
 use Homie\Sensors\SensorBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class SensorBuilderTest extends TestCase
 {
@@ -18,9 +18,16 @@ class SensorBuilderTest extends TestCase
      */
     private $subject;
 
+    /**
+     * @var ContainerInterface|MockObject
+     */
+    private $container;
+
     public function setUp()
     {
-        $this->subject = new SensorBuilder();
+        $this->container = $this->createMock(ContainerInterface::class);
+
+        $this->subject = new SensorBuilder($this->container);
     }
 
     public function testGetSensors()
@@ -28,44 +35,18 @@ class SensorBuilderTest extends TestCase
         /** @var Sensor|MockObject $sensor */
         $sensor = $this->createMock(Sensor::class);
         $sensorType = 'sensor_123';
+        $serviceId = '__sensor';
 
-        $this->subject->addSensor($sensorType, $sensor);
+        $this->container
+            ->expects($this->once())
+            ->method('get')
+            ->with($serviceId)
+            ->willReturn($sensor);
+
+        $this->subject->addSensor($sensorType, $serviceId);
         $actualResult = $this->subject->getSensors();
 
         $this->assertEquals([$sensorType => $sensor], $actualResult);
-    }
-
-    public function testGetDefinition()
-    {
-        /** @var Sensor|MockObject $sensorMock */
-        $sensorMock = $this->createMock(Sensor::class);
-        $sensorType = 'sensor_123';
-
-        $definition = new Definition();
-
-        $sensorMock
-            ->expects($this->once())
-            ->method('getDefinition')
-            ->willReturn($definition);
-
-        $this->subject->addSensor($sensorType, $sensorMock);
-
-        // first call
-        $actual = $this->subject->getDefinition($sensorType);
-        $this->assertEquals($definition, $actual);
-
-        // second cached call
-        $actual = $this->subject->getDefinition($sensorType);
-        $this->assertEquals($definition, $actual);
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid sensor type: invalid
-     */
-    public function testGetDefinitionWithInvalid()
-    {
-        $this->subject->getDefinition('invalid');
     }
 
     /**
@@ -84,11 +65,20 @@ class SensorBuilderTest extends TestCase
         /** @var Sensor|MockObject $sensorMock */
         $sensorMock = $this->createMock(Sensor::class);
         $sensorType = 'sensor_123';
+        $serviceId = '__serviceid';
 
-        $this->subject->addSensor($sensorType, $sensorMock);
+        $this->container
+            ->expects($this->once())
+            ->method('get')
+            ->with($serviceId)
+            ->willReturn($sensorMock);
+
+        $this->subject->addSensor($sensorType, $serviceId);
 
         $actual = $this->subject->build($sensorType);
+        $this->assertEquals($sensorMock, $actual);
 
+        $actual = $this->subject->build($sensorType);
         $this->assertEquals($sensorMock, $actual);
     }
 
@@ -117,16 +107,5 @@ class SensorBuilderTest extends TestCase
         $actual = $this->subject->getFormatter($type);
 
         $this->assertEquals($formatter, $actual);
-    }
-
-    public function testGetFormatters()
-    {
-        /** @var Formatter $formatter */
-        $formatter = $this->createMock(Formatter::class);
-        $this->subject->addFormatter('foo', $formatter);
-
-        $actual = $this->subject->getFormatters();
-
-        $this->assertEquals(['foo'], $actual);
     }
 }

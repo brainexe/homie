@@ -1,5 +1,5 @@
 
-App.controller('ExpressionController', ['$scope', '$q', 'Expression', 'MessageQueue', 'Expression.Functions', function ($scope, $q, Expression, MessageQueue, ExpressionFunctions) {
+App.controller('ExpressionController', ['$scope', '$q', 'Expression', 'MessageQueue', 'Expression.Functions', 'lodash', function ($scope, $q, Expression, MessageQueue, ExpressionFunctions, __) {
 	$scope.expressions    = {};
     $scope.editMode       = false;
     $scope.editExpression = null;
@@ -38,7 +38,7 @@ App.controller('ExpressionController', ['$scope', '$q', 'Expression', 'MessageQu
     };
 
     $scope.searchExpression = function (search) {
-        return $scope.expressions.filter(function(expression) {
+        return __.filter($scope.expressions, function(expression) {
             if (!expression.enabled && !$scope.showDisabled) {
                 // hide disabled
                 return false;
@@ -52,22 +52,22 @@ App.controller('ExpressionController', ['$scope', '$q', 'Expression', 'MessageQu
                 expression.actions.join(' ');
 
             return text.toLowerCase().indexOf(search.toLowerCase()) > -1;
-        })
+        });
     };
 
     $scope.showDisabledExpression = function (show) {
         $scope.showDisabled = show;
     };
 
-    $scope.save = function(expression, $index) {
+    $scope.save = function(expression) {
         Expression.save(expression).success(function(data) {
-            $scope.expressions[$index] = data; // TODO
+            $scope.expressions[expression.expressionId] = data;
         });
     };
 
-    $scope.delete = function(expressionId, $index) {
+    $scope.delete = function(expressionId) {
        Expression.deleteExpression(expressionId).success(function() {
-            delete $scope.expressions[$index];
+            delete $scope.expressions[expressionId];
         });
     };
 

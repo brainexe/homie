@@ -1,9 +1,9 @@
-App.controller('TodoController', ['$scope', '_', 'Todo', 'UserManagement', function ($scope, _, Todo, UserManagement) {
-    $scope.userNames = [];
-
+App.controller('TodoController', ['$scope', '_', 'lodash', 'Todo', 'UserManagement', function ($scope, _, lodash, Todo, UserManagement) {
+    $scope.userNames   = [];
     $scope.currentItem = {};
 
     UserManagement.list().success(function (userNames) {
+        // todo separate service UserList, which is cached
         for (var userId in userNames) {
             $scope.userNames.push({
                 userId: userId, name: userNames[userId]
@@ -45,7 +45,7 @@ App.controller('TodoController', ['$scope', '_', 'Todo', 'UserManagement', funct
 
     $scope.onDelete = function (data) {
         Todo.deleteItem(data.todoId).success(function() {
-            removeByValue($scope.items, data.todoId, 'todoId');
+            lodash.pullAllBy($scope.items, [{'todoId': data.todoId}], 'todoId');
         });
     };
 

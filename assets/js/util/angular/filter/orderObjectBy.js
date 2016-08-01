@@ -1,31 +1,12 @@
 
-App.filter('orderObjectBy', function() {
+App.filter('orderObjectBy', ['lodash', function(lodash) {
     return function(input, attribute) {
-        if (!angular.isObject(input)) {
-            return input;
-        }
-
-        var array = [];
-        for (var objectKey in input) {
-            array.push(input[objectKey]);
-        }
-
-        var reversed = false;
+        var order = 'asc';
         if (attribute.charAt(0) == '-') {
             attribute = attribute.substring(1);
-            reversed = true;
+            order = 'desc';
         }
 
-        array.sort(function(a, b){
-            a = parseInt(a[attribute]);
-            b = parseInt(b[attribute]);
-            return a - b;
-        });
-
-        if (reversed) {
-            array = array.reverse();
-        }
-
-        return array;
+        return lodash.orderBy(input, [attribute], [order]);
     }
-});
+}]);

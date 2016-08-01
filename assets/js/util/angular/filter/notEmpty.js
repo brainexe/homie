@@ -1,13 +1,6 @@
-App.filter('notEmpty', function () {
+
+App.filter('notEmpty', ['lodash', function (lodash) {
     return function (input) {
-        if (!input) {
-            return false;
-        }
-
-        if (Array.isArray(input)) {
-            return input.length;
-        }
-
-        return Object.keys(input).length > 0;
+        return !lodash.isEmpty(input);
     };
-});
+}]);

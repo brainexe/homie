@@ -36,14 +36,20 @@ App.service('Expression', ['$http', 'Cache', function($http, Cache) {
         },
 
         save: function(expression) {
+            Cache.clear('^/expression/');
+
             return $http.put('/expressions/', expression);
         },
 
         deleteExpression: function(expressionId) {
-            return  $http.delete('/expressions/{0}/'.format(expressionId));
+            Cache.clear('^/expression/');
+
+            return $http.delete('/expressions/{0}/'.format(expressionId));
         },
 
         addCron: function(cron) {
+            Cache.clear('^/expression/');
+
             return $http.post('/cron/', cron);
         },
 

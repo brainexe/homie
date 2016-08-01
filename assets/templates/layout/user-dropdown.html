@@ -1,0 +1,39 @@
+<!-- User Account: style can be found in dropdown.less -->
+<li class="dropdown user user-menu" uib-dropdown>
+    <a href="#/user/" class="dropdown-toggle" uib-dropdown-toggle>
+        <i class="glyphicon glyphicon-user"></i>
+        <span ng-bind="::currentUser.username"></span> <i class="caret"></i>
+    </a>
+    <ul class="dropdown-menu">
+        <!-- User image -->
+        <li class="user-header">
+            <div
+                    class="profile_avatar img-circle"
+                    ng-style="{'backgroundImage':'url(\'/images/' + currentUser.avatar + '\')'}"
+            ></div>
+            <p>
+                <span ng-bind="::currentUser.username"></span>
+            </p>
+        </li>
+        <!-- Menu Footer-->
+        <li class="user-footer">
+            <div class="pull-left">
+                <a href="#/user" class="btn btn-primary" translate>Profile</a>
+            </div>
+
+            <div class="btn-group">
+                <a
+                        ng-click="changeLanguage(locale)"
+                        ng-repeat="locale in ::locales"
+                        class="btn btn-default btn-flat"
+                >
+                    {{locale|translateToken:'locale.{0}'}}
+                </a>
+            </div>
+
+            <div class="pull-right">
+                <a href="#/logout" class="btn btn-danger" translate>Sign out</a>
+            </div>
+        </li>
+    </ul>
+</li>

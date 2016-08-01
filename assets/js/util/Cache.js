@@ -10,7 +10,7 @@ App.service('Cache', ['CacheFactory', '$interval', '$rootScope', function(CacheF
     cache.clear = function(pattern) {
         var keys = cache.keys(), key, idx;
 
-        for (idx in keys) {
+        for (idx in keys) { // todo lodash
             key = keys[idx];
             if (key.match && key.match(pattern)) {
                 cache.remove(key);
@@ -31,6 +31,19 @@ App.service('Cache', ['CacheFactory', '$interval', '$rootScope', function(CacheF
         $interval(function() {
             cache.clear(pattern);
         }, seconds * 1000);
+    };
+
+    cache.closure = function(key, callback, options) {
+        var value = cache.get(key);
+        if (typeof value != 'undefined') {
+            return value;
+        }
+
+        value = callback();
+
+        cache.put(key, value, options || {});
+
+        return value;
     };
 
     $rootScope.$on('cache.invalidate', function(event, pattern) {

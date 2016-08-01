@@ -22,13 +22,4 @@ class Percentage extends Formatter
     {
         return sprintf('%d%%', $value);
     }
-
-    /**
-     * @param float $value
-     * @return string
-     */
-    public function getEspeakText($value) : string
-    {
-        return $this->translate('%d Percent', $value);
-    }
 }

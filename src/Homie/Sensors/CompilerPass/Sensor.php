@@ -39,7 +39,7 @@ class Sensor implements CompilerPassInterface
                 'addSensor',
                 [
                     $type,
-                    new Reference($serviceId)
+                    $serviceId
                 ]
             );
         }

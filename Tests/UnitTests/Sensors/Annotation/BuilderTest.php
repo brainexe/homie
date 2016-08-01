@@ -34,10 +34,11 @@ class BuilderTest extends TestCase
         $data = $subject->build($class, $annotation);
 
         $definition = new Definition();
-        $definition->setPublic(false);
+        $definition->setPublic(true);
+        $definition->setShared(false);
         $definition->addTag(CompilerPass::TAG);
         $expected = [
-            'name',
+            '__name',
             $definition
         ];
 

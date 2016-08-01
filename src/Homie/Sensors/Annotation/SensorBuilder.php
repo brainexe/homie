@@ -17,9 +17,10 @@ class SensorBuilder extends ServiceDefinition
         /** @var Definition $definition */
         list($serviceId, $definition) = parent::build($reflectionClass, $annotation);
 
-        $definition->setPublic(false);
+        $definition->setPublic(true);
         $definition->addTag(CompilerPass::TAG);
+        $definition->setShared(false);
 
-        return [$serviceId, $definition];
+        return ['__' . $serviceId, $definition];
     }
 }

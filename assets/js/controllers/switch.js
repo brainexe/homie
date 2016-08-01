@@ -83,6 +83,6 @@ App.controller('SwitchController', ['$scope', 'Switches', 'Nodes', 'MessageQueue
     };
 
     $scope.save = function () {
-        // TODO
+        // TODO implement save function
     };
 }]);

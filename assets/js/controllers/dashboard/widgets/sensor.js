@@ -1,5 +1,5 @@
 
-App.service('Widget.sensor', ['Sensor', '$rootScope', 'Sensor.Formatter', 'Sensor.Stats', function(Sensor, $rootScope, SensorFormatter, SensorStats) {
+App.service('Widget.sensor', ['Sensor', 'Sensor.Formatter', 'Sensor.Stats', function(Sensor, SensorFormatter, SensorStats) {
     return {
         template: '/templates/widgets/sensor.html',
         render: function ($scope, widget) {
@@ -26,7 +26,7 @@ App.service('Widget.sensor', ['Sensor', '$rootScope', 'Sensor.Formatter', 'Senso
 
             update();
 
-            $rootScope.$on('sensor.update', function(event, data) {
+            $scope.$on('sensor.update', function(event, data) {
                 if (data.sensorId == widget.sensor_id) {
                     $scope.updating = false;
                     update();

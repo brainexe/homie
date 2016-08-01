@@ -26,7 +26,7 @@ var App = angular.module('homie', [
                     if (url.match(/\.html/)) {
                         var cached;
                         if ((cached = $templateCache.get(url)) && !Cache.get(url)) {
-                            Cache.put(url, cached);
+                            Cache.put(url, cached, {maxAge: 86400});
                         }
                         request.cacheKey = url;
                         request.cache = Cache;
@@ -36,12 +36,17 @@ var App = angular.module('homie', [
                 },
                 response: function(response) {
                     if (response.config.cacheKey && !Cache.get(response.config.cacheKey)) {
-                        Cache.put(response.config.cacheKey, response.data);
+                        Cache.put(
+                            response.config.cacheKey,
+                            response.data,
+                            {maxAge: 86400}
+                        );
                     }
                     return response;
                 }
             };
         }]);
+
         cfpLoadingBarProvider.includeSpinner   = false;
         cfpLoadingBarProvider.latencyThreshold = 200;
     }]).run(['$routeProvider', '$httpProvider', '$rootScope', 'controllers', 'Listeners', function ($routeProvider, $httpProvider, $rootScope, controllers, Listeners) {
@@ -60,8 +65,8 @@ var App = angular.module('homie', [
             }
             return response;
         });
-        $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
+        // TODO needed?
         $rootScope.prompt = prompt.bind(window);
 
         // init all listeners

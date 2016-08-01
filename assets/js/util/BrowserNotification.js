@@ -1,19 +1,22 @@
 
 // todo refactor
-App.service('BrowserNotification', ['$q', '_', function($q, _) {
-    var TIMEOUT = 5000;
+App.service('BrowserNotification', ['$q', '$timeout', '_', function($q, $timeout, _) {
+    const CLOSE_DELAY = 5000;
+    const QUEUE_DELAY = 1500;
 
-    function request() {
+    function requestPermission() {
         return $q(function(resolve, reject) {
-            if (!("Notification" in window)) {
+            var notification = window.Notification;
+
+            if (!notification) {
                 reject();
-            } else if (Notification.permission === "granted") {
+            } else if (notification.permission === "granted") {
                 resolve();
-            } else if (Notification.permission !== 'denied') {
-                Notification.requestPermission(function (permission) {
+            } else if (notification.permission !== 'denied') {
+                notification.requestPermission(function (permission) {
                     // Whatever the user answers, we make sure we store the information
-                    if (!('permission' in Notification)) {
-                        Notification.permission = permission;
+                    if (!('permission' in notification)) {
+                        notification.permission = permission;
                     }
 
                     // If the user is okay, let's create a notification
@@ -34,10 +37,10 @@ App.service('BrowserNotification', ['$q', '_', function($q, _) {
         });
         notification.$content = content;
 
-        setTimeout(function() {
+        $timeout(function() {
             notification.close();
             notification.$content = '';
-        }, TIMEOUT);
+        }, CLOSE_DELAY);
 
         openNotifications.push(notification);
     }
@@ -46,10 +49,10 @@ App.service('BrowserNotification', ['$q', '_', function($q, _) {
 
     return {
         show: function(content) {
-            request().then(function() {
+            requestPermission().then(function() {
                 contentQueue.push(content);
 
-                window.setTimeout(function() {
+                $timeout(function() {
                     if (contentQueue.length == 0) {
                         // content already shown
                         return;
@@ -69,7 +72,7 @@ App.service('BrowserNotification', ['$q', '_', function($q, _) {
                     }
                     show(contentQueue.join("\n"));
                     contentQueue = [];
-                }, 1500);
+                }, QUEUE_DELAY);
             });
         }
     }

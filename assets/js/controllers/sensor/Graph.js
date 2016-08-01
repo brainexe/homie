@@ -1,5 +1,7 @@
 
 App.service('SensorGraph', ['$uibModal', 'Sensor', 'Sensor.Formatter', function ($uibModal, Sensor, SensorFormatter) {
+    var rickshaw = Rickshaw.Graph;
+
     function init($scope, element, height, sensorIds, parameters) {
         $scope.$on('sensor.update', function(event, data) {
             if ($scope.isSensorActive(data.sensorId)) {
@@ -21,7 +23,7 @@ App.service('SensorGraph', ['$uibModal', 'Sensor', 'Sensor.Formatter', function 
                 $scope.to    = data.to;
                 $scope.stats = {};
 
-                $scope.graph = new Rickshaw.Graph({
+                $scope.graph = new rickshaw({
                     element: element.querySelector('.chart'),
                     width: element.clientWidth - 40,
                     interpolation: 'basis',
@@ -30,14 +32,14 @@ App.service('SensorGraph', ['$uibModal', 'Sensor', 'Sensor.Formatter', function 
                     renderer: 'line',
                     series: decompressData(data)
                 });
-                new Rickshaw.Graph.Axis.Time({graph: $scope.graph});
-                new Rickshaw.Graph.Axis.Y({
+                new rickshaw.Axis.Time({graph: $scope.graph});
+                new rickshaw.Axis.Y({
                     graph: $scope.graph,
                     orientation: 'right',
                     element: element.querySelector('.y_axis'),
                     tickFormat: yAxisFormatter
                 });
-                new Rickshaw.Graph.ClickDetail({
+                new rickshaw.ClickDetail({
                     graph: $scope.graph,
                     clickHandler: function(value){
                         $uibModal.open({
@@ -53,7 +55,7 @@ App.service('SensorGraph', ['$uibModal', 'Sensor', 'Sensor.Formatter', function 
                         });
                     }
                 });
-                new Rickshaw.Graph.HoverDetail({
+                new rickshaw.HoverDetail({
                     graph: $scope.graph,
                     formatter: function (series, x, y) {
                         var type = $scope.types[series.type];
@@ -71,7 +73,7 @@ App.service('SensorGraph', ['$uibModal', 'Sensor', 'Sensor.Formatter', function 
                     }
                 });
 
-                new Rickshaw.Graph.Legend({
+                new rickshaw.Legend({
                     element: element.querySelector('.legend'),
                     graph: $scope.graph
                 });
@@ -91,7 +93,7 @@ App.service('SensorGraph', ['$uibModal', 'Sensor', 'Sensor.Formatter', function 
 
             var legend = element.querySelector('.legend');
             legend.innerHTML = '';
-            new Rickshaw.Graph.Legend({
+            new rickshaw.Legend({
                 element: legend,
                 graph: $scope.graph
             });
@@ -176,6 +178,7 @@ App.service('SensorGraph', ['$uibModal', 'Sensor', 'Sensor.Formatter', function 
         return final;
     }
 
+    // todo use tag service
     function aggregateTags(rawSensors) {
         var tags = {};
         for (var idx in rawSensors) {

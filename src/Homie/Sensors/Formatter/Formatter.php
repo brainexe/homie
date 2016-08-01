@@ -25,6 +25,7 @@ abstract class Formatter implements TranslationProvider
     abstract public function formatValue($value) : string;
 
     /**
+     * @deprecated not in use
      * @param float $value
      * @return string|null
      */

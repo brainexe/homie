@@ -1,9 +1,7 @@
 /.idea
-/assets/cache/
 /app/config.xml
 /bower_components
 /coverage
-/lang/*.mo
 /lang/pot/all.pot
 /vendor
 /web/*

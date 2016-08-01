@@ -18,55 +18,11 @@
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
             <a href="#" class="navbar-btn sidebar-toggle" id="offcanvas" role="button">
-                <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-
-            <div class="navbar-right">
-                <ul ng-if="isLoggedIn()" class="nav navbar-nav">
-                    <!-- User Account: style can be found in dropdown.less -->
-                    <li class="dropdown user user-menu" uib-dropdown>
-                        <a href="#/user/" class="dropdown-toggle" uib-dropdown-toggle>
-                            <i class="glyphicon glyphicon-user"></i>
-                            <span ng-bind="currentUser.username"></span> <i class="caret"></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <!-- User image -->
-                            <li class="user-header">
-                                <div
-                                        class="profile_avatar img-circle"
-                                        ng-style="{'backgroundImage':'url(\'/images/' + currentUser.avatar + '\')'}"
-                                ></div>
-                                <p>
-                                    <span ng-bind="currentUser.username"></span>
-                                </p>
-                            </li>
-                            <!-- Menu Footer-->
-                            <li class="user-footer">
-                                <div class="pull-left">
-                                    <a href="#/user" class="btn btn-primary" translate>Profile</a>
-                                </div>
-
-                                <div class="btn-group">
-                                    <a
-                                            ng-click="changeLanguage(locale)"
-                                            ng-repeat="locale in locales"
-                                            class="btn btn-default btn-flat"
-                                    >
-                                        {{locale|translateToken:'locale.{0}'}}
-                                    </a>
-                                </div>
-
-                                <div class="pull-right">
-                                    <a href="#/logout" class="btn btn-danger" translate>Sign out</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+            <ul ng-if="isLoggedIn" class="navbar-right nav navbar-nav" ng-include="'/templates/layout/user-dropdown.html'"></ul>
         </nav>
     </header>
 
@@ -74,23 +30,12 @@
         <aside class="left-side sidebar-offcanvas">
             <section class="sidebar">
                 <div class="user-panel">
-                    <div ng-if="isLoggedIn()">
-                        <div class="pull-left image">
-                            <div
-                                    ng-click="flushCache()"
-                                    ng-style="{'backgroundImage':'url(\'/images/' + currentUser.avatar + '\')'}"
-                                    class="user_avatar img-circle"
-                            ></div>
-                        </div>
-                        <div class="pull-left info">
-                            <a href="#/user" translate>Hello {{ currentUser.username }}!</a>
-                        </div>
-                    </div>
+                    <div ng-if="isLoggedIn" ng-include="'/templates/layout/left-user.html'"></div>
                     <ul class="sidebar-menu" ng-controller="MenuController">
                         <li ng-repeat="item in menu">
-                            <a href="/#{{ item.url }}">
-                                <i class="glyphicon glyphicon-{{ item.icon }}"></i>
-                                <span ng-bind="item.name"></span>
+                            <a href="/#{{::item.url}}">
+                                <i class="glyphicon glyphicon-{{::item.icon}}"></i>
+                                <span ng-bind="::item.name"></span>
                             </a>
                         </li>
                     </ul>
@@ -98,14 +43,13 @@
             </section>
         </aside>
         <aside class="right-side">
-            <section class="content-header">
-                <div ng-repeat="flash in flashBag" class="alert alert-{{ flash.type }} alert-dismissable">
-                    <button type="button" class="close" ng-click="removeFlash($index)">&times;</button>
+            <section class="content-header" ng-controller="FlashController" >
+                <div ng-repeat="flash in flashBag" class="alert alert-{{flash.type}} alert-dismissable">
+                    <button class="close" ng-click="removeFlash($index)">&times;</button>
                     <span ng-bind="flash.message"></span>
                 </div>
             </section>
-            <section class="content" ng-cloak>
-                <ng-view></ng-view>
+            <section class="content" ng-view>
             </section>
         </aside>
     </div>

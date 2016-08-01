@@ -1,0 +1,10 @@
+<div class="pull-left image">
+    <div
+            ng-click="flushCache()"
+            ng-style="{'backgroundImage':'url(\'/images/' + currentUser.avatar + '\')'}"
+            class="user_avatar img-circle"
+    ></div>
+</div>
+<div class="pull-left info">
+    <a href="#/user" translate>Hello {{ ::currentUser.username }}!</a>
+</div>

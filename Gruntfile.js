@@ -217,16 +217,18 @@ module.exports = function (grunt) {
         },
         clean: [
             'web/**',
-            'assets/cache/**'
+            'cache/css/**'
         ],
         cssmin: {
             app: {
                 options: {
-                    semanticMerging: false
+                    sourceMap: true,
+                    keepSpecialComments: 0,
+                    sourceMapName: 'web/app-css.map'
                 },
                 files: {
                     'web/app.css': [
-                        'assets/**/*.css',
+                        'cache/css/**/*.css',
                         'bower_components/rickshaw/rickshaw.css',
                         'bower_components/ui-select/dist/select.min.css',
                         'bower_components/angular-bootstrap-colorpicker/css/colorpicker.min.css',
@@ -259,22 +261,19 @@ module.exports = function (grunt) {
                         screw_ie8: true,
                         angular: true,
                         pure_getters: true,
-                        hoist_vars: true
+                        hoist_vars: true,
+                        collapse_vars: true
                     } : false,
                     mangle: isProduction ? {
                         toplevel: true
                     } : false,
+                    enclose: {},
                     sourceMap: true,
-                    sourceMapIncludeSources: true,
-                    sourceMapName: 'web/app.map'
+                    sourceMapName: 'web/app-js.map'
                 },
                 files: {
                     'web/app.js': [
-                        'assets/js/app.js',
-                        'assets/js/util/**/*.js',
-                        'assets/js/models/**/*.js',
-                        'assets/js/controllers/**/*.js',
-                        'assets/js/listeners/**/*.js'
+                        'assets/js/**/*.js'
                     ]
                 }
             },
@@ -283,8 +282,8 @@ module.exports = function (grunt) {
                     compress: false,
                     mangle: false,
                     sourceMap: true,
-                    sourceMapIncludeSources: true,
-                    sourceMapName: 'web/vendor.map'
+                    sourceMapName: 'web/vendor.js.map',
+                    enclose: {}
                 },
                 files: {
                     'web/vendor.js': [
@@ -304,9 +303,7 @@ module.exports = function (grunt) {
 
                         // needed for sensor module
                         'bower_components/rickshaw/vendor/d3.min.js',
-                        'bower_components/rickshaw/rickshaw.min.js',
-
-                        'assets/js/vendor/**/*js'
+                        'bower_components/rickshaw/rickshaw.min.js'
                     ]
                 }
             }
@@ -369,15 +366,17 @@ module.exports = function (grunt) {
         sass: {
             dist: {
                 options: {
-                    style: 'expanded',
+                    style: isProduction ? 'compressed' : 'expanded',
                     sourcemap: 'none',
-                    cacheLocation: 'cache/sass/'
+                    cacheLocation: 'cache/sass/',
+                    update: true,
+                    stopOnError: true
                 },
                 files: [{
                     expand: true,
-                    cwd: 'assets/',
+                    cwd: 'assets/sass/',
                     src: ['**/*.sass'],
-                    dest: 'assets/cache/',
+                    dest: 'cache/css/',
                     ext: '.css'
                 }]
             }
@@ -391,16 +390,16 @@ module.exports = function (grunt) {
         uniqueify: {
              static: {
                  options: {
-                     replaceSrc: ['web/*.{html,appcache}']
+                     replaceSrc: ['web/*.{html,appcache,js}']
                  },
                  files: [{
                      cwd: 'web/',
-                     src: ['**/*.{js,css,ico,appcache}']
+                     src: ['**/*.{js,css,ico,appcache,json}']
                  }]
              },
              html: {
                  options: {
-                     replaceSrc: ['web/*.{js,appcache}', 'web/*/**/*.html']
+                     replaceSrc: ['web/*.{js,appcache}', 'web/**/*.html']
                  },
                  files: [{
                      cwd: 'web/',

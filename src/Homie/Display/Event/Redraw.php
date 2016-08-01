@@ -7,7 +7,7 @@ use BrainExe\Core\EventDispatcher\AbstractEvent;
 class Redraw extends AbstractEvent
 {
 
-    const KEY = 'display:redraw';
+    const KEY = 'display.redraw';
 
     /**
      * @var int

@@ -1,7 +1,7 @@
 
 App.service('Sensor', ['$http', '$rootScope', 'Cache', function($http, $rootScope, Cache) {
     $rootScope.$on('sensor.value', function(event, data) {
-        Cache.clear('/sensors/');
+        Cache.clear('^/sensors/');
         $rootScope.$broadcast('sensor.update', data.sensorVo);
     });
 

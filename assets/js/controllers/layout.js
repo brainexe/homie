@@ -1,7 +1,7 @@
 
-App.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gettextCatalog', 'SocketServer', 'Cache', function ($scope, UserManagement, Config, gettextCatalog, SocketServer, Cache) {
-    $scope.flashBag    = [];
+App.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gettextCatalog', 'Cache', function ($scope, UserManagement, Config, gettextCatalog, Cache) {
     $scope.currentUser = {};
+    $scope.isLoggedIn  = false;
     $scope.locales     = [];
 
     var language = 'en_US';
@@ -14,6 +14,7 @@ App.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gette
 
     UserManagement.loadCurrentUser().success(function(user){
         $scope.currentUser = user;
+        $scope.isLoggedIn  = user && user.userId > 0;
     });
 
     Config.getAll().success(function(config) {
@@ -33,10 +34,7 @@ App.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gette
 
     $scope.$on('currentuser.update', function(event, user) {
         $scope.currentUser = user;
-    });
-
-    $scope.$on('flash', function (type, args) {
-        $scope.addFlash(args[0], args[1]);
+        $scope.isLoggedIn  = user && user.userId > 0;
     });
 
     $scope.$on('cache.clear', function () {
@@ -51,42 +49,8 @@ App.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gette
 
     $scope.flushCache = function() {
         Cache.destroy();
+        //todo $location.reload()
         window.location.reload();
-    };
-
-    /**
-     * @returns {Boolean}
-     */
-    $scope.isLoggedIn = function () {
-        return $scope.currentUser && $scope.currentUser.userId > 0;
-    };
-
-    $scope.removeFlash = function(index) {
-        $scope.flashBag.splice(index, 1);
-    };
-
-    /**
-     * @param {String} message
-     * @param {String} type (success, warning, info, danger)
-     */
-    $scope.addFlash = function (message, type) {
-        type = type || 'success';
-
-        var item = {
-            type:    type,
-            message: message
-        };
-
-        $scope.flashBag.push(item);
-
-        window.setTimeout(function () {
-            var index = $scope.flashBag.indexOf(item);
-
-            if (index > -1) {
-                $scope.flashBag.splice(index, 1);
-                $scope.$apply();
-            }
-        }, 5000);
     };
 }]);
 

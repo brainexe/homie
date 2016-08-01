@@ -18,7 +18,6 @@ class Controller
     /**
      * @return bool
      * @Route("/motion/add/", name="motion.add")
-     * @Guest
      */
     public function add() : bool
     {

@@ -1,18 +1,7 @@
 
-/**
- * http://stackoverflow.com/questions/17635866/get-values-from-object-in-javascript
- */
-App.filter('toArray', function(){
-    return function(input) {
-        if (!input) {
-            return [];
-        }
-
-        return Object.keys(input).map(function(key){
-            return input[key]
-        });
-    }
-});
+App.filter('toArray', ['lodash', function(lodash) {
+    return lodash.toArray;
+}]);
 
 App.filter('deleteKey', function() {
     return function(array, key) {
@@ -38,14 +27,5 @@ App.filter('join', function () {
             return input;
         }
         return input.join(delimiter || ' ');
-    };
-});
-
-App.filter('range', function () {
-    return function (input, total) {
-        for (var i = 0; i < ~~total; i++) {
-            input.push(i);
-        }
-        return input;
     };
 });

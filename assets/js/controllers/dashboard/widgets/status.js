@@ -1,5 +1,5 @@
 
-App.service('Widget.status', ['Status', '_', function(Status, _) {
+App.service('Widget.status', ['$interval', 'Status', '_', function($interval, Status, _) {
     function update($scope) {
         Status.getData().success(function(data) {
             $scope.stats = data.stats;
@@ -13,9 +13,13 @@ App.service('Widget.status', ['Status', '_', function(Status, _) {
         render: function ($scope, widget) {
             update($scope);
 
-            window.setInterval(function() {
+            var interval = $interval(function() {
                 update($scope);
             }, 15000);
+
+            $scope.$on('$destroy', function() {
+                $interval.cancel(interval);
+            });
         }
     };
 }]);

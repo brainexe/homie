@@ -1,5 +1,5 @@
 
-App.controller('MenuController', ['$scope', '$q', '$location', 'controllers', 'UserManagement', 'UserManagement.Settings', 'Config', function ($scope, $q, $location, controllers, UserManagement, Settings, Config) {
+App.controller('MenuController', ['$scope', '$q', '$location', 'controllers', 'UserManagement', 'UserManagement.Settings', 'Config', 'lodash', function ($scope, $q, $location, controllers, UserManagement, Settings, Config, lodash) {
     $scope.$on('$routeChangeSuccess', function (event, current) {
         if (current.$$route && current.$$route.name) {
             document.title = current.$$route.name;
@@ -42,12 +42,7 @@ App.controller('MenuController', ['$scope', '$q', '$location', 'controllers', 'U
                 } else if (isLoggedIn && item.isPublic === true) {
                     return false;
                 } else if (item.role && user.roles) {
-                    for (var i = 0; i < user.roles.length; i++) {
-                        if (user.roles[i] == item.role) {
-                            return true;
-                        }
-                    }
-                    return false;
+                    return user.roles.indexOf(item.role) > -1;
                 }
 
                 return true;

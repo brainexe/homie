@@ -27,6 +27,6 @@ App.controller('SensorController', ['$scope', '$uibModal', 'SensorGraph', 'UserM
         });
     };
 
-    var element = document.getElementsByClassName("chart_container")[0];
+    var element = document.querySelector('.chart_container');
     SensorGraph.init($scope, element, 500, [0]);
 }]);

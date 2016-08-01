@@ -32,5 +32,15 @@ App.controller('DisplaysController', ['$scope', 'Displays', 'Nodes', function ($
     $scope.setScreen = function(screen) {
         $scope.editMode = true;
         $scope.currentScreen = screen;
+    };
+
+    $scope.refreshScreen = function(screen) {
+        Displays.redraw(screen.displayId).success(function() {
+        });
+    };
+
+    $scope.deleteScreen = function(screen) {
+        Displays.delete(screen.displayId).success(function() {
+        });
     }
 }]);
