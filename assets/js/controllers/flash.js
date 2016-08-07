@@ -1,5 +1,5 @@
 
-App.controller('FlashController', ['$scope', '$timeout', 'lodash', function ($scope, $timeout, _) {
+App.controller('FlashController', /*@ngInject*/ function ($scope, $timeout, lodash) {
     $scope.flashBag = [];
 
     $scope.$on('flash', function (type, args) {
@@ -25,7 +25,7 @@ App.controller('FlashController', ['$scope', '$timeout', 'lodash', function ($sc
         $scope.flashBag.push(item);
 
         $timeout(function () {
-            _.pull($scope.flashBag, item);
+            lodash.pull($scope.flashBag, item);
         }, 5000);
     }
-}]);
+});

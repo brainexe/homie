@@ -1,5 +1,5 @@
 
-App.service('Displays', ['$http', function($http) {
+App.service('Displays', /*@ngInject*/ function($http) {
     return {
         getData: function() {
             return $http.get('/display/');
@@ -23,4 +23,4 @@ App.service('Displays', ['$http', function($http) {
             return $http.post(url, {});
         }
     }
-}]);
+});

@@ -24,7 +24,7 @@
     "sockjs-client": "1.0.1",
     "rickshaw": "1.5.*",
     "ui-select": "https://github.com/angular-ui/ui-select.git#~0.16.0",
-    "angular-native-dragdrop": "~1.1",
+    "angular-native-dragdrop": "~1.2.0",
     "angular-bootstrap-colorpicker": "~3.0",
     "angular-loading-bar": "~0.9.0",
     "lodash": "~4.14.1"

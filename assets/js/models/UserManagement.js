@@ -1,7 +1,11 @@
 
-App.service('UserManagement', ['$http', '$rootScope', 'Cache', function($http, $rootScope, Cache) {
+App.service('UserManagement', ["$http", "$rootScope", "Cache", function($http, $rootScope, Cache) {
+    function clearCache() {
+        Cache.clear('^/user/$');
+    }
+
     // clear the user in cache initially
-    Cache.clear('^/user/$');
+    clearCache();
     Cache.intervalClear('^/user/$', 60);
 
     var current = {};
@@ -10,19 +14,19 @@ App.service('UserManagement', ['$http', '$rootScope', 'Cache', function($http, $
 
     return {
         register: function(payload) {
-            Cache.clear('^/user/$');
+            clearCache();
             return $http.post('/register/', payload)
         },
 
         logout: function() {
-            Cache.clear('^/user/$');
+            clearCache();
             return $http.post('/logout/', {});
         },
 
         login: function(payload) {
-            Cache.clear('^/user/$');
+            clearCache();
             return $http.post('/login/', payload).success(function(result) {
-                Cache.clear('^/user/$');
+                clearCache();
                 setCurrentUser(result);
             });
         },
@@ -60,7 +64,7 @@ App.service('UserManagement', ['$http', '$rootScope', 'Cache', function($http, $
         },
 
         changePassword: function(oldPassword, newPassword) {
-            Cache.clear('^/user/$');
+            clearCache();
 
             return $http.post('/user/change_password/', {
                 oldPassword: oldPassword,
@@ -69,7 +73,7 @@ App.service('UserManagement', ['$http', '$rootScope', 'Cache', function($http, $
         },
 
         changeEmail: function(email) {
-            Cache.clear('^/user/$');
+            clearCache();
 
             return $http.post('/user/change_email/', {email:email});
         }

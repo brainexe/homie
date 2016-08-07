@@ -26,7 +26,8 @@
     "grunt-exec": "~1.0",
     "grunt-manifest": "^0.4.4",
     "grunt-po2mo": "^0.1.2",
-    "grunt-uniqueify": "brainexe/grunt-uniqueify"
+    "grunt-uniqueify": "brainexe/grunt-uniqueify",
+    "lodash-cli": "^4.14.1"
   },
   "license": "MIT",
   "scripts": {

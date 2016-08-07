@@ -2,38 +2,35 @@
 // source http://stackoverflow.com/questions/10490041/onclick-option-for-rickshaw-charting
 Rickshaw.namespace('Rickshaw.Graph.ClickDetail');
 Rickshaw.Graph.ClickDetail = Rickshaw.Class.create({
-
     initialize: function (args) {
         this.graph = args.graph;
         this.clickHandler = args.clickHandler || function(data){};
-        this.lastEvent = null;
+        this._lastEvent = null;
         this._addListeners();
     },
 
     update: function (e) {
-
-        e = e || this.lastEvent;
+        e = e || this._lastEvent;
         if (!e) return;
-        this.lastEvent = e;
+        this._lastEvent = e;
 
         if (!e.target.nodeName.match(/^(path|svg|rect|circle)$/)) return;
 
+        const eventX = e.offsetX || e.layerX;
+        const eventY = e.offsetY || e.layerY;
+
         var graph = this.graph;
-
-        var eventX = e.offsetX || e.layerX;
-        var eventY = e.offsetY || e.layerY;
-
         var j = 0;
         var nearestPoint;
         var nearestValue;
 
         this.graph.series.active().forEach(function (series) {
-            var data = this.graph.stackedData[j++];
+            const data = this.graph.stackedData[j++];
+            const domainX = graph.x.invert(eventX);
 
-            if (!data.length)
+            if (!data.length) {
                 return;
-
-            var domainX = graph.x.invert(eventX);
+            }
 
             var domainIndexScale = d3.scale.linear()
                 .domain([data[0].x, data.slice(-1)[0].x])
@@ -45,7 +42,6 @@ Rickshaw.Graph.ClickDetail = Rickshaw.Class.create({
             var dataIndex = Math.min(approximateIndex || 0, data.length - 1);
 
             for (var i = approximateIndex; i < data.length - 1;) {
-
                 if (!data[i] || !data[i + 1]) break;
 
                 if (data[i].x <= domainX && data[i + 1].x > domainX) {
@@ -72,7 +68,7 @@ Rickshaw.Graph.ClickDetail = Rickshaw.Class.create({
                 nearestValue = value;
             }
         }, this);
-        if(nearestValue){
+        if (nearestValue){
             this.clickHandler(nearestValue);
         }
     },

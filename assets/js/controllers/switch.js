@@ -1,5 +1,5 @@
 
-App.controller('SwitchController', ['$scope', 'Switches', 'Nodes', 'MessageQueue', '_', function ($scope, Switches, Nodes, MessageQueue, _) {
+App.controller('SwitchController', /*@ngInject*/ function ($scope, Switches, Nodes, MessageQueue, _) {
     $scope.switches  = {};
     $scope.jobs      = {};
     $scope.radioPins = {};
@@ -27,7 +27,7 @@ App.controller('SwitchController', ['$scope', 'Switches', 'Nodes', 'MessageQueue
         $scope.jobs = data;
     });
 
-    $scope.$on('message_queue.handled', function(event, data) {
+    $scope.$on(MessageQueue.JOBS_HANDLED    , function(event, data) {
         var job = data.job;
         if ($scope.jobs[job.jobId]) {
             delete $scope.jobs[job.jobId];
@@ -48,10 +48,6 @@ App.controller('SwitchController', ['$scope', 'Switches', 'Nodes', 'MessageQueue
      * @param {Number} switchId
      */
     $scope.delete = function (switchId) {
-        if (!confirm(_('Remove this Job?'))) {
-            return;
-        }
-
         Switches.delete(switchId).success(function () {
             delete $scope.switches[switchId];
         });
@@ -85,4 +81,4 @@ App.controller('SwitchController', ['$scope', 'Switches', 'Nodes', 'MessageQueue
     $scope.save = function () {
         // TODO implement save function
     };
-}]);
+});

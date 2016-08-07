@@ -1,5 +1,5 @@
 
-App.service('Speech', ['$http', function($http) {
+App.service('Speech', /*@ngInject*/ function($http) {
     return {
         sendText: function (text) {
             var payload = {
@@ -9,4 +9,4 @@ App.service('Speech', ['$http', function($http) {
             return $http.post('/speech/', payload);
         }
     }
-}]);
+});

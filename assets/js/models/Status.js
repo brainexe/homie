@@ -1,5 +1,5 @@
 
-App.service('Status', ['$http', function($http) {
+App.service('Status', /*@ngInject*/ function($http) {
     return {
         getData: function() {
             return $http.get('/stats/');
@@ -15,4 +15,4 @@ App.service('Status', ['$http', function($http) {
             return $http.post(url, {key: key})
         }
     }
-}]);
+});

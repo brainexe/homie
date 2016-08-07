@@ -1,5 +1,5 @@
 
-App.controller('AddSensorsController', ['$scope', '$rootScope', '$uibModalInstance', 'Sensor', 'Nodes', 'Sensor.Tags', function($scope, $rootScope, $uibModalInstance, Sensor, Nodes, Tags) {
+App.controller('AddSensorsController', /*@ngInject*/ function($scope, $uibModalInstance, Sensor, Nodes, SensorTags) {
     $scope.sensors    = [];
     $scope.parameters = false;
     $scope.nodes      = {};
@@ -19,7 +19,7 @@ App.controller('AddSensorsController', ['$scope', '$rootScope', '$uibModalInstan
         $scope.types      = data.types;
         $scope.formatters = data.formatters;
 
-        $scope.tags = Tags.getTagsFromSensors(data.sensors);
+        $scope.tags = SensorTags.getTagsFromSensors(data.sensors);
     });
 
     Nodes.getData().success(function(data) {
@@ -38,7 +38,5 @@ App.controller('AddSensorsController', ['$scope', '$rootScope', '$uibModalInstan
         });
     };
 
-    $scope.close = function() {
-        $uibModalInstance.close();
-    };
-}]);
+    $scope.close = $uibModalInstance.close;
+});

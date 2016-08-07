@@ -1,5 +1,5 @@
 
-App.controller('SensorController', ['$scope', '$uibModal', 'SensorGraph', 'UserManagement.Settings', function ($scope, uibModal, SensorGraph, Settings) {
+App.controller('SensorController', /*@ngInject*/ function ($scope, $uibModal, SensorGraph) {
     $scope.sensors         = [];
     $scope.activeSensorIds = '';
     $scope.from            = 0;
@@ -8,14 +8,14 @@ App.controller('SensorController', ['$scope', '$uibModal', 'SensorGraph', 'UserM
     $scope.types           = {};
 
     $scope.editModal = function () {
-        uibModal.open({
+        $uibModal.open({
             templateUrl: '/templates/sensor/edit.html',
             controller : 'EditSensorsController'
         });
     };
 
     $scope.addModal = function () {
-        uibModal.open({
+        $uibModal.open({
             templateUrl: '/templates/sensor/add.html',
             controller : 'AddSensorsController'
         });
@@ -28,5 +28,5 @@ App.controller('SensorController', ['$scope', '$uibModal', 'SensorGraph', 'UserM
     };
 
     var element = document.querySelector('.chart_container');
-    SensorGraph.init($scope, element, 500, [0]);
-}]);
+    SensorGraph($scope, element, 500, [0]);
+});

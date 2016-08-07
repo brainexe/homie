@@ -1,5 +1,5 @@
 
-App.controller('SensorValueDetailModal', ['$scope', '$rootScope', '$uibModalInstance', 'Sensor', 'value', function($scope, $rootScope, $uibModalInstance, Sensor, value) {
+App.controller('SensorValueDetailModal', /*@ngInject*/ function($scope, $rootScope, $uibModalInstance, Sensor, value) {
     $scope.value = value;
 
     $scope.delete = function() {
@@ -8,7 +8,5 @@ App.controller('SensorValueDetailModal', ['$scope', '$rootScope', '$uibModalInst
         });
     };
 
-    $scope.close = function() {
-        $uibModalInstance.close();
-    };
-}]);
+    $scope.close = $uibModalInstance.close;
+});

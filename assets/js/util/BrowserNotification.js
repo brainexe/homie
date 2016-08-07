@@ -1,26 +1,32 @@
 
-// todo refactor
-App.service('BrowserNotification', ['$q', '$timeout', '_', function($q, $timeout, _) {
-    const CLOSE_DELAY = 5000;
-    const QUEUE_DELAY = 1500;
+App.service('BrowserNotification',["$q", "$timeout", "_", function($q, $timeout, _) {
+    var CLOSE_DELAY = 5000;
+    var QUEUE_DELAY = 1500;
+
+    var PERMISSION_DENIED  = 'denied';
+    var PERMISSION_GRANTED = 'granted';
+
+    var openNotifications = [];
+    var contentQueue = [];
+
+    var GlobalNotification = window.Notification;
 
     function requestPermission() {
         return $q(function(resolve, reject) {
-            var notification = window.Notification;
 
-            if (!notification) {
+            if (!GlobalNotification) {
                 reject();
-            } else if (notification.permission === "granted") {
+            } else if (GlobalNotification.permission === PERMISSION_GRANTED) {
                 resolve();
-            } else if (notification.permission !== 'denied') {
-                notification.requestPermission(function (permission) {
+            } else if (GlobalNotification.permission !== PERMISSION_DENIED) {
+                GlobalNotification.requestPermission(function (permission) {
                     // Whatever the user answers, we make sure we store the information
-                    if (!('permission' in notification)) {
-                        notification.permission = permission;
+                    if (!('permission' in GlobalNotification)) {
+                        GlobalNotification.permission = permission;
                     }
 
                     // If the user is okay, let's create a notification
-                    if (permission === "granted") {
+                    if (permission == PERMISSION_GRANTED) {
                         resolve();
                     }
                 });
@@ -28,10 +34,8 @@ App.service('BrowserNotification', ['$q', '$timeout', '_', function($q, $timeout
         });
     }
 
-    var openNotifications = [];
-
     function show(content) {
-        var notification = new Notification(_('Homie'), {
+        var notification = new GlobalNotification(_('Homie'), {
             body: content,
             icon: 'favicon.ico'
         });
@@ -44,8 +48,6 @@ App.service('BrowserNotification', ['$q', '$timeout', '_', function($q, $timeout
 
         openNotifications.push(notification);
     }
-
-    var contentQueue = [];
 
     return {
         show: function(content) {

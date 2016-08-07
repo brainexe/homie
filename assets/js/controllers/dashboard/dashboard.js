@@ -1,45 +1,42 @@
 
-App.controller('DashboardController', ['$scope', '$uibModal', '$q', 'Dashboard', 'UserManagement.Settings', function($scope, $uibModal, $q, Dashboard, Settings) {
+App.controller('DashboardController', /*@ngInject*/ function($scope, $uibModal, $q, Dashboard, UserManagementSettings, lodash) {
     $scope.editMode = false;
 
     function selectDashboard(dashboard, notSaveOption) {
-        var order = [];
-
         if (!notSaveOption) {
             Settings.set('selectedDashboardId', dashboard.dashboardId);
         }
 
         if (dashboard.order) {
-            order = dashboard.order.split(',').map(function(id) {
-                return ~~id;
+            var order = dashboard.order.split(',').map(Number);
+
+            dashboard.widgets.sort(function(a, b) {
+                var indexA = order.indexOf(a.id);
+                var indexB = order.indexOf(b.id);
+                return indexA > indexB;
             });
         }
 
-        dashboard.widgets.sort(function(a, b) {
-            var indexA = order.indexOf(a.id);
-            var indexB = order.indexOf(b.id);
-            return indexA > indexB;
-        });
         $scope.dashboard = dashboard;
     }
 
     $q.all([
         Dashboard.getCachedMetadata(),
         Dashboard.getDashboards(),
-        Settings.getAll()
+        UserManagementSettings.getAll()
     ]).then(function(data) {
         var metadata     = data[0].data,
             dashboards   = data[1].data,
             settings     = data[2].data,
-            dashboardIds = Object.keys(dashboards.dashboards),
+            dashboardIds = Object.keys(dashboards.dashboards).map(Number),
             selectedId;
 
         $scope.dashboards = dashboards.dashboards;
         $scope.widgets    = metadata.widgets;
 
-        selectedId = settings.selectedDashboardId;
+        selectedId = ~~settings.selectedDashboardId;
 
-        if (!selectedId || dashboardIds.indexOf("" + selectedId) == -1) {
+        if (!selectedId || dashboardIds.indexOf(selectedId) == -1) {
             selectedId = dashboardIds[0];
         }
 
@@ -50,18 +47,17 @@ App.controller('DashboardController', ['$scope', '$uibModal', '$q', 'Dashboard',
 
     $scope.dragControlListeners = {
         orderChanged: function (event) {
-            var order = [];
             var items = event.dest.sortableScope.modelValue;
-            for (var idx in items) {
-                order.push(items[idx].id);
-            }
+            var order = items.map(function (item) {
+                return item.id;
+            });
+
             Dashboard.saveOrder($scope.dashboard.dashboardId, order);
         }
     };
 
     $scope.metadata = function(widget, key) {
         var type = widget.type;
-
         var metadata = $scope.widgets[type];
 
         if (key) {
@@ -148,4 +144,4 @@ App.controller('DashboardController', ['$scope', '$uibModal', '$q', 'Dashboard',
             selectDashboard(data, true);
         });
 	}
-}]);
+});

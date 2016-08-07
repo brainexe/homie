@@ -1,12 +1,12 @@
 
-App.controller('EggTimerController', ['$scope', 'EggTimer', 'MessageQueue', function ($scope, EggTimer, MessageQueue) {
+App.controller('EggTimerController', /*@ngInject*/ function ($scope, EggTimer, MessageQueue) {
     $scope.jobs = {};
 
     MessageQueue.getJobs(EggTimer.JOB_ID).success(function (data) {
         $scope.jobs = data;
     });
 
-    $scope.$on('message_queue.handled', function(event, data) {
+    $scope.$on(MessageQueue.JOBS_HANDLED, function(event, data) {
         var job = data.job;
         if ($scope.jobs[job.jobId]) {
             delete $scope.jobs[job.jobId];
@@ -34,4 +34,4 @@ App.controller('EggTimerController', ['$scope', 'EggTimer', 'MessageQueue', func
             });
         });
     };
-}]);
+});

@@ -1,57 +1,6 @@
 
-// todo use time instead of nowTime?
-App.directive('timeAgo', ['$filter', 'timeFormatter', 'nowTime', function ($filter, timeFormatter, nowTime) {
-    var dateFilter = $filter('date');
-
-    return {
-        restrict: 'EA',
-        link: function (scope, elem) {
-            var element = angular.element(elem);
-
-            var fromTime = ~~scope.fromTime * 1000;
-            if (!fromTime) {
-                element.text('--');
-                return;
-            }
-
-            // todo make a nice ui-tooltip
-            var tooltip = dateFilter(fromTime, 'medium');
-            element.attr('title', tooltip);
-            element.attr('tooltip', tooltip);
-
-            scope.$watch(nowTime, function (now) {
-                if (scope.overdue && now > fromTime) {
-                    elem[0].style.color = '#c00';
-                    elem[0].style.fontWeight = 'bold';
-                } else {
-                    elem[0].style.color = '';
-                    elem[0].style.fontWeight = 'normal';
-                }
-
-                var diffSeconds = now - fromTime;
-                var string = timeFormatter(diffSeconds);
-                element.text(string);
-            });
-        },
-        scope: {
-            fromTime: "=",
-            short:    "=",
-            overdue:  "="
-        }
-    };
-}]).factory('nowTime', ['$interval', function ($interval) {
-    var nowTime = Date.now();
-    $interval(function () {
-        nowTime = Date.now();
-    }, 1000);
-
-    return function () {
-        return nowTime;
-    };
-}]).factory('timeFormatter', ['_', function (_) {
-    var settings = {
-        allowFuture: true
-    };
+App.service('TimeFormatter', /*@ngInject*/ function (_) {
+    var allowFuture = true;
 
     var strings = {
         formatterAgo: _('%s ago'),
@@ -71,16 +20,16 @@ App.directive('timeAgo', ['$filter', 'timeFormatter', 'nowTime', function ($filt
     };
 
     function inWords(distanceMillis) {
-        var formatter = strings.formatterAgo;
-        if (settings.allowFuture && distanceMillis < 0) {
-            formatter = strings.formatterFromNow;
-        }
-
         var seconds = Math.abs(distanceMillis) / 1000;
         var minutes = seconds / 60;
         var hours   = minutes / 60;
         var days    = hours / 24;
         var years   = days / 365;
+
+        var formatter = strings.formatterAgo;
+        if (allowFuture && distanceMillis < 0) {
+            formatter = strings.formatterFromNow;
+        }
 
         function substitute(stringOrFunction, number) {
             var string = angular.isFunction(stringOrFunction) ?
@@ -106,4 +55,4 @@ App.directive('timeAgo', ['$filter', 'timeFormatter', 'nowTime', function ($filt
     }
 
     return inWords;
-}]);
+});

@@ -4,6 +4,7 @@ App.filter('toObjectArray', function() {
         if (!input) {
             return [];
         }
+
         if (input.$$toObjectArray) {
             return input.$$toObjectArray;
         }

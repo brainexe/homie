@@ -1,5 +1,5 @@
 
-App.service('EggTimer', ['$http', 'Cache', function($http, Cache) {
+App.service('EggTimer', /*@ngInject*/ function($http) {
     return {
         JOB_ID: 'egg_timer.done',
 
@@ -12,4 +12,4 @@ App.service('EggTimer', ['$http', 'Cache', function($http, Cache) {
             return $http.post('/egg_timer/', payload);
         }
     }
-}]);
+});

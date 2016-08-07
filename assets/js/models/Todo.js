@@ -1,5 +1,5 @@
 
-App.service('Todo', ['$http', function($http) {
+App.service('Todo', /*@ngInject*/ function($http) {
     return {
         getData: function() {
             return $http.get('/todo/');
@@ -27,4 +27,4 @@ App.service('Todo', ['$http', function($http) {
             });
         }
     }
-}]);
+});

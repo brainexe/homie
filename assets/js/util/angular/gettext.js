@@ -1,5 +1,5 @@
 
-App.service('_', ['$rootScope', 'gettextCatalog', 'lodash', function ($rootScope, gettextCatalog, lodash) {
+App.service('_', /*@ngInject*/ function ($rootScope, gettextCatalog, lodash) {
     var cachedFunction = lodash.memoize(function(string) {
         return gettextCatalog.getString(string);
     });
@@ -9,4 +9,4 @@ App.service('_', ['$rootScope', 'gettextCatalog', 'lodash', function ($rootScope
     });
 
     return cachedFunction;
-}]);
+});

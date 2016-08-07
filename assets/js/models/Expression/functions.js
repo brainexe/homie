@@ -1,6 +1,6 @@
 
-App.service('Expression.Functions', ['$q', 'Expression', 'MessageQueue', 'Sensor', 'Cache', function ($q, Expression, MessageQueue, Sensor, Cache) {
-    var cacheKey = 'expressionFunctions';
+App.service('ExpressionFunctions', /*@ngInject*/ function ($q, Expression, MessageQueue, Sensor, Cache) {
+    const cacheKey = 'expressionFunctions';
     var allFunctions = {
         actions: [],
         triggers: []
@@ -120,4 +120,4 @@ App.service('Expression.Functions', ['$q', 'Expression', 'MessageQueue', 'Sensor
             }, sensors[sensorIdx].name);
         }
     }
-}]);
+});

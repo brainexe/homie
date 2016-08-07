@@ -1,5 +1,5 @@
 
-App.controller('DisplaysController', ['$scope', 'Displays', 'Nodes', function ($scope, Displays, Nodes) {
+App.controller('DisplaysController', /*@ngInject*/ function ($scope, Displays, Nodes) {
     $scope.editMode = false;
     $scope.screens  = {};
     $scope.currentScreen = {
@@ -43,4 +43,4 @@ App.controller('DisplaysController', ['$scope', 'Displays', 'Nodes', function ($
         Displays.delete(screen.displayId).success(function() {
         });
     }
-}]);
+});

@@ -1,8 +1,6 @@
 
-App.service('WidgetFactory', ['$injector',
-    function($injector) {
-        return function(type) {
-            return $injector.get('Widget.' + type)
-        };
-    }
-]);
+App.service('WidgetFactory', /*@ngInject*/ function($injector) {
+    return function(type) {
+        return $injector.get('Widget.' + type)
+    };
+});

@@ -1,23 +1,22 @@
 
-App.controller('AdminUsersController', ['$scope', 'UserManagement.Admin', function ($scope, Admin) {
-
+App.controller('AdminUsersController', /*@ngInject*/ function ($scope, UserManagementAdmin, _) {
     $scope.rights = [];
     $scope.users  = [];
 
-    Admin.getUsers().success(function(data) {
+    UserManagementAdmin.getUsers().success(function(data) {
         $scope.rights = data.rights;
         $scope.users  = data.users;
     });
 
     $scope.save = function(user) {
-        Admin.edit(user).success(function(newUser) {
+        UserManagementAdmin.edit(user).success(function(newUser) {
             user.edit = false;
         });
     };
 
     $scope.newPassword = function(user) {
-        user.password = prompt('Password');
+        user.password = prompt(_('Password'));
 
-        Admin.edit(user);
+        UserManagementAdmin.edit(user);
     }
-}]);
+});

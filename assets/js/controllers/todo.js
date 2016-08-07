@@ -1,4 +1,4 @@
-App.controller('TodoController', ['$scope', '_', 'lodash', 'Todo', 'UserManagement', function ($scope, _, lodash, Todo, UserManagement) {
+App.controller('TodoController', /*@ngInject*/ function ($scope, _, lodash, Todo, UserManagement) {
     $scope.userNames   = [];
     $scope.currentItem = {};
 
@@ -31,7 +31,7 @@ App.controller('TodoController', ['$scope', '_', 'lodash', 'Todo', 'UserManageme
         }
 
         if (item.todoId) {
-            Todo.edit(item).success(function (result) {
+            Todo.edit(item).success(function () {
                 $scope.currentItem = {};
             });
         } else {
@@ -67,4 +67,4 @@ App.controller('TodoController', ['$scope', '_', 'lodash', 'Todo', 'UserManageme
     $scope.editTodo = function (item) {
         Todo.edit(item);
     };
-}]);
+});

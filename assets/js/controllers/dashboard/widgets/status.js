@@ -1,5 +1,5 @@
 
-App.service('Widget.status', ['$interval', 'Status', '_', function($interval, Status, _) {
+App.service('Widget.status', /*@ngInject*/ function($interval, Status, _) {
     function update($scope) {
         Status.getData().success(function(data) {
             $scope.stats = data.stats;
@@ -22,5 +22,5 @@ App.service('Widget.status', ['$interval', 'Status', '_', function($interval, St
             });
         }
     };
-}]);
+});
 

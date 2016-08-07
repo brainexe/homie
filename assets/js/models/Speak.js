@@ -1,5 +1,5 @@
 
-App.service('Speak', ['$http', 'Cache', function($http, Cache) {
+App.service('Speak', /*@ngInject*/ function($http, Cache) {
     return {
         JOB_ID: 'espeak.speak',
 
@@ -13,4 +13,4 @@ App.service('Speak', ['$http', 'Cache', function($http, Cache) {
             return $http.post('/espeak/speak/', payload);
         }
     };
-}]);
+});

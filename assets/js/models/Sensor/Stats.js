@@ -1,5 +1,5 @@
 
-App.service('Sensor.Stats', [function() {
+App.service('SensorStats', function() {
     return {
         getStats: function(series) {
             if (!series) {
@@ -18,7 +18,7 @@ App.service('Sensor.Stats', [function() {
 
             for (var i = 0; i < series.data.length; i += 2) {
                 timestamp = series.data[i];
-                value     = series.data[i +1];
+                value     = series.data[i + 1];
 
                 values.push(value);
                 sum += value;
@@ -41,4 +41,4 @@ App.service('Sensor.Stats', [function() {
             return result;
         }
     }
-}]);
+});

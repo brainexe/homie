@@ -1,4 +1,5 @@
-App.service('Widget.time', ['$interval', function($interval) {
+
+App.service('Widget.time', /*@ngInject*/ function($interval) {
     return {
         template: '/templates/widgets/time.html',
         render: function ($scope, widget) {
@@ -12,4 +13,4 @@ App.service('Widget.time', ['$interval', function($interval) {
             });
         }
     }
-}]);
+});

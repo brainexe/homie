@@ -1,4 +1,4 @@
-App.service('Widget.webcam', ['Webcam', '_', function(Webcam, _) {
+App.service('Widget.webcam', /*@ngInject*/ function(Webcam, _) {
     return {
         template: '/templates/widgets/webcam.html',
         render: function ($scope, widget) {
@@ -12,9 +12,7 @@ App.service('Widget.webcam', ['Webcam', '_', function(Webcam, _) {
                 $scope.loadRecentImage();
             }
 
-            $scope.takeShot = function () {
-                Webcam.takeShot();
-            };
+            $scope.takeShot = Webcam.takeShot;
 
             $scope.takeVideo = function () {
                 var duration = prompt(_('Duration'));
@@ -27,4 +25,4 @@ App.service('Widget.webcam', ['Webcam', '_', function(Webcam, _) {
             };
         }
     }
-}]);
+});

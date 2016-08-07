@@ -1,5 +1,5 @@
 
-App.service('SensorGraph', ['$uibModal', 'Sensor', 'Sensor.Formatter', function ($uibModal, Sensor, SensorFormatter) {
+App.service('SensorGraph', /*@ngInject*/ function ($uibModal, Sensor, SensorFormatter) {
     var rickshaw = Rickshaw.Graph;
 
     function init($scope, element, height, sensorIds, parameters) {
@@ -18,7 +18,7 @@ App.service('SensorGraph', ['$uibModal', 'Sensor', 'Sensor.Formatter', function 
             Sensor.getValues(sensorIds.join(':'), parameters).success(function (data) {
                 var yAxisFormatter = getAxisFormatter(data.json);
 
-                $scope.activeSensorIds = Object.keys(data.json).map(function(i) {return ~~i});
+                $scope.activeSensorIds = Object.keys(data.json).map(Number);
                 $scope.ago   = data.ago;
                 $scope.to    = data.to;
                 $scope.stats = {};
@@ -50,9 +50,7 @@ App.service('SensorGraph', ['$uibModal', 'Sensor', 'Sensor.Formatter', function 
                                     return value;
                                 }
                             }
-                        }).result.then(function() {
-                            update();
-                        });
+                        }).result.then(update);
                     }
                 });
                 new rickshaw.HoverDetail({
@@ -82,26 +80,25 @@ App.service('SensorGraph', ['$uibModal', 'Sensor', 'Sensor.Formatter', function 
             });
         });
 
-        /**
-         * @param sensorValues
-         */
-        function updateGraph(sensorValues) {
-            var oldActive = $scope.graph.series.active;
-            sensorValues.active = oldActive;
-            $scope.graph.series = sensorValues;
-            $scope.graph.update();
-
-            var legend = element.querySelector('.legend');
-            legend.innerHTML = '';
-            new rickshaw.Legend({
-                element: legend,
-                graph: $scope.graph
-            });
-        }
-
         function update(parameter) {
             var activeIds  = $scope.activeSensorIds.join(':') || "0";
             var parameters = '?from={0}'.format($scope.ago) + parameter;
+
+            /**
+             * @param sensorValues
+             */
+            function updateGraph(sensorValues) {
+                sensorValues.active = $scope.graph.series.active;
+                $scope.graph.series = sensorValues;
+                $scope.graph.update();
+
+                var legend = element.querySelector('.legend');
+                legend.innerHTML = '';
+                new rickshaw.Legend({
+                    element: legend,
+                    graph: $scope.graph
+                });
+            }
 
             Sensor.getValues(activeIds, parameters).success(function (data) {
                 updateGraph(decompressData(data));
@@ -118,7 +115,7 @@ App.service('SensorGraph', ['$uibModal', 'Sensor', 'Sensor.Formatter', function 
 
         /**
          * @param {Number} sensorId
-         * @param {Number} from
+         * @param {Number} ago
          */
         $scope.sensorView = function (sensorId, ago) {
             sensorId = ~~sensorId;
@@ -126,7 +123,7 @@ App.service('SensorGraph', ['$uibModal', 'Sensor', 'Sensor.Formatter', function 
 
             if (sensorId) {
                 if ($scope.isSensorActive(sensorId)) {
-                    var index = $scope.activeSensorIds.indexOf(sensorId);
+                    const index = $scope.activeSensorIds.indexOf(sensorId);
                     $scope.activeSensorIds.splice(index, 1);
                 } else {
                     $scope.activeSensorIds.push(sensorId);
@@ -160,7 +157,6 @@ App.service('SensorGraph', ['$uibModal', 'Sensor', 'Sensor.Formatter', function 
         return formatter;
     }
 
-    // todo optimize
     function decompressData(data) {
         var final = [];
         for (var sensorId in data.json) {
@@ -196,7 +192,5 @@ App.service('SensorGraph', ['$uibModal', 'Sensor', 'Sensor.Formatter', function 
         return tags;
     }
 
-    return {
-        init: init
-    }
-}]);
+    return init;
+});

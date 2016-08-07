@@ -1,5 +1,5 @@
 
-App.service('Webcam', ['$http', function($http) {
+App.service('Webcam', /*@ngInject*/ function($http) {
     return {
         getData: function() {
             return $http.get('/webcam/');
@@ -25,4 +25,4 @@ App.service('Webcam', ['$http', function($http) {
            return $http.delete('/webcam/?shotId={0}'.format(shotId));
         }
     }
-}]);
+});

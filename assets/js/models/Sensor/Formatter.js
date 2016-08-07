@@ -1,43 +1,39 @@
 
-App.service('Sensor.Formatter', [function() {
-    function round(number, places) {
-        var factor = Math.pow(10, places);
-        return (~~Math.round(number * factor)) / factor;
-    }
-
+App.service('SensorFormatter', /*@ngInject*/ function(lodash) {
     /**
      * @source http://stackoverflow.com/questions/10420352/converting-file-size-in-bytes-to-human-readable
      */
     function number(number) {
-        var thresh = 1024;
-        if(Math.abs(number) < thresh * 2) {
+        const thresh = 1024;
+        const units = 'kMGTPEZY';
+        var u = -1;
+        if (Math.abs(number) < thresh * 2) {
             return number;
         }
-        var units = ['k','M','G','T','P','E','Z','Y'];
-        var u = -1;
+
         do {
             number /= thresh;
             ++u;
         } while(Math.abs(number) >= thresh && u < units.length - 1);
 
-        return number.toFixed(1)+' '+units[u];
+        return number.toFixed(1) + ' ' + units[u];
     }
 
     var formatter = {
         temperature: function (value) {
-            return round(value, 2) + '°';
+            return lodash.round(value, 2) + '°';
         },
 
         percentage: function (value) {
-            return round(value, 2) + '%';
+            return lodash.round(value, 2) + '%';
         },
 
         barometer: function (value) {
-            return round(value, 2) + 'hPa';
+            return lodash.round(value, 2) + 'hPa';
         },
 
         noop: function noop(value) {
-            return round(value, 3);
+            return lodash.round(value, 3);
         },
 
         bytes: function (bytes) {
@@ -54,4 +50,4 @@ App.service('Sensor.Formatter', [function() {
             return formatter.noop;
         }
     };
-}]);
+});

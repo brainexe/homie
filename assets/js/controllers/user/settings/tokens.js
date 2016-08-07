@@ -1,5 +1,5 @@
 
-App.controller('UserTokensController', ['$scope', 'UserManagement.Tokens', '_', function ($scope, Tokens, _) {
+App.controller('UserTokensController', /*@ngInject*/ function ($scope, UserManagementTokens) {
     $scope.tokens         = {};
     $scope.roles          = ['login'];
     $scope.availableRoles = [
@@ -8,7 +8,7 @@ App.controller('UserTokensController', ['$scope', 'UserManagement.Tokens', '_', 
     ];
 
     function reload() {
-        Tokens.getData().success(function (result) {
+        UserManagementTokens.getData().success(function (result) {
             $scope.tokens = result;
         });
     }
@@ -16,14 +16,12 @@ App.controller('UserTokensController', ['$scope', 'UserManagement.Tokens', '_', 
     reload();
 
     $scope.add = function (roles, name) {
-        Tokens.add(roles, name).success(function (token) {
-            reload();
-        });
+        UserManagementTokens.add(roles, name).success(reload);
     };
 
     $scope.revoke = function (token) {
-        Tokens.deleteToken(token).success(function () {
+        UserManagementTokens.deleteToken(token).success(function () {
             delete $scope.tokens[token];
         });
     };
-}]);
+});

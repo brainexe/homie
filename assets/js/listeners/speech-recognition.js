@@ -1,15 +1,14 @@
 
-App.service('Listener.SpeechRecognition', ['$rootScope', 'Speech', 'UserManagement.Settings', function($rootScope, Speech, Settings) {
+App.run(/*@ngInject*/ function($rootScope, Speech, UserManagementSettings) {
     if (!window.webkitSpeechRecognition) {
         return;
     }
 
-    Settings.getAll().success(function(settings) {
+    UserManagementSettings.getAll().success(function(settings) {
         if (!settings.voiceControl) {
             return;
         }
         var recognition = new window.webkitSpeechRecognition();
-
         recognition.continuous = true;
         recognition.lang = "de-DE"; // TODO
 
@@ -24,4 +23,4 @@ App.service('Listener.SpeechRecognition', ['$rootScope', 'Speech', 'UserManageme
 
         recognition.start();
     });
-}]);
+});

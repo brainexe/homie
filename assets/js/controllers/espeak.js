@@ -1,5 +1,5 @@
 
-App.controller('EspeakController', ['$scope', 'Speak', 'MessageQueue', function ($scope, Speak, MessageQueue) {
+App.controller('EspeakController', /*@ngInject*/ function ($scope, Speak, MessageQueue) {
     $scope.jobs     = {};
     $scope.speakers = {};
     $scope.pending  = false;
@@ -12,7 +12,7 @@ App.controller('EspeakController', ['$scope', 'Speak', 'MessageQueue', function 
         $scope.jobs = data;
     });
 
-    $scope.$on('message_queue.handled', function(event, data) {
+    $scope.$on(MessageQueue.JOBS_HANDLED, function(event, data) {
         var job = data.job;
         if ($scope.jobs[job.jobId]) {
             delete $scope.jobs[job.jobId];
@@ -45,4 +45,4 @@ App.controller('EspeakController', ['$scope', 'Speak', 'MessageQueue', function 
             });
         });
     }
-}]);
+});

@@ -23,77 +23,58 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-po2mo');
     grunt.loadNpmTasks('grunt-uniqueify');
 
-    grunt.registerTask('extract_lang', ['php_gettext_extract', 'nggettext_extract', 'pot_prepare', 'exec:potMerge']);
+    grunt.registerTask('extract_lang', ['php_gettext_extract', 'nggettext_extract', 'pot_merge', 'exec:potMerge']);
     grunt.registerTask('compile_lang', ['nggettext_compile', 'po2mo']);
 
     grunt.registerTask('bower', function () {
         var done = this.async();
+        var exec = require('child_process').exec;
+        exec('bower update --production', done);
+    });
 
-        var child = grunt.util.spawn({
-            cmd: 'bower',
-            args: ['update', '--production']
-        }, function (err, out) {
+    grunt.registerTask('lodash', function () {
+        var done = this.async();
+        var exec = require('child_process').exec;
+        var command = 'node ./node_modules/lodash-cli/bin/lodash --output bower_components/lodash/dist/lodash.custom.js --development include=$(grep -hoP "lodash\\.\\K(\\w*)" assets/js -r | sort | uniq | paste -s -d, -)';
+
+        exec(command, done);
+    });
+
+    grunt.registerTask('lodash_functions', function () {
+        var done = this.async();
+        var exec = require('child_process').exec;
+        var command = 'grep -hoP "lodash\\.\\K(\\w*)" assets/js -r | sort | uniq -c | sort -nr';
+
+        exec(command, function(err, stdout) {
+            console.log(stdout);
             done();
         });
-        child.stdout.pipe(process.stdout);
-        child.stderr.pipe(process.stderr);
     });
 
     grunt.registerTask('php_gettext_extract', function () {
         var done = this.async();
         var exec = require('child_process').exec;
-        exec('xgettext --from-code=utf-8 -o lang/pot/php.pot --keyword=translate $(find src vendor/brainexe -name *.php)', function(err, stdout, stderr) {
-            done();
-        });
-    });
-
-    grunt.registerTask('pot_prepare', function () {
-        var done = this.async();
-
-        var potStream = fs.createWriteStream('lang/pot/all.pot', {flags: 'w'});
-
-        var child = grunt.util.spawn({
-            cmd: 'msgcat',
-            args: ['--use-first', 'lang/pot/frontend.pot', 'lang/pot/php.pot']
-        }, function (err, out) {
-            done();
-        });
-        child.stdout.pipe(potStream);
-        child.stderr.pipe(process.stderr);
+        var command = 'xgettext --from-code=utf-8 -o lang/pot/php.pot --keyword=translate $(find src vendor/brainexe -name *.php)';
+        exec(command, done);
     });
 
     grunt.registerTask('pot_merge', function () {
         var done = this.async();
+        var exec = require('child_process').exec;
+        var command = 'msgcat --use-first lang/pot/frontend.pot lang/pot/php.pot > lang/pot/all.pot';
 
-        var potStream = fs.createWriteStream('lang/pot/all.pot', {flags: 'w'});
-
-        var child = grunt.util.spawn({
-            cmd: 'msgmerge',
-            args: ['lang/de_DE.po', 'lang/pot/all.pot']
-        }, function (err, out) {
-            done();
-        });
-        child.stdout.pipe(potStream);
-        child.stderr.pipe(process.stderr);
+        exec(command, done);
     });
 
-    grunt.registerTask('console', function () {
-        var args = arguments;
-        var task = Object.keys(args).map(function (key) {
-            return args[key];
-        });
-
+    grunt.registerTask('console', function (command) {
         var done = this.async();
-        task = task.join(':');
-        var child = grunt.util.spawn({
-            cmd: 'php',
-            args: ['console', task],
-            stdio: 'inherit'
-        }, function (err, out) {
+        var exec = require('child_process').exec;
+        var command = 'php console ' + command;
+
+        exec(command, function (err, stdout) {
+            console.log(stdout);
             done();
         });
-        child.stdout.pipe(process.stdout);
-        child.stderr.pipe(process.stderr);
     });
 
     var defaultTasks = [
@@ -101,6 +82,7 @@ module.exports = function (grunt) {
         'compile_lang',
         'copy:index',
         'copy:static',
+        'lodash',
         'uglify',
         'htmlmin',
         'sass',
@@ -153,7 +135,7 @@ module.exports = function (grunt) {
         watch: {
             js: {
                 files: ['assets/**/*.js'],
-                tasks: ['uglify:app'],
+                tasks: ['lodash', 'uglify:app', 'uglify:vendor'],
                 options: {
                     livereload: true
                 }
@@ -261,14 +243,20 @@ module.exports = function (grunt) {
                         screw_ie8: true,
                         angular: true,
                         pure_getters: true,
+                        hoist_funs: true,
                         hoist_vars: true,
+                        keep_fargs: false,
                         collapse_vars: true
                     } : false,
                     mangle: isProduction ? {
-                        toplevel: true
+                        toplevel: true,
+                        regex: '.*'
                     } : false,
+                    mangleProperties: {
+                        regex: /^(_|[A-Z_]+$)/
+                    },
                     enclose: {},
-                    sourceMap: true,
+                    sourceMap: isProduction,
                     sourceMapName: 'web/app-js.map'
                 },
                 files: {
@@ -281,7 +269,7 @@ module.exports = function (grunt) {
                 options: {
                     compress: false,
                     mangle: false,
-                    sourceMap: true,
+                    sourceMap: isProduction,
                     sourceMapName: 'web/vendor.js.map',
                     enclose: {}
                 },
@@ -292,14 +280,14 @@ module.exports = function (grunt) {
                         'bower_components/angular-gettext/dist/angular-gettext.min.js',
                         'bower_components/angular-sanitize/angular-sanitize.min.js',
                         'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-                        'bower_components/angular-native-dragdrop/draganddrop.js',
+                        'bower_components/angular-native-dragdrop/draganddrop.min.js',
                         'bower_components/angular-cache/dist/angular-cache.min.js',
                         'bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.min.js',
                         'bower_components/ng-sortable/dist/ng-sortable.min.js',
                         'bower_components/ui-select/dist/select.min.js',
                         'bower_components/sockjs-client/dist/sockjs.min.js',
                         'bower_components/angular-loading-bar/build/loading-bar.min.js',
-                        'bower_components/lodash/dist/lodash.min.js',
+                        'bower_components/lodash/dist/lodash.custom.js',
 
                         // needed for sensor module
                         'bower_components/rickshaw/vendor/d3.min.js',
@@ -381,12 +369,13 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        po2mo: locales.map(function(locale) {
-            return {
+        po2mo: locales.reduce(function(all, locale) {
+            all[locale] = {
                 src: 'lang/' + locale + '.po',
                 dest: 'cache/lang/' + locale + '/LC_MESSAGES/messages.mo'
-            }
-        }),
+            };
+            return all;
+        }, {}),
         uniqueify: {
              static: {
                  options: {
@@ -394,7 +383,7 @@ module.exports = function (grunt) {
                  },
                  files: [{
                      cwd: 'web/',
-                     src: ['**/*.{js,css,ico,appcache,json}']
+                     src: ['**/*.{js,css,ico,appcache}', '*.json']
                  }]
              },
              html: {

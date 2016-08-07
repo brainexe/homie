@@ -1,5 +1,5 @@
 
-App.service('ShoppingList', ['$http', function($http) {
+App.service('ShoppingList', /*@ngInject*/ function($http) {
     return {
         getData: function() {
             return $http.get('/shopping/');
@@ -13,4 +13,4 @@ App.service('ShoppingList', ['$http', function($http) {
             return $http.delete('/shopping/{0}/'.format(encodeURIComponent(name)));
         }
     }
-}]);
+});

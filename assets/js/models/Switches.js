@@ -1,5 +1,5 @@
 
-App.service('Switches', ['$http', function($http) {
+App.service('Switches', /*@ngInject*/ function($http) {
     return {
         JOB_ID: 'switch.change',
 
@@ -33,4 +33,4 @@ App.service('Switches', ['$http', function($http) {
             return $http.delete('/switches/jobs/{0}/'.format(eventId))
         }
     }
-}]);
+});

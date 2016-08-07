@@ -1,5 +1,5 @@
 
-App.controller('ExpressionController', ['$scope', '$q', 'Expression', 'MessageQueue', 'Expression.Functions', 'lodash', function ($scope, $q, Expression, MessageQueue, ExpressionFunctions, __) {
+App.controller('ExpressionController', /*@ngInject*/ function ($scope, $q, Expression, MessageQueue, ExpressionFunctions, lodash) {
 	$scope.expressions    = {};
     $scope.editMode       = false;
     $scope.editExpression = null;
@@ -7,7 +7,7 @@ App.controller('ExpressionController', ['$scope', '$q', 'Expression', 'MessageQu
     $scope.crons          = [];
     $scope.functions      = {};
 
-    $scope.$on('message_queue.handled', function(event, data) {
+    $scope.$on(MessageQueue.JOBS_HANDLED, function(event, data) {
         var job = data.job;
         if ($scope.crons[job.jobId]) {
             $scope.crons[job.jobId] = job;
@@ -38,7 +38,9 @@ App.controller('ExpressionController', ['$scope', '$q', 'Expression', 'MessageQu
     };
 
     $scope.searchExpression = function (search) {
-        return __.filter($scope.expressions, function(expression) {
+        search = search ? search.toLowerCase() : '';
+
+        return lodash.filter($scope.expressions, function(expression) {
             if (!expression.enabled && !$scope.showDisabled) {
                 // hide disabled
                 return false;
@@ -47,11 +49,13 @@ App.controller('ExpressionController', ['$scope', '$q', 'Expression', 'MessageQu
                 return true;
             }
 
-            var text = expression.expressionId +
-                expression.conditions.join(' ') +
-                expression.actions.join(' ');
+            var text = [
+                expression.expressionId,
+                expression.conditions.join(' '),
+                expression.actions.join(' ')
+            ].join(' ');
 
-            return text.toLowerCase().indexOf(search.toLowerCase()) > -1;
+            return text.toLowerCase().indexOf(search) > -1;
         });
     };
 
@@ -123,4 +127,4 @@ App.controller('ExpressionController', ['$scope', '$q', 'Expression', 'MessageQu
             delete $scope.crons[jobId];
         });
     };
-}]);
+});

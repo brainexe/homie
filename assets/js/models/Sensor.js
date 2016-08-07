@@ -1,9 +1,14 @@
 
-App.service('Sensor', ['$http', '$rootScope', 'Cache', function($http, $rootScope, Cache) {
+App.service('Sensor', /*@ngInject*/ function($http, $rootScope, Cache) {
     $rootScope.$on('sensor.value', function(event, data) {
-        Cache.clear('^/sensors/');
+        clearCache();
         $rootScope.$broadcast('sensor.update', data.sensorVo);
     });
+
+    function clearCache() {
+        Cache.clear('^/sensors/');
+
+    }
 
     return {
         getAll: function() {
@@ -25,36 +30,38 @@ App.service('Sensor', ['$http', '$rootScope', 'Cache', function($http, $rootScop
         },
 
         deleteSensor: function(sensorId) {
-            Cache.clear('^/sensors/');
+            clearCache();
 
             return $http.delete('/sensors/{0}/'.format(sensorId));
         },
 
         deleteValue: function(sensorId, values) {
-            Cache.clear('^/sensors/');
+            clearCache();
 
             return $http.delete('/sensors/{0}/values/{1}/'.format(sensorId, values));
         },
 
         addValue: function(sensorId, value) {
-            Cache.clear('^/sensors/');
+            clearCache();
 
             return $http.post('/sensors/{0}/value/'.format(sensorId), {value:value});
         },
 
         forceReadValue: function(sensorId) {
-            Cache.clear('^/sensors/');
+            clearCache();
 
             return $http.post('/sensors/{0}/force/'.format(sensorId), {});
         },
 
         edit: function(sensor) {
-            Cache.clear('^/sensors/');
+            clearCache();
+
             return $http.put('/sensors/{0}/'.format(sensor.sensorId), sensor);
         },
 
         add: function(sensor) {
-            Cache.clear('^/sensors/');
+            clearCache();
+
             return $http.post('/sensors/', sensor);
         },
 
@@ -62,4 +69,4 @@ App.service('Sensor', ['$http', '$rootScope', 'Cache', function($http, $rootScop
             return $http.get('/sensors/{0}/parameters/'.format(sensorType), {cache: Cache});
         }
     };
-}]);
+});

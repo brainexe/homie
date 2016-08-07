@@ -1,5 +1,5 @@
 
-App.service('Listener.BrowserSensorNotification', ['$rootScope', 'BrowserNotification', function($rootScope, BrowserNotification) {
+App.run(/*@ngInject*/ function($rootScope, BrowserNotification) {
     var sensorValues = {};
     $rootScope.$on('sensor.value', function (eventName, event) {
         var old = sensorValues[event.sensorVo.sensorId];
@@ -14,4 +14,4 @@ App.service('Listener.BrowserSensorNotification', ['$rootScope', 'BrowserNotific
             BrowserNotification.show(text);
         }
     });
-}]);
+});

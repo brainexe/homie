@@ -8,14 +8,11 @@ App.service('Cache', ['CacheFactory', '$interval', '$rootScope', function(CacheF
     });
 
     cache.clear = function(pattern) {
-        var keys = cache.keys(), key, idx;
-
-        for (idx in keys) { // todo lodash
-            key = keys[idx];
+        cache.keys().forEach(function(key) {
             if (key.match && key.match(pattern)) {
                 cache.remove(key);
             }
-        }
+        });
     };
 
     // do only store plain response in cache when successful

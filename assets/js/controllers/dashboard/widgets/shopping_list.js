@@ -1,5 +1,5 @@
 
-App.service('Widget.shopping_list', ['ShoppingList', function(ShoppingList) {
+App.service('Widget.shopping_list', /*@ngInject*/ function(ShoppingList) {
     return {
         template: '/templates/widgets/shopping_list.html',
         render: function ($scope, widget) {
@@ -16,7 +16,6 @@ App.service('Widget.shopping_list', ['ShoppingList', function(ShoppingList) {
 
             $scope.addShoppingItem = function() {
                 var name = $scope.todoText;
-
                 if (!name) {
                     return;
                 }
@@ -35,5 +34,5 @@ App.service('Widget.shopping_list', ['ShoppingList', function(ShoppingList) {
             };
         }
     };
-}]);
+});
 

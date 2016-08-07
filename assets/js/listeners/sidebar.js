@@ -1,5 +1,5 @@
 
-App.service('Listener.Sidebar', [function() {
+App.run(function() {
     function toggle(e) {
         if (e) {
             e.preventDefault();
@@ -18,4 +18,4 @@ App.service('Listener.Sidebar', [function() {
 
     document.querySelector('.sidebar-menu a').onclick = toggle;
     document.querySelector('#offcanvas').onclick = toggle;
-}]);
+});

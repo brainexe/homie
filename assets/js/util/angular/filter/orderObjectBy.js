@@ -1,5 +1,5 @@
 
-App.filter('orderObjectBy', ['lodash', function(lodash) {
+App.filter('orderObjectBy', /*@ngInject*/ function(lodash) {
     return function(input, attribute) {
         var order = 'asc';
         if (attribute.charAt(0) == '-') {
@@ -9,4 +9,4 @@ App.filter('orderObjectBy', ['lodash', function(lodash) {
 
         return lodash.orderBy(input, [attribute], [order]);
     }
-}]);
+});

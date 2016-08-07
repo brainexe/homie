@@ -1,5 +1,5 @@
 
-App.service('Widget.switch', ['Switches', function(Switches) {
+App.service('Widget.switch', /*@ngInject*/ function(Switches, lodash) {
     return {
         template: '/templates/widgets/switch.html',
         render: function ($scope, widget) {
@@ -10,14 +10,11 @@ App.service('Widget.switch', ['Switches', function(Switches) {
             };
 
             Switches.getDataCached().success(function(switches) {
-                for (var i in widget.switchIds) {
-                    var currentSwitch = switches.switches[widget.switchIds[i]];
-                    if (currentSwitch) {
-                        $scope.switches.push(currentSwitch);
-                    }
-                }
+                $scope.switches = lodash.filter(widget.switchIds, function(switchId) {
+                    return switches.switches[switchId];
+                });
             });
         }
     };
-}]);
+});
 

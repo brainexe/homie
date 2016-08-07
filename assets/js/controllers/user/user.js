@@ -1,16 +1,15 @@
 
-App.controller('UserController', ['$scope', 'UserManagement', 'UserManagement.Avatar', function ($scope, UserManagement, Avatar) {
-
-    $scope.user = UserManagement.loadCurrentUser().success(function(user) {
+App.controller('UserController', /*@ngInject*/ function ($scope, UserManagement, UserManagementAvatar) {
+    UserManagement.loadCurrentUser().success(function(user) {
         $scope.user = user;
     });
 
-    Avatar.getList().success(function(avatars) {
+    UserManagementAvatar.getList().success(function(avatars) {
         $scope.avatars = avatars;
     });
 
     $scope.setAvatar = function (avatar) {
-        Avatar.set(avatar).success(function(user) {
+        UserManagementAvatar.set(avatar).success(function(user) {
             UserManagement.setCurrentUser(user);
             $scope.user = user;
         });
@@ -22,4 +21,4 @@ App.controller('UserController', ['$scope', 'UserManagement', 'UserManagement.Av
             $scope.user = user;
         });
     };
-}]);
+});

@@ -1,5 +1,5 @@
 
-App.directive('expressionParameter', [function() {
+App.directive('expressionParameter', function() {
     return {
         templateUrl: '/templates/expression/parameter.html',
         restrict: "E",
@@ -22,4 +22,4 @@ App.directive('expressionParameter', [function() {
             })
         }
     };
-}]);
+});

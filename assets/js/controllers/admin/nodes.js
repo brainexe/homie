@@ -1,5 +1,5 @@
 
-App.controller('AdminNodesController', ['$scope', 'Nodes', function ($scope, Nodes) {
+App.controller('AdminNodesController', /*@ngInject*/ function ($scope, Nodes) {
     $scope.nodes      = [];
     $scope.currentId  = [];
     $scope.types      = [];
@@ -29,4 +29,4 @@ App.controller('AdminNodesController', ['$scope', 'Nodes', function ($scope, Nod
             $scope.nodes.splice($index, 1);
         });
     }
-}]);
+});

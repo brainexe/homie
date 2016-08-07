@@ -1,5 +1,5 @@
 
-App.controller('EditWidgetController', ['$scope', '$uibModalInstance', 'Dashboard', 'dashboardId', 'widget', function($scope, $uibModalInstance, Dashboard, dashboardId, widget) {
+App.controller('EditWidgetController', /*@ngInject*/ function($scope, $uibModalInstance, Dashboard, dashboardId, widget) {
     $scope.payload = widget;
 
     Dashboard.getCachedMetadata().success(function(data) {
@@ -15,4 +15,4 @@ App.controller('EditWidgetController', ['$scope', '$uibModalInstance', 'Dashboar
     $scope.close = function() {
         $uibModalInstance.close();
     }
-}]);
+});

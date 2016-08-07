@@ -1,9 +1,8 @@
 
-App.service('Sensor.Tags', ['Cache', function(Cache) {
-    var CACHE_KEY = 'sensor.tags';
+App.service('SensorTags', /*@ngInject*/ function(Cache) {
+    const CACHE_KEY = 'sensor.tags';
 
     return {
-        // todo lodash
         getTagsFromSensors: function(sensors) {
             return Cache.closure(CACHE_KEY, function() {
                 var tags = {};
@@ -19,4 +18,4 @@ App.service('Sensor.Tags', ['Cache', function(Cache) {
             });
         }
     }
-}]);
+});

@@ -1,9 +1,9 @@
 
-App.service('Listener.SpeechOutput', ['$rootScope', 'UserManagement.Settings', function($rootScope, Settings) {
+App.run(/*@ngInject*/ function($rootScope, UserManagementSettings) {
     if (!speechSynthesis) {
         return;
     }
-    Settings.getAll().success(function(settings) {
+    UserManagementSettings.getAll().success(function(settings) {
         if (!settings.espeakBrowserOutput) {
             return;
         }
@@ -13,4 +13,4 @@ App.service('Listener.SpeechOutput', ['$rootScope', 'UserManagement.Settings', f
             speechSynthesis.speak(utterance);
         });
     });
-}]);
+});

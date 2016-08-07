@@ -1,5 +1,5 @@
 
-App.service('UserManagement.Settings', ['$http', 'Cache', function($http, Cache) {
+App.service('UserManagementSettings', /*@ngInject*/ function($http, Cache) {
     return {
         getAll: function() {
             return $http.get('/settings/', {cache:Cache});
@@ -13,4 +13,4 @@ App.service('UserManagement.Settings', ['$http', 'Cache', function($http, Cache)
             });
         }
     };
-}]);
+});

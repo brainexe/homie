@@ -1,5 +1,5 @@
 
-App.controller('GpioController', ['$scope', 'Gpio', 'Nodes', function ($scope, Gpio, Nodes) {
+App.controller('GpioController', /*@ngInject*/ function ($scope, Gpio, Nodes) {
     $scope.gpios    = [];
     $scope.editMode = false;
     $scope.orderBy  = 'physicalId';
@@ -39,6 +39,7 @@ App.controller('GpioController', ['$scope', 'Gpio', 'Nodes', function ($scope, G
 
     /**
      * @param {Object} pin
+     * @param {Number} $index
      */
     function savePin(pin, $index) {
         Gpio.savePin($scope.nodeId, pin.id, pin.direction, pin.value).success(function (pin) {
@@ -71,4 +72,4 @@ App.controller('GpioController', ['$scope', 'Gpio', 'Nodes', function ($scope, G
         pin.mode = pin.mode ? 0 : 1;
         savePin(pin, $index);
     };
-}]);
+});

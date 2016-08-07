@@ -1,5 +1,5 @@
 
-App.service('UserManagement.Admin', ['$http', function($http) {
+App.service('UserManagementAdmin', /*@ngInject*/ function($http) {
     return {
         getUsers: function() {
             return $http.get('/admin/users/');
@@ -13,4 +13,4 @@ App.service('UserManagement.Admin', ['$http', function($http) {
             return $http.delete('/admin/users/{0}/'.format(user.userId));
         }
     };
-}]);
+});

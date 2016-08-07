@@ -1,5 +1,5 @@
 
-App.controller('MenuController', ['$scope', '$q', '$location', 'controllers', 'UserManagement', 'UserManagement.Settings', 'Config', 'lodash', function ($scope, $q, $location, controllers, UserManagement, Settings, Config, lodash) {
+App.controller('MenuController', /*@ngInject*/ function ($scope, $q, $location, controllers, UserManagement, UserManagementSettings, Config) {
     $scope.$on('$routeChangeSuccess', function (event, current) {
         if (current.$$route && current.$$route.name) {
             document.title = current.$$route.name;
@@ -14,19 +14,14 @@ App.controller('MenuController', ['$scope', '$q', '$location', 'controllers', 'U
         }
     });
 
-    $scope.$on('gettextLanguageChanged', function() {
-        update();
-    });
-
-    $scope.$on('currentuser.update', function() {
-        update();
-    });
+    $scope.$on('gettextLanguageChanged', update);
+    $scope.$on('currentuser.update', update);
 
     function update() {
         $q.all([
             Config.getAll(),
             UserManagement.loadCurrentUser(),
-            Settings.getAll()
+            UserManagementSettings.getAll()
         ]).then(function(data) {
             var config     = data[0].data;
             var user       = data[1].data;
@@ -63,5 +58,5 @@ App.controller('MenuController', ['$scope', '$q', '$location', 'controllers', 'U
 
         return !(item.checkConfig && !item.checkConfig(config));
     }
-}]);
+});
 

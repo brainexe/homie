@@ -1,5 +1,5 @@
 
-App.service('Command', ['$http', function($http) {
+App.service('Command', /*@ngInject*/ function($http) {
     return {
         execute: function(command) {
             return $http.post('/command/', {
@@ -7,4 +7,4 @@ App.service('Command', ['$http', function($http) {
             });
         }
     }
-}]);
+});

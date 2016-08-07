@@ -1,5 +1,5 @@
 
-App.service('Widget.execute_expression', ['Expression', function(Expression) {
+App.service('Widget.execute_expression', /*@ngInject*/ function(Expression) {
     return {
         template: '/templates/widgets/execute_expression.html',
         render: function ($scope, widget) {
@@ -15,5 +15,5 @@ App.service('Widget.execute_expression', ['Expression', function(Expression) {
             }
         }
     };
-}]);
+});
 

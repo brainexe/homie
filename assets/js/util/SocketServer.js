@@ -1,5 +1,5 @@
 
-App.service('SocketServer', ['Config', '$rootScope', function(Config, $rootScope) {
+App.service('SocketServer', /*@ngInject*/ function(Config, $rootScope) {
     Config.getAll().success(function(config) {
         if (!config.socketUrl) {
             return;
@@ -15,4 +15,4 @@ App.service('SocketServer', ['Config', '$rootScope', function(Config, $rootScope
             console.log("socket server: " + event.eventName, event)
         };
     });
-}]);
+});

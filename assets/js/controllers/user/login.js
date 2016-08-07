@@ -1,4 +1,5 @@
-App.controller('LoginController', ['$scope', '$location', 'UserManagement', 'UserManagement.TOTP', '_', function ($scope, $location, UserManagement, TOTP, _) {
+
+App.controller('LoginController', /*@ngInject*/ function ($scope, $location, UserManagement, UserManagementTOTP, _) {
     if (UserManagement.isLoggedIn()) {
         $location.path("/dashboard");
         return
@@ -32,7 +33,7 @@ App.controller('LoginController', ['$scope', '$location', 'UserManagement', 'Use
             return;
         }
 
-        TOTP.needsToken(username).success(function (data) {
+        UserManagementTOTP.needsToken(username).success(function (data) {
             $scope.needsOneTimeToken = data;
         });
     };
@@ -42,8 +43,8 @@ App.controller('LoginController', ['$scope', '$location', 'UserManagement', 'Use
             return;
         }
 
-        TOTP.sendMail($scope.username).success(function () {
+        UserManagementTOTP.sendMail($scope.username).success(function () {
             $scope.$broadcast('flash', [_('Email was sent'), 'success']);
         });
     };
-}]);
+});

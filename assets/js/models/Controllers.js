@@ -1,5 +1,5 @@
 
-App.service('controllers', ['_', function(_) {
+App.service('controllers', /*@ngInject*/ function(_) {
     return function() {
         return [
             // menu
@@ -36,4 +36,4 @@ App.service('controllers', ['_', function(_) {
             {url: 'index', templateUrl: "/templates/index.html", controller: "IndexController"}
         ]
     };
-}]);
+});

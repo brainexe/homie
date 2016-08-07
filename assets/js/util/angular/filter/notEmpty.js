@@ -1,6 +1,6 @@
 
-App.filter('notEmpty', ['lodash', function (lodash) {
+App.filter('notEmpty', /*@ngInject*/ function (lodash) {
     return function (input) {
         return !lodash.isEmpty(input);
     };
-}]);
+});

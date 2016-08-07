@@ -1,5 +1,5 @@
 
-App.controller('RegisterController', ['$scope', '$location', 'UserManagement', '_', function ($scope, $location, UserManagement, _) {
+App.controller('RegisterController', /*@ngInject*/ function ($scope, $location, UserManagement, _) {
     if (UserManagement.isLoggedIn()) {
         $location.path("/dashboard");
         return
@@ -19,4 +19,4 @@ App.controller('RegisterController', ['$scope', '$location', 'UserManagement', '
             $location.path("/dashboard");
         });
     }
-}]);
+});

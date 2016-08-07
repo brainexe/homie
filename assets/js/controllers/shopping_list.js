@@ -1,5 +1,5 @@
 
-App.controller('ShoppingListController', ['$scope', 'ShoppingList', function ($scope, ShoppingList) {
+App.controller('ShoppingListController', /*@ngInject*/ function ($scope, ShoppingList) {
     $scope.shoppingList = [];
     $scope.itemText = '';
 
@@ -28,4 +28,4 @@ App.controller('ShoppingListController', ['$scope', 'ShoppingList', function ($s
             ShoppingList.add(item.text);
         }
     };
-}]);
+});

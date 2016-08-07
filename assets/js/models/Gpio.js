@@ -1,5 +1,5 @@
 
-App.service('Gpio', ['$http', function($http) {
+App.service('Gpio', /*@ngInject*/ function($http) {
     return {
         getData: function(nodeId) {
             return $http.get('/gpio/{0}/'.format(nodeId));
@@ -21,4 +21,4 @@ App.service('Gpio', ['$http', function($http) {
             return $http.post(url, {});
         }
     }
-}]);
+});

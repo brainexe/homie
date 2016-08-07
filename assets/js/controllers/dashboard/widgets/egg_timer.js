@@ -1,10 +1,10 @@
 
-App.service('Widget.egg_timer', ['EggTimer', 'MessageQueue', '_', function(EggTimer, MessageQueue, _) {
+App.service('Widget.egg_timer', /*@ngInject*/ function(EggTimer, MessageQueue, _, lodash) {
     function updateJobs($scope, jobs) {
         if (!jobs) {
             return;
         }
-        $scope.job = jobs[Object.keys(jobs)[0]];
+        $scope.job = lodash.head(jobs);
     }
 
     return {
@@ -43,4 +43,4 @@ App.service('Widget.egg_timer', ['EggTimer', 'MessageQueue', '_', function(EggTi
             }
         }
     };
-}]);
+});

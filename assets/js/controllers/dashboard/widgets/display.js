@@ -1,5 +1,5 @@
 
-App.service('Widget.display', ['Displays', function(Displays) {
+App.service('Widget.display', /*@ngInject*/ function(Displays) {
     return {
         template: '/templates/widgets/display.html',
         render: function ($scope, widget) {
@@ -8,5 +8,5 @@ App.service('Widget.display', ['Displays', function(Displays) {
             });
         }
     };
-}]);
+});
 

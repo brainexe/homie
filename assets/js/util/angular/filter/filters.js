@@ -1,7 +1,7 @@
 
-App.filter('toArray', ['lodash', function(lodash) {
+App.filter('toArray', /*@ngInject*/ function(lodash) {
     return lodash.toArray;
-}]);
+});
 
 App.filter('deleteKey', function() {
     return function(array, key) {
@@ -21,11 +21,6 @@ App.filter('split', function() {
     }
 });
 
-App.filter('join', function () {
-    return function (input, delimiter) {
-        if (!Array.isArray(input)) {
-            return input;
-        }
-        return input.join(delimiter || ' ');
-    };
+App.filter('join', /*@ngInject*/ function(lodash) {
+    return lodash.join;
 });

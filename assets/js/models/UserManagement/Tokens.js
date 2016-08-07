@@ -1,5 +1,5 @@
 
-App.service('UserManagement.Tokens', ['$http', function($http) {
+App.service('UserManagementTokens', /*@ngInject*/ function($http) {
     return {
         getData: function () {
             return $http.get('/user/tokens/');
@@ -16,4 +16,4 @@ App.service('UserManagement.Tokens', ['$http', function($http) {
             return $http.delete('/user/tokens/{0}/'.format(token));
         }
     };
-}]);
+});

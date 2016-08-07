@@ -1,5 +1,5 @@
 
-App.service('Widget.sensor_input', ['Sensor', function(Sensor) {
+App.service('Widget.sensor_input', /*@ngInject*/ function(Sensor) {
     return {
         template: '/templates/widgets/sensor_input.html',
         render: function ($scope, widget) {
@@ -16,4 +16,4 @@ App.service('Widget.sensor_input', ['Sensor', function(Sensor) {
             }
         }
     };
-}]);
+});

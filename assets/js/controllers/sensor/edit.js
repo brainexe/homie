@@ -1,5 +1,5 @@
 
-App.controller('EditSensorsController', ['$scope', '$uibModalInstance', 'Sensor', 'Sensor.Formatter', 'Sensor.Tags', function($scope, $uibModalInstance, Sensor, SensorFormatter, Tags) {
+App.controller('EditSensorsController', /*@ngInject*/ function($scope, $uibModalInstance, Sensor, SensorFormatter, Tags, lodash) {
     $scope.sensors = [];
     $scope.types   = {};
     $scope.tags    = {};
@@ -20,18 +20,8 @@ App.controller('EditSensorsController', ['$scope', '$uibModalInstance', 'Sensor'
         $scope.sensors[index] = sensorVo;
     });
 
-    // todo lodash
     function getSensorIndex(sensor) {
-        var index = $scope.sensors.indexOf(sensor);
-        if (index != -1) {
-            return index;
-        }
-
-        for (var i in $scope.sensors) {
-            if ($scope.sensors[i].sensorId == sensor.sensorId) {
-                return i;
-            }
-        }
+        return lodash.findIndex($scope.sensors, ['sensorId', sensor.sensorId]);
     }
 
     Sensor.getAll().success(function(data) {
@@ -57,17 +47,18 @@ App.controller('EditSensorsController', ['$scope', '$uibModalInstance', 'Sensor'
         search = search.toLowerCase();
 
         return $scope.sensors.filter(function(sensor) {
-            if (!$scope.showDisabled && sensor.interval <= 0) {
-                return false;
-            } else if (!sensor) {
+            if (!sensor || sensor.edit) {
                 return true;
+            } else if (!$scope.showDisabled && sensor.interval <= 0) {
+                return false;
             }
 
-            var parts = [];
-            parts.push(sensor.name);
-            parts.push(sensor.type);
-            parts.push(sensor.description);
-            parts.push(sensor.parameter);
+            var parts = [
+                sensor.name,
+                sensor.type,
+                sensor.description,
+                sensor.parameter
+            ];
             parts.concat(sensor.tags);
 
             var text = parts.join(' ').toLowerCase();
@@ -94,4 +85,4 @@ App.controller('EditSensorsController', ['$scope', '$uibModalInstance', 'Sensor'
 
         sensor.edit = !sensor.edit
     };
-}]);
+});

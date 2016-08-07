@@ -1,4 +1,4 @@
-App.controller('WebcamController', ['$scope', 'Webcam', '_', function ($scope, Webcam, _) {
+App.controller('WebcamController', /*@ngInject*/ function ($scope, Webcam, _) {
     $scope.files = [];
 
     function update() {
@@ -36,4 +36,4 @@ App.controller('WebcamController', ['$scope', 'Webcam', '_', function ($scope, W
             $scope.files.splice(index, 1);
         });
     };
-}]);
+});

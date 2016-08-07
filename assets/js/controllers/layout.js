@@ -1,5 +1,5 @@
 
-App.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gettextCatalog', 'Cache', function ($scope, UserManagement, Config, gettextCatalog, Cache) {
+App.controller('LayoutController', /*@ngInject*/ function ($scope, UserManagement, Config, gettextCatalog, Cache) {
     $scope.currentUser = {};
     $scope.isLoggedIn  = false;
     $scope.locales     = [];
@@ -21,10 +21,10 @@ App.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gette
         $scope.locales = config.locales;
         if (config.debug) {
             // live reload via "grunt watch"
-            var s  = document.createElement('script');
-            s.type = 'text/javascript';
-            s.src  =' //localhost:35729/livereload.js';
-            document.body.appendChild(s);
+            var script  = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src  =' //localhost:35729/livereload.js';
+            document.body.appendChild(script);
 
             // gettext debug mode
             gettextCatalog.debug       = true;
@@ -52,5 +52,5 @@ App.controller('LayoutController', ['$scope', 'UserManagement', 'Config', 'gette
         //todo $location.reload()
         window.location.reload();
     };
-}]);
+});
 

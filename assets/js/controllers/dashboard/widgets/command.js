@@ -1,5 +1,5 @@
 
-App.service('Widget.command', ['Command', function(Command) {
+App.service('Widget.command', /*@ngInject*/ function(Command) {
     return {
         template: '/templates/widgets/command.html',
         render: function ($scope, widget) {
@@ -14,5 +14,5 @@ App.service('Widget.command', ['Command', function(Command) {
             }
         }
     };
-}]);
+});
 

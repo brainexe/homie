@@ -1,5 +1,5 @@
 
-App.service('Widget.todo_list', ['Todo', '_', 'lodash', function(Todo, _, lodash) {
+App.service('Widget.todo_list', /*@ngInject*/ function(Todo, _, lodash) {
     return {
         template: '/templates/widgets/todo_list.html',
         render: function ($scope, widget) {
@@ -40,4 +40,4 @@ App.service('Widget.todo_list', ['Todo', '_', 'lodash', function(Todo, _, lodash
             };
         }
     };
-}]);
+});

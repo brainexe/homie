@@ -1,5 +1,5 @@
 
-App.controller('NewWidgetController', ['$scope', '$uibModalInstance', 'widgets', 'Dashboard', 'dashboards', 'currentDashboard', function($scope, $uibModalInstance, widgets, Dashboard, dashboards, currentDashboard) {
+App.controller('NewWidgetController', /*@ngInject*/ function($scope, $uibModalInstance, widgets, Dashboard, dashboards, currentDashboard) {
     $scope.widgets     = widgets;
     $scope.dashboards  = dashboards;
     $scope.payload     = {};
@@ -20,4 +20,4 @@ App.controller('NewWidgetController', ['$scope', '$uibModalInstance', 'widgets',
     $scope.close = function() {
         $uibModalInstance.close();
     }
-}]);
+});
