@@ -28,7 +28,7 @@ App.directive('timeAgo', /*@ngInject*/ function ($filter, TimeFormatter, nowTime
                 }
 
                 var diffSeconds = now - fromTime;
-                var string = timeFormatter(diffSeconds);
+                var string = TimeFormatter(diffSeconds);
                 element.text(string);
             });
         },
@@ -37,14 +37,5 @@ App.directive('timeAgo', /*@ngInject*/ function ($filter, TimeFormatter, nowTime
             short:    "=",
             overdue:  "="
         }
-    };
-}).factory('nowTime', /*@ngInject*/ function ($interval) {
-    var nowTime = Date.now();
-    $interval(function () {
-        nowTime = Date.now();
-    }, 1000);
-
-    return function () {
-        return nowTime;
     };
 });

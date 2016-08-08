@@ -44,7 +44,7 @@ App.service('SensorGraph', /*@ngInject*/ function ($uibModal, Sensor, SensorForm
                     clickHandler: function(value){
                         $uibModal.open({
                             templateUrl: '/templates/sensor/sensor_value_detail.html',
-                            controller: 'SensorValueDetailModal',
+                            controller: 'SensorValueDetailModalController',
                             resolve: {
                                 value: function() {
                                     return value;

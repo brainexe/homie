@@ -40,17 +40,6 @@ module.exports = function (grunt) {
         exec(command, done);
     });
 
-    grunt.registerTask('lodash_functions', function () {
-        var done = this.async();
-        var exec = require('child_process').exec;
-        var command = 'grep -hoP "lodash\\.\\K(\\w*)" assets/js -r | sort | uniq -c | sort -nr';
-
-        exec(command, function(err, stdout) {
-            console.log(stdout);
-            done();
-        });
-    });
-
     grunt.registerTask('php_gettext_extract', function () {
         var done = this.async();
         var exec = require('child_process').exec;

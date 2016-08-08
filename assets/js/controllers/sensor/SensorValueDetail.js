@@ -1,5 +1,5 @@
 
-App.controller('SensorValueDetailModal', /*@ngInject*/ function($scope, $rootScope, $uibModalInstance, Sensor, value) {
+App.controller('SensorValueDetailModalController', /*@ngInject*/ function($scope, $rootScope, $uibModalInstance, Sensor, value) {
     $scope.value = value;
 
     $scope.delete = function() {

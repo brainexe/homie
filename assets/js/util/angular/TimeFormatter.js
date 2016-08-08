@@ -1,8 +1,7 @@
 
 App.service('TimeFormatter', /*@ngInject*/ function (_) {
-    var allowFuture = true;
-
-    var strings = {
+    var allowFuture = true,
+        strings = {
         formatterAgo: _('%s ago'),
         formatterFromNow: _('%s from now'),
         fewSeconds: _('a few seconds'),
