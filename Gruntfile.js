@@ -195,7 +195,7 @@ module.exports = function (grunt) {
                 options: {
                     sourceMap: true,
                     keepSpecialComments: 0,
-                    sourceMapName: 'web/app-css.map'
+                    sourceMapName: 'web/appcss.map'
                 },
                 files: {
                     'web/app.css': [
@@ -226,17 +226,24 @@ module.exports = function (grunt) {
             app: {
                 options: {
                     beautify: !isProduction,
-                    compress: isProduction ? {
+                    compress: {
                         unsafe: true,
                         unsafe_comps: true,
-                        screw_ie8: true,
                         angular: true,
                         pure_getters: true,
                         hoist_funs: true,
                         hoist_vars: true,
                         keep_fargs: false,
-                        collapse_vars: true
-                    } : false,
+                        collapse_vars: true,
+                        global_defs: {
+                            LANG_FILES: JSON.stringify(
+                                locales.reduce(function(all, locale) {
+                                    all[locale] = '/lang/' + locale + '.json';
+                                    return all;
+                                }, {})
+                            )
+                        }
+                    },
                     mangle: isProduction ? {
                         toplevel: true,
                         regex: '.*'
@@ -246,7 +253,8 @@ module.exports = function (grunt) {
                     },
                     enclose: {},
                     sourceMap: isProduction,
-                    sourceMapName: 'web/app-js.map'
+                    sourceMapName: 'web/appjs.map',
+                    sourceMapIncludeSources: true
                 },
                 files: {
                     'web/app.js': [
@@ -259,7 +267,7 @@ module.exports = function (grunt) {
                     compress: false,
                     mangle: false,
                     sourceMap: isProduction,
-                    sourceMapName: 'web/vendor.js.map',
+                    sourceMapName: 'web/vendorjs.map',
                     enclose: {}
                 },
                 files: {
@@ -372,7 +380,7 @@ module.exports = function (grunt) {
                  },
                  files: [{
                      cwd: 'web/',
-                     src: ['**/*.{js,css,ico,appcache}', '*.json']
+                     src: ['**/*.{js,css,ico,appcache,json}']
                  }]
              },
              html: {

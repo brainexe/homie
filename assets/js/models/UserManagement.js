@@ -6,7 +6,13 @@ App.service('UserManagement', ["$http", "$rootScope", "Cache", function($http, $
 
     // clear the user in cache initially
     clearCache();
-    Cache.intervalClear('^/user/$', 60);
+    Cache.intervalClear('^/user/$', 60 * 5);
+
+    var isLoggedIn = function(user) {
+        user = user || current;
+
+        return user && user.userId > 0;
+    };
 
     var current = {};
     var setCurrentUser;
@@ -40,13 +46,18 @@ App.service('UserManagement', ["$http", "$rootScope", "Cache", function($http, $
                 $rootScope.$broadcast('currentuser.update', user);
             }
 
+            var oldLoggedIn = isLoggedIn();
+            var newLoggedIn = isLoggedIn(user);
+
+            if (!oldLoggedIn && newLoggedIn) {
+                console.debug("Init user ", user);
+                $rootScope.$broadcast('currentuser.authorized', user);
+            }
+
             current = user;
         },
 
-        isLoggedIn: function(user) {
-            user = user || current;
-            return user && user.userId > 0;
-        },
+        isLoggedIn: isLoggedIn,
 
         loadCurrentUser: function () {
             if (loadUserPromise) {

@@ -10,6 +10,7 @@ App.service('Cache', ['CacheFactory', '$interval', '$rootScope', function(CacheF
     cache.clear = function(pattern) {
         cache.keys().forEach(function(key) {
             if (key.match && key.match(pattern)) {
+                console.debug("Cleaned cache entry: ", key);
                 cache.remove(key);
             }
         });

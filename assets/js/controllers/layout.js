@@ -4,13 +4,12 @@ App.controller('LayoutController', /*@ngInject*/ function ($scope, UserManagemen
     $scope.isLoggedIn  = false;
     $scope.locales     = [];
 
-    var language = 'en_US';
+    var locale = 'en_US';
     if (localStorage.getItem('language')) {
-        language = localStorage.getItem('language');
+        // todo put lang into settings
+        locale = localStorage.getItem('language');
     }
     gettextCatalog.cache = Cache;
-    gettextCatalog.setCurrentLanguage(language);
-    gettextCatalog.loadRemote("/lang/" + language + ".json");
 
     UserManagement.loadCurrentUser().success(function(user){
         $scope.currentUser = user;
@@ -37,14 +36,14 @@ App.controller('LayoutController', /*@ngInject*/ function ($scope, UserManagemen
         $scope.isLoggedIn  = user && user.userId > 0;
     });
 
-    $scope.$on('cache.clear', function () {
-        $scope.flushCache()
-    });
+    $scope.$on('cache.clear', $scope.flushCache);
 
-    $scope.changeLanguage = function(language) {
-        gettextCatalog.loadRemote("/lang/" + language + ".json");
-        gettextCatalog.setCurrentLanguage(language);
-        localStorage.setItem('language', language);
+    $scope.changeLanguage = function(locale) {
+        var langFiles = JSON.parse(LANG_FILES);
+
+        gettextCatalog.loadRemote(langFiles[locale]);
+        gettextCatalog.setCurrentLanguage(locale);
+        localStorage.setItem('language', locale);
     };
 
     $scope.flushCache = function() {
@@ -52,5 +51,7 @@ App.controller('LayoutController', /*@ngInject*/ function ($scope, UserManagemen
         //todo $location.reload()
         window.location.reload();
     };
+
+    $scope.changeLanguage(locale);
 });
 

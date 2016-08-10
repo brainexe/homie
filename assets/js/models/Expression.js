@@ -6,7 +6,7 @@ App.service('Expression', /*@ngInject*/ function($http, Cache) {
         Cache.clear('^' + BASE_URL);
     }
 
-    Cache.intervalClear('^' + BASE_URL, 60);
+    Cache.intervalClear('^' + BASE_URL, 60 * 5);
 
     return {
         getData: function(cached) {
@@ -66,6 +66,6 @@ App.service('Expression', /*@ngInject*/ function($http, Cache) {
             });
         },
 
-        invalidate: clearCache()
+        invalidate: clearCache
     }
 });

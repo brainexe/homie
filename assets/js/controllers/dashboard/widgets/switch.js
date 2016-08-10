@@ -10,7 +10,7 @@ App.service('Widget.switch', /*@ngInject*/ function(Switches, lodash) {
             };
 
             Switches.getDataCached().success(function(switches) {
-                $scope.switches = lodash.filter(widget.switchIds, function(switchId) {
+                $scope.switches = lodash.map(widget.switchIds, function(switchId) {
                     return switches.switches[switchId];
                 });
             });
