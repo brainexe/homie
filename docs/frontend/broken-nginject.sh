@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-egrep '[a-z]{3,}\("[a-zA-Z_\.]+",function\(a' web/*app*.js --color
+egrep -i '\.[a-z]{3,10}\("[^"]*",function\(a' web/*app*.js --color

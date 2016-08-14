@@ -11,7 +11,7 @@ describe('Test "Status" component', function() {
     });
 
     it('Count rows', function () {
-        helper.sleep(1000);
+        helper.sleep(500);
 
         element.all(by.repeater('job in jobs')).then(function (rows) {
             expect(rows.length > 0).toBe(true);

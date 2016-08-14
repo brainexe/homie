@@ -4,22 +4,21 @@ App.directive('timeAgo', /*@ngInject*/ function ($filter, TimeFormatter, nowTime
 
     return {
         restrict: 'EA',
-        link: function (scope, elem) {
+        link ($scope, elem) {
             var element = angular.element(elem);
-            var fromTime = ~~scope.fromTime * 1000;
-            if (!fromTime) {
-                element.text('--');
-                return;
-            }
+            var style   = elem[0].style;
+            $scope.$watch(nowTime, function (now) {
+                var fromTime = ~~$scope.fromTime * 1000;
+                if (!fromTime) {
+                    element.text('--');
+                    return;
+                }
 
-            // todo make a nice ui-tooltip
-            var style = elem[0].style;
-            var tooltip = dateFilter(fromTime, 'medium');
-            element.attr('title', tooltip);
-            element.attr('tooltip', tooltip);
+                var diffSeconds = now - fromTime;
+                var string = TimeFormatter(diffSeconds);
+                var tooltip = dateFilter(fromTime, 'medium');
 
-            scope.$watch(nowTime, function (now) {
-                if (scope.overdue && now > fromTime) {
+                if ($scope.overdue && now > fromTime) {
                     style.color = '#c00';
                     style.fontWeight = 'bold';
                 } else {
@@ -27,8 +26,8 @@ App.directive('timeAgo', /*@ngInject*/ function ($filter, TimeFormatter, nowTime
                     style.fontWeight = 'normal';
                 }
 
-                var diffSeconds = now - fromTime;
-                var string = TimeFormatter(diffSeconds);
+                element.attr('title', tooltip);
+                element.attr('tooltip', tooltip);
                 element.text(string);
             });
         },

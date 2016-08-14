@@ -11,9 +11,9 @@ App.filter('toObjectArray', function() {
 
         return input.$$toObjectArray = Object.keys(input).map(function(key){
             return {
-                key :  key,
+                key,
                 value: input[key]
-            }
+            };
         });
-    }
+    };
 });

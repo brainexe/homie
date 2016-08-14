@@ -19,17 +19,19 @@ App.service('UserManagement', ["$http", "$rootScope", "Cache", function($http, $
     var loadUserPromise;
 
     return {
-        register: function(payload) {
+        register (payload) {
             clearCache();
-            return $http.post('/register/', payload)
+
+            return $http.post('/register/', payload);
         },
 
-        logout: function() {
+        logout () {
             clearCache();
+
             return $http.post('/logout/', {});
         },
 
-        login: function(payload) {
+        login (payload) {
             clearCache();
             return $http.post('/login/', payload).success(function(result) {
                 clearCache();
@@ -37,12 +39,10 @@ App.service('UserManagement', ["$http", "$rootScope", "Cache", function($http, $
             });
         },
 
-        list: function() {
-            return $http.get('/user/list/', {cache:Cache});
-        },
+        list: () => $http.get('/user/list/', {cache: Cache}),
 
         setCurrentUser: setCurrentUser = function (user) {
-            if (current.userId != user.userId) {
+            if (current.userId !== user.userId) {
                 $rootScope.$broadcast('currentuser.update', user);
             }
 
@@ -52,14 +52,17 @@ App.service('UserManagement', ["$http", "$rootScope", "Cache", function($http, $
             if (!oldLoggedIn && newLoggedIn) {
                 console.debug("Init user ", user);
                 $rootScope.$broadcast('currentuser.authorized', user);
+            } else if (oldLoggedIn && !newLoggedIn) {
+                console.debug("Logged out user");
+                $rootScope.$broadcast('currentuser.logout', user);
             }
 
             current = user;
         },
 
-        isLoggedIn: isLoggedIn,
+        isLoggedIn,
 
-        loadCurrentUser: function () {
+        loadCurrentUser () {
             if (loadUserPromise) {
                 return loadUserPromise;
             }
@@ -74,19 +77,16 @@ App.service('UserManagement', ["$http", "$rootScope", "Cache", function($http, $
             return promise;
         },
 
-        changePassword: function(oldPassword, newPassword) {
+        changePassword (oldPassword, newPassword) {
             clearCache();
 
-            return $http.post('/user/change_password/', {
-                oldPassword: oldPassword,
-                newPassword: newPassword
-            });
+            return $http.post('/user/change_password/', {oldPassword, newPassword});
         },
 
-        changeEmail: function(email) {
+        changeEmail (email) {
             clearCache();
 
-            return $http.post('/user/change_email/', {email:email});
+            return $http.post('/user/change_email/', {email});
         }
     };
 }]);

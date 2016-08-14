@@ -1,12 +1,11 @@
 
 App.run(
     ['$routeProvider', 'controllers',
-        function ($routeProvider, controllers) {
+        ($routeProvider, controllers) => {
             // init routing
             controllers = controllers();
-            for (var i in controllers) {
-                var metadata = controllers[i];
-                $routeProvider.when('/' + metadata.url, metadata);
+            for (var controller of controllers) {
+                $routeProvider.when('/' + controller.url, controller);
             }
             $routeProvider.otherwise({redirectTo: '/index'});
         }

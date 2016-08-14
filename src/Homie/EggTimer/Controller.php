@@ -34,8 +34,8 @@ class Controller
      */
     public function add(Request $request) : bool
     {
-        $text = $request->request->get('text');
-        $time = $request->request->get('time');
+        $text = $request->request->get('text', '');
+        $time = $request->request->get('time', '');
 
         $this->timer->addNewJob($time, $text);
 

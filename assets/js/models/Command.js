@@ -1,10 +1,10 @@
 
-App.service('Command', /*@ngInject*/ function($http) {
+App.service("Command", /*@ngInject*/ function($http) {
     return {
-        execute: function(command) {
-            return $http.post('/command/', {
+        execute: (command) =>
+            $http.post("/command/", {
                 command: command
-            });
-        }
-    }
+            })
+
+    };
 });

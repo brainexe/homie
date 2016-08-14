@@ -1,30 +1,30 @@
 
 App.service('Todo', /*@ngInject*/ function($http) {
     return {
-        getData: function() {
+        getData () {
             return $http.get('/todo/');
         },
 
-        assign: function(itemId, userId) {
+        assign (itemId, userId) {
             return $http.post('/todo/assign/', {
-                id:     itemId,
+                id:     itemId,//todo id => itemId ?!
                 userId: userId
             });
         },
 
-        add: function(data) {
+        add (data) {
             return $http.post('/todo/', data);
         },
 
-        deleteItem: function(itemId) {
-            return $http.post('/todo/{0}/'.format(itemId), {});
+        deleteItem (itemId) {
+            return $http.post(`/todo/${itemId}/`, {});
         },
 
-        edit: function(data) {
+        edit (data) {
             return $http.put('/todo/', {
                 id: data.todoId,
                 changes: data
             });
         }
-    }
+    };
 });

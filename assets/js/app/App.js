@@ -1,20 +1,13 @@
 
 var App = angular.module('homie', [
-    'ang-drag-drop',
     'ngRoute',
     'ngSanitize',
+    'ang-drag-drop',
     'angular-cache',
+    'angular-loading-bar',
     'ui.bootstrap',
     'ui.select',
     'as.sortable',
     'colorpicker.module',
-    'gettext',
-    'angular-loading-bar'
+    'gettext'
 ]);
-App.run(
-    /*@ngInject*/
-    function ($rootScope) {
-        // TODO refactor
-        $rootScope.prompt = prompt.bind(window);
-    }
-);

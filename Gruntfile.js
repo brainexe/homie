@@ -1,14 +1,8 @@
 var fs   = require('fs');
 var glob = require('glob');
+var exec = require('child_process').exec;
 
 module.exports = function (grunt) {
-    grunt.config('env', grunt.option('env') || process.env.ENVIRONMENT || 'development');
-    var isProduction = grunt.config('env') == 'production';
-
-    var locales = glob.sync('*.po', {cwd:'lang/'}).map(function(filename) {
-        return filename.replace('.po', '');
-    });
-
     grunt.loadNpmTasks('grunt-angular-gettext');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-copy');
@@ -23,54 +17,26 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-po2mo');
     grunt.loadNpmTasks('grunt-uniqueify');
 
-    grunt.registerTask('extract_lang', ['php_gettext_extract', 'nggettext_extract', 'pot_merge', 'exec:potMerge']);
-    grunt.registerTask('compile_lang', ['nggettext_compile', 'po2mo']);
+    grunt.config('env', grunt.option('env') || process.env.ENVIRONMENT || 'development');
+    var isProduction = grunt.config('env') === 'production';
 
-    grunt.registerTask('bower', function () {
-        var done = this.async();
-        var exec = require('child_process').exec;
-        exec('bower update --production', done);
+    var locales = glob.sync('*.po', {cwd:'lang/'}).map(function(filename) {
+        return filename.replace('.po', '');
     });
 
-    grunt.registerTask('lodash', function () {
-        var done = this.async();
-        var exec = require('child_process').exec;
-        var command = 'node ./node_modules/lodash-cli/bin/lodash --output bower_components/lodash/dist/lodash.custom.js --development include=$(grep -hoP "lodash\\.\\K(\\w*)" assets/js -r | sort | uniq | paste -s -d, -)';
-
-        exec(command, done);
-    });
-
-    grunt.registerTask('php_gettext_extract', function () {
-        var done = this.async();
-        var exec = require('child_process').exec;
-        var command = 'xgettext --from-code=utf-8 -o lang/pot/php.pot --keyword=translate $(find src vendor/brainexe -name *.php)';
-        exec(command, done);
-    });
-
-    grunt.registerTask('pot_merge', function () {
-        var done = this.async();
-        var exec = require('child_process').exec;
-        var command = 'msgcat --use-first lang/pot/frontend.pot lang/pot/php.pot > lang/pot/all.pot';
-
-        exec(command, done);
-    });
-
-    grunt.registerTask('console', function (command) {
-        var done = this.async();
-        var exec = require('child_process').exec;
-        var command = 'php console ' + command;
-
-        exec(command, function (err, stdout) {
-            console.log(stdout);
-            done();
+    function registerExecTask(name, command) {
+        grunt.registerTask(name, function () {
+            var done = this.async();
+            exec(command, function() {
+                done();
+            });
         });
-    });
+    }
 
     var defaultTasks = [
         'clean',
         'compile_lang',
-        'copy:index',
-        'copy:static',
+        'copy',
         'lodash',
         'uglify',
         'htmlmin',
@@ -88,12 +54,32 @@ module.exports = function (grunt) {
     grunt.registerTask('buildAll', ['bower', 'build']);
     grunt.registerTask('default', ['build']);
 
+    grunt.registerTask('extract_lang', ['php_gettext_extract', 'nggettext_extract', 'pot_merge', 'exec:potMerge']);
+    grunt.registerTask('compile_lang', ['nggettext_compile', 'po2mo']);
+
+    registerExecTask('bower', 'bower update --production');
+    registerExecTask('lodash', 'node ./node_modules/lodash-cli/bin/lodash --output bower_components/lodash/dist/lodash.custom.js --development include=$(grep -hoP "lodash\\.\\K(\\w*)" assets/js -r | sort | uniq | paste -s -d, -)');
+    registerExecTask('php_gettext_extract', 'bower update --production');
+    registerExecTask('pot_merge', 'msgcat --use-first lang/pot/frontend.pot lang/pot/php.pot > lang/pot/all.pot');
+
+    grunt.registerTask('console', function (command) {
+        var done = this.async();
+        command = 'php console ' + command;
+
+        exec(command, function (stdErr, stdout) {
+            console.log(stdout);
+            if (stdErr) {
+                console.err(stdErr);
+            }
+            done();
+        });
+    });
+
     grunt.initConfig({
         nggettext_extract: {
             pot: {
                 files: {
                     'lang/pot/frontend.pot': [
-                        'assets/templates/**/*.html',
                         'assets/js/**/*.js',
                         'assets/**/*.html',
                         'cache/translation_token.html'
@@ -124,13 +110,13 @@ module.exports = function (grunt) {
         watch: {
             js: {
                 files: ['assets/**/*.js'],
-                tasks: ['lodash', 'uglify:app', 'uglify:vendor'],
+                tasks: ['lodash', 'uglify'],
                 options: {
                     livereload: true
                 }
             },
             sass: {
-                files: ['assets/**/*.sass', 'assets/**/*.scss'],
+                files: ['assets/**/*.{sass,scss}'],
                 tasks: ['sass', 'cssmin'],
                 options: {
                     livereload: true
@@ -227,21 +213,23 @@ module.exports = function (grunt) {
                 options: {
                     beautify: !isProduction,
                     compress: {
-                        unsafe: true,
-                        unsafe_comps: true,
-                        angular: true,
-                        pure_getters: true,
-                        hoist_funs: true,
-                        hoist_vars: true,
-                        keep_fargs: false,
-                        collapse_vars: true,
+                        unsafe:         true,
+                        unsafe_comps:   true,
+                        angular:        true,
+                        pure_getters:   true,
+                        hoist_funs:     true,
+                        hoist_vars:     true,
+                        collapse_vars:  true,
+                        keep_fargs:     false,
+                        pure_funcs:     isProduction ? ['console.debug'] : [],
                         global_defs: {
                             LANG_FILES: JSON.stringify(
                                 locales.reduce(function(all, locale) {
                                     all[locale] = '/lang/' + locale + '.json';
                                     return all;
                                 }, {})
-                            )
+                            ),
+                            DEBUG: !isProduction
                         }
                     },
                     mangle: isProduction ? {
@@ -251,7 +239,7 @@ module.exports = function (grunt) {
                     mangleProperties: {
                         regex: /^(_|[A-Z_]+$)/
                     },
-                    enclose: {},
+                    enclose: true,
                     sourceMap: isProduction,
                     sourceMapName: 'web/appjs.map',
                     sourceMapIncludeSources: true
@@ -264,11 +252,11 @@ module.exports = function (grunt) {
             },
             vendor: {
                 options: {
-                    compress: false,
-                    mangle: false,
-                    sourceMap: isProduction,
-                    sourceMapName: 'web/vendorjs.map',
-                    enclose: {}
+                    compress:       false,
+                    mangle:         false,
+                    sourceMap:      isProduction,
+                    sourceMapName:  'web/vendorjs.map',
+                    enclose:        {}
                 },
                 files: {
                     'web/vendor.js': [
@@ -297,17 +285,17 @@ module.exports = function (grunt) {
             generate: {
                 cwd: 'web/',
                 options: {
-                    network: ['*'],
-                    fallback: ['/index.html'],
-                    exclude: ['manifest.appcache'],
-                    preferOnline: true,
-                    basePath: 'web',
-                    timestamp: false,
-                    verbose: false,
-                    master: ['index.html']
+                    network:        ['*'],
+                    fallback:       ['/index.html'],
+                    exclude:        ['manifest.appcache'],
+                    preferOnline:   true,
+                    basePath:       'web',
+                    timestamp:      false,
+                    verbose:        false,
+                    master:         ['index.html']
                 },
                 src: [
-                    '**/*.{html,js,json,css,jpg,png,woff,woff2,ttf,svg,eot,ico}',
+                    '**/*.{html,js,json,css,jpg,png,woff,woff2,ttf,svg,eot,ico}'
                 ],
                 dest: 'web/manifest.appcache'
             }

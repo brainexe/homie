@@ -5,23 +5,23 @@ App.service('Nodes', /*@ngInject*/ function($http, Cache) {
     }
 
     return {
-        getData: function() {
+        getData () {
             return $http.get('/nodes/', {cache: Cache});
         },
 
-        add: function(node) {
+        add (node) {
             clearCache();
             return $http.post('/nodes/', node);
         },
 
-        edit: function (node) {
+        edit (node) {
             clearCache();
-            return $http.put('/nodes/{0}/'.format(node.nodeId), node);
+            return $http.put(`/nodes/${node.nodeId}/`, node);
         },
 
-        remove: function (node) {
+        remove (node) {
             clearCache();
-            return $http.delete('/nodes/{0}/'.format(node.nodeId));
+            return $http.delete(`/nodes/${node.nodeId}/`);
         }
-    }
+    };
 });

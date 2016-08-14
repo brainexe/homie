@@ -14,13 +14,10 @@
 </div>
 
 <div ng-if="recent">
-    <img
-            ng-src="/webcam/file/?file={{ recent.webPath }}"
-            class="img-thumbnail thumbnail"/>
-    <span time-ago="recent.timestamp"></span>
-
-    <a
-            ng-click="loadRecentImage()"
-            uib-tooltip="{{'Reload'|translate}}"
-            class="btn btn-default btn-sm glyphicon glyphicon-repeat"></a>
+    <a ng-href="/webcam/file/?file={{ recent.webPath }}" target="_blank">
+        <img
+                ng-src="/webcam/file/?file={{ recent.webPath }}"
+                class="img-thumbnail thumbnail"/>
+    </a>
+    <time-ago from-time="recent.timestamp"></time-ago>
 </div>

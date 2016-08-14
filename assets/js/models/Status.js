@@ -1,18 +1,8 @@
 
 App.service('Status', /*@ngInject*/ function($http) {
     return {
-        getData: function() {
-            return $http.get('/stats/');
-        },
-
-        deleteEvent: function(eventId) {
-            return $http.delete('/jobs/{0}/'.format(eventId));
-        },
-
-        reset: function(key) {
-            var url = '/stats/reset/';
-
-            return $http.post(url, {key: key})
-        }
-    }
+        getData:        ()          => $http.get('/stats/'),
+        deleteEvent:    (eventId)   => $http.delete(`/jobs/${eventId}/`),
+        reset:          (key)       => $http.post('/stats/reset/', {key})
+    };
 });

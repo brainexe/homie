@@ -1,14 +1,13 @@
 
-App.filter('toArray', /*@ngInject*/ function(lodash) {
-    return lodash.toArray;
-});
+App.filter('toArray', /*@ngInject*/ (lodash) => lodash.toArray);
+App.filter('join',    /*@ngInject*/ (lodash) => lodash.join);
 
 App.filter('deleteKey', function() {
     return function(array, key) {
         delete array[key];
 
         return array;
-    }
+    };
 });
 
 /**
@@ -18,9 +17,6 @@ App.filter('split', function() {
     return function(input, splitChar, splitIndex) {
         // do some bounds checking here to ensure it has that index
         return input.split(splitChar)[splitIndex];
-    }
+    };
 });
 
-App.filter('join', /*@ngInject*/ function(lodash) {
-    return lodash.join;
-});

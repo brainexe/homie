@@ -1,6 +1,6 @@
 
 App.service('Expression', /*@ngInject*/ function($http, Cache) {
-    const BASE_URL = '/expressions/';
+    var BASE_URL = '/expressions/';
 
     function clearCache() {
         Cache.clear('^' + BASE_URL);
@@ -9,63 +9,63 @@ App.service('Expression', /*@ngInject*/ function($http, Cache) {
     Cache.intervalClear('^' + BASE_URL, 60 * 5);
 
     return {
-        getData: function(cached) {
+        getData (cached) {
             return $http.get(BASE_URL, {
                 cache: cached ? Cache : false
             });
         },
 
-        getEvents: function() {
+        getEvents () {
             return $http.get(BASE_URL + 'events/', {
                 cache: Cache
             });
         },
 
-        getFunctions: function() {
+        getFunctions () {
             return $http.get(BASE_URL + 'functions/', {
                 cache: Cache
             });
         },
 
-        evaluate: function(expression, cached) {
+        evaluate (expression, cached) {
             return $http.get(BASE_URL + 'evaluate/', {
                 params: {expression: expression},
                 cache: cached ? Cache : false
             });
         },
 
-        validate: function(expression) {
+        validate (expression) {
             return $http.get(BASE_URL + 'validate/', {
                 params: {expression: expression},
                 cache: Cache
             });
         },
 
-        save: function(expression) {
+        save (expression) {
             clearCache();
 
             return $http.put(BASE_URL, expression);
         },
 
-        deleteExpression: function(expressionId) {
+        deleteExpression (expressionId) {
             clearCache();
 
-            return $http.delete(BASE_URL + '{0}/'.format(expressionId));
+            return $http.delete(`${BASE_URL}${expressionId}/`);
         },
 
-        addCron: function(cron) {
+        addCron (cron) {
             clearCache();
 
             return $http.post('/cron/', cron);
         },
 
         // todo cache until nextRun > now()
-        getNextCronRun: function(expression) {
+        getNextCronRun (expression) {
             return $http.get('/cron/next/', {
-                params: {expression: expression}
+                params: {expression}
             });
         },
 
         invalidate: clearCache
-    }
+    };
 });

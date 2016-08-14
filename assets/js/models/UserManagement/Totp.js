@@ -3,28 +3,28 @@ App.service('UserManagementTOTP', /*@ngInject*/ function($http) {
     const BASE_URL = '/one_time_password/';
 
     return {
-        getData: function () {
+        getData () {
             return $http.get(BASE_URL);
         },
 
-        request: function () {
+        request () {
             return $http.post(BASE_URL + 'request/', {});
         },
 
-        deleteToken: function () {
+        deleteToken () {
             return $http.delete(BASE_URL);
         },
 
-        needsToken: function (username) {
+        needsToken (username) {
             return $http.get(
                 '/login/needsOneTimeToken',
                 {
-                    params: {username: username}
+                    params: {username}
                 }
             );
         },
 
-        sendMail: function (username) {
+        sendMail (username) {
             return $http.post(BASE_URL + 'mail/', {user_name: username});
         }
     };

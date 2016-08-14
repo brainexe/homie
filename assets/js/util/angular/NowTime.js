@@ -5,7 +5,5 @@ App.factory('nowTime', /* @ngInject */ function ($interval) {
         nowTime = Date.now();
     }, 1000);
 
-    return function () {
-        return nowTime;
-    };
+    return () => nowTime;
 });

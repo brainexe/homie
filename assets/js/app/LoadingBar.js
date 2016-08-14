@@ -1,5 +1,5 @@
 
-App.config(/*@ngInject*/ function (cfpLoadingBarProvider) {
+App.config(/*@ngInject*/ (cfpLoadingBarProvider) => {
     cfpLoadingBarProvider.includeSpinner   = false;
     cfpLoadingBarProvider.latencyThreshold = 200;
 });

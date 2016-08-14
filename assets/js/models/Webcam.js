@@ -1,28 +1,11 @@
 
-App.service('Webcam', /*@ngInject*/ function($http) {
+App.service("Webcam", /*@ngInject*/ function($http) {
     return {
-        getData: function() {
-            return $http.get('/webcam/');
-        },
-
-        takeShot: function() {
-            return $http.post('/webcam/photo/', {});
-        },
-
-        getRecent: function() {
-            return $http.get('/webcam/recent/');
-        },
-
-        takeVideo: function(duration) {
-            return $http.post('/webcam/video/', {duration:duration});
-        },
-
-        takeSound: function(duration) {
-            return $http.post('/webcam/sound/', {duration:duration});
-        },
-
-        remove: function(shotId) {
-           return $http.delete('/webcam/?shotId={0}'.format(shotId));
-        }
-    }
+        getData:    ()          => $http.get("/webcam/"),
+        takeShot:   ()          => $http.post("/webcam/photo/", {}),
+        getRecent:  ()          => $http.get("/webcam/recent/"),
+        takeVideo:  (duration)  => $http.post("/webcam/video/", {duration}),
+        takeSound:  (duration)  => $http.post("/webcam/sound/", {duration}),
+        remove:     (shotId)    => $http.delete(`/webcam/?shotId=${shotId}`)
+    };
 });

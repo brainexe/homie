@@ -1,19 +1,18 @@
 
-App.service('BrowserNotification',["$q", "$timeout", "_", function($q, $timeout, _) {
+App.service('BrowserNotification', ["$q", "$timeout", "_", function($q, $timeout, _) {
     var CLOSE_DELAY = 5000;
-    var QUEUE_DELAY = 1500;
+    var QUEUE_DELAY =  500;
 
     var PERMISSION_DENIED  = 'denied';
     var PERMISSION_GRANTED = 'granted';
 
     var openNotifications = [];
-    var contentQueue = [];
+    var contentQueue      = [];
 
     var GlobalNotification = window.Notification;
 
     function requestPermission() {
         return $q(function(resolve, reject) {
-
             if (!GlobalNotification) {
                 reject();
             } else if (GlobalNotification.permission === PERMISSION_GRANTED) {
@@ -26,7 +25,7 @@ App.service('BrowserNotification',["$q", "$timeout", "_", function($q, $timeout,
                     }
 
                     // If the user is okay, let's create a notification
-                    if (permission == PERMISSION_GRANTED) {
+                    if (permission === PERMISSION_GRANTED) {
                         resolve();
                     }
                 });
@@ -37,7 +36,7 @@ App.service('BrowserNotification',["$q", "$timeout", "_", function($q, $timeout,
     function show(content) {
         var notification = new GlobalNotification(_('Homie'), {
             body: content,
-            icon: 'favicon.ico'
+            icon: '/images/homie144.png'
         });
         notification.$content = content;
 
@@ -50,12 +49,14 @@ App.service('BrowserNotification',["$q", "$timeout", "_", function($q, $timeout,
     }
 
     return {
-        show: function(content) {
+        show (content) {
+            console.debug('Add browser notification: ' + content);
+
             requestPermission().then(function() {
                 contentQueue.push(content);
 
                 $timeout(function() {
-                    if (contentQueue.length == 0) {
+                    if (!contentQueue.length) {
                         // content already shown
                         return;
                     }
@@ -77,5 +78,5 @@ App.service('BrowserNotification',["$q", "$timeout", "_", function($q, $timeout,
                 }, QUEUE_DELAY);
             });
         }
-    }
+    };
 }]);

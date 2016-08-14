@@ -1,72 +1,67 @@
 
 App.service('Sensor', /*@ngInject*/ function($http, $rootScope, Cache) {
+    function clearCache() {
+        Cache.clear('^/sensors/');
+    }
+
     $rootScope.$on('sensor.value', function(event, data) {
         clearCache();
         $rootScope.$broadcast('sensor.update', data.sensorVo);
     });
 
-    function clearCache() {
-        Cache.clear('^/sensors/');
-
-    }
-
     return {
-        getAll: function() {
-            return $http.get('/sensors/');
-        },
+        getAll: () => $http.get('/sensors/'),
 
-        getCachedData: function() {
+        getCachedData () {
             return $http.get('/sensors/', {cache: Cache});
         },
 
-        getValues: function(sensorsIds, parameters) {
-            parameters = parameters || '';
-
-            return $http.get('/sensors/load/{0}/{1}'.format(sensorsIds, parameters))
+        getValues (sensorsIds, parameters = '') {
+            return $http.get(`/sensors/load/${sensorsIds}/${parameters}`);
         },
 
-        getSensorData: function(sensorId, cached) {
-            return $http.get('/sensors/{0}/value/'.format(sensorId, {cache: cached && Cache}));
+        getSensorData (sensorId, cached) {
+            return $http.get(`/sensors/${sensorId}/value/`, {cache: cached && Cache});
         },
 
-        deleteSensor: function(sensorId) {
+        deleteSensor (sensorId) {
             clearCache();
 
-            return $http.delete('/sensors/{0}/'.format(sensorId));
+            return $http.delete(`/sensors/${sensorId}/`);
         },
 
-        deleteValue: function(sensorId, values) {
+        deleteValue (sensorId, values) {
             clearCache();
 
-            return $http.delete('/sensors/{0}/values/{1}/'.format(sensorId, values));
+            return $http.delete(`/sensors/${sensorId}/values/${values}/`);
         },
 
-        addValue: function(sensorId, value) {
+        addValue (sensorId, value) {
             clearCache();
 
-            return $http.post('/sensors/{0}/value/'.format(sensorId), {value:value});
+            return $http.post(`/sensors/${sensorId}/value/`, {value});
         },
 
-        forceReadValue: function(sensorId) {
+        forceReadValue (sensorId) {
             clearCache();
 
-            return $http.post('/sensors/{0}/force/'.format(sensorId), {});
+            return $http.post(`/sensors/${sensorId}/force/`, {});
         },
 
-        edit: function(sensor) {
+        edit (sensor) {
             clearCache();
 
-            return $http.put('/sensors/{0}/'.format(sensor.sensorId), sensor);
+            return $http.put(`/sensors/${sensor.sensorId}/`, sensor);
         },
 
-        add: function(sensor) {
+        add (sensor) {
             clearCache();
 
             return $http.post('/sensors/', sensor);
         },
 
-        parameters: function(sensorType) {
-            return $http.get('/sensors/{0}/parameters/'.format(sensorType), {cache: Cache});
+        parameters (sensorType) {
+            return $http.get(`/sensors/${sensorType}/parameters/`, {cache: Cache});
         }
     };
 });

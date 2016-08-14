@@ -1,26 +1,14 @@
 
 App.service('Displays', /*@ngInject*/ function($http) {
     return {
-        getData: function() {
-            return $http.get('/display/');
-        },
+        getData: ()          => $http.get('/display/'),
 
-        add: function(display) {
-            return $http.post('/display/', display);
-        },
+        add:     (display)   => $http.post('/display/', display),
 
-        update: function(display) {
-            return $http.put('/display/{0}/'.format(display.displayId), display);
-        },
+        update:  (display)   => $http.put(`/display/${display.displayId}/`, display),
 
-        delete: function(displayId) {
-            return $http.delete('/display/{0}/'.format(displayId));
-        },
+        delete:  (displayId) => $http.delete(`/display/${displayId}/`),
 
-        redraw: function(displayId) {
-            var url = '/display/{0}/redraw/'.format(displayId);
-
-            return $http.post(url, {});
-        }
-    }
+        redraw:  (displayId) => $http.post(`/display/${displayId}/redraw/`, {})
+    };
 });

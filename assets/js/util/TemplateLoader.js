@@ -1,6 +1,4 @@
 
-App.service('TemplateLoader', /*@ngInject*/ function ($http, Cache) {
-    return function (file) {
-        return $http.get(file, {cache: Cache});
-    };
-});
+App.service('TemplateLoader', ["$http", "Cache", function ($http, Cache) {
+    return (file) => $http.get(file, {cache: Cache});
+}]);

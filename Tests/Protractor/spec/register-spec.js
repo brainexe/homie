@@ -6,7 +6,7 @@ describe('Register at homie app', function() {
 
     var submit = $('.form-signin button[type="submit"]');
 
-    it('Click "login" in menu', function () {
+    it('Click "register" in menu', function () {
         browser.get(process.envHOMIE_HOST);
 
         var link = $('a[href="/#register"]');

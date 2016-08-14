@@ -15,7 +15,7 @@ describe('Logout of homie app', function() {
         var userLink = $('a[href="#/logout"]');
         userLink.click();
 
-        helper.sleep(1000);
+        helper.sleep(500);
 
         // login link should be visible
         var link = $('a[href="/#login"]');

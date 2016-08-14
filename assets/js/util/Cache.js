@@ -7,6 +7,15 @@ App.service('Cache', ['CacheFactory', '$interval', '$rootScope', function(CacheF
         storagePrefix:  ''
     });
 
+    // do only store plain response in cache when successful
+    var oldPut = cache.put.bind(cache);
+    cache.put = function put(key, value, options) {
+        if (value.length === 4 && value[0] === 200) {
+            value = value[1];
+        }
+        oldPut(key, value, options);
+    };
+
     cache.clear = function(pattern) {
         cache.keys().forEach(function(key) {
             if (key.match && key.match(pattern)) {
@@ -14,15 +23,6 @@ App.service('Cache', ['CacheFactory', '$interval', '$rootScope', function(CacheF
                 cache.remove(key);
             }
         });
-    };
-
-    // do only store plain response in cache when successful
-    var oldPut = cache.put.bind(cache);
-    cache.put = function put(key, value, options) {
-        if (value.length == 4 && value[0] == 200) {
-            value = value[1];
-        }
-        oldPut(key, value, options);
     };
 
     cache.intervalClear = function(pattern, seconds) {
@@ -33,7 +33,7 @@ App.service('Cache', ['CacheFactory', '$interval', '$rootScope', function(CacheF
 
     cache.closure = function(key, callback, options) {
         var value = cache.get(key);
-        if (typeof value != 'undefined') {
+        if (value !== undefined) {
             return value;
         }
 

@@ -1,19 +1,16 @@
 
 App.service('UserManagementTokens', /*@ngInject*/ function($http) {
     return {
-        getData: function () {
+        getData () {
             return $http.get('/user/tokens/');
         },
 
-        add: function(roles, name) {
-            return $http.post('/user/tokens/', {
-                roles: roles,
-                name: name
-            });
+        add (roles, name) {
+            return $http.post('/user/tokens/', {roles, name});
         },
 
-        deleteToken: function(token) {
-            return $http.delete('/user/tokens/{0}/'.format(token));
+        deleteToken (token) {
+            return $http.delete(`/user/tokens/${token}/`);
         }
     };
 });

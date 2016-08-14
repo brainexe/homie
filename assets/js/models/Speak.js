@@ -3,14 +3,11 @@ App.service('Speak', /*@ngInject*/ function($http, Cache) {
     return {
         JOB_ID: 'espeak.speak',
 
-        getSpeakers: function() {
-            return $http.get('/espeak/speakers/', {
+        getSpeakers: () =>
+            $http.get('/espeak/speakers/', {
                 cache: Cache
-            });
-        },
+            }),
 
-        speak: function (payload) {
-            return $http.post('/espeak/speak/', payload);
-        }
+        speak: (payload) => $http.post('/espeak/speak/', payload)
     };
 });

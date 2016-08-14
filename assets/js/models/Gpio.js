@@ -1,24 +1,17 @@
 
 App.service('Gpio', /*@ngInject*/ function($http) {
     return {
-        getData: function(nodeId) {
-            return $http.get('/gpio/{0}/'.format(nodeId));
-        },
+        getData: (nodeId) => $http.get(`/gpio/${nodeId}/`),
 
-        setDescription: function(nodeId, pin, description) {
+        setDescription (nodeId, pinId, description) {
             return $http.post(
-                '/gpio/description/',
-                {
-                    pinId: pin,
-                    nodeId: nodeId,
-                    description: description
-                }
+                '/gpio/description/', {pinId, nodeId, description}
             );
         },
 
-        savePin: function(nodeId, pin, direction, value) {
-            var url = '/gpio/set/{0}/{1}/{2}/{3}/'.format(nodeId, ~~pin, ~~direction, ~~value);
+        savePin (nodeId, pin, direction, value) {
+            var url = `/gpio/set/${nodeId}/${pin}/${direction}/${value}/`;
             return $http.post(url, {});
         }
-    }
+    };
 });

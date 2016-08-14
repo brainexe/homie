@@ -14,7 +14,7 @@ exports.config = {
     },
 
     specs: [
-        'spec/register-spec.js',
+        // 'spec/register-spec.js', // todo check for config.registrationEnabled
         'spec/login-spec.js',
         'spec/speak-spec.js',
         'spec/eggtimer-spec.js',

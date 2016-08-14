@@ -1,36 +1,20 @@
 
-App.service('Switches', /*@ngInject*/ function($http) {
+App.service("Switches", /*@ngInject*/ function($http) {
+    const BASE_URL = "/switches/";
+
     return {
-        JOB_ID: 'switch.change',
+        JOB_ID:     "switch.change",
 
-        getData: function() {
-            return $http.get('/switches/');
-        },
+        getData:    ()                  => $http.get(BASE_URL),
+        add:        (newSwitch)         => $http.post(BASE_URL, newSwitch),
+        setStatus:  (switchId, status)  => $http.post(BASE_URL + `${switchId}/status/${switchId}/`, {}),
+        delete:     (switchId)          => $http.delete(BASE_URL + `${switchId}/`),
+        addJob:     (newJob)            => $http.post(BASE_URL + 'jobs/', newJob),
+        deleteJob:  (eventId)           => $http.delete(BASE_URL + `jobs/${eventId}/`),
 
-        getDataCached: function () {
-            return $http.get('/switches/', {
+        getDataCached: () =>
+            $http.get(BASE_URL, {
                 cache: true
-            });
-        },
-
-        add: function(newSwitch) {
-            return $http.post('/switches/', newSwitch)
-        },
-
-        setStatus: function (switchId, status) {
-            return $http.post('/switches/{0}/status/{1}/'.format(switchId, status), {});
-        },
-
-        delete: function(switchId) {
-            return $http.delete('/switches/{0}/'.format(switchId));
-        },
-
-        addJob: function(newJob) {
-            return $http.post('/switches/jobs/', newJob);
-        },
-
-        deleteJob: function(eventId) {
-            return $http.delete('/switches/jobs/{0}/'.format(eventId))
-        }
-    }
+            })
+    };
 });

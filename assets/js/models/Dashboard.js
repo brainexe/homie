@@ -1,15 +1,15 @@
 
-App.service('Dashboard', /*@ngInject*/ function($http, Cache) {
-    const BASE_URL = '/dashboard/';
+App.service("Dashboard", /*@ngInject*/ function($http, Cache) {
+    var BASE_URL = "/dashboard/";
 
-    Cache.intervalClear('^'+BASE_URL, 60);
+    Cache.intervalClear("^" + BASE_URL, 60);
 
     function clearCache() {
-        Cache.clear('^'+BASE_URL);
+        Cache.clear("^" + BASE_URL);
     }
 
     function updateDashboard(dashboardId, payload) {
-        var url = BASE_URL + '{0}/'.format(dashboardId);
+        var url = BASE_URL + `${dashboardId}/`;
 
         clearCache();
 
@@ -17,51 +17,51 @@ App.service('Dashboard', /*@ngInject*/ function($http, Cache) {
     }
 
     return {
-        getCachedMetadata: function() {
-            return $http.get(BASE_URL + 'metadata/', {cache:Cache});
+        getCachedMetadata () {
+            return $http.get(BASE_URL + "metadata/", {cache:Cache});
         },
 
-        getDashboards: function() {
+        getDashboards () {
             return $http.get(BASE_URL, {cache:Cache});
         },
 
-        add: function(payload) {
+        add (payload) {
             clearCache();
 
             return $http.post(BASE_URL, payload);
         },
 
-        deleteDashboard: function(dashboardId) {
+        deleteDashboard (dashboardId) {
             clearCache();
 
-            return $http.delete(BASE_URL + '{0}/'.format(dashboardId));
+            return $http.delete(BASE_URL + `${dashboardId}/`);
         },
 
-        saveOrder: function(dashboardId, order) {
+        saveOrder (dashboardId, order) {
             return updateDashboard(dashboardId, {
                 order: order.join(',')
             });
         },
 
-        saveDashboard: function(dashboard) {
+        saveDashboard (dashboard) {
             return updateDashboard(dashboard.dashboardId, {
                 name: dashboard.name
             });
         },
 
-        deleteWidget: function(dashboardId, widgetId) {
+        deleteWidget (dashboardId, widgetId) {
             clearCache();
 
-            return $http.delete(BASE_URL + '{0}/{1}/'.format(dashboardId, widgetId))
+            return $http.delete(BASE_URL + `${dashboardId}/${widgetId}/`);
         },
 
-        updateWidget: function(dashboardId, widget) {
+        updateWidget (dashboardId, widget) {
             clearCache();
 
-            var url = BASE_URL + 'widget/{0}/{1}/'.format(dashboardId, widget.id);
-            return $http.put(url, widget)
+            var url = BASE_URL + `widget/${dashboardId}/${widget.id}/`;
+            return $http.put(url, widget);
         },
 
-        updateDashboard: updateDashboard
-    }
+        updateDashboard
+    };
 });

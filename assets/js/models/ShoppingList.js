@@ -1,16 +1,17 @@
 
 App.service('ShoppingList', /*@ngInject*/ function($http) {
     return {
-        getData: function() {
+        getData () {
             return $http.get('/shopping/');
         },
 
-        add: function(name) {
-            return $http.post('/shopping/', {name: name});
+        add (name) {
+            return $http.post('/shopping/', {name});
         },
 
-        remove: function (name) {
-            return $http.delete('/shopping/{0}/'.format(encodeURIComponent(name)));
+        remove (name) {
+            name = encodeURIComponent(name);
+            return $http.delete(`/shopping/${name}/`);
         }
-    }
+    };
 });

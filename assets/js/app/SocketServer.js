@@ -1,6 +1,8 @@
 
-App.run(/*@ngInject*/ function(Config, $rootScope) {
-    $rootScope.$on('currentuser.authorized', function () {
+App.run(/*@ngInject*/ (Config, $rootScope) => {
+    $rootScope.$on('currentuser.authorized', function (event) {
+        event.stopPropagation();
+
         Config.getAll().success(function(config) {
             if (!config.socketUrl) {
                 return;
@@ -13,7 +15,7 @@ App.run(/*@ngInject*/ function(Config, $rootScope) {
 
                 $rootScope.$broadcast(eventName, event);
 
-                console.log("socket server: " + event.eventName, event)
+                console.log("socket server: " + event.eventName, event);
             };
         });
     });

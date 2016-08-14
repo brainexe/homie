@@ -6,8 +6,8 @@ App.filter('filterArray', function() {
         }
 
         needle = needle.toLowerCase();
-        return items.filter(function(item) {
-            return item.toString().toLowerCase().indexOf(needle) !== -1;
-        });
-    }
+        return items.filter(item =>
+            item.toString().toLowerCase().includes(needle)
+        );
+    };
 });

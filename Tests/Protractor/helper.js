@@ -11,7 +11,11 @@ module.exports.sleep = function(delay) {
 };
 
 module.exports.expectFlash = function(expectedText) {
+    browser.driver.sleep(100);
+
     $('.content-header').getInnerHtml().then(function (html) {
+        console.log(expectedText, html);
+        // todo
         expect(html.indexOf(expectedText) != -1).toBe(true);
         self.closeAllFlashs();
     });
