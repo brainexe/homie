@@ -1,8 +1,6 @@
 
 App.run(/*@ngInject*/ (Config, $rootScope) => {
     $rootScope.$on('currentuser.authorized', function (event) {
-        event.stopPropagation();
-
         Config.getAll().success(function(config) {
             if (!config.socketUrl) {
                 return;

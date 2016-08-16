@@ -1,3 +1,4 @@
+
 var helper = require('../helper');
 
 describe('Logout of homie app', function() {
@@ -5,6 +6,7 @@ describe('Logout of homie app', function() {
         // open user menu (upper right corner)
         var userLink = $('.user-menu');
         expect(userLink.isPresent()).toBe(true);
+
         userLink.click();
 
         helper.sleep(500);
@@ -12,14 +14,15 @@ describe('Logout of homie app', function() {
 
     it('Click on logout', function () {
         // click logout
-        var userLink = $('a[href="#/logout"]');
+        var userLink = helper.getMenuLink("logout");
+
+        helper.sleep(300);
+
         userLink.click();
 
-        helper.sleep(500);
+        helper.sleep(300);
 
         // login link should be visible
-        var link = $('a[href="/#login"]');
-        expect(link.isPresent()).toBe(true);
+        helper.getMenuLink("login");
     });
-
 });

@@ -1,3 +1,4 @@
+
 var helper = require('../helper');
 
 describe('Login into homie app', function() {
@@ -7,15 +8,14 @@ describe('Login into homie app', function() {
     var submit = $('.form-signin button[type="submit"]');
 
     it('Click "login" in menu', function () {
-        //browser.get(process.envHOMIE_HOST);
+        browser.get(process.envHOMIE_HOST);
 
-        console.log($);
-        var link = $('a[href="/#login"]');
-        expect(link.isPresent()).toBe(true);
-
+        var link = helper.getMenuLink('login');
         link.click();
 
         expect($('.form-signin').isPresent()).toBe(true);
+
+        expect(browser.getTitle()).toEqual("Login");
     });
 
     it('Try wrong username', function () {
@@ -44,5 +44,9 @@ describe('Login into homie app', function() {
         username.sendKeys("testuser");
         password.sendKeys("testpassword");
         submit.click();
+
+        helper.expectFlash("Welcome back testuser!");
+
+        helper.getMenuLink("dashboard");
     });
 });

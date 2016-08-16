@@ -3,27 +3,30 @@ var helper = require('../helper');
 describe('Test "Status" component', function() {
 
     it('Click "Status" link in menu', function () {
-        var link = $('a[href="/#status"]');
+        var link = helper.getMenuLink("status");
         expect(link.isPresent()).toBe(true);
 
         link.click();
-        browser.ignoreSynchronization = true;
+
+        expect(browser.getTitle()).toEqual("Status");
     });
 
-    it('Count rows', function () {
-        helper.sleep(500);
+    it("Browser cache should be filled with keys", function () {
+        $('.content').evaluate('cacheKeys').then(function (count) {
+            expect(count > 5).toBe(true);
+        });
+    });
 
-        element.all(by.repeater('job in jobs')).then(function (rows) {
-            expect(rows.length > 0).toBe(true);
-            for (var i in rows) {
-                var row = rows[i];
-
-                // TODO
-                row.getInnerHtml(function(html) {
-                   console.log(html);
-                });
-                //console.log(row.innerHTML);
-            }
+    it('Delete all test Jobs', function () {
+        helper.evaluate('jobs').then(function (jobs) {
+           for (var jobId in jobs) {
+               var job = jobs[jobId];
+               if (job.event.eventName === 'espeak.speak' && job.event.espeak.text === 'test') {
+                   $('.content').evaluate(`deleteEvent('${jobId}')`).then(function () {
+                       expect(true).toBe(true);
+                   });
+               }
+           }
         });
     });
 });

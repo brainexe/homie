@@ -1,3 +1,4 @@
+
 var helper = require('../helper');
 
 describe('Test "Speak" component', function() {
@@ -7,13 +8,12 @@ describe('Test "Speak" component', function() {
     var submit = $('.content button[type="submit"]');
 
     it('Click "Speak" link in menu', function () {
-        var link = $('a[href="/#speak"]');
-        expect(link.isPresent()).toBe(true);
+        var link = helper.getMenuLink("speak");
 
         link.click();
-        browser.ignoreSynchronization = true;
 
         expect(submit.isPresent()).toBe(true);
+        expect(browser.getTitle()).toEqual("Speak");
     });
 
     it('Speak anything', function () {
@@ -23,11 +23,17 @@ describe('Test "Speak" component', function() {
     });
 
     it('Speak delayed', function () {
-        text.sendKeys("test");
-        delay.sendKeys("10h");
+        helper.evaluate('jobs|objectSize').then(function(oldCount) {
+            text.clear();
+            text.sendKeys("test");
+            delay.sendKeys("10h");
 
-        submit.click();
+            submit.click();
+
+            helper.evaluate('jobs|objectSize').then(function(newCount) {
+                expect(newCount).toEqual(oldCount + 1);
+
+            });
+        });
     });
-
-    // TODO check jobs
 });

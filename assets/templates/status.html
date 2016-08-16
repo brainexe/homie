@@ -9,7 +9,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="job in jobs" ng-mouseover="job.detail=true" ng-mouseleave="job.detail=false">
+		<tr ng-repeat-start="job in jobs" ng-mouseover="job.detail=true" ng-mouseleave="job.detail=false">
 			<td ng-mouseover="job.detail=true">
 				{{ job.jobId|split:':':1 }}
 			</td>
@@ -25,7 +25,7 @@
 				</a>
             </td>
 		</tr>
-		<tr ng-repeat="job in jobs">
+		<tr ng-repeat-end>
 			<td colspan="4" ng-show="job.detail">
 				{{ job.event }}
 			</td>
@@ -38,16 +38,16 @@
 	<uib-accordion-group ng-repeat="(section, values) in redis" heading="{{section}}">
 		<table class="table table-striped table-bordered table-hover">
 			<thead>
-			<tr>
-				<th translate>Key</th>
-				<th translate>Value</th>
-			</tr>
+				<tr>
+					<th translate>Key</th>
+					<th translate>Value</th>
+				</tr>
 			</thead>
 			<tbody>
-			<tr ng-repeat="(key, value) in values">
-				<th>{{ key }}</th>
-				<td>{{ value }}</td>
-			</tr>
+				<tr ng-repeat="(key, value) in values">
+					<th>{{ key }}</th>
+					<td>{{ value }}</td>
+				</tr>
 			</tbody>
 		</table>
 	</uib-accordion-group>

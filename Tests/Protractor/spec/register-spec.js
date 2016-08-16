@@ -9,12 +9,13 @@ describe('Register at homie app', function() {
     it('Click "register" in menu', function () {
         browser.get(process.envHOMIE_HOST);
 
-        var link = $('a[href="/#register"]');
-        expect(link.isPresent()).toBe(true);
+        var link = helper.getMenuLink("register");
 
         link.click();
 
         expect($('.form-signin').isPresent()).toBe(true);
+
+        expect(browser.getTitle()).toEqual("Register");
     });
 
     it('Try empty username', function () {

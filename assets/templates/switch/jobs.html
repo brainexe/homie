@@ -13,10 +13,10 @@
         <td>
             <time-ago from-time="job.timestamp" overdue="true"></time-ago>
         </td>
-        <td>{{ switches[job.event.switchVo.switchId].name }}</td>
+        <td>{{ job.event.switch.name }}</td>
         <td>
             <a
-                    ng-click="setStatus(job.switchId, 1); deletejob(job.event_id)"
+                    ng-click="setStatus(job.event.switch, 1); deletejob(job.event_id)"
                     class="btn"
                     ng-class="{'btn-danger':!job.event.status, 'btn-success':job.event.status}"
             >

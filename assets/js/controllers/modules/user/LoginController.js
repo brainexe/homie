@@ -1,10 +1,5 @@
 
 App.controller('LoginController', /*@ngInject*/ function ($scope, $location, UserManagement, UserManagementTOTP, Flash, _) {
-    if (UserManagement.isLoggedIn()) {
-        $location.path("/dashboard");
-        return;
-    }
-
     $scope.needsOneTimeToken = false;
 
     $scope.login = function () {
@@ -15,7 +10,6 @@ App.controller('LoginController', /*@ngInject*/ function ($scope, $location, Use
         };
 
         UserManagement.login(payload).success(function (result) {
-            console.log(result);
             if (!result) {
                 return;
             }

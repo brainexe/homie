@@ -116,13 +116,13 @@ App.controller('ExpressionController', /*@ngInject*/ function ($scope, $q, Expre
         delete expression.payload[key];
     };
 
-    $scope.addCron = function(cron) {
+    $scope.addCron = function (cron) {
         Expression.addCron(cron).success(function() {
             $scope.reloadCrons();
         });
     };
 
-    $scope.deleteCron = function(jobId) {
+    $scope.deleteCron = function (jobId) {
         MessageQueue.deleteJob(jobId).success(function() {
             delete $scope.crons[jobId];
         });

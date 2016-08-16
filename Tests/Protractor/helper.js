@@ -10,14 +10,26 @@ module.exports.sleep = function(delay) {
     browser.driver.sleep(delay);
 };
 
+module.exports.evaluate = function(expression) {
+    return $('.content').evaluate(expression);
+};
+
+module.exports.getMenuLink = function(url) {
+    var link = $(`a[href="/#${url}"]`);
+
+    expect(link.isPresent()).toBe(true);
+
+    return link;
+};
+
 module.exports.expectFlash = function(expectedText) {
-    browser.driver.sleep(100);
+    browser.sleep(100);
+    browser.ignoreSynchronization = true;
 
     $('.content-header').getInnerHtml().then(function (html) {
-        console.log(expectedText, html);
-        // todo
-        expect(html.indexOf(expectedText) != -1).toBe(true);
+        expect(html.includes(expectedText)).toBe(true);
         self.closeAllFlashs();
+        browser.ignoreSynchronization = false;
     });
 };
 

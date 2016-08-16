@@ -1,3 +1,4 @@
+
 var helper = require('../helper');
 
 describe('Test "Egg timer" component', function() {
@@ -7,11 +8,10 @@ describe('Test "Egg timer" component', function() {
     var submit = $('.content button[type="submit"]');
 
     it('Click "Egg Timer" link in menu', function () {
-        var link = $('a[href="/#egg_timer"]');
-        expect(link.isPresent()).toBe(true);
+        var link = helper.getMenuLink("egg_timer");
 
-        link.click();
         browser.ignoreSynchronization = true;
+        link.click();
 
         expect($('.content button[type="submit"]').isPresent()).toBe(true);
     });

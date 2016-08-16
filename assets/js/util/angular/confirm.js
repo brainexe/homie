@@ -13,18 +13,20 @@ App.directive('confirm', /*@ngInject*/ function($uibModal) {
             elem.on('click', function() {
                 var modalInstance = $uibModal.open({
                     templateUrl: '/templates/modal/confirm.html',
-                    controller: /*@ngInject*/ function($scope, $uibModalInstance, text, header, _) {
+                    controller: ["$scope", "$uibModalInstance", "text", "header", "_", function($scope, $uibModalInstance, text, header, _) {
                         $scope.message = text   || _('Confirm');
                         $scope.header  = header || _('Confirm');
-                        $scope.ok =     () => $uibModalInstance.close(true);
-                        $scope.cancel = () => $uibModalInstance.dismiss('cancel');
-                    },
+                        $scope.ok      = () => $uibModalInstance.close(true);
+                        $scope.cancel  = () => $uibModalInstance.dismiss('cancel');
+                    }],
                     resolve: {
                         text:   () => scope.confirmText,
                         header: () => scope.confirmHeader
                     }
                 });
-                modalInstance.result.then(scope.confirm);
+                modalInstance.result.then(function () {
+                    scope.confirm();
+                });
             });
         }
     };

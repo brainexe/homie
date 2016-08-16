@@ -8,15 +8,15 @@ App.service('UserManagement', ["$http", "$rootScope", "Cache", function($http, $
     clearCache();
     Cache.intervalClear('^/user/$', 60 * 5);
 
+    var current = {};
+    var setCurrentUser;
+    var loadUserPromise;
+
     var isLoggedIn = function(user) {
         user = user || current;
 
         return user && user.userId > 0;
     };
-
-    var current = {};
-    var setCurrentUser;
-    var loadUserPromise;
 
     return {
         register (payload) {
@@ -55,6 +55,7 @@ App.service('UserManagement', ["$http", "$rootScope", "Cache", function($http, $
             } else if (oldLoggedIn && !newLoggedIn) {
                 console.debug("Logged out user");
                 $rootScope.$broadcast('currentuser.logout', user);
+                clearCache();
             }
 
             current = user;
