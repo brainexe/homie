@@ -14,7 +14,7 @@ exports.config = {
     },
 
     specs: [
-        // 'spec/register-spec.js', // todo check for config.registrationEnabled
+        'spec/register-spec.js', // todo check for config.registrationEnabled
         'spec/login-spec.js',
         'spec/dashboard-spec.js',
         'spec/switch-spec.js',
@@ -24,7 +24,8 @@ exports.config = {
         'spec/displays-spec.js',
         'spec/speak-spec.js',
         'spec/eggtimer-spec.js',
-
+        'spec/todo-spec.js',
+        'spec/shoppinglist-spec.js',
         'spec/webcam-spec.js',
         'spec/status-spec.js',
 

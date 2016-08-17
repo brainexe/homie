@@ -8,8 +8,6 @@ describe('Login into homie app', function() {
     var submit = $('.form-signin button[type="submit"]');
 
     it('Click "login" in menu', function () {
-        browser.get(process.envHOMIE_HOST);
-
         var link = helper.getMenuLink('login');
         link.click();
 

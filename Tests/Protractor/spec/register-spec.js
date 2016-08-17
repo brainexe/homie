@@ -1,6 +1,17 @@
 var helper = require('../helper');
+var config = require('../../../cache/config.json');
 
 describe('Register at homie app', function() {
+    if (!config["application.registration_enabled"]) {
+        it('Registertration is disabled: no "register" button should be visible in menu', function () {
+            browser.get(process.envHOMIE_HOST);
+            var link = $(`a[href="/#register"]`);
+
+            expect(link.isPresent()).toBe(false);
+        });
+        return;
+    }
+
     var username = element(by.model('username'));
     var password = element(by.model('password'));
 
@@ -52,5 +63,4 @@ describe('Register at homie app', function() {
 
         helper.expectFlash('User testuser already exists');
     });
-
 });

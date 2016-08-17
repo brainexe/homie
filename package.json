@@ -21,7 +21,7 @@
     "grunt-contrib-cssmin": "^1.0.1",
     "grunt-contrib-htmlmin": "^1.4.0",
     "grunt-contrib-sass": "^1.0.0",
-    "grunt-contrib-uglify": "lxndr/grunt-contrib-uglify",
+    "grunt-contrib-uglify": "brainexe/grunt-contrib-uglify",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-exec": "~1.0",
     "grunt-manifest": "^0.4.4",

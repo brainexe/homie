@@ -1,5 +1,5 @@
 
-App.controller('EditSensorsController', /*@ngInject*/ function($scope, $uibModalInstance, Sensor, SensorFormatter, Tags, lodash) {
+App.controller('EditSensorsController', /*@ngInject*/ function($scope, $uibModalInstance, Sensor, SensorFormatter, SensorTags, lodash) {
     $scope.sensors = [];
     $scope.types   = {};
     $scope.tags    = {};
@@ -29,7 +29,7 @@ App.controller('EditSensorsController', /*@ngInject*/ function($scope, $uibModal
         $scope.types      = data.types;
         $scope.formatters = data.formatters;
 
-        $scope.tags = Tags.getTagsFromSensors(data.sensors);
+        $scope.tags = SensorTags.getTagsFromSensors(data.sensors);
     });
 
     $scope.formatValue = function(value, sensor) {
