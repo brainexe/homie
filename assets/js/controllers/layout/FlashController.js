@@ -1,6 +1,9 @@
 
 App.controller('FlashController', /*@ngInject*/ function ($scope, $timeout, lodash) {
+    const TIMEOUT = 5000;
+
     $scope.flashBag = [];
+    var timeouts = [];
 
     /**
      * @param {String} message
@@ -11,12 +14,16 @@ App.controller('FlashController', /*@ngInject*/ function ($scope, $timeout, loda
 
         $scope.flashBag.push(item);
 
-        $timeout(function () {
+        timeouts.push($timeout(function () {
             lodash.pull($scope.flashBag, item);
-        }, 5000);
+        }, TIMEOUT));
     }
 
     $scope.$on('flash', (type, args) => addFlash(args[0], args[1]));
 
-    $scope.removeFlash = index => $scope.flashBag.splice(index, 1);
+    $scope.removeFlash = function(index) {
+        $timeout.cancel(timeouts[index]);
+        $scope.flashBag.splice(index, 1);
+        timeouts.splice(index, 1);
+    };
 });

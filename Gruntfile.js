@@ -237,7 +237,7 @@ module.exports = function (grunt) {
                         regex: '.*'
                     } : false,
                     mangleProperties: {
-                        regex: /^(_|[A-Z_]+$)/
+                        regex: /^(_.+|[A-Z_]{2,}$)/
                     },
                     enclose: true,
                     sourceMap: isProduction,

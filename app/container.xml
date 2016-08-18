@@ -10,6 +10,7 @@
         <parameter key="application.name">homie</parameter>
         <parameter key="application.allowed_urls" type="collection">
             <parameter>%socket.url%</parameter>
+            <parameter>localhost:35729</parameter>
         </parameter>
 
         <parameter key="filesystem.local.path">%cache.dir%filesystem/</parameter>
