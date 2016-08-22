@@ -156,17 +156,17 @@ App.service('SensorGraph', /*@ngInject*/ function ($uibModal, Sensor, SensorForm
     }
 
     function decompressData(data) {
-        var final = [];
-        for (let sensorData of data.json) {
-            var graphData = [];
-            for (let i = 0; i < sensorData.data.length; i += 2) {
+        let final = [];
+        for (let sensorId in data.json) {
+            let graphData = [];
+            for (let i = 0; i < data.json[sensorId].data.length; i += 2) {
                 graphData.push({
-                    x: sensorData.data[i],
-                    y: sensorData.data[i+1]
+                    x: data.json[sensorId].data[i],
+                    y: data.json[sensorId].data[i+1]
                 });
             }
-            sensorData = graphData;
-            final.push(sensorData);
+            data.json[sensorId].data = graphData;
+            final.push(data.json[sensorId]);
         }
 
         return final;
@@ -175,7 +175,11 @@ App.service('SensorGraph', /*@ngInject*/ function ($uibModal, Sensor, SensorForm
     // todo use tag service
     function aggregateTags(rawSensors) {
         var tags = {};
-        for (let sensor of rawSensors) {
+        if (!rawSensors) {
+            return tags;
+        }
+        for (let idx in rawSensors) {
+            let sensor = rawSensors[idx];
             if (sensor.tags) {
                 for (let tag of sensor.tags) {
                     if (!tags[tag]) {
