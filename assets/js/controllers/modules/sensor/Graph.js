@@ -138,9 +138,9 @@ App.service('SensorGraph', /*@ngInject*/ function ($uibModal, Sensor, SensorForm
     function getAxisFormatter(data) {
         var formatter = Rickshaw.Fixtures.Number.formatKMBT;
         var formatterName;
-        for (var sensor of data) {
-            var currentFormatterName = sensor.formatter;
-            if (formatterName && currentFormatterName != formatterName) {
+        for (let sensorId in data) {
+            let currentFormatterName = data[sensorId].formatter;
+            if (formatterName && currentFormatterName !== formatterName) {
                 // other formatter is already registered :(
                 return formatter;
             }
@@ -157,9 +157,9 @@ App.service('SensorGraph', /*@ngInject*/ function ($uibModal, Sensor, SensorForm
 
     function decompressData(data) {
         var final = [];
-        for (var sensorData of data.json) {
+        for (let sensorData of data.json) {
             var graphData = [];
-            for (var i = 0; i < sensorData.data.length; i += 2) {
+            for (let i = 0; i < sensorData.data.length; i += 2) {
                 graphData.push({
                     x: sensorData.data[i],
                     y: sensorData.data[i+1]
@@ -175,9 +175,9 @@ App.service('SensorGraph', /*@ngInject*/ function ($uibModal, Sensor, SensorForm
     // todo use tag service
     function aggregateTags(rawSensors) {
         var tags = {};
-        for (var sensor of rawSensors) {
+        for (let sensor of rawSensors) {
             if (sensor.tags) {
-                for (var tag of sensor.tags) {
+                for (let tag of sensor.tags) {
                     if (!tags[tag]) {
                         tags[tag] = [];
                     }
