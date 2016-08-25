@@ -1,6 +1,6 @@
 
 App.run(/*@ngInject*/ function($rootScope, UserManagementSettings) {
-    if (!speechSynthesis) {
+    if (!window.speechSynthesis) {
         return;
     }
     UserManagementSettings.getAll().success(function(settings) {

@@ -2,27 +2,22 @@
 var helper = require('../helper');
 
 describe('Logout of homie app', function() {
+    var userLink = $('.user-menu');
+
     it('Click on username in upper-right corner', function () {
         // open user menu (upper right corner)
-        var userLink = $('.user-menu');
         expect(userLink.isPresent()).toBe(true);
 
         userLink.click();
-
-        helper.sleep(200);
     });
 
-    it('Click on logout', function () {
-        // click logout
-        var userLink = helper.getMenuLink("logout");
-
-        helper.sleep(100);
-
-        userLink.click();
-
+    it('Change language internally', function () {
+        helper.evaluate('changeLanguage("de_DE")');
         helper.sleep(500);
+        helper.evaluate('changeLanguage("en_US")');
+    });
 
-        // login link should be visible
-        helper.getMenuLink("login");
+    it('Close user profile dropdown', function () {
+        userLink.click();
     });
 });

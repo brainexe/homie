@@ -7,8 +7,8 @@ App.service('SensorStats', function() {
             }
             var result = {
                 count: series.data.length / 2,
-                min: {value:Number.MAX_VALUE, timestamp:null},
-                max: {value:Number.MIN_VALUE, timestamp:null}
+                min: {value:1e+308, timestamp:null},
+                max: {value:-1e+308, timestamp:null}
             };
 
             var sum    = 0,
@@ -16,7 +16,7 @@ App.service('SensorStats', function() {
                 value,
                 timestamp;
 
-            for (var i = 0; i < series.data.length; i += 2) {
+            for (let i = 0; i < series.data.length; i += 2) {
                 timestamp = series.data[i];
                 value     = series.data[i + 1];
 
@@ -40,5 +40,5 @@ App.service('SensorStats', function() {
 
             return result;
         }
-    }
+    };
 });

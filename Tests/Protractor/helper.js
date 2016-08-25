@@ -23,7 +23,6 @@ module.exports.getMenuLink = function(url) {
 };
 
 module.exports.expectFlash = function(expectedText) {
-    browser.sleep(100);
     browser.ignoreSynchronization = true;
 
     $('.content-header').getInnerHtml().then(function (html) {

@@ -32,11 +32,10 @@ phpunit --testsuite integration
 
 ## End to end test:
 ```
-npm install -g protractor webdriver-manager
 php console user:create testuser testpassword admin
-webdriver-manager start
-cd test/Protactor
-protractor config_local.js
+./node_modules/protractor/bin/webdriver-manager update
+
+npm run-script protractor
 ```
 
 # Features

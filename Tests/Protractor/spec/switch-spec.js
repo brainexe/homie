@@ -18,8 +18,12 @@ describe('Test "Switch" component', function() {
         expect(editMode.isPresent()).toBe(true);
     });
 
-    it('Chick "edit mode" button', function () {
-        editMode.click();
-         // TODO add more tests
+    it('Click "Edit mode"', function () {
+        var editModeButton = $('.switch-edit-button');
+        expect(editModeButton.isPresent()).toBe(true);
+
+        editModeButton.click();
+        helper.sleep(100);
+        editModeButton.click();
     });
 });

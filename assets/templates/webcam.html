@@ -22,15 +22,15 @@
                 </div>
                 <div class="panel-body" ng-switch="file.extension">
                     <div ng-switch-when="mp3">
-                        <a ng-href="/webcam/file/?file={{ file.webPath }}" class="img-thumbnail thumbnail">mp3</a>
+                        <a target="_blank" ng-href="/webcam/file/?file={{ file.webPath }}">mp3</a>
                     </div>
                     <div ng-switch-when="wav">
-                        <a ng-href="/webcam/file/?file={{ file.webPath }}" class="img-thumbnail thumbnail">wav</a>
+                        <a target="_blank" ng-href="/webcam/file/?file={{ file.webPath }}">wav</a>
                     </div>
                     <div ng-switch-when="avi">
-                        <a ng-href="/webcam/file/?file={{ file.webPath }}" class="img-thumbnail thumbnail">avi</a>
+                        <a target="_blank" ng-href="/webcam/file/?file={{ file.webPath }}">avi</a>
                         <video>
-                            <source ng-src="/webcam/file/?file={{file.webPath}}" type="video/avi"/>
+                            <source src="/webcam/file/?file={{file.webPath}}" type="video/avi"/>
                         </video>
                     </div>
                     <div ng-switch-when="jpg">

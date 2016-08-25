@@ -27,11 +27,13 @@
     "grunt-manifest": "^0.4.4",
     "grunt-po2mo": "^0.1.2",
     "grunt-uniqueify": "brainexe/grunt-uniqueify",
-    "lodash-cli": "^4.14.2"
+    "lodash-cli": "^4.14.2",
+    "protractor": "^4.0.3"
   },
   "license": "MIT",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "protractor": "./node_modules/protractor/bin/protractor Tests/Protractor/config_local.js",
+    "webdriver-manager": "./node_modules/protractor/bin/webdriver-manager start"
   },
   "repository": {
     "type": "git",

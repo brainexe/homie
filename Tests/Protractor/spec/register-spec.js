@@ -9,6 +9,7 @@ describe('Register at homie app', function() {
 
             expect(link.isPresent()).toBe(false);
         });
+
         return;
     }
 

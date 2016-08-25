@@ -6,12 +6,15 @@
 process.envHOMIE_HOST = process.envHOMIE_HOST || 'http://homie';
 
 exports.config = {
-    capabilities: {
-        'browserName': 'chrome',
-        'chromeOptions': {
-            'args': ['incognito']
+    multiCapabilities: [
+        {
+            'browserName': 'firefox'
+        },
+        {
+            'browserName': 'chrome',
+            'chromeOptions': {'args': ['incognito']}
         }
-    },
+    ],
 
     specs: [
         'spec/register-spec.js', // todo check for config.registrationEnabled
@@ -30,6 +33,7 @@ exports.config = {
         'spec/status-spec.js',
 
         'spec/nodes-spec.js',
+        'spec/language-spec.js',
         'spec/logout-spec.js'
     ],
     framework: 'jasmine',
