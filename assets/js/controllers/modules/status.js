@@ -21,8 +21,8 @@ App.controller('StatusController', /*@ngInject*/ function ($scope, $interval, St
     });
 
     $scope.update = function () {
-        var key = $scope.cacheKeys = Cache.info().storageImpl.length;
-        $scope.cacheSize = JSON.stringify(key) / 1000;
+        $scope.cacheKeys = Cache.info().storageImpl.length;
+        $scope.cacheSize = JSON.stringify(Cache.info().storageImpl).length / 1000;
         Status.getData().success(function (data) {
             $scope.jobs  = data.jobs;
             $scope.redis = data.redis;

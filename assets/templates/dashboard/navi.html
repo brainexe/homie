@@ -1,0 +1,49 @@
+
+<div class="container-fluid">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" ng-click="isCollapsed = !isCollapsed">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div>
+    <div class="dashboard-navbar navbar-collapse collapse" ng-class="{collapse:!isCollapsed}">
+        <ul class="nav navbar-nav">
+            <li
+                    ng-repeat="(dashboardId, tmp_dashboard) in dashboards"
+                    class="cursor"
+                    ng-class="{active:tmp_dashboard==dashboard}"
+            >
+                <a
+                        class="dashboard-navbar-name"
+                        ng-click="selectDashboard(tmp_dashboard)"
+                >
+                    {{ tmp_dashboard.name }}
+                    <span
+                            ng-if="editMode"
+                            confirm="deleteDashboard(dashboard.dashboardId)"
+                            confirm-text="{{'Are you sure?'|translate}}"
+                            class="btn btn-danger btn-xs delete glyphicon glyphicon-remove cursor"
+                            uib-tooltip="Delete">
+                </span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="btn-group btn-group">
+                <a
+                        class="btn btn-default"
+                        ng-click="openModal(dashboards, dashboard)"
+                        uib-tooltip="{{'New Widget'|translate}}">
+                    <span class="glyphicon glyphicon-plus cursor"></span>
+                </a>
+                <a
+                        class="btn btn-default"
+                        ng-click="editMode = !editMode"
+                        uib-tooltip="{{'Edit'|translate}}">
+                    <span class="glyphicon glyphicon-edit cursor"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

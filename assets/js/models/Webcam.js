@@ -6,6 +6,6 @@ App.service("Webcam", /*@ngInject*/ function($http) {
         getRecent:  ()          => $http.get("/webcam/recent/"),
         takeVideo:  (duration)  => $http.post("/webcam/video/", {duration}),
         takeSound:  (duration)  => $http.post("/webcam/sound/", {duration}),
-        remove:     (shotId)    => $http.delete(`/webcam/?shotId=${shotId}`)
+        remove:     (fileName)  => $http.delete(`/webcam/file/${fileName}`)
     };
 });

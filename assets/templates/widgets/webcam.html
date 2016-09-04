@@ -14,10 +14,11 @@
 </div>
 
 <div ng-if="recent">
-    <a ng-href="/webcam/file/?file={{ recent.webPath }}" target="_blank">
+    <a ng-href="/webcam/file/{{recent.webPath}}" target="_blank">
         <img
-                ng-src="/webcam/file/?file={{ recent.webPath }}"
-                class="img-thumbnail thumbnail"/>
+                ng-src="/webcam/file/{{recent.webPath}}"
+                class="img-thumbnail thumbnail"
+        />
     </a>
     <time-ago from-time="recent.timestamp"></time-ago>
 </div>

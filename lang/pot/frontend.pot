@@ -82,7 +82,7 @@ msgstr ""
 msgid "Add Switch"
 msgstr ""
 
-#: assets/templates/todo.html:48
+#: assets/templates/todo.html:47
 msgid "Add Task"
 msgstr ""
 
@@ -108,8 +108,8 @@ msgstr ""
 msgid "Arduino Pin"
 msgstr ""
 
-#: assets/templates/dashboard.html:25
-#: assets/templates/dashboard.html:99
+#: assets/templates/dashboard/dashboard.html:47
+#: assets/templates/dashboard/navi.html:25
 msgid "Are you sure?"
 msgstr ""
 
@@ -117,7 +117,7 @@ msgstr ""
 msgid "Avatar"
 msgstr ""
 
-#: assets/templates/widgets/sensor.html:36
+#: assets/templates/widgets/sensor.html:37
 msgid "Avg"
 msgstr ""
 
@@ -156,14 +156,14 @@ msgstr ""
 msgid "Characters per Row"
 msgstr ""
 
-#: assets/js/controllers/modules/webcam.js:17
+#: assets/js/controllers/modules/webcam.js:20
 msgid "Cheese..."
 msgstr ""
 
 #: assets/templates/sensor/add.html:132
 #: assets/templates/sensor/edit.html:155
 #: assets/templates/sensor/sensor_value_detail.html:7
-#: assets/templates/todo.html:37
+#: assets/templates/todo.html:36
 #: assets/templates/widgets/edit.html:25
 #: assets/templates/widgets/new.html:48
 msgid "Close"
@@ -229,21 +229,21 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: assets/templates/todo.html:35
+#: assets/templates/todo.html:34
 msgid "Deadline"
 msgstr ""
 
 #: assets/templates/egg_timer.html:19
-#: assets/templates/espeak.html:13
+#: assets/templates/espeak.html:12
 msgid "Delay"
 msgstr ""
 
 #: assets/templates/admin/users.html:46
 #: assets/templates/crons.html:9
-#: assets/templates/dashboard.html:100
+#: assets/templates/dashboard/dashboard.html:48
 #: assets/templates/displays/edit.html:79
 #: assets/templates/egg_timer.html:42
-#: assets/templates/espeak.html:89
+#: assets/templates/espeak.html:88
 #: assets/templates/sensor/sensor_value_detail.html:8
 #: assets/templates/status.html:8
 #: assets/templates/switch/jobs.html:8
@@ -261,7 +261,7 @@ msgstr ""
 #: assets/templates/sensor/edit.html:103
 #: assets/templates/switch/add.html:31
 #: assets/templates/switch/add.html:37
-#: assets/templates/todo.html:18
+#: assets/templates/todo.html:17
 msgid "Description"
 msgstr ""
 
@@ -273,25 +273,25 @@ msgstr ""
 msgid "Displays"
 msgstr ""
 
-#: assets/templates/todo.html:53
+#: assets/templates/todo.html:52
 msgid "Drag Here to Delete"
 msgstr ""
 
 #: assets/js/controllers/modules/dashboard/widgets/webcam.js:20
 #: assets/js/controllers/modules/dashboard/widgets/webcam.js:26
-#: assets/js/controllers/modules/webcam.js:22
-#: assets/js/controllers/modules/webcam.js:27
+#: assets/js/controllers/modules/webcam.js:25
+#: assets/js/controllers/modules/webcam.js:30
 msgid "Duration"
 msgstr ""
 
 #: assets/templates/admin/nodes.html:38
 #: assets/templates/admin/users.html:37
-#: assets/templates/dashboard.html:43
-#: assets/templates/dashboard.html:90
+#: assets/templates/dashboard/dashboard.html:38
+#: assets/templates/dashboard/navi.html:43
 #: assets/templates/displays/displays.html:16
 #: assets/templates/sensor/edit.html:49
 #: assets/templates/sensor/sensor.html:25
-#: assets/templates/todo.html:90
+#: assets/templates/todo.html:89
 msgid "Edit"
 msgstr ""
 
@@ -376,8 +376,8 @@ msgstr ""
 msgid "Go to files"
 msgstr ""
 
-#: assets/templates/layout/left-user.html:9
-msgid "Hello {{ ::currentUser.username }}!"
+#: assets/templates/layout/left-user.html:16
+msgid "Hello {{::currentUser.username}}!"
 msgstr ""
 
 #: assets/templates/expression/expression.html:5
@@ -413,7 +413,7 @@ msgstr ""
 msgid "Interval in minutes"
 msgstr ""
 
-#: assets/templates/todo.html:24
+#: assets/templates/todo.html:23
 msgid "Interval. E.g. '@daily'"
 msgstr ""
 
@@ -448,11 +448,11 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
-#: assets/templates/widgets/sensor.html:27
+#: assets/templates/widgets/sensor.html:28
 msgid "Max"
 msgstr ""
 
-#: assets/templates/widgets/sensor.html:42
+#: assets/templates/widgets/sensor.html:43
 msgid "Median"
 msgstr ""
 
@@ -460,7 +460,7 @@ msgstr ""
 msgid "Message-Queue"
 msgstr ""
 
-#: assets/templates/widgets/sensor.html:18
+#: assets/templates/widgets/sensor.html:19
 msgid "Min"
 msgstr ""
 
@@ -482,7 +482,7 @@ msgstr ""
 #: assets/templates/admin/nodes.html:23
 #: assets/templates/admin/nodes.html:6
 #: assets/templates/admin/users.html:5
-#: assets/templates/dashboard.html:55
+#: assets/templates/dashboard/dashboard.html:3
 #: assets/templates/displays/edit.html:8
 #: assets/templates/expression/edit.html:8
 #: assets/templates/expression/list.html:7
@@ -509,7 +509,7 @@ msgstr ""
 msgid "New Dashboard"
 msgstr ""
 
-#: assets/templates/dashboard.html:37
+#: assets/templates/dashboard/navi.html:37
 msgid "New Widget"
 msgstr ""
 
@@ -613,6 +613,7 @@ msgid "Register"
 msgstr ""
 
 #: assets/templates/widgets/sensor.html:13
+#: assets/templates/widgets/sensor_graph.html:8
 msgid "Reload"
 msgstr ""
 
@@ -644,10 +645,10 @@ msgstr ""
 
 #: assets/templates/admin/nodes.html:41
 #: assets/templates/admin/users.html:40
-#: assets/templates/dashboard.html:62
+#: assets/templates/dashboard/dashboard.html:10
 #: assets/templates/displays/edit.html:76
 #: assets/templates/expression/edit.html:105
-#: assets/templates/todo.html:49
+#: assets/templates/todo.html:48
 #: assets/templates/widgets/edit.html:26
 msgid "Save"
 msgstr ""
@@ -684,7 +685,7 @@ msgid "Select roles"
 msgstr ""
 
 #: assets/templates/expression/parameter.html:16
-#: assets/templates/todo.html:82
+#: assets/templates/todo.html:81
 msgid "Select..."
 msgstr ""
 
@@ -733,16 +734,16 @@ msgid "Size"
 msgstr ""
 
 #: assets/js/controllers/Controllers.js:19
-#: assets/templates/espeak.html:3
+#: assets/templates/espeak.html:2
 #: assets/templates/widgets/speak.html:14
 msgid "Speak"
 msgstr ""
 
-#: assets/templates/espeak.html:60
+#: assets/templates/espeak.html:59
 msgid "Speaker"
 msgstr ""
 
-#: assets/templates/espeak.html:44
+#: assets/templates/espeak.html:43
 msgid "Speed"
 msgstr ""
 
@@ -754,7 +755,7 @@ msgid "Status"
 msgstr ""
 
 #: assets/templates/egg_timer.html:32
-#: assets/templates/espeak.html:72
+#: assets/templates/espeak.html:71
 #: assets/templates/widgets/sensor_input.html:12
 msgid "Submit"
 msgstr ""
@@ -792,8 +793,8 @@ msgstr ""
 #: assets/templates/egg_timer.html:14
 #: assets/templates/egg_timer.html:41
 #: assets/templates/egg_timer.html:6
-#: assets/templates/espeak.html:7
-#: assets/templates/espeak.html:88
+#: assets/templates/espeak.html:6
+#: assets/templates/espeak.html:87
 #: assets/templates/widgets/speak.html:5
 msgid "Text"
 msgstr ""
@@ -807,7 +808,7 @@ msgid "The passwords do not match"
 msgstr ""
 
 #: assets/templates/egg_timer.html:40
-#: assets/templates/espeak.html:87
+#: assets/templates/espeak.html:86
 #: assets/templates/switch/add_job.html:18
 #: assets/templates/switch/jobs.html:5
 msgid "Time"
@@ -847,7 +848,7 @@ msgstr ""
 msgid "Tokens"
 msgstr ""
 
-#: assets/templates/widgets/sensor.html:48
+#: assets/templates/widgets/sensor.html:49
 msgid "Trend"
 msgstr ""
 
@@ -907,7 +908,7 @@ msgstr ""
 msgid "Voice control"
 msgstr ""
 
-#: assets/templates/espeak.html:27
+#: assets/templates/espeak.html:26
 msgid "Volume"
 msgstr ""
 
@@ -1080,7 +1081,7 @@ msgid "disabled"
 msgstr ""
 
 #: assets/templates/egg_timer.html:29
-#: assets/templates/espeak.html:23
+#: assets/templates/espeak.html:22
 msgid "e.g. 10s, 30m, 1h"
 msgstr ""
 

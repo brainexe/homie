@@ -5,6 +5,13 @@
             class="user_avatar img-circle"
     ></div>
 </div>
+
+<div ng-if="speechRecognition" class="btn-group btn-group-sm">
+    <a ng-click="speechRecognition.speechRecognition()" class="btn btn btn-primary">
+        <span class="glyphicon glyphicon-record"></span>
+    </a>
+</div>
+
 <div class="pull-left info">
-    <a href="#/user" translate>Hello {{ ::currentUser.username }}!</a>
+    <a href="#/user" translate>Hello {{::currentUser.username}}!</a>
 </div>

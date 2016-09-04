@@ -34,9 +34,9 @@
                     <div ng-if="isLoggedIn" ng-include="'/templates/layout/left-user.html'"></div>
                     <ul class="sidebar-menu" ng-controller="MenuController">
                         <li ng-repeat="item in menu">
-                            <a href="/#{{::item.url}}">
-                                <i class="glyphicon glyphicon-{{::item.icon}}"></i>
-                                <span ng-bind="::item.name"></span>
+                            <a href="/#{{item.url}}">
+                                <i class="glyphicon glyphicon-{{item.icon}}"></i>
+                                <span ng-bind="item.name"></span>
                             </a>
                         </li>
                     </ul>

@@ -1,16 +1,16 @@
 
 App.service("controllers", ["_", function(_) {
-    var controller = "controller";
-    var name = "name";
-    var url = "url";
-    var icon = "icon";
+    var controller  = "controller";
+    var name        = "name";
+    var url         = "url";
+    var icon        = "icon";
     var templateUrl = "templateUrl";
     var collapsible = "collapsible";
 
     return () =>
         [
             // menu
-            {[controller]:'DashboardController',    [name]: _('Dashboard'),     [url]: 'dashboard',     [icon]:'th-large',  [templateUrl]: '/templates/dashboard.html'},
+            {[controller]:'DashboardController',    [name]: _('Dashboard'),     [url]: 'dashboard',     [icon]:'th-large',  [templateUrl]: '/templates/dashboard/index.html'},
             {[controller]:'SwitchController',       [name]: _('Switches'),      [url]: 'switch',        [icon]:'home',      [templateUrl]: '/templates/switch/switch.html',             [collapsible]:true},
             {[controller]:'SensorController',       [name]: _('Sensors'),       [url]: 'sensor',        [icon]:'stats',     [templateUrl]: '/templates/sensor/sensor.html',             [collapsible]:true},
             {[controller]:'ExpressionController',   [name]: _('Actions'),       [url]: 'expression',    [icon]:'link',      [templateUrl]: '/templates/expression/expression.html',     [collapsible]:true},
@@ -33,11 +33,11 @@ App.service("controllers", ["_", function(_) {
             {[controller]:'RegisterController',     [name]: _('Register'),      [url]: 'register',      [icon]: 'user', isPublic: true, [templateUrl]: '/templates/user/register.html', checkConfig:(config) => config.registrationEnabled},
 
             // hidden controllers
-            {[url]: 'logout',                       [templateUrl]: "/templates/index.html",                 [controller]: "LogoutController"},
+            {[url]: 'logout',                       [controller]: "LogoutController"},
             {[url]: 'user/change_password',         [templateUrl]: "/templates/user/change_password.html",  [controller]: "ChangePasswordController"},
             {[url]: 'user/settings',                [templateUrl]: "/templates/user/settings.html",         [controller]: "UserSettingsController"},
             {[url]: 'user/otp',                     [templateUrl]: "/templates/user/otp.html",              [controller]: "OtpController"},
             {[url]: 'user/tokens',                  [templateUrl]: "/templates/user/tokens.html",           [controller]: "UserTokensController"},
-            {[url]: 'index',                        [templateUrl]: "/templates/index.html",                 [controller]: "IndexController"}
-        ]
+            {[url]: 'index',                        [controller]: "IndexController"}
+        ];
 }]);

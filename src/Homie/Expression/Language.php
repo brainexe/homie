@@ -121,7 +121,9 @@ class Language extends ExpressionLanguage
             'rand',
             'round',
             'sleep',
-            'preg_match'
+            'preg_match',
+            'json_decode',
+            'json_encode',
         ];
 
         foreach ($functions as $function) {

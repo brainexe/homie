@@ -126,18 +126,17 @@ class ControllerTest extends TestCase
 
     public function testDelete()
     {
-        $photoId = 12;
+        $file = "file.png";
 
         $request = new Request();
-        $request->query->set('shotId', $photoId);
 
         $this->webcam
             ->expects($this->once())
             ->method('delete')
-            ->with($photoId)
+            ->with($file)
             ->willReturn(true);
 
-        $actualResult = $this->subject->delete($request);
+        $actualResult = $this->subject->delete($request, $file);
 
         $this->assertTrue($actualResult);
     }
@@ -146,9 +145,9 @@ class ControllerTest extends TestCase
     public function testGetFile()
     {
         $request = new Request();
-        $request->query->set('file', $file = 'file');
         $stream = fopen(__FILE__, 'r');
         $mime   = 'mime';
+        $file   = 'file';
 
         $this->filesystem
             ->expects($this->once())
@@ -161,7 +160,7 @@ class ControllerTest extends TestCase
             ->with($file)
             ->willReturn($mime);
 
-        $actualResult = $this->subject->getFile($request);
+        $actualResult = $this->subject->getFile($request, $file);
 
         $this->assertEquals($mime, $actualResult->headers->get('Content-Type'));
         $this->assertNotEmpty($actualResult->getContent());

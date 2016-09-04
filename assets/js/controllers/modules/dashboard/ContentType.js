@@ -1,7 +1,7 @@
 
 App.directive('contentItem', /*@ngInject*/ function ($compile, TemplateLoader, WidgetFactory) {
     var link = function($scope, element) {
-        var widget = $scope.widget;
+        var widget   = $scope.widget;
         var renderer = WidgetFactory(widget.type);
         var template = TemplateLoader(renderer.template);
 

@@ -1,27 +1,58 @@
 
-App.run(/*@ngInject*/ function(Speech, UserManagementSettings, Flash) {
+App.run(/*@ngInject*/ function($rootScope, $uibModal, Speech, UserManagementSettings, Flash) {
     if (!window.webkitSpeechRecognition) {
         return;
     }
 
-    UserManagementSettings.getAll().success(function(settings) {
-        if (!settings.voiceControl) {
-            return;
-        }
+    $rootScope.speechRecognition = {
+        recognizing:        false,
+        final_transcript:   '',
+        interim_transcript: ''
+    };
+
+    $rootScope.speechRecognition.speechRecognition = function () {
+        $rootScope.speechRecognition.recognizing = true;
+        $rootScope.speechRecognition.final_transcript = '';
 
         var recognition = new window.webkitSpeechRecognition();
         recognition.continuous = true;
-        recognition.lang = "de-DE"; // TODO
+        recognition.interimResults = true;
+        recognition.lang = "de-DE"; // todo set correct loale
 
-        // recognition.interimResults = true;
-        recognition.onresult = (event) => {
-            var result = event.results[event.resultIndex][0];
+        var modal = $uibModal.open({
+            windowClass: "speechRecognitionModal",
+            templateUrl: "/templates/modal/speechRecognition.html"
+        });
 
-            Speech.sendText(result.transcript);
+        recognition.onerror = function(event) {
+            console.error(event);
+        };
 
-            Flash.addFlash(result.transcript, Flash.SUCCESS);
+        recognition.onresult = function(event) {
+            $rootScope.speechRecognition.interim_transcript = '';
+            if (typeof event.results === 'undefined') {
+                recognition.stop();
+                return;
+            }
+            for (let i = event.resultIndex; i < event.results.length; ++i) {
+                if (event.results[i].isFinal) {
+                    $rootScope.speechRecognition.final_transcript += event.results[i][0].transcript;
+                } else {
+                    $rootScope.speechRecognition.interim_transcript += event.results[i][0].transcript;
+                }
+            }
+
+            if ($rootScope.speechRecognition.final_transcript) {
+                recognition.stop();
+
+                Speech.sendText($rootScope.speechRecognition.final_transcript);
+                Flash.addFlash($rootScope.speechRecognition.final_transcript, Flash.SUCCESS);
+                $rootScope.speechRecognition.recognizing = false;
+                modal.close();
+            }
+            $rootScope.$apply();
         };
 
         recognition.start();
-    });
+    };
 });

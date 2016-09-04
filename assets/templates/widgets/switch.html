@@ -1,8 +1,7 @@
 <div ng-repeat="switch in switches">
-    <h4>{{switch.name}}</h4>
+    <h4 ng-bind="switch.name"></h4>
     <div class="btn-group">
         <a ng-click="setStatus(switch, 1)" class="btn btn-success" translate>On</a>
         <a ng-click="setStatus(switch, 0)" class="btn btn-danger" translate>Off</a>
     </div>
-    <br />
 </div>

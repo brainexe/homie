@@ -13,6 +13,7 @@ App.controller('UserController', /*@ngInject*/ function ($scope, UserManagement,
 
     $scope.setAvatar = function (avatar) {
         UserManagementAvatar.set(avatar).success(function(user) {
+            UserManagement.clearCache();
             UserManagement.setCurrentUser(user);
             $scope.user = user;
         });

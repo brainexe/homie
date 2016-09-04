@@ -4,8 +4,6 @@
  * License: Open source - MIT
  * Please visit http://opensource.org/licenses/MIT for more information
 
-@import "partials/_common.sass"
-
 /* Define 2 column template
 .right-side, .left-side
   min-height: 100%
@@ -43,8 +41,7 @@ body > .header
       float: left
       padding: 9px 5px
       margin: 8px 0 8px 5px
-      background-color: transparent
-      background-image: none
+      background: transparent none
       border: 1px solid transparent
       -webkit-border-radius: 0 !important
       -moz-border-radius: 0 !important
@@ -153,14 +150,14 @@ body > .header
     margin-top: 58px
     padding: 0
     > li > a
-      padding: 12px 5px 12px 15px
+      padding: 10px
       display: block
       > .glyphicon
         width: 20px
   li:hover
     background-color: #474747
     font-weight: bold
-    width: 98%
+    width: 96%
     transition: all 0.2s ease
 
 .user-panel
@@ -174,7 +171,7 @@ body > .header
     clear: both
   .info
     color: #eee
-  .info
+    width: 100%
     font-weight: 600
     padding: 5px 5px 5px 15px
 
@@ -207,11 +204,9 @@ body > .header
         z-index: 5
         height: 90px
         width: 90px
-        border: 8px solid
-        border-color: rgba(255, 255, 255, 0.2)
+        border: 8px solid rgba(255, 255, 255, 0.2)
         p
           z-index: 5
-          color: $body-bg
           color: rgba(255, 255, 255, 0.8)
           font-size: 17px
           text-shadow: 2px 2px 3px $sidebarColor

@@ -3,7 +3,10 @@ App.controller('WebcamController', /*@ngInject*/ function ($scope, Webcam, Flash
 
     function update() {
         Webcam.getData().success(function (data) {
-            $scope.files = data.files;
+            $scope.files = data.files.map(function (entry) {
+                entry.url = `/webcam/file/${entry.webPath}`;
+                return entry;
+            });
         });
     }
     update();
@@ -29,10 +32,10 @@ App.controller('WebcamController', /*@ngInject*/ function ($scope, Webcam, Flash
     };
 
     $scope.removeFile = function (index) {
-        var shot = $scope.files[index];
+        var file = $scope.files[index];
 
-        shot.deleting = true;
-        Webcam.remove(shot.webPath).success(function () {
+        file.deleting = true;
+        Webcam.remove(file.webPath).success(function () {
             $scope.files.splice(index, 1);
         });
     };

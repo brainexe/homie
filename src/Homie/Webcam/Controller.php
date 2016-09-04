@@ -90,25 +90,27 @@ class Controller
     }
 
     /**
-     * @Route("/webcam/", name="webcam.delete", methods="DELETE")
+     * @Route("/webcam/file/{file}", name="webcam.delete", methods="DELETE", requirements={"file":".+"})
      * @param Request $request
+     * @param string $file
      * @return bool
      */
-    public function delete(Request $request) : bool
+    public function delete(Request $request, string $file) : bool
     {
-        $filename = $request->query->get('shotId');
+        unset($request);
 
-        return $this->webcam->delete($filename);
+        return $this->webcam->delete($file);
     }
 
     /**
-     * @Route("/webcam/file/", name="webcam.getFile")
+     * @Route("/webcam/file/{file}", name="webcam.getFile", requirements={"file":".+"})
      * @param Request $request
+     * @param string $file
      * @return Response
      */
-    public function getFile(Request $request) : Response
+    public function getFile(Request $request, string $file) : Response
     {
-        $file   = $request->query->get('file');
+        unset($request);
         $stream = $this->filesystem->readStream($file);
         $mime   = $this->filesystem->getMimetype($file);
 

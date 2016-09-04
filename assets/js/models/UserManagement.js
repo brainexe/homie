@@ -62,6 +62,7 @@ App.service('UserManagement', ["$http", "$rootScope", "Cache", function($http, $
         },
 
         isLoggedIn,
+        clearCache,
 
         loadCurrentUser () {
             if (loadUserPromise) {

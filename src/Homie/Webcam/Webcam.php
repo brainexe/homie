@@ -36,7 +36,7 @@ class Webcam
      */
     public function getFiles() : array
     {
-        $files = $this->filesystem->listContents(self::ROOT, true);
+        $files = $this->loadRawFiles();
 
         $vos = [];
         foreach ($files as $file) {
@@ -51,18 +51,14 @@ class Webcam
      */
     public function getRecentImage()
     {
-        $files = $this->filesystem->listContents(self::ROOT, true);
-
-        if (empty($files)) {
+        $files = $this->loadRawFiles();
+        if (!$files) {
             return null;
         }
 
-        usort($files, function (array $a, array $b) {
-            return @$a['timestamp'] <=> @$b['timestamp'];
-        });
-        $file = array_pop($files);
+        $first = reset($files);
 
-        return $this->formatFile($file);
+        return $this->formatFile($first);
     }
 
     /**
@@ -72,6 +68,20 @@ class Webcam
     public function delete(string $filename) : bool
     {
         return (bool)$this->filesystem->delete($filename);
+    }
+
+    /**
+     * @return array[]
+     */
+    private function loadRawFiles() : array
+    {
+        $files = (array)$this->filesystem->listContents(self::ROOT, true);
+
+        usort($files, function (array $a, array $b) {
+            return @$b['timestamp'] <=> @$a['timestamp'];
+        });
+
+        return $files;
     }
 
     /**

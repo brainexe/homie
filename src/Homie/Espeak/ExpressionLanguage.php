@@ -27,17 +27,18 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
             string $text,
             int $volume = null,
             int $speed = null,
+            string $speaker = null,
             int $devices = EspeakVO::ALL_DEVICES
         ) {
             unset($variables);
-            $event = new EspeakEvent(new EspeakVO($text, $volume, $speed, null, $devices));
+            $event = new EspeakEvent(new EspeakVO($text, $volume, $speed, $speaker, $devices));
 
             $this->dispatchInBackground($event);
         });
 
-        yield new Action('sayInBrowser', function (array $variables, string $text) {
+        yield new Action('sayInBrowser', function (array $variables, string $text, $speaker = null) {
             unset($variables);
-            $event = new EspeakEvent(new EspeakVO($text, null, null, null, EspeakVO::DEVICE_BROWSER));
+            $event = new EspeakEvent(new EspeakVO($text, null, null, $speaker, EspeakVO::DEVICE_BROWSER));
 
             $this->dispatchInBackground($event);
         });

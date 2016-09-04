@@ -6,7 +6,7 @@
 
 <hr/>
 
-<div ng-show="files" class="container-lg">
+<div ng-show="files" class="container-lg webcam">
     <div class="row">
         <div ng-repeat="file in files" class="col-xs-4">
             <div class="panel panel-default">
@@ -21,21 +21,25 @@
                     </a>
                 </div>
                 <div class="panel-body" ng-switch="file.extension">
-                    <div ng-switch-when="mp3">
-                        <a target="_blank" ng-href="/webcam/file/?file={{ file.webPath }}">mp3</a>
-                    </div>
                     <div ng-switch-when="wav">
-                        <a target="_blank" ng-href="/webcam/file/?file={{ file.webPath }}">wav</a>
+                        <audio controls>
+                            <source ng-src="{{file.url}}" type="audio/wav"><source>
+                        </audio>
+                        <a class="btn btn-default btn-xs" target="_blank" ng-href="{{file.url}}">
+                            <span class="glyphicon glyphicon-download"></span>
+                        </a>
                     </div>
                     <div ng-switch-when="avi">
-                        <a target="_blank" ng-href="/webcam/file/?file={{ file.webPath }}">avi</a>
-                        <video>
-                            <source src="/webcam/file/?file={{file.webPath}}" type="video/avi"/>
+                        <video width="320" height="240" controls preload>
+                            <source ng-src="{{file.url}}" type="movie/avi"><source>
                         </video>
+                        <a class="btn btn-default btn-xs" target="_blank" ng-href="{{file.url}}">
+                            <span class="glyphicon glyphicon-download"></span>
+                        </a>
                     </div>
                     <div ng-switch-when="jpg">
-                        <a target="_blank" ng-href="/webcam/file/?file={{ file.webPath }}">
-                            <img ng-src="/webcam/file/?file={{ file.webPath }}" class="img-thumbnail thumbnail"/>
+                        <a target="_blank" ng-href="{{file.url}}">
+                            <img ng-src="{{file.url}}" class="img-thumbnail thumbnail"/>
                         </a>
                     </div>
                     <time-ago from-time="file.timestamp"></time-ago>
