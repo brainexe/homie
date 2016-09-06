@@ -6,8 +6,8 @@
     ></div>
 </div>
 
-<div ng-if="speechRecognition" class="btn-group btn-group-sm">
-    <a ng-click="speechRecognition.speechRecognition()" class="btn btn btn-primary">
+<div class="menu-buttons btn-group btn-group-xs" ng-if="speechRecognition">
+    <a uib-tooltip="{{'Start voice recognition'|translate}}" ng-click="speechRecognition.speechRecognition()" class="btn btn-danger">
         <span class="glyphicon glyphicon-record"></span>
     </a>
 </div>

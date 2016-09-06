@@ -38,6 +38,6 @@ App.service("controllers", ["_", function(_) {
             {[url]: 'user/settings',                [templateUrl]: "/templates/user/settings.html",         [controller]: "UserSettingsController"},
             {[url]: 'user/otp',                     [templateUrl]: "/templates/user/otp.html",              [controller]: "OtpController"},
             {[url]: 'user/tokens',                  [templateUrl]: "/templates/user/tokens.html",           [controller]: "UserTokensController"},
-            {[url]: 'index',                        [controller]: "IndexController"}
+            {[url]: 'index',                        [controller]: "IndexController", template: ''}
         ];
 }]);

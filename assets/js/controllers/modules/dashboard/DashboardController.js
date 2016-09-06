@@ -50,6 +50,8 @@ App.controller('DashboardController', /*@ngInject*/ function($scope, $uibModal, 
             var items = event.dest.sortableScope.modelValue;
             var order = items.map((item) => item.id);
 
+            $scope.dashboard.order = order.join(',');
+
             Dashboard.saveOrder($scope.dashboard.dashboardId, order);
         }
     };
@@ -74,6 +76,10 @@ App.controller('DashboardController', /*@ngInject*/ function($scope, $uibModal, 
 
 	$scope.selectDashboard = function(dashboard) {
         selectDashboard($scope.dashboards[dashboard.dashboardId]);
+    };
+
+	$scope.toggleEditMode = function () {
+        $scope.editMode = !$scope.editMode;
     };
 
     $scope.openModal = function(dashboards) {

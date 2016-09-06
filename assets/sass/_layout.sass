@@ -31,15 +31,14 @@
 
 body > .header
   position: relative
-  max-height: 100px
-  z-index: 1030
+  max-height: 40px
   .navbar
     height: $logoHeight
     margin-bottom: 0
     margin-left: $leftSidebarWidth
     .sidebar-toggle
       float: left
-      padding: 9px 5px
+      padding: 5px
       margin: 8px 0 8px 5px
       background: transparent none
       border: 1px solid transparent
@@ -105,7 +104,7 @@ body > .header
     top: 100%
     right: 0
     left: auto
-    background: #ffffff
+    background: #fff
 
 @media (max-width: 560px)
   body
@@ -147,7 +146,7 @@ body > .header
   border-bottom: 1px solid $sidebarColor
   .sidebar-menu
     list-style: none
-    margin-top: 58px
+    margin-top: 30px
     padding: 0
     > li > a
       padding: 10px
@@ -170,14 +169,18 @@ body > .header
     content: " "
     clear: both
   .info
-    color: #eee
-    width: 100%
-    font-weight: 600
-    padding: 5px 5px 5px 15px
+    font-size: small
+    padding: 5px
+  .menu-buttons
+    margin: 10px
 
 /*
  *    Navbar custom dropdown menu
  *------------------------------------
+.navbar-nav > .user-menu
+  a
+    padding-top: 10px
+    padding-bottom: 10px
 
 .navbar-nav > .user-menu > .dropdown-menu
   padding-top: 1px
@@ -279,9 +282,6 @@ body > .header
     .open > a
       background: #ffffff
       color: #999999
-      &:hover, &:focus
-        background: #ffffff
-        color: #999999
   .navbar-right
     > .nav
       margin-right: 10px
@@ -311,6 +311,7 @@ body > .header
   background-size: contain
   height: 54px
   width: 54px
+  cursor: pointer
 
 .profile_avatar
   background-size: contain
