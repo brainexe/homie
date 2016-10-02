@@ -17,5 +17,5 @@ App.run(function() {
     }
 
     document.querySelector('.sidebar-menu a').onclick = toggle;
-    document.querySelector('#offcanvas').onclick = toggle;
+    document.getElementById('offcanvas').onclick = toggle;
 });

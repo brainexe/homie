@@ -5,21 +5,28 @@ php:
   - 7.1
   - hhvm
 
+sudo: required
+
 matrix:
   allow_failures:
     - php: hhvm
+
+env:
+  - TRAVIS_NODE_VERSION="4"
 
 services:
   - redis-server
 
 before_install:
-  - curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
-  - sudo apt-get install -y nodejs
+  - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout master) && source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION
+  - node -v
   - composer install
   - wget https://scrutinizer-ci.com/ocular.phar -q
   - gem install sass
   - npm install
   - npm install -g bower grunt
+  - bower install
+  - grunt buildAll
   - grunt buildAll
   - php console cc
 

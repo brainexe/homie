@@ -19,6 +19,8 @@ use Homie\Sensors\SensorVO;
 class DS18 extends AbstractSensor implements Searchable
 {
 
+    use TemperatureTrait;
+
     const TYPE = 'temperature.ds18';
 
     /**
@@ -96,11 +98,24 @@ class DS18 extends AbstractSensor implements Searchable
 
         $temperature = $matches[1] / 1000;
 
-        $invalidTemperatures = [0.0, 85.0, 127.937];
-        if (in_array($temperature, $invalidTemperatures)) {
+        if (!$this->validateValue($temperature)) {
             throw new InvalidSensorValueException($sensor, sprintf('Invalid content: %s', $content));
         }
 
         return $this->round($temperature, 0.01);
+    }
+
+    /**
+     * @param float $temperature
+     * @return bool
+     */
+    private function validateValue(float $temperature) : bool
+    {
+        $invalidTemperatures = [0.0, 85.0, 127.937];
+        if (in_array($temperature, $invalidTemperatures)) {
+            return false;
+        }
+
+        return $this->validateTemperature($temperature);
     }
 }

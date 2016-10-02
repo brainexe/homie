@@ -200,6 +200,10 @@ msgstr ""
 msgid "Confirm"
 msgstr ""
 
+#: assets/js/app/ResponseFlash.js:6
+msgid "Could not reach server"
+msgstr ""
+
 #: assets/templates/crons.html:6
 msgid "Cron-ID"
 msgstr ""
@@ -747,6 +751,10 @@ msgstr ""
 msgid "Speed"
 msgstr ""
 
+#: assets/templates/layout/left-user.html:10
+msgid "Start voice recognition"
+msgstr ""
+
 #: assets/js/controllers/Controllers.js:25
 #: assets/templates/switch/add_job.html:31
 #: assets/templates/switch/jobs.html:7
@@ -857,11 +865,6 @@ msgstr ""
 msgid "Two Factor Authentication"
 msgstr ""
 
-#: assets/templates/sensor/edit.html:29
-msgctxt "sensor"
-msgid "Type"
-msgstr ""
-
 #: assets/templates/admin/nodes.html:5
 #: assets/templates/sensor/add.html:16
 #: assets/templates/sensor/edit.html:63
@@ -869,6 +872,11 @@ msgstr ""
 #: assets/templates/status.html:6
 #: assets/templates/switch/add.html:8
 #: assets/templates/widgets/new.html:26
+msgid "Type"
+msgstr ""
+
+#: assets/templates/sensor/edit.html:29
+msgctxt "sensor"
 msgid "Type"
 msgstr ""
 
@@ -889,8 +897,8 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
-#: assets/templates/status.html:43
-#: assets/templates/status.html:61
+#: assets/templates/sensor/edit.html:40
+msgctxt "sensor"
 msgid "Value"
 msgstr ""
 
@@ -899,8 +907,8 @@ msgctxt "gpio"
 msgid "Value"
 msgstr ""
 
-#: assets/templates/sensor/edit.html:40
-msgctxt "sensor"
+#: assets/templates/status.html:43
+#: assets/templates/status.html:61
 msgid "Value"
 msgstr ""
 

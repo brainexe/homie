@@ -16,6 +16,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-exec');
     grunt.loadNpmTasks('grunt-po2mo');
     grunt.loadNpmTasks('grunt-uniqueify');
+    grunt.loadNpmTasks('grunt-concurrent');
 
     grunt.config('env', grunt.option('env') || process.env.ENVIRONMENT || 'development');
     var isProduction = grunt.config('env') === 'production';
@@ -76,6 +77,13 @@ module.exports = function (grunt) {
     });
 
     grunt.initConfig({
+        concurrent: {
+            options: {
+                limit: 100
+            },
+            prepare: ['clean', 'lodash', 'compile_lang'],
+            minify: ['copy', 'uglify:app', 'uglify:vendor', 'htmlmin', ['sass', 'cssmin']],
+        },
         nggettext_extract: {
             pot: {
                 files: {

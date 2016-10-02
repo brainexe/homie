@@ -15,6 +15,8 @@ use Homie\Sensors\SensorVO;
 class DHT11 extends AbstractDHT11
 {
 
+    use TemperatureTrait;
+
     const TYPE = 'temperature.dht11';
 
     /**
@@ -28,7 +30,12 @@ class DHT11 extends AbstractDHT11
             throw new InvalidSensorValueException($sensor, sprintf('Invalid value: %s', $output));
         }
 
-        return $this->round($matches[1], 0.01);
+        $temperature = $this->round($matches[1], 0.01);
+        if (!$this->validateTemperature($temperature)) {
+            throw new InvalidSensorValueException($sensor, sprintf('Invalid value: %s', $output));
+        }
+
+        return $temperature;
     }
 
     /**

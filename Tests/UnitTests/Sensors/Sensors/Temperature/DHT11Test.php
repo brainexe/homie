@@ -79,7 +79,7 @@ class DHT11Test extends TestCase
 
         $this->assertEquals(-1.8, $actualResult);
     }
-    
+
     /**
      * @expectedException \Homie\Sensors\Exception\InvalidSensorValueException
      * @expectedExceptionMessage Invalid value: Temp = ERROR %
@@ -88,6 +88,26 @@ class DHT11Test extends TestCase
     {
         $parameter = 3;
         $output    = "Temp = ERROR %";
+
+        $sensor = new SensorVO();
+        $sensor->parameter = $parameter;
+
+        $this->client
+            ->expects($this->once())
+            ->method('executeWithReturn')
+            ->willReturn($output);
+
+        $this->subject->getValue($sensor);
+    }
+
+    /**
+     * @expectedException \Homie\Sensors\Exception\InvalidSensorValueException
+     * @expectedExceptionMessage Invalid value: Temp = -180 *C
+     */
+    public function testGetValueWitInvalidRange()
+    {
+        $parameter = 3;
+        $output    = "Temp = -180 *C";
 
         $sensor = new SensorVO();
         $sensor->parameter = $parameter;

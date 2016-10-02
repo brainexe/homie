@@ -1,9 +1,18 @@
 
 // show backend messages as flash
-App.run(/*@ngInject*/ ($httpProvider, $location, UserManagement, Flash) => {
-    $httpProvider.defaults.transformResponse.push((response, headers) => {
-        if (headers('X-Flash-Type')) {
-            Flash.addFlash(headers('X-Flash-Message'), headers('X-Flash-Type'));
+App.run(/*@ngInject*/ ($httpProvider, $location, UserManagement, Flash, _) => {
+    $httpProvider.defaults.transformResponse.push((response, headers, code) => {
+        if (code === 502) {
+            Flash.addFlash(_('Could not reach server'), 'danger');
+            return response;
+        }
+
+        let type = headers('X-Flash-Type');
+        if (type) {
+            Flash.addFlash(headers('X-Flash-Message'), type);
+            if (type === Flash.DANGER) {
+                response.status = 500;
+            }
         }
 
         if (headers('X-Error') === 'NotAuthorized') {

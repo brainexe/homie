@@ -4,6 +4,35 @@ App.run(/*@ngInject*/ function($rootScope, $uibModal, Speech, UserManagementSett
         return;
     }
 
+    function startTriggerProcess() {
+        var trigger = new window.webkitSpeechRecognition();
+        trigger.lang = "de-DE"; // todo set correct loale
+        trigger.onresult = function(event) {
+            var result = event.results[0][0].transcript;
+            console.log(event);
+            console.log(event.results[0][0].transcript);
+            if (result.indexOf('Start') > -1) {
+                console.log('YES');
+                trigger.onend = null;
+                trigger.stop();
+            }
+        };
+
+        trigger.onend = function () {
+            trigger.start();
+        };
+
+        var grammar = '#JSGF V1.0; public <start> = Start | Homie;';
+        var speechRecognitionList = new webkitSpeechGrammarList();
+        speechRecognitionList.addFromString(grammar, 1);
+        trigger.grammars = speechRecognitionList;
+        trigger.interimResults = true;
+        trigger.continuous = true;
+        trigger.maxAlternatives = 1;
+
+        trigger.start();
+    }
+
     $rootScope.speechRecognition = {
         recognizing:        false,
         final_transcript:   '',

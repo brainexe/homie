@@ -2,7 +2,7 @@
 App.service('Flash', /*@ngInject*/ function($rootScope) {
     return {
         SUCCESS: 'success',
-        ERROR:   'error',
+        DANGER:  'danger',
         INFO:    'info',
 
         addFlash (message, type) {

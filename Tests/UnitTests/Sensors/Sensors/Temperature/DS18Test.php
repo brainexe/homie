@@ -13,7 +13,7 @@ use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\Temperature;
 
 /**
- * @covers Homie\Sensors\Sensors\Temperature\DS18
+ * @covers \Homie\Sensors\Sensors\Temperature\DS18
  */
 class DS18Test extends TestCase
 {
@@ -137,8 +137,11 @@ class DS18Test extends TestCase
             ['YES foo', null],
             ['YES t=0', null],
             ['YES t=85000', null],
+            ['YES t=-7000', -7],
             ['YES t=70000', 70],
             ['YES t=70001', 70.0],
+            ['YES t=700010', null],
+            ['YES t=-70001', null],
         ];
     }
 }
