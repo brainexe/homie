@@ -31,6 +31,7 @@
   },
   "license": "MIT",
   "scripts": {
+    "pm2-start": "cd nodejs; node ./pm2_start.js",
     "protractor": "./node_modules/protractor/bin/protractor Tests/Protractor/config_local.js",
     "webdriver-manager": "./node_modules/protractor/bin/webdriver-manager start"
   },

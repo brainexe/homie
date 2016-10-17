@@ -2,8 +2,11 @@
 App.controller('LoginController', /*@ngInject*/ function ($scope, $location, UserManagement, UserManagementTOTP, Flash, _) {
     $scope.needsOneTimeToken = false;
 
+    $scope.username = localStorage.getItem('userName');
+    $scope.password = '';
+
     $scope.login = function () {
-        var payload = {
+        let payload = {
             username: $scope.username,
             password: $scope.password,
             one_time_token: $scope.one_time_token
@@ -16,11 +19,12 @@ App.controller('LoginController', /*@ngInject*/ function ($scope, $location, Use
             var message = _("Welcome back {0}!").format(result.username);
             Flash.addFlash(message, Flash.SUCCESS);
 
+            localStorage.setItem('userName', result.username);
             $location.path("/dashboard");
         });
     };
 
-    $scope.usernameBlur = function () {
+    var checkOneTimeToken = $scope.usernameBlur = function () {
         var username = $scope.username;
 
         if (!username) {
@@ -42,4 +46,8 @@ App.controller('LoginController', /*@ngInject*/ function ($scope, $location, Use
             Flash.addFlash(_('Email was sent'), 'success');
         });
     };
+
+    if ($scope.username) {
+        checkOneTimeToken();
+    }
 });

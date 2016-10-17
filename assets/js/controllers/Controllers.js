@@ -33,7 +33,7 @@ App.service("controllers", ["_", function(_) {
             {[controller]:'RegisterController',     [name]: _('Register'),      [url]: 'register',      [icon]: 'user', isPublic: true, [templateUrl]: '/templates/user/register.html', checkConfig:(config) => config.registrationEnabled},
 
             // hidden controllers
-            {[url]: 'logout',                       [controller]: "LogoutController"},
+            {[url]: 'logout',                       [controller]: "LogoutController", template: ''},
             {[url]: 'user/change_password',         [templateUrl]: "/templates/user/change_password.html",  [controller]: "ChangePasswordController"},
             {[url]: 'user/settings',                [templateUrl]: "/templates/user/settings.html",         [controller]: "UserSettingsController"},
             {[url]: 'user/otp',                     [templateUrl]: "/templates/user/otp.html",              [controller]: "OtpController"},
