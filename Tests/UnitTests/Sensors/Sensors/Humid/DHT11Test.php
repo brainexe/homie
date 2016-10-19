@@ -10,9 +10,6 @@ use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Symfony\Component\Filesystem\Filesystem;
 
-/**
- * @covers Homie\Sensors\Sensors\Humid\DHT11
- */
 class DHT11Test extends TestCase
 {
 
@@ -72,6 +69,25 @@ class DHT11Test extends TestCase
     {
         $parameter = 3;
         $output    = "Hum = %";
+
+        $this->client
+            ->expects($this->once())
+            ->method('executeWithReturn')
+            ->willReturn($output);
+
+        $sensor = new SensorVO();
+        $sensor->parameter = $parameter;
+        $this->subject->getValue($sensor);
+    }
+
+    /**
+     * @expectedException \Homie\Sensors\Exception\InvalidSensorValueException
+     * @expectedExceptionMessage Invalid humidity value: Hum = 120 %
+     */
+    public function testGetValueWitTooHighValue()
+    {
+        $parameter = 3;
+        $output    = "Hum = 120 %";
 
         $this->client
             ->expects($this->once())

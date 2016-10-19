@@ -20,6 +20,8 @@ class DHT11 extends AbstractDHT11
 
     const TYPE = 'humid.dht11';
 
+    use HumidityTrait;
+
     /**
      * {@inheritdoc}
      */
@@ -31,7 +33,12 @@ class DHT11 extends AbstractDHT11
             throw new InvalidSensorValueException($sensor, sprintf('Invalid humidity value: %s', $output));
         }
 
-        return $this->round($matches[2], 0.01);
+        $humidity = $matches[2];
+        if (!$this->validateHumidity($humidity)) {
+            throw new InvalidSensorValueException($sensor, sprintf('Invalid humidity value: %s', $output));
+        }
+
+        return $this->round($humidity, 0.01);
     }
 
     /**
