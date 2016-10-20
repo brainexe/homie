@@ -1,13 +1,14 @@
 <ul class="unstyled">
     <li ng-repeat="todo in shoppingList|orderBy:'text'">
-        <input
-                type="checkbox"
-                ng-change="change(todo)"
-                ng-model="todo.done"
-                />
-		<span ng-class="{completed: todo.done}">
-            {{todo.text}}
-        </span>
+        <label>
+            <input
+                    type="checkbox"
+                    ng-change="change(todo)"
+                    ng-model="todo.done"
+                    class="big-checkbox"
+            />
+            <span ng-class="{completed: todo.done}" ng-bind="todo.text"></span>
+        </label>
     </li>
 </ul>
 <form>
@@ -15,7 +16,7 @@
         <input
                 type="text"
                 ng-model="todoText"
-                class="form-control big-checkbox"
+                class="form-control"
                 size="30"
                 placeholder="{{'Add an item'|translate}}"
                 ng-enter="addShoppingItem()"

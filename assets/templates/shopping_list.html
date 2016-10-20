@@ -4,13 +4,15 @@
     <div class="panel-body">
         <ul>
             <li ng-repeat="todo in shoppingList|orderBy:'text'">
-                <input
-                        class="big-checkbox"
-                        type="checkbox"
-                        ng-change="change(todo)"
-                        ng-model="todo.done"
-                />
-                <span ng-class="{completed: todo.done}" ng-bind="todo.text"></span>
+                <label>
+                    <input
+                            class="big-checkbox"
+                            type="checkbox"
+                            ng-change="change(todo)"
+                            ng-model="todo.done"
+                    />
+                    <span ng-class="{completed: todo.done}" ng-bind="todo.text"></span>
+                </label>
             </li>
         </ul>
         <form>

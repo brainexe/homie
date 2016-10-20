@@ -16,7 +16,9 @@ Rickshaw.Graph.ClickDetail = Rickshaw.Class.create({
         }
         this._lastEvent = e;
 
-        if (!e.target.nodeName.match(/^(path|svg|rect|circle)$/)) return;
+        if (!e.target.nodeName.match(/^(path|svg|rect|circle)$/)) {
+            return;
+        }
 
         const eventX = e.offsetX || e.layerX;
         const eventY = e.offsetY || e.layerY;
@@ -24,7 +26,6 @@ Rickshaw.Graph.ClickDetail = Rickshaw.Class.create({
         var graph = this.graph;
         var j = 0;
         var nearestPoint;
-        var nearestValue;
 
         this.graph.series.active().forEach(function (series) {
             const data = this.graph.stackedData[j++];
@@ -52,13 +53,15 @@ Rickshaw.Graph.ClickDetail = Rickshaw.Class.create({
                 }
 
                 if (data[i + 1].x <= domainX) {
-                    i++
+                    i++;
                 } else {
-                    i--
+                    i--;
                 }
             }
 
-            if (dataIndex < 0) dataIndex = 0;
+            if (dataIndex < 0) {
+                dataIndex = 0;
+            }
             var value = data[dataIndex];
             var distance = Math.sqrt(
                 Math.pow(Math.abs(graph.x(value.x) - eventX), 2) +
@@ -66,12 +69,13 @@ Rickshaw.Graph.ClickDetail = Rickshaw.Class.create({
             );
 
             if (!nearestPoint || distance < nearestPoint.distance) {
-                value.series = series;
-                nearestValue = value;
+                nearestPoint = value;
+                nearestPoint.distance = distance;
+                nearestPoint.series = series;
             }
         }, this);
-        if (nearestValue){
-            this.clickHandler(nearestValue);
+        if (nearestPoint){
+            this.clickHandler(nearestPoint);
         }
     },
 
