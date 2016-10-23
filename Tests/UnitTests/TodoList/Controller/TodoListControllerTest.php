@@ -111,7 +111,7 @@ class TodoListControllerTest extends TestCase
         $userId = 42;
 
         $request = new Request();
-        $request->request->set('id', $itemId);
+        $request->request->set('todoId', $itemId);
         $request->request->set('userId', $userId);
 
         $userVo = new UserVO();

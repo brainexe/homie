@@ -7,7 +7,7 @@ App.service("Switches", /*@ngInject*/ function($http) {
 
         getData:    ()                  => $http.get(BASE_URL),
         add:        (newSwitch)         => $http.post(BASE_URL, newSwitch),
-        setStatus:  (switchId, status)  => $http.post(BASE_URL + `${switchId}/status/${switchId}/`, {}),
+        setStatus:  (switchId, status)  => $http.post(BASE_URL + `${switchId}/status/${status}/`, {}),
         delete:     (switchId)          => $http.delete(BASE_URL + `${switchId}/`),
         addJob:     (newJob)            => $http.post(BASE_URL + 'jobs/', newJob),
         deleteJob:  (eventId)           => $http.delete(BASE_URL + `jobs/${eventId}/`),

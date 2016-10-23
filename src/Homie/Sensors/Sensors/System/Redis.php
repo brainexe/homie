@@ -8,13 +8,14 @@ use Homie\Sensors\Definition;
 use Homie\Sensors\Exception\InvalidSensorValueException;
 use Homie\Sensors\Formatter\None;
 use Homie\Sensors\Interfaces\Parameterized;
+use Homie\Sensors\Interfaces\Searchable;
 use Homie\Sensors\Sensors\AbstractSensor;
 use Homie\Sensors\SensorVO;
 
 /**
  * @Sensor("Sensor.System.Redis")
  */
-class Redis extends AbstractSensor implements Parameterized
+class Redis extends AbstractSensor implements Parameterized, Searchable
 {
     use RedisTrait;
 
@@ -47,5 +48,25 @@ class Redis extends AbstractSensor implements Parameterized
         $definition->formatter = None::TYPE;
 
         return $definition;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function search() : array
+    {
+        $finalValues = [];
+        $data = $this->getRedis()->info();
+
+        foreach ($data as $section => $values) {
+            foreach ($values as $key => $value) {
+                if (is_array($value)) {
+                    continue;
+                }
+                $finalValues[] = sprintf('%s.%s', $section, $key);
+            }
+        }
+
+        return $finalValues;
     }
 }

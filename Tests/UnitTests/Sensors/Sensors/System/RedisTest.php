@@ -108,4 +108,46 @@ class RedisTest extends TestCase
         $actual = json_encode($this->subject->jsonSerialize());
         $this->assertInternalType('string', $actual);
     }
+
+    public function testSearch()
+    {
+        $data = [
+            'CPU' => [
+                'used_cpu_sys' => '3.40',
+                'used_cpu_user' => '2.26',
+                'used_cpu_sys_children' => '0.07',
+                'used_cpu_user_children' => '0.14',
+            ],
+            'Cluster' => [
+                'cluster_enabled' => '0',
+            ],
+            'Keyspace' => [
+                'db0' => [
+                    'keys' => '262',
+                    'expires' => '81',
+                    'avg_ttl' => '7998256548',
+                ],
+                'db3' => [
+                    'keys' => '519',
+                    'expires' => '0',
+                    'avg_ttl' => '0',
+                ],
+            ]
+        ];
+        $this->redis->expects($this->once())
+            ->method('info')
+            ->willReturn($data);
+
+        $actual = $this->subject->search();
+
+        $expected = [
+            'CPU.used_cpu_sys',
+            'CPU.used_cpu_user',
+            'CPU.used_cpu_sys_children',
+            'CPU.used_cpu_user_children',
+            'Cluster.cluster_enabled',
+        ];
+
+        $this->assertEquals($expected, $actual);
+    }
 }

@@ -45,7 +45,7 @@ class SwitchChangeEvent extends AbstractEvent implements PushViaWebsocket
     /**
      * @return SwitchVO
      */
-    public function getSwitch()
+    public function getSwitch() : SwitchVO
     {
         return $this->switch;
     }

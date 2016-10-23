@@ -3,7 +3,7 @@
 	<button class="btn btn-primary switch-edit-button" ng-click="editMode = !editMode" translate>Edit Mode</button>
 </div>
 
-<hr />
+<br>
 
 <table ng-if="switches|notEmpty" class="table table-bordered table-striped table-hover">
 	<thead>
@@ -31,7 +31,9 @@
 						</div>
 					</div>
 					<div ng-if="!switch.edit">
-						{{ switch.name }}
+						<strong>
+							{{switch.name}}
+						</strong>
 						<small ng-if="switch.description">({{ switch.description }})</small>
 					</div>
 				</div>
@@ -43,7 +45,7 @@
 				</div>
 			</td>
             <td>
-				<a ng-click="highlight(switch)" class="btn btn-sm btn-default">
+				<a ng-click="highlight(switch)" uib-tooltip="{{'Add a timer for this switch'|translate}}" class="btn btn-sm btn-default">
 					<span class="glyphicon glyphicon-hourglass"></span>
 				</a>
 			</td>

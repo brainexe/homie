@@ -103,7 +103,7 @@ class TodoListController implements TranslationProvider
      */
     public function setAssignee(Request $request) : TodoItemVO
     {
-        $itemId = $request->request->getInt('id');
+        $itemId = $request->request->getInt('todoId');
         $userId = $request->request->getInt('userId');
 
         $user = $this->loadUser->loadUserById($userId);

@@ -1,17 +1,15 @@
-<div ng-if="editMode">
-    <div class="input-group" style="width: 400px">
-        <span class="input-group-addon" translate>Name</span>
-        <input
-                type="text"
-                ng-model="dashboard.name"
-                class="form-control"
-        />
-        <span class="input-group-addon">
-                <a ng-click="saveDashboard(dashboard)" class="cursor" translate>Save</a>
-            </span>
-    </div>
-    <br/>
+<div ng-if="editMode" class="input-group change-name">
+    <span class="input-group-addon" translate>Name</span>
+    <input
+            type="text"
+            ng-model="dashboard.name"
+            class="form-control"
+    />
+    <span class="input-group-addon">
+        <a ng-click="saveDashboard(dashboard)" class="cursor" translate>Save</a>
+    </span>
 </div>
+
 <div class="container-lg"
      ui-sortable="{'ui-floating': true}"
      is-disabled="!editMode"
@@ -54,9 +52,9 @@
                 </div>
             </div>
             <div
-                    class="panel-body widget_{{widget.type}}"
-                    id="widget_{{widget.id}}"
-                    style="min-height:{{metadata(widget, 'height')*30+'px'}}"
+                    class="panel-body widget_{{::widget.type}}"
+                    id="widget_{{::widget.id}}"
+                    ng-style="{'minHeight':metadata(widget, 'height')*30+'px'}"
                     ng-show="widget.open">
                 <content-item widget="widget"></content-item>
             </div>

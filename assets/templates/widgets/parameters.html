@@ -1,5 +1,5 @@
-<div ng-repeat="(type, parameter) in widget.parameters">
-    <label>{{parameter.name}}</label>
+<div class="expression-parameters" ng-repeat="(type, parameter) in widget.parameters">
+    <label ng-bind="parameter.name"></label>
 
     <div ng-if="parameter.default && payload[type] == undefined" ng-init="payload[type] = parameter.default"></div>
     <div ng-if="type == 'title' && !parameter.default && payload[type] == undefined"
@@ -7,7 +7,7 @@
 
     <div ng-switch="parameter.type">
         <div ng-switch-when="multi_select">
-            <ui-select theme="bootstrap" multiple ng-model="payload[type]" style="width: 300px">
+            <ui-select theme="bootstrap" multiple ng-model="payload[type]">
                 <ui-select-match placeholder="Select...">
                     {{$item.value}}
                 </ui-select-match>
@@ -21,7 +21,6 @@
             <ui-select
                     ng-if="parameter.type == 'single_select'"
                     ng-model="payload[type]"
-                    style="width: 400px"
                     theme="bootstrap"
             >
                 <ui-select-match placeholder="Select...">
@@ -35,7 +34,6 @@
         </div>
         <div ng-switch-when="text">
             <input
-                    style="width: 400px"
                     ng-model="payload[type]"
                     type="text"
                     class="form-control input-sm"/>
@@ -45,7 +43,6 @@
                     ng-model="payload[type]"
                     cols="20"
                     rows="5"
-                    style="width: 400px"
             ></textarea>
         </div>
         <div ng-switch-when="boolean">

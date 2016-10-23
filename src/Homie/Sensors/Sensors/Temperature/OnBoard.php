@@ -20,7 +20,7 @@ class OnBoard extends AbstractSensor implements Searchable
 {
 
     const TYPE = 'temperature.onboard';
-    
+
     const GLOB = '/sys/class/thermal/*/temp';
 
     /**

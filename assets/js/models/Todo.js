@@ -7,7 +7,7 @@ App.service('Todo', /*@ngInject*/ function($http) {
 
         assign (itemId, userId) {
             return $http.post('/todo/assign/', {
-                id:     itemId,//todo id => itemId ?!
+                todoId: itemId,
                 userId: userId
             });
         },

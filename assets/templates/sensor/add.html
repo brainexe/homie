@@ -18,8 +18,9 @@
                     <ui-select required ng-model="newSensor.type" ng-change="changedType($select.selected.key); newSensor.formatter = $select.selected.value.formatter">
                         <ui-select-match placeholder="{{'Select a type...'|translate}}">{{$select.selected.key|translateToken:'sensor.{0}.name'}}</ui-select-match>
                         <ui-select-choices group-by="'type.value.type'" repeat="type.key as type in types|toObjectArray">
-                            <span>{{type.key|translateToken:'sensor.{0}.name'}}</span>
-                            <span class="small">({{type.value.type}})</span>
+                            <span ng-bind-html="type.key|translateToken:'sensor.{0}.name'|highlight:$select.search"></span>
+                            &nbsp;
+                            <span class="small" ng-bind-html="type.value.type|highlight:$select.search"></span>
                         </ui-select-choices>
                     </ui-select>
                 </div>
@@ -52,6 +53,7 @@
                 <label class="col-sm-2 control-label" translate>Parameter</label>
                 <div class="col-sm-10">
                     <input
+                            ng-if="parameters === true"
                             ng-model="newSensor.parameter"
                             type="text"
                             class="form-control"
@@ -59,9 +61,10 @@
                     />
 
                     <select
+                            ng-if="parameters !== true"
                             ng-model="newSensor.parameter"
                             class="form-control"
-                            ng-options="parameter in parameters">
+                            ng-options="parameter for parameter in parameters">
                     </select>
                 </div>
             </div>
@@ -69,9 +72,11 @@
                 <label class="col-sm-2 control-label" translate>Node</label>
                 <div class="col-sm-10">
                     <ui-select ng-model="newSensor.node">
-                        <ui-select-match placeholder="{{'Select a node...'|translate}}">{{$select.selected.value.name}}</ui-select-match>
+                        <ui-select-match placeholder="{{'Select a node...'|translate}}">
+                            {{$select.selected.value.name}}
+                        </ui-select-match>
                         <ui-select-choices repeat="node.key as node in nodes|toObjectArray">
-                            <span ng-bind-html="node.value.name"></span>
+                            <span ng-bind-html="node.value.name|highlight:$select.search"></span>
                         </ui-select-choices>
                     </ui-select>
                 </div>
@@ -93,12 +98,15 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label" translate>Color</label>
                 <div class="col-sm-10">
-                    <input
-                            ng-model="newSensor.color"
-                            type="text"
-                            class="form-control"
-                            placeholder="{{'Color'|translate}}"
-                    />
+                    <div class="input-group">
+                        <div colorpicker ng-model="newSensor.color" class="input-group-addon sensorColorPicker" ng-style="{'background-color':newSensor.color}"></div>
+                        <input
+                                ng-model="newSensor.color"
+                                type="text"
+                                class="form-control"
+                                placeholder="{{'Color'|translate}}"
+                        />
+                        </div>
                 </div>
             </div>
             <div class="form-group">

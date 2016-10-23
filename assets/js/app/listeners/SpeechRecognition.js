@@ -1,11 +1,12 @@
 
 App.run(/*@ngInject*/ function($rootScope, $uibModal, Speech, UserManagementSettings, Flash) {
-    if (!window.webkitSpeechRecognition) {
+    var globalRecognition = window.webkitSpeechRecognition || window.speechRecognition;
+    if (!globalRecognition) {
         return;
     }
 
     function startTriggerProcess() {
-        var trigger = new window.webkitSpeechRecognition();
+        var trigger = new globalRecognition();
         trigger.lang = "de-DE"; // todo set correct loale
         trigger.onresult = function(event) {
             var result = event.results[0][0].transcript;
@@ -43,7 +44,7 @@ App.run(/*@ngInject*/ function($rootScope, $uibModal, Speech, UserManagementSett
         $rootScope.speechRecognition.recognizing = true;
         $rootScope.speechRecognition.final_transcript = '';
 
-        var recognition = new window.webkitSpeechRecognition();
+        var recognition = new globalRecognition();
         recognition.continuous = true;
         recognition.interimResults = true;
         recognition.lang = "de-DE"; // todo set correct loale
@@ -59,6 +60,7 @@ App.run(/*@ngInject*/ function($rootScope, $uibModal, Speech, UserManagementSett
 
         recognition.onresult = function(event) {
             $rootScope.speechRecognition.interim_transcript = '';
+            $rootScope.speechRecognition.final_transcript = '';
             if (typeof event.results === 'undefined') {
                 recognition.stop();
                 return;
