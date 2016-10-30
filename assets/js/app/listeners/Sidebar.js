@@ -1,11 +1,9 @@
 
 App.run(function() {
     function toggle(e) {
-        if (e) {
-            e.preventDefault();
-        }
+        e.preventDefault();
 
-        //If window is small enough, enable sidebar push menu
+        // if window is small enough, enable sidebar push menu
         if (window.innerWidth <= 992) {
             var rowOffcanvas = document.querySelector('.row-offcanvas');
             rowOffcanvas.classList.toggle('active');
