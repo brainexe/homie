@@ -9,8 +9,11 @@ $navbar-default-bg:     #ffffff
 $icon-font-path:        "fonts/"
 $table-bg:              #eeeeee
 $table-bg-accent:       #f9f9f9
-$modal-md:              900px
+
 $modal-lg:              1200px
+$modal-md:              1000px
+$modal-sm:              600px
+
 $grid-gutter-width:     15px
 
 $body-bg:          #f9f9f9
@@ -23,3 +26,9 @@ $font-monospaced:  Menlo,Monaco,Consolas,monospace
   border: darkgrey 1px solid
   @if $borderRadius > 0
     border-radius: #{$borderRadius}px
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak
+  display: none !important
+
+.cursor
+  cursor: pointer

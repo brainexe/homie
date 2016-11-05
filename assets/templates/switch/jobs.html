@@ -1,17 +1,17 @@
 
 <table class="table table-bordered table-striped table-hover">
     <thead>
-    <tr>
-        <th translate>Time</th>
-        <th translate>Switch</th>
-        <th translate>Status</th>
-        <th translate>Delete</th>
-    </tr>
+        <tr>
+            <th translate>Time</th>
+            <th translate>Switch</th>
+            <th translate>Status</th>
+            <th translate>Delete</th>
+        </tr>
     </thead>
     <tbody>
     <tr ng-repeat="job in jobs">
         <td>
-            <time-ago from-time="job.timestamp" overdue="true"></time-ago>
+            <job-progress job="job" overdue="true"></job-progress>
         </td>
         <td>{{job.event.switch.name}}</td>
         <td>

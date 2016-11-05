@@ -21,6 +21,7 @@ class Node implements JsonSerializable, TranslationProvider
     const TYPE_SERVER    = 'server';
     const TYPE_PARTICLE  = 'particle';
     const TYPE_DISPLAY   = 'display';
+    const TYPE_OPEN_HAB  = 'openHab';
 
     const TYPES = [
         self::TYPE_RASPBERRY,
@@ -29,6 +30,7 @@ class Node implements JsonSerializable, TranslationProvider
         self::TYPE_SERVER,
         self::TYPE_PARTICLE,
         self::TYPE_DISPLAY,
+        self::TYPE_OPEN_HAB,
     ];
 
     /**

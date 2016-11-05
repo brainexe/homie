@@ -122,7 +122,7 @@ App.service('SensorGraph', /*@ngInject*/ function ($uibModal, Sensor, SensorForm
 
             if (sensorId) {
                 if ($scope.isSensorActive(sensorId)) {
-                    var index = $scope.activeSensorIds.indexOf(sensorId);
+                    let index = $scope.activeSensorIds.indexOf(sensorId);
                     $scope.activeSensorIds.splice(index, 1);
                 } else {
                     $scope.activeSensorIds.push(sensorId);

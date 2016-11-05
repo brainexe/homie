@@ -1,0 +1,24 @@
+
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+        <th translate>Time</th>
+        <th translate>Text</th>
+        <th translate>Delete</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr ng-repeat="(job_id, job) in jobs">
+        <td>
+            <job-progress job="job" overdue="true"></job-progress>
+        </td>
+        <td>{{ job.event.espeak.text || "--" }}</td>
+        <td>
+            <a confirm="deleteTimer(job_id)" class="btn btn-danger btn-sm">
+                <span class="glyphicon glyphicon-remove"></span>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>

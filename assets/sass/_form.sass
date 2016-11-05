@@ -3,9 +3,12 @@ input.ng-invalid.ng-touched
   background-color: #ff9995
   color: #fff
 
-  ::-webkit-input-placeholder
-    color: #fff
+// todo use sass nesting syntax
+input.ng-invalid.ng-touched::-webkit-input-placeholder
+  color: #fff
 
+.checkbox, .radio
+  padding-left: 0
 
 .big-checkbox
   width: 20px

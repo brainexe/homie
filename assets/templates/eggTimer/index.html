@@ -1,0 +1,29 @@
+<div class="panel panel-primary">
+	<div class="panel-heading" translate>Egg Timer</div>
+	<div class="panel-body">
+		<form ng-submit="addTimer()" class="form-horizontal">
+			<div class="form-group">
+				<label for="eggTimerTextInput" class="col-sm-2 control-label" translate>Text</label>
+				<div class="col-sm-10">
+					<input
+							ng-model="text"
+							ng-enter="addTimer()"
+							type="text"
+							class="form-control input-lg"
+							id="eggTimerTextInput"
+							placeholder="{{'Text'|translate}}"
+							/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label" translate>Delay</label>
+				<div class="col-sm-10">
+					<timer-input ng-model="time" ng-enter="addTimer()"></timer-input>
+				</div>
+			</div>
+			<button type="submit" class="btn btn-primary btn-lg" translate>Submit</button>
+		</form>
+	</div>
+</div>
+
+<div ng-if="jobs|notEmpty" ng-include="'/templates/eggTimer/jobs.html'"></div>

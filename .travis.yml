@@ -10,6 +10,7 @@ sudo: required
 matrix:
   allow_failures:
     - php: hhvm
+    - php: 7.1
 
 env:
   - TRAVIS_NODE_VERSION="4"
