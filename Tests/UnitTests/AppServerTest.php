@@ -156,7 +156,7 @@ class AppServerTest extends TestCase
             ->with('mySid');
 
         $expected = '{"requestId":"requestId","sessionId":null,"status":200,"body":"{\"'
-            . 'test\":1}","headers":{"cache-control":["no-cache"],"content-type":["application\/json"]}}';
+            . 'test\":1}","headers":{"cache-control":["no-cache, private"],"content-type":["application\/json"]}}';
         $this->predis
             ->expects($this->once())
             ->method('publish')

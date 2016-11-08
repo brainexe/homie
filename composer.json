@@ -1,5 +1,6 @@
 {
   "license": "MIT",
+  "minimum-stability": "beta",
   "authors": [
     {
       "name": "Matze",
@@ -16,7 +17,7 @@
     "php": ">=7.0.0",
     "brainexe/core": "~2.0.10",
     "brainexe/totp": "~2.0.6",
-    "symfony/expression-language": "~3.1",
+    "symfony/expression-language": "~3.2",
     "league/flysystem": "~1.0"
   },
   "require-dev": {
