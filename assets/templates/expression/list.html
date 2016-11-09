@@ -1,7 +1,5 @@
 
-<hr />
-
-<table class="table table-bordered table-striped table-hover expression-table">
+<table ng-if="searchExpression(search)|notEmpty" class="table table-bordered table-striped table-hover expression-table">
     <thead>
         <tr>
             <th translate>Name</th>

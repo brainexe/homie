@@ -8,9 +8,10 @@
     <button ng-if="editMode" ng-click="setEditMode(false)" class="btn btn-success" translate>Edit mode</button>
 </div>
 
-<br />
-
-<input ng-model="search" class="expression-search form-control" placeholder="{{'Search'|translate}}"/>
+<input
+        ng-model="search"
+        class="form-control expression-search"
+        placeholder="{{'Search'|translate}}" />
 
 <div
         ng-if="editExpression"

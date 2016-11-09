@@ -32,16 +32,17 @@
 			</div>
 		</div>
 
-			<hr />
-			<div class="col-lg-10" ng-if="widget">
-                <div class="alert alert-info">{{widget.widgetId|translateToken:'dashboard.widget.{0}.description'}}</div>
-            </div>
-			<div class="col-lg-5">
-				<div
-                        ng-include="'/templates/widgets/parameters.html'"
-                        class="form-group">
-				</div>
+		<hr />
+
+		<div class="col-lg-10" ng-if="widget">
+            <div class="alert alert-info">{{widget.widgetId|translateToken:'dashboard.widget.{0}.description'}}</div>
+        </div>
+		<div class="col-lg-5">
+			<div
+                    ng-include="'/templates/widgets/parameters.html'"
+                    class="form-group">
 			</div>
+		</div>
 	</div>
 	<div class="modal-footer">
 		<button type="button" ng-click="close()" class="btn btn-default" data-dismiss="modal" translate>Close</button>

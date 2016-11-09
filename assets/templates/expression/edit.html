@@ -1,25 +1,32 @@
-<hr />
 
 <div class="panel panel-primary">
-    <div class="panel-heading" translate>Action</div>
+    <div class="panel-heading">
+        <span translate>Action</span>
+        <div class="btn-group btn-group-xs pull-right">
+            <a ng-click="editExpression = null" class="btn btn-danger">
+                <span class="glyphicon glyphicon-remove"></span>
+            </a>
+        </div>
+    </div>
     <div class="panel-body">
-        <form role="form" ng-submit="save(editExpression)">
-            <div class="form-group" ng-if="editExpression.new">
-                <label translate>Name</label>
-                <input
-                        type="text"
-                        ng-max-length="32"
-                        class="form-control"
-                        ng-model="editExpression.expressionId"
-                />
+        <form class="form-horizontal" ng-submit="save(editExpression)">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" translate>Name</label>
+                <div class="col-sm-10">
+                    <input
+                            type="text"
+                            ng-max-length="32"
+                            class="form-control"
+                            ng-model="editExpression.expressionId"
+                    />
+                </div>
             </div>
             <div class="form-group">
-                <label translate>Enabled</label>
-                <p>
-                    <input class="big-checkbox" type="checkbox" ng-model="editExpression.enabled"/>
-                </p>
+                <label class="col-sm-2 control-label" translate>Enable</label>
+                <div class="col-sm-10">
+                    <checkbox ng-model="editExpression.enabled"></checkbox>
+                </div>
             </div>
-
             <div class="form-group">
                 <h4 translate>Conditions</h4>
             </div>
