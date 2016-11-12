@@ -23,6 +23,19 @@ App.controller('AdminNodesController', /*@ngInject*/ function ($scope, Nodes) {
             $scope.newNode = {};
         });
     };
+    $scope.removeOption = function(options, key) {
+        delete options[key];
+    };
+    $scope.addOption = function(options) {
+        var key   = prompt("Key");
+        var value = prompt("Value");
+        options[key] = value;
+    };
+
+    $scope.editOption = function(options, key) {
+        var value = prompt("Value");
+        options[key] = value;
+    };
 
     $scope.remove = function($index, node) {
         Nodes.remove(node).success(function() {

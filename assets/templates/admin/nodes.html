@@ -24,14 +24,22 @@
                 </div>
             </td>
             <td>
-                <div ng-if="!node.edit">
-                    <ul>
-                        <li ng-repeat="(key, value) in node.options">{{key}}: {{ value }}</li>
-                    </ul>
-                </div>
-                <div ng-if="node.edit">
-                    <input type="text" placeholder="{{'Options'|translate}}" class="form-control" ng-model="node.options"/>
-                </div>
+                <ul>
+                    <li ng-repeat="(key, value) in node.options">
+                        <div ng-if="node.edit" class="btn-group btn-group-sm">
+                            <a ng-click="removeOption(node.options, key)" class="btn btn-danger">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                            <a ng-click="editOption(node.options, key)" class="btn btn-success">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                        </div>
+                        <label>{{key}}:</label> {{ value }}
+                    </li>
+                </ul>
+                <a ng-if="node.edit" ng-click="addOption(node.options)" class="btn btn-success">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
             </td>
             <td>
                 <div class="btn-group">
@@ -55,7 +63,7 @@
         <tr>
             <th colspan="2">
                 <ui-select ng-model="newNode.type">
-                    <ui-select-match placeholder="Select...">{{$select.selected}}</ui-select-match>
+                    <ui-select-match placeholder="{{'Select...'|translate}}">{{$select.selected}}</ui-select-match>
                     <ui-select-choices repeat="type in types">
                         <span class="small" ng-bind-html="type|translateToken:'node.{0}.name'|highlight:$select.search"></span>
                     </ui-select-choices>

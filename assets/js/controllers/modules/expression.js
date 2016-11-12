@@ -14,19 +14,21 @@ App.controller('ExpressionController', /*@ngInject*/ function ($scope, $q, Expre
         }
     });
 
-    $q.all([
-        Expression.getData(),
-        ExpressionFunctions
-    ]).then(function(data) {
-        $scope.expressions = data[0].data;
-        $scope.functions   = data[1];
-    });
-
     $scope.reloadCrons = function() {
         return MessageQueue.getJobs('message_queue.cron').success(function(data) {
             $scope.crons = data;
         });
     };
+
+    $q.all([
+        Expression.getData(),
+        ExpressionFunctions,
+        MessageQueue.getJobs('message_queue.cron')
+    ]).then(function(data) {
+        $scope.expressions = data[0].data;
+        $scope.functions   = data[1];
+        $scope.crons       = data[2].data;
+    });
 
     $scope.newExpression = function () {
         $scope.editExpression = {

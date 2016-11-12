@@ -2,8 +2,6 @@
 
 <div ng-include="'/templates/user/menu.html'"></div>
 
-<hr />
-
 <div class="panel panel-primary">
     <div class="panel-heading" translate>
         Hide menu entries
@@ -11,19 +9,16 @@
     <div class="panel-body">
         <ul>
             <li ng-repeat="item in controllers">
-                <input
-                        type="checkbox"
-                        class="big-checkbox"
-                        ng-model="settings.hiddenMenus[item.controller]"
-                        ng-change="set('hiddenMenus', settings.hiddenMenus)"/>
+                <checkbox
+                    ng-model="settings.hiddenMenus[item.controller]"
+                    ng-change="set('hiddenMenus', settings.hiddenMenus)"
+                ></checkbox>
                 <i class="glyphicon glyphicon-{{ item.icon }}"></i>
                 <span ng-bind="item.name"></span>
             </li>
         </ul>
     </div>
 </div>
-
-<hr />
 
 <div class="panel panel-primary">
     <div class="panel-heading" translate>
@@ -33,27 +28,24 @@
         <ul>
             <li>
                 <label translate>Browser Notification</label>
-                <input
-                        type="checkbox"
-                        class="big-checkbox"
-                        ng-model="settings.browserNotification"
-                        ng-change="set('browserNotification', settings.browserNotification)"/>
+                <checkbox
+                     ng-change="set('browserNotification', settings.browserNotification)"
+                     ng-model="settings.browserNotification"
+                ></checkbox>
             </li>
             <li>
                 <label translate>Espeak browser output</label>
-                <input
-                        type="checkbox"
-                        class="big-checkbox"
-                        ng-model="settings.espeakBrowserOutput"
-                        ng-change="set('espeakBrowserOutput', settings.espeakBrowserOutput)"/>
+                <checkbox
+                     ng-change="set('espeakBrowserOutput', settings.espeakBrowserOutput)"
+                     ng-model="settings.espeakBrowserOutput"
+                ></checkbox>
             </li>
             <li>
                 <label translate>Voice control</label>
-                <input
-                        type="checkbox"
-                        class="big-checkbox"
-                        ng-model="settings.voiceControl"
-                        ng-change="set('voiceControl', settings.voiceControl)"/>
+                <checkbox
+                     ng-change="set('voiceControl', settings.voiceControl)"
+                     ng-model="settings.voiceControl"
+                ></checkbox>
             </li>
         </ul>
     </div>
