@@ -1,6 +1,7 @@
 
 App.controller('DashboardController', /*@ngInject*/ function($scope, $uibModal, $q, Dashboard, UserManagementSettings, lodash) {
     $scope.editMode = false;
+    $scope.currentWidth = 0; // todo fix rows in dashboard
 
     function selectDashboard(dashboard, notSaveOption) {
         if (!notSaveOption) {
@@ -58,15 +59,16 @@ App.controller('DashboardController', /*@ngInject*/ function($scope, $uibModal, 
 
     $scope.metadata = function(widget, key) {
         var type = widget.type;
-        var metadata = $scope.widgets[type];
 
-        if (key) {
-            if (widget[key]) {
-                return widget[key];
-            }
-            return metadata[key];
+        if (!key) {
+            // todo remove if not needed
+            throw 'dashboards metadata() called without key!';
         }
-        return metadata;
+        if (widget[key]) {
+            return widget[key];
+        }
+
+        return $scope.widgets[type][key];
     };
 
 	$scope.toggleWidget = function(widget, dashboard) {

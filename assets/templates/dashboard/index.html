@@ -1,6 +1,8 @@
 
 <nav class="navbar navbar-default" ng-include="'/templates/dashboard/navi.html'"></nav>
 
+<div ng-include="'/templates/dashboard/edit.html'" ng-if="editMode"></div>
+
 <div
         ng-if="dashboard"
         class="span-9 dashboard"

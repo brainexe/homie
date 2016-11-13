@@ -1,7 +1,7 @@
 /**
  * @source https://github.com/venil7/Angular-ui-confirm
  */
-App.directive('confirm', /*@ngInject*/ function($uibModal) {
+App.directive('confirm', /*@ngInject*/ function($uibModal, $document) {
     return {
         restrict: 'A',
         scope: {
@@ -18,12 +18,23 @@ App.directive('confirm', /*@ngInject*/ function($uibModal) {
                         $scope.header  = header || _('Confirm');
                         $scope.ok      = () => $uibModalInstance.close(true);
                         $scope.cancel  = () => $uibModalInstance.dismiss('cancel');
+
+                        $document.bind('keydown', function(evt) {
+                            if (evt.isDefaultPrevented()) {
+                                return evt;
+                            }
+                            if (evt.which === 13){
+                                $uibModalInstance.close(true);
+                            }
+                        });
                     }],
                     resolve: {
                         text:   () => scope.confirmText,
                         header: () => scope.confirmHeader
                     }
                 });
+
+
                 modalInstance.result.then(function () {
                     scope.confirm();
                 });
