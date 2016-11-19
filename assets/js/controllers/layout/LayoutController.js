@@ -1,5 +1,5 @@
 
-App.controller('LayoutController', /*@ngInject*/ function ($scope, Cache) {
+App.controller('LayoutController', /*@ngInject*/ function ($scope, $window, Cache) {
     $scope.currentUser = {};
     $scope.isLoggedIn  = false;
 
@@ -10,7 +10,7 @@ App.controller('LayoutController', /*@ngInject*/ function ($scope, Cache) {
 
     $scope.flushCache = () => {
         Cache.destroy();
-        window.location.reload();
+        $window.location.reload();
     };
 });
 

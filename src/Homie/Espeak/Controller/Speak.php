@@ -5,6 +5,7 @@ namespace Homie\Espeak\Controller;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
+use BrainExe\Core\MessageQueue\Job;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Util\TimeParser;
 use Homie\Espeak\EspeakEvent;
@@ -35,10 +36,10 @@ class Speak
 
     /**
      * @param Request $request
-     * @return bool
+     * @return Job
      * @Route("/espeak/speak/", methods="POST", name="espeak.speak")
      */
-    public function speak(Request $request) : bool
+    public function speak(Request $request) : Job
     {
         $speaker   = (string)$request->request->get('speaker');
         $text      = (string)$request->request->get('text');
@@ -51,8 +52,6 @@ class Speak
         $espeakVo  = new EspeakVO($text, $volume, $speed, $speaker);
         $event     = new EspeakEvent($espeakVo);
 
-        $this->dispatchInBackground($event, $timestamp);
-
-        return true;
+        return $this->dispatchInBackground($event, $timestamp);
     }
 }

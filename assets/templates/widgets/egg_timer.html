@@ -1,11 +1,11 @@
 
 <div class="btn-group" role="group">
     <a
-            ng-repeat="time in times"
+            ng-repeat="time in ::times"
             ng-click="start(time)"
             class="btn btn-default"
             >
-        {{ time }}
+        {{time}}
     </a>
     <a ng-click="prompt()" class="btn btn-default">
         <span class="glyphicon glyphicon-question-sign"></span>
@@ -13,7 +13,7 @@
 </div>
 
 <a ng-if="job" confirm="stop(job)" class="btn btn-danger">
-    <time-ago from-time="job.timestamp"></time-ago>
+    <job-progress job="::job.timestamp"></job-progress>
     &nbsp;
     <span class="glyphicon glyphicon-remove-sign"></span>
 </a>

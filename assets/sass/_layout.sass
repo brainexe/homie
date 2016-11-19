@@ -46,7 +46,7 @@ body > .header
       -moz-border-radius: 0 !important
       border-radius: 0 !important
       &:hover .icon-bar
-        background: #f6f6f6
+        background-color: #f6f6f6
       .icon-bar
         display: block
         width: 22px
@@ -186,11 +186,10 @@ body > .header
   border-top-width: 0
   width: 280px
   &:after
+    @square(0)
     bottom: 100%
     right: 10px
     content: " "
-    height: 0
-    width: 0
     position: absolute
     pointer-events: none
     border: 10px solid rgba(255, 255, 255, 0)
@@ -299,14 +298,14 @@ body > .header
   padding-left: 0
 
 .user_avatar
+  @square(54px)
   background-size: contain
   height: 54px
   width: 54px
   cursor: pointer
 
 .profile_avatar
+  @square(90px)
   background-size: contain
   z-index: 5
-  height: 90px
-  width: 90px
   margin: auto

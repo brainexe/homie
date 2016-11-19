@@ -4,6 +4,7 @@ namespace Homie\EggTimer;
 
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\MessageQueue\Job;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Util\TimeParser;
 use Homie\Espeak\EspeakVO;
@@ -36,8 +37,9 @@ class EggTimer
     /**
      * @param string $time
      * @param string $text
+     * @return Job
      */
-    public function addNewJob(string $time, string $text)
+    public function addNewJob(string $time, string $text) : Job
     {
         $espeakVo = null;
         if ($text) {
@@ -46,6 +48,7 @@ class EggTimer
 
         $event = new EggTimerEvent($espeakVo);
         $timestamp = $this->timeParser->parseString($time);
-        $this->dispatchInBackground($event, $timestamp);
+
+        return $this->dispatchInBackground($event, $timestamp);
     }
 }

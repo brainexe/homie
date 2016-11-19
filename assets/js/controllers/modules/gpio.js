@@ -1,5 +1,7 @@
 
-App.controller('GpioController', /*@ngInject*/ function ($scope, Gpio, Nodes) {
+App.controller('GpioController', /*@ngInject*/ function ($scope, Gpio, Nodes, OrderByMixin) {
+    angular.extend($scope, OrderByMixin);
+
     $scope.gpios    = [];
     $scope.editMode = false;
     $scope.orderBy  = 'physicalId';
@@ -27,14 +29,6 @@ App.controller('GpioController', /*@ngInject*/ function ($scope, Gpio, Nodes) {
 
     $scope.toggleEditMode = function () {
         $scope.editMode = !$scope.editMode;
-    };
-
-    $scope.setOrderBy = function(key) {
-        if ($scope.orderBy === key) {
-            key = '-' + key;
-        }
-
-        $scope.orderBy = key;
     };
 
     /**

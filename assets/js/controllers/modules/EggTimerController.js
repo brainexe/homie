@@ -1,9 +1,11 @@
 
 App.controller('EggTimerController', /*@ngInject*/ function ($scope, EggTimer, MessageQueue) {
+    $scope.time = '';
+    $scope.text = '';
     $scope.jobs = {};
 
-    MessageQueue.getJobs(EggTimer.JOB_ID).success(function (data) {
-        $scope.jobs = data;
+    MessageQueue.getJobs(EggTimer.JOB_ID).success(function (jobs) {
+        $scope.jobs = jobs;
     });
 
     $scope.$on(MessageQueue.JOBS_HANDLED, function(event, data) {
@@ -14,10 +16,8 @@ App.controller('EggTimerController', /*@ngInject*/ function ($scope, EggTimer, M
     });
 
     $scope.addTimer = function () {
-        EggTimer.setTimer($scope.time, $scope.text).success(function () {
-            MessageQueue.getJobs(EggTimer.JOB_ID, true).success(function(data) {
-                $scope.jobs = data;
-            });
+        EggTimer.setTimer($scope.time, $scope.text).success(function (job) {
+            $scope.jobs[job.jobId] = job;
         });
 
         $scope.time = '';
@@ -29,9 +29,7 @@ App.controller('EggTimerController', /*@ngInject*/ function ($scope, EggTimer, M
      */
     $scope.deleteTimer = function (jobId) {
         MessageQueue.deleteJob(jobId).then(function() {
-            MessageQueue.getJobs(EggTimer.JOB_ID, true).success(function(data) {
-                $scope.jobs = data;
-            });
+            delete $scope.jobs[jobId];
         });
     };
 });

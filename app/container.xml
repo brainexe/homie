@@ -33,7 +33,7 @@
             <!--<parameter>Middleware.Stats</parameter>-->
         </parameter>
 
-        <!-- List of config keys which are available via /config/ -->
+        <!-- List of config keys which are public available via /config/ -->
         <parameter key="config.public" type="collection">
             <parameter key="debug">%debug%</parameter>
             <parameter key="socketUrl">%socket.url%</parameter>

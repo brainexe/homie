@@ -16,12 +16,12 @@ Homie is a software to automate you home using low-budget hardware, like a Raspb
   - npm install
   - grunt exec:install
   - ./console user:create "user" "pAsSworD" "admin" # creates in initial user "user" with admin role and the given password
-  - ./console server:run # runs the build-in PHP webserver on port 8080
+  - ./console server:run # run the build-in PHP webserver on http://localhost:8080
 
 # Tests
 ## Unit tests:
 ```
-phpunit --testsuite unit 
+phpunit --testsuite unit
 ```
 
 ## Integration test:
@@ -41,13 +41,20 @@ npm run-script protractor
 - Many sensors supported, like temperature, barometer, light sensor etc.
 - Real time websocket notifications
 - Dynamic rule system with connection to IFTTT, openHAB...
-- AngularJS single page application
+- AngularJS single page application with realtime notifications
 - Mobile/Chrome App
+- Motion detection
 - ... tbd
 
 # Screenshots
-tdb...
+tdb: add more and newer screenshots
+### Dashboard
 ![Dashboard](https://space.mdoetsch.de/index.php/s/6mMnrHBeIitEHSa/download)
+### Sensors
 ![Sensor](https://space.mdoetsch.de/index.php/s/Gib5tiNJ26mWICh/download)
 ![Sensor List](https://space.mdoetsch.de/index.php/s/XD18BpS3aoSbbZb/download)
+### Switches
+![Switches List](https://space.mdoetsch.de/index.php/s/Pa496sbN6sbV6lD/download)
+### Rules
+![Rules](https://space.mdoetsch.de/index.php/s/WCq4EO8JPucrHNx/download)
 

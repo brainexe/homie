@@ -57,6 +57,7 @@ SwitchesTest extends TestCase
             'description' => 'description',
             'pin' => 100,
             'type' => GpioSwitchVO::TYPE,
+            'status' => 1,
         ];
         $arduino = [
             'switchId' => 2,
@@ -65,6 +66,7 @@ SwitchesTest extends TestCase
             'pin'      => 102,
             'nodeId'   => 1213,
             'type'     => ArduinoSwitchVO::TYPE,
+            'status'   => 2,
         ];
 
         $particle = [
@@ -74,6 +76,7 @@ SwitchesTest extends TestCase
             'function'    => 'myFunction',
             'nodeId'      => 1213,
             'type'        => ParticleVO::TYPE,
+            'status'      => 3,
         ];
 
         $this->gateway
@@ -88,6 +91,7 @@ SwitchesTest extends TestCase
         $expected->name        = $radio['name'];
         $expected->description = $radio['description'];
         $expected->pin         = $radio['pin'];
+        $expected->status      = $radio['status'];
 
         $expected2              = new ArduinoSwitchVO();
         $expected2->switchId    = $arduino['switchId'];
@@ -95,6 +99,7 @@ SwitchesTest extends TestCase
         $expected2->description = $arduino['description'];
         $expected2->nodeId      = $arduino['nodeId'];
         $expected2->pin         = $arduino['pin'];
+        $expected2->status      = $arduino['status'];
 
         $expected3              = new ParticleVO();
         $expected3->switchId    = $particle['switchId'];
@@ -102,10 +107,11 @@ SwitchesTest extends TestCase
         $expected3->description = $particle['description'];
         $expected3->nodeId      = $particle['nodeId'];
         $expected3->function    = $particle['function'];
+        $expected3->status      = $particle['status'];
 
         $this->assertEquals([
-            $radio['switchId']   => $expected,
-            $arduino['switchId'] => $expected2,
+            $radio['switchId']    => $expected,
+            $arduino['switchId']  => $expected2,
             $particle['switchId'] => $expected3,
         ], iterator_to_array($actual));
     }
@@ -121,7 +127,8 @@ SwitchesTest extends TestCase
             'name' => 'test',
             'description' => 'description',
             'pin' => 100,
-            'type' => 'invalid'
+            'type' => 'invalid',
+            'status' => '1',
         ];
 
         $this->gateway
@@ -175,7 +182,8 @@ SwitchesTest extends TestCase
             'description' => 'description',
             'pin' => 100,
             'code' => 1,
-            'type' => RadioVO::TYPE
+            'type' => RadioVO::TYPE,
+            'status' => 2,
         ];
 
         $this->gateway
@@ -192,6 +200,7 @@ SwitchesTest extends TestCase
         $radioVo->description = $radio['description'];
         $radioVo->code        = $radio['code'];
         $radioVo->pin         = $radio['pin'];
+        $radioVo->status      = 2;
 
         $this->assertEquals($radioVo, $result);
     }

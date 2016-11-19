@@ -121,6 +121,7 @@ class Switches
         $switch->switchId    = $raw['switchId'];
         $switch->name        = $raw['name'];
         $switch->description = $raw['description'];
+        $switch->status      = $raw['status'];
 
         return $switch;
     }

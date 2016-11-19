@@ -1,0 +1,50 @@
+<h2 translate>Sessions</h2>
+
+<div ng-include="'/templates/user/menu.html'"></div>
+
+<table ng-if="sessions|notEmpty" class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <th translate>IP</th>
+            <th translate>User-Agent</th>
+            <th translate>Created</th>
+            <th translate>Last usage</th>
+            <th translate>Logout</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="sessions in sessions">
+            <td>{{tokenData.name}}</td>
+            <td>
+                <a
+                        class="btn btn-danger"
+                        confirm-text="{{'Logout this session?'|translate}}"
+                        confirm="logout(session)"
+                        translate>
+                    Logout
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h2 translate>Add new token</h2>
+<ui-select multiple ng-model="roles">
+    <ui-select-match placeholder="{'Select roles...'|translate}">{{$item}}</ui-select-match>
+    <ui-select-choices repeat="role in availableRoles">
+        <div ng-bind="role"></div>
+    </ui-select-choices>
+</ui-select>
+
+<input
+        type="text"
+        ng-model="name"
+        placeholder="{{'Name'|translate}}"
+        class="form-control"
+/>
+<input
+        class="btn btn-primary"
+        type="button"
+        ng-click="add(roles, name)"
+        value="{{'Add'|translate}}"
+/>

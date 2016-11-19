@@ -3,6 +3,7 @@ App.controller('FlashController', ['$scope', '$timeout', 'lodash', function ($sc
     const TIMEOUT = 5000;
 
     $scope.flashBag = [];
+
     var timeouts = [];
     var current = {};
 
@@ -11,9 +12,10 @@ App.controller('FlashController', ['$scope', '$timeout', 'lodash', function ($sc
      * @param {String} type (success, warning, info, danger)
      */
     function addFlash(message, type = 'success') {
-        var item = {type, message};
+        let item = {type, message};
 
         if (current[message]) {
+            // don't show duplicate messages
             return;
         }
 

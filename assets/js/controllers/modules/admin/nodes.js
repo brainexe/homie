@@ -1,9 +1,12 @@
 
-App.controller('AdminNodesController', /*@ngInject*/ function ($scope, Nodes) {
+App.controller('AdminNodesController', /*@ngInject*/ function ($scope, Nodes, OrderByMixin) {
+    angular.extend($scope, OrderByMixin);
+
     $scope.nodes      = [];
     $scope.currentId  = [];
     $scope.types      = [];
     $scope.newNode    = {};
+    $scope.orderBy    = 'name';
 
     Nodes.getData().success(function(data) {
         $scope.nodes      = data.nodes;

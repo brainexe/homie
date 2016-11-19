@@ -1,9 +1,9 @@
 
-// show backend messages as flash
+// show error messages from backend as flash
 App.run(/*@ngInject*/ ($httpProvider, $location, UserManagement, Flash, _) => {
     $httpProvider.defaults.transformResponse.push((response, headers, code) => {
         if (code === 502) {
-            Flash.addFlash(_('Could not reach server'), 'danger');
+            Flash.addFlash(_('Could not reach server'), Flash.DANGER);
             return response;
         }
 

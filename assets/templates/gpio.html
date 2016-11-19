@@ -3,7 +3,7 @@
 		class="gpio-node-selection"
 		on-select="selectNode($item.value)"
 		ng-model="node">
-	<ui-select-match placeholder="{{'Select a node...'|translate}}">{{$select.selected.value.name}}</ui-select-match>
+	<ui-select-match placeholder="{{'Node'|translate}}">{{$select.selected.value.name}}</ui-select-match>
 	<ui-select-choices repeat="node.key as node in nodes|toObjectArray">
 		<span>{{node.value.name}} ({{node.value.type}})</span>
 	</ui-select-choices>

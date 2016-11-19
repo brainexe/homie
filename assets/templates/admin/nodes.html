@@ -1,21 +1,21 @@
 <table class="table table-bordered table-striped table-hover">
     <thead>
         <tr>
-            <th translate width="30">Id</th>
-            <th translate>Type</th>
-            <th translate>Name</th>
+            <th width="30"><a ng-click="setOrderBy('nodeId')" translate>Id</a></th>
+            <th><a ng-click="setOrderBy('type')" translate>Type</a></th>
+            <th><a ng-click="setOrderBy('name')" translate>Name</a></th>
             <th translate>Options</th>
             <th><span class="glyphicon glyphicon-pencil"></span></th>
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="(nodeId, node) in nodes track by $index">
+        <tr ng-repeat="(nodeId, node) in nodes|orderObjectBy:orderBy track by $index">
             <td>
-                {{ node.nodeId }}
+                {{node.nodeId}}
                 <div ng-if="node.nodeId == currentId" translate>Current Node</div>
             </td>
             <td>
-                <b>{{ node.type|translateToken:'node.{0}.name' }}</b>
+                <b>{{node.type|translateToken:'node.{0}.name'}}</b>
             </td>
             <td>
                 <div ng-if="!node.edit" ng-bind="node.name"></div>
@@ -34,6 +34,7 @@
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </a>
                         </div>
+                        &nbsp;
                         <label>{{key}}:</label> {{ value }}
                     </li>
                 </ul>
@@ -63,7 +64,7 @@
         <tr>
             <th colspan="2">
                 <ui-select ng-model="newNode.type">
-                    <ui-select-match placeholder="{{'Select...'|translate}}">{{$select.selected}}</ui-select-match>
+                    <ui-select-match placeholder="{{'Type'|translate}}">{{$select.selected}}</ui-select-match>
                     <ui-select-choices repeat="type in types">
                         <span class="small" ng-bind-html="type|translateToken:'node.{0}.name'|highlight:$select.search"></span>
                     </ui-select-choices>
@@ -74,20 +75,24 @@
                         ng-model="newNode.name"
                         type="text"
                         class="form-control"
+                        placeholder="{{'Name'|translate}}"
                 />
             </th>
             <th>
+                <!-- todo add options
                 <input
                         ng-model="newNode.options"
                         type="text"
                         class="form-control"
                 />
+                -->
             </th>
             <th>
                 <a
                         ng-click="addNode(newNode)"
                         type="button"
                         class="btn btn-primary"
+                        uib-tooltip="{{'Add'|translate}}"
                 >
                     <span class="glyphicon glyphicon-plus"></span>
                 </a>

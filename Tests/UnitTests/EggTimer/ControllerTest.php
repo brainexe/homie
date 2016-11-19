@@ -2,6 +2,7 @@
 
 namespace Tests\Homie\EggTimer;
 
+use BrainExe\Core\MessageQueue\Job;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\EggTimer\Controller;
@@ -39,13 +40,16 @@ class ControllerTest extends TestCase
         $request->request->set('text', $text);
         $request->request->set('time', $time);
 
+        $job = $this->createMock(Job::class);
+
         $this->timer
             ->expects($this->once())
             ->method('addNewJob')
-            ->with($time, $text);
+            ->with($time, $text)
+            ->willReturn($job);
 
         $actual = $this->subject->add($request);
 
-        $this->assertTrue($actual);
+        $this->assertEquals($job, $actual);
     }
 }

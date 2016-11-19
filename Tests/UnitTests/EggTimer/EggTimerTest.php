@@ -3,6 +3,7 @@
 namespace Tests\Homie\EggTimer\EggTimer;
 
 use BrainExe\Core\EventDispatcher\EventDispatcher;
+use BrainExe\Core\MessageQueue\Job;
 use BrainExe\Core\Util\TimeParser;
 use Homie\EggTimer\EggTimer;
 use Homie\EggTimer\EggTimerEvent;
@@ -53,12 +54,15 @@ class EggTimerTest extends TestCase
             ->with($time)
             ->willReturn($timestamp);
 
+        $job = $this->createMock(Job::class);
         $this->dispatcher
             ->expects($this->once())
             ->method('dispatchInBackground')
-            ->with($event, $timestamp);
+            ->with($event, $timestamp)
+            ->willReturn($job);
 
-        $this->subject->addNewJob($time, $text);
+        $actual = $this->subject->addNewJob($time, $text);
+        $this->assertEquals($job, $actual);
     }
 
     public function testAddNewJobWithText()
@@ -70,6 +74,7 @@ class EggTimerTest extends TestCase
 
         $espeakVo = new EspeakVO($text);
         $event = new EggTimerEvent($espeakVo);
+        $job = $this->createMock(Job::class);
 
         $this->timeParser
             ->expects($this->once())
@@ -80,8 +85,10 @@ class EggTimerTest extends TestCase
         $this->dispatcher
             ->expects($this->once())
             ->method('dispatchInBackground')
-            ->with($event, $timestamp);
+            ->with($event, $timestamp)
+            ->willReturn($job);
 
-        $this->subject->addNewJob($time, $text);
+        $actual = $this->subject->addNewJob($time, $text);
+        $this->assertEquals($job, $actual);
     }
 }

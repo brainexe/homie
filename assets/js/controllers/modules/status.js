@@ -1,11 +1,14 @@
 
-App.controller('StatusController', /*@ngInject*/ function ($scope, $interval, Status, Cache, MessageQueue) {
+App.controller('StatusController', /*@ngInject*/ function ($scope, $interval, Status, Cache, MessageQueue, OrderByMixin) {
+    angular.extend($scope, OrderByMixin);
+
     const REFRESH_INTERVAL = 10000;
 
-    $scope.jobs    = {};
+    $scope.jobs      = {};
     $scope.redisSections = {};
     $scope.cacheSize = 0;
     $scope.cacheKeys = 0;
+    $scope.orderBy   = 'timestamp';
 
     var interval = $interval(() => $scope.update(), REFRESH_INTERVAL);
 

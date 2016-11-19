@@ -3,21 +3,29 @@
 	<thead>
 		<tr>
 			<th translate>Job-ID</th>
-			<th translate>Type</th>
-			<th translate>Date</th>
+			<th>
+				<a ng-click="setOrderBy('jobId')" class="order" translate>
+					Type
+				</a>
+			</th>
+			<th>
+				<a ng-click="setOrderBy('timestamp')" class="order" translate>
+					Date
+				</a>
+			</th>
 			<th translate>Delete</th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat-start="job in jobs" ng-mouseover="job.detail=true" ng-mouseleave="job.detail=false">
+		<tr ng-repeat-start="job in jobs|orderObjectBy:orderBy" ng-mouseover="job.detail=true" ng-mouseleave="job.detail=false">
 			<td ng-mouseover="job.detail=true">
-				{{ job.jobId|split:':':1 }}
+				{{::job.jobId|split:':':1}}
 			</td>
 			<td>
-				{{ job.jobId|split:':':0 }}
+				{{::job.jobId|split:':':0}}
 			</td>
 			<td>
-				<time-ago from-time="job.timestamp" overdue="true"></time-ago>
+				<job-progress job="job" overdue="true"></job-progress>
 			</td>
 			<td>
                 <a confirm="deleteEvent(job.jobId)" class="btn btn-danger">
@@ -27,7 +35,11 @@
 		</tr>
 		<tr ng-repeat-end>
 			<td colspan="4" ng-show="job.detail">
-				{{ job.event }}
+				<ul>
+					<li ng-repeat="(key, value) in ::job.event">
+						<label>{{key}}</label>: {{value}}
+					</li>
+				</ul>
 			</td>
 		</tr>
 	</tbody>
@@ -45,8 +57,8 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="(key, value) in values">
-					<th>{{ key }}</th>
-					<td>{{ value }}</td>
+					<th>{{::key}}</th>
+					<td>{{::value}}</td>
 				</tr>
 			</tbody>
 		</table>

@@ -1,7 +1,10 @@
 
-App.controller('AdminUsersController', /*@ngInject*/ function ($scope, UserManagementAdmin, _) {
-    $scope.rights = [];
-    $scope.users  = [];
+App.controller('AdminUsersController', /*@ngInject*/ function ($scope, UserManagementAdmin, OrderByMixin, _) {
+    angular.extend($scope, OrderByMixin);
+
+    $scope.rights  = [];
+    $scope.users   = [];
+    $scope.orderBy = 'username';
 
     UserManagementAdmin.getUsers().success(function(data) {
         $scope.rights = data.rights;

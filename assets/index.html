@@ -23,7 +23,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <ul ng-if="isLoggedIn" class="navbar-right nav navbar-nav" ng-include="'/templates/layout/user-dropdown.html'"></ul>
+            <ul ng-if="isLoggedIn" class="navbar-right nav navbar-nav" ng-include="::'/templates/layout/user-dropdown.html'"></ul>
         </nav>
     </header>
 
@@ -31,11 +31,11 @@
         <aside class="left-side sidebar-offcanvas">
             <section class="sidebar">
                 <div class="user-panel">
-                    <div ng-if="isLoggedIn" ng-include="'/templates/layout/left-user.html'"></div>
+                    <div ng-if="isLoggedIn" ng-include="::'/templates/layout/left-user.html'"></div>
                     <ul class="sidebar-menu" ng-controller="MenuController">
                         <li ng-repeat="item in menu">
-                            <a href="/#{{item.url}}">
-                                <i class="glyphicon glyphicon-{{item.icon}}"></i>
+                            <a href="/#{{::item.url}}">
+                                <i class="glyphicon glyphicon-{{::item.icon}}"></i>
                                 <span ng-bind="item.name"></span>
                             </a>
                         </li>
@@ -45,7 +45,7 @@
         </aside>
         <aside class="right-side">
             <section class="content-header" ng-controller="FlashController" >
-                <div ng-repeat="flash in flashBag" class="alert alert-{{flash.type}} alert-dismissable">
+                <div ng-repeat="flash in flashBag" class="alert alert-{{::flash.type}} alert-dismissable">
                     <button class="close" ng-click="removeFlash($index)">&times;</button>
                     <span ng-bind="flash.message"></span>
                 </div>

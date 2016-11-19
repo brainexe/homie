@@ -8,8 +8,8 @@ App.controller('EspeakController', /*@ngInject*/ function ($scope, Speak, Messag
         $scope.speakers = speakers;
     });
 
-    MessageQueue.getJobs(Speak.JOB_ID).success(function(data) {
-        $scope.jobs = data;
+    MessageQueue.getJobs(Speak.JOB_ID).success(function(jobs) {
+        $scope.jobs = jobs;
     });
 
     $scope.$on(MessageQueue.JOBS_HANDLED, function(event, data) {
@@ -38,11 +38,9 @@ App.controller('EspeakController', /*@ngInject*/ function ($scope, Speak, Messag
             speaker: $scope.speaker
         };
 
-        Speak.speak(payload).success(function() {
+        Speak.speak(payload).success(function(job) {
             $scope.pending = false;
-            MessageQueue.getJobs(Speak.JOB_ID, true).success(function(data) {
-                $scope.jobs = data;
-            });
+            $scope.jobs[job.jobId] = job;
         });
     };
 });

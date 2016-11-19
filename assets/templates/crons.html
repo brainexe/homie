@@ -12,12 +12,12 @@
     <tbody>
         <tr ng-repeat="cron in crons">
             <th>
-                <span class="tip">{{ cron.event.event.timingId }}</span>
+                <span class="tip">{{cron.event.event.timingId}}</span>
             </th>
             <th>
                 <time-ago from-time="cron.timestamp" overdue="true"></time-ago>
             </th>
-            <th>{{ cron.event.expression}}</th>
+            <th>{{cron.event.expression}}</th>
             <td ng-if="editMode">
                 <a confirm="deleteCron(cron.jobId)" class="btn btn-danger btn-sm">
                     <span class="glyphicon glyphicon-remove"></span>

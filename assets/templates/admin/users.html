@@ -1,16 +1,16 @@
 <table ng-if="users|notEmpty" class="table table-bordered table-striped table-hover">
     <thead>
         <tr>
-            <th translate width="30">Id</th>
-            <th translate>Name</th>
-            <th translate>Email</th>
+            <th width="30"><a ng-click="setOrderBy('userId')" translate>Id</a></th>
+            <th><a ng-click="setOrderBy('username')" translate>Name</a></th>
+            <th><a ng-click="setOrderBy('email')" translate>Email</a></th>
             <th translate>Password</th>
             <th translate>Roles</th>
             <th><span class="glyphicon glyphicon-pencil"></span></th>
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="(userId, user) in users">
+        <tr ng-repeat="(userId, user) in users|orderObjectBy:orderBy">
             <td>
                 {{user.userId}}
             </td>

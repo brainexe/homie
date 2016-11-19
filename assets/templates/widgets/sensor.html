@@ -2,7 +2,7 @@
     <tr>
         <th translate>Current</th>
         <td>
-            {{ format(value) }}
+            {{format(value)}}
         </td>
         <td>
             <small>
@@ -18,7 +18,7 @@
     <tr>
         <th translate>Min</th>
         <td>
-            {{format(stats.min.value)}}
+            {{::format(stats.min.value)}}
         </td>
         <td>
             <time-ago from-time="stats.min.timestamp"></time-ago>
@@ -27,7 +27,7 @@
     <tr>
         <th translate>Max</th>
         <td>
-            {{format(stats.max.value)}}
+            {{::format(stats.max.value)}}
         </td>
         <td>
             <time-ago from-time="stats.max.timestamp"></time-ago>
@@ -36,13 +36,13 @@
     <tr>
         <th translate>Avg</th>
         <td colspan="2">
-            {{format(stats.avg)}}
+            {{::format(stats.avg)}}
         </td>
     </tr>
     <tr>
         <th translate>Median</th>
         <td colspan="2">
-            {{format(stats.median)}}
+            {{::format(stats.median)}}
         </td>
     </tr>
     <tr>

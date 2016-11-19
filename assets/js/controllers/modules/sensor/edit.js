@@ -1,19 +1,13 @@
 
-App.controller('EditSensorsController', /*@ngInject*/ function($scope, $uibModalInstance, Sensor, SensorFormatter, SensorTags, lodash) {
+App.controller('EditSensorsController', /*@ngInject*/ function($scope, $uibModalInstance, Sensor, SensorFormatter, SensorTags, OrderByMixin, lodash) {
+    angular.extend($scope, OrderByMixin);
+
     $scope.sensors = [];
     $scope.types   = {};
     $scope.tags    = {};
     $scope.orderBy = 'name';
     $scope.showDisabled = false;
     $scope.search = '';
-
-    $scope.setOrderBy = function(key) {
-        if ($scope.orderBy === key) {
-            key = '-' + key;
-        }
-
-        $scope.orderBy = key;
-    };
 
     function getSensorIndex(sensor) {
         return lodash.findIndex($scope.sensors, ['sensorId', sensor.sensorId]);

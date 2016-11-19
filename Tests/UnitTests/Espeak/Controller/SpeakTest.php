@@ -2,6 +2,7 @@
 
 namespace Tests\Homie\Espeak\Controller;
 
+use BrainExe\Core\MessageQueue\Job;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Espeak\Controller\Speak;
@@ -66,13 +67,16 @@ class SpeakTest extends TestCase
         $espeakVo = new EspeakVO($text, $volume, $speed, $speaker);
         $event    = new EspeakEvent($espeakVo);
 
+        $job = $this->createMock(Job::class);
+
         $this->dispatcher
             ->expects($this->once())
             ->method('dispatchInBackground')
-            ->with($event, $timestamp);
+            ->with($event, $timestamp)
+            ->willReturn($job);
 
         $actual = $this->subject->speak($request);
 
-        $this->assertTrue($actual);
+        $this->assertEquals($job, $actual);
     }
 }

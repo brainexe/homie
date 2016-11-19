@@ -9,7 +9,7 @@
             <br />
             <div class="btn-group btn-group-xs">
                 <a
-                        ng-repeat="nextStatus in status.next"
+                        ng-repeat="nextStatus in ::status.next"
                         class="btn btn-xs btn-success status-change"
                         ng-click="setStatus(item, nextStatus)">
                     {{nextStatus|translateToken:'todo.status.{0}.name' || 'Delete'|translate}}

@@ -43,7 +43,7 @@ App.controller('LoginController', /*@ngInject*/ function ($scope, $location, Use
         }
 
         UserManagementTOTP.sendMail($scope.username).success(function () {
-            Flash.addFlash(_('Email was sent'), 'success');
+            Flash.addFlash(_('Email was sent'), Flash.SUCCESS);
         });
     };
 
