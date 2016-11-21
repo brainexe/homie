@@ -1,5 +1,10 @@
 <table ng-if="sensor|notEmpty" class="table table-bordered table-striped table-hover">
     <tr>
+        <td colspan="3">
+            <sensor-spark-line sensor-id="sensor.sensorId" parameters="'?from=86400'"></sensor-spark-line>
+        </td>
+    </tr>
+    <tr>
         <th translate>Current</th>
         <td>
             {{format(value)}}

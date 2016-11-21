@@ -3,6 +3,7 @@
 namespace Homie\Expression;
 
 use BrainExe\Annotations\Annotations\Service;
+use Generator;
 use Homie\Expression\CompilerPass\DefaultExpression;
 
 /**
@@ -12,7 +13,7 @@ class DefaultExpressions implements DefaultExpression
 {
 
     /**
-     * @return Entity[]
+     * @return Generator|Entity[]
      */
     public static function getDefaultExpressions()
     {
@@ -31,7 +32,7 @@ class DefaultExpressions implements DefaultExpression
         yield $item;
     }
 
-    private static function getTodoListActions()
+    private static function getTodoListActions() : Generator
     {
         $item = new Entity();
         $item->expressionId = 'voiceReminder';
@@ -55,7 +56,7 @@ class DefaultExpressions implements DefaultExpression
         yield $item;
     }
 
-    private static function getShoppingListActions()
+    private static function getShoppingListActions() : Generator
     {
         $item = new Entity();
         $item->expressionId = 'addShoppingListItem';

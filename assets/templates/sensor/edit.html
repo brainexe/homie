@@ -59,7 +59,9 @@
             </thead>
             <tr ng-repeat="sensor in searchSensor(search)|orderObjectBy:orderBy track by $index">
                 <td>
-                    <div ng-if="!sensor.edit" uib-tooltip="{{ sensor.sensorId }}">
+                    <sensor-spark-line sensor-id="sensor.sensorId" parameters="'?from=3600'"></sensor-spark-line>
+
+                    <div ng-if="!sensor.edit" uib-tooltip="sensor.sensorId}}">
                         <b>{{sensor.type|translateToken:'sensor.{0}.name'}}</b>
                         <br />
                         <span class="small" ng-if="sensor.parameter">({{ sensor.parameter }})</span>

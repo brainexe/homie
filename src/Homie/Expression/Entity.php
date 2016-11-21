@@ -23,6 +23,7 @@ class Entity implements JsonSerializable
     public $actions = [];
 
     /**
+     * @deprecated
      * @var mixed[]
      */
     public $payload = [];

@@ -1,5 +1,5 @@
 
-App.service('SensorGraph', /*@ngInject*/ function ($uibModal, Sensor, SensorFormatter) {
+App.service('SensorGraph', /*@ngInject*/ function ($uibModal, Sensor, SensorFormatter, SensorDataDecompressor) {
     var rickshaw = Rickshaw.Graph;
 
     function init($scope, element, height, sensorIds, parameters) {
@@ -32,7 +32,7 @@ App.service('SensorGraph', /*@ngInject*/ function ($uibModal, Sensor, SensorForm
                     height: height,
                     min: 'auto',
                     renderer: 'line',
-                    series: decompressData(data)
+                    series: SensorDataDecompressor(data)
                 });
                 new rickshaw.Axis.Time({graph: $scope.graph});
                 new rickshaw.Axis.Y({
@@ -153,23 +153,6 @@ App.service('SensorGraph', /*@ngInject*/ function ($uibModal, Sensor, SensorForm
         }
 
         return formatter;
-    }
-
-    function decompressData(data) {
-        let final = [];
-        for (let sensorId in data.json) {
-            let graphData = [];
-            for (let i = 0; i < data.json[sensorId].data.length; i += 2) {
-                graphData.push({
-                    x: data.json[sensorId].data[i],
-                    y: data.json[sensorId].data[i+1]
-                });
-            }
-            data.json[sensorId].data = graphData;
-            final.push(data.json[sensorId]);
-        }
-
-        return final;
     }
 
     // todo use tag service
