@@ -4,11 +4,12 @@ App.controller('LoginController', /*@ngInject*/ function ($scope, $location, Use
 
     $scope.username = localStorage.getItem('userName');
     $scope.password = '';
+    $scope.one_time_token = '';
 
     $scope.login = function () {
         let payload = {
-            username: $scope.username,
-            password: $scope.password,
+            username:       $scope.username,
+            password:       $scope.password,
             one_time_token: $scope.one_time_token
         };
 

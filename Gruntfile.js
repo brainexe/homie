@@ -228,6 +228,7 @@ module.exports = function (grunt) {
                         hoist_funs:     true,
                         hoist_vars:     true,
                         collapse_vars:  true,
+                        reduce_vars:    true,
                         keep_fargs:     false,
                         pure_funcs:     isProduction ? ['console.debug'] : [],
                         global_defs: {

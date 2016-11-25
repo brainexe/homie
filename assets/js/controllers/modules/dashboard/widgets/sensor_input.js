@@ -4,6 +4,7 @@ App.service('Widget.sensor_input', /*@ngInject*/ function(Sensor) {
         template: '/templates/widgets/sensor_input.html',
         render ($scope, widget) {
             $scope.value = '';
+            $scope.showSparkLine = widget.showSparkLine;
 
             Sensor.getSensorData(widget.sensor_id, true).success(function(sensor) {
                 $scope.sensor = sensor;

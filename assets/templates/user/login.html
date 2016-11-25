@@ -21,25 +21,30 @@
 			autocomplete="false"
 			placeholder="{{'Password'|translate}}"
             required>
-	<input
-			type="number"
-            ng-show="needsOneTimeToken"
-			ng-model="one_time_token"
-            class="form-control"
-			placeholder="{{'One Time Token'|translate}}">
+	<div ng-if="needsOneTimeToken" class="input-group">
+		<input
+				type="number"
+				ng-maxlength="6"
+				ng-model="one_time_token"
+				class="form-control"
+				placeholder="{{'One Time Token'|translate}}"
+		/>
+		<span class = "input-group-btn">
+			<button
+				class="btn btn-lg btn-info btn-block"
+				type="button"
+				ng-click="sendToken()"
+				translate
+			>
+				Send Email
+			</button>
+        </span>
+	</div>
+
 	<button
 			class="btn btn-lg btn-primary btn-block"
             type="submit"
             translate>
 		Sign in
-	</button>
-	<button
-            ng-show="needsOneTimeToken"
-			class="btn btn-lg btn-info btn-block"
-            type="button"
-            ng-click="sendToken()"
-            translate
-            >
-		Send Token via Mail
 	</button>
 </form>

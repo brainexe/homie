@@ -1,4 +1,11 @@
 <label ng-bind="::sensor.name"></label>
+
+<sensor-spark-line
+        ng-if="::showSparkLine"
+        sensor-id="::sensor.sensorId"
+        parameters="'?from=86400'">
+</sensor-spark-line>
+
 <div class="input-group" role="group">
     <input
             class="form-control"

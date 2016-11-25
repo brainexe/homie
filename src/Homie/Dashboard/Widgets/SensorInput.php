@@ -41,7 +41,11 @@ class SensorInput extends AbstractWidget
                 'sensor_id' => [
                     'name'   => gettext('Sensor'),
                     'values' => $this->getSensors(),
-                    'type'   => 'single_select'
+                    'type'   => WidgetMetadataVo::SINGLE_SELECT
+                ],
+                'showSparkLine' => [
+                    'name'   => gettext('Show spark line'),
+                    'type'   => WidgetMetadataVo::KEY_BOOLEAN
                 ]
             ]
         );

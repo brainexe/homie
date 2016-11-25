@@ -9,11 +9,11 @@ App.service('Widget.sensor', /*@ngInject*/ function(Sensor, SensorFormatter, Sen
             function update() {
                 Sensor.getSensorData(widget.sensor_id).success(function(sensorData) {
                     $scope.format = SensorFormatter.getFormatter(sensorData.formatter);
-
-                    $scope.setTitle(sensorData.name);
-
                     $scope.sensor = sensorData;
                     $scope.value  = sensorData.lastValue;
+                    $scope.from   = widget.from;
+
+                    $scope.setTitle(sensorData.name);
                 });
 
                 Sensor.getValues(widget.sensor_id, `?from=${widget.from}`).success(function (data) {

@@ -1,7 +1,6 @@
 
 App.service('SensorDataDecompressor', /*@ngInject*/ function() {
     return function decompressData(data) {
-        // todo extrat + use generator
         let final = [];
         for (let sensorId in data.json) {
             let graphData = [];
