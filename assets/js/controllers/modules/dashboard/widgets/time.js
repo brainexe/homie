@@ -1,16 +1,10 @@
 
-App.service('Widget.time', /*@ngInject*/ function($interval) {
+App.service('Widget.time', /*@ngInject*/ function() {
     return {
         template: '/templates/widgets/time.html',
         render ($scope) {
-            // todo use now time
-            var interval = $interval(function() {
-                $scope.time = Date.now();
-            }, 1000);
-            $scope.time = Date.now();
-
-            $scope.$on('$destroy', function() {
-                $interval.cancel(interval);
+            $scope.$on('secondTimer', function (event, nowTime) {
+                $scope.time = nowTime;
             });
         }
     };

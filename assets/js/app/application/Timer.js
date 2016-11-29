@@ -1,0 +1,3 @@
+
+App.run(['nowTime', function() {
+}]);

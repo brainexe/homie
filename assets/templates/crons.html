@@ -15,7 +15,7 @@
                 <span class="tip">{{cron.event.event.timingId}}</span>
             </th>
             <th>
-                <time-ago from-time="cron.timestamp" overdue="true"></time-ago>
+                <job-progress job="cron" overdue="true"></job-progress>
             </th>
             <th>{{cron.event.expression}}</th>
             <td ng-if="editMode">

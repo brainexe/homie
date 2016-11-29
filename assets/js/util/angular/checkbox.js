@@ -1,7 +1,7 @@
 
 App.directive('checkbox', /*@ngInject*/ function () {
     return {
-        restrict: 'EA',
+        restrict: 'E',
         replace: true,
         link: function($scope) {
             if ($scope.ngChange) {

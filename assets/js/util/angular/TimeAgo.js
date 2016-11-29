@@ -1,22 +1,22 @@
 
-App.directive('timeAgo', /*@ngInject*/ function ($filter, TimeFormatter, nowTime) {
+App.directive('timeAgo', /*@ngInject*/ function ($filter, TimeFormatter) {
     var dateFilter = $filter('date');
 
     return {
-        restrict: 'EA',
+        restrict: 'E',
         link ($scope, elem) {
             var element = angular.element(elem);
             var style   = elem[0].style;
-            $scope.$watch(nowTime, function (now) {
-                var fromTime = ~~$scope.fromTime * 1000;
+            $scope.$on('secondTimer', function (event, now) {
+                var fromTime = $scope.fromTime * 1000;
                 if (!fromTime) {
                     element.text('--');
                     return;
                 }
 
                 var diffSeconds = now - fromTime;
-                var string = TimeFormatter(diffSeconds);
-                var tooltip = dateFilter(fromTime, 'medium');
+                var string      = TimeFormatter(diffSeconds);
+                var tooltip     = dateFilter(fromTime, 'medium');
 
                 if ($scope.overdue && now > fromTime) {
                     style.color = '#c00';
@@ -33,7 +33,6 @@ App.directive('timeAgo', /*@ngInject*/ function ($filter, TimeFormatter, nowTime
         },
         scope: {
             fromTime: "=",
-            short:    "=",
             overdue:  "="
         }
     };

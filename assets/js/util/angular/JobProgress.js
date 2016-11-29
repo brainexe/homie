@@ -1,7 +1,7 @@
 
-App.directive('jobProgress', /*@ngInject*/ function (nowTime) {
+App.directive('jobProgress', /*@ngInject*/ function () {
     return {
-        restrict: 'EA',
+        restrict: 'E',
         template: `
 <div>
     <time-ago from-time="job.timestamp" overdue="true"></time-ago>
@@ -15,7 +15,7 @@ App.directive('jobProgress', /*@ngInject*/ function (nowTime) {
 `,
         link ($scope, elem) {
             var style = elem[0].querySelector('.progress-bar').style;
-            $scope.$watch(nowTime, function (now) {
+            $scope.$on('secondTimer', function (event, now) {
                 var progress = (now / 1000 - $scope.job.startTime) / ($scope.job.timestamp - $scope.job.startTime);
                 $scope.progress = Math.round(progress * 100 * 1000) / 1000;
 

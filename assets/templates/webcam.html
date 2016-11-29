@@ -9,11 +9,11 @@
         <div ng-repeat="file in files" class="col-xs-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    {{file.name}}
+                    {{::file.name}}
                     <a
                             ng-hide="file.deleting"
                             ng-click="removeFile($index)"
-                            title="{{'Delete'|translate}}"
+                            title="{{::'Delete'|translate}}"
                             class="pull-right tip btn btn-danger btn-xs">
                         <span class="glyphicon glyphicon-remove"></span>
                     </a>
@@ -21,26 +21,26 @@
                 <div class="panel-body" ng-switch="file.extension">
                     <div ng-switch-when="wav">
                         <audio controls>
-                            <source ng-src="{{file.url}}" type="audio/wav"><source>
+                            <source ng-src="{{::file.url}}" type="audio/wav"><source>
                         </audio>
-                        <a class="btn btn-default btn-xs" target="_blank" ng-href="{{file.url}}">
+                        <a class="btn btn-default btn-xs" target="_blank" ng-href="{{::file.url}}">
                             <span class="glyphicon glyphicon-download"></span>
                         </a>
                     </div>
                     <div ng-switch-when="avi">
                         <video width="320" height="240" controls preload>
-                            <source ng-src="{{file.url}}" type="movie/avi"><source>
+                            <source ng-src="{{::file.url}}" type="movie/avi"><source>
                         </video>
-                        <a class="btn btn-default btn-xs" target="_blank" ng-href="{{file.url}}">
+                        <a class="btn btn-default btn-xs" target="_blank" ng-href="{{::file.url}}">
                             <span class="glyphicon glyphicon-download"></span>
                         </a>
                     </div>
                     <div ng-switch-when="jpg">
-                        <a target="_blank" ng-href="{{file.url}}">
-                            <img ng-src="{{file.url}}" class="img-thumbnail thumbnail"/>
+                        <a target="_blank" ng-href="{{::file.url}}">
+                            <img ng-src="{{::file.url}}" class="img-thumbnail thumbnail"/>
                         </a>
                     </div>
-                    <time-ago from-time="file.timestamp"></time-ago>
+                    <time-ago from-time="::file.timestamp"></time-ago>
                 </div>
             </div>
         </div>

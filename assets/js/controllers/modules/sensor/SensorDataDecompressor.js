@@ -4,7 +4,8 @@ App.service('SensorDataDecompressor', /*@ngInject*/ function() {
         let final = [];
         for (let sensorId in data.json) {
             let graphData = [];
-            for (let i = 0; i < data.json[sensorId].data.length; i += 2) {
+            let length = data.json[sensorId].data.length;
+            for (let i = 0; i < length; i += 2) {
                 graphData.push({
                     x: data.json[sensorId].data[i],
                     y: data.json[sensorId].data[i + 1]
