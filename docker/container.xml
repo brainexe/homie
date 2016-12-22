@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<container xmlns="http://symfony.com/schema/dic/services">
+    <parameters>
+        <parameter key="redis.connection">redis://redis:6379/</parameter>
+    </parameters>
+</container>
