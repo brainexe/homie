@@ -10,8 +10,8 @@ App.service('Widget.expression', /*@ngInject*/ function($compile, $interval, Exp
 
                 Object.keys(widget.variables).forEach(function(key) {
                     var expression = widget.variables[key];
-                    Expression.evaluate(expression, cached).success(function(result) {
-                        $scope[key] = result;
+                    Expression.evaluate(expression, cached).then(function(result) {
+                        $scope[key] = result.data;
                     });
                 });
 

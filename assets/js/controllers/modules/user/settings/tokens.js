@@ -8,19 +8,19 @@ App.controller('UserTokensController', /*@ngInject*/ function ($scope, UserManag
     ];
 
     function reload() {
-        UserManagementTokens.getData().success(function (result) {
-            $scope.tokens = result;
+        UserManagementTokens.getData().then(function (result) {
+            $scope.tokens = result.data;
         });
     }
 
     reload();
 
     $scope.add = function (roles, name) {
-        UserManagementTokens.add(roles, name).success(reload);
+        UserManagementTokens.add(roles, name).then(reload);
     };
 
     $scope.revoke = function (token) {
-        UserManagementTokens.deleteToken(token).success(function () {
+        UserManagementTokens.deleteToken(token).then(function () {
             delete $scope.tokens[token];
         });
     };

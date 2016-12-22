@@ -8,21 +8,21 @@ App.controller('AdminNodesController', /*@ngInject*/ function ($scope, Nodes, Or
     $scope.newNode    = {};
     $scope.orderBy    = 'name';
 
-    Nodes.getData().success(function(data) {
-        $scope.nodes      = data.nodes;
-        $scope.currentId  = data.currentId;
-        $scope.types      = data.types;
+    Nodes.getData().then(function(data) {
+        $scope.nodes      = data.data.nodes;
+        $scope.currentId  = data.data.currentId;
+        $scope.types      = data.data.types;
     });
 
     $scope.addNode = function(node) {
-        Nodes.add(node).success(function(newNode) {
-            $scope.nodes.push(newNode);
+        Nodes.add(node).then(function(newNode) {
+            $scope.nodes.push(newNode.data);
         });
     };
 
     $scope.edit = function($index, node) {
-        Nodes.edit(node).success(function(newNode) {
-            $scope.nodes[$index] = newNode;
+        Nodes.edit(node).data(function(newNode) {
+            $scope.nodes[$index] = newNode.data;
             $scope.newNode = {};
         });
     };
@@ -41,7 +41,7 @@ App.controller('AdminNodesController', /*@ngInject*/ function ($scope, Nodes, Or
     };
 
     $scope.remove = function($index, node) {
-        Nodes.remove(node).success(function() {
+        Nodes.remove(node).then(function() {
             $scope.nodes.splice($index, 1);
         });
     };

@@ -6,8 +6,8 @@ App.service('Widget.sensor_input', /*@ngInject*/ function(Sensor) {
             $scope.value = '';
             $scope.showSparkLine = widget.showSparkLine;
 
-            Sensor.getSensorData(widget.sensor_id, true).success(function(sensor) {
-                $scope.sensor = sensor;
+            Sensor.getSensorData(widget.sensor_id, true).then(function(sensor) {
+                $scope.sensor = sensor.data;
             });
 
             $scope.submit = function(value) {

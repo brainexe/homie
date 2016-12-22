@@ -17,14 +17,14 @@ App.service('Widget.egg_timer', /*@ngInject*/ function(EggTimer, MessageQueue, _
                 '30m'
             ];
 
-            MessageQueue.getJobs(EggTimer.JOB_ID, true).success(function(data) {
-                updateJobs($scope, data);
+            MessageQueue.getJobs(EggTimer.JOB_ID, true).then(function(data) {
+                updateJobs($scope, data.data);
             });
 
             $scope.start = function(time) {
-                EggTimer.setTimer(time).success(function() {
-                    MessageQueue.getJobs(EggTimer.JOB_ID, true).success(function(data) {
-                        updateJobs($scope, data);
+                EggTimer.setTimer(time).then(function() {
+                    MessageQueue.getJobs(EggTimer.JOB_ID, true).then(function(data) {
+                        updateJobs($scope, data.data);
                     });
                 });
             };
@@ -36,8 +36,8 @@ App.service('Widget.egg_timer', /*@ngInject*/ function(EggTimer, MessageQueue, _
 
             $scope.stop = function(job) {
                 MessageQueue.deleteJob(job.jobId).then(function() {
-                    MessageQueue.getJobs(EggTimer.JOB_ID, true).success(function(data) {
-                        updateJobs($scope, data);
+                    MessageQueue.getJobs(EggTimer.JOB_ID, true).then(function(data) {
+                        updateJobs($scope, data.data);
                     });
                 });
             };

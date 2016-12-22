@@ -6,13 +6,13 @@ App.controller('AdminUsersController', /*@ngInject*/ function ($scope, UserManag
     $scope.users   = [];
     $scope.orderBy = 'username';
 
-    UserManagementAdmin.getUsers().success(function(data) {
-        $scope.rights = data.rights;
-        $scope.users  = data.users;
+    UserManagementAdmin.getUsers().then(function(data) {
+        $scope.rights = data.data.rights;
+        $scope.users  = data.data.users;
     });
 
     $scope.save = function(user) {
-        UserManagementAdmin.edit(user).success(function(newUser) {
+        UserManagementAdmin.edit(user).then(function(newUser) {
             user.edit = false;
         });
     };

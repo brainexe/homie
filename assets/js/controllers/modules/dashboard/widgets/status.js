@@ -1,10 +1,10 @@
 
 App.service('Widget.status', /*@ngInject*/ function($interval, Status) {
     function update($scope) {
-        Status.getData().success(function(data) {
-            $scope.stats = data.stats;
-            $scope.jobs  = data.jobs;
-            $scope.redis = data.redis;
+        Status.getData().then(function(data) {
+            $scope.stats = data.data.stats;
+            $scope.jobs  = data.data.jobs;
+            $scope.redis = data.data.redis;
         });
     }
 

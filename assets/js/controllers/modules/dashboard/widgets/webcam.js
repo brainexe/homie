@@ -3,8 +3,8 @@ App.service('Widget.webcam', /*@ngInject*/ function(Webcam, Prompt, _) {
         template: '/templates/widgets/webcam.html',
         render ($scope, widget) {
             function loadRecentImage() {
-                Webcam.getRecent().success(function(data) {
-                    $scope.recent = data;
+                Webcam.getRecent().then(function(data) {
+                    $scope.recent = data.data;
                 });
             }
 

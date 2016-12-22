@@ -6,7 +6,7 @@ App.controller('ChangePasswordController', /*@ngInject*/ function ($scope, UserM
             Flash.addFlash(message, Flash.SUCCESS);
         }
 
-        UserManagement.changePassword($scope.oldPassword, $scope.password).success(function () {
+        UserManagement.changePassword($scope.oldPassword, $scope.password).then(function () {
             var message = _('The password was changed successfully');
             Flash.addFlash(message, Flash.SUCCESS);
         });

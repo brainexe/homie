@@ -9,7 +9,7 @@ App.service('Widget.speak', /*@ngInject*/ function(Speak, _) {
                 text = text || prompt(_('Text'));
                 var payload = {text};
 
-                Speak.speak(payload).success(function () {
+                Speak.speak(payload).then(function () {
                     $scope.text    = '';
                     $scope.pending = false;
                 });

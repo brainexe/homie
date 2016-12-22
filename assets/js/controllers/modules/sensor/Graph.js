@@ -11,13 +11,15 @@ App.service('SensorGraph', /*@ngInject*/ function ($uibModal, Sensor, SensorForm
             }
         });
 
-        Sensor.getCachedData().success(function(data) {
+        Sensor.getCachedData().then(function(result) {
+            let data = data.data;
             $scope.types         = data.types;
             $scope.fromIntervals = data.fromIntervals;
             $scope.sensors       = data.sensors;
             $scope.tags          = aggregateTags(data.sensors);
 
-            Sensor.getValues(sensorIds.join(':'), parameters).success(function (data) {
+            Sensor.getValues(sensorIds.join(':'), parameters).then(function (data) {
+                data = data.data;
                 var yAxisFormatter = getAxisFormatter(data.json);
 
                 $scope.activeSensorIds = Object.keys(data.json).map(Number);
@@ -99,8 +101,8 @@ App.service('SensorGraph', /*@ngInject*/ function ($uibModal, Sensor, SensorForm
                 });
             }
 
-            Sensor.getValues(activeIds, parameters).success(function (data) {
-                updateGraph(decompressData(data));
+            Sensor.getValues(activeIds, parameters).then(function (data) {
+                updateGraph(decompressData(data.data));
             });
         }
 

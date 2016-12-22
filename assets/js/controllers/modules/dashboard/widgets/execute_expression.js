@@ -6,9 +6,9 @@ App.service('Widget.execute_expression', /*@ngInject*/ function(Expression) {
             $scope.value = '';
 
             $scope.execute = function(value) {
-                Expression.evaluate(value).success(function(output) {
-                    $scope.output = output;
-                    console.log(output);
+                Expression.evaluate(value).then(function(output) {
+                    $scope.output = output.data;
+                    console.log(output.data);
                 });
 
                 $scope.value = '';

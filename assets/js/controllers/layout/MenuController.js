@@ -8,8 +8,8 @@ App.controller('MenuController', /*@ngInject*/ function ($scope, $q, $location, 
         }
 
         if (current.$$route && !current.$$route.isPublic) {
-            UserManagement.loadCurrentUser().success(function (user) {
-                if (!UserManagement.isLoggedIn(user)) {
+            UserManagement.loadCurrentUser().then(function (user) {
+                if (!UserManagement.isLoggedIn(user.data)) {
                     $location.path("/login");
                 }
             });

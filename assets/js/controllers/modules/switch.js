@@ -14,20 +14,20 @@ App.controller('SwitchController', /*@ngInject*/ function ($scope, Switches, Nod
         'particle': {name: _('Particle'), template: '/templates/switch/addForm/particle.html'}
     };
 
-    Switches.getData().success(function (data) {
-        $scope.switches  = data.switches;
-        $scope.radioPins = data.radioPins;
+    Switches.getData().then(function (data) {
+        $scope.switches  = data.data.switches;
+        $scope.radioPins = data.data.radioPins;
     });
 
-    Nodes.getData().success(function(data) {
-        $scope.nodes = data.nodes;
+    Nodes.getData().then(function(data) {
+        $scope.nodes = data.data.nodes;
     });
 
-    MessageQueue.getJobs(Switches.JOB_ID).success(function(data) {
-        $scope.jobs = data;
+    MessageQueue.getJobs(Switches.JOB_ID).then(function(data) {
+        $scope.jobs = data.data;
     });
 
-    $scope.$on(MessageQueue.JOBS_HANDLED    , function(event, data) {
+    $scope.$on(MessageQueue.JOBS_HANDLED , function(event, data) {
         var job = data.job;
         if ($scope.jobs[job.jobId]) {
             delete $scope.jobs[job.jobId];
@@ -39,7 +39,7 @@ App.controller('SwitchController', /*@ngInject*/ function ($scope, Switches, Nod
      * @param {Number} status
      */
     $scope.setStatus = function (switchVO, status) {
-        Switches.setStatus(switchVO.switchId, status).success(function () {
+        Switches.setStatus(switchVO.switchId, status).then(function () {
             switchVO.status = status;
         });
     };
@@ -48,7 +48,7 @@ App.controller('SwitchController', /*@ngInject*/ function ($scope, Switches, Nod
      * @param {Number} switchId
      */
     $scope.delete = function (switchId) {
-        Switches.delete(switchId).success(function () {
+        Switches.delete(switchId).then(function () {
             delete $scope.switches[switchId];
         });
     };
@@ -59,15 +59,15 @@ App.controller('SwitchController', /*@ngInject*/ function ($scope, Switches, Nod
     };
 
     $scope.addSwitch = function (newSwitch) {
-        Switches.add(newSwitch).success(function (data) {
-            $scope.switches[data.switchId] = data;
+        Switches.add(newSwitch).then(function (data) {
+            $scope.switches[data.switchId] = data.data;
         });
     };
 
     $scope.addJob = function (newJob) {
-        Switches.addJob(newJob).success(function() {
-            MessageQueue.getJobs(Switches.JOB_ID, true).success(function(data) {
-                $scope.jobs = data;
+        Switches.addJob(newJob).then(function() {
+            MessageQueue.getJobs(Switches.JOB_ID, true).then(function(data) {
+                $scope.jobs = data.data;
             });
         });
     };

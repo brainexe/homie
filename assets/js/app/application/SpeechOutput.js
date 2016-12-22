@@ -4,7 +4,8 @@ App.run(/*@ngInject*/ function($rootScope, UserManagementSettings) {
         return;
     }
 
-    UserManagementSettings.getAll().success(function(settings) {
+    UserManagementSettings.getAll().then(function(result) {
+        let settings = result.data;
         if (!settings.espeakBrowserOutput) {
             return;
         }

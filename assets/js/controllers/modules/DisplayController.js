@@ -8,12 +8,12 @@ App.controller('DisplaysController', /*@ngInject*/ function ($scope, Displays, N
         columns: 10
     };
 
-    Nodes.getData().success(function(data) {
-        $scope.nodes = data.nodes;
+    Nodes.getData().then(function(data) {
+        $scope.nodes = data.data.nodes;
     });
 
-    Displays.getData().success(function (data) {
-        $scope.screens = data.screens;
+    Displays.getData().then(function (data) {
+        $scope.screens = data.data.screens;
     });
 
     $scope.save = function(display) {
@@ -24,8 +24,8 @@ App.controller('DisplaysController', /*@ngInject*/ function ($scope, Displays, N
             result = Displays.add(display);
         }
 
-        result.success(function(screen) {
-            $scope.screens[screen.displayId] = screen;
+        result.then(function(screen) {
+            $scope.screens[screen.data.displayId] = screen.data;
         });
     };
 
@@ -35,12 +35,12 @@ App.controller('DisplaysController', /*@ngInject*/ function ($scope, Displays, N
     };
 
     $scope.refreshScreen = function(screen) {
-        Displays.redraw(screen.displayId).success(function() {
+        Displays.redraw(screen.displayId).then(function() {
         });
     };
 
     $scope.deleteScreen = function(screen) {
-        Displays.delete(screen.displayId).success(function() {
+        Displays.delete(screen.displayId).then(function() {
         });
     };
 });

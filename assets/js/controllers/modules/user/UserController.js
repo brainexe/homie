@@ -3,24 +3,25 @@ App.controller('UserController', /*@ngInject*/ function ($scope, UserManagement,
     $scope.user = null;
     $scope.avatars = null;
 
-    UserManagement.loadCurrentUser().success(function(user) {
-        $scope.user = user;
+    UserManagement.loadCurrentUser().then(function(user) {
+        $scope.user = user.data;
     });
 
-    UserManagementAvatar.getList().success(function(avatars) {
-        $scope.avatars = avatars;
+    UserManagementAvatar.getList().then(function(avatars) {
+        $scope.avatars = avatars.data;
     });
 
     $scope.setAvatar = function (avatar) {
-        UserManagementAvatar.set(avatar).success(function(user) {
+        UserManagementAvatar.set(avatar).then(function(user) {
             UserManagement.clearCache();
-            UserManagement.setCurrentUser(user);
-            $scope.user = user;
+            UserManagement.setCurrentUser(user.data);
+            $scope.user = user.data;
         });
     };
 
     $scope.changeEmail = function () {
-        UserManagement.changeEmail($scope.user.email).success(function(user) {
+        UserManagement.changeEmail($scope.user.email).then(function(result) {
+            let user = result.data;
             UserManagement.setCurrentUser(user);
             $scope.user = user;
         });

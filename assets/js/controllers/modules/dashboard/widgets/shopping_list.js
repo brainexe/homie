@@ -8,8 +8,8 @@ App.service('Widget.shopping_list', /*@ngInject*/ function(ShoppingList) {
             });
 
             $scope.todoText = '';
-            ShoppingList.getData().success(function (data) {
-                $scope.shoppingList = data.shoppingList.map(function (text) {
+            ShoppingList.getData().then(function (data) {
+                $scope.shoppingList = data.data.shoppingList.map(function (text) {
                     return {text, done: false};
                 });
             });

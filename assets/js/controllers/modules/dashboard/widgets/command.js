@@ -6,8 +6,8 @@ App.service('Widget.command', /*@ngInject*/ function(Command) {
             $scope.value = '';
 
             $scope.execute = function(value) {
-                Command.execute(value).success(function(output) {
-                    $scope.output = output;
+                Command.execute(value).then(function(output) {
+                    $scope.output = output.data;
                 });
 
                 $scope.value = '';

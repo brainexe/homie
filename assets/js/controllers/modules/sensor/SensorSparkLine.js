@@ -3,7 +3,13 @@ App.directive('sensorSparkLine', /*@ngInject*/ function (Sensor, SensorDataDecom
     return {
         restrict: 'EA',
         link ($scope, elem) {
-            Sensor.getValues($scope.sensorId, $scope.parameters).success(function (data) {
+            Sensor.getValues($scope.sensorId, $scope.parameters).then(function (data) {
+                $scope.$on('sensor.update', function(event, data) {
+                    if ($scope.sensorId === data.data.sensorId) {
+                        console.debug(data.data);
+                    }
+                });
+
                 var graph = new Rickshaw.Graph({
                     element: elem[0],
                     width: $scope.width || undefined,

@@ -9,7 +9,8 @@ App.directive('contentItem', /*@ngInject*/ function ($compile, TemplateLoader, W
             $scope.$parent.title = title;
         };
 
-        template.success(function(html) {
+        template.then(function(data) {
+            let html = data.data;
             element[0].innerHTML = html;
             $compile(element.contents())($scope);
 

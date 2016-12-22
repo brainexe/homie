@@ -4,8 +4,8 @@ App.controller('EggTimerController', /*@ngInject*/ function ($scope, EggTimer, M
     $scope.text = '';
     $scope.jobs = {};
 
-    MessageQueue.getJobs(EggTimer.JOB_ID).success(function (jobs) {
-        $scope.jobs = jobs;
+    MessageQueue.getJobs(EggTimer.JOB_ID).then(function (jobs) {
+        $scope.jobs = jobs.data;
     });
 
     $scope.$on(MessageQueue.JOBS_HANDLED, function(event, data) {
@@ -16,8 +16,8 @@ App.controller('EggTimerController', /*@ngInject*/ function ($scope, EggTimer, M
     });
 
     $scope.addTimer = function () {
-        EggTimer.setTimer($scope.time, $scope.text).success(function (job) {
-            $scope.jobs[job.jobId] = job;
+        EggTimer.setTimer($scope.time, $scope.text).then(function (job) {
+            $scope.jobs[job.data.jobId] = job.data;
         });
 
         $scope.time = '';

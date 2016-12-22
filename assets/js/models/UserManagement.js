@@ -33,9 +33,9 @@ App.service('UserManagement', ["$http", "$rootScope", "Cache", function($http, $
 
         login (payload) {
             clearCache();
-            return $http.post('/login/', payload).success(function(result) {
+            return $http.post('/login/', payload).then(function(result) {
                 clearCache();
-                setCurrentUser(result);
+                setCurrentUser(result.data);
             });
         },
 
@@ -71,8 +71,8 @@ App.service('UserManagement', ["$http", "$rootScope", "Cache", function($http, $
 
             var promise = loadUserPromise = $http.get('/user/', {cache:Cache});
 
-            promise.success(function(user) {
-                setCurrentUser(user);
+            promise.then(function(user) {
+                setCurrentUser(user.data);
                 loadUserPromise = null;
             });
 

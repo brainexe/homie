@@ -2,18 +2,18 @@
 App.controller('OtpController', /*@ngInject*/ function ($scope, UserManagementTOTP) {
     $scope.oneTimePassword = null;
 
-    UserManagementTOTP.getData().success(function (result) {
-        $scope.oneTimePassword = result;
+    UserManagementTOTP.getData().then(function (result) {
+        $scope.oneTimePassword = result.data;
     });
 
     $scope.requestToken = function () {
-        UserManagementTOTP.request().success(function (result) {
-            $scope.oneTimePassword = result;
+        UserManagementTOTP.request().then(function (result) {
+            $scope.oneTimePassword = result.data;
         });
     };
 
     $scope.deleteToken = function () {
-        UserManagementTOTP.deleteToken().success(function () {
+        UserManagementTOTP.deleteToken().then(function () {
             $scope.oneTimePassword = null;
         });
     };

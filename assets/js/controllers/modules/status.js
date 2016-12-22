@@ -26,9 +26,9 @@ App.controller('StatusController', /*@ngInject*/ function ($scope, $interval, St
     $scope.update = function () {
         $scope.cacheKeys = Cache.info().storageImpl.length;
         $scope.cacheSize = JSON.stringify(Cache.info().storageImpl).length / 1000;
-        Status.getData().success(function (data) {
-            $scope.jobs  = data.jobs;
-            $scope.redis = data.redis;
+        Status.getData().then(function (data) {
+            $scope.jobs  = data.data.jobs;
+            $scope.redis = data.data.redis;
         });
     };
 
@@ -38,7 +38,7 @@ App.controller('StatusController', /*@ngInject*/ function ($scope, $interval, St
      * @param {String} eventId
      */
     $scope.deleteEvent = function (eventId) {
-       Status.deleteEvent(eventId).success(function () {
+       Status.deleteEvent(eventId).then(function () {
             delete $scope.jobs[eventId];
         });
     };

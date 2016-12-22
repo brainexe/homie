@@ -15,8 +15,8 @@ App.controller('ExpressionController', /*@ngInject*/ function ($scope, $q, Expre
     });
 
     $scope.reloadCrons = function() {
-        return MessageQueue.getJobs('message_queue.cron').success(function(data) {
-            $scope.crons = data;
+        return MessageQueue.getJobs('message_queue.cron').then(function(data) {
+            $scope.crons = data.data;
         });
     };
 
@@ -66,13 +66,13 @@ App.controller('ExpressionController', /*@ngInject*/ function ($scope, $q, Expre
     };
 
     $scope.save = function(expression) {
-        Expression.save(expression).success(function(data) {
-            $scope.expressions[expression.expressionId] = data;
+        Expression.save(expression).then(function(data) {
+            $scope.expressions[expression.expressionId] = data.data;
         });
     };
 
     $scope.delete = function(expressionId) {
-       Expression.deleteExpression(expressionId).success(function() {
+       Expression.deleteExpression(expressionId).then(function() {
             delete $scope.expressions[expressionId];
         });
     };
@@ -83,8 +83,8 @@ App.controller('ExpressionController', /*@ngInject*/ function ($scope, $q, Expre
     };
 
     $scope.evaluateAction = function(expression, action) {
-        Expression.evaluate(action).success(function(result) {
-            console.log(result);
+        Expression.evaluate(action).data(function(result) {
+            console.log(result.data);
         });
     };
 
@@ -119,13 +119,13 @@ App.controller('ExpressionController', /*@ngInject*/ function ($scope, $q, Expre
     };
 
     $scope.addCron = function (cron) {
-        Expression.addCron(cron).success(function() {
+        Expression.addCron(cron).then(function() {
             $scope.reloadCrons();
         });
     };
 
     $scope.deleteCron = function (jobId) {
-        MessageQueue.deleteJob(jobId).success(function() {
+        MessageQueue.deleteJob(jobId).then(function() {
             delete $scope.crons[jobId];
         });
     };

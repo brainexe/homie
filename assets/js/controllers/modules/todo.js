@@ -2,7 +2,9 @@ App.controller('TodoController', /*@ngInject*/ function ($scope, _, lodash, Todo
     $scope.userNames   = [];
     $scope.currentItem = {};
 
-    UserManagement.list().success(function (userNames) {
+    UserManagement.list().then(function (result) {
+        let userNames = result.data;
+
         // todo separate service UserList, which is cached
         for (var userId in userNames) {
             $scope.userNames.push({
@@ -11,9 +13,9 @@ App.controller('TodoController', /*@ngInject*/ function ($scope, _, lodash, Todo
         }
     });
 
-    Todo.getData().success(function (data) {
-        $scope.states = data.states;
-        $scope.items  = data.list;
+    Todo.getData().then(function (data) {
+        $scope.states = data.data.states;
+        $scope.items  = data.data.list;
     });
 
     $scope.assign = function (itemId, userId) {
@@ -31,20 +33,20 @@ App.controller('TodoController', /*@ngInject*/ function ($scope, _, lodash, Todo
         }
 
         if (item.todoId) {
-            Todo.edit(item).success(function () {
+            Todo.edit(item).then(function () {
                 $scope.currentItem = {};
             });
         } else {
             item.status = 'open';
-            Todo.add(item).success(function (result) {
-                $scope.items.push(result);
+            Todo.add(item).then(function (result) {
+                $scope.items.push(result.data);
                 $scope.currentItem = {};
             });
         }
     };
 
     $scope.onDelete = function (data) {
-        Todo.deleteItem(data.todoId).success(function() {
+        Todo.deleteItem(data.todoId).then(function() {
             lodash.pullAllBy($scope.items, [{'todoId': data.todoId}], 'todoId');
         });
     };

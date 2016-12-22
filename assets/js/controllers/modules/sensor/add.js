@@ -15,7 +15,8 @@ App.controller('AddSensorsController', /*@ngInject*/ function($scope, $uibModalI
         color: randomHexColor()
     };
 
-    Sensor.getAll().success(function(data) {
+    Sensor.getAll().then(function(data) {
+        data = data.data;
         $scope.sensors    = data.sensors;
         $scope.types      = data.types;
         $scope.formatters = data.formatters;
@@ -23,19 +24,19 @@ App.controller('AddSensorsController', /*@ngInject*/ function($scope, $uibModalI
         $scope.tags = SensorTags.getTagsFromSensors(data.sensors);
     });
 
-    Nodes.getData().success(function(data) {
-        $scope.nodes = data.nodes;
+    Nodes.getData().then(function(data) {
+        $scope.nodes = data.data.nodes;
     });
 
     $scope.changedType = function(sensorType) {
-        Sensor.parameters(sensorType).success(function(parameters) {
-            $scope.parameters = parameters || [];
+        Sensor.parameters(sensorType).then(function(parameters) {
+            $scope.parameters = parameters.data || [];
         });
     };
 
     $scope.add = function(newSensor) {
-        Sensor.add(newSensor).success(function(sensor) {
-            $uibModalInstance.close(sensor);
+        Sensor.add(newSensor).then(function(sensor) {
+            $uibModalInstance.close(sensor.data);
         });
     };
 

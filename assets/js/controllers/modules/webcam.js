@@ -2,8 +2,8 @@ App.controller('WebcamController', /*@ngInject*/ function ($scope, Webcam, Flash
     $scope.files = [];
 
     function update() {
-        Webcam.getData().success(function (data) {
-            $scope.files = data.files.map(function (entry) {
+        Webcam.getData().then(function (data) {
+            $scope.files = data.data.files.map(function (entry) {
                 entry.url = `/webcam/file/${entry.webPath}`;
                 return entry;
             });
@@ -16,7 +16,7 @@ App.controller('WebcamController', /*@ngInject*/ function ($scope, Webcam, Flash
     $scope.$on('webcam.took_sound', update);
 
     $scope.takeShot = function () {
-        Webcam.takeShot().success(function() {
+        Webcam.takeShot().then(function() {
             Flash.addFlash(_('Cheese...'), Flash.INFO);
         });
     };
@@ -35,7 +35,7 @@ App.controller('WebcamController', /*@ngInject*/ function ($scope, Webcam, Flash
         var file = $scope.files[index];
 
         file.deleting = true;
-        Webcam.remove(file.webPath).success(function () {
+        Webcam.remove(file.webPath).then(function () {
             $scope.files.splice(index, 1);
         });
     };

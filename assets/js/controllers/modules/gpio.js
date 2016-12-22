@@ -13,8 +13,8 @@ App.controller('GpioController', /*@ngInject*/ function ($scope, Gpio, Nodes, Or
         'particle'
     ];
 
-    Nodes.getData().success(function(data) {
-        $scope.nodes = data.nodes.filter(function(node) {
+    Nodes.getData().then(function(data) {
+        $scope.nodes = data.data.nodes.filter(function(node) {
             return supportedNodes.indexOf(node.type) > -1;
         });
     });
@@ -22,8 +22,8 @@ App.controller('GpioController', /*@ngInject*/ function ($scope, Gpio, Nodes, Or
     $scope.selectNode = function (node) {
         $scope.nodeId = node.nodeId;
 
-        Gpio.getData(node.nodeId).success(function (data) {
-            $scope.gpios = data.pins;
+        Gpio.getData(node.nodeId).then(function (data) {
+            $scope.gpios = data.data.pins;
         });
     };
 
@@ -36,8 +36,8 @@ App.controller('GpioController', /*@ngInject*/ function ($scope, Gpio, Nodes, Or
      * @param {Number} $index
      */
     function savePin(pin, $index) {
-        Gpio.savePin($scope.nodeId, pin.id, pin.direction, pin.value).success(function (pin) {
-            $scope.gpios[$index] = pin;
+        Gpio.savePin($scope.nodeId, pin.id, pin.direction, pin.value).then(function (pin) {
+            $scope.gpios[$index] = pin.data;
         });
     }
 

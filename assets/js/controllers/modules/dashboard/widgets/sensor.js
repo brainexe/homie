@@ -7,7 +7,8 @@ App.service('Widget.sensor', /*@ngInject*/ function(Sensor, SensorFormatter, Sen
             $scope.format   = SensorFormatter.getFormatter('noop');
 
             function update() {
-                Sensor.getSensorData(widget.sensor_id).success(function(sensorData) {
+                Sensor.getSensorData(widget.sensor_id).then(function(data) {
+                    let sensorData = data.data;
                     $scope.format = SensorFormatter.getFormatter(sensorData.formatter);
                     $scope.sensor = sensorData;
                     $scope.value  = sensorData.lastValue;
@@ -16,7 +17,8 @@ App.service('Widget.sensor', /*@ngInject*/ function(Sensor, SensorFormatter, Sen
                     $scope.setTitle(sensorData.name);
                 });
 
-                Sensor.getValues(widget.sensor_id, `?from=${widget.from}`).success(function (data) {
+                Sensor.getValues(widget.sensor_id, `?from=${widget.from}`).then(function (data) {
+                    data = data.data;
                     if (!data.json || !data.json[widget.sensor_id]) {
                         return;
                     }

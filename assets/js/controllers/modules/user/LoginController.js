@@ -12,7 +12,8 @@ App.controller('LoginController', /*@ngInject*/ function ($scope, $location, Use
             one_time_token: $scope.one_time_token
         };
 
-        UserManagement.login(payload).success(function (result) {
+        UserManagement.login(payload).then(function (result) {
+            result = result.data;
             if (!result) {
                 return;
             }
@@ -32,8 +33,8 @@ App.controller('LoginController', /*@ngInject*/ function ($scope, $location, Use
             return;
         }
 
-        UserManagementTOTP.needsToken(username).success(function (data) {
-            $scope.needsOneTimeToken = data;
+        UserManagementTOTP.needsToken(username).then(function (data) {
+            $scope.needsOneTimeToken = data.data;
         });
     };
 
@@ -42,7 +43,7 @@ App.controller('LoginController', /*@ngInject*/ function ($scope, $location, Use
             return;
         }
 
-        UserManagementTOTP.sendMail($scope.username).success(function () {
+        UserManagementTOTP.sendMail($scope.username).then(function () {
             Flash.addFlash(_('Email was sent'), Flash.SUCCESS);
         });
     };

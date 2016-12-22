@@ -3,16 +3,14 @@ App.directive('jobProgress', /*@ngInject*/ function () {
     return {
         restrict: 'E',
         template: `
-<div>
+<div ng-if="class">
     <time-ago from-time="job.timestamp" overdue="true"></time-ago>
     <div class="progress">
         <div class="progress-bar progress-bar-striped active {{class}}">
             <time-ago from-time="job.timestamp" overdue="true"></time-ago>
         </div>
     </div>
-</div>
-
-`,
+</div>`,
         link ($scope, elem) {
             var style = elem[0].querySelector('.progress-bar').style;
             $scope.$on('secondTimer', function (event, now) {
@@ -32,7 +30,7 @@ App.directive('jobProgress', /*@ngInject*/ function () {
             });
         },
         scope: {
-            job: "=",
+            job:     "=",
             overdue: "=",
         }
     };

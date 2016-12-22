@@ -1,8 +1,9 @@
 
-App.config(['$compileProvider', /*@ngInject*/ function ($compileProvider) {
-    $compileProvider.debugInfoEnabled(DEBUG);
+App.config(['$compileProvider', '$locationProvider', /*@ngInject*/ function ($compileProvider, $locationProvider) {
+    $locationProvider.hashPrefix('');
 
-    // todo enable when available in angular
-    // $compileProvider.commentDirectivesEnabled(false);
-    // $compileProvider.cssClassDirectivesEnabled(false);
+    $compileProvider.debugInfoEnabled(DEBUG);
+    $compileProvider.commentDirectivesEnabled(false);
+    $compileProvider.cssClassDirectivesEnabled(false);
+    $compileProvider.preAssignBindingsEnabled(true);
 }]);

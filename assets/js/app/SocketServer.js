@@ -1,7 +1,8 @@
 
 App.run(/*@ngInject*/ (Config, $rootScope) => {
     $rootScope.$on('currentuser.authorized', function (event) {
-        Config.getAll().success(function(config) {
+        Config.getAll().then(function(data) {
+            let config = data.data;
             if (!config.socketUrl) {
                 return;
             }

@@ -17,8 +17,8 @@ App.run(["$rootScope", "gettextCatalog", "Cache", "Config", function($rootScope,
 
     gettextCatalog.cache = Cache;
 
-    Config.getAll().success(function(config) {
-        if (config.debug) {
+    Config.getAll().then(function(config) {
+        if (config.data.debug) {
             gettextCatalog.debug       = true;
             gettextCatalog.debugPrefix = '?';
         }

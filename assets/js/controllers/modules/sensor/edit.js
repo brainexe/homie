@@ -18,7 +18,8 @@ App.controller('EditSensorsController', /*@ngInject*/ function($scope, $uibModal
         $scope.sensors[index] = sensorVo;
     });
 
-    Sensor.getAll().success(function(data) {
+    Sensor.getAll().then(function(result) {
+        let data = result.data;
         $scope.sensors    = data.sensors;
         $scope.types      = data.types;
         $scope.formatters = data.formatters;
@@ -32,7 +33,7 @@ App.controller('EditSensorsController', /*@ngInject*/ function($scope, $uibModal
     };
 
 	$scope.deleteSensor = function(sensor, $index) {
-        return Sensor.deleteSensor(sensor.sensorId).success(function() {
+        return Sensor.deleteSensor(sensor.sensorId).then(function() {
             $scope.sensors.splice($index, 1);
         });
 	};
@@ -66,9 +67,9 @@ App.controller('EditSensorsController', /*@ngInject*/ function($scope, $uibModal
 
     $scope.edit = function(sensor) {
         if (sensor.edit) {
-            Sensor.edit(sensor).success(function(newSensor) {
+            Sensor.edit(sensor).then(function(newSensor) {
                 var index = getSensorIndex(sensor);
-                $scope.sensors[index] = newSensor;
+                $scope.sensors[index] = newSensor.data;
             });
         }
 

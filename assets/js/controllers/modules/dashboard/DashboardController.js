@@ -103,15 +103,15 @@ App.controller('DashboardController', /*@ngInject*/ function($scope, $uibModal, 
 	};
 
     $scope.deleteDashboard = function(dashboardId) {
-        Dashboard.deleteDashboard(dashboardId).success(function() {
+        Dashboard.deleteDashboard(dashboardId).then(function() {
             delete $scope.dashboards[dashboardId];
             selectDashboard(lodash.first($scope.dashboards));
         });
     };
 
     $scope.saveDashboard = function(dashboard) {
-        Dashboard.saveDashboard(dashboard).success(function(data) {
-            selectDashboard(data);
+        Dashboard.saveDashboard(dashboard).then(function(data) {
+            selectDashboard(data.data);
         });
     };
 
@@ -120,8 +120,8 @@ App.controller('DashboardController', /*@ngInject*/ function($scope, $uibModal, 
      * @param {Number} widgetId
 	 */
 	$scope.deleteWidget = function(dashboardId, widgetId) {
-		Dashboard.deleteWidget(dashboardId, widgetId).success(function(data) {
-            selectDashboard(data);
+		Dashboard.deleteWidget(dashboardId, widgetId).then(function(data) {
+            selectDashboard(data.data);
 		});
 
 		return false;

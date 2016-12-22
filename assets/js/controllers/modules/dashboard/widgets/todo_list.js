@@ -8,9 +8,9 @@ App.service('Widget.todo_list', /*@ngInject*/ function(Todo, _, lodash) {
 
             // todo put hidden states into widget settings
 
-            Todo.getData().success(function (data) {
-                $scope.items  = data.list;
-                $scope.states = data.states;
+            Todo.getData().then(function (data) {
+                $scope.items  = data.data.list;
+                $scope.states = data.data.states;
             });
 
             $scope.filterStatus = (item, status) => item.status === status;
@@ -19,8 +19,8 @@ App.service('Widget.todo_list', /*@ngInject*/ function(Todo, _, lodash) {
                 if (!name) {
                     return;
                 }
-                Todo.add({name}).success(function(newItem) {
-                    $scope.items.push(newItem);
+                Todo.add({name}).then(function(newItem) {
+                    $scope.items.push(newItem.data);
                     $scope.newTitle = '';
                 });
             };

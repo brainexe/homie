@@ -2,13 +2,13 @@
 App.controller('EditWidgetController', /*@ngInject*/ function($scope, $uibModalInstance, Dashboard, dashboardId, widget) {
     $scope.payload = widget;
 
-    Dashboard.getCachedMetadata().success(function(data) {
-        $scope.widget = data.widgets[widget.type];
+    Dashboard.getCachedMetadata().then(function(data) {
+        $scope.widget = data.data.widgets[widget.type];
     });
 
     $scope.save = function() {
-        Dashboard.updateWidget(dashboardId, widget).success(function(data) {
-            $uibModalInstance.close(data);
+        Dashboard.updateWidget(dashboardId, widget).then(function(data) {
+            $uibModalInstance.close(data.data);
         });
     };
 

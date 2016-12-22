@@ -11,7 +11,8 @@ App.controller('RegisterController', /*@ngInject*/ function ($scope, $location, 
             password: $scope.password
         };
 
-        UserManagement.register(payload).success(function (userVo) {
+        UserManagement.register(payload).then(function (data) {
+            let userVo = data.data;
             var message = _("Welcome {0}!").format(userVo.username);
             Flash.addFlash(message, Flash.SUCCESS);
 

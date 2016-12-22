@@ -2,10 +2,10 @@
   "dependencies": {
     "bluebird": "^3.4.6",
     "colors": "^1.1.2",
-    "debug": "^2.3.0",
-    "node-metawear": "^0.3.2",
+    "debug": "^2.5.1",
+    "node-metawear": "^0.3.5",
     "node-motion": "^0.1.4",
-    "pm2": "^2.1.4",
+    "pm2": "^2.2.2",
     "redis": "^2.6.3",
     "websocket-node": "brainexe/websocket-node"
   },
@@ -26,8 +26,8 @@
     "grunt-manifest": "^0.4.4",
     "grunt-po2mo": "^0.1.2",
     "grunt-uniqueify": "brainexe/grunt-uniqueify",
-    "lodash-cli": "^4.16.6",
-    "protractor": "^4.0.10"
+    "lodash-cli": "^4.17.1",
+    "protractor": "^4.0.14"
   },
   "license": "MIT",
   "scripts": {

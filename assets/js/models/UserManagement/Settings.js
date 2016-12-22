@@ -1,7 +1,9 @@
 
 App.service('UserManagementSettings', /*@ngInject*/ function($http, Cache) {
     return {
-        getAll: () => $http.get('/settings/', {cache:Cache}),
+        getAll: function() {
+            return $http.get('/settings/', {cache: Cache});
+        },
 
         set (key, value) {
             Cache.clear('^/settings/');

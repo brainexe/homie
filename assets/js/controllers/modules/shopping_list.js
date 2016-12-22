@@ -3,8 +3,8 @@ App.controller('ShoppingListController', /*@ngInject*/ function ($scope, Shoppin
     $scope.shoppingList = [];
     $scope.itemText = '';
 
-    ShoppingList.getData().success(function (data) {
-        $scope.shoppingList = data.shoppingList.map(text => ({text, done: false}));
+    ShoppingList.getData().then(function (data) {
+        $scope.shoppingList = data.data.shoppingList.map(text => ({text, done: false}));
     });
 
     $scope.addShoppingItem = function () {

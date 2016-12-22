@@ -12,8 +12,8 @@ App.controller('NewWidgetController', /*@ngInject*/ function($scope, $uibModalIn
             payload:     $scope.payload
         };
 
-        Dashboard.add(payload).success(function(data) {
-            $uibModalInstance.close(data);
+        Dashboard.add(payload).then(function(data) {
+            $uibModalInstance.close(data.data);
         });
     };
 

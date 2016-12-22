@@ -4,12 +4,12 @@ App.controller('EspeakController', /*@ngInject*/ function ($scope, Speak, Messag
     $scope.speakers = {};
     $scope.pending  = false;
 
-    Speak.getSpeakers().success(function (speakers) {
-        $scope.speakers = speakers;
+    Speak.getSpeakers().then(function (speakers) {
+        $scope.speakers = speakers.data;
     });
 
-    MessageQueue.getJobs(Speak.JOB_ID).success(function(jobs) {
-        $scope.jobs = jobs;
+    MessageQueue.getJobs(Speak.JOB_ID).then(function(jobs) {
+        $scope.jobs = jobs.data;
     });
 
     $scope.$on(MessageQueue.JOBS_HANDLED, function(event, data) {
@@ -38,7 +38,9 @@ App.controller('EspeakController', /*@ngInject*/ function ($scope, Speak, Messag
             speaker: $scope.speaker
         };
 
-        Speak.speak(payload).success(function(job) {
+        Speak.speak(payload).then(function(result) {
+            let job = result.data;
+
             $scope.pending = false;
             $scope.jobs[job.jobId] = job;
         });
