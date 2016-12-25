@@ -102,7 +102,7 @@ App.service('SensorGraph', /*@ngInject*/ function ($uibModal, Sensor, SensorForm
             }
 
             Sensor.getValues(activeIds, parameters).then(function (data) {
-                updateGraph(decompressData(data.data));
+                updateGraph(SensorDataDecompressor(data.data));
             });
         }
 
