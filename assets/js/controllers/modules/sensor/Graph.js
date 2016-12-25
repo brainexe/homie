@@ -12,7 +12,7 @@ App.service('SensorGraph', /*@ngInject*/ function ($uibModal, Sensor, SensorForm
         });
 
         Sensor.getCachedData().then(function(result) {
-            let data = data.data;
+            let data = result.data;
             $scope.types         = data.types;
             $scope.fromIntervals = data.fromIntervals;
             $scope.sensors       = data.sensors;
