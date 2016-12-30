@@ -28,8 +28,13 @@ module.exports = function (grunt) {
     function registerExecTask(name, command) {
         grunt.registerTask(name, function () {
             var done = this.async();
-            exec(command, function() {
+            exec(command, {shell: '/bin/bash'}, function(error, stdout, stderr) {
                 done();
+                if (error) {
+                    console.error(`exec error: ${error}`);
+                    return;
+                }
+                console.log(stdout);
             });
         });
     }
@@ -59,7 +64,21 @@ module.exports = function (grunt) {
     grunt.registerTask('compile_lang', ['nggettext_compile', 'po2mo']);
 
     registerExecTask('bower', 'bower update --production');
-    registerExecTask('lodash', 'node ./node_modules/lodash-cli/bin/lodash --output bower_components/lodash/dist/lodash.custom.js --development include=$(grep -hoP "lodash\\.\\K(\\w*)" assets/js -r | sort | uniq | paste -s -d, -)');
+    registerExecTask('lodash', `
+        TASKS=$(grep -hoP "lodash\\.\\K(\\w*)" assets/js -r | sort | uniq | paste -s -d, -);
+        CACHE_FILE=./cache/lodash_generated;
+        TARGET_FILE=./bower_components/lodash/dist/lodash.custom.js
+        touch $CACHE_FILE;
+        CACHED=$(<$CACHE_FILE);
+        if [ "$CACHED" = "$TASKS" ]; then
+            echo -ne "Already generated ($CACHED)";
+        else
+            echo -ne "Generating $TASKS (cached: $CACHED)";
+            node ./node_modules/lodash-cli/bin/lodash --output $TARGET_FILE --development include=$TASKS;
+            echo $TASKS > $CACHE_FILE;
+        fi
+        echo -ne "...$(($(stat -c%s $TARGET_FILE) / 1000)) kb"
+    `);
     registerExecTask('php_gettext_extract', 'bower update --production');
     registerExecTask('pot_merge', 'msgcat --use-first lang/pot/frontend.pot lang/pot/php.pot > lang/pot/all.pot');
 
