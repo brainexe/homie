@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-07 17:15+0200\n"
+"POT-Creation-Date: 2016-12-31 18:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -87,6 +87,10 @@ msgstr ""
 #: src/Homie/Dashboard/Widgets/SensorInput.php:42
 #: src/Homie/Dashboard/Widgets/SensorWidget.php:42
 msgid "Sensor"
+msgstr ""
+
+#: src/Homie/Dashboard/Widgets/SensorInput.php:47
+msgid "Show spark line"
 msgstr ""
 
 #: src/Homie/Dashboard/Widgets/Speak.php:42
@@ -170,33 +174,29 @@ msgstr ""
 msgid "No email address defined for this user"
 msgstr ""
 
-#: vendor/brainexe/totp/src/OneTimePassword.php:127
+#: vendor/brainexe/totp/src/OneTimePassword.php:124
+msgid "One time password"
+msgstr ""
+
+#: vendor/brainexe/totp/src/OneTimePassword.php:130
 msgid "Invalid username"
 msgstr ""
 
-#: vendor/brainexe/totp/vendor/brainexe/core/src/Authentication/Controller/UserController.php:63
 #: vendor/brainexe/core/src/Authentication/Controller/UserController.php:66
 #, php-format
 msgid "Invalid avatar: %s"
 msgstr ""
 
-#: vendor/brainexe/totp/vendor/brainexe/core/src/Middleware/Authentication.php:64
-#: vendor/brainexe/core/src/Middleware/Authentication.php:112
-#: vendor/brainexe/core/src/Middleware/TokenAuthentication.php:112
-msgid "Not logged in"
-msgstr ""
-
-#: vendor/brainexe/totp/vendor/brainexe/core/src/Middleware/CatchUserException.php:62
-#: vendor/brainexe/core/src/Middleware/CatchUserException.php:72
-msgid "An error occurred"
-msgstr ""
-
-#: vendor/brainexe/core/src/Middleware/CatchUserException.php:32
+#: vendor/brainexe/core/src/Middleware/CatchUserException.php:33
 #, php-format
 msgid "Page not found: %s"
 msgstr ""
 
-#: vendor/brainexe/core/src/Middleware/CatchUserException.php:42
+#: vendor/brainexe/core/src/Middleware/CatchUserException.php:43
 #, php-format
 msgid "You are not allowed to access the page. Allowed methods: %s"
+msgstr ""
+
+#: vendor/brainexe/core/src/Middleware/CatchUserException.php:74
+msgid "An error occurred"
 msgstr ""

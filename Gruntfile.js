@@ -79,7 +79,7 @@ module.exports = function (grunt) {
         fi
         echo -ne "...$(($(stat -c%s $TARGET_FILE) / 1000)) kb"
     `);
-    registerExecTask('php_gettext_extract', 'bower update --production');
+    registerExecTask('php_gettext_extract', 'xgettext --from-code=utf-8 -o lang/pot/php.pot --add-comments --keyword=translate $(find src vendor/brainexe -name *.php)');
     registerExecTask('pot_merge', 'msgcat --use-first lang/pot/frontend.pot lang/pot/php.pot > lang/pot/all.pot');
 
     grunt.registerTask('console', function (command) {
