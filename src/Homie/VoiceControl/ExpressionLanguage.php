@@ -13,17 +13,20 @@ use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotati
 class ExpressionLanguage implements ExpressionFunctionProviderInterface
 {
     /**
+     * @var string[]
+     */
+    public static $currentMatch = [];
+
+    /**
      * @return ExpressionFunction[]
      */
     public function getFunctions()
     {
         $voice = new ExpressionFunction('voice', function (string $pattern) {
-            return sprintf('($eventName == \'%s\' && preg_match(%s, $event->getText(), $entity->payload[\'voice\']))', VoiceEvent::SPEECH, $pattern);
+            return sprintf('($eventName == \'%s\' && preg_match(%s, $event->getText(), %s::$currentMatch))', VoiceEvent::SPEECH, $pattern, self::class);
         }, function (array $variables, int $index = 0) {
-            /** @var Entity $entity */
-            $entity = $variables['entity'];
-
-            return (string)$entity->payload['voice'][$index];
+            unset($variables);
+            return (string)self::$currentMatch[$index];
         });
 
         return [$voice];

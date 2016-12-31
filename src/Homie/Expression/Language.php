@@ -107,7 +107,6 @@ class Language extends ExpressionLanguage
         return [
             'event',
             'eventName',
-            'entity'
         ];
     }
 

@@ -77,7 +77,6 @@ class ListenerTest extends TestCase
         $newEvent = new EvaluateEvent('action', [
             'event' => $event,
             'eventName' => 'event',
-            'entity' => $entity
         ]);
 
         $this->dispatcher

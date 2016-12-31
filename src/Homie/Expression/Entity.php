@@ -23,12 +23,6 @@ class Entity implements JsonSerializable
     public $actions = [];
 
     /**
-     * @deprecated
-     * @var mixed[]
-     */
-    public $payload = [];
-
-    /**
      * @var string
      */
     public $compiledCondition;
@@ -61,7 +55,6 @@ class Entity implements JsonSerializable
             'expressionId' => $this->expressionId,
             'conditions'   => $this->conditions,
             'actions'      => $this->actions,
-            'payload'      => $this->payload,
             'enabled'      => $this->enabled,
         ];
     }

@@ -25,7 +25,6 @@ class Gateway
      */
     private $language;
 
-
     /**
      * @Inject("@Expression.Language")
      * @param Language $language
@@ -42,7 +41,6 @@ class Gateway
     public function save(Entity $entity, bool $updateCache = true)
     {
         $entity->expressionId = $entity->expressionId ?: $this->generateUniqueId('expressionid');
-        $entity->payload      = $entity->payload ?: [];
 
         $entity->compiledCondition = $this->language->compile(
             implode(' && ', $entity->conditions),
@@ -80,7 +78,7 @@ class Gateway
     public function getEntities(array $entityIds) : array
     {
         return array_map(
-            function ($string) {
+            function ($string) : Entity {
                 return unserialize($string);
             },
             $this->getRedis()->hmget(self::REDIS_KEY, $entityIds)
@@ -101,7 +99,7 @@ class Gateway
         return (bool)$result;
     }
 
-    private function updateCache()
+    public function updateCache()
     {
         $event = new RebuildExpressionCache();
         $this->dispatchEvent($event);

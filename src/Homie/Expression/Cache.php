@@ -15,7 +15,7 @@ class Cache
     use FileCacheTrait;
 
     const CACHE_FILE = 'expressions';
-    const BASE       = "use \\BrainExe\\Core\\EventDispatcher\\AbstractEvent;
+    const BASE       = "\nuse \\BrainExe\\Core\\EventDispatcher\\AbstractEvent;\n
 use \\Symfony\\Component\\DependencyInjection\\Container;
 return function(AbstractEvent \$event, string \$eventName, Container \$container) {
 %s
@@ -46,9 +46,9 @@ return function(AbstractEvent \$event, string \$eventName, Container \$container
             if ($entity->compiledCondition && $entity->enabled) {
                 $this->gateway->save($entity, false);
                 $content .= sprintf(
-                    "\t\t\$entity = %s;\n\t\tif (%s) {\n\t\t\tyield \$entity;\n\t\t}\n",
-                    var_export($entity, true),
-                    $entity->compiledCondition
+                    "\tif (%s) {\n\t\tyield unserialize('%s');\n\t}\n",
+                    $entity->compiledCondition,
+                    addslashes(serialize($entity))
                 );
             }
         }

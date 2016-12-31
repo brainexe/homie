@@ -10,11 +10,22 @@
     </thead>
     <tbody>
         <tr ng-repeat="(key, value) in variables">
-            <th>{{key}}</th>
-            <th>{{value}}</th>
+            <th ng-bind="key"></th>
+            <th>
+                <span ng-if="!editMode" ng-bind="value"></span>
+                <input
+                        ng-if="editMode"
+                        type="text"
+                        class="form-control"
+                        ng-model="variables[key]"
+                />
+            </th>
             <td ng-if="editMode">
                 <div class="btn-group">
-                    <a confirm="deleteVariable(cron.jobId)" class="btn btn-danger btn-sm">
+                    <a ng-click="setVariable(key, value)" class="btn btn-success btn-sm">
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </a>
+                    <a confirm="deleteVariable(key)" class="btn btn-danger btn-sm">
                         <span class="glyphicon glyphicon-remove"></span>
                     </a>
                 </div>

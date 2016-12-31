@@ -86,17 +86,11 @@ class Listener extends SymfonyEventDispatcher
             $parameters = [
                 'event'     => $event,
                 'eventName' => $eventName,
-                'entity'    => $entity
             ];
 
-            $oldParams = $entity->payload;
             foreach ($entity->actions as $action) {
                 $evaluateEvent = new EvaluateEvent($action, $parameters);
                 $this->dispatcher->dispatchEvent($evaluateEvent);
-            }
-
-            if ($entity->payload != $oldParams) {
-                $this->gateway->save($entity);
             }
         }
     }

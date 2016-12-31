@@ -72,7 +72,7 @@ class ClearCache implements EventSubscriberInterface
                 continue;
             }
 
-            $this->gateway->save($entity);
+            $this->gateway->save($entity, false);
             $this->debug(sprintf('Registered entity "%s"', $expressionId));
         }
     }

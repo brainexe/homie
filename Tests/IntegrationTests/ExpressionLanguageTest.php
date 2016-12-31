@@ -18,7 +18,7 @@ class ExpressionLanguageTest extends TestCase
      * @param string $expected
      * @param array $parameters
      */
-    public function testEvaluate($expression, $expected, $parameters = [])
+    public function testEvaluate(string $expression, string $expected, array $parameters = [])
     {
         $dic = $this->bootstrap();
 
@@ -51,11 +51,6 @@ class ExpressionLanguageTest extends TestCase
     {
         $timingEvent = new TimingEvent('timingId');
 
-        $entity = new Entity();
-        $entity->payload = [
-            'foo' => 'bar'
-        ];
-
         return [
             ['1 + 2', "3"],
             ['round(42.222)', "42"],
@@ -76,16 +71,7 @@ class ExpressionLanguageTest extends TestCase
             ['isTiming("otherTimingId")', false, [
                 'eventName' => 'otherEvent',
                 'event' => $timingEvent
-            ]],
-            ['getProperty("foo")', 'bar', [
-                'entity' => $entity
-            ]],
-            ['setProperty("foo", "bar2")', null, [
-                'entity' => $entity
-            ]],
-            ['getProperty("foo", "bar2")', 'bar2', [
-                'entity' => $entity
-            ]],
+            ]]
         ];
     }
 
@@ -93,8 +79,6 @@ class ExpressionLanguageTest extends TestCase
     {
         return [
             ['1 + 2', "(1 + 2)"],
-            ['setProperty("foo", "bar")', '($entity->payload["foo"] = "bar")'],
-            ['getProperty("foo")', '$entity->payload["foo"]'],
             ['round(eventName)', "round(\$eventName)"],
             ['isEvent("foo")', '($eventName == "foo")'],
             [
@@ -103,7 +87,7 @@ class ExpressionLanguageTest extends TestCase
             ],
             [
                 'voice("/Hallo (.*)/")',
-                '($eventName == \'voice.text\' && preg_match("/Hallo (.*)/", $event->getText(), $entity->payload[\'voice\']))'
+                '($eventName == \'voice.text\' && preg_match("/Hallo (.*)/", $event->getText(), Homie\VoiceControl\ExpressionLanguage::$currentMatch))'
             ],
         ];
     }

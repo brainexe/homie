@@ -66,7 +66,6 @@ class GatewayTest extends TestCase
 
         $savedEntity = new Entity();
         $savedEntity->expressionId      = $id;
-        $savedEntity->payload           = [];
         $savedEntity->compiledCondition = null;
 
         $this->redis

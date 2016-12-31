@@ -6,7 +6,6 @@
             <th ng-if="editMode || showDisabled" translate>Enabled</th>
             <th translate>Condition</th>
             <th translate>Actions</th>
-            <th ng-if="editMode" translate>Payload</th>
             <th ng-if="editMode"><span class="glyphicon glyphicon-edit"></span></th>
         </tr>
     </thead>
@@ -34,15 +33,8 @@
                     <a ng-click="evaluateAction(expression, action)" uib-tooltip="{{'Evaluate'|translate}}" class="btn btn-xs btn-success">
                         <span class="glyphicon glyphicon-play"></span>
                     </a>
-                    <code>
-                        {{ action }}
-                    </code>
+                    <code ng-bind="action"></code>
                 </li>
-            </ul>
-        </td>
-        <td ng-if="editMode">
-            <ul>
-                <li ng-repeat="(key, value) in expression.payload">{{key}}: {{ value }}</li>
             </ul>
         </td>
         <td ng-if="editMode">
