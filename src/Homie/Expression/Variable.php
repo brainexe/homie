@@ -11,7 +11,7 @@ use BrainExe\Core\Traits\RedisTrait;
 class Variable
 {
 
-    const REDIS_KEY = 'variable';
+    const REDIS_KEY = 'expression_variable';
 
     use RedisTrait;
 

@@ -37,17 +37,25 @@ class Variable implements ExpressionFunctionProviderInterface
      */
     public function getFunctions()
     {
-        yield new ExpressionFunction('getVariable', function (string $name, string $value) {
-            return sprintf('($this->get())', $name, $value);
-        }, function (array $parameters, string $property, string $value) {
-            /** @var Entity $entity */
-            $entity                     = $parameters['entity'];
-            $entity->payload[$property] = $value;
+        yield new ExpressionFunction('getVariable', function (string $key) {
+            return sprintf(
+                '($container->get("Expression.Controller.Variables"))->getVariable("%s")',
+                $key
+            );
+        }, function (array $parameters, string $property) {
+            unset($parameters);
+            return $this->variable->getVariable($property);
         });
 
-        yield new Action('setVariable', function (array $parameters, $name, $value) {
+        yield new ExpressionFunction('setVariable', function (string $name, string $value) {
+            return sprintf(
+                '($container->get("Expression.Controller.Variables"))->setVariable("%s", "%s")',
+                $name,
+                $value
+            );
+        }, function (array $parameters, string $key, string $value) {
             unset($parameters);
-            // todo set variable
+            $this->variable->setVariable($key, $value);
         });
     }
 }

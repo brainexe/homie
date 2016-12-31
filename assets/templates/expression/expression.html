@@ -22,5 +22,9 @@
         ng-include="'/templates/expression/list.html'"></div>
 
 <div
+        ng-controller="ExpressionVariablesController"
+        ng-include="'/templates/expression/variables.html'"></div>
+
+<div
         ng-if="(crons|notEmpty) || editMode"
         ng-include="'/templates/crons.html'"></div>

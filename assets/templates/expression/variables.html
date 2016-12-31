@@ -1,0 +1,53 @@
+<h2 translate>Variables</h2>
+
+<table class="table table-striped table-bordered table-hover">
+    <thead>
+        <tr>
+            <th translate>Key</th>
+            <th translate>Value</th>
+            <th ng-if="editMode" translate>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="(key, value) in variables">
+            <th>{{key}}</th>
+            <th>{{value}}</th>
+            <td ng-if="editMode">
+                <div class="btn-group">
+                    <a confirm="deleteVariable(cron.jobId)" class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+    <tfoot ng-if="editMode">
+        <tr>
+            <th>
+                <input
+                        type="text"
+                        placeholder="{{'Key'|translate}}"
+                        ng-enter="setVariable(newKey, newValue)"
+                        ng-model="newKey"
+                        required
+                        class="form-control"/>
+            </th>
+            <th>
+                <input
+                        type="text"
+                        placeholder="{{'Value'|translate}}"
+                        ng-enter="setVariable(newKey, newValue)"
+                        ng-model="newValue"
+                        required
+                        class="form-control"/>
+            </th>
+            <th>
+                <input
+                        type="button"
+                        ng-click="setVariable(newKey, newValue)"
+                        class="btn btn-primary"
+                        value="{{'Add'|translate}}" />
+            </th>
+        </tr>
+    </tfoot>
+</table>

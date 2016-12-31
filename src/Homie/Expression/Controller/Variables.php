@@ -33,7 +33,7 @@ class Variables
 
     /**
      * @return array
-     * @Route("/expression/variables/", name="expressions.variables")
+     * @Route("/expressions/variables/", name="expressions.variables", methods={"GET"})
      */
     public function getAll() : array
     {
@@ -45,7 +45,7 @@ class Variables
      * @param string $key
      * @param string $value
      * @return bool
-     * @Route("/expression/variable/{key}/{value}", name="expressions.variable.set", methods={"POST"})
+     * @Route("/expressions/variable/{key}/{value}/", name="expressions.variable.set", methods={"POST"})
      */
     public function setVariable(Request $request, string $key, string $value) : bool
     {
@@ -60,7 +60,7 @@ class Variables
      * @param Request $request
      * @param string $key
      * @return bool
-     * @Route("/expression/variable/{key}/", name="expressions.variable.delete", methods={"DELETE"})
+     * @Route("/expressions/variable/{key}/", name="expressions.variable.delete", methods={"DELETE"})
      */
     public function deleteVariable(Request $request, string $key) : bool
     {

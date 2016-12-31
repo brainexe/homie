@@ -30,16 +30,18 @@
             <th>
                 <input
                         type="text"
+                        required
                         placeholder="{{'Timing-ID'|translate}}"
-                        ng-click="addCron(cron)"
+                        ng-enter="addCron(cron)"
                         ng-model="cron.cronId"
                         class="form-control"/>
             </th>
             <th colspan="2">
                 <input
                         type="text"
+                        required
                         placeholder="{{'e.g. @daily, or 2 * * * *'|translate}}"
-                        ng-click="addCron(cron)"
+                        ng-enter="addCron(cron)"
                         ng-model="cron.expression"
                         class="form-control"/>
             </th>

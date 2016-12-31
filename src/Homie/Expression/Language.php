@@ -128,7 +128,11 @@ class Language extends ExpressionLanguage
 
         foreach ($functions as $function) {
             $this->register($function, function (...$parameters) use ($function) {
-                return sprintf('%s(%s)', $function, implode(', ', $parameters));
+                return sprintf(
+                    '%s(%s)',
+                    $function,
+                    implode(', ', $parameters)
+                );
             }, function (array $parameters, ...$params) use ($function) {
                 unset($parameters);
                 return $function(...$params);

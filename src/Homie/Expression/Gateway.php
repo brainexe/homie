@@ -14,6 +14,9 @@ use Homie\Expression\Listener\RebuildExpressionCache;
  */
 class Gateway
 {
+    use RedisTrait;
+    use IdGeneratorTrait;
+    use EventDispatcherTrait;
 
     const REDIS_KEY = 'expressions';
 
@@ -22,9 +25,6 @@ class Gateway
      */
     private $language;
 
-    use RedisTrait;
-    use IdGeneratorTrait;
-    use EventDispatcherTrait;
 
     /**
      * @Inject("@Expression.Language")

@@ -59,6 +59,22 @@ App.service('Expression', /*@ngInject*/ function($http, Cache) {
             return $http.post('/cron/', cron);
         },
 
+        getVariables () {
+            return $http.get(BASE_URL + 'variables/');
+        },
+
+        getVariable (key) {
+            return $http.get(BASE_URL + `variable/${key}`);
+        },
+
+        setVariable (key, value) {
+            return $http.post(BASE_URL + `variable/${key}/${value}/`, {});
+        },
+
+        deleteVariable (key) {
+            return $http.delete(BASE_URL + `variable/${key}`);
+        },
+
         // todo cache until nextRun > now()
         getNextCronRun (expression) {
             return $http.get('/cron/next/', {
