@@ -3,7 +3,9 @@
 namespace Homie\Expression;
 
 use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Traits\RedisTrait;
+use Homie\Expression\Event\VariableChangedEvent;
 
 /**
  * @Service("Expression.Variable", public=true)
@@ -13,6 +15,7 @@ class Variable
 
     const REDIS_KEY = 'expression_variable';
 
+    use EventDispatcherTrait;
     use RedisTrait;
 
     /**
@@ -22,6 +25,9 @@ class Variable
     public function setVariable(string $key, string $value)
     {
         $this->getRedis()->hset(self::REDIS_KEY, $key, $value);
+
+        $event = new VariableChangedEvent(VariableChangedEvent::CHANGED, $key, $value);
+        $this->dispatchEvent($event);
     }
 
     /**
@@ -39,6 +45,9 @@ class Variable
     public function deleteVariable(string $key)
     {
         $this->getRedis()->hdel(self::REDIS_KEY, $key);
+
+        $event = new VariableChangedEvent(VariableChangedEvent::DELETED, $key);
+        $this->dispatchEvent($event);
     }
 
     /**

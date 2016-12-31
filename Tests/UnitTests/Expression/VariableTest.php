@@ -2,7 +2,9 @@
 
 namespace Tests\Homie\Expression;
 
+use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Tests\RedisMockTrait;
+use Homie\Expression\Event\VariableChangedEvent;
 use Homie\Expression\Variable;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
@@ -23,12 +25,19 @@ class VariableTest extends TestCase
      */
     private $predis;
 
+    /**
+     * @var MockObject|EventDispatcher
+     */
+    private $dispatcher;
+
     public function setup()
     {
         $this->predis = $this->getRedisMock();
+        $this->dispatcher = $this->createMock(EventDispatcher::class);
 
         $this->subject = new Variable();
         $this->subject->setRedis($this->predis);
+        $this->subject->setEventDispatcher($this->dispatcher);
     }
 
     public function testGetAll()
@@ -53,9 +62,13 @@ class VariableTest extends TestCase
             ->method('hset')
             ->with(Variable::REDIS_KEY, 'key', 'value');
 
-        $actual = $this->subject->setVariable('key', 'value');
+        $event = new VariableChangedEvent(VariableChangedEvent::CHANGED, 'key', 'value');
+        $this->dispatcher
+            ->expects($this->once())
+            ->method('dispatchEvent')
+            ->with($event);
 
-        $this->assertNull($actual);
+        $this->subject->setVariable('key', 'value');
     }
 
     public function testDelete()
@@ -65,8 +78,12 @@ class VariableTest extends TestCase
             ->method('hdel')
             ->with(Variable::REDIS_KEY, 'key');
 
-        $actual = $this->subject->deleteVariable('key');
+        $event = new VariableChangedEvent(VariableChangedEvent::DELETED, 'key');
+        $this->dispatcher
+            ->expects($this->once())
+            ->method('dispatchEvent')
+            ->with($event);
 
-        $this->assertNull($actual);
+        $this->subject->deleteVariable('key');
     }
 }
