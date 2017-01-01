@@ -2,6 +2,7 @@
 App.directive('checkbox', /*@ngInject*/ function () {
     return {
         restrict: 'E',
+        templateUrl: '/templates/directives/checkbox.html',
         replace: true,
         link: function($scope) {
             if ($scope.ngChange) {
@@ -12,11 +13,6 @@ App.directive('checkbox', /*@ngInject*/ function () {
                 });
             }
         },
-        template: `<div class="checkbox-slider">
-    <label>
-        <input ng-model="ngModel" type="checkbox"><span>{{label}}&nbsp;</span>
-    </label>
-</div>`,
         scope: {
             ngModel: "=",
             ngChange: "&",
