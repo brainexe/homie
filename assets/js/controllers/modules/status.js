@@ -42,4 +42,9 @@ App.controller('StatusController', /*@ngInject*/ function ($scope, $interval, St
             delete $scope.jobs[eventId];
         });
     };
+
+    $scope.clearBrowserCache = function () {
+        Cache.removeAll();
+        $scope.update();
+    };
 });
