@@ -47,14 +47,13 @@ npm run-script protractor
 - ... tbd
 
 # Screenshots
-tdb: add more and newer screenshots
 ### Dashboard
-![Dashboard](https://space.mdoetsch.de/index.php/s/6mMnrHBeIitEHSa/download)
+![Dashboard](https://github.com/brainexe/homie/raw/master/docs/images/dashboard.png)
 ### Sensors
-![Sensor](https://space.mdoetsch.de/index.php/s/Gib5tiNJ26mWICh/download)
-![Sensor List](https://space.mdoetsch.de/index.php/s/XD18BpS3aoSbbZb/download)
+![Sensor](https://github.com/brainexe/homie/raw/master/docs/images/sensor.png)
+![Sensor List](https://github.com/brainexe/homie/raw/master/docs/images/sensor_list.png)
 ### Switches
-![Switches List](https://space.mdoetsch.de/index.php/s/Pa496sbN6sbV6lD/download)
+![Switches List](https://github.com/brainexe/homie/raw/master/docs/images/switches.png)
 ### Rules
-![Rules](https://space.mdoetsch.de/index.php/s/WCq4EO8JPucrHNx/download)
-
+![Rules](https://github.com/brainexe/homie/raw/master/docs/images/expression_list.png)
+tdb: add more and newer screenshots

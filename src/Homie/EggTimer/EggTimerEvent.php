@@ -3,10 +3,13 @@
 namespace Homie\EggTimer;
 
 use BrainExe\Core\EventDispatcher\AbstractEvent;
+use BrainExe\Core\Traits\JsonSerializableTrait;
 use Homie\Espeak\EspeakVO;
+use JsonSerializable;
 
-class EggTimerEvent extends AbstractEvent
+class EggTimerEvent extends AbstractEvent implements JsonSerializable
 {
+    use JsonSerializableTrait;
 
     const DONE = 'egg_timer.done';
 

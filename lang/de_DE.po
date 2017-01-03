@@ -471,7 +471,7 @@ msgstr "Logout"
 
 #: assets/templates/user/sessions.html:21
 msgid "Logout this session?"
-msgstr ""
+msgstr "Diese Sitzung beenden?"
 
 #: assets/templates/widgets/sensor.html:33
 msgid "Max"
@@ -703,9 +703,8 @@ msgid "Select..."
 msgstr "Wähle..."
 
 #: assets/templates/user/login.html:33
-#, fuzzy
 msgid "Send Email"
-msgstr "Email"
+msgstr "Email senden"
 
 #: assets/templates/sensor/sensor_value_detail.html:3
 msgid "Sensor Value"
@@ -1443,9 +1442,8 @@ msgid "No email address defined for this user"
 msgstr "Keine Email-Adresse definiert"
 
 #: vendor/brainexe/totp/src/OneTimePassword.php:124
-#, fuzzy
 msgid "One time password"
-msgstr "Passwort ändern"
+msgstr "Einmal Passwort"
 
 #: vendor/brainexe/totp/src/OneTimePassword.php:130
 msgid "Invalid username"
