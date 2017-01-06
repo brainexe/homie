@@ -26,7 +26,6 @@ class Dashboard
     private $gateway;
 
     /**
-     * @Inject({"@DashboardGateway", "@WidgetFactory"})
      * @param DashboardGateway $gateway
      * @param WidgetFactory    $widgetFactory
      */

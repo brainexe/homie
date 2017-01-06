@@ -23,10 +23,6 @@ class GpioManager
     private $adapterFactory;
 
     /**
-     * @Inject({
-     *     "@GPIO.PinGateway",
-     *     "@Gpio.Adapter.Factory",
-     * })
      * @param PinGateway $gateway
      * @param Factory $adapterFactory
      */
@@ -47,7 +43,7 @@ class GpioManager
         $descriptions = $this->gateway->getPinDescriptions();
 
         $adapter = $this->adapterFactory->getForNode($node);
-        
+
         $pins = $adapter->loadPins();
 
         foreach ($pins->getAll() as $pin) {

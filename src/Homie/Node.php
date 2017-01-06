@@ -8,9 +8,6 @@ use BrainExe\Core\Translation\TranslationProvider;
 use InvalidArgumentException;
 use JsonSerializable;
 
-/**
- * @Service(public=false)
- */
 class Node implements JsonSerializable, TranslationProvider
 {
     use JsonSerializableTrait;

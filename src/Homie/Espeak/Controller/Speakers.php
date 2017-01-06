@@ -20,7 +20,6 @@ class Speakers
     private $speakers;
 
     /**
-     * @Inject({"@Espeak.Speakers"})
      * @param SpeakersModel $speakers
      */
     public function __construct(SpeakersModel $speakers)

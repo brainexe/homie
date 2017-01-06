@@ -25,7 +25,6 @@ class Language extends ExpressionLanguage
     private $container;
 
     /**
-     * @Inject({"@service_container"})
      * @param ContainerInterface $container
      */
     public function __construct(ContainerInterface $container)

@@ -24,10 +24,6 @@ class Controller
     private $nodes;
 
     /**
-     * @Inject({
-     *     "@Gpio.GpioManager",
-     *     "@Node.Gateway"
-     * })
      * @param GpioManager $manager
      * @param Gateway $nodes
      */

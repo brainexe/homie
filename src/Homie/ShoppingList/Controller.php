@@ -19,7 +19,6 @@ class Controller
     private $shoppingList;
 
     /**
-     * @Inject({"@ShoppingList"})
      * @param ShoppingList $list
      */
     public function __construct(

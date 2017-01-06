@@ -22,7 +22,6 @@ class SensorGraph extends AbstractWidget
     private $gateway;
 
     /**
-     * @Inject("@SensorGateway")
      * @param SensorGateway $gateway
      */
     public function __construct(SensorGateway $gateway)

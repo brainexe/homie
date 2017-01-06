@@ -23,7 +23,6 @@ class Webcam
     private $filesystem;
 
     /**
-     * @Inject({"@RemoteFilesystem"})
      * @param Filesystem $fileUploader
      */
     public function __construct(Filesystem $fileUploader)

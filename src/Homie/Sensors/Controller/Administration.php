@@ -40,11 +40,6 @@ class Administration
     private $builder;
 
     /**
-     * @Inject({
-     *  "@SensorGateway",
-     *  "@SensorBuilder",
-     *  "@Sensor.VOBuilder",
-     * })
      * @param SensorGateway $gateway
      * @param SensorBuilder $builder
      * @param Builder $voBuilder

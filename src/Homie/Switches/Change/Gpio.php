@@ -27,7 +27,6 @@ class Gpio implements SwitchInterface
     private $nodes;
 
     /**
-     * @Inject({"@GPIO.GpioManager", "@Node.Gateway"})
      * @param GpioManager $manager
      * @param Gateway $nodes
      */

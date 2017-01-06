@@ -40,11 +40,6 @@ class Values
     private $voBuilder;
 
     /**
-     * @Inject({
-     *  "@SensorGateway",
-     *  "@SensorValuesGateway",
-     *  "@Sensor.VOBuilder",
-     * })
      * @param SensorGateway $gateway
      * @param SensorValuesGateway $valuesGateway
      * @param Builder $voBuilder

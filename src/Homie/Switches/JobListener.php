@@ -20,9 +20,6 @@ class JobListener
 
     /**
      * @param Change $controller
-     * @Inject({
-     *     "@Switches.Change.Change"
-     * })
      */
     public function __construct(Change $controller)
     {

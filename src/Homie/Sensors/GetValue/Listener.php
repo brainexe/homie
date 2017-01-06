@@ -35,10 +35,6 @@ class Listener
     private $gateway;
 
     /**
-     * @Inject({
-     *      "@SensorBuilder",
-     *      "@SensorValuesGateway"
-     * })
      * @param SensorBuilder $builder
      * @param SensorValuesGateway $valuesGateway
      */

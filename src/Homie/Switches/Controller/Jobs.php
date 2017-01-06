@@ -30,10 +30,6 @@ class Jobs
     private $job;
 
     /**
-     * @Inject({
-     *     "@Switches.Switches",
-     *     "@Switches.Job"
-     * })
      * @param Switches $switches
      * @param Job $job
      */

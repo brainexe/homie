@@ -27,7 +27,6 @@ class Controller
     private $renderer;
 
     /**
-     * @Inject({"@Display.Gateway", "@Display.Renderer"})
      * @param Gateway $gateway
      * @param Renderer $renderer
      */

@@ -20,9 +20,6 @@ class Variables
     private $variable;
 
     /**
-     * @Inject({
-     *  "@Expression.Variable"
-     * })
      * @param Variable $variable
      */
     public function __construct(

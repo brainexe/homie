@@ -31,10 +31,6 @@ class ClearCache implements EventSubscriberInterface
     private $cache;
 
     /**
-     * @Inject({
-     *     "@Expression.Cache",
-     *     "@Expression.Gateway"
-     * })
      * @param Cache $cache
      * @param Gateway $gateway
      */

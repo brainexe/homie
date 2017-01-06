@@ -20,7 +20,6 @@ class Controller
     private $timer;
 
     /**
-     * @Inject("@EggTimer")
      * @param EggTimer $timer
      */
     public function __construct(EggTimer $timer)

@@ -19,9 +19,6 @@ class Evaluate
     private $language;
 
     /**
-     * @Inject({
-     *     "@Expression.Language",
-     * })
      * @param Language $language
      */
     public function __construct(Language $language)

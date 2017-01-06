@@ -32,10 +32,6 @@ class TodoListController implements TranslationProvider
     private $loadUser;
 
     /**
-     * @Inject({
-     *     "@TodoList",
-     *     "@Core.Authentication.LoadUser"
-     * })
      * @param TodoList $todo
      * @param LoadUser $loadUser
      */

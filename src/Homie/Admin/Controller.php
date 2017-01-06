@@ -22,7 +22,6 @@ class Controller
     private $userProvider;
 
     /**
-     * @Inject("@Core.Authentication.UserProvider")
      * @param UserProvider $userProvider
      */
     public function __construct(UserProvider $userProvider)

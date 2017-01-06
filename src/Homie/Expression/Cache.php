@@ -27,9 +27,6 @@ return function(AbstractEvent \$event, string \$eventName, Container \$container
     private $gateway;
 
     /**
-     * @Inject({
-     *  "@Expression.Gateway",
-     * })
      * @param Gateway $gateway
      */
     public function __construct(Gateway $gateway)

@@ -19,7 +19,6 @@ class Listener
     private $trigger;
 
     /**
-     * @Inject("@IFTTT.Trigger")
      * @param Trigger $action
      */
     public function __construct(Trigger $action)

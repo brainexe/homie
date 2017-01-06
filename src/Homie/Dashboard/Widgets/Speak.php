@@ -22,7 +22,6 @@ class Speak extends AbstractWidget
     private $speakers;
 
     /**
-     * @Inject({"@Espeak.Speakers"})
      * @param Speakers $speakers
      */
     public function __construct(Speakers $speakers)

@@ -31,11 +31,6 @@ class Change implements SwitchInterface, TranslationProvider
     private $gateway;
 
     /**
-     * @Inject({
-     *     "@Switches.Change.Radio",
-     *     "@Switches.Change.Gpio",
-     *     "@Switches.Gateway",
-     * })
      * @param Radio $radio
      * @param Gpio $gpio
      * @param Gateway $gateway

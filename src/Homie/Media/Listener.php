@@ -18,7 +18,6 @@ class Listener
     private $sound;
 
     /**
-     * @Inject("@Media.Sound")
      * @param Sound $recorder
      */
     public function __construct(Sound $recorder)

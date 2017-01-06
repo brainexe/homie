@@ -2,6 +2,7 @@
 
 namespace Homie\Espeak\Controller;
 
+use BrainExe\Annotations\Annotations\Autowire;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
@@ -26,7 +27,6 @@ class Speak
     private $timeParser;
 
     /**
-     * @Inject({"@TimeParser"})
      * @param TimeParser $timeParser
      */
     public function __construct(TimeParser $timeParser)

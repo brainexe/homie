@@ -18,7 +18,6 @@ class WebcamListener
     private $recorder;
 
     /**
-     * @Inject("@Webcam.Recorder")
      * @param Recorder $recorder
      */
     public function __construct(Recorder $recorder)

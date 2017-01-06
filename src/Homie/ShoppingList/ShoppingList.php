@@ -53,7 +53,7 @@ class ShoppingList
     public function removeItem(string $name)
     {
         $this->gateway->removeItem($name);
-        
+
         $event = new ShoppingListEvent(ShoppingListEvent::REMOVE, $name);
         $this->dispatchEvent($event);
     }

@@ -22,7 +22,6 @@ class Job
     private $timeParser;
 
     /**
-     * @Inject({"@TimeParser"})
      * @param TimeParser $timeParser
      */
     public function __construct(TimeParser $timeParser)

@@ -22,7 +22,6 @@ class Particle implements DeviceInterface
     private $dispatcher;
 
     /**
-     * @Inject("@EventDispatcher")
      * @param EventDispatcher $dispatcher
      */
     public function __construct(EventDispatcher $dispatcher)

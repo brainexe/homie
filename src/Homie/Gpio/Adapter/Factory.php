@@ -29,10 +29,6 @@ class Factory
     /**
      * @param Raspberry $raspberry
      * @param Arduino $arduino
-     * @Inject({
-     *     "@Gpio.Adapter.Raspberry",
-     *     "@Gpio.Adapter.Arduino"
-     * })
      */
     public function __construct(Raspberry $raspberry, Arduino $arduino)
     {

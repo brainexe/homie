@@ -21,7 +21,6 @@ class Display extends AbstractWidget
     private $gateway;
 
     /**
-     * @Inject("@Display.Gateway")
      * @param Gateway $gateway
      */
     public function __construct(Gateway $gateway)

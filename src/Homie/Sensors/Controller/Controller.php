@@ -52,13 +52,6 @@ class Controller
     private $settings;
 
     /**
-     * @Inject({
-     *  "@SensorGateway",
-     *  "@SensorValuesGateway",
-     *  "@Chart",
-     *  "@Sensor.VOBuilder",
-     *  "@User.Settings"
-     * })
      * @param SensorGateway $gateway
      * @param SensorValuesGateway $valuesGateway
      * @param Chart $chart

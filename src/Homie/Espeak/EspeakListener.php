@@ -18,7 +18,6 @@ class EspeakListener
     private $espeak;
 
     /**
-     * @Inject("@espeak")
      * @param Espeak $espeak
      */
     public function __construct(Espeak $espeak)

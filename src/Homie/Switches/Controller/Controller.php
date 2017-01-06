@@ -28,9 +28,6 @@ class Controller
     private $switches;
 
     /**
-     * @Inject({
-     *     "@Switches.Switches",
-     * })
      * @param Switches $switches
      */
     public function __construct(

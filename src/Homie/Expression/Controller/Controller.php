@@ -34,10 +34,6 @@ class Controller
     private $language;
 
     /**
-     * @Inject({
-     *  "@Expression.Gateway",
-     *  "@Expression.Language"
-     * })
      * @param Gateway $gateway
      * @param Language $language
      */

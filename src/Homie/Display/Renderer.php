@@ -30,11 +30,6 @@ class Renderer
     private $node;
 
     /**
-     * @Inject({
-     *     "@Expression.Language",
-     *     "@Display.Devices.Factory",
-     *     "@Node.Gateway"
-     * })
      * @param Language $language
      * @param Factory $factory
      * @param NodeGateway $node

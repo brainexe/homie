@@ -18,7 +18,6 @@ class Controller
     private $dashboard;
 
     /**
-     * @Inject("@Dashboard")
      * @param Dashboard $dashboard
      */
     public function __construct(Dashboard $dashboard)
