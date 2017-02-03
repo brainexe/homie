@@ -21,13 +21,13 @@ class CompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $factory  = $container->getDefinition('Display.Devices.Factory');
+        $factory  = $container->findDefinition('Display.Devices.Factory');
         $taggedServices = $container->findTaggedServiceIds(self::TAG);
 
         $displays = [];
         foreach (array_keys($taggedServices) as $serviceId) {
             /** @var DeviceInterface $class */
-            $class = $container->getDefinition($serviceId)->getClass();
+            $class = $container->findDefinition($serviceId)->getClass();
             $displays[$class::getType()] = new Reference($serviceId);
         }
 

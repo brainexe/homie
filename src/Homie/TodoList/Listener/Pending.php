@@ -35,7 +35,6 @@ class Pending
     private $cron;
 
     /**
-     * @Inject({"@TodoList", "@Core.Cron.Expression"})
      * @param TodoList $todoList
      * @param Expression $cron
      */

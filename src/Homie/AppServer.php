@@ -47,7 +47,11 @@ class AppServer
     private $session;
 
     /**
-     * @Inject({"@AppKernel", "@Redis", "@RedisSession", 600})
+     * @Inject({
+     *     "timeout" = 600,
+     *     "redis" = "@Redis",
+     *     "session" = "@RedisSession"
+     * })
      * @param AppKernel $appKernel
      * @param Predis $redis
      * @param Session $session

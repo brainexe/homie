@@ -39,7 +39,7 @@ abstract class RequestTest extends TestCase
     protected function handleRequest(Request $request) : Response
     {
         /** @var AppKernel $kernel */
-        $kernel = $this->getContainer()->get('AppKernel');
+        $kernel = $this->getContainer()->get(AppKernel::class);
 
         return $kernel->handle($request);
     }

@@ -28,8 +28,7 @@ class Controller
 
     /**
      * @Inject({
-     *  "@Node.Gateway",
-     *  "%node.id%"
+     *  "currentNodeId" = "%node.id%"
      * })
      * @param Gateway $gateway
      * @param int $currentNodeId

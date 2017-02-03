@@ -2,12 +2,11 @@
 
 namespace Homie\Expression;
 
-use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\FileCacheTrait;
 
 /**
- * @Service("Expression.Cache", public=false)
+ * @Service(public=false)
  */
 class Cache
 {
@@ -48,6 +47,10 @@ return function(AbstractEvent \$event, string \$eventName, Container \$container
                     addslashes(serialize($entity))
                 );
             }
+        }
+
+        if (empty($content)) {
+            $content = "\treturn [];";
         }
 
         $this->dumpCacheFile(self::CACHE_FILE, sprintf(self::BASE, $content));

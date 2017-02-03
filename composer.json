@@ -1,5 +1,6 @@
 {
   "license": "MIT",
+  "minimum-stability":"dev",
   "authors": [
     {
       "name": "Matze",
@@ -8,25 +9,27 @@
   ],
   "autoload": {
     "psr-0": {
-      "Homie": "src/",
+      "Homie": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-0": {
       "IntegrationTests": "Tests/"
     }
   },
   "require": {
     "php": ">=7.0.0",
-    "brainexe/core": "~2.0.10",
-    "brainexe/totp": "~2.0.6",
+    "brainexe/core": "dev-master",
+    "brainexe/totp": "dev-master",
     "symfony/expression-language": "~3.2",
     "league/flysystem": "~1.0"
   },
   "require-dev": {
     "phpunit/phpunit": "~5.5",
-    "php-mock/php-mock-phpunit": "dev-master"
+    "php-mock/php-mock-phpunit": "dev-master",
+    "johnkary/phpunit-speedtrap": "dev-master"
   },
   "suggest": {
-    "league/flysystem-webdav": "Store files via webdav",
-    "ruflin/elastica": "Logging via elastic search",
-    "johnkary/phpunit-speedtrap": "Monitor slow unit tests",
-    "lstrojny/phpunit-clever-and-smart": "~0.5"
+    "league/flysystem-webdav": "Store files via webdav"
   }
 }

@@ -5,4 +5,5 @@
 /lang/pot/all.pot
 /vendor
 /web/*
-node_modules
+/node_modules
+/build

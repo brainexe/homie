@@ -4,6 +4,7 @@ namespace Homie\Display\Annotation;
 
 use BrainExe\Annotations\Annotations\Service;
 use Doctrine\Common\Annotations\Reader;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * @Annotation
@@ -13,8 +14,8 @@ class DisplayDevice extends Service
     /**
      * {@inheritdoc}
      */
-    public static function getBuilder(Reader $reader)
+    public static function getBuilder(ContainerBuilder $container, Reader $reader)
     {
-        return new DisplayDeviceBuilder($reader);
+        return new DisplayDeviceBuilder($container, $reader);
     }
 }

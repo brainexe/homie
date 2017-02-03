@@ -13,7 +13,7 @@ use BrainExe\Core\Util\TimeParser;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 
 /**
- * @covers Homie\Espeak\Controller\Speak
+ * @covers \Homie\Espeak\Controller\Speak
  */
 class SpeakTest extends TestCase
 {

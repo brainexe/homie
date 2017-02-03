@@ -2,6 +2,7 @@
 
 namespace Tests\Homie\Dashboard;
 
+use Homie\Dashboard\WidgetFactory;
 use Homie\Dashboard\Widgets\Time;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
@@ -41,7 +42,7 @@ class WidgetCompilerPassTest extends TestCase
         $this->container
             ->expects($this->at(0))
             ->method('getDefinition')
-            ->with('WidgetFactory')
+            ->with(WidgetFactory::class)
             ->willReturn($widgetFactory);
 
         $this->container

@@ -9,6 +9,7 @@ use Homie\Sensors\CompilerPass\SensorFormatter as CompilerPass;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use ReflectionClass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
 class FormatterBuilderTest extends TestCase
@@ -19,7 +20,10 @@ class FormatterBuilderTest extends TestCase
         /** @var Reader $reader */
         $reader = $this->createMock(Reader::class);
 
-        $subject = new FormatterBuilder($reader);
+        /** @var ContainerBuilder $container */
+        $container = $this->createMock(ContainerBuilder::class);
+
+        $subject = new FormatterBuilder($container, $reader);
 
         $data = [];
         $annotation = new Sensor($data);

@@ -22,7 +22,8 @@ ls src/Homie/Sensors/Sensors/*/*.php | awk -F "/" '{print $5 "\t" substr($6, 0, 
 
 ## DS18 (DS18S20)
 1-wire based temperature sensor
-### Resoureces
-- http://webshed.org/wiki/RaspberryPI_DS1820
-- https://www.kompf.de/weather/pionewiremini.html (DE)
-- http://www.netzmafia.de/skripten/hardware/RasPi/Projekt-Onewire/index.html (DE)
+
+### Resources
+- [webshed.org](http://webshed.org/wiki/RaspberryPI_DS1820)
+- [www.kompf.de - DE](https://www.kompf.de/weather/pionewiremini.html)
+- [www.netzmafia.de - DE](http://www.netzmafia.de/skripten/hardware/RasPi/Projekt-Onewire/index.html)

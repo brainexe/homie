@@ -4,6 +4,7 @@ namespace Homie\Sensors\CompilerPass\Annotation;
 
 use BrainExe\Annotations\Annotations\Service;
 use Doctrine\Common\Annotations\Reader;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * @Annotation
@@ -13,8 +14,8 @@ class SensorFormatter extends Service
     /**
      * {@inheritdoc}
      */
-    public static function getBuilder(Reader $reader)
+    public static function getBuilder(ContainerBuilder $container, Reader $reader)
     {
-        return new FormatterBuilder($reader);
+        return new FormatterBuilder($container, $reader);
     }
 }

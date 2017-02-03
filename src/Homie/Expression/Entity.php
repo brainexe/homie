@@ -2,7 +2,7 @@
 
 namespace Homie\Expression;
 
-use Zend\Stdlib\JsonSerializable;
+use JsonSerializable;
 
 class Entity implements JsonSerializable
 {

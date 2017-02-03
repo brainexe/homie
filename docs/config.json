@@ -1,0 +1,14 @@
+{
+  "title": "Homie",
+  "repo": "{{ jsonValue(of:'composer.json', key:'name') }}",
+  "breadcrumbs": true,
+  "breadcrumb_separator" : " > ",
+  "html": {
+    "repo": "brainexe/homie",
+    "edit_on_github": "brainexe/homie/blob/master/docs",
+    "links": {
+      "Download": "https://github.com/brainexe/homie/archive/master.zip",
+      "GitHub Repo": "https://github.com/brainexe/homie"
+    }
+  }
+}

@@ -2,7 +2,8 @@
 
 /etc/nginx/sites-enabled/homie.conf
 
-```server {
+```
+server {
     server_name homie.example.de;
     root   /www/homie/web/;
 
@@ -18,7 +19,7 @@
     #location /ifttt/ {
     #    auth_basic          off;
     #}
-    
+
     location / {
         try_files $uri $uri/ /index.php?$uri&$args;
     }

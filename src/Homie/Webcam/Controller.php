@@ -12,7 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @ControllerAnnotation("WebcamController")
+ * @todo matze
+ * ControllerAnnotation("WebcamController")
  */
 class Controller
 {
@@ -30,6 +31,9 @@ class Controller
     private $filesystem;
 
     /**
+     * @Inject({
+     *   "filesystem" = "RemoteFilesystem"
+     * })
      * @param Webcam $webcam
      * @param RemoteFilesystem $filesystem
      */

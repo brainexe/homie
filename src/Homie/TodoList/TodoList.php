@@ -13,7 +13,7 @@ use Homie\TodoList\Exception\ItemNotFoundException;
 use Homie\TodoList\VO\TodoItemVO;
 
 /**
- * @Service(public=false)
+ * @Service("TodoList", public=false)
  */
 class TodoList
 {

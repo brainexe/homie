@@ -19,60 +19,39 @@ class Language extends ExpressionLanguage
      */
     public $lazyLoad = [];
 
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
-
-    /**
-     * @param ContainerInterface $container
-     */
-    public function __construct(ContainerInterface $container)
+    public function __construct()
     {
         parent::__construct();
 
         $this->registerNativeFunctions();
-
-        $this->container = $container;
     }
 
     /**
      * @param string $functionName
-     * @param string $serviceId
+     * @param callable $functions
      */
-    public function lazyRegister(string $functionName, string $serviceId)
+    public function lazyRegister(string $functionName, callable $functions)
     {
-        $this->lazyLoad[$serviceId] = true;
-
-        $this->register($functionName, function (...$params) use ($serviceId, $functionName) {
-            $this->ensureLoaded($serviceId);
-
-            return $this->getFunctions()[$functionName]['compiler'](...$params);
-        }, function (...$params) use ($functionName, $serviceId) {
-            $this->ensureLoaded($serviceId);
-
-            return $this->getFunctions()[$functionName]['evaluator'](...$params);
+        $this->register($functionName, function (...$params) use ($functions, $functionName) {
+            return $this->getFunction($functionName, $functions)['compiler'](...$params);
+        }, function (...$params) use ($functionName, $functions) {
+            return $this->getFunction($functionName, $functions)['evaluator'](...$params);
         });
     }
 
-    public function loadAll()
-    {
-        foreach (array_keys($this->lazyLoad) as $serviceId) {
-            $this->ensureLoaded($serviceId);
-        }
-    }
-
     /**
-     * @param string $serviceId
+     * @param string $functionName
+     * @param callable $functions
      */
-    private function ensureLoaded(string $serviceId)
+    private function getFunction(string $functionName, callable $functions)
     {
-        if (isset($this->lazyLoad[$serviceId])) {
-            /** @var ExpressionFunctionProviderInterface $provider */
-            $provider = $this->container->get($serviceId);
-            $this->registerProvider($provider);
+        $function = $this->functions[$functionName] ?? null;
 
-            unset($this->lazyLoad[$serviceId]);
+        if (!$function) {
+            // todo matze
+           foreach ($functions() as $name => $function) {
+               print_r([$name, $function]);
+           }
         }
     }
 
@@ -136,5 +115,10 @@ class Language extends ExpressionLanguage
                 return $function(...$params);
             });
         }
+    }
+
+    public function loadAll()
+    {
+        return []; // todo matze
     }
 }

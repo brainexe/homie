@@ -4,11 +4,12 @@ namespace Homie\Sensors\CompilerPass;
 
 use BrainExe\Core\Annotations\CompilerPass as CompilerPassAnnotation;
 use BrainExe\Core\Traits\FileCacheTrait;
+use CodeDocs\SourceCode\Ref\RefClass;
 use Homie\Sensors\Interfaces\Sensor as SensorInterface;
 use Homie\Sensors\SensorBuilder;
+use ReflectionClass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * @CompilerPassAnnotation("CompilerPass.Sensor")
@@ -25,13 +26,14 @@ class Sensor implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $sensorBuilder  = $container->getDefinition('SensorBuilder');
+        $sensorBuilder  = $container->getDefinition(SensorBuilder::class);
         $taggedServices = $container->findTaggedServiceIds(self::TAG);
 
         $sensors = [];
         foreach (array_keys($taggedServices) as $serviceId) {
             /** @var SensorInterface $service */
-            $service = $container->get($serviceId);
+            $reflection = new ReflectionClass($container->getDefinition($serviceId)->getClass());
+            $service = $reflection->newInstanceWithoutConstructor();
 
             $type = $service->getSensorType();
             $sensors[$type] = $service->getDefinition();

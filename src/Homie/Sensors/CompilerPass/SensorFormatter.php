@@ -5,7 +5,7 @@ namespace Homie\Sensors\CompilerPass;
 use BrainExe\Core\Annotations\CompilerPass as CompilerPassAnnotation;
 use BrainExe\Core\Traits\FileCacheTrait;
 use Homie\Sensors\Formatter\Formatter;
-
+use Homie\Sensors\SensorBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -25,7 +25,7 @@ class SensorFormatter implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $sensorBuilder  = $container->getDefinition('SensorBuilder');
+        $sensorBuilder  = $container->getDefinition(SensorBuilder::class);
         $taggedServices = $container->findTaggedServiceIds(self::TAG);
         $formatter      = [];
 

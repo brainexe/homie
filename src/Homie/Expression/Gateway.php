@@ -2,7 +2,6 @@
 
 namespace Homie\Expression;
 
-use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Traits\IdGeneratorTrait;
@@ -10,7 +9,7 @@ use BrainExe\Core\Traits\RedisTrait;
 use Homie\Expression\Listener\RebuildExpressionCache;
 
 /**
- * @Service("Expression.Gateway", public=false)
+ * @Service(public=false)
  */
 class Gateway
 {

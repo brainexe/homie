@@ -22,13 +22,13 @@ class WidgetCompilerPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         /** @var Definition $definition */
-        $definition = $container->getDefinition('WidgetFactory');
+        $definition = $container->getDefinition(WidgetFactory::class);
 
         $taggedServices = $container->findTaggedServiceIds(self::TAG);
         $widgets = [];
         foreach (array_keys($taggedServices) as $serviceId) {
             /** @var WidgetInterface $class */
-            $class = $container->getDefinition($serviceId)->getClass();
+            $class = $container->findDefinition($serviceId)->getClass();
             $widgets[$class::TYPE] = new Reference($serviceId);
         }
 

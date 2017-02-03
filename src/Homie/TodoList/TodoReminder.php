@@ -25,7 +25,6 @@ class TodoReminder
     private $todoList;
 
     /**
-     * @Inject({"@TodoList"})
      * @param TodoList $todoList
      */
     public function __construct(TodoList $todoList)

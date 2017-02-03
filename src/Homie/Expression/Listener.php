@@ -41,6 +41,10 @@ class Listener extends SymfonyEventDispatcher
     private $cachedFunctions;
 
     /**
+     * @Inject({
+     *     "container" = "@service_container"
+     * })
+     *
      * @param Gateway $gateway
      * @param EventDispatcher $dispatcher
      * @param Container $container

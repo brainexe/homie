@@ -6,6 +6,7 @@ use Doctrine\Common\Annotations\Reader;
 use Homie\Sensors\CompilerPass\Annotation\FormatterBuilder;
 use Homie\Sensors\CompilerPass\Annotation\SensorFormatter;
 use PHPUnit_Framework_TestCase as TestCase;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class SensorFormatterTest extends TestCase
 {
@@ -13,9 +14,11 @@ class SensorFormatterTest extends TestCase
     {
         /** @var Reader $reader */
         $reader = $this->createMock(Reader::class);
+        /** @var ContainerBuilder $container */
+        $container = $this->createMock(ContainerBuilder::class);
 
         $annotation = new SensorFormatter([]);
-        $builder = $annotation::getBuilder($reader);
+        $builder = $annotation::getBuilder($container, $reader);
 
         $this->assertInstanceOf(FormatterBuilder::class, $builder);
     }

@@ -1,9 +1,8 @@
-
 # Example how to register additionally log handlers
 
 ```
 <service synthetic="true">
-	<tag name="merge_definition" parent="logger"/>
+    <tag name="merge_definition" parent="logger"/>
     <call method="pushHandler">
 		<argument type="service">
 			<service class="Monolog\Handler\HipChatHandler">

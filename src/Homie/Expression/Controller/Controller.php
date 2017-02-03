@@ -2,7 +2,6 @@
 
 namespace Homie\Expression\Controller;
 
-use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Application\UserException;

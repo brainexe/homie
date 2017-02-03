@@ -4,6 +4,7 @@ namespace Tests\Homie\Sensors\CompilerPass;
 
 use Homie\Sensors\CompilerPass\SensorFormatter;
 use Homie\Sensors\Formatter\Formatter;
+use Homie\Sensors\SensorBuilder;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\CompilerPass;
@@ -46,7 +47,7 @@ class FormatterPassTest extends TestCase
         $this->container
             ->expects($this->at(0))
             ->method('getDefinition')
-            ->with('SensorBuilder')
+            ->with(SensorBuilder::class)
             ->willReturn($sensorBuilder);
 
         $this->container

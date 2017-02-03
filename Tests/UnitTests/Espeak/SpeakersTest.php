@@ -10,7 +10,7 @@ use Homie\Client\Adapter\LocalClient;
 use RuntimeException;
 
 /**
- * @covers Homie\Espeak\Speakers
+ * @covers \Homie\Espeak\Speakers
  */
 class SpeakersTest extends TestCase
 {

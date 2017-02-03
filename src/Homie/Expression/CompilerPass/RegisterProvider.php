@@ -2,6 +2,7 @@
 
 namespace Homie\Expression\CompilerPass;
 
+use Symfony\Component\DependencyInjection\Argument\ClosureProxyArgument;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -20,18 +21,23 @@ class RegisterProvider implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $dispatcher = $container->getDefinition('EventDispatcher');
-        $dispatcher->addMethodCall('addCatchall', [new Reference('Expression.Listener')]);
+        $dispatcher = $container->findDefinition('EventDispatcher');
+        $dispatcher->addMethodCall('addCatchall', [new Reference('Expression.Listener')]); // TODO MATZE
 
-        $language = $container->getDefinition('Expression.Language');
+        $language = $container->findDefinition('Expression.Language');
         $language->setArguments([new Reference('service_container')]);
 
         $serviceIds = $container->findTaggedServiceIds(self::TAG);
         foreach (array_keys($serviceIds) as $serviceId) {
             /** @var ExpressionFunctionProviderInterface $provider */
-            $provider = $container->get($serviceId);
+            $class = $container->getDefinition($serviceId)->getClass();
+            $providerReflection = new \ReflectionClass($class);
+            $provider = $providerReflection->newInstanceWithoutConstructor();
             foreach ($provider->getFunctions() as $function) {
-                $language->addMethodCall('lazyRegister', [$function->getName(), $serviceId]);
+                $language->addMethodCall('lazyRegister', [
+                    $function->getName(),
+                    new ClosureProxyArgument($serviceId, 'getFunctions')
+                ]);
             }
         }
     }

@@ -6,7 +6,7 @@ use BrainExe\Core\EventDispatcher\AbstractEvent;
 
 class RebuildExpressionCache extends AbstractEvent
 {
-    const REBUILD = 'expression:cache:rebuild';
+    const REBUILD = 'expressionCache.rebuild';
 
     public function __construct()
     {

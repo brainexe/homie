@@ -4,7 +4,6 @@ namespace Homie\Expression\Annotation;
 
 use BrainExe\Annotations\Builder\ServiceDefinition;
 use Homie\Expression\CompilerPass\RegisterProvider;
-use ReflectionClass;
 use Symfony\Component\DependencyInjection\Definition;
 
 class ExpressionLanguageBuilder extends ServiceDefinition
@@ -13,16 +12,9 @@ class ExpressionLanguageBuilder extends ServiceDefinition
     /**
      * {@inheritdoc}
      */
-    public function build(ReflectionClass $reflectionClass, $annotation)
+    public function setupDefinition(Definition $definition, string $serviceId)
     {
-        /** @var Definition $definition */
-        list($serviceId, $definition) = parent::build($reflectionClass, $annotation);
-        $serviceId = '__Expression.' . $serviceId;
-
-        $definition->setPublic(true);
-        $definition->setShared(false);
+        $definition->setPublic(false);
         $definition->addTag(RegisterProvider::TAG);
-
-        return [$serviceId, $definition];
     }
 }

@@ -24,7 +24,6 @@ class Variable implements ExpressionFunctionProviderInterface
     private $variable;
 
     /**
-     * @Inject({"@Expression.Variable"})
      * @param VariableModel $variable
      */
     public function __construct(VariableModel $variable)

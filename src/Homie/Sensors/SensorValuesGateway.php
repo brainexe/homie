@@ -10,7 +10,7 @@ use Iterator;
 use Predis\Pipeline\Pipeline;
 
 /**
- * @Service(public=false)
+ * @Service("SensorValuesGateway", public=false)
  */
 class SensorValuesGateway
 {

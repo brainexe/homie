@@ -12,6 +12,7 @@ Homie is a software to automate you home using low-budget hardware, like a Raspb
  - redis-server
 
 # Installation
+  - git clone git@github.com:brainexe/homie.git
   - composer install
   - npm install
   - grunt exec:install

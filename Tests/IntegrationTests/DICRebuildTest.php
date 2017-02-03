@@ -13,7 +13,7 @@ class DICRebuildTest extends TestCase
     {
         $subject = new Rebuild();
 
-        $actualResult = $subject->rebuildDIC(false);
+        $actualResult = $subject->buildContainer();
 
         $this->assertInstanceOf(ContainerBuilder::class, $actualResult);
     }
