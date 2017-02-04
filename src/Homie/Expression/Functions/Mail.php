@@ -7,7 +7,7 @@ use BrainExe\Core\Traits\EventDispatcherTrait;
 use Generator;
 use Homie\Expression\Action;
 use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
-use InvalidArgumentException;
+
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 

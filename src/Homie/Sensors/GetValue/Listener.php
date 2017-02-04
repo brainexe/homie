@@ -2,7 +2,7 @@
 
 namespace Homie\Sensors\GetValue;
 
-use BrainExe\Annotations\Annotations\Inject;
+
 use BrainExe\Core\Annotations\EventListener;
 use BrainExe\Core\Annotations\Listen;
 use BrainExe\Core\Traits\EventDispatcherTrait;

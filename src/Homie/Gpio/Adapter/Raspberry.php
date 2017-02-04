@@ -8,7 +8,7 @@ use Exception;
 use Generator;
 use Homie\Client\ClientInterface;
 use Homie\Gpio\Adapter;
-use Homie\Gpio\GpioManager;
+
 use Homie\Gpio\Pin;
 use Homie\Gpio\PinsCollection;
 

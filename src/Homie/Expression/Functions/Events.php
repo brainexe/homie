@@ -5,7 +5,7 @@ namespace Homie\Expression\Functions;
 use BrainExe\Core\EventDispatcher\AbstractEvent;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Traits\FileCacheTrait;
-use Exception;
+
 use Generator;
 use Homie\Expression\Action;
 use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;

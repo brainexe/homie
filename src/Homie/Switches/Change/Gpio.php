@@ -2,10 +2,10 @@
 
 namespace Homie\Switches\Change;
 
-use BrainExe\Annotations\Annotations\Inject;
+
 use BrainExe\Annotations\Annotations\Service;
 use Homie\Gpio\GpioManager;
-use Homie\Node;
+
 use Homie\Node\Gateway;
 use Homie\Switches\SwitchInterface;
 use Homie\Switches\VO\GpioSwitchVO;

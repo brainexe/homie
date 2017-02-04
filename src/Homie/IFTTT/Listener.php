@@ -2,7 +2,7 @@
 
 namespace Homie\IFTTT;
 
-use BrainExe\Annotations\Annotations\Inject;
+
 use BrainExe\Core\Annotations\EventListener;
 use BrainExe\Core\Annotations\Listen;
 use Homie\IFTTT\Event\TriggerEvent;

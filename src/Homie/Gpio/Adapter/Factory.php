@@ -2,7 +2,7 @@
 
 namespace Homie\Gpio\Adapter;
 
-use BrainExe\Annotations\Annotations\Inject;
+
 use BrainExe\Annotations\Annotations\Service;
 use Homie\Gpio\Adapter;
 use Homie\Node;

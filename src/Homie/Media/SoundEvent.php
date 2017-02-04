@@ -5,7 +5,6 @@ namespace Homie\Media;
 use BrainExe\Core\EventDispatcher\AbstractEvent;
 use BrainExe\Core\EventDispatcher\PushViaWebsocket;
 use BrainExe\Core\Traits\JsonSerializableTrait;
-use JsonSerializable;
 
 class SoundEvent extends AbstractEvent implements PushViaWebsocket
 {

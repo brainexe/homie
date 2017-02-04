@@ -2,7 +2,7 @@
 
 namespace Homie\Display;
 
-use BrainExe\Annotations\Annotations\Inject;
+
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Symfony\Component\HttpFoundation\Request;

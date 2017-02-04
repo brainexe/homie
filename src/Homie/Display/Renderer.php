@@ -3,7 +3,7 @@
 namespace Homie\Display;
 
 use BrainExe\Annotations\Annotations\Service;
-use BrainExe\Annotations\Annotations\Inject;
+
 use Homie\Display\Devices\Factory;
 use Homie\Expression\Language;
 use Homie\Node\Gateway as NodeGateway;

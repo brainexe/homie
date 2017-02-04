@@ -2,7 +2,7 @@
 
 namespace Homie\Dashboard\Widgets;
 
-use BrainExe\Annotations\Annotations\Inject;
+
 use Homie\Dashbaord\Annotation\Widget;
 use Homie\Dashboard\AbstractWidget;
 use Homie\Sensors\Chart;

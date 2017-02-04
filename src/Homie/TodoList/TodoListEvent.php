@@ -6,7 +6,6 @@ use BrainExe\Core\EventDispatcher\AbstractEvent;
 use BrainExe\Core\EventDispatcher\PushViaWebsocket;
 use BrainExe\Core\Traits\JsonSerializableTrait;
 use Homie\TodoList\VO\TodoItemVO;
-use JsonSerializable;
 
 class TodoListEvent extends AbstractEvent implements PushViaWebsocket
 {

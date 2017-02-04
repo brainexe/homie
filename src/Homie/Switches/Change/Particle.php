@@ -4,9 +4,9 @@ namespace Homie\Switches\Change;
 
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\EventDispatcherTrait;
-use Homie\Arduino\SerialEvent;
+
 use Homie\Switches\SwitchInterface;
-use Homie\Switches\VO\ArduinoSwitchVO;
+
 use Homie\Switches\VO\ParticleVO;
 use Homie\Switches\VO\SwitchVO;
 

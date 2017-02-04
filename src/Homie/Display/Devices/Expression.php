@@ -2,7 +2,7 @@
 
 namespace Homie\Display\Devices;
 
-use BrainExe\Annotations\Annotations\Inject;
+
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Homie\Display\Annotation\DisplayDevice;
 use Homie\Expression\Event\EvaluateEvent;

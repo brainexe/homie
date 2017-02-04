@@ -2,7 +2,7 @@
 
 namespace Homie\TodoList\Controller;
 
-use BrainExe\Annotations\Annotations\Inject;
+
 use BrainExe\Core\Annotations\Controller;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Authentication\Exception\UserNotFoundException;

@@ -3,7 +3,7 @@
 namespace Homie\Remote;
 
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
-use BrainExe\Core\Annotations\Guest;
+
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Homie\Remote\Event\ReceivedEvent;

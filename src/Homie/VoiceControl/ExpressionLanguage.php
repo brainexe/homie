@@ -2,7 +2,7 @@
 
 namespace Homie\VoiceControl;
 
-use Homie\Expression\Entity;
+
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;

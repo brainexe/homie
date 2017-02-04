@@ -6,7 +6,6 @@ use Homie\Sensors\Exception\InvalidSensorValueException;
 use Homie\Sensors\SensorVO;
 use JsonSerializable;
 use Homie\Sensors\Definition;
-use Symfony\Component\Console\Output\OutputInterface;
 
 interface Sensor extends JsonSerializable
 {

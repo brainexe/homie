@@ -2,7 +2,7 @@
 
 namespace Homie\Expression\Listener;
 
-use BrainExe\Annotations\Annotations\Inject;
+
 use BrainExe\Core\Annotations\EventListener;
 use BrainExe\Core\Annotations\Listen;
 use Homie\Expression\Event\EvaluateEvent;

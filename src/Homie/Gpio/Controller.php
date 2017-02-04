@@ -2,7 +2,7 @@
 
 namespace Homie\Gpio;
 
-use BrainExe\Annotations\Annotations\Inject;
+
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use Homie\Node\Gateway;

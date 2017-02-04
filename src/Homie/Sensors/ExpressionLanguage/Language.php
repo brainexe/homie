@@ -2,7 +2,7 @@
 
 namespace Homie\Sensors\ExpressionLanguage;
 
-use BrainExe\Annotations\Annotations\Inject;
+
 use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorValueEvent;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;

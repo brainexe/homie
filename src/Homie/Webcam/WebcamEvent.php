@@ -5,7 +5,6 @@ namespace Homie\Webcam;
 use BrainExe\Core\EventDispatcher\AbstractEvent;
 use BrainExe\Core\EventDispatcher\PushViaWebsocket;
 use BrainExe\Core\Traits\JsonSerializableTrait;
-use JsonSerializable;
 
 class WebcamEvent extends AbstractEvent implements PushViaWebsocket
 {
