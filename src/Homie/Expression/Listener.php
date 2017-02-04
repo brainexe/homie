@@ -13,7 +13,7 @@ use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher;
 
 /**
- * @Service("Expression.Listener", public=false)
+ * @Service("Expression.Listener")
  */
 class Listener extends SymfonyEventDispatcher
 {

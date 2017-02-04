@@ -8,7 +8,7 @@ use BrainExe\Core\Traits\TimeTrait;
 use Homie\TodoList\VO\TodoItemVO;
 
 /**
- * @Service(public=false)
+ * @Service
  */
 class TodoListGateway
 {

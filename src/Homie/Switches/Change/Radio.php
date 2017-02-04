@@ -10,7 +10,7 @@ use Homie\Switches\VO\RadioVO;
 use Homie\Switches\VO\SwitchVO;
 
 /**
- * @Service("Switches.Change.Radio", public=false)
+ * @Service("Switches.Change.Radio")
  */
 class Radio implements SwitchInterface
 {

@@ -12,7 +12,7 @@ use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotati
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
 /**
- * @ExpressionLanguageAnnotation("ShoppingList.ExpressionLanguage", public=false)
+ * @ExpressionLanguageAnnotation("ShoppingList.ExpressionLanguage")
  */
 class ExpressionLanguage implements ExpressionFunctionProviderInterface
 {

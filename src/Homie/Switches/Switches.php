@@ -15,7 +15,7 @@ use InvalidArgumentException;
 use Homie\Switches\VO\RadioVO;
 
 /**
- * @Service("Switches.Switches", public=false)
+ * @Service("Switches.Switches")
  */
 class Switches
 {

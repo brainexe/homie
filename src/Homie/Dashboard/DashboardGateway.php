@@ -8,7 +8,7 @@ use BrainExe\Core\Traits\RedisTrait;
 use Generator;
 
 /**
- * @Service(public=false)
+ * @Service
  */
 class DashboardGateway
 {

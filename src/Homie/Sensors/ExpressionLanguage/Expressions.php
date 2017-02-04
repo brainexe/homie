@@ -7,7 +7,7 @@ use Homie\Expression\CompilerPass\DefaultExpression;
 use Homie\Expression\Entity;
 
 /**
- * @Service("Sensors.ExpressionLanguage", public=false, tags={{"name"="default_expressions"}})
+ * @Service("Sensors.ExpressionLanguage", tags={{"name"="default_expressions"}})
  */
 class Expressions implements DefaultExpression
 {

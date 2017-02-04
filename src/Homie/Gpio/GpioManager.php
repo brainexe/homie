@@ -8,7 +8,7 @@ use Homie\Gpio\Adapter\Factory;
 use Homie\Node;
 
 /**
- * @Service("GPIO.GpioManager", public=false)
+ * @Service("GPIO.GpioManager")
  */
 class GpioManager
 {

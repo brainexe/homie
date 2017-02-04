@@ -7,7 +7,7 @@ use BrainExe\Annotations\Annotations\Service;
 use Homie\Client\ClientInterface;
 
 /**
- * @Service("Espeak", public=false)
+ * @Service("Espeak")
  */
 class Espeak
 {

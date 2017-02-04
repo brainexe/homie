@@ -6,7 +6,7 @@ use BrainExe\Annotations\Annotations\Service;
 use Iterator;
 
 /**
- * @Service(public=false)
+ * @Service
  */
 class Chart
 {

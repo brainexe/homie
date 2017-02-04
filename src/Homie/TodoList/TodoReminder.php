@@ -11,7 +11,7 @@ use Homie\Espeak\EspeakVO;
 use Homie\TodoList\VO\TodoItemVO;
 
 /**
- * @Service("TodoList.TodoReminder", public=false)
+ * @Service("TodoList.TodoReminder")
  */
 class TodoReminder
 {

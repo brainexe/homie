@@ -9,7 +9,7 @@ use BrainExe\Core\Traits\RedisTrait;
 use Homie\Expression\Listener\RebuildExpressionCache;
 
 /**
- * @Service(public=false)
+ * @Service
  */
 class Gateway
 {

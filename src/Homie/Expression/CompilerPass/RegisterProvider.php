@@ -22,7 +22,7 @@ class RegisterProvider implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         $dispatcher = $container->findDefinition('EventDispatcher');
-        $dispatcher->addMethodCall('addCatchall', [new Reference('Expression.Listener')]); // TODO MATZE
+        $dispatcher->addMethodCall('addCatchall', [new Reference('Expression.Listener')]);
 
         $language = $container->findDefinition('Expression.Language');
         $language->setArguments([new Reference('service_container')]);

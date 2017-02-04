@@ -9,7 +9,7 @@ use League\Flysystem\Filesystem;
 use BrainExe\Annotations\Annotations\Inject;
 
 /**
- * @Service("Webcam.Recorder", public=false)
+ * @Service("Webcam.Recorder")
  */
 class Recorder
 {

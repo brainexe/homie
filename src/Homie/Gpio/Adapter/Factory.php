@@ -11,7 +11,7 @@ use InvalidArgumentException;
 /**
  * Class Factory
  * @package Homie\Gpio\Adapter
- * @Service("Gpio.Adapter.Factory", public=false)
+ * @Service("Gpio.Adapter.Factory")
  */
 class Factory
 {

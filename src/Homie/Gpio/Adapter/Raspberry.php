@@ -13,7 +13,7 @@ use Homie\Gpio\Pin;
 use Homie\Gpio\PinsCollection;
 
 /**
- * @Service("Gpio.Adapter.Raspberry", public=false)
+ * @Service("Gpio.Adapter.Raspberry")
  */
 class Raspberry extends Adapter
 {

@@ -10,7 +10,7 @@ use Homie\Gpio\Pin;
 use Homie\Gpio\PinsCollection;
 
 /**
- * @Service("Gpio.Adapter.Arduino", public=false)
+ * @Service("Gpio.Adapter.Arduino")
  */
 class Arduino extends Adapter
 {

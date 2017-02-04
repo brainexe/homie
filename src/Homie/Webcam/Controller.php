@@ -7,13 +7,12 @@ use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Traits\IdGeneratorTrait;
-use League\Flysystem\Filesystem as RemoteFilesystem;
+use League\Flysystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @todo matze
- * ControllerAnnotation("WebcamController")
+ * @ControllerAnnotation("WebcamController")
  */
 class Controller
 {
@@ -26,18 +25,16 @@ class Controller
     private $webcam;
 
     /**
-     * @var RemoteFilesystem
+     * @var Filesystem
      */
     private $filesystem;
 
     /**
-     * @Inject({
-     *   "filesystem" = "RemoteFilesystem"
-     * })
+     * @Inject({"@Webcam", "@RemoteFilesystem"})
      * @param Webcam $webcam
-     * @param RemoteFilesystem $filesystem
+     * @param Filesystem $filesystem
      */
-    public function __construct(Webcam $webcam, RemoteFilesystem $filesystem)
+    public function __construct(Webcam $webcam, Filesystem $filesystem)
     {
         $this->webcam     = $webcam;
         $this->filesystem = $filesystem;

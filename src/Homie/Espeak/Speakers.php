@@ -9,7 +9,7 @@ use Iterator;
 use RuntimeException;
 
 /**
- * @Service("Espeak.Speakers", public=false)
+ * @Service("Espeak.Speakers")
  */
 class Speakers
 {

@@ -7,7 +7,7 @@ use BrainExe\Core\Traits\LoggerTrait;
 use Homie\Client\ClientInterface;
 
 /**
- * @Service("HomieClient.Dummy", public=false)
+ * @Service("HomieClient.Dummy")
  */
 class DummyClient implements ClientInterface
 {

@@ -6,7 +6,7 @@ use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\RedisTrait;
 
 /**
- * @Service(name="ShoppingList.Gateway", public=false)
+ * @Service(name="ShoppingList.Gateway")
  */
 class Gateway
 {

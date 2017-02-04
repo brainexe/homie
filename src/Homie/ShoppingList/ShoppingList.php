@@ -7,7 +7,7 @@ use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 
 /**
- * @Service("ShoppingList", public=false)
+ * @Service("ShoppingList")
  */
 class ShoppingList
 {

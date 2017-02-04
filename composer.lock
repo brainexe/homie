@@ -60,12 +60,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/brainexe/core.git",
-                "reference": "e5c4e905dd381976d11f3c0e5980dab7c5e6ac97"
+                "reference": "1f2b71a2c914785c44fbce840c5ddd037195ec8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brainexe/core/zipball/e5c4e905dd381976d11f3c0e5980dab7c5e6ac97",
-                "reference": "e5c4e905dd381976d11f3c0e5980dab7c5e6ac97",
+                "url": "https://api.github.com/repos/brainexe/core/zipball/1f2b71a2c914785c44fbce840c5ddd037195ec8c",
+                "reference": "1f2b71a2c914785c44fbce840c5ddd037195ec8c",
                 "shasum": ""
             },
             "require": {
@@ -122,7 +122,7 @@
             ],
             "description": "Framework core - used for brainexe/homie",
             "homepage": "https://mdoetsch.de",
-            "time": "2017-01-23 22:09:50"
+            "time": "2017-02-03 20:51:52"
         },
         {
             "name": "brainexe/totp",
@@ -530,12 +530,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "ab05d19bac3309f1192f058fa8f8081cb1c68d39"
+                "reference": "469ad53c13ea19a0e54e3e5d70f61227ddcc0299"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/ab05d19bac3309f1192f058fa8f8081cb1c68d39",
-                "reference": "ab05d19bac3309f1192f058fa8f8081cb1c68d39",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/469ad53c13ea19a0e54e3e5d70f61227ddcc0299",
+                "reference": "469ad53c13ea19a0e54e3e5d70f61227ddcc0299",
                 "shasum": ""
             },
             "require": {
@@ -605,7 +605,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2017-01-23 22:04:42"
+            "time": "2017-01-30 17:41:17"
         },
         {
             "name": "monolog/monolog",
@@ -2256,16 +2256,16 @@
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.5.5",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "399c1f9781e222f6eb6cc238796f5200d1b7f108"
+                "reference": "5a5a9fc8025a08d8919be87d6884d5a92520cefe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/399c1f9781e222f6eb6cc238796f5200d1b7f108",
-                "reference": "399c1f9781e222f6eb6cc238796f5200d1b7f108",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/5a5a9fc8025a08d8919be87d6884d5a92520cefe",
+                "reference": "5a5a9fc8025a08d8919be87d6884d5a92520cefe",
                 "shasum": ""
             },
             "require": {
@@ -2294,7 +2294,7 @@
                 "object",
                 "object graph"
             ],
-            "time": "2016-10-31 17:19:45"
+            "time": "2017-01-26 22:05:40"
         },
         {
             "name": "php-mock/php-mock",
@@ -2924,12 +2924,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "e7896be1b3b5257e5b4454220736ee1ccb5cc572"
+                "reference": "631351297cd5ec850f81aecfc3ac3f3cf7c778c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/e7896be1b3b5257e5b4454220736ee1ccb5cc572",
-                "reference": "e7896be1b3b5257e5b4454220736ee1ccb5cc572",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/631351297cd5ec850f81aecfc3ac3f3cf7c778c9",
+                "reference": "631351297cd5ec850f81aecfc3ac3f3cf7c778c9",
                 "shasum": ""
             },
             "require": {
@@ -2946,11 +2946,11 @@
                 "phpunit/php-text-template": "~1.2",
                 "phpunit/php-timer": "^1.0.6",
                 "phpunit/phpunit-mock-objects": "^3.2",
-                "sebastian/comparator": "~1.2.2",
+                "sebastian/comparator": "^1.2.4",
                 "sebastian/diff": "~1.2",
                 "sebastian/environment": "^1.3.4 || ^2.0",
                 "sebastian/exporter": "~2.0",
-                "sebastian/global-state": "^1.0 || ^2.0",
+                "sebastian/global-state": "^1.1",
                 "sebastian/object-enumerator": "~2.0",
                 "sebastian/resource-operations": "~1.0",
                 "sebastian/version": "~1.0|~2.0",
@@ -2998,7 +2998,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-01-24 18:35:42"
+            "time": "2017-02-03 16:08:56"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -3119,9 +3119,9 @@
                 "shasum": ""
             },
             "require": {
-                "php": "^5.3.3 || ^7.0",
+                "php": "^7.0",
                 "sebastian/diff": "^1.2",
-                "sebastian/exporter": "^1.2 || ^2.0"
+                "sebastian/exporter": "^2.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "^4.8"
@@ -3339,23 +3339,23 @@
         },
         {
             "name": "sebastian/global-state",
-            "version": "dev-master",
+            "version": "1.1.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/global-state.git",
-                "reference": "ab3e5ce501d9d45288b53f885a54c87e0cdc7164"
+                "reference": "5a2b9ba59e8cf82fd1fdd7efb7d7846fd69ac36d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/ab3e5ce501d9d45288b53f885a54c87e0cdc7164",
-                "reference": "ab3e5ce501d9d45288b53f885a54c87e0cdc7164",
+                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/5a2b9ba59e8cf82fd1fdd7efb7d7846fd69ac36d",
+                "reference": "5a2b9ba59e8cf82fd1fdd7efb7d7846fd69ac36d",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.0"
+                "php": ">=5.3.3"
             },
             "require-dev": {
-                "phpunit/phpunit": "^5.7 || ^6.0"
+                "phpunit/phpunit": "~4.2|~5.0"
             },
             "suggest": {
                 "ext-uopz": "*"
@@ -3363,7 +3363,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0-dev"
+                    "dev-master": "1.0-dev"
                 }
             },
             "autoload": {
@@ -3386,7 +3386,7 @@
             "keywords": [
                 "global state"
             ],
-            "time": "2016-12-12 08:07:45"
+            "time": "2016-10-03 07:46:22"
         },
         {
             "name": "sebastian/object-enumerator",

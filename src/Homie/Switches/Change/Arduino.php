@@ -10,7 +10,7 @@ use Homie\Switches\VO\ArduinoSwitchVO;
 use Homie\Switches\VO\SwitchVO;
 
 /**
- * @Service("Switches.Change.Arduino", public=false)
+ * @Service("Switches.Change.Arduino")
  */
 class Arduino implements SwitchInterface
 {

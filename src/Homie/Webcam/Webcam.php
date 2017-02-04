@@ -9,7 +9,7 @@ use BrainExe\Core\Traits\EventDispatcherTrait;
 use League\Flysystem\Filesystem;
 
 /**
- * @Service(public=false)
+ * @Service
  */
 class Webcam
 {

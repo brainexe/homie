@@ -13,7 +13,7 @@ use Homie\Switches\VO\RadioVO;
 use Homie\Switches\VO\SwitchVO;
 
 /**
- * @Service("Switches.Change.Change", public=false)
+ * @Service("Switches.Change.Change")
  */
 class Change implements SwitchInterface, TranslationProvider
 {

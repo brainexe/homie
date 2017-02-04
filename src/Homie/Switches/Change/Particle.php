@@ -11,7 +11,7 @@ use Homie\Switches\VO\ParticleVO;
 use Homie\Switches\VO\SwitchVO;
 
 /**
- * @Service("Switches.Change.Particle", public=false)
+ * @Service("Switches.Change.Particle")
  */
 class Particle implements SwitchInterface
 {

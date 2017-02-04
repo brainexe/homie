@@ -8,7 +8,7 @@ use Exception;
 use Homie\Node;
 
 /**
- * @Service("Node.Gateway", public=false)
+ * @Service("Node.Gateway")
  */
 class Gateway
 {

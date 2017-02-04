@@ -12,7 +12,7 @@ use Homie\Switches\VO\GpioSwitchVO;
 use Homie\Switches\VO\SwitchVO;
 
 /**
- * @Service("Switches.Change.Gpio", public=false)
+ * @Service("Switches.Change.Gpio")
  */
 class Gpio implements SwitchInterface
 {

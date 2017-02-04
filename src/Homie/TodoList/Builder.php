@@ -6,7 +6,7 @@ use BrainExe\Annotations\Annotations\Service;
 use Homie\TodoList\VO\TodoItemVO;
 
 /**
- * @Service("TodoList.Builder", public=false)
+ * @Service("TodoList.Builder")
  */
 class Builder
 {

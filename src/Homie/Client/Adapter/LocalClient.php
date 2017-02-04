@@ -11,7 +11,7 @@ use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
 /**
- * @Service("HomieClient.Local", public=false)
+ * @Service("HomieClient.Local")
  */
 class LocalClient implements ClientInterface
 {

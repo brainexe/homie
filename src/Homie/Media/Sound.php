@@ -7,7 +7,7 @@ use BrainExe\Annotations\Annotations\Service;
 use Homie\Client\ClientInterface;
 
 /**
- * @Service("Media.Sound", public=false)
+ * @Service("Media.Sound")
  */
 class Sound
 {

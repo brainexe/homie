@@ -11,7 +11,7 @@ use Homie\Client\ClientInterface;
 use RuntimeException;
 
 /**
- * @Service("Arduino.Device.Serial", public=false)
+ * @Service("Arduino.Device.Serial")
  */
 class Serial implements Device
 {

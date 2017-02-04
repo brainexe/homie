@@ -10,7 +10,7 @@ use BrainExe\Core\Util\TimeParser;
 use Homie\Espeak\EspeakVO;
 
 /**
- * @Service("EggTimer", public=false)
+ * @Service("EggTimer")
  */
 class EggTimer
 {

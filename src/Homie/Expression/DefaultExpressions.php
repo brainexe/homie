@@ -7,7 +7,7 @@ use Generator;
 use Homie\Expression\CompilerPass\DefaultExpression;
 
 /**
- * @Service(public=false, tags={{"name"="default_expressions"}})
+ * @Service(tags={{"name"="default_expressions"}})
  */
 class DefaultExpressions implements DefaultExpression
 {

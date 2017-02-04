@@ -8,7 +8,7 @@ use Homie\Arduino\Device;
 use Homie\Arduino\SerialEvent;
 
 /**
- * @Service("Arduino.Device.Redis", public=false)
+ * @Service("Arduino.Device.Redis")
  */
 class Redis implements Device
 {

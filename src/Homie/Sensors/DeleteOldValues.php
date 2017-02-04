@@ -7,7 +7,7 @@ use BrainExe\Core\Traits\RedisTrait;
 use BrainExe\Core\Traits\TimeTrait;
 
 /**
- * @Service("Sensors.DeleteOldValues", public=false)
+ * @Service("Sensors.DeleteOldValues")
  */
 class DeleteOldValues
 {

@@ -8,7 +8,7 @@ use BrainExe\Core\Traits\RedisTrait;
 use Homie\Expression\Event\VariableChangedEvent;
 
 /**
- * @Service(public=true)
+ * @Service
  */
 class Variable
 {

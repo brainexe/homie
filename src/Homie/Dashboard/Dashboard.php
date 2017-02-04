@@ -8,7 +8,7 @@ use BrainExe\Core\Traits\IdGeneratorTrait;
 use Generator;
 
 /**
- * @Service(public=false)
+ * @Service
  */
 class Dashboard
 {

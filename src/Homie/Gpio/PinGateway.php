@@ -6,7 +6,7 @@ use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Traits\RedisTrait;
 
 /**
- * @Service("GPIO.PinGateway", public=false)
+ * @Service("GPIO.PinGateway")
  */
 class PinGateway
 {
