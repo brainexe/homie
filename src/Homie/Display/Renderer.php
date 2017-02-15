@@ -10,7 +10,7 @@ use Homie\Node\Gateway as NodeGateway;
 use Throwable;
 
 /**
- * @Service("Display.Renderer")
+ * @Service
  */
 class Renderer
 {

@@ -41,9 +41,9 @@ class ClearCacheTest extends TestCase
 
         $this->subject = new ClearCache(
             $this->cache,
-            $this->gateway
+            $this->gateway,
+            $this->logger
         );
-        $this->subject->setLogger($this->logger);
     }
 
     public function testRebuild()

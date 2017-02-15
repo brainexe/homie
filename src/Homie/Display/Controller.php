@@ -2,14 +2,13 @@
 
 namespace Homie\Display;
 
-
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Symfony\Component\HttpFoundation\Request;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 
 /**
- * @ControllerAnnotation("Display.Controller", requirements={"displayId": "\d+"})
+ * @ControllerAnnotation(requirements={"displayId": "\d+"})
  */
 class Controller
 {

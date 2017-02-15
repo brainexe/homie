@@ -4,7 +4,6 @@ namespace Homie\Sensors\CompilerPass;
 
 use BrainExe\Core\Annotations\CompilerPass as CompilerPassAnnotation;
 use BrainExe\Core\Traits\FileCacheTrait;
-use CodeDocs\SourceCode\Ref\RefClass;
 use Homie\Sensors\Interfaces\Sensor as SensorInterface;
 use Homie\Sensors\SensorBuilder;
 use ReflectionClass;

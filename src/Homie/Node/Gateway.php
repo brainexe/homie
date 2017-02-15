@@ -39,9 +39,9 @@ class Gateway
 
         return unserialize($raw);
     }
+
     /**
      * @param Node $node
-     * @return int
      */
     public function save(Node $node)
     {

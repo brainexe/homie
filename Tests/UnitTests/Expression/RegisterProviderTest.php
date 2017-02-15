@@ -2,8 +2,8 @@
 
 namespace Tests\Homie\Expression;
 
-use Homie\Expression\CompilerPass;
 use Homie\Expression\CompilerPass\RegisterProvider;
+use Homie\Expression\Language;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -24,13 +24,13 @@ class RegisterProviderTest extends TestCase
 
         $container
             ->expects($this->at(0))
-            ->method('getDefinition')
+            ->method('findDefinition')
             ->with('EventDispatcher')
             ->willReturn($definition);
         $container
             ->expects($this->at(1))
-            ->method('getDefinition')
-            ->with('Expression.Language')
+            ->method('findDefinition')
+            ->with(Language::class)
             ->willReturn($language);
         $container
             ->expects($this->at(2))

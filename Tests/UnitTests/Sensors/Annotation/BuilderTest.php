@@ -35,14 +35,14 @@ class BuilderTest extends TestCase
               ->method('getMethods')
               ->willReturn([]);
 
-        $data = $subject->build($class, $annotation);
-
         $definition = new Definition();
+        $data = $subject->build($class, $annotation, $definition);
+
         $definition->setPublic(true);
         $definition->setShared(false);
         $definition->addTag(CompilerPass::TAG);
         $expected = [
-            '__name',
+            'name',
             $definition
         ];
 

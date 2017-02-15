@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @ControllerAnnotation("WebcamController")
+ * @ControllerAnnotation
  */
 class Controller
 {

@@ -45,8 +45,8 @@ class ActionEvent extends AbstractEvent implements PushViaWebsocket
         $value3 = null
     ) {
         parent::__construct(self::ACTION);
-        $this->event = $eventName;
 
+        $this->event  = $eventName;
         $this->value1 = $value1;
         $this->value2 = $value2;
         $this->value3 = $value3;

@@ -9,7 +9,7 @@ use Homie\IFTTT\Event\ActionEvent;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("IFTTT.Controller")
+ * @ControllerAnnotation
  */
 class Controller
 {

@@ -23,7 +23,7 @@ class ExpressionLanguageTest extends TestCase
         $dic = $this->bootstrap();
 
         /** @var Language $language */
-        $language = $dic->get('Expression.Language');
+        $language = $dic->get(Language::class);
 
         $actual = $language->evaluate($expression, $parameters);
 
@@ -40,7 +40,7 @@ class ExpressionLanguageTest extends TestCase
         $dic = $this->bootstrap();
 
         /** @var Language $language */
-        $language = $dic->get('Expression.Language');
+        $language = $dic->get(Language::class);
 
         $actual = $language->compile($expression, $language->getParameterNames());
 
@@ -52,8 +52,8 @@ class ExpressionLanguageTest extends TestCase
         $timingEvent = new TimingEvent('timingId');
 
         return [
-            ['1 + 2', "3"],
-            ['round(42.222)', "42"],
+            ['1 + 2', '3'],
+            ['round(42.222)', '42'],
             ['isEvent("foo")', false, [
                 'eventName' => 'other'
             ]],

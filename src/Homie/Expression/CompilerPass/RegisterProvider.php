@@ -2,6 +2,7 @@
 
 namespace Homie\Expression\CompilerPass;
 
+use Homie\Expression\Language;
 use Symfony\Component\DependencyInjection\Argument\ClosureProxyArgument;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -24,7 +25,7 @@ class RegisterProvider implements CompilerPassInterface
         $dispatcher = $container->findDefinition('EventDispatcher');
         $dispatcher->addMethodCall('addCatchall', [new Reference('Expression.Listener')]);
 
-        $language = $container->findDefinition('Expression.Language');
+        $language = $container->findDefinition(Language::class);
         $language->setArguments([new Reference('service_container')]);
 
         $serviceIds = $container->findTaggedServiceIds(self::TAG);

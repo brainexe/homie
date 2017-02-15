@@ -2,6 +2,7 @@
 
 namespace Tests\Homie\Expression;
 
+use Generator;
 use Homie\Expression\Action;
 use Homie\Expression\Language;
 use PHPUnit_Framework_TestCase as TestCase;
@@ -68,11 +69,9 @@ class LanguageTest extends TestCase
         $serviceId    = 'testservice';
         $functionName = 'myFunction';
 
-        $this->subject->lazyRegister($functionName, $serviceId);
-
         $testExpression = new class implements ExpressionFunctionProviderInterface {
             /**
-             * @return ExpressionFunction[] An array of Function instances
+             * @return ExpressionFunction[]|Generator An array of Function instances
              */
             public function getFunctions()
             {
@@ -82,10 +81,9 @@ class LanguageTest extends TestCase
                 });
             }
         };
+        $this->subject->lazyRegister($functionName, [$testExpression, 'getFunctions']);
 
         $dic->set($serviceId, $testExpression);
-
-        $this->subject->loadAll();
 
         $actual = $this->subject->evaluate('myFunction(1, 2, 3)');
 

@@ -3,6 +3,7 @@
 namespace Homie\Sensors\Sensors;
 
 use BrainExe\Core\Translation\TranslationProvider;
+use Generator;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Interfaces\Sensor;
 use Homie\Sensors\SensorVO;
@@ -51,7 +52,7 @@ abstract class AbstractSensor implements Sensor, TranslationProvider
     }
 
     /**
-     * @return string[]
+     * @return string[]|Generator
      */
     public static function getTokens()
     {

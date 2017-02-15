@@ -2,14 +2,13 @@
 
 namespace Homie\Display\Devices;
 
-
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Homie\Display\Annotation\DisplayDevice;
 use Homie\Expression\Event\EvaluateEvent;
 use Homie\Node;
 
 /**
- * @DisplayDevice("Display.Devices.Expression")
+ * @DisplayDevice
  */
 class Expression implements DeviceInterface
 {

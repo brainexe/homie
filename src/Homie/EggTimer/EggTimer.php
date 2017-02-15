@@ -2,7 +2,6 @@
 
 namespace Homie\EggTimer;
 
-use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\MessageQueue\Job;
 use BrainExe\Core\Traits\EventDispatcherTrait;
@@ -10,7 +9,7 @@ use BrainExe\Core\Util\TimeParser;
 use Homie\Espeak\EspeakVO;
 
 /**
- * @Service("EggTimer")
+ * @Service
  */
 class EggTimer
 {
@@ -25,7 +24,6 @@ class EggTimer
     private $timeParser;
 
     /**
-     * @Inject({"@TimeParser"})
      * @param TimeParser $timeParser
      */
     public function __construct(

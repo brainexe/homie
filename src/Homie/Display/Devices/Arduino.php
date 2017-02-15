@@ -2,7 +2,6 @@
 
 namespace Homie\Display\Devices;
 
-
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Homie\Arduino\SerialEvent;
 use Homie\Display\Annotation\DisplayDevice;

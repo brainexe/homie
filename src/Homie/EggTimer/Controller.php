@@ -2,14 +2,13 @@
 
 namespace Homie\EggTimer;
 
-
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\MessageQueue\Job;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("EggTimer.Controller")
+ * @ControllerAnnotation
  */
 class Controller
 {

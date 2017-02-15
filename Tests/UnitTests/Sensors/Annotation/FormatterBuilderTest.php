@@ -35,9 +35,9 @@ class FormatterBuilderTest extends TestCase
             ->method('getMethods')
             ->willReturn([]);
 
-        $data = $subject->build($class, $annotation);
-
         $definition = new Definition();
+        $data = $subject->build($class, $annotation, $definition);
+
         $definition->setPublic(false);
         $definition->addTag(CompilerPass::TAG);
         $expected = [

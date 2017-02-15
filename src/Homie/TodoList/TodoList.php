@@ -32,7 +32,6 @@ class TodoList
     private $builder;
 
     /**
-     * @Inject({"@TodoListGateway", "@TodoList.Builder"})
      * @param TodoListGateway $gateway
      * @param Builder $builder
      */

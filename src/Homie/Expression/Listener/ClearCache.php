@@ -2,14 +2,14 @@
 
 namespace Homie\Expression\Listener;
 
-
+use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Annotations\EventListener;
 use BrainExe\Core\EventDispatcher\Events\ClearCacheEvent;
 use BrainExe\Core\Traits\FileCacheTrait;
-use BrainExe\Core\Traits\LoggerTrait;
 use Homie\Expression\Cache;
 use Homie\Expression\CompilerPass\CacheDefaultExpressions;
 use Homie\Expression\Gateway;
+use Monolog\Logger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -18,7 +18,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class ClearCache implements EventSubscriberInterface
 {
     use FileCacheTrait;
-    use LoggerTrait;
 
     /**
      * @var Gateway
@@ -31,13 +30,26 @@ class ClearCache implements EventSubscriberInterface
     private $cache;
 
     /**
+     * @var Logger
+     */
+    private $logger;
+
+    /**
+     * @Inject({
+     *     "logger" = "@logger"
+     * })
      * @param Cache $cache
      * @param Gateway $gateway
+     * @param Logger $logger
      */
-    public function __construct(Cache $cache, Gateway $gateway)
-    {
+    public function __construct(
+        Cache $cache,
+        Gateway $gateway,
+        Logger $logger
+    ) {
         $this->cache   = $cache;
         $this->gateway = $gateway;
+        $this->logger  = $logger;
     }
 
     public static function getSubscribedEvents()
@@ -69,7 +81,7 @@ class ClearCache implements EventSubscriberInterface
             }
 
             $this->gateway->save($entity, false);
-            $this->debug(sprintf('Registered entity "%s"', $expressionId));
+            $this->logger->debug(sprintf('Registered entity "%s"', $expressionId));
         }
     }
 

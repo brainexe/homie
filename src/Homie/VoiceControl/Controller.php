@@ -8,7 +8,7 @@ use BrainExe\Core\Traits\EventDispatcherTrait;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("VoiceControl.Controller")
+ * @ControllerAnnotation
  */
 class Controller
 {

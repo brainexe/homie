@@ -2,10 +2,10 @@
 
 namespace Homie\Switches\Change;
 
-
 use BrainExe\Annotations\Annotations\Service;
 use BrainExe\Core\Translation\TranslationProvider;
 use Exception;
+use Generator;
 use Homie\Switches\Gateway;
 use Homie\Switches\SwitchInterface;
 use Homie\Switches\VO\GpioSwitchVO;
@@ -65,7 +65,7 @@ class Change implements SwitchInterface, TranslationProvider
     }
 
     /**
-     * @return string[]
+     * @return string[]|Generator
      */
     public static function getTokens()
     {

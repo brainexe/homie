@@ -2,7 +2,6 @@
 
 namespace Homie;
 
-
 use BrainExe\Core\Traits\JsonSerializableTrait;
 use BrainExe\Core\Translation\TranslationProvider;
 use InvalidArgumentException;

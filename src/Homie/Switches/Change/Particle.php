@@ -25,6 +25,6 @@ class Particle implements SwitchInterface
     public function setStatus(SwitchVO $switch, int $status)
     {
         // TODO
-        $this->dispatchInBackground($event);
+        //$this->dispatchInBackground($event);
     }
 }

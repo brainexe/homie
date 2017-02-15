@@ -14,7 +14,7 @@ class SensorBuilderIntegrationTest extends \PHPUnit_Framework_TestCase
         global $dic;
 
         /** @var SensorBuilder $builder */
-        $builder = $dic->get('SensorBuilder');
+        $builder = $dic->get(SensorBuilder::class);
 
         $sensorTypes = [];
         foreach ($builder->getSensors() as $sensor) {

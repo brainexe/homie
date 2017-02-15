@@ -2,7 +2,6 @@
 
 namespace Homie\EggTimer;
 
-
 use BrainExe\Core\Annotations\EventListener;
 use BrainExe\Core\Annotations\Listen;
 use BrainExe\Core\Traits\EventDispatcherTrait;

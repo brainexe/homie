@@ -2,11 +2,9 @@
 
 namespace Homie\Expression;
 
-
 use BrainExe\Annotations\Annotations\Service;
-
 use Symfony\Component\ExpressionLanguage\Expression;
-
+use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
 /**
@@ -32,6 +30,8 @@ class Language extends ExpressionLanguage
      */
     public function lazyRegister(string $functionName, callable $functions)
     {
+        $this->lazyLoad[$functionName] = true;
+
         $this->register($functionName, function (...$params) use ($functions, $functionName) {
             return $this->getFunction($functionName, $functions)['compiler'](...$params);
         }, function (...$params) use ($functionName, $functions) {
@@ -41,18 +41,20 @@ class Language extends ExpressionLanguage
 
     /**
      * @param string $functionName
-     * @param callable $functions
+     * @param callable $functions closure which returns a list of ExpressionFunction
+     * @return array
      */
-    private function getFunction(string $functionName, callable $functions)
+    private function getFunction(string $functionName, callable $functions): array
     {
-        $function = $this->functions[$functionName] ?? null;
-
-        if (!$function) {
-            // todo matze
-           foreach ($functions() as $name => $function) {
-               print_r([$name, $function]);
-           }
+        if (isset($this->lazyLoad[$functionName])) {
+            foreach ($functions() as $function) {
+                /** @var ExpressionFunction $function */
+                unset($this->lazyLoad[$function->getName()]);
+                $this->addFunction($function);
+            }
         }
+
+        return $this->functions[$functionName];
     }
 
     /**

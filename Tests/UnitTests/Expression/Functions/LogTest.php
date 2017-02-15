@@ -9,7 +9,7 @@ use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 
 /**
- * @covers Homie\Expression\Functions\Log
+ * @covers \Homie\Expression\Functions\Log
  */
 class LogTest extends TestCase
 {

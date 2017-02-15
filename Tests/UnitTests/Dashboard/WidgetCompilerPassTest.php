@@ -55,7 +55,7 @@ class WidgetCompilerPassTest extends TestCase
 
         $this->container
             ->expects($this->at(2))
-            ->method('getDefinition')
+            ->method('findDefinition')
             ->with($widgetId)
             ->willReturn($widgetDefinition);
         $widgetDefinition

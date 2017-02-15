@@ -8,7 +8,7 @@ use BrainExe\Core\Traits\RedisTrait;
 use Generator;
 
 /**
- * @Service("Display.Gateway")
+ * @Service
  */
 class Gateway
 {

@@ -9,7 +9,7 @@ use BrainExe\Core\Traits\JsonSerializableTrait;
 class TriggerEvent extends AbstractEvent implements PushViaWebsocket
 {
     use JsonSerializableTrait;
- 
+
     const TRIGGER = 'ifttt.trigger';
 
     /**
@@ -45,8 +45,8 @@ class TriggerEvent extends AbstractEvent implements PushViaWebsocket
         $value3 = null
     ) {
         parent::__construct(self::TRIGGER);
-        $this->event = $eventName;
 
+        $this->event  = $eventName;
         $this->value1 = $value1;
         $this->value2 = $value2;
         $this->value3 = $value3;
