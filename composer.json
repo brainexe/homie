@@ -8,8 +8,8 @@
     }
   ],
   "autoload": {
-    "psr-0": {
-      "Homie": "src/"
+    "psr-4": {
+      "Homie\\": "src/"
     }
   },
   "autoload-dev": {
