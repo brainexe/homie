@@ -24,7 +24,7 @@
         <parameter key="webcam.command.video">streamer -t 0:0:2 -f rgb24 -r {{duration}} -o {{file}}</parameter>
         <!--<parameter key="webcam.command.photo">raspistill -o %s</parameter>-->
         <parameter key="webcam.device">/dev/video0</parameter>
-        <parameter key="ifttt.key"></parameter>
+        <parameter key="ifttt.key">secretKey</parameter>
 
         <!-- Connect an Arduino -->
         <parameter key="serial.port">/dev/ttyACM*</parameter>
