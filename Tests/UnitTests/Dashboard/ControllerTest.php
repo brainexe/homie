@@ -4,14 +4,14 @@ namespace Tests\Homie\Dashboard;
 
 use ArrayIterator;
 use Homie\Dashboard\DashboardVo;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Dashboard\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Homie\Dashboard\Dashboard;
 
 /**
- * @covers Homie\Dashboard\Controller
+ * @covers \Homie\Dashboard\Controller
  */
 class ControllerTest extends TestCase
 {

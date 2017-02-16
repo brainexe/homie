@@ -30,23 +30,23 @@ class Language extends ExpressionLanguage
      */
     public function lazyRegister(string $functionName, callable $functions)
     {
-        $this->lazyLoad[$functionName] = true;
+        $this->lazyLoad[$functionName] = $functions;
 
-        $this->register($functionName, function (...$params) use ($functions, $functionName) {
-            return $this->getFunction($functionName, $functions)['compiler'](...$params);
-        }, function (...$params) use ($functionName, $functions) {
-            return $this->getFunction($functionName, $functions)['evaluator'](...$params);
+        $this->register($functionName, function (...$params) use ($functionName) {
+            return $this->getFunction($functionName)['compiler'](...$params);
+        }, function (...$params) use ($functionName) {
+            return $this->getFunction($functionName)['evaluator'](...$params);
         });
     }
 
     /**
      * @param string $functionName
-     * @param callable $functions closure which returns a list of ExpressionFunction
      * @return array
      */
-    private function getFunction(string $functionName, callable $functions): array
+    private function getFunction(string $functionName): array
     {
         if (isset($this->lazyLoad[$functionName])) {
+            $functions = $this->lazyLoad[$functionName];
             foreach ($functions() as $function) {
                 /** @var ExpressionFunction $function */
                 unset($this->lazyLoad[$function->getName()]);
@@ -121,6 +121,8 @@ class Language extends ExpressionLanguage
 
     public function loadAll()
     {
-        return []; // todo matze
+        foreach (array_keys($this->lazyLoad) as $functionName) {
+            $this->getFunction($functionName);
+        }
     }
 }

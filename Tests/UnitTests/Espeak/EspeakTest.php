@@ -2,13 +2,13 @@
 
 namespace Tests\Homie\Espeak;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Espeak\Espeak;
 use Homie\Client\Adapter\LocalClient;
 
 /**
- * @covers Homie\Espeak\Espeak
+ * @covers \Homie\Espeak\Espeak
  */
 class EspeakTest extends TestCase
 {

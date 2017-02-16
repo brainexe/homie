@@ -2,13 +2,13 @@
 
 namespace Tests\Homie\Dashboard;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Homie\Dashboard\WidgetFactory;
 use Homie\Dashboard\WidgetInterface;
 use Homie\Dashboard\Widgets\Time;
 
 /**
- * @covers Homie\Dashboard\WidgetFactory
+ * @covers \Homie\Dashboard\WidgetFactory
  */
 class WidgetFactoryTest extends TestCase
 {

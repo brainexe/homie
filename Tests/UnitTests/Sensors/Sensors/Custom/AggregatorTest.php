@@ -7,10 +7,10 @@ use Homie\Sensors\Aggregate\Aggregated;
 use Homie\Sensors\Sensors\Misc\Aggregator;
 use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Homie\Sensors\Sensors\Misc\Aggregator
+ * @covers \Homie\Sensors\Sensors\Misc\Aggregator
  */
 class AggregatorTest extends TestCase
 {

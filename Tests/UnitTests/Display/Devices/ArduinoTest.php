@@ -7,10 +7,10 @@ use Homie\Arduino\SerialEvent;
 use Homie\Display\Devices\Arduino;
 use Homie\Node;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Homie\Display\Devices\Arduino
+ * @covers \Homie\Display\Devices\Arduino
  */
 class ArduinoTest extends TestCase
 {

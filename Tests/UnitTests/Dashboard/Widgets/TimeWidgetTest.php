@@ -2,7 +2,7 @@
 
 namespace Tests\Homie\Dashboard\Widgets\TimeWidget;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Homie\Dashboard\Widgets\Time;
 use Homie\Dashboard\Widgets\WidgetMetadataVo;
 

@@ -5,7 +5,7 @@ namespace Tests\Homie\Sensors\CompilerPass\Annotation;
 use Doctrine\Common\Annotations\Reader;
 use Homie\Sensors\CompilerPass\Annotation\FormatterBuilder;
 use Homie\Sensors\CompilerPass\Annotation\SensorFormatter;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class SensorFormatterTest extends TestCase

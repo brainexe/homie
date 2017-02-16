@@ -8,7 +8,7 @@ use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Core\EventDispatcher\Events\TimingEvent;
 use Homie\Expression\Controller\Cron;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 
 class CronTest extends TestCase

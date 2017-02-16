@@ -5,7 +5,7 @@ namespace Tests\Homie\Webcam\Webcam;
 use Homie\Client\ClientInterface;
 use Homie\Webcam\Recorder;
 use League\Flysystem\Filesystem;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Webcam\Webcam;
 use Homie\Webcam\WebcamEvent;

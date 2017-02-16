@@ -2,7 +2,7 @@
 
 namespace Tests\Homie\Node;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Homie\Node;
 
 class NodeTest extends TestCase

@@ -5,7 +5,7 @@ namespace Tests\Homie\IFTTT;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Homie\IFTTT\Controller;
 use Homie\IFTTT\Event\ActionEvent;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Symfony\Component\HttpFoundation\Request;
 

@@ -16,7 +16,7 @@ use Homie\Sensors\SensorValuesGateway;
 use Homie\Sensors\SensorVO;
 use Monolog\Logger;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Psr\Log\LogLevel;
 
 class ListenerTest extends TestCase

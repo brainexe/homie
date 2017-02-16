@@ -3,12 +3,12 @@
 namespace Tests\Homie\Media;
 
 use Homie\Client\ClientInterface;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Media\Sound;
 
 /**
- * @covers Homie\Media\Sound
+ * @covers \Homie\Media\Sound
  */
 class SoundTest extends TestCase
 {

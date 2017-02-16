@@ -6,7 +6,7 @@ use Homie\Expression\Language;
 use Homie\Expression\Listener\WriteFunctionCache;
 use Monolog\Logger;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class WriteFunctionCacheTest extends TestCase
 {

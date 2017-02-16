@@ -3,7 +3,7 @@
 namespace IntegrationTests;
 
 use BrainExe\Core\DependencyInjection\Rebuild;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class DICRebuildTest extends TestCase

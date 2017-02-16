@@ -7,7 +7,7 @@ use Homie\Sensors\Exception\InvalidSensorValueException;
 use Homie\Sensors\Formatter\Formatter;
 use Homie\Sensors\Interfaces\Searchable;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Homie\Sensors\Command\Add;
 use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\Interfaces\Sensor;
@@ -28,7 +28,7 @@ abstract class TestSensorParameterized implements Sensor, Parameterized {}
 abstract class SearchableTestSensor implements Sensor, Searchable {}
 
 /**
- * @covers Homie\Sensors\Command\Add
+ * @covers \Homie\Sensors\Command\Add
  */
 class AddTest extends TestCase
 {

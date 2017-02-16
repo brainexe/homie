@@ -7,10 +7,10 @@ use Homie\Expression\Event\EvaluateEvent;
 use Homie\Display\Devices\Particle;
 use Homie\Node;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Homie\Display\Devices\Particle
+ * @covers \Homie\Display\Devices\Particle
  */
 class ParticleTest extends TestCase
 {

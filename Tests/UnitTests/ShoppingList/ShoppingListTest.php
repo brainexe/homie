@@ -4,13 +4,13 @@ namespace Tests\Homie\ShoppingList;
 
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Homie\ShoppingList\ShoppingListEvent;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\ShoppingList\ShoppingList;
 use Homie\ShoppingList\Gateway;
 
 /**
- * @covers Homie\ShoppingList\ShoppingList
+ * @covers \Homie\ShoppingList\ShoppingList
  */
 class ShoppingListTest extends TestCase
 {

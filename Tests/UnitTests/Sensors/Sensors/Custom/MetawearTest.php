@@ -6,12 +6,12 @@ use GuzzleHttp\Client;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Sensors\Misc\Metawear;
 use Homie\Sensors\SensorVO;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * @covers Homie\Sensors\Sensors\Misc\Metawear
+ * @covers \Homie\Sensors\Sensors\Misc\Metawear
  */
 class MetawearTest extends TestCase
 {

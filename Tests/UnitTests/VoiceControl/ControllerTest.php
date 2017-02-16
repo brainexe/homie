@@ -5,12 +5,12 @@ namespace Tests\Homie\VoiceControl;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Homie\VoiceControl\Controller;
 use Homie\VoiceControl\VoiceEvent;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @covers Homie\VoiceControl\Controller
+ * @covers \Homie\VoiceControl\Controller
  */
 class ControllerTest extends TestCase
 {

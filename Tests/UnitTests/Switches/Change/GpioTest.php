@@ -8,10 +8,10 @@ use Homie\Node\Gateway;
 use Homie\Switches\Change\Gpio;
 use Homie\Switches\VO\GpioSwitchVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Homie\Switches\Change\Gpio
+ * @covers \Homie\Switches\Change\Gpio
  */
 class GpioTest extends TestCase
 {
@@ -46,7 +46,7 @@ class GpioTest extends TestCase
         $status = 1;
 
         $node = new Node(10, Node::TYPE_RASPBERRY);
-        
+
         $this->nodes
             ->expects($this->once())
             ->method('get')

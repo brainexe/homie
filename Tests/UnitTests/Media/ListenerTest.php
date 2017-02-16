@@ -5,7 +5,7 @@ namespace Tests\Homie\Media;
 use Homie\Media\Listener;
 use Homie\Media\Sound;
 use Homie\Media\SoundEvent;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
 class ListenerTest extends TestCase

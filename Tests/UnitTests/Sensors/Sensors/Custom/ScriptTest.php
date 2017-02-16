@@ -7,10 +7,10 @@ use Homie\Sensors\Definition;
 use Homie\Sensors\Sensors\Misc\Script;
 use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Homie\Sensors\Sensors\Misc\Script
+ * @covers \Homie\Sensors\Sensors\Misc\Script
  */
 class ScriptTest extends TestCase
 {

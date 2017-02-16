@@ -6,7 +6,7 @@ use BrainExe\Tests\RedisMockTrait;
 use Homie\Sensors\Sensors\System\Redis;
 use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Predis\Client;
 
 class RedisTest extends TestCase

@@ -3,7 +3,7 @@
 namespace Tests\Homie\Expression;
 
 use Homie\Expression\Entity;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Homie\Expression\Entity

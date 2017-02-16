@@ -7,10 +7,10 @@ use Homie\Sensors\Definition;
 use Homie\Sensors\Sensors\Barometer\BMP085;
 use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Homie\Sensors\Sensors\Barometer\BMP085
+ * @covers \Homie\Sensors\Sensors\Barometer\BMP085
  */
 class BMP085Test extends TestCase
 {

@@ -3,7 +3,7 @@
 namespace Tests\Homie\Remote\Event;
 
 use Homie\Remote\Event\ReceivedEvent;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class ReceivedEventTest extends TestCase
 {
@@ -11,7 +11,7 @@ class ReceivedEventTest extends TestCase
     {
         $code  = 'myCode';
         $event = new ReceivedEvent($code);
-        
+
         $this->assertEquals($code, $event->getCode());
     }
 }

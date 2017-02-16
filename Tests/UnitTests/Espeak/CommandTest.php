@@ -2,7 +2,7 @@
 
 namespace Tests\Homie\Espeak;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Homie\Espeak\Command;
@@ -12,7 +12,7 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
- * @covers Homie\Espeak\Command
+ * @covers \Homie\Espeak\Command
  */
 class CommandTest extends TestCase
 {

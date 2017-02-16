@@ -5,13 +5,13 @@ namespace Tests\Homie\Arduino;
 use BrainExe\Core\Util\Glob;
 use Homie\Arduino\Device\Serial;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Homie\Arduino\SerialEvent;
 use Homie\Client\ClientInterface;
 use RuntimeException;
 
 /**
- * @covers Homie\Arduino\Device\Serial
+ * @covers \Homie\Arduino\Device\Serial
  */
 class SerialTest extends TestCase
 {

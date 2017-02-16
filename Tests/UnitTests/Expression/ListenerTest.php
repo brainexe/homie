@@ -8,9 +8,8 @@ use Homie\Expression\Entity;
 use Homie\Expression\Event\EvaluateEvent;
 use Homie\Expression\Gateway;
 use Homie\Expression\Listener;
-use Homie\Expression\Language;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Container;
 
 class ListenerTest extends TestCase
@@ -55,7 +54,9 @@ class ListenerTest extends TestCase
 
         $event = $this->createMock(AbstractEvent::class);
 
-        $this->subject->dispatch('testinvalid', $event);
+        $actual = $this->subject->dispatch('testinvalid', $event);
+
+        $this->assertNull($actual);
     }
 
     public function testInvalidEvent()
@@ -64,7 +65,9 @@ class ListenerTest extends TestCase
 
         $event = $this->createMock(AbstractEvent::class);
 
-        $this->subject->dispatch('testinvalid', $event);
+        $actual = $this->subject->dispatch('testinvalid', $event);
+
+        $this->assertNull($actual);
     }
 
     public function testEvent()

@@ -44,7 +44,7 @@
     <services>
         <service id="HomieClient" alias="HomieClient.Local" public="false"/>
 
-        <service id="RemoteFilesystem" class="League\Flysystem\Filesystem" public="false">
+        <service id="League\Flysystem\Filesystem" class="League\Flysystem\Filesystem" public="false">
             <argument type="service">
                 <service class="League\Flysystem\Adapter\Local">
                     <argument>%filesystem.local.path%</argument>

@@ -7,13 +7,13 @@ use BrainExe\Core\Util\IdGenerator;
 use BrainExe\Core\Util\Time;
 use BrainExe\Tests\RedisMockTrait;
 use Homie\Sensors\SensorVO;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorValuesGateway;
 
 /**
- * @covers Homie\Sensors\SensorValuesGateway
+ * @covers \Homie\Sensors\SensorValuesGateway
  */
 class SensorValuesGatewayTest extends TestCase
 {

@@ -5,7 +5,7 @@ namespace Tests\Homie\Gpio;
 use Homie\Gpio\Adapter;
 use Homie\Gpio\Adapter\Factory;
 use Homie\Node;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Gpio\GpioManager;
 use Homie\Gpio\Pin;

@@ -8,7 +8,7 @@ use Homie\Expression\Gateway;
 use Homie\Expression\Listener\ClearCache;
 use Monolog\Logger;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class ClearCacheTest extends TestCase
 {

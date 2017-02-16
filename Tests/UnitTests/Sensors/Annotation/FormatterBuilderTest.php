@@ -7,7 +7,7 @@ use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\CompilerPass\Annotation\FormatterBuilder;
 use Homie\Sensors\CompilerPass\SensorFormatter as CompilerPass;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;

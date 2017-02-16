@@ -4,7 +4,7 @@ namespace Tests\Homie\Expression\Functions;
 
 use Homie\Expression\Functions\Log;
 use Monolog\Logger;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 

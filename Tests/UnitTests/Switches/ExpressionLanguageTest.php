@@ -4,7 +4,7 @@ namespace Tests\Homie\Switches;
 
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Homie\Switches\ExpressionLanguage;
 use Homie\Switches\SwitchChangeEvent;
 use Homie\Switches\Switches;
@@ -12,7 +12,7 @@ use Homie\Switches\VO\RadioVO;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 
 /**
- * @covers Homie\Switches\ExpressionLanguage
+ * @covers \Homie\Switches\ExpressionLanguage
  */
 class ExpressionLanguageTest extends TestCase
 {

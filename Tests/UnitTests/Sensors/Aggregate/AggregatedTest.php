@@ -6,7 +6,7 @@ use BrainExe\Core\Redis\Predis;
 use BrainExe\Tests\RedisMockTrait;
 use Homie\Sensors\Aggregate\Aggregated;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class AggregatedTest extends TestCase
 {

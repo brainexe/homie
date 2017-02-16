@@ -5,10 +5,10 @@ namespace Tests\Homie\Sensors\Sensors\System;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Sensors\System\MemoryUsed;
 use Homie\Sensors\SensorVO;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Homie\Sensors\Sensors\System\MemoryUsed
+ * @covers \Homie\Sensors\Sensors\System\MemoryUsed
  */
 class MemoryUsedTest extends TestCase
 {

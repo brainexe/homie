@@ -6,7 +6,7 @@ use Homie\Expression\Cache;
 use Homie\Expression\Entity;
 use Homie\Expression\Gateway;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class CacheTest extends TestCase
 {

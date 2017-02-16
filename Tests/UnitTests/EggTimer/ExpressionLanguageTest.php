@@ -6,11 +6,11 @@ use Generator;
 use Homie\EggTimer\EggTimer;
 use Homie\EggTimer\ExpressionLanguage;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 
 /**
- * @covers Homie\EggTimer\ExpressionLanguage
+ * @covers \Homie\EggTimer\ExpressionLanguage
  */
 class ExpressionLanguageTest extends TestCase
 {

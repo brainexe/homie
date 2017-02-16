@@ -4,25 +4,25 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "abe5e3e6b7b001038cd0cbc395b1c200",
-    "content-hash": "d33c7be796faf2d2758049e87b27fcd1",
+    "hash": "05e72fe3622cc92eef51071dd4b9975d",
+    "content-hash": "8a8c12e296746aea89b14558aef52e6f",
     "packages": [
         {
             "name": "brainexe/annotations",
-            "version": "1.0.11",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brainexe/annotations.git",
-                "reference": "0dab097bb365520a76fbb8cd38ab0c3e746e89f6"
+                "reference": "4d9bf55bdfb11b17a084e7e401289ee83c91f0f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brainexe/annotations/zipball/0dab097bb365520a76fbb8cd38ab0c3e746e89f6",
-                "reference": "0dab097bb365520a76fbb8cd38ab0c3e746e89f6",
+                "url": "https://api.github.com/repos/brainexe/annotations/zipball/4d9bf55bdfb11b17a084e7e401289ee83c91f0f1",
+                "reference": "4d9bf55bdfb11b17a084e7e401289ee83c91f0f1",
                 "shasum": ""
             },
             "require": {
-                "doctrine/annotations": "1.3.*",
+                "doctrine/annotations": "2.0.*",
                 "symfony/config": "~3.2",
                 "symfony/dependency-injection": "~3.2"
             },
@@ -52,7 +52,7 @@
             ],
             "description": "Simple @annotation library based on doctrine annotations for symfony dependency injection container",
             "homepage": "https://mdoetsch.de",
-            "time": "2017-01-09 20:32:57"
+            "time": "2017-02-16 16:28:59"
         },
         {
             "name": "brainexe/core",
@@ -60,23 +60,23 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/brainexe/core.git",
-                "reference": "1f2b71a2c914785c44fbce840c5ddd037195ec8c"
+                "reference": "3f1d1d081ba0f96ae8e621e051e9de1ef09e6edc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brainexe/core/zipball/1f2b71a2c914785c44fbce840c5ddd037195ec8c",
-                "reference": "1f2b71a2c914785c44fbce840c5ddd037195ec8c",
+                "url": "https://api.github.com/repos/brainexe/core/zipball/3f1d1d081ba0f96ae8e621e051e9de1ef09e6edc",
+                "reference": "3f1d1d081ba0f96ae8e621e051e9de1ef09e6edc",
                 "shasum": ""
             },
             "require": {
-                "brainexe/annotations": "~1.0.11",
-                "guzzlehttp/guzzle": "~6.0",
-                "monolog/monolog": "~1.21.0",
+                "brainexe/annotations": "dev-master",
+                "guzzlehttp/guzzle": "~6.2",
+                "monolog/monolog": "~1.22.0",
                 "mtdowling/cron-expression": "1.1.*",
                 "ocramius/proxy-manager": "2.0.*",
                 "php": ">=7.0.0",
                 "phpmailer/phpmailer": "~5.2",
-                "predis/predis": "~1.0",
+                "predis/predis": "~1.1",
                 "symfony/cache": "~3.2",
                 "symfony/config": "~3.2",
                 "symfony/console": "~3.2",
@@ -89,7 +89,7 @@
                 "symfony/routing": "~3.2"
             },
             "require-dev": {
-                "phpunit/phpunit": "~5.4"
+                "phpunit/phpunit": "~5.0"
             },
             "suggest": {
                 "johnkary/phpunit-speedtrap": "~1.0@dev",
@@ -122,7 +122,7 @@
             ],
             "description": "Framework core - used for brainexe/homie",
             "homepage": "https://mdoetsch.de",
-            "time": "2017-02-03 20:51:52"
+            "time": "2017-02-15 20:26:08"
         },
         {
             "name": "brainexe/totp",
@@ -226,35 +226,35 @@
         },
         {
             "name": "doctrine/annotations",
-            "version": "1.3.x-dev",
+            "version": "2.0.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "bd4461328621bde0ae6b1b2675fbc6aca4ceb558"
+                "reference": "07a9af2d4de5f9ef0bf2d9ae94421e5fc50d7859"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/bd4461328621bde0ae6b1b2675fbc6aca4ceb558",
-                "reference": "bd4461328621bde0ae6b1b2675fbc6aca4ceb558",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/07a9af2d4de5f9ef0bf2d9ae94421e5fc50d7859",
+                "reference": "07a9af2d4de5f9ef0bf2d9ae94421e5fc50d7859",
                 "shasum": ""
             },
             "require": {
                 "doctrine/lexer": "1.*",
-                "php": "^5.6 || ^7.0"
+                "php": ">=5.3.2"
             },
             "require-dev": {
                 "doctrine/cache": "1.*",
-                "phpunit/phpunit": "^5.6.1"
+                "phpunit/phpunit": "4.*"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.4.x-dev"
+                    "dev-master": "1.3.x-dev"
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Doctrine\\Common\\Annotations\\": "lib/Doctrine/Common/Annotations"
+                "psr-0": {
+                    "Doctrine\\Common\\Annotations\\": "lib/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -290,7 +290,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2016-12-30 15:59:45"
+            "time": "2016-02-26 09:54:41"
         },
         {
             "name": "doctrine/lexer",
@@ -612,16 +612,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.21.0",
+            "version": "1.22.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "f42fbdfd53e306bda545845e4dbfd3e72edb4952"
+                "reference": "bad29cb8d18ab0315e6c477751418a82c850d558"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/f42fbdfd53e306bda545845e4dbfd3e72edb4952",
-                "reference": "f42fbdfd53e306bda545845e4dbfd3e72edb4952",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/bad29cb8d18ab0315e6c477751418a82c850d558",
+                "reference": "bad29cb8d18ab0315e6c477751418a82c850d558",
                 "shasum": ""
             },
             "require": {
@@ -632,7 +632,7 @@
                 "psr/log-implementation": "1.0.0"
             },
             "require-dev": {
-                "aws/aws-sdk-php": "^2.4.9",
+                "aws/aws-sdk-php": "^2.4.9 || ^3.0",
                 "doctrine/couchdb": "~1.0@dev",
                 "graylog2/gelf-php": "~1.0",
                 "jakub-onderka/php-parallel-lint": "0.9",
@@ -686,7 +686,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2016-07-29 03:23:52"
+            "time": "2016-11-26 00:15:39"
         },
         {
             "name": "mtdowling/cron-expression",
@@ -1326,12 +1326,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "a7804f7e6f5d01646857da602fc3fe84888d3a85"
+                "reference": "60c9e716dc715f308b52872c9974856d4441f840"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/a7804f7e6f5d01646857da602fc3fe84888d3a85",
-                "reference": "a7804f7e6f5d01646857da602fc3fe84888d3a85",
+                "url": "https://api.github.com/repos/symfony/console/zipball/60c9e716dc715f308b52872c9974856d4441f840",
+                "reference": "60c9e716dc715f308b52872c9974856d4441f840",
                 "shasum": ""
             },
             "require": {
@@ -1386,7 +1386,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2017-02-14 16:35:24"
+            "time": "2017-02-16 14:18:56"
         },
         {
             "name": "symfony/debug",
@@ -1394,12 +1394,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "6a980cb6c9c02f2b5313945de4d5567df2a4ef77"
+                "reference": "897f7e81a6d987380ce0955874dfafff7eb1a804"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/6a980cb6c9c02f2b5313945de4d5567df2a4ef77",
-                "reference": "6a980cb6c9c02f2b5313945de4d5567df2a4ef77",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/897f7e81a6d987380ce0955874dfafff7eb1a804",
+                "reference": "897f7e81a6d987380ce0955874dfafff7eb1a804",
                 "shasum": ""
             },
             "require": {
@@ -1442,7 +1442,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2017-02-12 19:33:56"
+            "time": "2017-02-16 15:37:45"
         },
         {
             "name": "symfony/dependency-injection",
@@ -1450,12 +1450,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dependency-injection.git",
-                "reference": "7d024d4ad9eb35d524e5ac049c855efda00bf7d3"
+                "reference": "a163860914832341a2c28e7609e297b65a62c21c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/7d024d4ad9eb35d524e5ac049c855efda00bf7d3",
-                "reference": "7d024d4ad9eb35d524e5ac049c855efda00bf7d3",
+                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/a163860914832341a2c28e7609e297b65a62c21c",
+                "reference": "a163860914832341a2c28e7609e297b65a62c21c",
                 "shasum": ""
             },
             "require": {
@@ -1512,7 +1512,7 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "https://symfony.com",
-            "time": "2017-02-14 18:51:53"
+            "time": "2017-02-16 14:59:55"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -1927,12 +1927,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "37d005254947477f31d6878996b9adcafb2d3c44"
+                "reference": "0093acdcfbef2c315f9980447e129731e082d64e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/37d005254947477f31d6878996b9adcafb2d3c44",
-                "reference": "37d005254947477f31d6878996b9adcafb2d3c44",
+                "url": "https://api.github.com/repos/symfony/process/zipball/0093acdcfbef2c315f9980447e129731e082d64e",
+                "reference": "0093acdcfbef2c315f9980447e129731e082d64e",
                 "shasum": ""
             },
             "require": {
@@ -1968,7 +1968,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2017-02-08 15:45:40"
+            "time": "2017-02-16 14:15:30"
         },
         {
             "name": "symfony/proxy-manager-bridge",
@@ -2214,12 +2214,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/instantiator.git",
-                "reference": "68099b02b60bbf3b088ff5cb67bf506770ef9cac"
+                "reference": "5acd2bd8c2b600ad5cc4c9180ebf0a930604d6a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/68099b02b60bbf3b088ff5cb67bf506770ef9cac",
-                "reference": "68099b02b60bbf3b088ff5cb67bf506770ef9cac",
+                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/5acd2bd8c2b600ad5cc4c9180ebf0a930604d6a5",
+                "reference": "5acd2bd8c2b600ad5cc4c9180ebf0a930604d6a5",
                 "shasum": ""
             },
             "require": {
@@ -2260,7 +2260,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2017-01-23 09:23:06"
+            "time": "2017-02-16 16:15:51"
         },
         {
             "name": "johnkary/phpunit-speedtrap",
@@ -2351,175 +2351,6 @@
                 "object graph"
             ],
             "time": "2017-01-26 22:05:40"
-        },
-        {
-            "name": "php-mock/php-mock",
-            "version": "1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-mock/php-mock.git",
-                "reference": "bfa2d17d64dbf129073a7ba2051a96ce52749570"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-mock/php-mock/zipball/bfa2d17d64dbf129073a7ba2051a96ce52749570",
-                "reference": "bfa2d17d64dbf129073a7ba2051a96ce52749570",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.5",
-                "phpunit/php-text-template": "^1"
-            },
-            "replace": {
-                "malkusch/php-mock": "*"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4|^5"
-            },
-            "suggest": {
-                "php-mock/php-mock-mockery": "Allows using PHPMockery for Mockery integration",
-                "php-mock/php-mock-phpunit": "Allows integration into PHPUnit testcase with the trait PHPMock."
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "phpmock\\": [
-                        "classes/",
-                        "tests/unit/"
-                    ]
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "WTFPL"
-            ],
-            "authors": [
-                {
-                    "name": "Markus Malkusch",
-                    "email": "markus@malkusch.de",
-                    "homepage": "http://markus.malkusch.de",
-                    "role": "Developer"
-                }
-            ],
-            "description": "PHP-Mock can mock built-in PHP functions (e.g. time()). PHP-Mock relies on PHP's namespace fallback policy. No further extension is needed.",
-            "homepage": "https://github.com/php-mock/php-mock",
-            "keywords": [
-                "BDD",
-                "TDD",
-                "function",
-                "mock",
-                "stub",
-                "test",
-                "test double"
-            ],
-            "time": "2015-11-11 22:37:09"
-        },
-        {
-            "name": "php-mock/php-mock-integration",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-mock/php-mock-integration.git",
-                "reference": "e83fb65dd20cd3cf250d554cbd4682b96b684f4b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-mock/php-mock-integration/zipball/e83fb65dd20cd3cf250d554cbd4682b96b684f4b",
-                "reference": "e83fb65dd20cd3cf250d554cbd4682b96b684f4b",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.5",
-                "php-mock/php-mock": "^1",
-                "phpunit/php-text-template": "^1"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4|^5"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "phpmock\\integration\\": "classes/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "WTFPL"
-            ],
-            "authors": [
-                {
-                    "name": "Markus Malkusch",
-                    "email": "markus@malkusch.de",
-                    "homepage": "http://markus.malkusch.de",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Integration package for PHP-Mock",
-            "homepage": "https://github.com/php-mock/php-mock-integration",
-            "keywords": [
-                "BDD",
-                "TDD",
-                "function",
-                "mock",
-                "stub",
-                "test",
-                "test double"
-            ],
-            "time": "2015-10-26 21:21:42"
-        },
-        {
-            "name": "php-mock/php-mock-phpunit",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-mock/php-mock-phpunit.git",
-                "reference": "ed675d71a0767a4663eb02fe6d6b12deb98a7349"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-mock/php-mock-phpunit/zipball/ed675d71a0767a4663eb02fe6d6b12deb98a7349",
-                "reference": "ed675d71a0767a4663eb02fe6d6b12deb98a7349",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.5",
-                "php-mock/php-mock-integration": "^1",
-                "phpunit/phpunit": "^4.0.0 || ^5.0.0"
-            },
-            "conflict": {
-                "phpunit/phpunit-mock-objects": "3.2.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "phpmock\\phpunit\\": "classes/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "WTFPL"
-            ],
-            "authors": [
-                {
-                    "name": "Markus Malkusch",
-                    "email": "markus@malkusch.de",
-                    "homepage": "http://markus.malkusch.de",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Mock built-in PHP functions (e.g. time()) with PHPUnit. This package relies on PHP's namespace fallback policy. No further extension is needed.",
-            "homepage": "https://github.com/php-mock/php-mock-phpunit",
-            "keywords": [
-                "BDD",
-                "TDD",
-                "function",
-                "mock",
-                "phpunit",
-                "stub",
-                "test",
-                "test double"
-            ],
-            "time": "2016-12-05 23:33:12"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -2732,40 +2563,39 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "4.0.x-dev",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "7a2bfe73aa381a76cb6d13599ae37bf74a12a02f"
+                "reference": "e7d7a4acca58e45bdfd00221563d131cfb04ba96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/7a2bfe73aa381a76cb6d13599ae37bf74a12a02f",
-                "reference": "7a2bfe73aa381a76cb6d13599ae37bf74a12a02f",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/e7d7a4acca58e45bdfd00221563d131cfb04ba96",
+                "reference": "e7d7a4acca58e45bdfd00221563d131cfb04ba96",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.6 || ^7.0",
-                "phpunit/php-file-iterator": "~1.3",
-                "phpunit/php-text-template": "~1.2",
+                "php": "^7.0",
+                "phpunit/php-file-iterator": "^1.3",
+                "phpunit/php-text-template": "^1.2",
                 "phpunit/php-token-stream": "^1.4.2",
-                "sebastian/code-unit-reverse-lookup": "~1.0",
-                "sebastian/environment": "^1.3.2 || ^2.0",
-                "sebastian/version": "~1.0|~2.0"
+                "sebastian/code-unit-reverse-lookup": "^1.0",
+                "sebastian/environment": "^2.0",
+                "sebastian/version": "^2.0"
             },
             "require-dev": {
-                "ext-xdebug": ">=2.1.4",
-                "phpunit/phpunit": "^5.4"
+                "ext-xdebug": "^2.5",
+                "phpunit/phpunit": "^6.0"
             },
             "suggest": {
                 "ext-dom": "*",
-                "ext-xdebug": ">=2.4.0",
                 "ext-xmlwriter": "*"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0.x-dev"
+                    "dev-master": "5.0.x-dev"
                 }
             },
             "autoload": {
@@ -2791,7 +2621,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-01-24 16:35:00"
+            "time": "2017-02-02 10:35:41"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -2976,16 +2806,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "5.7.x-dev",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "1dfbf1837691adb6bd8e01f4c1b3a8ba968f96a4"
+                "reference": "26bd6e46a115b9142b002ce8668f98438b74f654"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/1dfbf1837691adb6bd8e01f4c1b3a8ba968f96a4",
-                "reference": "1dfbf1837691adb6bd8e01f4c1b3a8ba968f96a4",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/26bd6e46a115b9142b002ce8668f98438b74f654",
+                "reference": "26bd6e46a115b9142b002ce8668f98438b74f654",
                 "shasum": ""
             },
             "require": {
@@ -2994,33 +2824,33 @@
                 "ext-libxml": "*",
                 "ext-mbstring": "*",
                 "ext-xml": "*",
-                "myclabs/deep-copy": "~1.3",
-                "php": "^5.6 || ^7.0",
+                "myclabs/deep-copy": "^1.3",
+                "php": "^7.0",
                 "phpspec/prophecy": "^1.6.2",
-                "phpunit/php-code-coverage": "^4.0.4",
-                "phpunit/php-file-iterator": "~1.4",
-                "phpunit/php-text-template": "~1.2",
+                "phpunit/php-code-coverage": "^5.0",
+                "phpunit/php-file-iterator": "^1.4",
+                "phpunit/php-text-template": "^1.2",
                 "phpunit/php-timer": "^1.0.6",
-                "phpunit/phpunit-mock-objects": "^3.2",
+                "phpunit/phpunit-mock-objects": "^4.0",
                 "sebastian/comparator": "^1.2.4",
-                "sebastian/diff": "~1.2",
-                "sebastian/environment": "^1.3.4 || ^2.0",
-                "sebastian/exporter": "~2.0",
+                "sebastian/diff": "^1.2",
+                "sebastian/environment": "^2.0",
+                "sebastian/exporter": "^2.0",
                 "sebastian/global-state": "^1.1",
-                "sebastian/object-enumerator": "~2.0",
-                "sebastian/resource-operations": "~1.0",
-                "sebastian/version": "~1.0.3|~2.0",
-                "symfony/yaml": "~2.1|~3.0"
+                "sebastian/object-enumerator": "^2.0",
+                "sebastian/resource-operations": "^1.0",
+                "sebastian/version": "^2.0"
             },
             "conflict": {
-                "phpdocumentor/reflection-docblock": "3.0.2"
+                "phpdocumentor/reflection-docblock": "3.0.2",
+                "phpunit/dbunit": "<3.0"
             },
             "require-dev": {
                 "ext-pdo": "*"
             },
             "suggest": {
                 "ext-xdebug": "*",
-                "phpunit/php-invoker": "~1.1"
+                "phpunit/php-invoker": "^1.1"
             },
             "bin": [
                 "phpunit"
@@ -3028,7 +2858,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.7.x-dev"
+                    "dev-master": "6.1.x-dev"
                 }
             },
             "autoload": {
@@ -3054,33 +2884,33 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-02-12 17:16:01"
+            "time": "2017-02-16 10:06:33"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
-            "version": "3.4.x-dev",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "3ab72b65b39b491e0c011e2e09bb2206c2aa8e24"
+                "reference": "d89b9de0a9761552d263d7f5747db7a3053e991d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/3ab72b65b39b491e0c011e2e09bb2206c2aa8e24",
-                "reference": "3ab72b65b39b491e0c011e2e09bb2206c2aa8e24",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/d89b9de0a9761552d263d7f5747db7a3053e991d",
+                "reference": "d89b9de0a9761552d263d7f5747db7a3053e991d",
                 "shasum": ""
             },
             "require": {
                 "doctrine/instantiator": "^1.0.2",
-                "php": "^5.6 || ^7.0",
+                "php": "^7.0",
                 "phpunit/php-text-template": "^1.2",
-                "sebastian/exporter": "^1.2 || ^2.0"
+                "sebastian/exporter": "^2.0"
             },
             "conflict": {
-                "phpunit/phpunit": "<5.4.0"
+                "phpunit/phpunit": "<6.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^5.4"
+                "phpunit/phpunit": "^6.0"
             },
             "suggest": {
                 "ext-soap": "*"
@@ -3088,7 +2918,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.2.x-dev"
+                    "dev-master": "4.0.x-dev"
                 }
             },
             "autoload": {
@@ -3113,7 +2943,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2016-12-08 20:27:08"
+            "time": "2017-02-05 15:27:55"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
@@ -3629,61 +3459,6 @@
             "time": "2016-10-03 07:35:21"
         },
         {
-            "name": "symfony/yaml",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/yaml.git",
-                "reference": "6095f9750f91c544920eb1344a6f7d2e4e15d8ad"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/6095f9750f91c544920eb1344a6f7d2e4e15d8ad",
-                "reference": "6095f9750f91c544920eb1344a6f7d2e4e15d8ad",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.5.9"
-            },
-            "require-dev": {
-                "symfony/console": "~2.8|~3.0"
-            },
-            "suggest": {
-                "symfony/console": "For validating YAML files using the lint command"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.3-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Yaml\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony Yaml Component",
-            "homepage": "https://symfony.com",
-            "time": "2017-02-10 14:48:44"
-        },
-        {
             "name": "webmozart/assert",
             "version": "dev-master",
             "source": {
@@ -3739,7 +3514,6 @@
     "stability-flags": {
         "brainexe/core": 20,
         "brainexe/totp": 20,
-        "php-mock/php-mock-phpunit": 20,
         "johnkary/phpunit-speedtrap": 20
     },
     "prefer-stable": false,

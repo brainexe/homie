@@ -2,7 +2,6 @@
 
 namespace Homie\TodoList;
 
-use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Authentication\AnonymusUserVO;
 use Generator;
 use Homie\Expression\Action;
@@ -27,10 +26,6 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
     private $todoList;
 
     /**
-     * @Inject({
-     *     "@TodoList.TodoReminder",
-     *     "@TodoList"
-     * })
      * @param TodoReminder $todoReminder
      * @param TodoList $todoList
      */

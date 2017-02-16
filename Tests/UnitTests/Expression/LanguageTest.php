@@ -5,7 +5,7 @@ namespace Tests\Homie\Expression;
 use Generator;
 use Homie\Expression\Action;
 use Homie\Expression\Language;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;

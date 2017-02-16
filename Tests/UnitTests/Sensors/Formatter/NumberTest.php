@@ -3,10 +3,10 @@
 namespace Tests\Homie\Sensors\Formatter;
 
 use Homie\Sensors\Formatter\Number;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Homie\Sensors\Formatter\Number
+ * @covers \Homie\Sensors\Formatter\Number
  */
 class NumberTest extends TestCase
 {

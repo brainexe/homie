@@ -3,7 +3,7 @@
 namespace Tests\Homie\Sensors;
 
 use Homie\Sensors\Chart;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class ChartTest extends TestCase
 {

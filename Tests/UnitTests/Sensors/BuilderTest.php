@@ -2,12 +2,12 @@
 
 namespace Tests\Homie\Sensors;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Homie\Sensors\SensorVO;
 use Homie\Sensors\Builder;
 
 /**
- * @covers Homie\Sensors\Builder
+ * @covers \Homie\Sensors\Builder
  */
 class BuilderTest extends TestCase
 {

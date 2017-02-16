@@ -4,10 +4,10 @@ namespace Tests\Homie\Display\Devices;
 
 use Homie\Display\Devices\EchoDevice;
 use Homie\Node;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Homie\Display\Devices\EchoDevice
+ * @covers \Homie\Display\Devices\EchoDevice
  */
 class GatewayTest extends TestCase
 {

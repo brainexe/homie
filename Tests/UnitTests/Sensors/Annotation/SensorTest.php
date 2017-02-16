@@ -5,7 +5,7 @@ namespace Tests\Homie\Sensors\Annotation;
 use Doctrine\Common\Annotations\Reader;
 use Homie\Sensors\Annotation\SensorBuilder;
 use Homie\Sensors\Annotation\Sensor;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class SensorTest extends TestCase

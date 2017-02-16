@@ -7,12 +7,12 @@ use Homie\TodoList\Cron\UpdateTasks;
 use Homie\TodoList\TodoList;
 use Homie\TodoList\VO\TodoItemVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
- * @covers Homie\TodoList\Cron\UpdateTasks
+ * @covers \Homie\TodoList\Cron\UpdateTasks
  */
 class UpdateTasksTest extends TestCase
 {

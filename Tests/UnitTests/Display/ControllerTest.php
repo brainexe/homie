@@ -9,7 +9,7 @@ use Homie\Display\Gateway;
 use Homie\Display\Renderer;
 use Homie\Display\Settings;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 
 class ControllerTest extends TestCase

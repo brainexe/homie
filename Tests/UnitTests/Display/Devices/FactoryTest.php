@@ -9,10 +9,10 @@ use Homie\Display\Devices\Factory;
 use Homie\Expression\Event\EvaluateEvent;
 use Homie\Node;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Homie\Display\Devices\Factory
+ * @covers \Homie\Display\Devices\Factory
  */
 class FactoryTest extends TestCase
 {

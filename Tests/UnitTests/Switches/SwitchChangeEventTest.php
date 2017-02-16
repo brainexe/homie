@@ -4,7 +4,7 @@ namespace Homie\Tests\Switches;
 
 use Homie\Switches\SwitchChangeEvent;
 use Homie\Switches\VO\GpioSwitchVO;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class SwitchChangeEventTest extends TestCase
 {

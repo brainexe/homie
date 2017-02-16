@@ -6,7 +6,7 @@ use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 
 /**
- * @Service("IFTTT.Trigger")
+ * @Service
  */
 class Trigger
 {
@@ -19,7 +19,7 @@ class Trigger
     private $key;
 
     /**
-     * @Inject({"%ifttt.key%"})
+     * @Inject({"key" = "%ifttt.key%"})
      * @param string $key
      */
     public function __construct(string $key)

@@ -7,12 +7,12 @@ use BrainExe\Tests\RedisMockTrait;
 use Homie\Node;
 use Homie\Node\Controller;
 use Homie\Node\Gateway;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @covers Homie\Node\Controller
+ * @covers \Homie\Node\Controller
  */
 class ControllerTest extends TestCase
 {

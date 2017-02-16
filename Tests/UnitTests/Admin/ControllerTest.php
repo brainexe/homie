@@ -3,14 +3,14 @@
 namespace Tests\Homie\Admin;
 
 use BrainExe\Core\Authentication\UserVO;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Admin\Controller;
 use BrainExe\Core\Authentication\UserProvider;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @covers Homie\Admin\Controller
+ * @covers \Homie\Admin\Controller
  */
 class ControllerTest extends TestCase
 {

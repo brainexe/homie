@@ -6,7 +6,7 @@ use Doctrine\Common\Annotations\Reader;
 use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Annotation\SensorBuilder;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;

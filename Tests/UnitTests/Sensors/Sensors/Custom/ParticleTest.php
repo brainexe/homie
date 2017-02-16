@@ -7,10 +7,10 @@ use Homie\Sensors\Definition;
 use Homie\Sensors\Sensors\Misc\Particle;
 use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Homie\Sensors\Sensors\Misc\Particle
+ * @covers \Homie\Sensors\Sensors\Misc\Particle
  */
 class ParticleTest extends TestCase
 {

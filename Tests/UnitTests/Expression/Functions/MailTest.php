@@ -5,12 +5,12 @@ namespace Tests\Homie\Expression\Functions;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Core\Mail\SendMailEvent;
 use Homie\Expression\Functions\Mail;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 
 /**
- * @covers Homie\Expression\Functions\Mail
+ * @covers \Homie\Expression\Functions\Mail
  */
 class MailTest extends TestCase
 {

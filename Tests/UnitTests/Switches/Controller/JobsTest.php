@@ -4,7 +4,7 @@ namespace Tests\Homie\Switches\Controller;
 
 
 use Homie\Switches\Controller\Jobs;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
 use Homie\Switches\SwitchChangeEvent;
@@ -15,7 +15,7 @@ use Homie\Switches\Job;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 
 /**
- * @covers Homie\Switches\Controller\Jobs
+ * @covers \Homie\Switches\Controller\Jobs
  */
 class JobsTest extends TestCase
 {

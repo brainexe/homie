@@ -4,14 +4,14 @@ namespace Tests\Homie\Dashboard;
 
 use BrainExe\Core\Util\IdGenerator;
 use Homie\Dashboard\DashboardVo;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Dashboard\Dashboard;
 use Homie\Dashboard\DashboardGateway;
 use Homie\Dashboard\WidgetFactory;
 
 /**
- * @covers Homie\Dashboard\Dashboard
+ * @covers \Homie\Dashboard\Dashboard
  */
 class DashboardTest extends TestCase
 {

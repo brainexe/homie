@@ -7,11 +7,11 @@ use BrainExe\Core\Util\IdGenerator;
 use Homie\Webcam\ExpressionLanguage;
 use Homie\Webcam\WebcamEvent;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 
 /**
- * @covers Homie\Webcam\ExpressionLanguage
+ * @covers \Homie\Webcam\ExpressionLanguage
  */
 class ExpressionLanguageTest extends TestCase
 {

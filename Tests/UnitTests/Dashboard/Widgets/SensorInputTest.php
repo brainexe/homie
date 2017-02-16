@@ -5,11 +5,11 @@ namespace Tests\Homie\Dashboard\Widgets;
 use Homie\Dashboard\Widgets\SensorInput;
 use Homie\Sensors\SensorGateway;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Homie\Dashboard\Widgets\WidgetMetadataVo;
 
 /**
- * @covers Homie\Dashboard\Widgets\SensorInput
+ * @covers \Homie\Dashboard\Widgets\SensorInput
  */
 class SensorInputTest extends TestCase
 {

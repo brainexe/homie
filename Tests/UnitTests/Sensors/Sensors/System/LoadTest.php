@@ -3,7 +3,7 @@
 namespace Tests\Homie\Sensors\Sensors\System;
 
 use Homie\Sensors\SensorVO;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Homie\Sensors\Sensors\System\Load;
 
 class LoadTest extends TestCase

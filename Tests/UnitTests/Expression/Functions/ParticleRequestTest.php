@@ -9,12 +9,12 @@ use GuzzleHttp\Psr7\Response;
 use Homie\Expression\Functions\ParticleRequest;
 use Homie\Node;
 use Homie\Node\Gateway;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 
 /**
- * @covers Homie\Expression\Functions\ParticleRequest
+ * @covers \Homie\Expression\Functions\ParticleRequest
  */
 class ParticleRequestTest extends TestCase
 {

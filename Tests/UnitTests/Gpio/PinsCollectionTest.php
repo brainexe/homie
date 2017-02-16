@@ -2,7 +2,7 @@
 
 namespace Tests\Homie\Gpio;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Homie\Gpio\Pin;
 use Homie\Gpio\PinsCollection;
 

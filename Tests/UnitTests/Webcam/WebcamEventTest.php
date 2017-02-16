@@ -3,10 +3,10 @@
 namespace Tests\Homie\Webcam;
 
 use Homie\Webcam\WebcamEvent;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Homie\Webcam\WebcamEvent
+ * @covers \Homie\Webcam\WebcamEvent
  */
 class WebcamEventTest extends TestCase
 {

@@ -5,7 +5,7 @@ namespace Tests\Homie\Sensors\Command;
 use ArrayIterator;
 use BrainExe\Core\Util\Time;
 use Homie\Sensors\Command\CSVExport;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\SensorValuesGateway;
 use Homie\Sensors\SensorGateway;
@@ -13,7 +13,7 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
- * @covers Homie\Sensors\Command\CSVExport
+ * @covers \Homie\Sensors\Command\CSVExport
  */
 class CSVExportTest extends TestCase
 {

@@ -6,13 +6,13 @@ use BrainExe\Core\Util\FileSystem;
 use BrainExe\Core\Util\Glob;
 use Homie\Sensors\Sensors\Temperature\OnBoard;
 use Homie\Sensors\SensorVO;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\Temperature;
 
 /**
- * @covers Homie\Sensors\Sensors\Temperature\OnBoard
+ * @covers \Homie\Sensors\Sensors\Temperature\OnBoard
  */
 class OnBoardTest extends TestCase
 {

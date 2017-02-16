@@ -3,10 +3,10 @@
 namespace Tests\Homie\ShoppingList;
 
 use Homie\ShoppingList\ShoppingListEvent;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Homie\ShoppingList\ShoppingListEvent
+ * @covers \Homie\ShoppingList\ShoppingListEvent
  */
 class ShoppingListEventTest extends TestCase
 {

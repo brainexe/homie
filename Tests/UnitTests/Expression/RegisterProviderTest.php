@@ -5,7 +5,7 @@ namespace Tests\Homie\Expression;
 use Homie\Expression\CompilerPass\RegisterProvider;
 use Homie\Expression\Language;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;

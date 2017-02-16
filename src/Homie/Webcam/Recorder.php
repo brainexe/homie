@@ -44,7 +44,7 @@ class Recorder
     /**
      * @Inject({
      *  "@HomieClient",
-     *  "@RemoteFilesystem",
+     *  "@League\Flysystem\Filesystem",
      *  "%webcam.command.photo%",
      *  "%webcam.command.video%",
      *  "%webcam.command.sound%"

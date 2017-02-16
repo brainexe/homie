@@ -4,7 +4,7 @@ namespace Tests\Homie\Dashboard;
 
 use Homie\Dashboard\WidgetFactory;
 use Homie\Dashboard\Widgets\Time;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Dashboard\WidgetCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * @covers Homie\Dashboard\WidgetCompilerPass
+ * @covers \Homie\Dashboard\WidgetCompilerPass
  */
 class WidgetCompilerPassTest extends TestCase
 {

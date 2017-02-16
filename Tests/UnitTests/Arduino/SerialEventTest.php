@@ -2,7 +2,7 @@
 
 namespace Tests\Homie\Arduino;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Homie\Arduino\SerialEvent;
 
 class SerialEventTest extends TestCase

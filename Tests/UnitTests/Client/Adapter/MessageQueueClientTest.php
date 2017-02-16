@@ -3,14 +3,14 @@ namespace Tests\Homie\Adapter\Client;
 
 use BrainExe\Core\Redis\Predis;
 use BrainExe\Tests\RedisMockTrait;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Client\ExecuteCommandEvent;
 use Homie\Client\Adapter\MessageQueueClient;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 
 /**
- * @covers Homie\Client\Adapter\MessageQueueClient
+ * @covers \Homie\Client\Adapter\MessageQueueClient
  */
 class MessageQueueClientTest extends TestCase
 {

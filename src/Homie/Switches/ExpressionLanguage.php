@@ -2,7 +2,6 @@
 
 namespace Homie\Switches;
 
-use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Generator;
 use Homie\Expression\Action;
@@ -24,7 +23,6 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
     private $switches;
 
     /**
-     * @Inject("@Switches.Switches")
      * @param Switches $switches
      */
     public function __construct(Switches $switches)

@@ -4,7 +4,7 @@ namespace Tests\Homie\Sensors\Command;
 
 use Homie\Sensors\GetValue\GetSensorValueEvent;
 use Homie\Sensors\SensorValueEvent;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\Command\Cron;
 use Homie\Sensors\SensorGateway;
@@ -18,7 +18,7 @@ use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
- * @covers Homie\Sensors\Command\Cron
+ * @covers \Homie\Sensors\Command\Cron
  */
 class CronTest extends TestCase
 {

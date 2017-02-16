@@ -3,7 +3,7 @@
 namespace Tests\Homie\Expression\Command;
 
 use Homie\Expression\Command\ListFunctions;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 

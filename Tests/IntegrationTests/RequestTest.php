@@ -6,7 +6,7 @@ use BrainExe\Core\Application\AppKernel;
 use BrainExe\Core\Authentication\UserVO;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

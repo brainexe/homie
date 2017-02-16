@@ -4,7 +4,7 @@ namespace Tests\Homie\Espeak;
 
 use Homie\Espeak\EspeakEvent;
 use Homie\Espeak\EspeakVO;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class EspeakEventTest extends TestCase
 {

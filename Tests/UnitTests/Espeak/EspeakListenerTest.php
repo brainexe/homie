@@ -2,7 +2,7 @@
 
 namespace Tests\Homie\Espeak;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Espeak\EspeakEvent;
 use Homie\Espeak\EspeakListener;
@@ -10,7 +10,7 @@ use Homie\Espeak\Espeak;
 use Homie\Espeak\EspeakVO;
 
 /**
- * @covers Homie\Espeak\EspeakListener
+ * @covers \Homie\Espeak\EspeakListener
  */
 class EspeakListenerTest extends TestCase
 {

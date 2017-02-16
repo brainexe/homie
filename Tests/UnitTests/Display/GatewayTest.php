@@ -8,10 +8,10 @@ use BrainExe\Tests\RedisMockTrait;
 use Homie\Display\Gateway;
 use Homie\Display\Settings;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Homie\Display\Gateway
+ * @covers \Homie\Display\Gateway
  */
 class GatewayTest extends TestCase
 {

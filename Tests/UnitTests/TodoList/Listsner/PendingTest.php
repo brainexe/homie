@@ -11,7 +11,7 @@ use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Homie\TodoList\TodoListEvent;
 use Homie\TodoList\VO\TodoItemVO;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class PendingTest extends TestCase
 {

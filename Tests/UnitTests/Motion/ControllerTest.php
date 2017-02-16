@@ -5,7 +5,7 @@ namespace Tests\Homie\Motion;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Homie\Motion\Controller;
 use Homie\Motion\MotionEvent;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
 class ControllerTest extends TestCase

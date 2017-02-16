@@ -5,7 +5,7 @@ namespace Tests\Homie\Sensors\CompilerPass;
 use Homie\Sensors\CompilerPass\SensorFormatter;
 use Homie\Sensors\Formatter\Formatter;
 use Homie\Sensors\SensorBuilder;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\CompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * @covers Homie\Sensors\CompilerPass\SensorFormatter
+ * @covers \Homie\Sensors\CompilerPass\SensorFormatter
  */
 class FormatterPassTest extends TestCase
 {

@@ -4,12 +4,12 @@ namespace Tests\Homie\Espeak\Controller;
 
 use ArrayIterator;
 use Homie\Espeak\Controller\Speakers;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Espeak\Speakers as SpeakersModel;
 
 /**
- * @covers Homie\Espeak\Controller\Speakers
+ * @covers \Homie\Espeak\Controller\Speakers
  */
 class SpeakersTest extends TestCase
 {

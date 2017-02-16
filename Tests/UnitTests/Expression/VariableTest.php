@@ -6,7 +6,7 @@ use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Tests\RedisMockTrait;
 use Homie\Expression\Event\VariableChangedEvent;
 use Homie\Expression\Variable;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Predis\Client;
 

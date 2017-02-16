@@ -5,13 +5,13 @@ namespace Tests\Homie\Arduino;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Homie\Arduino\Command;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Homie\Arduino\SerialEvent;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
- * @covers Homie\Arduino\Command
+ * @covers \Homie\Arduino\Command
  */
 class CommandTest extends TestCase
 {

@@ -6,7 +6,7 @@ use ArrayIterator;
 use BrainExe\Core\Util\Time;
 use Homie\Sensors\Controller\Values;
 use Homie\Sensors\GetValue\GetSensorValueEvent;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\SensorVO;
 use Homie\Sensors\Builder;
@@ -16,7 +16,7 @@ use Homie\Sensors\SensorValuesGateway;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 
 /**
- * @covers Homie\Sensors\Controller\Values
+ * @covers \Homie\Sensors\Controller\Values
  */
 class ValuesTest extends TestCase
 {

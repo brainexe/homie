@@ -8,10 +8,10 @@ use Homie\TodoList\TodoList;
 use Homie\TodoList\TodoReminder;
 use Homie\TodoList\VO\TodoItemVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Homie\TodoList\ExpressionLanguage
+ * @covers \Homie\TodoList\ExpressionLanguage
  */
 class ExpressionLanguageTest extends TestCase
 {

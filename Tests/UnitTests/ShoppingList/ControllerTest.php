@@ -4,12 +4,12 @@ namespace Tests\Homie\ShoppingList;
 
 use Homie\ShoppingList\Controller;
 use Homie\ShoppingList\ShoppingList;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @covers Homie\ShoppingList\Controller
+ * @covers \Homie\ShoppingList\Controller
  */
 class ControllerTest extends TestCase
 {

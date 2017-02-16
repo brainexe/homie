@@ -3,13 +3,13 @@
 namespace Tests\Homie\Switches\Change;
 
 use Homie\Switches\Change\Radio;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Client\Adapter\LocalClient;
 use Homie\Switches\VO\RadioVO;
 
 /**
- * @covers Homie\Switches\Change\Radio
+ * @covers \Homie\Switches\Change\Radio
  */
 class RadioTest extends TestCase
 {

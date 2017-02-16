@@ -3,7 +3,7 @@
 namespace Homie\Tests\Sensors;
 
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Homie\Sensors\Formatter\Formatter;
 use Homie\Sensors\Formatter\None;
 use Homie\Sensors\Interfaces\Sensor;

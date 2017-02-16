@@ -2,11 +2,11 @@
 
 namespace Tests\Homie\Sensors\Formatter;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Homie\Sensors\Formatter\Bytes;
 
 /**
- * @covers Homie\Sensors\Formatter\Bytes
+ * @covers \Homie\Sensors\Formatter\Bytes
  */
 class BytesTest extends TestCase
 {

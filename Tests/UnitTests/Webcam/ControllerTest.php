@@ -8,12 +8,12 @@ use Homie\Webcam\Controller;
 use Homie\Webcam\Webcam;
 use Homie\Webcam\WebcamEvent;
 use League\Flysystem\Filesystem;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @covers Homie\Webcam\Controller
+ * @covers \Homie\Webcam\Controller
  */
 class ControllerTest extends TestCase
 {

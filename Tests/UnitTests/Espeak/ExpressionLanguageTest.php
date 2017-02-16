@@ -5,14 +5,14 @@ namespace Tests\Homie\Espeak;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Generator;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Homie\Espeak\EspeakEvent;
 use Homie\Espeak\EspeakVO;
 use Homie\Espeak\ExpressionLanguage;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 
 /**
- * @covers Homie\Espeak\ExpressionLanguage
+ * @covers \Homie\Espeak\ExpressionLanguage
  */
 class ExpressionLanguageTest extends TestCase
 {

@@ -2,11 +2,11 @@
 
 namespace Tests\Homie\Sensors\Formatter;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Homie\Sensors\Formatter\Barometer;
 
 /**
- * @covers Homie\Sensors\Formatter\Barometer
+ * @covers \Homie\Sensors\Formatter\Barometer
  */
 class BarometerTest extends TestCase
 {

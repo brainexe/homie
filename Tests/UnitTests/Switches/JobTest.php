@@ -8,7 +8,7 @@ use Homie\Switches\SwitchChangeEvent;
 use Homie\Switches\Job;
 use Homie\Switches\VO\RadioVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class JobTest extends TestCase
 {

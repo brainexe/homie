@@ -10,7 +10,7 @@ use Homie\Expression\Gateway;
 use Homie\Expression\Language;
 use BrainExe\Tests\RedisMockTrait;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class GatewayTest extends TestCase
 {

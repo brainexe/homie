@@ -3,7 +3,7 @@
 namespace Tests\Homie\Dashboard\Widgets;
 
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Homie\Dashboard\Widgets\SwitchWidget;
 use Homie\Dashboard\Widgets\WidgetMetadataVo;
 use Homie\Switches\Switches;

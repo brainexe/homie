@@ -7,7 +7,7 @@ use Homie\Expression\Entity;
 use Homie\Expression\Language;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Container;
 
 class ExpressionLanguageTest extends TestCase

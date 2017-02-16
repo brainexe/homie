@@ -7,7 +7,7 @@ use Homie\Gpio\Adapter\Arduino;
 use Homie\Gpio\Adapter\Factory;
 use Homie\Gpio\Adapter\Raspberry;
 use Homie\Node;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Gpio\Pin;
 use Homie\Gpio\PinLoader;
@@ -15,7 +15,7 @@ use Homie\Client\Adapter\LocalClient;
 use Homie\Gpio\PinsCollection;
 
 /**
- * @covers Homie\Gpio\Adapter\Factory
+ * @covers \Homie\Gpio\Adapter\Factory
  */
 class FactoryTest extends TestCase
 {

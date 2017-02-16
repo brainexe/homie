@@ -10,7 +10,7 @@ use Homie\Expression\Controller\Cron;
 use Homie\Expression\Controller\Variables;
 use Homie\Expression\Variable;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Predis\Client;
 use Symfony\Component\HttpFoundation\Request;
 

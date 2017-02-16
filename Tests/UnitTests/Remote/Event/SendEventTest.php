@@ -3,7 +3,7 @@
 namespace Tests\Homie\Remote\Event;
 
 use Homie\Remote\Event\SendEvent;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class SendEventTest extends TestCase
 {

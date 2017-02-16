@@ -5,13 +5,13 @@ namespace Tests\Homie\TodoList;
 use BrainExe\Core\Redis\Predis;
 use BrainExe\Core\Util\Time;
 use BrainExe\Tests\RedisMockTrait;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\TodoList\TodoListGateway;
 use Homie\TodoList\VO\TodoItemVO;
 
 /**
- * @covers Homie\TodoList\TodoListGateway
+ * @covers \Homie\TodoList\TodoListGateway
  */
 class TodoListGatewayTest extends TestCase
 {

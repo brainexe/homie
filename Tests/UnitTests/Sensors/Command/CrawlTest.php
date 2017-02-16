@@ -5,7 +5,7 @@ namespace Tests\Homie\Sensors\Command;
 use Homie\Sensors\Command\Crawl;
 use Homie\Sensors\Interfaces\Searchable;
 use Homie\Sensors\Interfaces\Sensor;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorBuilder;
@@ -16,7 +16,7 @@ abstract class SearchableTestSensor2 implements Sensor, Searchable {
 }
 
 /**
- * @covers Homie\Sensors\Command\Crawl
+ * @covers \Homie\Sensors\Command\Crawl
  */
 class CrawlTest extends TestCase
 {

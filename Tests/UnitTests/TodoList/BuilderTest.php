@@ -2,12 +2,12 @@
 
 namespace Tests\Homie\TodoList;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Homie\TodoList\Builder;
 use Homie\TodoList\VO\TodoItemVO;
 
 /**
- * @covers Homie\TodoList\Builder
+ * @covers \Homie\TodoList\Builder
  */
 class BuilderTest extends TestCase
 {

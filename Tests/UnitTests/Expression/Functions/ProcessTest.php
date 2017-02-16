@@ -4,12 +4,12 @@ namespace Tests\Homie\Expression\Functions;
 
 use Homie\Client\Adapter\LocalClient;
 use Homie\Expression\Functions\Process;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 
 /**
- * @covers Homie\Expression\Functions\Process
+ * @covers \Homie\Expression\Functions\Process
  */
 class ProcessTest extends TestCase
 {

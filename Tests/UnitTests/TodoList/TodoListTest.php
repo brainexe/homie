@@ -2,7 +2,7 @@
 
 namespace Tests\Homie\TodoList;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\TodoList\Builder;
 use Homie\TodoList\TodoList;

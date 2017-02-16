@@ -4,10 +4,10 @@ namespace Tests\Homie\Sensors\Exception;
 
 use Homie\Sensors\Exception\SensorException;
 use Homie\Sensors\SensorVO;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Homie\Sensors\Exception\SensorException
+ * @covers \Homie\Sensors\Exception\SensorException
  */
 class SensorExceptionTest extends TestCase
 {

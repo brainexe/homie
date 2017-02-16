@@ -2,13 +2,13 @@
 
 namespace Tests\Homie\Adapter\Client;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Client\Adapter\DummyClient;
 use Monolog\Logger;
 
 /**
- * @covers Homie\Client\Adapter\DummyClient
+ * @covers \Homie\Client\Adapter\DummyClient
  */
 class DummyClientTest extends TestCase
 {

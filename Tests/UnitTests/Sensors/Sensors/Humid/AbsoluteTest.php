@@ -7,10 +7,10 @@ use Homie\Sensors\Definition;
 use Homie\Sensors\Sensors\Humid\Absolute;
 use Homie\Sensors\SensorVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Homie\Sensors\Sensors\Humid\Absolute
+ * @covers \Homie\Sensors\Sensors\Humid\Absolute
  */
 class AbsoluteTest extends TestCase
 {

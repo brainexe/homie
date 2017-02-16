@@ -5,13 +5,13 @@ namespace Tests\Homie\Sensors;
 use BrainExe\Core\Redis\Predis;
 use BrainExe\Core\Util\IdGenerator;
 use BrainExe\Tests\RedisMockTrait;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorVO;
 
 /**
- * @covers Homie\Sensors\SensorGateway
+ * @covers \Homie\Sensors\SensorGateway
  */
 class SensorGatewayTest extends TestCase
 {

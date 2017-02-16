@@ -7,10 +7,10 @@ use Homie\Arduino\SerialEvent;
 use Homie\Switches\Change\Arduino;
 use Homie\Switches\VO\ArduinoSwitchVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Homie\Switches\Change\Arduino
+ * @covers \Homie\Switches\Change\Arduino
  */
 class ArduinoTest extends TestCase
 {

@@ -30,7 +30,7 @@ class Controller
     private $filesystem;
 
     /**
-     * @Inject({"@Webcam", "@RemoteFilesystem"})
+     * @Inject({"@Webcam"})
      * @param Webcam $webcam
      * @param Filesystem $filesystem
      */

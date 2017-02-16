@@ -5,12 +5,12 @@ namespace Tests\Homie\Expression\Functions;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Core\EventDispatcher\Events\ConsoleEvent;
 use Homie\Expression\Functions\Console;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 
 /**
- * @covers Homie\Expression\Functions\Console
+ * @covers \Homie\Expression\Functions\Console
  */
 class ConsoleTest extends TestCase
 {

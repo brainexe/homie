@@ -2,11 +2,11 @@
 
 namespace Tests\Homie\Sensors\Formatter;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Homie\Sensors\Formatter\Load;
 
 /**
- * @covers Homie\Sensors\Formatter\Load
+ * @covers \Homie\Sensors\Formatter\Load
  */
 class LoadTest extends TestCase
 {

@@ -6,13 +6,13 @@ use BrainExe\Tests\RedisMockTrait;
 use Homie\Arduino\Device\Redis;
 
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Homie\Arduino\SerialEvent;
 
 use Predis\Client;
 
 /**
- * @covers Homie\Arduino\Device\Redis
+ * @covers \Homie\Arduino\Device\Redis
  */
 class RedisTest extends TestCase
 {

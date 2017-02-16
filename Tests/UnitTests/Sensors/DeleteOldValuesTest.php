@@ -6,11 +6,11 @@ use BrainExe\Core\Redis\Predis;
 use BrainExe\Core\Util\Time;
 use BrainExe\Tests\RedisMockTrait;
 use Homie\Sensors\DeleteOldValues;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
 /**
- * @covers Homie\Sensors\DeleteOldValues
+ * @covers \Homie\Sensors\DeleteOldValues
  */
 class DeleteOldValuesTest extends TestCase
 {

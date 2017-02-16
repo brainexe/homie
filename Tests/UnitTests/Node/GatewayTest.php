@@ -6,11 +6,11 @@ use BrainExe\Core\Redis\Predis;
 use BrainExe\Tests\RedisMockTrait;
 use Homie\Node;
 use Homie\Node\Gateway;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
 /**
- * @covers Homie\Node\Gateway
+ * @covers \Homie\Node\Gateway
  */
 class GatewayTest extends TestCase
 {

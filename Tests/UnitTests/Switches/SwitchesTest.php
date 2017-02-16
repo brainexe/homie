@@ -7,7 +7,7 @@ use Homie\Switches\VO\ArduinoSwitchVO;
 use Homie\Switches\VO\GpioSwitchVO;
 use Homie\Switches\VO\ParticleVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Homie\Switches\Gateway;
 use Homie\Switches\Switches;
 use Homie\Switches\VO\RadioVO;

@@ -8,7 +8,7 @@ use Homie\Expression\Entity;
 use Homie\Expression\Gateway;
 use Homie\Expression\Language;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 
 class ControllerTest extends TestCase

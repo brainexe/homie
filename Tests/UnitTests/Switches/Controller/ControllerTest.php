@@ -6,7 +6,7 @@ use ArrayIterator;
 use Homie\Switches\VO\ArduinoSwitchVO;
 use Homie\Switches\VO\GpioSwitchVO;
 use Homie\Switches\VO\ParticleVO;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Switches\Controller\Controller;
 use Homie\Switches\VO\RadioVO;
@@ -15,7 +15,7 @@ use Homie\Switches\Switches;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 
 /**
- * @covers Homie\Switches\Controller\Controller
+ * @covers \Homie\Switches\Controller\Controller
  */
 class ControllerTest extends TestCase
 {

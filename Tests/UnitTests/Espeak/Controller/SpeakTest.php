@@ -3,7 +3,7 @@
 namespace Tests\Homie\Espeak\Controller;
 
 use BrainExe\Core\MessageQueue\Job;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Espeak\Controller\Speak;
 use Homie\Espeak\EspeakEvent;

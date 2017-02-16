@@ -5,12 +5,12 @@ namespace Tests\Homie\Expression\Functions;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Core\EventDispatcher\Events\TimingEvent;
 use Homie\Expression\Functions\Events;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 
 /**
- * @covers Homie\Expression\Functions\Events
+ * @covers \Homie\Expression\Functions\Events
  */
 class EventsTest extends TestCase
 {

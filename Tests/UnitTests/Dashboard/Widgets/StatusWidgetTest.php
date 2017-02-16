@@ -3,7 +3,7 @@
 namespace Tests\Homie\Dashboard\Widgets;
 
 use Homie\Dashboard\Widgets\Status;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Homie\Dashboard\Widgets\WidgetMetadataVo;
 
 class StatusWidgetTest extends TestCase

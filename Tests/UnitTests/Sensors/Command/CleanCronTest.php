@@ -3,7 +3,7 @@
 namespace Tests\Homie\Sensors\Command;
 
 use Homie\Sensors\DeleteOldValues;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\Command\CleanCron;
 use Homie\Sensors\SensorGateway;
@@ -11,7 +11,7 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
- * @covers Homie\Sensors\Command\CleanCron
+ * @covers \Homie\Sensors\Command\CleanCron
  */
 class CleanCronTest extends TestCase
 {

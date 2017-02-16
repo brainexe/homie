@@ -7,10 +7,10 @@ use Homie\Display\Devices\Expression;
 use Homie\Expression\Event\EvaluateEvent;
 use Homie\Node;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Homie\Display\Devices\Expression
+ * @covers \Homie\Display\Devices\Expression
  */
 class ExpressionTest extends TestCase
 {

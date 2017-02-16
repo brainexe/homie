@@ -3,11 +3,11 @@
 namespace Tests\Homie\Dashboard\Widgets;
 
 use Homie\Dashboard\Widgets\ExecuteExpression;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Homie\Dashboard\Widgets\WidgetMetadataVo;
 
 /**
- * @covers Homie\Dashboard\Widgets\ExecuteExpression
+ * @covers \Homie\Dashboard\Widgets\ExecuteExpression
  */
 class ExecuteExpressionTest extends TestCase
 {

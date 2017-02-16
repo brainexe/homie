@@ -4,7 +4,7 @@ namespace Tests\Homie\Gpio;
 
 use Homie\Node;
 use Homie\Node\Gateway;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Gpio\Controller;
 use Homie\Gpio\Pin;
@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Homie\Gpio\GpioManager;
 
 /**
- * @covers Homie\Gpio\Controller
+ * @covers \Homie\Gpio\Controller
  */
 class ControllerTest extends TestCase
 {

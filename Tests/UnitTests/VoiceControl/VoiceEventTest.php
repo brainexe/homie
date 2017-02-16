@@ -3,10 +3,10 @@
 namespace Tests\Homie\VoiceControl;
 
 use Homie\VoiceControl\VoiceEvent;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Homie\VoiceControl\VoiceEvent
+ * @covers \Homie\VoiceControl\VoiceEvent
  */
 class VoiceEventTest extends TestCase
 {

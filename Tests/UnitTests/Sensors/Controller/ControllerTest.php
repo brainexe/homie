@@ -11,12 +11,12 @@ use Homie\Sensors\Builder;
 use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorValuesGateway;
 use Homie\Sensors\Chart;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @covers Homie\Sensors\Controller\Controller
+ * @covers \Homie\Sensors\Controller\Controller
  */
 class ControllerTest extends TestCase
 {

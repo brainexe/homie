@@ -6,7 +6,7 @@ use Homie\Expression\Event\EvaluateEvent;
 use Homie\Expression\Language;
 use Homie\Expression\Listener\Evaluate;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class EvaluateTest extends TestCase
 {

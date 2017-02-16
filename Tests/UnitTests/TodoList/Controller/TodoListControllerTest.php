@@ -5,7 +5,7 @@ namespace Tests\Homie\TodoList\Controller;
 use ArrayIterator;
 use BrainExe\Core\Authentication\LoadUser;
 use BrainExe\Core\Authentication\UserVO;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\TodoList\Controller\TodoListController;
 use Homie\TodoList\TodoList;
@@ -14,7 +14,7 @@ use Homie\TodoList\VO\TodoItemVO;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @covers Homie\TodoList\Controller\TodoListController
+ * @covers \Homie\TodoList\Controller\TodoListController
  */
 class TodoListControllerTest extends TestCase
 {

@@ -2,7 +2,7 @@
 
 namespace Tests\Homie\TodoList;
 
-use PHPUnit_Framework_TestCase as testCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\TodoList\TodoReminder;
 use Homie\TodoList\TodoList;
@@ -10,7 +10,7 @@ use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Homie\TodoList\VO\TodoItemVO;
 
 /**
- * @covers Homie\TodoList\TodoReminder
+ * @covers \Homie\TodoList\TodoReminder
  */
 class TodoReminderTest extends TestCase
 {

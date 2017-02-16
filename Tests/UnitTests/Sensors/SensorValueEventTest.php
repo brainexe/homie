@@ -4,10 +4,10 @@ namespace Tests\Homie\Sensors;
 
 use Homie\Sensors\SensorValueEvent;
 use Homie\Sensors\SensorVO;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Homie\Sensors\SensorValueEvent
+ * @covers \Homie\Sensors\SensorValueEvent
  */
 class SensorValueEventTest extends TestCase
 {

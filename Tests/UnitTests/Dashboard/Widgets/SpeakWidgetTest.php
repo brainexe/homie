@@ -5,7 +5,7 @@ namespace Tests\Homie\Dashboard\Widgets;
 use Generator;
 use Homie\Espeak\Speakers;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Homie\Dashboard\Widgets\Speak;
 use Homie\Dashboard\Widgets\WidgetMetadataVo;
 

@@ -3,10 +3,10 @@
 namespace Tests\Homie\Expression\Functions;
 
 use Homie\Expression\Event\EvaluateEvent;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Homie\Expression\Event\EvaluateEvent
+ * @covers \Homie\Expression\Event\EvaluateEvent
  */
 class EvaluateEventTest extends TestCase
 {

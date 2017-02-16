@@ -2,7 +2,7 @@
 
 namespace Tests\Homie\Dashboard\Widgets;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Homie\Dashboard\Widgets\EggTimer;
 use Homie\Dashboard\Widgets\WidgetMetadataVo;
 

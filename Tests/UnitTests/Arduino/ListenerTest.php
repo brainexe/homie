@@ -4,12 +4,12 @@ namespace Tests\Homie\Arduino;
 
 use Homie\Arduino\Device\Serial;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Homie\Arduino\Listener;
 use Homie\Arduino\SerialEvent;
 
 /**
- * @covers Homie\Arduino\Listener
+ * @covers \Homie\Arduino\Listener
  */
 class ListenerTest extends TestCase
 {

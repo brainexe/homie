@@ -4,12 +4,12 @@ namespace Tests\Homie\Expression\Functions;
 
 use GuzzleHttp\Client;
 use Homie\Expression\Functions\WebserviceRequest;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 
 /**
- * @covers Homie\Expression\Functions\WebserviceRequest
+ * @covers \Homie\Expression\Functions\WebserviceRequest
  */
 class WebserviceRequestTest extends TestCase
 {

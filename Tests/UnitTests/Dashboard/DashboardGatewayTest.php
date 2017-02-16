@@ -6,12 +6,12 @@ use BrainExe\Core\Redis\Predis;
 use BrainExe\Core\Util\IdGenerator;
 use BrainExe\Tests\RedisMockTrait;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Homie\Dashboard\DashboardGateway;
 use Homie\Dashboard\DashboardVo;
 
 /**
- * @covers Homie\Dashboard\DashboardGateway
+ * @covers \Homie\Dashboard\DashboardGateway
  */
 class DashboardGatewayTest extends TestCase
 {

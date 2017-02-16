@@ -4,7 +4,7 @@ namespace Tests\Homie\Dashboard\Widgets;
 
 use Homie\Dashboard\Widgets\Status;
 use Homie\Dashboard\Widgets\Webcam;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Homie\Dashboard\Widgets\WidgetMetadataVo;
 
 class WebcamWidgetTest extends TestCase

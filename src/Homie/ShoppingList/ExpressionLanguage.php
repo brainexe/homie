@@ -2,7 +2,6 @@
 
 namespace Homie\ShoppingList;
 
-use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use Generator;
 use Homie\Espeak\EspeakEvent;
@@ -24,9 +23,6 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
     private $list;
 
     /**
-     * @Inject({
-     *     "@ShoppingList"
-     * })
      * @param ShoppingList $list
      */
     public function __construct(ShoppingList $list)

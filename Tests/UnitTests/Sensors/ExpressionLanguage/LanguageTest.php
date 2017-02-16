@@ -6,11 +6,11 @@ use Generator;
 use Homie\Sensors\ExpressionLanguage\Language;
 use Homie\Sensors\SensorGateway;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 
 /**
- * @covers Homie\Sensors\ExpressionLanguage\Language
+ * @covers \Homie\Sensors\ExpressionLanguage\Language
  */
 class LanguageTest extends TestCase
 {

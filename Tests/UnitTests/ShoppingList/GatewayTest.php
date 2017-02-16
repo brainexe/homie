@@ -4,12 +4,12 @@ namespace Tests\Homie\ShoppingList;
 
 use BrainExe\Core\Redis\Predis;
 use BrainExe\Tests\RedisMockTrait;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\ShoppingList\Gateway;
 
 /**
- * @covers Homie\ShoppingList\Gateway
+ * @covers \Homie\ShoppingList\Gateway
  */
 class GatewayTest extends TestCase
 {

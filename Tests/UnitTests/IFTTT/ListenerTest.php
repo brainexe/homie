@@ -5,7 +5,7 @@ namespace Tests\Homie\IFTTT;
 use Homie\IFTTT\Event\TriggerEvent;
 use Homie\IFTTT\Trigger;
 use Homie\IFTTT\Listener;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
 class ListenerTest extends TestCase

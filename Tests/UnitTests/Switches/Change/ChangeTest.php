@@ -9,10 +9,10 @@ use Homie\Switches\Gateway;
 use Homie\Switches\VO\GpioSwitchVO;
 use Homie\Switches\VO\RadioVO;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Homie\Switches\Change\Change
+ * @covers \Homie\Switches\Change\Change
  */
 class ChangeTest extends TestCase
 {

@@ -7,7 +7,7 @@ use BrainExe\Core\Util\Glob;
 use Homie\Sensors\Exception\InvalidSensorValueException;
 use Homie\Sensors\Sensors\Temperature\DS18;
 use Homie\Sensors\SensorVO;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\Temperature;

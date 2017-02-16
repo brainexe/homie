@@ -2,7 +2,7 @@
 
 namespace Tests\Homie\EggTimer\EggTimerListener;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\EggTimer\EggTimer;
 use Homie\EggTimer\EggTimerEvent;
@@ -13,7 +13,7 @@ use Homie\Media\Sound;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 
 /**
- * @covers Homie\EggTimer\Listener
+ * @covers \Homie\EggTimer\Listener
  */
 class ListenerTest extends TestCase
 {

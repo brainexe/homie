@@ -10,7 +10,7 @@ use Homie\Display\Settings;
 use Homie\Node;
 use Homie\Node\Gateway as NodeGateway;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class RendererTest extends TestCase
 {

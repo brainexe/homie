@@ -5,13 +5,13 @@ namespace Tests\Homie\InputControl;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Core\EventDispatcher\Events\TimingEvent;
 use Homie\Remote\Event\ReceivedEvent;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Homie\Remote\ExpressionLanguage;
 
 /**
- * @covers Homie\Remote\ExpressionLanguage
+ * @covers \Homie\Remote\ExpressionLanguage
  */
 class ExpressionLanguageTest extends TestCase
 {

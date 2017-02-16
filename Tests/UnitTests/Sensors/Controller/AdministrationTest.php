@@ -8,7 +8,7 @@ use Homie\Sensors\Exception\InvalidSensorValueException;
 use Homie\Sensors\GetValue\GetSensorValueEvent;
 use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\Interfaces\Sensor;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\SensorVO;
 use Homie\Sensors\Builder;
@@ -17,7 +17,7 @@ use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorBuilder;
 
 /**
- * @covers Homie\Sensors\Controller\Administration
+ * @covers \Homie\Sensors\Controller\Administration
  */
 class AdministrationTest extends TestCase
 {

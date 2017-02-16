@@ -6,7 +6,7 @@ use Homie\Client\ClientInterface;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Sensors\Temperature\DHT11;
 use Homie\Sensors\SensorVO;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Symfony\Component\Filesystem\Filesystem;
 
