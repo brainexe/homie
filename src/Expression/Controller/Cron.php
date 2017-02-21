@@ -11,7 +11,7 @@ use BrainExe\Core\EventDispatcher\CronEvent;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("Expression.Controller.Cron")
+ * @ControllerAnnotation
  */
 class Cron
 {

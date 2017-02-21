@@ -2,13 +2,8 @@
 
 namespace Tests\Homie\Display\Devices;
 
-use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Homie\Display\Devices\DeviceInterface;
-use Homie\Display\Devices\Expression;
 use Homie\Display\Devices\Factory;
-use Homie\Expression\Event\EvaluateEvent;
-use Homie\Node;
-use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**

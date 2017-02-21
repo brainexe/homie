@@ -3,6 +3,7 @@
 namespace Homie\Expression\CompilerPass;
 
 use Homie\Expression\Language;
+use ReflectionClass;
 use Symfony\Component\DependencyInjection\Argument\ClosureProxyArgument;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -32,7 +33,7 @@ class RegisterProvider implements CompilerPassInterface
         foreach (array_keys($serviceIds) as $serviceId) {
             /** @var ExpressionFunctionProviderInterface $provider */
             $class = $container->getDefinition($serviceId)->getClass();
-            $providerReflection = new \ReflectionClass($class);
+            $providerReflection = new ReflectionClass($class);
             $provider = $providerReflection->newInstanceWithoutConstructor();
             foreach ($provider->getFunctions() as $function) {
                 $language->addMethodCall('lazyRegister', [

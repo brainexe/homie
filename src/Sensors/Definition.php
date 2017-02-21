@@ -2,7 +2,6 @@
 
 namespace Homie\Sensors;
 
-
 use Homie\Sensors\Formatter\None;
 
 class Definition

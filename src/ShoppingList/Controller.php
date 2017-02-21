@@ -2,13 +2,12 @@
 
 namespace Homie\ShoppingList;
 
-
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("ShoppingList.Controller")
+ * @ControllerAnnotation
  */
 class Controller
 {

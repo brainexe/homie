@@ -37,7 +37,6 @@ class UpdateTasks extends Command
     }
 
     /**
-     * @Inject
      * @param TodoList $todoList
      */
     public function __construct(

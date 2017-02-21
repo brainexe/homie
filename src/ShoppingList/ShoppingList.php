@@ -20,7 +20,6 @@ class ShoppingList
     private $gateway;
 
     /**
-     * @Inject("@ShoppingList.Gateway")
      * @param Gateway $gateway
      */
     public function __construct(Gateway $gateway)

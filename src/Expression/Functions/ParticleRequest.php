@@ -34,7 +34,6 @@ class ParticleRequest implements ExpressionFunctionProviderInterface
     /**
      * @Inject({
      *     "@WebserviceClient",
-     *     "@Node.Gateway"
      * })
      * @param Client $client
      * @param Gateway $node

@@ -8,7 +8,8 @@ use Homie\Sensors\Formatter\Formatter;
 use Homie\Sensors\Formatter\None;
 use Homie\Sensors\Interfaces\Sensor;
 use Homie\Sensors\SensorBuilder;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use Symfony\Component\DependencyInjection\ServiceLocator;
 
 class SensorBuilderTest extends TestCase
 {
@@ -19,67 +20,34 @@ class SensorBuilderTest extends TestCase
     private $subject;
 
     /**
-     * @var ContainerInterface|MockObject
+     * @var ServiceLocator|MockObject
      */
-    private $container;
+    private $serviceLocator;
 
     public function setUp()
     {
-        $this->container = $this->createMock(ContainerInterface::class);
+        $this->serviceLocator = $this->createMock(ServiceLocator::class);
 
-        $this->subject = new SensorBuilder($this->container);
-    }
-
-    public function testGetSensors()
-    {
-        /** @var Sensor|MockObject $sensor */
-        $sensor = $this->createMock(Sensor::class);
-        $sensorType = 'sensor_123';
-        $serviceId = '__sensor';
-
-        $this->container
-            ->expects($this->once())
-            ->method('get')
-            ->with($serviceId)
-            ->willReturn($sensor);
-
-        $this->subject->addSensor($sensorType, $serviceId);
-        $actualResult = $this->subject->getSensors();
-
-        $this->assertEquals([$sensorType => $sensor], $actualResult);
+        $this->subject = new SensorBuilder(
+            $this->serviceLocator,
+            []
+        );
     }
 
     /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid sensor type: sensor_123
+     * @expectedException \Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException
      */
     public function testBuildInvalid()
     {
+        $this->serviceLocator
+            ->expects($this->once())
+            ->method('get')
+            ->with('sensor_123')
+            ->willThrowException(new ServiceNotFoundException('sensor_123'));
+
         $sensorType = 'sensor_123';
 
         $this->subject->build($sensorType);
-    }
-
-    public function testBuildValid()
-    {
-        /** @var Sensor|MockObject $sensorMock */
-        $sensorMock = $this->createMock(Sensor::class);
-        $sensorType = 'sensor_123';
-        $serviceId = '__serviceid';
-
-        $this->container
-            ->expects($this->once())
-            ->method('get')
-            ->with($serviceId)
-            ->willReturn($sensorMock);
-
-        $this->subject->addSensor($sensorType, $serviceId);
-
-        $actual = $this->subject->build($sensorType);
-        $this->assertEquals($sensorMock, $actual);
-
-        $actual = $this->subject->build($sensorType);
-        $this->assertEquals($sensorMock, $actual);
     }
 
     public function testGetFormatter()

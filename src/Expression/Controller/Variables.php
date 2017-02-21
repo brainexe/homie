@@ -8,7 +8,7 @@ use Homie\Expression\Variable;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("Expression.Controller.Variables")
+ * @ControllerAnnotation
  */
 class Variables
 {

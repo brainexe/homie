@@ -2,46 +2,39 @@
 
 namespace Homie\Sensors;
 
-use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
-use InvalidArgumentException;
 use Homie\Sensors\Formatter\Formatter;
 use Homie\Sensors\Interfaces\Sensor;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use Symfony\Component\DependencyInjection\ServiceLocator;
 
 /**
- * @Service("SensorBuilder")
+ * @Service
  */
 class SensorBuilder
 {
-
-    /**
-     * @var Sensor[]
-     */
-    private $sensors;
-
-    /**
-     * @var string[]
-     */
-    private $sensorTypes = [];
-
     /**
      * @var Formatter[]
      */
     private $formatter = [];
 
     /**
-     * @var ContainerInterface
+     * @var ServiceLocator
      */
-    private $container;
+    private $sensors;
+    /**
+     * @var array
+     */
+    private $sensorIds;
 
     /**
-     * @Inject({"@service_container"})
-     * @param ContainerInterface $container
+     * @param ServiceLocator $sensors
+     * @param array[] $sensorIds Todo: replace when ServiceLocator->serviceIds() is available
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(ServiceLocator $sensors, array $sensorIds)
     {
-        $this->container = $container;
+        $this->sensors   = $sensors;
+        $this->sensorIds = $sensorIds;
     }
 
     /**
@@ -49,18 +42,7 @@ class SensorBuilder
      */
     public function getSensors()
     {
-        $keys = array_keys($this->sensorTypes);
-
-        return array_map([$this, 'build'], array_combine($keys, $keys));
-    }
-
-    /**
-     * @param string $type
-     * @param string $serviceId
-     */
-    public function addSensor(string $type, string $serviceId)
-    {
-        $this->sensorTypes[$type] = $serviceId;
+        return array_map([$this, 'build'], array_combine($this->sensorIds, $this->sensorIds));
     }
 
     /**
@@ -74,22 +56,12 @@ class SensorBuilder
 
     /**
      * @param string $type
-     * @throws InvalidArgumentException
+     * @throws ServiceNotFoundException
      * @return Sensor
      */
     public function build(string $type) : Sensor
     {
-        if (!empty($this->sensors[$type])) {
-            return $this->sensors[$type];
-        }
-
-        if (!empty($this->sensorTypes[$type])) {
-            /** @var Sensor $sensor */
-            $sensor = $this->container->get($this->sensorTypes[$type]);
-            return $this->sensors[$type] = $sensor;
-        }
-
-        throw new InvalidArgumentException(sprintf('Invalid sensor type: %s', $type));
+        return $this->sensors->get($type);
     }
 
     /**

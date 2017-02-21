@@ -6,7 +6,7 @@ use BrainExe\Annotations\Annotations\Service;
 use InvalidArgumentException;
 
 /**
- * @Service("Display.Devices.Factory", public=true)
+ * @Service("Display.Devices.Factory")
  */
 class Factory
 {

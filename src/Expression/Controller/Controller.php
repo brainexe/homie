@@ -15,7 +15,7 @@ use Homie\Expression\Listener\WriteFunctionCache;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("Expression.Controller")
+ * @ControllerAnnotation
  */
 class Controller
 {

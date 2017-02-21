@@ -13,7 +13,6 @@ class SensorBuilder extends ServiceDefinition
      */
     public function setupDefinition(Definition $definition, string $serviceId)
     {
-        $definition->setPublic(true);
         $definition->addTag(CompilerPass::TAG);
         $definition->setShared(false);
     }
