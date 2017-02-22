@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d01fef624257345d1e78fe3e1f8d37c4",
-    "content-hash": "8a8c12e296746aea89b14558aef52e6f",
+    "hash": "cc4c8e2481dc55cc7488a585d1ad3810",
+    "content-hash": "b044e3456d15a73399c896ac568e30dd",
     "packages": [
         {
             "name": "brainexe/core",
@@ -2946,30 +2946,30 @@
         },
         {
             "name": "sebastian/comparator",
-            "version": "dev-master",
+            "version": "1.2.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "8d25b463c60738344540dbc38811c3f4d7afce2e"
+                "reference": "2b7424b55f5047b47ac6e5ccb20b2aea4011d9be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/8d25b463c60738344540dbc38811c3f4d7afce2e",
-                "reference": "8d25b463c60738344540dbc38811c3f4d7afce2e",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/2b7424b55f5047b47ac6e5ccb20b2aea4011d9be",
+                "reference": "2b7424b55f5047b47ac6e5ccb20b2aea4011d9be",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.0",
-                "sebastian/diff": "^1.2",
-                "sebastian/exporter": "^2.0"
+                "php": ">=5.3.3",
+                "sebastian/diff": "~1.2",
+                "sebastian/exporter": "~1.2 || ~2.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6.0"
+                "phpunit/phpunit": "~4.4"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0.x-dev"
+                    "dev-master": "1.2.x-dev"
                 }
             },
             "autoload": {
@@ -3006,7 +3006,7 @@
                 "compare",
                 "equality"
             ],
-            "time": "2017-02-22 10:57:48"
+            "time": "2017-01-29 09:50:25"
         },
         {
             "name": "sebastian/diff",

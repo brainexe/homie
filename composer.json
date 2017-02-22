@@ -21,7 +21,6 @@
     "php": ">=7.0.0",
     "brainexe/core": "dev-master",
     "brainexe/totp": "dev-master",
-    "symfony/expression-language": "~3.2",
     "league/flysystem": "~1.0"
   },
   "require-dev": {
