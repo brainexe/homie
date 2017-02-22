@@ -2,7 +2,7 @@
 
 namespace Homie\Sensors\Sensors\Misc;
 
-use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Core\Annotations\Inject;
 use GuzzleHttp\Client;
 use Homie\Node;
 use Homie\Sensors\Annotation\Sensor;

@@ -2,7 +2,7 @@
 
 namespace Homie\Sensors;
 
-use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Annotations\Service;
 use BrainExe\Core\Traits\RedisTrait;
 use BrainExe\Core\Traits\TimeTrait;
 

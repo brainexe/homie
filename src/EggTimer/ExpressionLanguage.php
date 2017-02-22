@@ -2,7 +2,7 @@
 
 namespace Homie\EggTimer;
 
-use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Core\Annotations\Inject;
 use Homie\Expression\Action;
 use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
 use BrainExe\Core\Traits\EventDispatcherTrait;

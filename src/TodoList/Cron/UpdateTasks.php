@@ -2,7 +2,7 @@
 
 namespace Homie\TodoList\Cron;
 
-use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Core\Annotations\Inject;
 
 use BrainExe\Core\Traits\TimeTrait;
 use Cron\CronExpression;

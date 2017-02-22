@@ -2,7 +2,7 @@
 
 namespace Homie\Expression\Annotation;
 
-use BrainExe\Annotations\Builder\ServiceDefinition;
+use BrainExe\Core\Annotations\Builder\ServiceDefinition;
 use Homie\Expression\CompilerPass\RegisterProvider;
 use Symfony\Component\DependencyInjection\Definition;
 

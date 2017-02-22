@@ -2,7 +2,7 @@
 
 namespace Homie\Expression\Functions;
 
-use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Core\Annotations\Inject;
 use Generator;
 use Homie\Client\ClientInterface;
 use Homie\Expression\Action;

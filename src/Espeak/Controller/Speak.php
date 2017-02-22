@@ -2,8 +2,6 @@
 
 namespace Homie\Espeak\Controller;
 
-use BrainExe\Annotations\Annotations\Autowire;
-
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\MessageQueue\Job;

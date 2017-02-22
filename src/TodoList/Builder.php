@@ -2,7 +2,7 @@
 
 namespace Homie\TodoList;
 
-use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Annotations\Service;
 use Homie\TodoList\VO\TodoItemVO;
 
 /**

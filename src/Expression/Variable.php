@@ -2,7 +2,7 @@
 
 namespace Homie\Expression;
 
-use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Annotations\Service;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Traits\RedisTrait;
 use Homie\Expression\Event\VariableChangedEvent;

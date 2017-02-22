@@ -2,8 +2,8 @@
 
 namespace Homie\Arduino\Device;
 
-use BrainExe\Annotations\Annotations\Inject;
-use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Annotations\Inject;
+use BrainExe\Core\Annotations\Service;
 use BrainExe\Core\Util\Glob;
 use Homie\Arduino\Device;
 use Homie\Arduino\SerialEvent;
@@ -54,10 +54,10 @@ class Serial implements Device
         $serialPort,
         $serialBaud
     ) {
-        $this->serialBaud     = $serialBaud;
-        $this->client         = $client;
-        $this->serialPort     = $serialPort;
-        $this->glob           = $glob;
+        $this->serialBaud = $serialBaud;
+        $this->client     = $client;
+        $this->serialPort = $serialPort;
+        $this->glob       = $glob;
     }
 
     /**
@@ -85,7 +85,7 @@ class Serial implements Device
 
         if (empty($files)) {
             throw new RuntimeException(
-                sprintf("No file found matching %s", $this->serialPort)
+                sprintf('No file found matching %s', $this->serialPort)
             );
         }
 

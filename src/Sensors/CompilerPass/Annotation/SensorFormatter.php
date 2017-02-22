@@ -2,7 +2,7 @@
 
 namespace Homie\Sensors\CompilerPass\Annotation;
 
-use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Annotations\Service;
 use Doctrine\Common\Annotations\Reader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 

@@ -3,7 +3,7 @@
 namespace Homie\Switches\Change;
 
 
-use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Annotations\Service;
 use Homie\Gpio\GpioManager;
 
 use Homie\Node\Gateway;

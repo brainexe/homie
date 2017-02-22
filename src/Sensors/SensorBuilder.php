@@ -2,7 +2,7 @@
 
 namespace Homie\Sensors;
 
-use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Annotations\Service;
 use Homie\Sensors\Formatter\Formatter;
 use Homie\Sensors\Interfaces\Sensor;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;

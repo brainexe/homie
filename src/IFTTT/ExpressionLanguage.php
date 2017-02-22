@@ -2,7 +2,7 @@
 
 namespace Homie\IFTTT;
 
-use BrainExe\Core\Traits\EventDispatcherTrait;
+use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Homie\Expression\Action;
 use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
 use Homie\IFTTT\Event\TriggerEvent;
@@ -10,12 +10,22 @@ use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
 /**
- * @ExpressionLanguageAnnotation("IFTTT.ExpressionLanguage")
+ * @ExpressionLanguageAnnotation
  */
 class ExpressionLanguage implements ExpressionFunctionProviderInterface
 {
+    /**
+     * @var EventDispatcher
+     */
+    private $dispatcher;
 
-    use EventDispatcherTrait;
+    /**
+     * @param EventDispatcher $dispatcher
+     */
+    public function __construct(EventDispatcher $dispatcher)
+    {
+        $this->dispatcher = $dispatcher;
+    }
 
     /**
      * @return ExpressionFunction[]
@@ -26,7 +36,7 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
             unset($variables);
             $event = new TriggerEvent($eventName, $value1, $value2, $value3);
 
-            $this->dispatchEvent($event);
+            $this->dispatcher->dispatchEvent($event);
         });
 
         return [$trigger];

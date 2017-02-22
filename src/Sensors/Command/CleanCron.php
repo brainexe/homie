@@ -2,7 +2,7 @@
 
 namespace Homie\Sensors\Command;
 
-use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Core\Annotations\Inject;
 use Homie\Sensors\DeleteOldValues;
 use Homie\Sensors\SensorGateway;
 use Symfony\Component\Console\Command\Command;

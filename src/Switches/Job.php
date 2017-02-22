@@ -3,7 +3,7 @@
 namespace Homie\Switches;
 
 
-use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Annotations\Service;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Util\TimeParser;
 use Homie\Switches\VO\SwitchVO;

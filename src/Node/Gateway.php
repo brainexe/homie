@@ -2,7 +2,7 @@
 
 namespace Homie\Node;
 
-use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Annotations\Service;
 use BrainExe\Core\Traits\RedisTrait;
 use Exception;
 use Homie\Node;

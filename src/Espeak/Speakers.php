@@ -2,8 +2,8 @@
 
 namespace Homie\Espeak;
 
-use BrainExe\Annotations\Annotations\Inject;
-use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Annotations\Inject;
+use BrainExe\Core\Annotations\Service;
 use Homie\Client\ClientInterface;
 use Iterator;
 use RuntimeException;

@@ -2,7 +2,7 @@
 
 namespace Homie\Sensors\Command;
 
-use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Core\Annotations\Inject;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Core\Traits\TimeTrait;
 use Homie\Sensors\GetValue\GetSensorValueEvent;

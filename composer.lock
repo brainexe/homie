@@ -8,68 +8,21 @@
     "content-hash": "8a8c12e296746aea89b14558aef52e6f",
     "packages": [
         {
-            "name": "brainexe/annotations",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/brainexe/annotations.git",
-                "reference": "4d9bf55bdfb11b17a084e7e401289ee83c91f0f1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/brainexe/annotations/zipball/4d9bf55bdfb11b17a084e7e401289ee83c91f0f1",
-                "reference": "4d9bf55bdfb11b17a084e7e401289ee83c91f0f1",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/annotations": "2.0.*",
-                "symfony/config": "~3.2",
-                "symfony/dependency-injection": "~3.2"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~5.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "BrainExe\\Annotations\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Matze",
-                    "email": "matze@mdoetsch.de"
-                }
-            ],
-            "description": "Simple @annotation library based on doctrine annotations for symfony dependency injection container",
-            "homepage": "https://mdoetsch.de",
-            "time": "2017-02-16 16:28:59"
-        },
-        {
             "name": "brainexe/core",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brainexe/core.git",
-                "reference": "3f1d1d081ba0f96ae8e621e051e9de1ef09e6edc"
+                "reference": "0341aeafaa990945a832e3dc40de9139580cb994"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brainexe/core/zipball/3f1d1d081ba0f96ae8e621e051e9de1ef09e6edc",
-                "reference": "3f1d1d081ba0f96ae8e621e051e9de1ef09e6edc",
+                "url": "https://api.github.com/repos/brainexe/core/zipball/0341aeafaa990945a832e3dc40de9139580cb994",
+                "reference": "0341aeafaa990945a832e3dc40de9139580cb994",
                 "shasum": ""
             },
             "require": {
-                "brainexe/annotations": "dev-master",
+                "doctrine/annotations": "2.0.*",
                 "guzzlehttp/guzzle": "~6.2",
                 "monolog/monolog": "~1.22.0",
                 "mtdowling/cron-expression": "1.1.*",
@@ -81,6 +34,7 @@
                 "symfony/config": "~3.2",
                 "symfony/console": "~3.2",
                 "symfony/dependency-injection": "~3.2",
+                "symfony/expression-language": "~3.2",
                 "symfony/finder": "~3.2",
                 "symfony/http-foundation": "~3.2",
                 "symfony/http-kernel": "~3.2",
@@ -122,7 +76,7 @@
             ],
             "description": "Framework core - used for brainexe/homie",
             "homepage": "https://mdoetsch.de",
-            "time": "2017-02-15 20:26:08"
+            "time": "2017-02-22 19:30:12"
         },
         {
             "name": "brainexe/totp",
@@ -1784,12 +1738,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-kernel.git",
-                "reference": "43e4add0572a1e3655b76814585f71a8f8493a62"
+                "reference": "c3dc9dc0e05ec7a24e259b8be2e9581c1d174d57"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/43e4add0572a1e3655b76814585f71a8f8493a62",
-                "reference": "43e4add0572a1e3655b76814585f71a8f8493a62",
+                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/c3dc9dc0e05ec7a24e259b8be2e9581c1d174d57",
+                "reference": "c3dc9dc0e05ec7a24e259b8be2e9581c1d174d57",
                 "shasum": ""
             },
             "require": {
@@ -1860,7 +1814,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
-            "time": "2017-02-21 10:07:34"
+            "time": "2017-02-22 08:57:32"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -2810,12 +2764,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "a211145acca0746ce9ff76591c1fc5120ee01c5e"
+                "reference": "16c3cabfb817a02df87c23fb203fe3940c7d28da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a211145acca0746ce9ff76591c1fc5120ee01c5e",
-                "reference": "a211145acca0746ce9ff76591c1fc5120ee01c5e",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/16c3cabfb817a02df87c23fb203fe3940c7d28da",
+                "reference": "16c3cabfb817a02df87c23fb203fe3940c7d28da",
                 "shasum": ""
             },
             "require": {
@@ -2832,7 +2786,7 @@
                 "phpunit/php-text-template": "^1.2",
                 "phpunit/php-timer": "^1.0.6",
                 "phpunit/phpunit-mock-objects": "^4.0",
-                "sebastian/comparator": "^1.2.4",
+                "sebastian/comparator": "^1.2.4 || ^2.0",
                 "sebastian/diff": "^1.2",
                 "sebastian/environment": "^2.0",
                 "sebastian/exporter": "^2.0",
@@ -2884,7 +2838,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-02-21 10:17:55"
+            "time": "2017-02-22 14:08:10"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -2996,12 +2950,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "2f09d5a251c4a92d1a80518c2166b5d0d742bc63"
+                "reference": "8d25b463c60738344540dbc38811c3f4d7afce2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/2f09d5a251c4a92d1a80518c2166b5d0d742bc63",
-                "reference": "2f09d5a251c4a92d1a80518c2166b5d0d742bc63",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/8d25b463c60738344540dbc38811c3f4d7afce2e",
+                "reference": "8d25b463c60738344540dbc38811c3f4d7afce2e",
                 "shasum": ""
             },
             "require": {
@@ -3010,12 +2964,12 @@
                 "sebastian/exporter": "^2.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8"
+                "phpunit/phpunit": "^6.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2.x-dev"
+                    "dev-master": "2.0.x-dev"
                 }
             },
             "autoload": {
@@ -3052,7 +3006,7 @@
                 "compare",
                 "equality"
             ],
-            "time": "2016-12-10 08:07:52"
+            "time": "2017-02-22 10:57:48"
         },
         {
             "name": "sebastian/diff",

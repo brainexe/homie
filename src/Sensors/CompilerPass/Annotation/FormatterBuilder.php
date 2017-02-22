@@ -2,7 +2,7 @@
 
 namespace Homie\Sensors\CompilerPass\Annotation;
 
-use BrainExe\Annotations\Builder\ServiceDefinition;
+use BrainExe\Core\Annotations\Builder\ServiceDefinition;
 use Homie\Sensors\CompilerPass\SensorFormatter as CompilerPass;
 use Symfony\Component\DependencyInjection\Definition;
 

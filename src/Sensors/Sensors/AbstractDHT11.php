@@ -2,7 +2,7 @@
 
 namespace Homie\Sensors\Sensors;
 
-use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Core\Annotations\Inject;
 use Homie\Client\ClientInterface;
 use Homie\Sensors\Exception\InvalidSensorValueException;
 use Homie\Sensors\Interfaces\Parameterized;

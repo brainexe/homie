@@ -9,7 +9,7 @@ use Homie\Sensors\Exception\InvalidSensorValueException;
 use Homie\Sensors\Formatter\Bytes;
 use Homie\Sensors\Sensors\AbstractSensor;
 use Homie\Sensors\SensorVO;
-use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Core\Annotations\Inject;
 
 /**
  * @Sensor("Sensor.System.DiskUsed")

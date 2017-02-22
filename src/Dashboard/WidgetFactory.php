@@ -2,7 +2,7 @@
 
 namespace Homie\Dashboard;
 
-use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Annotations\Service;
 use InvalidArgumentException;
 
 /**

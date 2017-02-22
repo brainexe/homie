@@ -2,7 +2,7 @@
 
 namespace Homie\Sensors\ExpressionLanguage;
 
-use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Annotations\Service;
 use Homie\Expression\CompilerPass\DefaultExpression;
 use Homie\Expression\Entity;
 

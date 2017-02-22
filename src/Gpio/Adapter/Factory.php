@@ -3,7 +3,7 @@
 namespace Homie\Gpio\Adapter;
 
 
-use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Annotations\Service;
 use Homie\Gpio\Adapter;
 use Homie\Node;
 use InvalidArgumentException;

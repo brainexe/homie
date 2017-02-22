@@ -15,8 +15,6 @@ use RuntimeException;
  */
 class SerialTest extends TestCase
 {
-    const FILE = '/test.txt';
-
     /**
      * @var Serial
      */
@@ -32,18 +30,29 @@ class SerialTest extends TestCase
      */
     private $client;
 
+    /**
+     * @var string
+     */
+    private $file;
+
     public function setUp()
     {
+        $this->file = tempnam(sys_get_temp_dir(), 'serialtest');
+
         $this->glob    = $this->createMock(Glob::class);
         $this->client  = $this->createMock(ClientInterface::class);
-        $this->subject = new Serial($this->glob, $this->client, '/dev/ttyACM*', 57600);
+        $this->subject = new Serial(
+            $this->glob,
+            $this->client,
+            '/dev/ttyACM*',
+            57600
+        );
     }
 
     public function tearDown()
     {
-        $file = __DIR__ . self::FILE;
-        if (is_file($file)) {
-            unlink($file);
+        if (is_file($this->file)) {
+            unlink($this->file);
         }
     }
 
@@ -77,13 +86,12 @@ class SerialTest extends TestCase
      */
     public function testSendSerial($action, $pin, $value, $expectedResult)
     {
-        $file = __DIR__ . self::FILE;
-
+        $file = $this->file;
         $this->glob
             ->expects($this->once())
             ->method('execGlob')
             ->with('/dev/ttyACM*')
-            ->willReturn([$file]);
+            ->willReturn([$this->file]);
 
         $this->client
             ->expects($this->once())

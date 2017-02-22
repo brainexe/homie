@@ -2,7 +2,7 @@
 
 namespace Homie\Sensors\Sensors\Brightness;
 
-use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Core\Annotations\Inject;
 use Homie\Client\ClientInterface;
 use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Definition;

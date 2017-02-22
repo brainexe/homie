@@ -2,7 +2,7 @@
 
 namespace Homie\Arduino\Device;
 
-use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Annotations\Service;
 use BrainExe\Core\Traits\RedisTrait;
 use Homie\Arduino\Device;
 use Homie\Arduino\SerialEvent;

@@ -2,8 +2,8 @@
 
 namespace Homie;
 
-use BrainExe\Annotations\Annotations\Inject;
-use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Annotations\Inject;
+use BrainExe\Core\Annotations\Service;
 use BrainExe\Core\Application\AppKernel;
 use BrainExe\Core\Redis\Predis;
 use BrainExe\Core\Traits\LoggerTrait;

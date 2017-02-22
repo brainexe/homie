@@ -2,7 +2,7 @@
 
 namespace Homie\Sensors\Command;
 
-use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Core\Annotations\Inject;
 use Exception;
 use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\Interfaces\Searchable;

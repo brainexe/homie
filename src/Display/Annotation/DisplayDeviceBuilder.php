@@ -2,7 +2,7 @@
 
 namespace Homie\Display\Annotation;
 
-use BrainExe\Annotations\Builder\ServiceDefinition;
+use BrainExe\Core\Annotations\Builder\ServiceDefinition;
 use Symfony\Component\DependencyInjection\Definition;
 
 class DisplayDeviceBuilder extends ServiceDefinition

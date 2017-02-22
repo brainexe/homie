@@ -3,7 +3,7 @@
 namespace Homie\Gpio;
 
 
-use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Annotations\Service;
 use Homie\Gpio\Adapter\Factory;
 use Homie\Node;
 

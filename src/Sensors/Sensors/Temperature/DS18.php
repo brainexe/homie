@@ -2,7 +2,7 @@
 
 namespace Homie\Sensors\Sensors\Temperature;
 
-use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Core\Annotations\Inject;
 use BrainExe\Core\Util\FileSystem;
 use BrainExe\Core\Util\Glob;
 use Homie\Sensors\Annotation\Sensor;

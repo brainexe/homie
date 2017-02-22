@@ -4,7 +4,7 @@ namespace Homie\IFTTT;
 
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
-use BrainExe\Core\Traits\EventDispatcherTrait;
+use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Homie\IFTTT\Event\ActionEvent;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -13,8 +13,18 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class Controller
 {
+    /**
+     * @var EventDispatcher
+     */
+    private $dispatcher;
 
-    use EventDispatcherTrait;
+    /**
+     * @param EventDispatcher $dispatcher
+     */
+    public function __construct(EventDispatcher $dispatcher)
+    {
+        $this->dispatcher = $dispatcher;
+    }
 
     /**
      * @param Request $request
@@ -35,7 +45,7 @@ class Controller
             $value3
         );
 
-        $this->dispatchEvent($event);
+        $this->dispatcher->dispatchEvent($event);
 
         return true;
     }

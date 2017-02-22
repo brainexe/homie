@@ -2,7 +2,7 @@
 
 namespace Homie\Expression;
 
-use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Annotations\Service;
 use Generator;
 use Homie\Expression\CompilerPass\DefaultExpression;
 

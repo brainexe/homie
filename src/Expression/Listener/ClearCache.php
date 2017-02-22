@@ -2,7 +2,7 @@
 
 namespace Homie\Expression\Listener;
 
-use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Core\Annotations\Inject;
 use BrainExe\Core\Annotations\EventListener;
 use BrainExe\Core\EventDispatcher\Events\ClearCacheEvent;
 use BrainExe\Core\Traits\FileCacheTrait;

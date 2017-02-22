@@ -2,7 +2,7 @@
 
 namespace Homie\Sensors\Sensors\Barometer;
 
-use BrainExe\Annotations\Annotations\Inject;
+use BrainExe\Core\Annotations\Inject;
 use Homie\Client\ClientInterface;
 use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Definition;

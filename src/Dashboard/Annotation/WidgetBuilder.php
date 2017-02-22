@@ -2,7 +2,7 @@
 
 namespace Homie\Dashbaord\Annotation;
 
-use BrainExe\Annotations\Builder\ServiceDefinition;
+use BrainExe\Core\Annotations\Builder\ServiceDefinition;
 use Homie\Dashboard\WidgetCompilerPass as CompilerPass;
 use Symfony\Component\DependencyInjection\Definition;
 

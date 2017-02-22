@@ -2,7 +2,7 @@
 
 namespace Homie\Display;
 
-use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Annotations\Service;
 
 use Homie\Display\Devices\Factory;
 use Homie\Expression\Language;

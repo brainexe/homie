@@ -2,7 +2,7 @@
 
 namespace Homie\Switches\Change;
 
-use BrainExe\Annotations\Annotations\Service;
+use BrainExe\Core\Annotations\Service;
 use BrainExe\Core\Translation\TranslationProvider;
 use Exception;
 use Generator;
