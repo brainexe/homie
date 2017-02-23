@@ -33,7 +33,7 @@ return function(AbstractEvent \$event, string \$eventName, Container \$container
         $this->gateway = $gateway;
     }
 
-    public function writeCache()
+    public function writeCache() : void
     {
         $all = $this->gateway->getAll();
 

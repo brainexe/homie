@@ -12,7 +12,7 @@ abstract class AbstractSensor implements Sensor, TranslationProvider
 {
     const TYPE = 'unknown';
 
-    const TOKEN_NAME = 'sensor.%s.name';
+    private const TOKEN_NAME = 'sensor.%s.name';
 
     /**
      * @return string

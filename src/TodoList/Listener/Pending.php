@@ -2,7 +2,6 @@
 
 namespace Homie\TodoList\Listener;
 
-
 use BrainExe\Core\Annotations\EventListener;
 use BrainExe\Core\Annotations\Listen;
 use BrainExe\Core\Cron\Expression;
@@ -53,7 +52,7 @@ class Pending
         $itemVo   = $event->getItemVo();
         $newState = $event->getChanges()['status'] ?? '';
 
-        if (TodoItemVO::STATUS_PENDING == $newState && !empty($itemVo->cronExpression)) {
+        if (TodoItemVO::STATUS_PENDING === $newState && !empty($itemVo->cronExpression)) {
             $pendingTime = $this->cron->getNextRun($itemVo->cronExpression);
 
             $newEvent = new TodoListEvent($itemVo, TodoListEvent::PENDING);
@@ -73,7 +72,7 @@ class Pending
             return;
         }
 
-        if (TodoItemVO::STATUS_PENDING == $currentItem->status) {
+        if (TodoItemVO::STATUS_PENDING === $currentItem->status) {
             $espeakVo = new EspeakVO(
                 $this->translate('Todo list item %s is open again', $currentItem->name)
             );

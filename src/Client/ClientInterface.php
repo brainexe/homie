@@ -9,7 +9,7 @@ interface ClientInterface
      * @param string $command
      * @param string[] $arguments
      */
-    public function execute(string $command, array $arguments = []);
+    public function execute(string $command, array $arguments = []) : void;
 
     /**
      * @param string $command

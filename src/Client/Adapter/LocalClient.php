@@ -36,7 +36,7 @@ class LocalClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function execute(string $command, array $arguments = [])
+    public function execute(string $command, array $arguments = []) : void
     {
         $process = $this->processBuilder
             ->setPrefix(explode(' ', $command))

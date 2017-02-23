@@ -40,7 +40,7 @@ class SensorBuilder
     /**
      * @return Sensor[]
      */
-    public function getSensors()
+    public function getSensors() : array
     {
         return array_map([$this, 'build'], array_combine($this->sensorIds, $this->sensorIds));
     }

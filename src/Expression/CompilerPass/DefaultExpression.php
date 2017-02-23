@@ -10,5 +10,5 @@ interface DefaultExpression
     /**
      * @return Entity[]
      */
-    public static function getDefaultExpressions();
+    public static function getDefaultExpressions() : iterable;
 }

@@ -2,7 +2,6 @@
 
 namespace Homie\Sensors\Controller;
 
-
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 
 use BrainExe\Core\Annotations\Route;
@@ -16,7 +15,7 @@ use Iterator;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("Sensors.Controller.Values", requirements={"sensorId":"\d+"})
+ * @ControllerAnnotation(requirements={"sensorId":"\d+"})
  */
 class Values
 {
@@ -97,7 +96,6 @@ class Values
      */
     public function getValue(Request $request, int $sensorId) : array
     {
-        unset($request);
         return $this->gateway->getSensor($sensorId);
     }
 
@@ -110,7 +108,6 @@ class Values
      */
     public function delete(Request $request, int $sensorId, int $timestamp) : bool
     {
-        unset($request);
         return $this->valuesGateway->deleteValue($sensorId, $timestamp);
     }
 

@@ -2,7 +2,6 @@
 <container xmlns="http://symfony.com/schema/dic/services">
     <imports>
         <import resource="../vendor/brainexe/core/container.xml" />
-        <import resource="../vendor/brainexe/totp/container.xml" />
         <import resource="./config.default.xml" />
         <import resource="./config.xml" ignore-errors="true"/>
     </imports>

@@ -7,12 +7,12 @@ use BrainExe\Core\Annotations\Service;
 use Homie\Client\ClientInterface;
 
 /**
- * @Service("Media.Sound")
+ * @Service
  */
 class Sound
 {
 
-    const ROOT = ROOT . '/assets/sounds/';
+    const DIRECTORY = ROOT . '/assets/sounds/';
 
     /**
      * @var ClientInterface
@@ -43,8 +43,8 @@ class Sound
     /**
      * @param string $file
      */
-    public function playSound(string $file)
+    public function playSound(string $file) : void
     {
-        $this->client->execute($this->command, [self::ROOT . $file]);
+        $this->client->execute($this->command, [self::DIRECTORY . $file]);
     }
 }

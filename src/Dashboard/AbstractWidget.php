@@ -3,6 +3,7 @@
 namespace Homie\Dashboard;
 
 use BrainExe\Core\Translation\TranslationProvider;
+use Generator;
 use Homie\Dashboard\Widgets\WidgetMetadataVo;
 use JsonSerializable;
 
@@ -43,7 +44,7 @@ abstract class AbstractWidget implements WidgetInterface, JsonSerializable, Tran
     }
 
     /**
-     * @return string[]
+     * @return Generator|string[]
      */
     public static function getTokens()
     {

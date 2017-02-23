@@ -3,6 +3,7 @@
 namespace Homie\Sensors\ExpressionLanguage;
 
 use BrainExe\Core\Annotations\Service;
+use Generator;
 use Homie\Expression\CompilerPass\DefaultExpression;
 use Homie\Expression\Entity;
 
@@ -13,9 +14,9 @@ class Expressions implements DefaultExpression
 {
 
     /**
-     * @return Entity[]
+     * @return Generator|Entity[]
      */
-    public static function getDefaultExpressions()
+    public static function getDefaultExpressions() : iterable
     {
         $sensorCron = new Entity();
         $sensorCron->expressionId = 'sensorCron';

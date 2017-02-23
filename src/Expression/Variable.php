@@ -22,7 +22,7 @@ class Variable
      * @param string $key
      * @param string $value
      */
-    public function setVariable(string $key, string $value)
+    public function setVariable(string $key, string $value) : void
     {
         $this->getRedis()->hset(self::REDIS_KEY, $key, $value);
 
@@ -34,7 +34,7 @@ class Variable
      * @param string $key
      * @return string
      */
-    public function getVariable(string $key)
+    public function getVariable(string $key) : ?string
     {
         return $this->getRedis()->hget(self::REDIS_KEY, $key);
     }
@@ -42,7 +42,7 @@ class Variable
     /**
      * @param string $key
      */
-    public function deleteVariable(string $key)
+    public function deleteVariable(string $key) : void
     {
         $this->getRedis()->hdel(self::REDIS_KEY, $key);
 
@@ -53,7 +53,7 @@ class Variable
     /**
      * @return string[]
      */
-    public function getAll()
+    public function getAll() : array
     {
         return $this->getRedis()->hgetall(self::REDIS_KEY);
     }

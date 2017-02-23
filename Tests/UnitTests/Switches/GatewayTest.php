@@ -113,7 +113,7 @@ class GatewayTest extends TestCase
 
     public function testAdd()
     {
-        $switchId = "11880";
+        $switchId = '11880';
 
         $switchVO = new RadioVO();
         $switchVO->switchId    = $switchId;
@@ -195,7 +195,7 @@ class GatewayTest extends TestCase
         $this->redis
             ->expects($this->once())
             ->method('del')
-            ->with("switches:$radioId");
+            ->with(["switches:$radioId"]);
 
         $this->subject->delete($radioId);
     }

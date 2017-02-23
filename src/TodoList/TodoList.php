@@ -70,7 +70,7 @@ class TodoList
     /**
      * @return Generator|TodoItemVO[]
      */
-    public function getList()
+    public function getList() : iterable
     {
         $rawList = $this->gateway->getList();
 
@@ -115,7 +115,7 @@ class TodoList
     /**
      * @param int $itemId
      */
-    public function deleteItem(int $itemId)
+    public function deleteItem(int $itemId) : void
     {
         $itemVo = $this->getItem($itemId);
 

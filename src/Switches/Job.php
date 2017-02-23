@@ -2,7 +2,6 @@
 
 namespace Homie\Switches;
 
-
 use BrainExe\Core\Annotations\Service;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Util\TimeParser;
@@ -34,7 +33,7 @@ class Job
      * @param string $timeString
      * @param bool $status
      */
-    public function addJob(SwitchVO $switch, string $timeString, bool $status)
+    public function addJob(SwitchVO $switch, string $timeString, bool $status) : void
     {
         $timestamp = $this->timeParser->parseString($timeString);
 

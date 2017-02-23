@@ -11,7 +11,7 @@ use Iterator;
 class Chart
 {
 
-    const DEFAULT_TIME = 86400;
+    public const DEFAULT_TIME = 86400;
 
     /**
      * @param array[] $sensors

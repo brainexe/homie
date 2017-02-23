@@ -5,10 +5,10 @@ namespace Homie\TodoList\VO;
 class TodoItemVO
 {
 
-    const STATUS_PENDING   = 'pending';
-    const STATUS_OPEN      = 'open';
-    const STATUS_PROGRESS  = 'progress';
-    const STATUS_COMPLETED = 'completed';
+    public const STATUS_PENDING   = 'pending';
+    public const STATUS_OPEN      = 'open';
+    public const STATUS_PROGRESS  = 'progress';
+    public const STATUS_COMPLETED = 'completed';
 
     /**
      * @var integer

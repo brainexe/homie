@@ -23,7 +23,7 @@ class Gateway
     /**
      * @return array[]
      */
-    public function getAll()
+    public function getAll() : array
     {
         $switchIds = $this->getIds();
 
@@ -40,7 +40,7 @@ class Gateway
      * @param int $switchId
      * @return array
      */
-    public function get(int $switchId)
+    public function get(int $switchId) : array
     {
         return $this->getRedis()->hgetall($this->getRedisKey($switchId));
     }
@@ -48,7 +48,7 @@ class Gateway
     /**
      * @return int[]
      */
-    public function getIds()
+    public function getIds() : array
     {
         return $this->getRedis()->smembers(self::REDIS_SWITCH_IDS);
     }
@@ -76,7 +76,7 @@ class Gateway
     /**
      * @param SwitchVO $switch
      */
-    public function edit(SwitchVO $switch)
+    public function edit(SwitchVO $switch) : void
     {
         $key = $this->getRedisKey($switch->switchId);
 
@@ -91,7 +91,9 @@ class Gateway
         $redis = $this->getRedis();
 
         $redis->srem(self::REDIS_SWITCH_IDS, $switchId);
-        $redis->del(self::getRedisKey($switchId));
+        $redis->del([
+            $this->getRedisKey($switchId)
+        ]);
     }
 
     /**

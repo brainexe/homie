@@ -4,6 +4,7 @@ namespace Homie;
 
 use BrainExe\Core\Traits\JsonSerializableTrait;
 use BrainExe\Core\Translation\TranslationProvider;
+use Generator;
 use InvalidArgumentException;
 use JsonSerializable;
 
@@ -122,7 +123,7 @@ class Node implements JsonSerializable, TranslationProvider
     }
 
     /**
-     * @return string[]
+     * @return Generator|string[]
      */
     public static function getTokens()
     {

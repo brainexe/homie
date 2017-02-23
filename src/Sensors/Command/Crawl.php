@@ -152,7 +152,7 @@ class Crawl extends Command
         OutputInterface $output,
         Searchable $sensor
     ) {
-        $output->writeln("Searching...");
+        $output->writeln('Searching...');
 
         $parameters = $sensor->search();
         if (empty($parameters)) {

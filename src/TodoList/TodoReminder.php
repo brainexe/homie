@@ -2,7 +2,6 @@
 
 namespace Homie\TodoList;
 
-
 use BrainExe\Core\Annotations\Service;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 use BrainExe\Core\Translation\TranslationTrait;
@@ -11,7 +10,7 @@ use Homie\Espeak\EspeakVO;
 use Homie\TodoList\VO\TodoItemVO;
 
 /**
- * @Service("TodoList.TodoReminder")
+ * @Service
  */
 class TodoReminder
 {
@@ -32,7 +31,7 @@ class TodoReminder
         $this->todoList = $todoList;
     }
 
-    public function sendNotification()
+    public function sendNotification() : void
     {
         $issuesPerState = $this->getGroupedIssues();
 

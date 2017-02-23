@@ -17,7 +17,7 @@ class DummyClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function execute(string $command, array $arguments = [])
+    public function execute(string $command, array $arguments = []) : void
     {
         $this->info(sprintf('%s %s', $command, implode(' ', $arguments)));
     }

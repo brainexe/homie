@@ -2,7 +2,6 @@
 
 namespace Homie\Sensors\Controller;
 
-
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Application\UserException;
@@ -18,7 +17,7 @@ use Homie\Sensors\SensorVO;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("Sensors.Controller.Administration", requirements={"sensorId":"\d+"})
+ * @ControllerAnnotation(requirements={"sensorId":"\d+"})
  */
 class Administration
 {

@@ -15,7 +15,7 @@ class DefaultExpressions implements DefaultExpression
     /**
      * @return Generator|Entity[]
      */
-    public static function getDefaultExpressions()
+    public static function getDefaultExpressions() : iterable
     {
         yield from self::getTodoListActions();
         yield from self::getShoppingListActions();

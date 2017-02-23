@@ -22,7 +22,7 @@ class MessageQueueClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function execute(string $command, array $arguments = [])
+    public function execute(string $command, array $arguments = []) : void
     {
         $event = new ExecuteCommandEvent($command, $arguments, false);
 

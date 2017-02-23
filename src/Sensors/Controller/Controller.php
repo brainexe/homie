@@ -2,7 +2,6 @@
 
 namespace Homie\Sensors\Controller;
 
-
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Authentication\Settings\Settings;
@@ -15,7 +14,7 @@ use Homie\Sensors\SensorValuesGateway;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("Sensors.Controller.Controller", requirements={"sensorId":"\d+"})
+ * @ControllerAnnotation(requirements={"sensorId":"\d+"})
  */
 class Controller
 {
@@ -76,7 +75,7 @@ class Controller
      * @return array
      * @Route("/sensors/", name="sensor.index", methods="GET")
      */
-    public function sensors()
+    public function sensors() : array
     {
         return [
             'types'         => $this->includeFile('sensors'),

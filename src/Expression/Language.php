@@ -74,7 +74,7 @@ class Language extends ExpressionLanguage
     /**
      * @return array[]
      */
-    public function getFunctions()
+    public function getFunctions() : array
     {
         return $this->functions;
     }
@@ -82,7 +82,7 @@ class Language extends ExpressionLanguage
     /**
      * @return string[]
      */
-    public function getParameterNames()
+    public function getParameterNames() : array
     {
         return [
             'event',
@@ -90,7 +90,7 @@ class Language extends ExpressionLanguage
         ];
     }
 
-    private function registerNativeFunctions()
+    private function registerNativeFunctions() : void
     {
         $functions = [
             'sprintf',
@@ -113,7 +113,6 @@ class Language extends ExpressionLanguage
                     implode(', ', $parameters)
                 );
             }, function (array $parameters, ...$params) use ($function) {
-                unset($parameters);
                 return $function(...$params);
             });
         }
