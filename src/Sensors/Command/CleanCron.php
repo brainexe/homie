@@ -2,7 +2,6 @@
 
 namespace Homie\Sensors\Command;
 
-use BrainExe\Core\Annotations\Inject;
 use Homie\Sensors\DeleteOldValues;
 use Homie\Sensors\SensorGateway;
 use Symfony\Component\Console\Command\Command;
@@ -37,10 +36,6 @@ class CleanCron extends Command
     }
 
     /**
-     * @Inject({
-     *     "@Sensors.DeleteOldValues",
-     *     "@SensorGateway"
-     * })
      * @param DeleteOldValues $deleteOldValues
      * @param SensorGateway $gateway
      */

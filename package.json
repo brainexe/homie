@@ -5,7 +5,7 @@
     "debug": "^2.6.1",
     "node-metawear": "^0.3.7",
     "node-motion": "^0.1.4",
-    "pm2": "^2.4.0",
+    "pm2": "^2.4.1",
     "redis": "^2.6.5",
     "websocket-node": "brainexe/websocket-node"
   },
@@ -17,7 +17,7 @@
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-compress": "^1.4.1",
     "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-cssmin": "^1.0.2",
+    "grunt-contrib-cssmin": "^2.0.0",
     "grunt-contrib-htmlmin": "^2.2.0",
     "grunt-contrib-sass": "^1.0.0",
     "grunt-contrib-uglify": "brainexe/grunt-contrib-uglify",

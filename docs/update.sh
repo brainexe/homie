@@ -9,7 +9,7 @@ wget https://jenkins.mdoetsch.de/job/BuildHomie-Web/lastSuccessfulBuild/artifact
 
 (rm -Rf web/* && unzip -q archive.zip && cp -Rf archive/* . && rm archive archive.zip -Rf && echo "updated /web/ directory")
 
-(rm cache/dic* && composer install --prefer-dist --no-dev -o && php console cc && echo "updated composer + backend caches")
+(rm cache/dic* -rf && composer install --prefer-dist --no-dev -o && php console cc && echo "updated composer + backend caches")
 
 (npm set progress=false && NODE_ENV=production npm install --production && echo "updated nodejs")
 

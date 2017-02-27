@@ -2,7 +2,6 @@
 
 namespace Homie\EggTimer;
 
-use BrainExe\Core\Annotations\Inject;
 use Homie\Expression\Action;
 use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
 use BrainExe\Core\Traits\EventDispatcherTrait;
@@ -24,7 +23,6 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
     private $eggTimer;
 
     /**
-     * @Inject("@EggTimer")
      * @param EggTimer $timer
      */
     public function __construct(EggTimer $timer)

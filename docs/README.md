@@ -7,7 +7,7 @@
 Homie is a software to automate you home using low-budget hardware, like a RaspberryPi.
 
 # Requirements
- - PHP 7.0/7.1
+ - PHP 7.1
  - nodejs 4.0+
  - redis-server
 
