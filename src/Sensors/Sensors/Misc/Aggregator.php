@@ -25,7 +25,6 @@ class Aggregator extends AbstractSensor implements Parameterized
     private $aggregated;
 
     /**
-     * @Inject({"@Sensor.Sensor.Aggregated.Aggregated"})
      * @param Aggregated $aggregated
      */
     public function __construct(

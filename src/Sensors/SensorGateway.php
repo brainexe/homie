@@ -7,7 +7,7 @@ use BrainExe\Core\Traits\IdGeneratorTrait;
 use BrainExe\Core\Traits\RedisTrait;
 
 /**
- * @Service("SensorGateway")
+ * @Service("SensorGateway", public=true)
  */
 class SensorGateway
 {

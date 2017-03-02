@@ -2,7 +2,6 @@
 
 namespace Homie\Switches;
 
-
 use BrainExe\Core\Annotations\EventListener;
 use BrainExe\Core\Annotations\Listen;
 use Homie\Switches\Change\Change;

@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @deprecated really needed? use expression language
- * @CommandAnnotation("Espeak.Command")
+ * @CommandAnnotation
  */
 class Command extends SymfonyCommand
 {

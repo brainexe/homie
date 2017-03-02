@@ -2,14 +2,13 @@
 
 namespace Homie\Gpio;
 
-
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use Homie\Node\Gateway;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("Gpio.Controller")
+ * @ControllerAnnotation
  */
 class Controller
 {

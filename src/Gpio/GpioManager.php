@@ -2,13 +2,12 @@
 
 namespace Homie\Gpio;
 
-
 use BrainExe\Core\Annotations\Service;
 use Homie\Gpio\Adapter\Factory;
 use Homie\Node;
 
 /**
- * @Service("GPIO.GpioManager")
+ * @Service
  */
 class GpioManager
 {

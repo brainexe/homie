@@ -13,7 +13,11 @@ module.exports = {
         var script = fs.readFileSync(__dirname + '/script.lua');
 
         client.scriptAsync('load', script).then(function(sha1) {
-            function callJob(payload) {
+            function callJob(data) {
+                if (!data) {
+                    return;
+                }
+                var payload = data[1];
                 if (!payload) {
                     return;
                 }
@@ -38,19 +42,17 @@ module.exports = {
 
             function handleJob() {
                 fetchJob().then(function(payload) {
-                    callJob(payload[1]);
+                    callJob(payload);
                 });
             }
 
             function fetchJob() {
-                return client.EVALSHAAsync(sha1, 2, 1, ~~(Date.now() / 1000));
+                return client.EVALSHAAsync(sha1, 1, ~~(Date.now() / 1000));
             }
 
             function waitForImmediate() {
                 clientImmediate.BRPOPAsync('message_queue:immediate', 600).then(function(data) {
-                    if (data) {
-                        callJob(data[1]);
-                    }
+                    callJob(data);
                     waitForImmediate();
                 });
             }

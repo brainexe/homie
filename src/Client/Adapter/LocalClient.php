@@ -7,6 +7,8 @@ use BrainExe\Core\Annotations\Service;
 use BrainExe\Core\Traits\LoggerTrait;
 use Homie\Client\ClientInterface;
 use RuntimeException;
+use Symfony\Component\Process\Exception\InvalidArgumentException;
+use Symfony\Component\Process\Exception\LogicException;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
@@ -35,6 +37,9 @@ class LocalClient implements ClientInterface
 
     /**
      * {@inheritdoc}
+     * @throws InvalidArgumentException
+     * @throws LogicException
+     * @throws \Symfony\Component\Process\Exception\RuntimeException
      */
     public function execute(string $command, array $arguments = []) : void
     {
@@ -50,6 +55,10 @@ class LocalClient implements ClientInterface
 
     /**
      * {@inheritdoc}
+     * @throws InvalidArgumentException
+     * @throws \RuntimeException
+     * @throws \Symfony\Component\Process\Exception\RuntimeException
+     * @throws LogicException
      */
     public function executeWithReturn(string $command, array $arguments = []) : string
     {
@@ -71,6 +80,8 @@ class LocalClient implements ClientInterface
 
     /**
      * @param Process $process
+     * @throws \RuntimeException
+     * @throws LogicException
      */
     private function checkOutput(Process $process)
     {

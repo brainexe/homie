@@ -15,7 +15,7 @@ use Homie\Switches\VO\SwitchVO;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("Switches.Controller.Controller", requirements={"switchId":"\d+"})
+ * @ControllerAnnotation(requirements={"switchId":"\d+"})
  */
 class Controller
 {

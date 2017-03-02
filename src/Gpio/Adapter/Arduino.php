@@ -10,7 +10,7 @@ use Homie\Gpio\Pin;
 use Homie\Gpio\PinsCollection;
 
 /**
- * @Service("Gpio.Adapter.Arduino")
+ * @Service
  */
 class Arduino extends Adapter
 {
@@ -32,7 +32,7 @@ class Arduino extends Adapter
     /**
      * @param Pin $pin Pin
      */
-    public function updatePin(Pin $pin)
+    public function updatePin(Pin $pin) : void
     {
         $value = $pin->getValue();
 

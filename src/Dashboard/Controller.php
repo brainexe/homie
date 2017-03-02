@@ -2,13 +2,12 @@
 
 namespace Homie\Dashboard;
 
-
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("Dashboard.Controller", requirements={"dashboardId":"\d+", "widgetId":"\d+"})
+ * @ControllerAnnotation(requirements={"dashboardId":"\d+", "widgetId":"\d+"})
  */
 class Controller
 {

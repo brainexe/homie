@@ -2,14 +2,13 @@
 
 namespace Homie\Espeak\Controller;
 
-
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use Homie\Espeak\Speakers as SpeakersModel;
 use Iterator;
 
 /**
- * @ControllerAnnotation("Espeak.Controller.Speakers")
+ * @ControllerAnnotation
  */
 class Speakers
 {

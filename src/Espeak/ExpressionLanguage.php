@@ -3,6 +3,7 @@
 namespace Homie\Espeak;
 
 use BrainExe\Core\Traits\EventDispatcherTrait;
+use Exception;
 use Generator;
 use Homie\Expression\Action;
 use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
@@ -19,6 +20,7 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
 
     /**
      * @return Generator|ExpressionFunction[] An array of Function instances
+     * @throws Exception
      */
     public function getFunctions()
     {

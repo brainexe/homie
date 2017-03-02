@@ -20,7 +20,7 @@ class Redis implements Device
     /**
      * @param SerialEvent $event
      */
-    public function sendSerial(SerialEvent $event)
+    public function sendSerial(SerialEvent $event) : void
     {
         $line = sprintf(
             "%s:%d:%d",

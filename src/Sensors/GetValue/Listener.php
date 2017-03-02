@@ -2,7 +2,6 @@
 
 namespace Homie\Sensors\GetValue;
 
-
 use BrainExe\Core\Annotations\EventListener;
 use BrainExe\Core\Annotations\Listen;
 use BrainExe\Core\Traits\EventDispatcherTrait;
@@ -15,7 +14,7 @@ use Homie\Sensors\SensorValuesGateway;
 use Homie\Sensors\SensorVO;
 
 /**
- * @EventListener("Sensor.GetValue.Listener")
+ * @EventListener
  */
 class Listener
 {

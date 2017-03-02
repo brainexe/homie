@@ -40,6 +40,14 @@ class Language extends ExpressionLanguage
     }
 
     /**
+     * @inheritdoc
+     */
+    public function register($name, callable $compiler, callable $evaluator)
+    {
+        $this->functions[$name] = array('compiler' => $compiler, 'evaluator' => $evaluator);
+    }
+
+    /**
      * @param string $functionName
      * @return array
      */

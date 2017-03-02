@@ -42,7 +42,10 @@ class Serial implements Device
     private $client;
 
     /**
-     * @Inject({"@Glob", "@HomieClient", "%serial.port%", "%serial.baud%"})
+     * @Inject({
+     *     "serialPort" = "%serial.port%",
+     *     "serialBaud" = "%serial.baud%",
+     * })
      * @param Glob $glob
      * @param ClientInterface $client
      * @param string $serialPort
@@ -63,7 +66,7 @@ class Serial implements Device
     /**
      * @param SerialEvent $event
      */
-    public function sendSerial(SerialEvent $event)
+    public function sendSerial(SerialEvent $event) : void
     {
         if (!$this->fileHandle) {
             $this->initSerial();

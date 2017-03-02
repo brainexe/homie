@@ -4,7 +4,7 @@ namespace Homie\Switches\Change;
 
 use BrainExe\Core\Annotations\Service;
 use BrainExe\Core\Translation\TranslationProvider;
-use Exception;
+use InvalidArgumentException;
 use Generator;
 use Homie\Switches\Gateway;
 use Homie\Switches\SwitchInterface;
@@ -13,7 +13,7 @@ use Homie\Switches\VO\RadioVO;
 use Homie\Switches\VO\SwitchVO;
 
 /**
- * @Service("Switches.Change.Change")
+ * @Service
  */
 class Change implements SwitchInterface, TranslationProvider
 {
@@ -31,6 +31,7 @@ class Change implements SwitchInterface, TranslationProvider
     private $gateway;
 
     /**
+     * @todo use ServiceLocator
      * @param Radio $radio
      * @param Gpio $gpio
      * @param Gateway $gateway
@@ -48,14 +49,14 @@ class Change implements SwitchInterface, TranslationProvider
     /**
      * @param SwitchVO $switch
      * @param int $status
-     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function setStatus(SwitchVO $switch, int $status)
     {
         if (isset($this->models[$switch->type])) {
             $controller = $this->models[$switch->type];
         } else {
-            throw new Exception(sprintf('Invalid switch type: %s', $switch->type));
+            throw new InvalidArgumentException(sprintf('Invalid switch type: %s', $switch->type));
         }
 
         $controller->setStatus($switch, $status);

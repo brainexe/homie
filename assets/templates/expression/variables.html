@@ -55,6 +55,7 @@
             <th>
                 <input
                         type="button"
+                        ng-disabled="!newKey"
                         ng-click="setVariable(newKey, newValue)"
                         class="btn btn-primary"
                         value="{{'Add'|translate}}" />

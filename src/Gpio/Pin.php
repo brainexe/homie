@@ -38,7 +38,7 @@ class Pin implements JsonSerializable
     /**
      * @var boolean
      */
-    protected $value;
+    private $value;
 
     /**
      * Get ID value.
@@ -159,7 +159,7 @@ class Pin implements JsonSerializable
             'value'       => $this->value,
             'name'        => $this->name,
             'description' => $this->description,
-            'mode'        => $this->mode == 'OUT' ? 1 : 0,
+            'mode'        => $this->mode === 'OUT' ? 1 : 0,
         ];
     }
 }

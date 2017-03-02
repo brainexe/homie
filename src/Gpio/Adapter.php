@@ -13,7 +13,7 @@ abstract class Adapter
     /**
      * @param Pin $pin Pin
      */
-    abstract public function updatePin(Pin $pin);
+    abstract public function updatePin(Pin $pin) : void;
 
     /**
      * @param string $pin

@@ -2,7 +2,6 @@
 
 namespace Homie\Sensors\ExpressionLanguage;
 
-
 use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorValueEvent;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
@@ -10,7 +9,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
 
 /**
- * @ExpressionLanguageAnnotation("Sensor.ExpressionLanguage.Language")
+ * @ExpressionLanguageAnnotation
  */
 class Language implements ExpressionFunctionProviderInterface
 {
@@ -42,9 +41,8 @@ class Language implements ExpressionFunctionProviderInterface
     private function getSensorValue()
     {
         return new ExpressionFunction('getSensorValue', function (int $sensorId) {
-            return sprintf('$container->get("SensorGateway")->getSensor(%d)["lastValue"]', $sensorId);
+            return sprintf('$container->get(Homie\Sensors\SensorGateway::class)->getSensor(%d)["lastValue"]', $sensorId);
         }, function (array $variables, int $sensorId) {
-            unset($variables);
             return $this->gateway->getSensor($sensorId)['lastValue'];
         });
     }
@@ -52,9 +50,8 @@ class Language implements ExpressionFunctionProviderInterface
     private function getSensor()
     {
         return new ExpressionFunction('getSensor', function (int $sensorId) {
-            return sprintf('$container->get("SensorGateway")->getSensor(%d)', $sensorId);
+            return sprintf('$container->get(Homie\Sensors\SensorGateway::class")->getSensor(%d)', $sensorId);
         }, function (array $variables, int $sensorId) {
-            unset($variables);
             return $this->gateway->getSensor($sensorId);
         });
     }
@@ -63,13 +60,13 @@ class Language implements ExpressionFunctionProviderInterface
     {
         return new ExpressionFunction('isSensorValue', function (int $sensorId) {
             return sprintf(
-                "(\$eventName == '%s') && \$event->sensorVo->sensorId == %d",
+                "(\$eventName === '%s') && \$event->sensorVo->sensorId === %d",
                 SensorValueEvent::VALUE,
                 $sensorId
             );
         }, function (array $parameters, int $sensorId) {
             return $parameters['eventName'] === SensorValueEvent::VALUE &&
-            $parameters['event']->sensorVo->sensorId == $sensorId;
+                $parameters['event']->sensorVo->sensorId === $sensorId;
         });
     }
 }

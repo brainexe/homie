@@ -15,7 +15,7 @@ use InvalidArgumentException;
 use Homie\Switches\VO\RadioVO;
 
 /**
- * @Service("Switches.Switches")
+ * @Service
  */
 class Switches
 {
@@ -34,7 +34,6 @@ class Switches
     private $gateway;
 
     /**
-     * @Inject("@Switches.Gateway")
      * @param Gateway $gateway
      */
     public function __construct(Gateway $gateway)
@@ -53,14 +52,14 @@ class Switches
             $pin     = (int)$pin;
             $flipped = array_flip(self::RADIO_PINS);
             if (!isset($flipped[$pin])) {
-                throw new UserException(sprintf("Invalid pin: %s", $pin));
+                throw new UserException(sprintf('Invalid pin: %s', $pin));
             }
             return $pin;
         }
 
         $pin = strtoupper($pin);
         if (empty(self::RADIO_PINS[$pin])) {
-            throw new UserException(sprintf("Invalid pin: %s", $pin));
+            throw new UserException(sprintf('Invalid pin: %s', $pin));
         }
 
         return self::RADIO_PINS[$pin];
@@ -69,13 +68,16 @@ class Switches
     /**
      * @param int $switchId
      * @return SwitchVO
+     * @throws InvalidArgumentException
      */
     public function get(int $switchId) : SwitchVO
     {
         $raw = $this->gateway->get($switchId);
 
         if (empty($raw)) {
-            throw new InvalidArgumentException(sprintf('Invalid switch: %d', $switchId));
+            throw new InvalidArgumentException(
+                sprintf('Invalid switch: %d', $switchId)
+            );
         }
 
         return $this->buildSwitchVO($raw);
@@ -154,7 +156,7 @@ class Switches
                 $switch->nodeId   = $raw['nodeId'];
                 break;
             default:
-                throw new Exception(
+                throw new InvalidArgumentException(
                     sprintf('Invalid switch type: %s', $raw['type'])
                 );
         }

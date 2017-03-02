@@ -34,7 +34,7 @@ class OnBoard extends AbstractSensor implements Searchable
     private $glob;
 
     /**
-     * @Inject({"@FileSystem", "@Glob"})
+     * @Inject({"@FileSystem"})
      * @param FileSystem $filesystem
      * @param Glob $glob
      */

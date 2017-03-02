@@ -12,7 +12,7 @@ use Homie\Sensors\Sensors\AbstractSensor;
 use Homie\Sensors\SensorVO;
 
 /**
- * @Sensor("Sensor.Decibel.Webcam")
+ * @Sensor
  */
 class Webcam extends AbstractSensor
 {

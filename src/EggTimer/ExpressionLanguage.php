@@ -2,6 +2,7 @@
 
 namespace Homie\EggTimer;
 
+use Exception;
 use Homie\Expression\Action;
 use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
 use BrainExe\Core\Traits\EventDispatcherTrait;
@@ -10,7 +11,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
 /**
- * @ExpressionLanguageAnnotation("EggTimer.ExpressionLanguage")
+ * @ExpressionLanguageAnnotation
  */
 class ExpressionLanguage implements ExpressionFunctionProviderInterface
 {
@@ -32,6 +33,7 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
 
     /**
      * @return Generator|ExpressionFunction[]
+     * @throws Exception
      */
     public function getFunctions()
     {

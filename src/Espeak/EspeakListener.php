@@ -2,7 +2,6 @@
 
 namespace Homie\Espeak;
 
-
 use BrainExe\Core\Annotations\EventListener;
 use BrainExe\Core\Annotations\Listen;
 

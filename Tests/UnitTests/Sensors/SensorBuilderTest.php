@@ -6,7 +6,6 @@ use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit\Framework\TestCase;
 use Homie\Sensors\Formatter\Formatter;
 use Homie\Sensors\Formatter\None;
-use Homie\Sensors\Interfaces\Sensor;
 use Homie\Sensors\SensorBuilder;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Symfony\Component\DependencyInjection\ServiceLocator;

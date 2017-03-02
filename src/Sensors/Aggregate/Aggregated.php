@@ -6,7 +6,7 @@ use BrainExe\Core\Annotations\Service;
 use BrainExe\Core\Traits\RedisTrait;
 
 /**
- * @Service("Sensor.Sensor.Aggregated.Aggregated")
+ * @Service
  */
 class Aggregated
 {

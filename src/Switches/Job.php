@@ -3,17 +3,15 @@
 namespace Homie\Switches;
 
 use BrainExe\Core\Annotations\Service;
-use BrainExe\Core\Traits\EventDispatcherTrait;
+use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Core\Util\TimeParser;
 use Homie\Switches\VO\SwitchVO;
 
 /**
- * @Service("Switches.Job")
+ * @Service
  */
 class Job
 {
-
-    use EventDispatcherTrait;
 
     /**
      * @var TimeParser
@@ -21,11 +19,20 @@ class Job
     private $timeParser;
 
     /**
-     * @param TimeParser $timeParser
+     * @var EventDispatcher
      */
-    public function __construct(TimeParser $timeParser)
-    {
+    private $dispatcher;
+
+    /**
+     * @param TimeParser $timeParser
+     * @param EventDispatcher $dispatcher
+     */
+    public function __construct(
+        TimeParser $timeParser,
+        EventDispatcher $dispatcher
+    ) {
         $this->timeParser = $timeParser;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -38,6 +45,6 @@ class Job
         $timestamp = $this->timeParser->parseString($timeString);
 
         $event = new SwitchChangeEvent($switch, $status);
-        $this->dispatchInBackground($event, $timestamp);
+        $this->dispatcher->dispatchInBackground($event, $timestamp);
     }
 }

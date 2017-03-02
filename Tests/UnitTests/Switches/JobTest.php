@@ -33,8 +33,10 @@ class JobTest extends TestCase
         $this->timeParser = $this->createMock(TimeParser::class);
         $this->dispatcher = $this->createMock(EventDispatcher::class);
 
-        $this->subject = new Job($this->timeParser);
-        $this->subject->setEventDispatcher($this->dispatcher);
+        $this->subject = new Job(
+            $this->timeParser,
+            $this->dispatcher
+        );
     }
 
     public function testAddJob()

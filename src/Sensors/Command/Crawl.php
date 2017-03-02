@@ -18,7 +18,7 @@ use Symfony\Component\Console\Question\ConfirmationQuestion;
 use BrainExe\Core\Annotations\Command as CommandAnnotation;
 
 /**
- * @CommandAnnotation("Command.Sensor.Crawl")
+ * @CommandAnnotation
  */
 class Crawl extends Command
 {

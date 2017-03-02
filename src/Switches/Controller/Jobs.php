@@ -2,7 +2,6 @@
 
 namespace Homie\Switches\Controller;
 
-
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Traits\EventDispatcherTrait;
@@ -13,7 +12,7 @@ use Homie\Switches\SwitchChangeEvent;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("Switches.Controller.Jobs")
+ * @ControllerAnnotation
  */
 class Jobs
 {

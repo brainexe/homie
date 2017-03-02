@@ -38,7 +38,7 @@ class SensorBuilderIntegrationTest extends TestCase
     {
         global $dic;
         /** @var SensorBuilder $builder */
-        $builder = $dic->get('SensorBuilder');
+        $builder = $dic->get(SensorBuilder::class);
 
         return array_map(function (Sensor $sensor) {
             return [$sensor];

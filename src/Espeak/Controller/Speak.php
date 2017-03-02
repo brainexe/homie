@@ -12,7 +12,7 @@ use Homie\Espeak\EspeakVO;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("Espeak.Controller.Speak")
+ * @ControllerAnnotation
  */
 class Speak
 {

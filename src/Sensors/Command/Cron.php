@@ -18,7 +18,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use BrainExe\Core\Annotations\Command as CommandAnnotation;
 
 /**
- * @CommandAnnotation("Command.Sensor.Cron")
+ * @CommandAnnotation
  */
 class Cron extends Command
 {
@@ -66,11 +66,7 @@ class Cron extends Command
 
     /**
      * @Inject({
-     *  "@SensorGateway",
-     *  "@SensorBuilder",
-     *  "@Sensor.VOBuilder",
-     *  "@EventDispatcher",
-     *  "%node.id%"
+     *  "nodeId" = "%node.id%"
      * })
      * @param SensorGateway $gateway
      * @param SensorBuilder $builder

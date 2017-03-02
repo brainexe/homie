@@ -12,7 +12,9 @@
     <tbody>
     <tr ng-repeat="expression in searchExpression(search)">
         <td>
-            {{expression.expressionId}}
+            <b>
+                {{expression.expressionId}}
+            </b>
         </td>
         <td ng-if="editMode || showDisabled">
             <checkbox

@@ -2,16 +2,13 @@
 
 namespace Homie\Gpio\Adapter;
 
-
 use BrainExe\Core\Annotations\Service;
 use Homie\Gpio\Adapter;
 use Homie\Node;
 use InvalidArgumentException;
 
 /**
- * Class Factory
- * @package Homie\Gpio\Adapter
- * @Service("Gpio.Adapter.Factory")
+ * @Service
  */
 class Factory
 {

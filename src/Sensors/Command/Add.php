@@ -69,7 +69,6 @@ class Add extends Command
     }
 
     /**
-     * @Inject({"@SensorGateway", "@SensorBuilder"})
      * @param SensorGateway $gateway
      * @param SensorBuilder $builder
      */

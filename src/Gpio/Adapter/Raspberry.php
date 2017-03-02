@@ -8,18 +8,17 @@ use Exception;
 use Generator;
 use Homie\Client\ClientInterface;
 use Homie\Gpio\Adapter;
-
 use Homie\Gpio\Pin;
 use Homie\Gpio\PinsCollection;
 
 /**
- * @Service("Gpio.Adapter.Raspberry")
+ * @Service
  */
 class Raspberry extends Adapter
 {
-    const GPIO_COMMAND_READALL   = '%s readall';
-    const GPIO_COMMAND_DIRECTION = '%s mode %d %s';
-    const GPIO_COMMAND_VALUE     = '%s write %d %d';
+    private const GPIO_COMMAND_READALL   = '%s readall';
+    private const GPIO_COMMAND_DIRECTION = '%s mode %d %s';
+    private const GPIO_COMMAND_VALUE     = '%s write %d %d';
 
     /**
      * @var ClientInterface
@@ -29,7 +28,7 @@ class Raspberry extends Adapter
     /**
      * @var PinsCollection
      */
-    private $pins = null;
+    private $pins;
 
     /**
      * @var string
@@ -38,8 +37,8 @@ class Raspberry extends Adapter
 
     /**
      * @Inject({
-     *     "@HomieClient",
-     *     "%gpio.command%"
+     *     "client"         = "@HomieClient",
+     *     "gpioExecutable" = "%gpio.command%"
      * })
      * @param ClientInterface $client
      * @param string $gpioExecutable
@@ -90,7 +89,7 @@ class Raspberry extends Adapter
         foreach ($lines as $line) {
             $line = substr($line, 2, -1);
 
-            list($part1, $part2) = explode('||', $line);
+            [$part1, $part2] = explode('||', $line);
             $part1 = explode('|', $part1);
             $part2 = array_reverse(explode('|', $part2));
 
@@ -115,7 +114,7 @@ class Raspberry extends Adapter
     /**
      * @param Pin $pin Pin
      */
-    public function updatePin(Pin $pin)
+    public function updatePin(Pin $pin) : void
     {
         $pinValue = $pin->getValue();
 

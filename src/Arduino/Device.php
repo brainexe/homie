@@ -7,5 +7,5 @@ interface Device
     /**
      * @param SerialEvent $event
      */
-    public function sendSerial(SerialEvent $event);
+    public function sendSerial(SerialEvent $event) : void;
 }

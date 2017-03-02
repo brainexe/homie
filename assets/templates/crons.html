@@ -6,6 +6,7 @@
             <th translate>Cron-ID</th>
             <th translate>Next Run</th>
             <th translate>Expression</th>
+            <th ng-if="editMode" translate>Force</th>
             <th ng-if="editMode" translate>Delete</th>
         </tr>
     </thead>
@@ -18,6 +19,11 @@
                 <job-progress job="cron" overdue="true"></job-progress>
             </th>
             <th>{{cron.event.expression}}</th>
+            <td ng-if="editMode">
+                <a confirm="forceCron(cron.jobId)" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-time"></span>
+                </a>
+            </td>
             <td ng-if="editMode">
                 <a confirm="deleteCron(cron.jobId)" class="btn btn-danger btn-sm">
                     <span class="glyphicon glyphicon-remove"></span>

@@ -2,7 +2,6 @@
 
 namespace Homie\Admin;
 
-
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Role;
 use BrainExe\Core\Annotations\Route;
@@ -11,7 +10,7 @@ use BrainExe\Core\Authentication\UserVO;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("Admin.Controller")
+ * @ControllerAnnotation
  */
 class Controller
 {
@@ -89,7 +88,7 @@ class Controller
      * @param string $email
      * @param UserVO $user
      */
-    private function changeEmail(string  $email, UserVO $user)
+    private function changeEmail(string  $email, UserVO $user) : void
     {
         if ($email && $email !== $user->email) {
             $user->email = $email;
@@ -101,7 +100,7 @@ class Controller
      * @param $roles
      * @param UserVO $user
      */
-    private function changeRoles($roles, UserVO $user)
+    private function changeRoles($roles, UserVO $user) : void
     {
         if ($roles && $roles !== $user->roles) {
             $user->roles = $roles;
@@ -113,7 +112,7 @@ class Controller
      * @param string $password
      * @param UserVO $user
      */
-    private function changePassword(string $password, UserVO $user)
+    private function changePassword(string $password, UserVO $user) : void
     {
         if ($password) {
             $this->userProvider->changePassword($user, $password);

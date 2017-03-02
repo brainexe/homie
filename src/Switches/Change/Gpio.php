@@ -2,7 +2,6 @@
 
 namespace Homie\Switches\Change;
 
-
 use BrainExe\Core\Annotations\Service;
 use Homie\Gpio\GpioManager;
 
@@ -12,7 +11,7 @@ use Homie\Switches\VO\GpioSwitchVO;
 use Homie\Switches\VO\SwitchVO;
 
 /**
- * @Service("Switches.Change.Gpio")
+ * @Service
  */
 class Gpio implements SwitchInterface
 {

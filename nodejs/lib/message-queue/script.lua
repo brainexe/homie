@@ -1,5 +1,5 @@
-local result = redis.call("ZRANGEBYSCORE", "message_queue:delayed", 0, KEYS[2], "withscores", "LIMIT", 0, KEYS[1])
-if result == nil then
+local result = redis.call("ZRANGEBYSCORE", "message_queue:delayed", 0, KEYS[1], "withscores", "LIMIT", 0, 1)
+if result == nil or result[1] == nil then
 	return nil
 else
 	local event_id = result[1]
