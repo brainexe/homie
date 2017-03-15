@@ -11,7 +11,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
 /**
- * @ExpressionLanguageAnnotation("Expression.Functions.Console")
+ * @ExpressionLanguageAnnotation
  */
 class Console implements ExpressionFunctionProviderInterface
 {

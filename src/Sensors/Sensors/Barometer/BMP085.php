@@ -13,7 +13,7 @@ use Homie\Sensors\Sensors\AbstractSensor;
 use Homie\Sensors\SensorVO;
 
 /**
- * @Sensor("Sensor.Barometer.BMP085")
+ * @Sensor
  * @link https://learn.adafruit.com/using-the-bmp085-with-homie-pi/using-the-adafruit-bmp-python-library
  * @link http://www.adafruit.com/product/1603
  */

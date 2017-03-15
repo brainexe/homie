@@ -12,7 +12,7 @@ use Homie\Sensors\SensorVO;
 use BrainExe\Core\Annotations\Inject;
 
 /**
- * @Sensor("Sensor.System.DiskUsedPercent")
+ * @Sensor
  */
 class DiskUsedPercent extends AbstractSensor
 {

@@ -5,7 +5,7 @@ namespace Homie\Sensors;
 use BrainExe\Core\Annotations\Service;
 
 /**
- * @Service("Sensor.VOBuilder")
+ * @Service
  */
 class Builder
 {

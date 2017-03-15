@@ -7,7 +7,7 @@ use BrainExe\Core\Annotations\EventListener;
 use BrainExe\Core\Annotations\Listen;
 
 /**
- * @EventListener("Arduino.Listener")
+ * @EventListener
  */
 class Listener
 {

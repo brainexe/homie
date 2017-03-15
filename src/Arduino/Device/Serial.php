@@ -101,6 +101,6 @@ class Serial implements Device
         );
         $this->client->execute($command);
 
-        $this->fileHandle = fopen($filename, 'w+');
+        $this->fileHandle = fopen($filename, 'wb+');
     }
 }

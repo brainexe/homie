@@ -2,7 +2,7 @@
 
 namespace Tests\Homie\Sensors\ExpressionLanguage;
 
-use Generator;
+
 use Homie\Sensors\ExpressionLanguage\Language;
 use Homie\Sensors\SensorGateway;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;

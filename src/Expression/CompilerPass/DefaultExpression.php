@@ -8,7 +8,7 @@ interface DefaultExpression
 {
 
     /**
-     * @return Entity[]
+     * @return iterable|Entity[]
      */
     public static function getDefaultExpressions() : iterable;
 }

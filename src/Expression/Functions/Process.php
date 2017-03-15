@@ -11,7 +11,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
 /**
- * @ExpressionLanguageAnnotation("Expression.Functions.Process")
+ * @ExpressionLanguageAnnotation
  * @deprecated too insecure!
  */
 class Process implements ExpressionFunctionProviderInterface

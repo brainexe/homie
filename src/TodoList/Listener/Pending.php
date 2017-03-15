@@ -15,7 +15,7 @@ use Homie\TodoList\TodoListEvent;
 use Homie\TodoList\VO\TodoItemVO;
 
 /**
- * @EventListener("Todo.Listener.Pending")
+ * @EventListener
  */
 class Pending
 {

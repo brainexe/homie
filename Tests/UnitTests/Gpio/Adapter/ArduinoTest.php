@@ -3,14 +3,11 @@
 namespace Tests\Homie\Gpio\Adapter;
 
 use BrainExe\Core\EventDispatcher\EventDispatcher;
-use Exception;
 use Homie\Arduino\SerialEvent;
 use Homie\Gpio\Adapter\Arduino;
-use Homie\Gpio\Adapter\Raspberry;
 use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Gpio\Pin;
-use Homie\Client\Adapter\LocalClient;
 use Homie\Gpio\PinsCollection;
 
 class ArdunoTest extends TestCase

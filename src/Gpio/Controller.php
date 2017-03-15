@@ -62,12 +62,9 @@ class Controller
      */
     public function setStatus(Request $request, int $nodeId, int $pinId, int $status, int $value) : Pin
     {
-        unset($request);
-
         $node = $this->nodes->get($nodeId);
-        $pin = $this->manager->setPin($node, $pinId, (bool)$status, (bool)$value);
 
-        return $pin;
+        return $this->manager->setPin($node, $pinId, (bool)$status, (bool)$value);
     }
 
     /**

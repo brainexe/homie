@@ -23,7 +23,7 @@ class Redis implements Device
     public function sendSerial(SerialEvent $event) : void
     {
         $line = sprintf(
-            "%s:%d:%d",
+            '%s:%d:%d',
             $event->getAction(),
             $event->getPin(),
             $event->getValue()

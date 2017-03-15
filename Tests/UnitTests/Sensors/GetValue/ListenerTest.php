@@ -4,7 +4,7 @@ namespace Tests\Homie\Sensors\GetValue;
 
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Core\Util\Time;
-use Exception;
+
 use Homie\Sensors\Exception\InvalidSensorValueException;
 use Homie\Sensors\Formatter\Formatter;
 use Homie\Sensors\GetValue\Listener;

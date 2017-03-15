@@ -2,7 +2,6 @@
 
 namespace Homie\Sensors\Command;
 
-use BrainExe\Core\Annotations\Inject;
 use Exception;
 use Homie\Sensors\Exception\InvalidSensorValueException;
 use Homie\Sensors\Interfaces\Parameterized;
@@ -22,7 +21,7 @@ use Symfony\Component\Console\Question\Question;
 use BrainExe\Core\Annotations\Command as CommandAnnotation;
 
 /**
- * @CommandAnnotation("Command.Sensor.Add")
+ * @CommandAnnotation
  */
 class Add extends Command
 {
@@ -174,13 +173,11 @@ class Add extends Command
         } else {
             $sensorTypes = array_keys($sensors);
 
-            $question = new ChoiceQuestion("Sensor Type", $sensorTypes);
+            $question = new ChoiceQuestion('Sensor Type', $sensorTypes);
             $type     = $this->helper->ask($this->input, $this->output, $question);
         }
 
-        $sensor = $sensors[$type];
-
-        return $sensor;
+        return $sensors[$type];
     }
 
     /**

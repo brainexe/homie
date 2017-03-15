@@ -24,7 +24,7 @@ class SensorBuilderIntegrationTest extends TestCase
             $this->assertInternalType('string', $sensorType);
 
             if (isset($sensorTypes[$sensorType])) {
-                throw new Exception(sprintf('Sensor type %s is duplicated'));
+                throw new Exception(sprintf('Sensor type %s is duplicated', $sensorType));
             }
 
             $sensorTypes[$sensorType] = true;

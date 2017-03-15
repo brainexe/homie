@@ -5,7 +5,6 @@ namespace Homie\Sensors\Sensors\Humid;
 use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\Percentage;
-use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\Sensors\Misc\Expression;
 use Homie\Sensors\SensorVO;
 
@@ -36,9 +35,9 @@ use Homie\Sensors\SensorVO;
  * AF(r,TK) = 10^5 * mw/R* * r/100 * 6.1078 * 10^((a*T)/(b+T))/TK
  * AF(r,TK) = 10^5 * 18.016/8314.3 * r/100 * 6.1078 * 10^((7.5*T)/(237.3+T))/(T + 273.15)
  * AF(r,TK) = 1000 * 18.016/8314.3 * 6.1078 * %s * (10 ** (((7.5*T)/(237.3+T)) / (T + 273.15)))
- * @Sensor("Sensor.Humid.Absolute")
+ * @Sensor
  */
-class Absolute extends Expression implements Parameterized
+class Absolute extends Expression
 {
 
     const TYPE = 'humid.absolute';
@@ -48,7 +47,7 @@ class Absolute extends Expression implements Parameterized
      */
     public function getValue(SensorVO $sensor) : float
     {
-        list ($temperatureId, $humidId) = explode(":", $sensor->parameter);
+        [$temperatureId, $humidId] = explode(':', $sensor->parameter);
 
         $temperature = sprintf('getSensorValue(%d)', $temperatureId);
         $humidity    = sprintf('getSensorValue(%d)', $humidId);

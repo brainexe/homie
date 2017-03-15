@@ -11,7 +11,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
 /**
- * @ExpressionLanguageAnnotation("Webcam.ExpressionLanguage")
+ * @ExpressionLanguageAnnotation
  */
 class ExpressionLanguage implements ExpressionFunctionProviderInterface
 {

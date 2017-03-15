@@ -73,7 +73,7 @@ class EventsTest extends TestCase
         $compiler = $function->getCompiler();
         $actual = $compiler($eventName);
 
-        $this->assertEquals('($eventName == "eventName")', $actual);
+        $this->assertEquals('($eventName === "eventName")', $actual);
     }
 
     public function testEvaluatorDispatch()

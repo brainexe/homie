@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * @CompilerPassAnnotation("CompilerPass.SensorFormatter")
+ * @CompilerPassAnnotation
  */
 class SensorFormatter implements CompilerPassInterface
 {

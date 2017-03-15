@@ -2,7 +2,6 @@
 
 namespace Homie\Sensors\Sensors\Misc;
 
-use BrainExe\Core\Annotations\Inject;
 use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Formatter\None;
@@ -12,7 +11,7 @@ use Homie\Sensors\Aggregate\Aggregated;
 use Homie\Sensors\SensorVO;
 
 /**
- * @Sensor("Sensor.Custom.Aggregator")
+ * @Sensor
  */
 class Aggregator extends AbstractSensor implements Parameterized
 {

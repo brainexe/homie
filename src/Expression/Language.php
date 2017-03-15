@@ -8,7 +8,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
 /**
- * @Service("Expression.Language")
+ * @Service
  */
 class Language extends ExpressionLanguage
 {

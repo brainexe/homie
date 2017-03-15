@@ -11,7 +11,7 @@ use Homie\Sensors\SensorVO;
 
 /**
  * DHT11 / DHT22
- * @Sensor("Sensor.Humid.DHT11")
+ * @Sensor
  * @source https://klenzel.de/1827
  * @source http://www.messtechniklabor.de/artikel-h0000-temperatur_und_luftfeuchtigkeit_messen.html
  */

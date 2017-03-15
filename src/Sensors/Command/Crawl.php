@@ -2,7 +2,6 @@
 
 namespace Homie\Sensors\Command;
 
-use BrainExe\Core\Annotations\Inject;
 use Exception;
 use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\Interfaces\Searchable;
@@ -69,7 +68,7 @@ class Crawl extends Command
 
         $sensors = $this->builder->getSensors();
         foreach ($sensors as $sensor) {
-            $output->writeln(sprintf("Handling <info>%s</info>...", $sensor->getSensorType()));
+            $output->writeln(sprintf('Handling <info>%s</info>...', $sensor->getSensorType()));
             if ($sensor instanceof Searchable) {
                 $this->handleSearchable($input, $output, $sensor);
             } elseif (!$sensor instanceof Parameterized) {
@@ -156,7 +155,7 @@ class Crawl extends Command
 
         $parameters = $sensor->search();
         if (empty($parameters)) {
-            $output->writeln(sprintf("<error>No valid sensor found for %s...</error>", $sensor->getSensorType()));
+            $output->writeln(sprintf('<error>No valid sensor found for %s...</error>', $sensor->getSensorType()));
         }
 
         foreach ($parameters as $parameter) {

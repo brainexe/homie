@@ -11,7 +11,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * @CommandAnnotation("Expression.Command.ListFunctions")
+ * @CommandAnnotation
  */
 class ListFunctions extends SymfonyCommand
 {
@@ -33,13 +33,16 @@ class ListFunctions extends SymfonyCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $functions = $this->includeFile(WriteFunctionCache::CACHE);
+        $functions = (array)$this->includeFile(WriteFunctionCache::CACHE);
 
         $table = new Table($output);
         $table->setHeaders(['Function', 'Parameters']);
 
         foreach ($functions as $function => $parameters) {
-            $table->addRow([$function, implode(', ', array_column($parameters['parameters'], 'name'))]);
+            $table->addRow([
+                $function,
+                implode(', ', array_column($parameters['parameters'], 'name'))
+            ]);
         }
 
         $table->render();

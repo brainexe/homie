@@ -2,7 +2,6 @@
 
 namespace Homie\TodoList;
 
-use BrainExe\Core\Annotations\Inject;
 use BrainExe\Core\Annotations\Service;
 use BrainExe\Core\Authentication\UserVO;
 use BrainExe\Core\Traits\EventDispatcherTrait;
@@ -13,7 +12,7 @@ use Homie\TodoList\Exception\ItemNotFoundException;
 use Homie\TodoList\VO\TodoItemVO;
 
 /**
- * @Service("TodoList")
+ * @Service
  */
 class TodoList
 {

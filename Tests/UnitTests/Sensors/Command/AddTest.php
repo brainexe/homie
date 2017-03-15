@@ -296,7 +296,6 @@ class AddTest extends TestCase
 
         $name        = 'name';
         $description = 'description';
-        $parameter   = null;
         $interval    = 12;
         $node        = 2;
 

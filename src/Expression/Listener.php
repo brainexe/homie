@@ -13,17 +13,12 @@ use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher;
 
 /**
- * @Service("Expression.Listener")
+ * @Service
  */
 class Listener extends SymfonyEventDispatcher
 {
 
     use FileCacheTrait;
-
-    /**
-     * @var Gateway
-     */
-    private $gateway;
 
     /**
      * @var EventDispatcher
@@ -45,16 +40,13 @@ class Listener extends SymfonyEventDispatcher
      *     "container" = "@service_container"
      * })
      *
-     * @param Gateway $gateway
      * @param EventDispatcher $dispatcher
      * @param Container $container
      */
     public function __construct(
-        Gateway $gateway,
         EventDispatcher $dispatcher,
         Container $container
     ) {
-        $this->gateway    = $gateway;
         $this->dispatcher = $dispatcher;
         $this->container  = $container;
 

@@ -14,7 +14,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
 /**
- * @ExpressionLanguageAnnotation("Expression.Functions.Events")
+ * @ExpressionLanguageAnnotation
  */
 class Events implements ExpressionFunctionProviderInterface
 {
@@ -28,7 +28,7 @@ class Events implements ExpressionFunctionProviderInterface
     public function getFunctions()
     {
         yield new ExpressionFunction('isEvent', function (string $eventId) {
-            return sprintf('($eventName == %s)', $eventId);
+            return sprintf('($eventName === %s)', $eventId);
         }, function (array $parameters, string $eventId) {
             return $parameters['eventName'] === $eventId;
         });

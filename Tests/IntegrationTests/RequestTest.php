@@ -59,13 +59,14 @@ abstract class RequestTest extends TestCase
      */
     protected function initUser(Request $request, UserVO $user = null) : UserVO
     {
-        if (empty($user)) {
+        if (null === $user) {
             $user     = new UserVO();
-            $user->id = rand(1, 1000000);
+            $user->id = random_int(1, 1000000);
         }
 
         $request->attributes->set('user_id', $user->id);
         $request->attributes->set('user', $user);
+        $request->attributes->set('locale', 'de_DE');
 
         return $user;
     }

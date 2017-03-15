@@ -12,7 +12,7 @@ use Homie\Sensors\Sensors\AbstractSensor;
 use Homie\Sensors\SensorVO;
 
 /**
- * @Sensor("Sensor.Misc.Script")
+ * @Sensor
  */
 class Script extends AbstractSensor implements Parameterized
 {

@@ -6,7 +6,7 @@ use BrainExe\Core\Annotations\Service;
 use BrainExe\Core\Traits\RedisTrait;
 
 /**
- * @Service(name="ShoppingList.Gateway")
+ * @Service
  */
 class Gateway
 {
@@ -25,7 +25,7 @@ class Gateway
     /**
      * @param string $name
      */
-    public function addItem(string $name)
+    public function addItem(string $name) : void
     {
         $this->getRedis()->sadd(self::REDIS_KEY, $name);
     }
@@ -33,7 +33,7 @@ class Gateway
     /**
      * @param string $name
      */
-    public function removeItem(string $name)
+    public function removeItem(string $name) : void
     {
         $this->getRedis()->srem(self::REDIS_KEY, $name);
     }

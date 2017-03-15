@@ -10,7 +10,7 @@ use Homie\Remote\Event\ReceivedEvent;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("Remote.Controller")
+ * @ControllerAnnotation
  */
 class Controller
 {

@@ -2,7 +2,6 @@
 
 namespace Homie\Webcam;
 
-
 use BrainExe\Core\Annotations\Service;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 

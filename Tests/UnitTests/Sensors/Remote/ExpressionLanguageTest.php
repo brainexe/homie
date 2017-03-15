@@ -77,6 +77,6 @@ class ExpressionLanguageTest extends TestCase
         $compiler = $function->getCompiler();
         $compiled = $compiler($code);
 
-        $this->assertEquals('($eventName == \'remote.received\' && $event->getCode() === code)', $compiled);
+        $this->assertEquals('($eventName === \'remote.received\' && $event->getCode() === code)', $compiled);
     }
 }

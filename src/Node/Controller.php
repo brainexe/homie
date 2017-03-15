@@ -10,7 +10,7 @@ use Homie\Node;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ControllerAnnotation("Node.Controller", requirements={"nodeId":"\d+"})
+ * @ControllerAnnotation(requirements={"nodeId":"\d+"})
  */
 class Controller
 {

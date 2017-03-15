@@ -12,7 +12,7 @@ use Homie\Sensors\Sensors\AbstractSensor;
 use Homie\Sensors\SensorVO;
 
 /**
- * @Sensor("Sensor.Brightness.Webcam")
+ * @Sensor
  */
 class Webcam extends AbstractSensor
 {
@@ -41,7 +41,7 @@ class Webcam extends AbstractSensor
         $tmpFile = tempnam('/tmp', self::TYPE);
         $this->client->executeWithReturn('fswebcam', [$tmpFile]);
         $command = sprintf(
-            "convert %s -colorspace gray -resize 1x1 txt:-",
+            'convert %s -colorspace gray -resize 1x1 txt:-',
             $tmpFile
         );
 

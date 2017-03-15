@@ -9,7 +9,7 @@ use League\Flysystem\Filesystem;
 use BrainExe\Core\Annotations\Inject;
 
 /**
- * @Service("Webcam.Recorder")
+ * @Service
  */
 class Recorder
 {
@@ -111,9 +111,10 @@ class Recorder
 
         $this->client->executeWithReturn(str_replace('{{file}}', $temp, $command));
 
-        $this->filesystem->writeStream(Webcam::ROOT . $filename, fopen($temp, 'r'), [
-            'visibility' => 'public'
-        ]);
+        $this->filesystem->writeStream(
+            Webcam::ROOT . $filename,
+            fopen($temp, 'rb')
+        );
 
         unlink($temp);
 

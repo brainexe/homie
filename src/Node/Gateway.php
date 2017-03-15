@@ -8,7 +8,7 @@ use Exception;
 use Homie\Node;
 
 /**
- * @Service("Node.Gateway")
+ * @Service
  */
 class Gateway
 {
@@ -34,10 +34,14 @@ class Gateway
     {
         $raw = $this->getRedis()->hget(self::REDIS_KEY, $nodeId);
         if (empty($raw)) {
-            throw new Exception(sprintf('Invalid node: %s', $nodeId));
+            throw new Exception(sprintf('Invalid node: %d', $nodeId));
         }
 
-        return unserialize($raw);
+        return unserialize($raw, [
+            'allowed_classes' => [
+                Node::class
+            ]
+        ]);
     }
 
     /**

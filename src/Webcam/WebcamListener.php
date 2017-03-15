@@ -2,12 +2,11 @@
 
 namespace Homie\Webcam;
 
-
 use BrainExe\Core\Annotations\EventListener;
 use BrainExe\Core\Annotations\Listen;
 
 /**
- * @EventListener("Webcam.WebcamListener")
+ * @EventListener
  */
 class WebcamListener
 {

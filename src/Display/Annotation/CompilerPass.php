@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * @CompilerPassAnnotation("Display.Annotation.CompilerPass")
+ * @CompilerPassAnnotation
  */
 class CompilerPass implements CompilerPassInterface
 {

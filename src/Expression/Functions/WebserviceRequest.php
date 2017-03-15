@@ -11,7 +11,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
 /**
- * @ExpressionLanguageAnnotation("Expression.Functions.WebserviceRequest")
+ * @ExpressionLanguageAnnotation
  */
 class WebserviceRequest implements ExpressionFunctionProviderInterface
 {

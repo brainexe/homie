@@ -2,7 +2,6 @@
 
 namespace Homie\Sensors\Command;
 
-use BrainExe\Core\Annotations\Inject;
 use BrainExe\Core\Traits\TimeTrait;
 use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorValuesGateway;
@@ -13,7 +12,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * @CommandAnnotation("Command.Sensors.CSVExport")
+ * @CommandAnnotation
  */
 class CSVExport extends Command
 {
@@ -40,10 +39,6 @@ class CSVExport extends Command
     }
 
     /**
-     * @Inject({
-     *     "@SensorGateway",
-     *     "@SensorValuesGateway"
-     * })
      * @param SensorGateway $gateway
      * @param SensorValuesGateway $valueGateway
      */
@@ -64,12 +59,12 @@ class CSVExport extends Command
     {
         $filename = $input->getArgument('file');
 
-        list ($row, $sensorIds) = $this->collectData();
+        [$row, $sensorIds] = $this->collectData();
 
-        $file = fopen($filename, 'w+');
+        $file = fopen($filename, 'wb+');
         $this->writeFile($file, $row, $sensorIds);
 
-        $output->writeln("Done");
+        $output->writeln('Done');
     }
 
     /**

@@ -5,7 +5,7 @@ namespace Homie\Sensors\Formatter;
 use Homie\Sensors\CompilerPass\Annotation\SensorFormatter;
 
 /**
- * @SensorFormatter("Formatter.Number")
+ * @SensorFormatter
  */
 class Number extends Formatter
 {

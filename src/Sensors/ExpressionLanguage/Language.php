@@ -41,7 +41,10 @@ class Language implements ExpressionFunctionProviderInterface
     private function getSensorValue()
     {
         return new ExpressionFunction('getSensorValue', function (int $sensorId) {
-            return sprintf('$container->get(Homie\Sensors\SensorGateway::class)->getSensor(%d)["lastValue"]', $sensorId);
+            return sprintf(
+                '$container->get(Homie\Sensors\SensorGateway::class)->getSensor(%d)["lastValue"]',
+                $sensorId
+            );
         }, function (array $variables, int $sensorId) {
             return $this->gateway->getSensor($sensorId)['lastValue'];
         });

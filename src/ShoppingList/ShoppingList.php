@@ -2,12 +2,11 @@
 
 namespace Homie\ShoppingList;
 
-use BrainExe\Core\Annotations\Inject;
 use BrainExe\Core\Annotations\Service;
 use BrainExe\Core\Traits\EventDispatcherTrait;
 
 /**
- * @Service("ShoppingList")
+ * @Service
  */
 class ShoppingList
 {

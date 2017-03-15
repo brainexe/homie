@@ -9,7 +9,7 @@ use Homie\Espeak\EspeakEvent;
 use Homie\Media\Sound;
 
 /**
- * @EventListener("EggTimer.Listener")
+ * @EventListener
  */
 class Listener
 {

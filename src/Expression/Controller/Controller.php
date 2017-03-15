@@ -57,18 +57,18 @@ class Controller
      * @return array[]
      * @Route("/expressions/functions/", name="expressions.functions", methods="GET")
      */
-    public function functions()
+    public function functions() : array
     {
-        return $this->includeFile(WriteFunctionCache::CACHE);
+        return (array)$this->includeFile(WriteFunctionCache::CACHE);
     }
 
     /**
      * @return array[]
      * @Route("/expressions/events/", name="expressions.events", methods="GET")
      */
-    public function events()
+    public function events() : array
     {
-        return $this->includeFile('events');
+        return (array) $this->includeFile('events');
     }
 
     /**

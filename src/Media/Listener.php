@@ -2,12 +2,11 @@
 
 namespace Homie\Media;
 
-
 use BrainExe\Core\Annotations\EventListener;
 use BrainExe\Core\Annotations\Listen;
 
 /**
- * @EventListener("Media.Listener")
+ * @EventListener
  */
 class Listener
 {

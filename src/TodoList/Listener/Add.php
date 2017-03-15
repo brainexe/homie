@@ -11,7 +11,7 @@ use Homie\Espeak\EspeakVO;
 use Homie\TodoList\TodoListEvent;
 
 /**
- * @EventListener("TodoList.Listener.Add")
+ * @EventListener
  */
 class Add
 {

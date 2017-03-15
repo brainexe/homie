@@ -7,7 +7,7 @@ use BrainExe\Core\Traits\RedisTrait;
 use BrainExe\Core\Traits\TimeTrait;
 
 /**
- * @Service("Sensors.DeleteOldValues")
+ * @Service
  */
 class DeleteOldValues
 {
@@ -54,7 +54,7 @@ class DeleteOldValues
             if ($lastTimestamp + $threshHold > $timestamp) {
                 $this->getRedis()->zrem($key, $score);
 
-                $deleted += 1;
+                ++$deleted;
                 continue;
             }
 

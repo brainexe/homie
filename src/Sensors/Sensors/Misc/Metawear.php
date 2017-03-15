@@ -15,14 +15,14 @@ use Homie\Sensors\SensorVO;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * @Sensor("Sensor.Misc.Metawear")
+ * @Sensor
  */
 class Metawear extends AbstractSensor implements Searchable
 {
 
     const TYPE = 'custom.metawear';
 
-    const SUPPORTED_TYPES = [
+    private const SUPPORTED_TYPES = [
         'temperature',
         'pressure',
         'brightness'

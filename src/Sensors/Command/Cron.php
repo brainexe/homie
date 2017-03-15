@@ -6,7 +6,6 @@ use BrainExe\Core\Annotations\Inject;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use BrainExe\Core\Traits\TimeTrait;
 use Homie\Sensors\GetValue\GetSensorValueEvent;
-use Homie\Sensors\SensorBuilder;
 use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorValueEvent;
 use Homie\Sensors\Builder;
@@ -28,16 +27,6 @@ class Cron extends Command
      * @var SensorGateway
      */
     private $sensorGateway;
-
-    /**
-     * @var SensorBuilder
-     */
-    private $builder;
-
-    /**
-     * @var integer
-     */
-    private $nodeId;
 
     /**
      * @var Builder
@@ -69,23 +58,17 @@ class Cron extends Command
      *  "nodeId" = "%node.id%"
      * })
      * @param SensorGateway $gateway
-     * @param SensorBuilder $builder
      * @param Builder $voBuilder
      * @param EventDispatcher $dispatcher
-     * @param int $nodeId
      */
     public function __construct(
         SensorGateway $gateway,
-        SensorBuilder $builder,
         Builder $voBuilder,
-        EventDispatcher $dispatcher,
-        $nodeId
+        EventDispatcher $dispatcher
     ) {
-        $this->builder         = $builder;
         $this->sensorGateway   = $gateway;
         $this->sensorVoBuilder = $voBuilder;
         $this->dispatcher      = $dispatcher;
-        $this->nodeId          = $nodeId;
 
         parent::__construct();
     }

@@ -14,7 +14,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
 /**
- * @ExpressionLanguageAnnotation("Expression.Functions.ParticleRequest")
+ * @ExpressionLanguageAnnotation
  */
 class ParticleRequest implements ExpressionFunctionProviderInterface
 {
@@ -106,5 +106,4 @@ class ParticleRequest implements ExpressionFunctionProviderInterface
             return $e->getMessage();
         }
     }
-
 }

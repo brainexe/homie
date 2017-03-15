@@ -12,7 +12,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
 /**
- * @ExpressionLanguageAnnotation("Expression.Functions.Mail")
+ * @ExpressionLanguageAnnotation
  */
 class Mail implements ExpressionFunctionProviderInterface
 {

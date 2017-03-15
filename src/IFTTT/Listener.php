@@ -7,7 +7,7 @@ use BrainExe\Core\Annotations\Listen;
 use Homie\IFTTT\Event\TriggerEvent;
 
 /**
- * @EventListener("IFTTT.Listener")
+ * @EventListener
  */
 class Listener
 {

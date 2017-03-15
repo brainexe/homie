@@ -10,7 +10,7 @@ use Homie\Sensors\Sensors\AbstractDHT11;
 use Homie\Sensors\SensorVO;
 
 /**
- * @Sensor("Sensor.DHT11.Temperature")
+ * @Sensor
  */
 class DHT11 extends AbstractDHT11
 {

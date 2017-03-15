@@ -9,7 +9,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
 /**
- * @ExpressionLanguageAnnotation("Expression.Functions.Timing")
+ * @ExpressionLanguageAnnotation
  */
 class Timing implements ExpressionFunctionProviderInterface
 {
@@ -21,7 +21,7 @@ class Timing implements ExpressionFunctionProviderInterface
     {
         yield new ExpressionFunction('isTiming', function (string $timingId) {
             return sprintf(
-                '($eventName == \'%s\' && $event->getTimingId() === %s)',
+                '($eventName === \'%s\' && $event->getTimingId() === %s)',
                 TimingEvent::TIMING_EVENT,
                 $timingId
             );

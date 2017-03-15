@@ -4,6 +4,7 @@ namespace Tests\Homie\Expression;
 
 use Homie\Expression\CompilerPass\RegisterProvider;
 use Homie\Expression\Language;
+use Homie\Expression\Listener;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -41,7 +42,7 @@ class RegisterProviderTest extends TestCase
         $definition
             ->expects($this->once())
             ->method('addMethodCall')
-            ->with('addCatchall', [new Reference('Expression.Listener')]);
+            ->with('addCatchall', [new Reference(Listener::class)]);
 
         $language
             ->expects($this->once())

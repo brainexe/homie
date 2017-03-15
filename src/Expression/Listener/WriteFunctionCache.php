@@ -2,7 +2,6 @@
 
 namespace Homie\Expression\Listener;
 
-
 use BrainExe\Core\Annotations\EventListener;
 use BrainExe\Core\Annotations\Listen;
 use BrainExe\Core\EventDispatcher\Events\ClearCacheEvent;
@@ -11,7 +10,7 @@ use Homie\Expression\Language;
 use ReflectionFunction;
 
 /**
- * @EventListener("Expression.Listener.WriteFunction")
+ * @EventListener
  */
 class WriteFunctionCache
 {

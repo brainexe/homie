@@ -7,7 +7,7 @@ use Homie\Sensors\Formatter\Formatter;
 use Homie\Sensors\SensorBuilder;
 use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Homie\Sensors\CompilerPass;
+
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;

@@ -2,7 +2,7 @@
 
 namespace IntegrationTests\Index;
 
-use BrainExe\Core\Authentication\UserVO;
+
 use IntegrationTests\RequestTest;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -20,9 +20,6 @@ class SensorsTest extends RequestTest
 
     public function testIndex()
     {
-        $user = new UserVO();
-        $user->id = 1;
-
         $request = new Request();
         $request->server->set('REQUEST_URI', '/sensors/load/0/');
 

@@ -2,18 +2,14 @@
 
 namespace Homie\Expression\Functions;
 
-
-
 use Generator;
-
 use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
-
 use Homie\Expression\Variable as VariableModel;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
 /**
- * @ExpressionLanguageAnnotation("Expression.Functions.Variable")
+ * @ExpressionLanguageAnnotation
  */
 class Variable implements ExpressionFunctionProviderInterface
 {
@@ -55,6 +51,17 @@ class Variable implements ExpressionFunctionProviderInterface
         }, function (array $parameters, string $key, string $value) {
             unset($parameters);
             $this->variable->setVariable($key, $value);
+        });
+
+        yield new ExpressionFunction('increaseVariable', function (string $name, $value = 1) {
+            return sprintf(
+                '($container->get("Expression.Controller.Variables"))->increaseVariable("%s", "%s")',
+                $name,
+                $value
+            );
+        }, function (array $parameters, string $key, $value = 1) {
+            unset($parameters);
+            $this->variable->increaseVariable($key, $value);
         });
     }
 }

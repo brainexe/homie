@@ -7,13 +7,12 @@ use Homie\Sensors\Annotation\Sensor;
 use Homie\Sensors\Definition;
 use Homie\Sensors\Exception\InvalidSensorValueException;
 use Homie\Sensors\Formatter\None;
-use Homie\Sensors\Interfaces\Parameterized;
 use Homie\Sensors\SensorVO;
 
 /**
- * @Sensor("Sensor.Misc.Particle")
+ * @Sensor
  */
-class Particle extends Expression implements Parameterized
+class Particle extends Expression
 {
     const TYPE = 'custom.particle';
 

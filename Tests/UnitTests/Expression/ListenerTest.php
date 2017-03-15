@@ -6,7 +6,6 @@ use BrainExe\Core\EventDispatcher\AbstractEvent;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
 use Homie\Expression\Entity;
 use Homie\Expression\Event\EvaluateEvent;
-use Homie\Expression\Gateway;
 use Homie\Expression\Listener;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit\Framework\TestCase;
@@ -26,11 +25,6 @@ class ListenerTest extends TestCase
     private $container;
 
     /**
-     * @var Gateway|MockObject
-     */
-    private $gateway;
-
-    /**
      * @var EventDispatcher|MockObject
      */
     private $dispatcher;
@@ -38,11 +32,9 @@ class ListenerTest extends TestCase
     public function setup()
     {
         $this->dispatcher = $this->createMock(EventDispatcher::class);
-        $this->gateway    = $this->createMock(Gateway::class);
         $this->container  = $this->createMock(Container::class);
 
         $this->subject = new Listener(
-            $this->gateway,
             $this->dispatcher,
             $this->container
         );

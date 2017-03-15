@@ -109,11 +109,10 @@ class TodoReminder
      */
     private function getNumber(int $count) : string
     {
-        switch ($count) {
-            case 1:
-                return $this->translate('one');
-            default:
-                return (string)$count;
+        if ($count === 1) {
+            return $this->translate('one');
+        } else {
+            return (string)$count;
         }
     }
 }

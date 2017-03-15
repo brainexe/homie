@@ -76,7 +76,7 @@ class VariableTest extends TestCase
         $this->predis
             ->expects($this->once())
             ->method('hdel')
-            ->with(Variable::REDIS_KEY, 'key');
+            ->with(Variable::REDIS_KEY, ['key']);
 
         $event = new VariableChangedEvent(VariableChangedEvent::DELETED, 'key');
         $this->dispatcher

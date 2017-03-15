@@ -10,7 +10,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
 
 /**
- * @ExpressionLanguageAnnotation("Remote.ExpressionLanguage")
+ * @ExpressionLanguageAnnotation
  */
 class ExpressionLanguage implements ExpressionFunctionProviderInterface
 {
@@ -23,7 +23,7 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
     public function getFunctions()
     {
         yield new ExpressionFunction('isRemoteCode', function (string $code) {
-            return sprintf('($eventName == \'%s\' && $event->getCode() === %s)', ReceivedEvent::RECEIVED, $code);
+            return sprintf('($eventName === \'%s\' && $event->getCode() === %s)', ReceivedEvent::RECEIVED, $code);
         }, function (array $parameters, string $code) {
             if ($parameters['eventName'] !== ReceivedEvent::RECEIVED) {
                 return false;

@@ -10,7 +10,7 @@ use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotati
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
 /**
- * @ExpressionLanguageAnnotation("TodoList.ExpressionLanguage")
+ * @ExpressionLanguageAnnotation
  */
 class ExpressionLanguage implements ExpressionFunctionProviderInterface
 {

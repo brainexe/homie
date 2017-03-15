@@ -13,7 +13,7 @@ use Monolog\Logger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * @EventListener("Expression.Listener.ClearCache")
+ * @EventListener
  */
 class ClearCache implements EventSubscriberInterface
 {

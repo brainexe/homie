@@ -9,7 +9,7 @@ use BrainExe\Core\Traits\RedisTrait;
 use Homie\Client\Adapter\MessageQueueClient;
 
 /**
- * @EventListener("Listener.MessageQueueClient")
+ * @EventListener
  */
 class MessageQueueClientListener
 {

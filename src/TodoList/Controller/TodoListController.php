@@ -2,7 +2,6 @@
 
 namespace Homie\TodoList\Controller;
 
-
 use BrainExe\Core\Annotations\Controller;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\Authentication\Exception\UserNotFoundException;
@@ -14,7 +13,7 @@ use Homie\TodoList\VO\TodoItemVO;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Controller("TodoList.Controller.TodoListController")
+ * @Controller
  */
 class TodoListController implements TranslationProvider
 {

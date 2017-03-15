@@ -8,7 +8,6 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\Command\Cron;
 use Homie\Sensors\SensorGateway;
-use Homie\Sensors\SensorBuilder;
 use Homie\Sensors\SensorVO;
 use Homie\Sensors\Builder;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
@@ -34,11 +33,6 @@ class CronTest extends TestCase
     private $gateway;
 
     /**
-     * @var SensorBuilder|MockObject
-     */
-    private $builder;
-
-    /**
      * @var Builder|MockObject
      */
     private $voBuilder;
@@ -53,25 +47,17 @@ class CronTest extends TestCase
      */
     private $time;
 
-    /**
-     * @var integer
-     */
-    private $nodeId = 1;
-
     public function setUp()
     {
         $this->gateway    = $this->createMock(SensorGateway::class);
-        $this->builder    = $this->createMock(SensorBuilder::class);
         $this->voBuilder  = $this->createMock(Builder::class);
         $this->dispatcher = $this->createMock(EventDispatcher::class);
         $this->time       = $this->createMock(Time::class);
 
         $this->subject = new Cron(
             $this->gateway,
-            $this->builder,
             $this->voBuilder,
-            $this->dispatcher,
-            $this->nodeId
+            $this->dispatcher
         );
         $this->subject->setTime($this->time);
     }

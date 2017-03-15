@@ -10,7 +10,7 @@ use Iterator;
 use Predis\Pipeline\Pipeline;
 
 /**
- * @Service("SensorValuesGateway")
+ * @Service
  */
 class SensorValuesGateway
 {
@@ -80,7 +80,7 @@ class SensorValuesGateway
         $result      = [];
 
         foreach ($redisResult as $part => $timestamp) {
-            list(, $value) = explode('-', $part, 2);
+            [, $value] = explode('-', $part, 2);
             $result[$timestamp] = (float)$value;
         }
 

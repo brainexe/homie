@@ -37,7 +37,7 @@ class WidgetFactoryTest extends TestCase
     {
         $actual = $this->subject->getWidget(Time::TYPE);
 
-        $this->assertTrue($actual instanceof WidgetInterface);
+        $this->assertInstanceOf(WidgetInterface::class, $actual);
     }
 
     public function testSetWidgets()
@@ -45,7 +45,7 @@ class WidgetFactoryTest extends TestCase
         $this->subject = new WidgetFactory(['type2' => new Time()]);
 
         $actual = $this->subject->getWidget('type2');
-        $this->assertTrue($actual instanceof WidgetInterface);
+        $this->assertInstanceOf(WidgetInterface::class, $actual);
     }
 
     public function testGetWidgetTypes()

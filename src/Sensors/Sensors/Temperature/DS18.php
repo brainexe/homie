@@ -14,7 +14,7 @@ use Homie\Sensors\Sensors\AbstractSensor;
 use Homie\Sensors\SensorVO;
 
 /**
- * @Sensor("Sensor.DS18.Temperature")
+ * @Sensor
  */
 class DS18 extends AbstractSensor implements Searchable
 {

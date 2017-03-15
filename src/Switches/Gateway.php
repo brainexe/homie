@@ -9,7 +9,7 @@ use BrainExe\Core\Traits\RedisTrait;
 use Homie\Switches\VO\SwitchVO;
 
 /**
- * @Service("Switches.Gateway")
+ * @Service
  */
 class Gateway
 {
@@ -30,7 +30,7 @@ class Gateway
         $pipeline = $this->getRedis()->pipeline();
 
         foreach ($switchIds as $switchId) {
-            $pipeline->hgetall(self::getRedisKey($switchId));
+            $pipeline->hgetall($this->getRedisKey($switchId));
         }
 
         return $pipeline->execute();

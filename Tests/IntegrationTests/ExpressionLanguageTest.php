@@ -3,7 +3,7 @@
 namespace IntegrationTests;
 
 use BrainExe\Core\EventDispatcher\Events\TimingEvent;
-use Homie\Expression\Entity;
+
 use Homie\Expression\Language;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
@@ -80,14 +80,14 @@ class ExpressionLanguageTest extends TestCase
         return [
             ['1 + 2', "(1 + 2)"],
             ['round(eventName)', "round(\$eventName)"],
-            ['isEvent("foo")', '($eventName == "foo")'],
+            ['isEvent("foo")', '($eventName === "foo")'],
             [
                 'isTiming("timingId")',
-                '($eventName == \'' . TimingEvent::TIMING_EVENT . '\' && $event->getTimingId() === "timingId")'
+                '($eventName === \'' . TimingEvent::TIMING_EVENT . '\' && $event->getTimingId() === "timingId")'
             ],
             [
                 'voice("/Hallo (.*)/")',
-                '($eventName == \'voice.text\' && preg_match("/Hallo (.*)/", $event->getText(), Homie\VoiceControl\ExpressionLanguage::$currentMatch))'
+                '($eventName === \'voice.text\' && preg_match("/Hallo (.*)/", $event->getText(), Homie\VoiceControl\ExpressionLanguage::$currentMatch))'
             ],
         ];
     }

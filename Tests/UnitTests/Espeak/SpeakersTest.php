@@ -5,7 +5,7 @@ namespace Tests\Homie\Espeak;
 use Homie\Espeak\Speakers;
 use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Homie\Espeak\Espeak;
+
 use Homie\Client\Adapter\LocalClient;
 use RuntimeException;
 

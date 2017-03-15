@@ -2,21 +2,17 @@
 
 namespace Homie\TodoList\Cron;
 
-use BrainExe\Core\Annotations\Inject;
-
 use BrainExe\Core\Traits\TimeTrait;
 use Cron\CronExpression;
-
 use Homie\TodoList\TodoList;
 use Homie\TodoList\VO\TodoItemVO;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
-
 use Symfony\Component\Console\Output\OutputInterface;
 use BrainExe\Core\Annotations\Command as CommandAnnotation;
 
 /**
- * @CommandAnnotation("TodoList.Cron.UpdateTask")
+ * @CommandAnnotation
  */
 class UpdateTasks extends Command
 {

@@ -29,6 +29,17 @@ class Variable
         $event = new VariableChangedEvent(VariableChangedEvent::CHANGED, $key, $value);
         $this->dispatchEvent($event);
     }
+    /**
+     * @param string $key
+     * @param integer $value
+     */
+    public function increaseVariable(string $key, integer $value) : void
+    {
+        $this->getRedis()->hincrby(self::REDIS_KEY, $key, $value);
+
+        $event = new VariableChangedEvent(VariableChangedEvent::CHANGED, $key, $value);
+        $this->dispatchEvent($event);
+    }
 
     /**
      * @param string $key
@@ -44,7 +55,7 @@ class Variable
      */
     public function deleteVariable(string $key) : void
     {
-        $this->getRedis()->hdel(self::REDIS_KEY, $key);
+        $this->getRedis()->hdel(self::REDIS_KEY, [$key]);
 
         $event = new VariableChangedEvent(VariableChangedEvent::DELETED, $key);
         $this->dispatchEvent($event);

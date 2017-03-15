@@ -7,7 +7,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 use Homie\Expression\Annotation\ExpressionLanguage as ExpressionLanguageAnnotation;
 
 /**
- * @ExpressionLanguageAnnotation("VoiceControl.ExpressionLanguage")
+ * @ExpressionLanguageAnnotation
  */
 class ExpressionLanguage implements ExpressionFunctionProviderInterface
 {
@@ -22,7 +22,12 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
     public function getFunctions()
     {
         $voice = new ExpressionFunction('voice', function (string $pattern) {
-            return sprintf('($eventName == \'%s\' && preg_match(%s, $event->getText(), %s::$currentMatch))', VoiceEvent::SPEECH, $pattern, self::class);
+            return sprintf(
+                '($eventName === \'%s\' && preg_match(%s, $event->getText(), %s::$currentMatch))',
+                VoiceEvent::SPEECH,
+                $pattern,
+                self::class
+            );
         }, function (array $variables, int $index = 0) {
             unset($variables);
             return (string)self::$currentMatch[$index];

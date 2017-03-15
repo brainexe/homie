@@ -13,7 +13,7 @@ use Homie\Sensors\Sensors\AbstractSensor;
 use Homie\Sensors\SensorVO;
 
 /**
- * @Sensor("Sensor.System.Redis")
+ * @Sensor
  */
 class Redis extends AbstractSensor implements Parameterized, Searchable
 {
@@ -26,7 +26,7 @@ class Redis extends AbstractSensor implements Parameterized, Searchable
      */
     public function getValue(SensorVO $sensor) : float
     {
-        list ($section, $key) = explode('.', $sensor->parameter, 2);
+        [$section, $key] = explode('.', $sensor->parameter, 2);
 
         $section = ucfirst($section);
         $data = $this->getRedis()->info($section);

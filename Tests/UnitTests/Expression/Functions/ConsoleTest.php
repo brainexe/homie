@@ -35,7 +35,7 @@ class ConsoleTest extends TestCase
 
     public function testEvaluator()
     {
-        $command = "myCommand";
+        $command = 'myCommand';
 
         $event = new ConsoleEvent($command);
 

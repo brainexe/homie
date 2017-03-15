@@ -2,16 +2,10 @@
 
 namespace Tests\Homie\Expression\Controller;
 
-use BrainExe\Core\Cron\Expression;
-use BrainExe\Core\EventDispatcher\CronEvent;
-use BrainExe\Core\EventDispatcher\EventDispatcher;
-use BrainExe\Core\EventDispatcher\Events\TimingEvent;
-use Homie\Expression\Controller\Cron;
 use Homie\Expression\Controller\Variables;
 use Homie\Expression\Variable;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit\Framework\TestCase;
-use Predis\Client;
 use Symfony\Component\HttpFoundation\Request;
 
 class VariablesTest extends TestCase
@@ -73,5 +67,4 @@ class VariablesTest extends TestCase
 
         $this->assertEquals(true, $actual);
     }
-
 }

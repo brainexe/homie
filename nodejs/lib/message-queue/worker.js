@@ -28,15 +28,15 @@ module.exports = {
                 });
 
                 process.stdout.on('data', function (data) {
-                    console.log('stdout', data.toString());
+                    console.log(data.toString());
                 });
 
                 process.stderr.on('data', function (data) {
-                    console.log('stderr', data.toString());
+                    console.error(data.toString());
                 });
 
                 process.on('error', function (code) {
-                    console.log('error', arguments);
+                    console.error(arguments);
                 });
             }
 

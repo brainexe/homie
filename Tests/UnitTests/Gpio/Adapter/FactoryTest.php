@@ -2,17 +2,15 @@
 
 namespace Tests\Homie\Gpio\Adapter;
 
-use Exception;
+
 use Homie\Gpio\Adapter\Arduino;
 use Homie\Gpio\Adapter\Factory;
 use Homie\Gpio\Adapter\Raspberry;
 use Homie\Node;
 use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Homie\Gpio\Pin;
+
 use Homie\Gpio\PinLoader;
-use Homie\Client\Adapter\LocalClient;
-use Homie\Gpio\PinsCollection;
 
 /**
  * @covers \Homie\Gpio\Adapter\Factory

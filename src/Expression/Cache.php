@@ -42,9 +42,9 @@ return function(AbstractEvent \$event, string \$eventName, Container \$container
             if ($entity->compiledCondition && $entity->enabled) {
                 $this->gateway->save($entity, false);
                 $content .= sprintf(
-                    "\tif (%s) {\n\t\tyield unserialize('%s');\n\t}\n",
+                    "\tif (%s) {\n\t\tyield %s;\n\t}\n",
                     $entity->compiledCondition,
-                    addslashes(serialize($entity))
+                    var_export($entity, true)
                 );
             }
         }

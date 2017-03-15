@@ -6,7 +6,7 @@ use BrainExe\Core\Translation\TranslationTrait;
 use Homie\Sensors\CompilerPass\Annotation\SensorFormatter;
 
 /**
- * @SensorFormatter("Formatter.Percentage")
+ * @SensorFormatter
  */
 class Percentage extends Formatter
 {

@@ -9,7 +9,7 @@ use Homie\Sensors\Sensors\AbstractSensor;
 use Homie\Sensors\SensorVO;
 
 /**
- * @Sensor("Sensor.System.Load")
+ * @Sensor
  */
 class Load extends AbstractSensor
 {
