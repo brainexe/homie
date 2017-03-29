@@ -156,11 +156,11 @@ class AppServerTest extends TestCase
             ->with('mySid');
 
         $expected = '{"requestId":"requestId","sessionId":null,"status":200,"body":"{\"'
-            . 'test\":1}","headers":{"cache-control":["no-cache, private"],"content-type":["application\/json"]}}';
+            . 'test\":1}","headers":{"cache-control":["no-cache, private"]';
         $this->predis
             ->expects($this->once())
             ->method('publish')
-            ->with('response:requestId', $expected);
+            ->with('response:requestId', $this->stringStartsWith($expected));
 
         $this->appKernel
             ->expects($this->once())
