@@ -62,8 +62,13 @@ App.controller('EditSensorsController', /*@ngInject*/ function($scope, $uibModal
         });
     };
 
+    $scope.close = () => $uibModalInstance.close();
     $scope.reload = sensorId => Sensor.forceReadValue(sensorId);
-	$scope.close = () => $uibModalInstance.close();
+    $scope.reloadAll = function() {
+        this.searchSensor(this.search).forEach(function (sensor) {
+            $scope.reload(sensor.sensorId);
+        });
+    };
 
     $scope.edit = function(sensor) {
         if (sensor.edit) {

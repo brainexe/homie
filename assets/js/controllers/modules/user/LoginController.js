@@ -1,5 +1,10 @@
 
 App.controller('LoginController', /*@ngInject*/ function ($scope, $location, UserManagement, UserManagementTOTP, Flash, _) {
+    if (UserManagement.isLoggedIn()) {
+        $location.path("/dashboard");
+        return;
+    }
+
     $scope.needsOneTimeToken = false;
 
     $scope.username = localStorage.getItem('userName');

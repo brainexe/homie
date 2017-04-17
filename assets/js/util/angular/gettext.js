@@ -1,6 +1,12 @@
 
 App.service('_', /*@ngInject*/ function ($rootScope, gettextCatalog, lodash) {
-    var cachedFunction = lodash.memoize(gettextCatalog.getString.bind(gettextCatalog));
+    var cachedFunction;
+
+    if (lodash) { // todo matze
+        cachedFunction = lodash.memoize(gettextCatalog.getString.bind(gettextCatalog));
+    } else {
+        gettextCatalog.getString.bind(gettextCatalog);
+    }
 
     $rootScope.$on('gettextLanguageChanged', function() {
         console.debug('Clear language cache');

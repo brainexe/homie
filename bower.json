@@ -17,7 +17,7 @@
     "angular": "1.6.*",
     "angular-route": "1.6.*",
     "angular-bootstrap": "0.14.*",
-    "angular-gettext": "2.3.8",
+    "angular-gettext": "2.3.9",
     "angular-cache": "~4.6",
     "angular-native-dragdrop": "~1.2.0",
     "angular-bootstrap-colorpicker": "~3.0",

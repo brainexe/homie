@@ -51,7 +51,7 @@ class OnBoard extends AbstractSensor implements Searchable
     {
         $content = $this->fileSystem->fileGetContents($sensor->parameter);
 
-        return $this->round($content / 1000, 0.01);
+        return $this->round(trim($content) / 1000, 0.01);
     }
 
     /**
