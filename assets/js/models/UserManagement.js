@@ -34,8 +34,12 @@ App.service('UserManagement', ["$http", "$rootScope", "Cache", function($http, $
         login (payload) {
             clearCache();
             return $http.post('/login/', payload).then(function(result) {
+                let user = result.data;
+
                 clearCache();
-                setCurrentUser(result.data);
+                setCurrentUser(user);
+
+                return user;
             });
         },
 

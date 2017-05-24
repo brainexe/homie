@@ -12,6 +12,7 @@
 - SensorWidget
 - ShoppingList
 - Speak
+- SpeechRecognition
 - Status
 - SwitchWidget
 - Time
@@ -25,4 +26,4 @@ ls src/Homie/Dashboard/Widgets/*.php | awk -F "/" '{print "- " substr($5, 0, len
 ## Add a new widget
  - implement AbstractWidget in PHP (@Widget annotation)
  - assets/templates/widgets/NAME.html
- - assets/js/controller/dashboard/widgets/NAME.js
+ - assets/js/controller/modules/dashboard/widgets/NAME.js

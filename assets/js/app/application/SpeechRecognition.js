@@ -15,12 +15,20 @@ App.run(/*@ngInject*/ function($rootScope, $uibModal, Speech, UserManagementSett
         $rootScope.speechRecognition.recognizing = true;
         $rootScope.speechRecognition.final_transcript = '';
 
-        var recognition = new globalRecognition();
+        /*
+        document.addEventListener('keydown', function(event) {
+            if (event.keyCode === 13) {
+                console.debug('ENTER was pressed');
+            }
+        });
+        */
+
+        let recognition = new globalRecognition();
         recognition.continuous = true;
         recognition.interimResults = true;
-        recognition.lang = "de-DE"; // todo set correct loale
+        recognition.lang = "de-DE"; // todo set correct locale
 
-        var modal = $uibModal.open({
+        let modal = $uibModal.open({
             windowClass: "speechRecognitionModal",
             templateUrl: "/templates/modal/speechRecognition.html"
         });

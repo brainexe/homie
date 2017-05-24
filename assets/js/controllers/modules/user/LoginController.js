@@ -17,21 +17,20 @@ App.controller('LoginController', /*@ngInject*/ function ($scope, $location, Use
             one_time_token: $scope.one_time_token
         };
 
-        UserManagement.login(payload).then(function (result) {
-            result = result.data;
-            if (!result) {
+        UserManagement.login(payload).then(function (user) {
+            if (!user) {
                 return;
             }
-            var message = _("Welcome back {0}!").format(result.username);
+            let message = _("Welcome back {0}!").format(user.username);
             Flash.addFlash(message, Flash.SUCCESS);
 
-            localStorage.setItem('userName', result.username);
+            localStorage.setItem('userName', user.username);
             $location.path("/dashboard");
         });
     };
 
     var checkOneTimeToken = $scope.usernameBlur = function () {
-        var username = $scope.username;
+        let username = $scope.username;
 
         if (!username) {
             $scope.needsOneTimeToken = false;

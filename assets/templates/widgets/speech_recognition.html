@@ -1,0 +1,17 @@
+
+<div class="input-group" role="group">
+    <input
+            class="form-control"
+            type="text"
+            ng-model="text"
+            ng-enter="submit(text)"
+            placeholder="{{'What time is it?'|translate}}"
+    />
+    <a
+            ng-click="submit(text)"
+            uib-tooltip="{{'Submit'|translate}}"
+            class="input-group-addon btn btn-default"
+    >
+        <span class="glyphicon glyphicon-play"></span>
+    </a>
+</div>
