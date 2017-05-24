@@ -38,6 +38,9 @@ class Language implements ExpressionFunctionProviderInterface
         ];
     }
 
+    /**
+     * @return ExpressionFunction
+     */
     private function getSensorValue()
     {
         return new ExpressionFunction('getSensorValue', function (int $sensorId) {
@@ -46,10 +49,13 @@ class Language implements ExpressionFunctionProviderInterface
                 $sensorId
             );
         }, function (array $variables, int $sensorId) {
-            return $this->gateway->getSensor($sensorId)['lastValue'];
+            return $this->gateway->getSensor($sensorId)['lastValue'] ?? null;
         });
     }
 
+    /**
+     * @return ExpressionFunction
+     */
     private function getSensor()
     {
         return new ExpressionFunction('getSensor', function (int $sensorId) {
@@ -59,6 +65,9 @@ class Language implements ExpressionFunctionProviderInterface
         });
     }
 
+    /**
+     * @return ExpressionFunction
+     */
     private function isSensorValue()
     {
         return new ExpressionFunction('isSensorValue', function (int $sensorId) {

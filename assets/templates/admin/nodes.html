@@ -35,7 +35,7 @@
                             </a>
                         </div>
                         &nbsp;
-                        <label>{{key}}:</label> {{ value }}
+                        <label>{{key}}:</label> <span ng-bind="value"></span>
                     </li>
                 </ul>
                 <a ng-if="node.edit" ng-click="addOption(node.options)" class="btn btn-success">

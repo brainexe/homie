@@ -2,10 +2,10 @@
   "dependencies": {
     "bluebird": "^3.5.0",
     "colors": "^1.1.2",
-    "debug": "^2.6.3",
+    "debug": "^2.6.6",
     "node-metawear": "^0.3.7",
     "node-motion": "^0.1.4",
-    "pm2": "~2.4.5",
+    "pm2": "~2.4.6",
     "redis": "^2.7.1",
     "websocket-node": "brainexe/websocket-node"
   },
@@ -20,7 +20,7 @@
     "grunt-contrib-cssmin": "^2.1.0",
     "grunt-contrib-htmlmin": "^2.3.0",
     "grunt-contrib-sass": "^1.0.0",
-    "grunt-contrib-uglify": "gruntjs/grunt-contrib-uglify#harmony",
+    "grunt-contrib-uglify": "ctaverne/grunt-contrib-uglify#harmony",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-exec": "~2.0",
     "grunt-manifest": "^0.4.4",

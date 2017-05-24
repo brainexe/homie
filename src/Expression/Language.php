@@ -44,7 +44,10 @@ class Language extends ExpressionLanguage
      */
     public function register($name, callable $compiler, callable $evaluator)
     {
-        $this->functions[$name] = array('compiler' => $compiler, 'evaluator' => $evaluator);
+        $this->functions[$name] = [
+            'compiler'  => $compiler,
+            'evaluator' => $evaluator
+        ];
     }
 
     /**

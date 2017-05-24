@@ -21,7 +21,7 @@ App.controller('AdminNodesController', /*@ngInject*/ function ($scope, Nodes, Or
     };
 
     $scope.edit = function($index, node) {
-        Nodes.edit(node).data(function(newNode) {
+        Nodes.edit(node).then(function(newNode) {
             $scope.nodes[$index] = newNode.data;
             $scope.newNode = {};
         });
@@ -29,6 +29,7 @@ App.controller('AdminNodesController', /*@ngInject*/ function ($scope, Nodes, Or
     $scope.removeOption = function(options, key) {
         delete options[key];
     };
+
     $scope.addOption = function(options) {
         var key   = prompt("Key");
         var value = prompt("Value");
