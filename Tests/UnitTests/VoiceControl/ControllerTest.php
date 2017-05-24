@@ -29,8 +29,7 @@ class ControllerTest extends TestCase
     {
         $this->dispatcher  = $this->createMock(EventDispatcher::class);
 
-        $this->subject = new Controller();
-        $this->subject->setEventDispatcher($this->dispatcher);
+        $this->subject = new Controller($this->dispatcher);
     }
 
     public function testSpeech()

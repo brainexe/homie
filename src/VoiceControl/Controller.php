@@ -5,7 +5,6 @@ namespace Homie\VoiceControl;
 use BrainExe\Core\Annotations\Controller as ControllerAnnotation;
 use BrainExe\Core\Annotations\Route;
 use BrainExe\Core\EventDispatcher\EventDispatcher;
-use BrainExe\Core\Traits\EventDispatcherTrait;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -39,7 +38,7 @@ class Controller
 
         $event = new VoiceEvent(trim($text));
 
-        $this->dispatchEvent($event);
+        $this->dispatcher->dispatchEvent($event);
 
         return true;
     }
