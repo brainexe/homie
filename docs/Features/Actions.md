@@ -9,8 +9,8 @@ php console expression:list
 ```
 
 ## Native PHP functions
- - sprintf(...) 
- - date(string[, int]) 
+ - sprintf(...)
+ - date(string[, int])
  - time()
  - microtime([bool])
  - rand([number, number])
@@ -18,22 +18,22 @@ php console expression:list
  - sleep(number)
  - preg_match()
  - constant
- 
+
 ## Dealing with events
  - isEvent(string $eventName)
  - isTiming(string $timingId) // check for timing/cron event
  - event(string EventName, ...parameters) // dispatch an internal event
 
-## Store data 
- - setProperty(key, value)
- - getProperty(key)
- - increaseCounter()
+## Store data
+ - setVariable(key, value)
+ - getVariable(key)
+ - increaseVariable()
 
 ## Sensor
  - getSensorValue(int $sensorId)
  - getSensor(int $sensorId)
  - isSensorValue(int $sensorId)
-  
+
 ## Misc
  - say(string $text)
  - sendMail(recipientMail, subject, body)
@@ -57,7 +57,7 @@ php console expression:list
 Enabled between 2AM and 7AM
 ```
 Condition: isEvent("motion.motion") && date('G') > 2 && date('G') <= 6
-Actions: 
+Actions:
  - sendMail("yourname@example.com", "Motion detected in your flat", "Motion detected in your flat"')
  - say("Go away, police is called")
  - exec('webcam video 10 seconds')

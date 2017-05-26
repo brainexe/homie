@@ -28,7 +28,7 @@ class Listener
      * @Listen(SoundEvent::PLAY_SOUND)
      * @param SoundEvent $event
      */
-    public function handleEvent(SoundEvent $event)
+    public function handleEvent(SoundEvent $event): void
     {
         $this->sound->playSound($event->getFileName());
     }

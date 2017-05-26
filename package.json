@@ -2,23 +2,23 @@
   "dependencies": {
     "bluebird": "^3.5.0",
     "colors": "^1.1.2",
-    "debug": "^2.6.6",
-    "node-metawear": "^0.3.7",
+    "debug": "^2.6.8",
+    "node-metawear": "^1.0.1",
     "node-motion": "^0.1.4",
     "pm2": "~2.4.6",
     "redis": "^2.7.1",
     "websocket-node": "brainexe/websocket-node"
   },
   "devDependencies": {
-    "glob": "^7.1.1",
+    "glob": "^7.1.2",
     "grunt": "~0.4.1",
     "grunt-angular-gettext": "~2.3",
     "grunt-concurrent": "^2.3.1",
     "grunt-contrib-clean": "^1.1.0",
-    "grunt-contrib-compress": "^1.4.1",
+    "grunt-contrib-compress": "^1.4.3",
     "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-cssmin": "^2.1.0",
-    "grunt-contrib-htmlmin": "^2.3.0",
+    "grunt-contrib-cssmin": "^2.2.0",
+    "grunt-contrib-htmlmin": "^2.4.0",
     "grunt-contrib-sass": "^1.0.0",
     "grunt-contrib-uglify": "ctaverne/grunt-contrib-uglify#harmony",
     "grunt-contrib-watch": "^1.0.0",
@@ -27,7 +27,7 @@
     "grunt-po2mo": "^0.1.2",
     "grunt-uniqueify": "brainexe/grunt-uniqueify",
     "lodash-cli": "^4.17.4",
-    "protractor": "^5.1.1"
+    "protractor": "^5.1.2"
   },
   "license": "MIT",
   "scripts": {

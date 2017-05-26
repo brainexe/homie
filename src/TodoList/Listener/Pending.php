@@ -63,7 +63,7 @@ class Pending
      * @Listen(TodoListEvent::PENDING)
      * @param TodoListEvent $event
      */
-    public function handlePendingEvent(TodoListEvent $event)
+    public function handlePendingEvent(TodoListEvent $event): void
     {
         $oldItem = $event->getItemVo();
         try {
@@ -74,7 +74,7 @@ class Pending
 
         if (TodoItemVO::STATUS_PENDING === $currentItem->status) {
             $espeakVo = new EspeakVO(
-                $this->translate('Todo list item %s is open again', $currentItem->name)
+                $currentItem->name
             );
             $espeakEvent = new EspeakEvent($espeakVo);
             $this->dispatchInBackground($espeakEvent);

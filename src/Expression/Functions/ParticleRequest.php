@@ -81,7 +81,8 @@ class ParticleRequest implements ExpressionFunctionProviderInterface
             $url = sprintf(
                 self::DEVICE_URL,
                 $node->getOption('deviceId'),
-                $node->getOption('accessToken')
+                $node->getOption('accessToken'),
+                ''
             );
 
             $data = json_decode($this->makeRequest('GET', $url), true);

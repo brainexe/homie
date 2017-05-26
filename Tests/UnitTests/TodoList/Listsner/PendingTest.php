@@ -49,7 +49,7 @@ class PendingTest extends TestCase
         $this->subject->setEventDispatcher($this->dispatcher);
     }
 
-    public function testHandleEditEventWithoutCronExpression()
+    public function testHandleEditEventWithoutCronExpression(): void
     {
         $itemVo = new TodoItemVO();
         $itemVo->cronExpression = '';
@@ -65,7 +65,7 @@ class PendingTest extends TestCase
         $this->subject->handleEditEvent($event);
     }
 
-    public function testHandleEditEventWithCronExpression()
+    public function testHandleEditEventWithCronExpression(): void
     {
         $itemVo = new TodoItemVO();
         $itemVo->cronExpression = '@daily';
@@ -91,7 +91,7 @@ class PendingTest extends TestCase
         $this->subject->handleEditEvent($event);
     }
 
-    public function testHandlePendingEventWithExpiredItem()
+    public function testHandlePendingEventWithExpiredItem(): void
     {
         $itemVo = new TodoItemVO();
         $itemVo->todoId = 42;
@@ -112,12 +112,13 @@ class PendingTest extends TestCase
         $this->subject->handlePendingEvent($event);
     }
 
-    public function testHandlePendingEvent()
+    public function testHandlePendingEvent(): void
     {
         $itemVo = new TodoItemVO();
         $itemVo->todoId = 42;
         $itemVo->status = TodoItemVO::STATUS_PENDING;
         $itemVo->cronExpression = '* * * * *';
+        $itemVo->name = 'name';
 
         $event = new TodoListEvent($itemVo, TodoListEvent::PENDING);
 

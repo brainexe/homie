@@ -49,7 +49,7 @@ class Node implements JsonSerializable, TranslationProvider
     /**
      * @var array
      */
-    private $options;
+    private $options = [];
 
     /**
      * @param int $nodeId
@@ -72,7 +72,7 @@ class Node implements JsonSerializable, TranslationProvider
     /**
      * @param array $options
      */
-    public function setOptions(array $options)
+    public function setOptions(array $options): void
     {
         $this->options = $options;
     }
@@ -80,7 +80,7 @@ class Node implements JsonSerializable, TranslationProvider
     /**
      * @param string $name
      */
-    public function setName(string $name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -112,6 +112,7 @@ class Node implements JsonSerializable, TranslationProvider
     /**
      * @param string $key
      * @return string
+     * @throws InvalidArgumentException
      */
     public function getOption(string $key) : string
     {

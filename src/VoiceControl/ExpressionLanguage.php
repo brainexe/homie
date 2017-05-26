@@ -29,7 +29,6 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
                 self::class
             );
         }, function (array $variables, int $index = 0) {
-            unset($variables);
             return (string)self::$currentMatch[$index];
         });
 

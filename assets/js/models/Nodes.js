@@ -11,12 +11,20 @@ App.service('Nodes', /*@ngInject*/ function($http, Cache) {
 
         add (node) {
             clearCache();
-            return $http.post('/nodes/', node);
+
+            let newNode = angular.copy(node);
+            newNode.options = JSON.stringify(node.options);
+
+            return $http.post('/nodes/', newNode);
         },
 
         edit (node) {
             clearCache();
-            return $http.put(`/nodes/${node.nodeId}/`, node);
+
+            let newNode = angular.copy(node);
+            newNode.options = JSON.stringify(node.options);
+
+            return $http.put(`/nodes/${node.nodeId}/`, newNode);
         },
 
         remove (node) {

@@ -118,7 +118,7 @@ class AddTest extends TestCase
         $sensor1
             ->expects($this->once())
             ->method('isSupported')
-            ->with($this->isInstanceOf(SensorVO::class), $output)
+            ->with($this->isInstanceOf(SensorVO::class))
             ->willReturn(false);
 
         $input = ['--force'];
@@ -222,7 +222,7 @@ class AddTest extends TestCase
         $sensor2
             ->expects($this->once())
             ->method('isSupported')
-            ->with($this->isInstanceOf(SensorVO::class), $output)
+            ->with($this->isInstanceOf(SensorVO::class))
             ->willReturn(true);
 
         $expectedVo              = new SensorVO();

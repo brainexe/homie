@@ -314,13 +314,13 @@ module.exports = function (grunt) {
                 cwd: 'web/',
                 options: {
                     network:        ['*'],
-                    fallback:       ['/index.html'],
+                    fallback:       '/ /templates/offline.html',
                     exclude:        ['manifest.appcache'],
                     preferOnline:   true,
                     basePath:       'web',
                     timestamp:      false,
                     verbose:        false,
-                    master:         ['index.html']
+                    master:         ['index.html'],
                 },
                 src: [
                     '**/*.{html,js,json,css,jpg,png,woff,woff2,ttf,svg,eot,ico}'

@@ -44,7 +44,7 @@ App.controller('EditSensorsController', /*@ngInject*/ function($scope, $uibModal
         return $scope.sensors.filter(function(sensor) {
             if (!sensor || sensor.edit) {
                 return true;
-            } else if (!$scope.showDisabled && sensor.interval <= 0) {
+            } else if ($scope.showDisabled != sensor.interval <= 0) {
                 return false;
             }
 

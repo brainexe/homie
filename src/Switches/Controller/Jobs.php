@@ -49,8 +49,6 @@ class Jobs
      */
     public function setStatus(Request $request, int $switchId, $status)
     {
-        unset($request);
-
         $switch = $this->switches->get($switchId);
 
         $event = new SwitchChangeEvent($switch, $status);

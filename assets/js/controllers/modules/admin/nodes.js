@@ -1,39 +1,45 @@
 
-App.controller('AdminNodesController', /*@ngInject*/ function ($scope, Nodes, OrderByMixin) {
+App.controller('AdminNodesController', /*@ngInject*/ function ($scope, Nodes, OrderByMixin, lodash) {
     angular.extend($scope, OrderByMixin);
 
-    $scope.nodes      = [];
+    $scope.nodes      = {};
     $scope.currentId  = [];
     $scope.types      = [];
     $scope.newNode    = {};
     $scope.orderBy    = 'name';
 
     Nodes.getData().then(function(data) {
-        $scope.nodes      = data.data.nodes;
+        $scope.nodes      = lodash.keyBy(data.data.nodes, 'nodeId');
         $scope.currentId  = data.data.currentId;
         $scope.types      = data.data.types;
     });
 
     $scope.addNode = function(node) {
         Nodes.add(node).then(function(newNode) {
-            $scope.nodes.push(newNode.data);
+            $scope.nodes[newNode.nodeId] = newNode.data;
         });
     };
 
-    $scope.edit = function($index, node) {
+    $scope.edit = function(node) {
         Nodes.edit(node).then(function(newNode) {
-            $scope.nodes[$index] = newNode.data;
+            $scope.nodes[newNode.data.nodeId] = newNode.data;
             $scope.newNode = {};
         });
     };
+
     $scope.removeOption = function(options, key) {
         delete options[key];
     };
 
-    $scope.addOption = function(options) {
+    $scope.addOption = function(node) {
         var key   = prompt("Key");
         var value = prompt("Value");
-        options[key] = value;
+
+        if (Array.isArray(node.options)) {
+            node.options = {};
+        }
+
+        node.options[key] = value;
     };
 
     $scope.editOption = function(options, key) {
@@ -41,9 +47,9 @@ App.controller('AdminNodesController', /*@ngInject*/ function ($scope, Nodes, Or
         options[key] = value;
     };
 
-    $scope.remove = function($index, node) {
+    $scope.remove = function(node) {
         Nodes.remove(node).then(function() {
-            $scope.nodes.splice($index, 1);
+            delete $scope.nodes[node.nodeId];
         });
     };
 });

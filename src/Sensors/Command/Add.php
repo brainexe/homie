@@ -153,7 +153,7 @@ class Add extends Command
         $sensorVo->parameter = $this->getRawParameter($sensor);
 
         /** @var Sensor $sensor */
-        if (!$sensor->isSupported($sensorVo, $this->output)) {
+        if (!$sensor->isSupported($sensorVo)) {
             $this->output->writeln('<error>Sensor is not supported</error>');
             throw new Exception(sprintf('Parameter "%s" is not supported', $sensorVo->parameter));
         }
