@@ -60,14 +60,14 @@ class Administration
      */
     public function addSensor(Request $request) : SensorVO
     {
-        $sensorType  = (string)$request->request->getAlpha('type');
+        $sensorType  = (string)$request->request->get('type');
         $name        = $request->request->get('name');
         $description = $request->request->get('description');
         $parameter   = $request->request->get('parameter');
         $interval    = $request->request->getInt('interval');
         $node        = $request->request->getInt('node');
         $color       = $request->request->get('color') ?? '#aaaaaa';  // todo random color
-        $formatter   = (string)$request->request->getAlnum('formatter');
+        $formatter   = (string)$request->request->get('formatter');
         $tags        = (array)$request->request->get('tags');
 
         $sensorVo = $this->voBuilder->build(

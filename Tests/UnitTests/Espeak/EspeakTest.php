@@ -39,7 +39,7 @@ class EspeakTest extends TestCase
 
         $this->client
             ->expects($this->never())
-            ->method('execute');
+            ->method('executeWithReturn');
 
         $this->subject->speak($text, $volume, $speed, $speaker);
     }
@@ -53,7 +53,7 @@ class EspeakTest extends TestCase
 
         $this->client
             ->expects($this->once())
-            ->method('execute');
+            ->method('executeWithReturn');
 
         $this->subject->speak($text, $volume, $speed, $speaker);
     }

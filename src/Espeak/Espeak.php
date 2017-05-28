@@ -56,7 +56,7 @@ class Espeak
             return;
         }
 
-        $this->client->execute($this->command, [
+        $this->client->executeWithReturn($this->command, [
             $text,
             '-s', $speed,
             '-a', $volume,
