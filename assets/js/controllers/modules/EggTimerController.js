@@ -1,15 +1,18 @@
 
-App.controller('EggTimerController', /*@ngInject*/ function ($scope, EggTimer, MessageQueue) {
+App.controller('EggTimerController', /*@ngInject*/ function ($scope, EggTimer, Sound, MessageQueue) {
+    const SOUND_FILE = '/sounds/egg_timer.mp3';
+
     $scope.time = '';
     $scope.text = '';
     $scope.jobs = {};
 
+
     MessageQueue.getJobs(EggTimer.JOB_ID).then(function (jobs) {
-        $scope.jobs = jobs.data;
+        $scope.jobs = jobs;
     });
 
     $scope.$on(MessageQueue.JOBS_HANDLED, function(event, data) {
-        var job = data.job;
+        let job = data.job;
         if ($scope.jobs[job.jobId]) {
             delete $scope.jobs[job.jobId];
         }
@@ -27,9 +30,18 @@ App.controller('EggTimerController', /*@ngInject*/ function ($scope, EggTimer, M
     /**
      * @param {String} jobId
      */
+    $scope.removeOverdue = function (jobId) {
+        Sound.play(SOUND_FILE);
+
+        delete $scope.jobs[jobId];
+    };
+
+    /**
+     * @param {String} jobId
+     */
     $scope.deleteTimer = function (jobId) {
         MessageQueue.deleteJob(jobId).then(function() {
-            delete $scope.jobs[jobId];
+            $scope.removeOverdue(jobId);
         });
     };
 });

@@ -28,3 +28,7 @@
 <div
         ng-if="(crons|notEmpty) || editMode"
         ng-include="'/templates/crons.html'"></div>
+
+<div ng-if="expressions|notEmpty" class="alert alert-info alert-dismissable">
+    <span translate>No expressions defined yet!</span>
+</div>

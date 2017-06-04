@@ -17,7 +17,7 @@ App.controller('StatusController', /*@ngInject*/ function ($scope, $interval, St
     });
 
     $scope.$on(MessageQueue.JOBS_HANDLED, function(event, data) {
-        var job = data.job;
+        let job = data.job;
         if ($scope.jobs[job.jobId]) {
             $scope.jobs[job.jobId] = job;
         }
@@ -35,11 +35,17 @@ App.controller('StatusController', /*@ngInject*/ function ($scope, $interval, St
     $scope.update();
 
     /**
-     * @param {String} eventId
+     * @param {String} jobId
      */
-    $scope.deleteEvent = function (eventId) {
-       Status.deleteEvent(eventId).then(function () {
-            delete $scope.jobs[eventId];
+    $scope.deleteJob = function (jobId) {
+        Status.deleteJob(jobId).then(function () {
+            delete $scope.jobs[jobId];
+        });
+    };
+
+    $scope.forceJob = function (jobId) {
+        Status.forceJob(jobId).then(function () {
+            delete $scope.jobs[jobId];
         });
     };
 

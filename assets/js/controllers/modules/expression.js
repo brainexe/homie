@@ -15,8 +15,8 @@ App.controller('ExpressionController', /*@ngInject*/ function ($scope, $q, Expre
     });
 
     $scope.reloadCrons = function() {
-        return MessageQueue.getJobs('message_queue.cron').then(function(data) {
-            $scope.crons = data.data;
+        return MessageQueue.getJobs('message_queue.cron').then(function(jobs) {
+            $scope.crons = jobs;
         });
     };
 
@@ -25,7 +25,7 @@ App.controller('ExpressionController', /*@ngInject*/ function ($scope, $q, Expre
         ExpressionFunctions,
         MessageQueue.getJobs('message_queue.cron')
     ]).then(function(data) {
-        $scope.expressions = data[0].data;
+        $scope.expressions = data[0];
         $scope.functions   = data[1];
         $scope.crons       = data[2].data;
     });

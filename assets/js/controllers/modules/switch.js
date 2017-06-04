@@ -23,8 +23,8 @@ App.controller('SwitchController', /*@ngInject*/ function ($scope, Switches, Nod
         $scope.nodes = data.data.nodes;
     });
 
-    MessageQueue.getJobs(Switches.JOB_ID).then(function(data) {
-        $scope.jobs = data.data;
+    MessageQueue.getJobs(Switches.JOB_ID).then(function(jobs) {
+        $scope.jobs = jobs;
     });
 
     $scope.$on(MessageQueue.JOBS_HANDLED , function(event, data) {
@@ -66,8 +66,8 @@ App.controller('SwitchController', /*@ngInject*/ function ($scope, Switches, Nod
 
     $scope.addJob = function (newJob) {
         Switches.addJob(newJob).then(function() {
-            MessageQueue.getJobs(Switches.JOB_ID, true).then(function(data) {
-                $scope.jobs = data.data;
+            MessageQueue.getJobs(Switches.JOB_ID, true).then(function(jobs) {
+                $scope.jobs = jobs;
             });
         });
     };

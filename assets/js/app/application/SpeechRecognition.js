@@ -2,6 +2,8 @@
 App.run(/*@ngInject*/ function($rootScope, $uibModal, Speech, UserManagementSettings, Flash) {
     var globalRecognition = window.webkitSpeechRecognition || window.speechRecognition;
     if (!globalRecognition) {
+        console.log("window.speechRecognition is not supported!");
+
         return;
     }
 
@@ -15,13 +17,7 @@ App.run(/*@ngInject*/ function($rootScope, $uibModal, Speech, UserManagementSett
         $rootScope.speechRecognition.recognizing = true;
         $rootScope.speechRecognition.final_transcript = '';
 
-        /*
-        document.addEventListener('keydown', function(event) {
-            if (event.keyCode === 13) {
-                console.debug('ENTER was pressed');
-            }
-        });
-        */
+
 
         let recognition = new globalRecognition();
         recognition.continuous = true;
@@ -37,7 +33,19 @@ App.run(/*@ngInject*/ function($rootScope, $uibModal, Speech, UserManagementSett
             console.error(event);
         };
 
+        function onEnter(event) {
+            if (event.keyCode === 13) {
+                console.debug('ENTER was pressed');
+                recognition.stop();
+            }
+        }
+        document.addEventListener('keydown', onEnter);
+        recognition.onend = function () {
+            document.removeEventListener('keydown', onEnter);
+        };
+
         recognition.onresult = function(event) {
+            console.debug(event)
             $rootScope.speechRecognition.interim_transcript = '';
             $rootScope.speechRecognition.final_transcript = '';
             if (typeof event.results === 'undefined') {
@@ -46,7 +54,7 @@ App.run(/*@ngInject*/ function($rootScope, $uibModal, Speech, UserManagementSett
             }
             for (let i = event.resultIndex; i < event.results.length; ++i) {
                 if (event.results[i].isFinal) {
-                    $rootScope.speechRecognition.final_transcript += event.results[i][0].transcript;
+                    $rootScope.speechRecognition.final_transcript   += event.results[i][0].transcript;
                 } else {
                     $rootScope.speechRecognition.interim_transcript += event.results[i][0].transcript;
                 }

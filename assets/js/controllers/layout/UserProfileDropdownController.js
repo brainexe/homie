@@ -3,7 +3,7 @@ App.controller('UserProfileDropdownController', /*@ngInject*/ function ($scope, 
     $scope.locales = [];
 
     Config.getAll().then(function(config) {
-        $scope.locales = config.data.locales;
+        $scope.locales = config.locales;
     });
 });
 

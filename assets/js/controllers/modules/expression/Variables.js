@@ -5,7 +5,7 @@ App.controller('ExpressionVariablesController', /*@ngInject*/ function ($scope, 
     $scope.newValue  = '';
 
     Expression.getVariables().then(function (variables) {
-        $scope.variables = variables.data;
+        $scope.variables = variables.data || {};
     });
 
     $scope.setVariable = function (key, value) {

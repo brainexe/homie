@@ -2,7 +2,6 @@
 /app/config.xml
 /bower_components
 /coverage
-/lang/pot/all.pot
 /vendor
 /web/*
 /node_modules

@@ -18,10 +18,10 @@ App.service('ExpressionFunctions', /*@ngInject*/ function ($q, Expression, Messa
         Expression.getFunctions(),
         Sensor.getCachedData()
     ]).then(function(data) {
-        var crons       = data[0].data;
+        var crons       = data[0];
         var events      = data[1].data;
         var functions   = data[2].data;
-        var sensors     = data[3].data.sensors;
+        var sensors     = data[3].sensors;
         var functionName;
 
         for (functionName in functions) {

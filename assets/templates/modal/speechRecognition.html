@@ -1,1 +1,4 @@
-<div class="modal-body" ng-bind="speechRecognition.interim_transcript"></div>
+<div class="modal-body" >
+    <span ng-if="!speechRecognition.interim_transcript" translate>Say something...</span>
+    <div ng-bind="speechRecognition.interim_transcript"></div>
+</div>

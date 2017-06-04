@@ -11,7 +11,7 @@
     <tbody>
     <tr ng-repeat="(job_id, job) in jobs">
         <td>
-            <job-progress job="job" overdue="true"></job-progress>
+            <job-progress job="job" overdue="true" finished="removeOverdue(job_id)"></job-progress>
         </td>
         <td>{{ job.event.espeak.text || "--" }}</td>
         <td>

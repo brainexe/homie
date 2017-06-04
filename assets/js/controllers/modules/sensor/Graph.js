@@ -11,8 +11,7 @@ App.service('SensorGraph', /*@ngInject*/ function ($uibModal, Sensor, SensorForm
             }
         });
 
-        Sensor.getCachedData().then(function(result) {
-            let data = result.data;
+        Sensor.getCachedData().then(function(data) {
             $scope.types         = data.types;
             $scope.fromIntervals = data.fromIntervals;
             $scope.sensors       = data.sensors;
@@ -29,7 +28,7 @@ App.service('SensorGraph', /*@ngInject*/ function ($uibModal, Sensor, SensorForm
 
                 $scope.graph = new rickshaw({
                     element: element.querySelector('.chart'),
-                    width: element.clientWidth - 40,
+                    width: (element.clientWidth || 1000) - 40,
                     interpolation: 'basis',
                     height: height,
                     min: 'auto',

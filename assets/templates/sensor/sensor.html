@@ -1,5 +1,5 @@
 
-<nav ng-if="sensors" class="navbar navbar-default" role="navigation">
+<nav ng-if="sensors.length" class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" ng-click="isCollapsed = !isCollapsed">
@@ -39,7 +39,7 @@
                             <ul class="dropdown-menu">
                                 <li ng-repeat="(interval, label) in fromIntervals" ng-class="{active:(interval == ago)}">
                                     <a ng-click="sensorView(null, interval)">
-                                        {{ label }}
+                                        {{label}}
                                     </a>
                                 </li>
                             </ul>
@@ -51,8 +51,13 @@
 	</div>
 </nav>
 
-<div class="chart_container">
+<div ng-show="sensors.length" class="chart_container">
 	<div class="y_axis"></div>
 	<div class="chart"></div>
     <div class="legend"></div>
+</div>
+
+<div ng-if="!sensors.length" class="alert alert-info alert-dismissable">
+    <span translate>No sensors defined yet!</span>
+    <button translate class="btn btn-primary" ng-click="addModal()">Create one here!</button>
 </div>

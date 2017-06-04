@@ -62,10 +62,10 @@
 
                         <div class="btn-group">
                             <a
-                                    ng-click="currentScreen.content.push('\'\'')"
+                                    ng-click="currentScreen.content.slice($index, 1)"
                                     class="btn btn-danger glyphicon glyphicon-minus"></a>
                             <a
-                                    ng-click=""
+                                    ng-click="currentScreen.content.push('\'\'')"
                                     class="btn btn-success glyphicon glyphicon-plus"></a>
                         </div>
                     </div>

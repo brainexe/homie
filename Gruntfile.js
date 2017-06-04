@@ -19,7 +19,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-concurrent');
 
     grunt.config('env', grunt.option('env') || process.env.ENVIRONMENT || 'development');
-    var isProduction = grunt.config('env') === 'production';
+    const isProduction = grunt.config('env') === 'production';
 
     var locales = glob.sync('*.po', {cwd:'lang/'}).map(function(filename) {
         return filename.replace('.po', '');
@@ -47,11 +47,11 @@ module.exports = function (grunt) {
         'uglify',
         'htmlmin',
         'sass',
-        'cssmin'
+        'cssmin',
+        'manifest'
     ];
 
     if (isProduction) {
-        defaultTasks.push('manifest');
         defaultTasks.push('uniqueify');
         defaultTasks.push('compress');
     }
@@ -186,7 +186,7 @@ module.exports = function (grunt) {
                 files: [
                     {
                         expand: true,
-                        src: ['**/*.ico', '**/*.png', '**/*.jpg', '*.json'],
+                        src: ['**/*.ico', '**/*.png', '**/*.jpg', '**/*.mp3', '*.json'],
                         cwd: 'assets/',
                         dest: 'web/'
                     },
@@ -208,7 +208,12 @@ module.exports = function (grunt) {
                 options: {
                     sourceMap: true,
                     keepSpecialComments: 0,
-                    sourceMapName: 'web/appcss.map'
+                    sourceMapName: 'web/appcss.map',
+                    level: {
+                        2: {
+                            all: true,
+                        }
+                    }
                 },
                 files: {
                     'web/app.css': [
@@ -225,7 +230,8 @@ module.exports = function (grunt) {
             templates: {
                 options: {
                     removeComments: true,
-                    collapseWhitespace: true
+                    collapseWhitespace: true,
+                    minifyCSS: true
                 },
                 files: [{
                     expand: true,
@@ -242,6 +248,7 @@ module.exports = function (grunt) {
                     compress: {
                         unsafe:         true,
                         unsafe_comps:   true,
+                        unsafe_math:    true,
                         angular:        true,
                         pure_getters:   true,
                         hoist_funs:     true,
@@ -314,7 +321,7 @@ module.exports = function (grunt) {
                 cwd: 'web/',
                 options: {
                     network:        ['*'],
-                    fallback:       '/ /templates/offline.html',
+                    fallback:       ['/', '/templates/offline.html'],
                     exclude:        ['manifest.appcache'],
                     preferOnline:   true,
                     basePath:       'web',
@@ -387,6 +394,7 @@ module.exports = function (grunt) {
                 src: 'lang/' + locale + '.po',
                 dest: 'cache/lang/' + locale + '/LC_MESSAGES/messages.mo'
             };
+
             return all;
         }, {}),
         uniqueify: {
@@ -396,7 +404,7 @@ module.exports = function (grunt) {
                  },
                  files: [{
                      cwd: 'web/',
-                     src: ['**/*.{js,css,ico,appcache,json}']
+                     src: ['**/*.{js,css,ico,appcache,json,mp3}']
                  }]
              },
              html: {

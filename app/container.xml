@@ -7,6 +7,7 @@
     </imports>
     <parameters>
         <parameter key="application.name">homie</parameter>
+        <parameter key="application.defaultLocale">de_DE</parameter>
         <parameter key="application.allowed_urls" type="collection">
             <parameter>%socket.url%</parameter>
             <parameter>localhost:35729</parameter>
@@ -37,6 +38,7 @@
             <parameter key="debug">%debug%</parameter>
             <parameter key="socketUrl">%socket.url%</parameter>
             <parameter key="locales">%locales%</parameter>
+            <parameter key="defaultLocale">%application.defaultLocale%</parameter>
             <parameter key="registrationEnabled">%application.registration_enabled%</parameter>
         </parameter>
     </parameters>

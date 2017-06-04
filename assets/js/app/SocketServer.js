@@ -1,21 +1,33 @@
 
 App.run(/*@ngInject*/ (Config, $rootScope) => {
-    $rootScope.$on('currentuser.authorized', function (event) {
-        Config.getAll().then(function(data) {
-            let config = data.data;
-            if (!config.socketUrl) {
+    let sockjs = null;
+    $rootScope.$on('currentuser.authorized', function (event, user) {
+        Config.getAll().then(function(config) {
+            if (sockjs || !config.socketUrl) {
                 return;
             }
+            sockjs = new SockJS(config.socketUrl);
+            sockjs.onopen = function() {
+                console.debug('connected to socket server');
+                sockjs.send({action: 'auth', userId: user.userId})
+            };
 
-            var sockjs = new SockJS(config.socketUrl);
+            sockjs.onclose = function() {
+                console.debug('disconnected to socket server');
+            };
+
             sockjs.onmessage = function(message) {
-                var event     = JSON.parse(message.data);
-                var eventName = event.eventName;
+                let event     = JSON.parse(message.data);
+                let eventName = event.eventName;
 
                 $rootScope.$broadcast(eventName, event);
 
                 console.log("socket server: " + event.eventName, event);
             };
+
+            sockjs.onerror = function (error) {
+                console.error(error)
+            }
         });
     });
 });

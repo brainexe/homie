@@ -13,7 +13,9 @@ App.service('Sensor', /*@ngInject*/ function($http, $rootScope, Cache) {
         getAll: () => $http.get('/sensors/'),
 
         getCachedData () {
-            return $http.get('/sensors/', {cache: Cache});
+            return $http
+                .get('/sensors/', {cache: Cache})
+                .then(result => result.data);
         },
 
         getValues (sensorsIds, parameters = '') {

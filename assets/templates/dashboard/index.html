@@ -1,9 +1,14 @@
 
-<nav class="navbar navbar-default" ng-include="::'/templates/dashboard/navi.html'"></nav>
+<nav ng-if="dashboard" class="navbar navbar-default" ng-include="::'/templates/dashboard/navi.html'"></nav>
 
-<div ng-include="::'/templates/dashboard/edit.html'" ng-if="editMode"></div>
+<div ng-include="'/templates/dashboard/edit.html'" ng-if="editMode"></div>
 
 <div
         ng-if="dashboard"
         class="span-9 dashboard"
-        ng-include="::'/templates/dashboard/dashboard.html'"></div>
+        ng-include="'/templates/dashboard/dashboard.html'"></div>
+
+<div ng-hide="dashboard" class="alert alert-info alert-dismissable">
+    <span translate>No widgets defined yet!</span>
+    <button translate class="btn btn-primary" ng-click="openModal(dashboards)">Create one here!</button>
+</div>

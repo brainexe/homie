@@ -1,6 +1,7 @@
 
 App.run(/*@ngInject*/ function($rootScope, UserManagementSettings) {
     if (!window.speechSynthesis) {
+        console.log("window.speechSynthesis is not supported!");
         return;
     }
 

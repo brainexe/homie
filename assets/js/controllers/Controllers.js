@@ -1,12 +1,5 @@
 
 App.service("controllers", ["_", function(_) {
-    var controller  = "controller";
-    var name        = "name";
-    var url         = "url";
-    var icon        = "icon";
-    var templateUrl = "templateUrl";
-    var collapsible = "collapsible";
-
     return () =>
         [
             // menu

@@ -5,7 +5,10 @@ App.service('MessageQueue', /*@ngInject*/ function($http) {
 
         getJobs (type, futureOnly = false) {
             futureOnly = futureOnly ? '?future=1' : '';
-            return $http.get(`/jobs/${type}/${futureOnly}`);
+
+            return $http
+                .get(`/jobs/${type}/${futureOnly}`)
+                .then(result => result.data);
         },
 
         deleteJob (jobId) {

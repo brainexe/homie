@@ -4,7 +4,7 @@ App.directive('debug',  /*@ngInject*/ function (Config) {
         restrict: 'A',
         link ($scope, element) {
             Config.getAll().then(function(config) {
-                if (!config.data.debug) {
+                if (!config.debug) {
                     element.replaceWith('');
                 }
             });

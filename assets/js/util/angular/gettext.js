@@ -5,6 +5,7 @@ App.service('_', /*@ngInject*/ function ($rootScope, gettextCatalog, lodash) {
     if (lodash) { // todo matze
         cachedFunction = lodash.memoize(gettextCatalog.getString.bind(gettextCatalog));
     } else {
+        console.error("lodash not loaded!", arguments);
         gettextCatalog.getString.bind(gettextCatalog);
     }
 
@@ -24,26 +25,27 @@ App.run(["$rootScope", "gettextCatalog", "Cache", "Config", function($rootScope,
     gettextCatalog.cache = Cache;
 
     Config.getAll().then(function(config) {
-        if (config.data.debug) {
+        if (config.debug) {
             gettextCatalog.debug       = true;
             gettextCatalog.debugPrefix = '?';
         }
+
+        let storage = localStorage;
+        let locale = config.defaultLocale;
+        if (storage.getItem('language')) {
+            // todo put lang into UserSettings
+            locale = storage.getItem('language');
+        }
+
+        $rootScope.changeLanguage = function(locale) {
+            console.debug('Changed locale to ', locale);
+
+            gettextCatalog.currentLanguage = locale;
+            gettextCatalog.loadRemote(langFiles[locale]);
+            storage.setItem('language', locale);
+        };
+
+        $rootScope.changeLanguage(locale);
     });
 
-    var storage = localStorage;
-    var locale = 'en_US';
-    if (storage.getItem('language')) {
-        // todo put lang into UserSettings
-        locale = storage.getItem('language');
-    }
-
-    $rootScope.changeLanguage = function(locale) {
-        console.debug('Changed locale to ', locale);
-
-        gettextCatalog.currentLanguage = locale;
-        gettextCatalog.loadRemote(langFiles[locale]);
-        storage.setItem('language', locale);
-    };
-
-    $rootScope.changeLanguage(locale);
 }]);

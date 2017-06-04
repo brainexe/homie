@@ -40,7 +40,7 @@ App.controller('MenuController', /*@ngInject*/ function ($scope, $q, $location, 
             UserManagement.loadCurrentUser(),
             UserManagementSettings.getAll()
         ]).then(function(data) {
-            var config     = data[0].data;
+            var config     = data[0];
             var user       = data[1].data;
             var settings   = data[2].data;
             var isLoggedIn = UserManagement.isLoggedIn(user);

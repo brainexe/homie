@@ -9,7 +9,7 @@ App.controller('EspeakController', /*@ngInject*/ function ($scope, Speak, Messag
     });
 
     MessageQueue.getJobs(Speak.JOB_ID).then(function(jobs) {
-        $scope.jobs = jobs.data;
+        $scope.jobs = jobs;
     });
 
     $scope.$on(MessageQueue.JOBS_HANDLED, function(event, data) {

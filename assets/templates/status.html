@@ -28,8 +28,11 @@
 				<job-progress job="job" overdue="true"></job-progress>
 			</td>
 			<td>
-                <a confirm="deleteEvent(job.jobId)" class="btn btn-danger">
+                <a confirm="deleteJob(job.jobId)" class="btn btn-danger">
 					<span class="glyphicon glyphicon-remove"></span>
+				</a>
+                <a ng-click="forceJob(job.jobId)" class="btn btn-danger">
+					<span class="glyphicon glyphicon-play"></span>
 				</a>
             </td>
 		</tr>
