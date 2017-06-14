@@ -11,7 +11,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-manifest');
     grunt.loadNpmTasks('grunt-exec');
     grunt.loadNpmTasks('grunt-po2mo');
@@ -63,7 +63,7 @@ module.exports = function (grunt) {
     grunt.registerTask('extract_lang', ['php_gettext_extract', 'nggettext_extract', 'pot_merge', 'exec:potMerge']);
     grunt.registerTask('compile_lang', ['nggettext_compile', 'po2mo']);
 
-    registerExecTask('bower', 'bower update --production');
+    registerExecTask('bower', './node_modules/bower/bin/bower update --production');
     registerExecTask('lodash', `
         TASKS=$(grep -hoP "lodash\\.\\K(\\w*)" assets/js -r | sort | uniq | paste -s -d, -);
         CACHE_FILE=./cache/lodash_generated;
@@ -200,7 +200,10 @@ module.exports = function (grunt) {
             }
         },
         clean: [
+            'lang/*.mo',
             'web/**',
+            'cache/lang/**',
+            'cache/sass/**',
             'cache/css/**'
         ],
         cssmin: {
@@ -358,7 +361,7 @@ module.exports = function (grunt) {
                     return [
                         'composer install -o',
                         'grunt bower',
-                        'bower install',
+                        './node_modules/bower/bin/bower install',
                         'php console cc'
                     ].join(' && ');
                 }
@@ -375,10 +378,7 @@ module.exports = function (grunt) {
             dist: {
                 options: {
                     style: isProduction ? 'compressed' : 'expanded',
-                    sourcemap: 'none',
-                    cacheLocation: 'cache/sass/',
-                    update: true,
-                    stopOnError: true
+                    sourceMap: true,
                 },
                 files: [{
                     expand: true,

@@ -30,7 +30,6 @@
             <parameter>Middleware.Gentime</parameter>
             <!--<parameter>Middleware.Cache</parameter>-->
             <!--<parameter>Middleware.Csrf</parameter>-->
-            <!--<parameter>Middleware.Stats</parameter>-->
         </parameter>
 
         <!-- List of config keys which are public available via /config/ -->

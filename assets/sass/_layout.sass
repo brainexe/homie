@@ -186,7 +186,8 @@ body > .header
   border-top-width: 0
   width: 280px
   &:after
-    @square(0)
+    height: 0
+    width: 0
     bottom: 100%
     right: 10px
     content: " "
@@ -298,14 +299,14 @@ body > .header
   padding-left: 0
 
 .user_avatar
-  @square(54px)
   background-size: contain
   height: 54px
   width: 54px
   cursor: pointer
 
 .profile_avatar
-  @square(90px)
+  height: 90px
+  width: 90px
   background-size: contain
   z-index: 5
   margin: auto

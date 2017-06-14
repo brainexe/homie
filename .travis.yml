@@ -2,6 +2,7 @@ language: php
 
 php:
   - 7.1
+  - 7.2
   - hhvm
 
 sudo: required
@@ -20,11 +21,8 @@ before_install:
   - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout master) && source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION
   - composer install
   - wget https://scrutinizer-ci.com/ocular.phar -q
-  - gem install sass
   - npm install
-  - npm install -g bower grunt
-  - bower install
-  - grunt buildAll
+  - npm run-script grunt buildAll
   - php console cc
 
 script:
