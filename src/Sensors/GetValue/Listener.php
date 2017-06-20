@@ -69,6 +69,28 @@ class Listener
 
         $this->dispatch($sensorVo, $value);
     }
+    /**
+     * @Listen(SensorValueEvent::VALUE_RAW)
+     * @param SensorValueEvent $event
+     */
+    public function handleRawValue(SensorValueEvent $event)
+    {
+        $value = $event->value;
+        if ($value=== null) {
+            $this->dispatcher->dispatchEvent(new SensorValueEvent(
+                SensorValueEvent::ERROR,
+                $event->sensorVo,
+                null,
+                null,
+                $event->timestamp
+            ));
+            return;
+        }
+
+        $this->gateway->addValue($event->sensorVo, $value);
+
+        $this->dispatch($event->sensorVo, $value);
+    }
 
     /**
      * @param SensorVO $sensorVo

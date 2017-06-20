@@ -49,7 +49,7 @@ class Node implements JsonSerializable, TranslationProvider
     /**
      * @var array
      */
-    private $options = [];
+    private $options;
 
     /**
      * @param int $nodeId

@@ -32,7 +32,13 @@ class ExpressionLanguage implements ExpressionFunctionProviderInterface
      */
     public function getFunctions()
     {
-        $trigger = new Action('triggerIFTTT', function (array $variables, string $eventName, string $value1 = null, string $value2 = null, string $value3 = null) {
+        $trigger = new Action('triggerIFTTT', function (
+            array $variables,
+            string $eventName,
+            string $value1 = null,
+            string $value2 = null,
+            string $value3 = null
+        ) {
             unset($variables);
             $event = new TriggerEvent($eventName, $value1, $value2, $value3);
 

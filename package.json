@@ -3,8 +3,6 @@
     "bluebird": "^3.5.0",
     "colors": "^1.1.2",
     "debug": "^2.6.8",
-    "node-metawear": "^1.0.1",
-    "node-motion": "^0.1.4",
     "pm2": "^2.5.0",
     "redis": "^2.7.1",
     "websocket-node": "brainexe/websocket-node"
@@ -25,6 +23,7 @@
     "grunt-contrib-watch": "^1.0.0",
     "grunt-exec": "~2.0",
     "grunt-manifest": "^0.4.4",
+    "grunt-ng-annotate": "^3.0.0",
     "grunt-po2mo": "^0.1.2",
     "grunt-sass": "^2.0.0",
     "grunt-uniqueify": "brainexe/grunt-uniqueify",

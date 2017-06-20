@@ -5,7 +5,7 @@ namespace Homie\Expression\CompilerPass;
 use Homie\Expression\Language;
 use Homie\Expression\Listener;
 use ReflectionClass;
-use Symfony\Component\DependencyInjection\Argument\ClosureProxyArgument;
+use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -41,7 +41,10 @@ class RegisterProvider implements CompilerPassInterface
             foreach ($provider->getFunctions() as $function) {
                 $language->addMethodCall('lazyRegister', [
                     $function->getName(),
-                    new ClosureProxyArgument($serviceId, 'getFunctions')
+                    new ServiceClosureArgument(
+                        new Reference($serviceId),
+                        'getFunctions'
+                    )
                 ]);
             }
         }

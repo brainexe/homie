@@ -11,6 +11,7 @@ class SensorValueEvent extends AbstractEvent implements PushViaWebsocket
     use JsonSerializableTrait;
 
     const VALUE = 'sensor.value';
+    const VALUE_RAW = 'sensor.value.raw';
     const ERROR = 'sensor.value.error';
 
     /**
