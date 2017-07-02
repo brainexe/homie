@@ -37,7 +37,7 @@ class Speak
      * @return Job
      * @Route("/espeak/speak/", methods="POST", name="espeak.speak")
      */
-    public function speak(Request $request) : Job
+    public function speak(Request $request)
     {
         $speaker   = (string)$request->request->get('speaker');
         $text      = (string)$request->request->get('text');

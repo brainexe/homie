@@ -19,7 +19,7 @@
   },
   "require": {
     "php": ">=7.1.0",
-    "brainexe/core": "dev-master",
+    "brainexe/core": "~2.1.4",
     "league/flysystem": "~1.0"
   },
   "require-dev": {

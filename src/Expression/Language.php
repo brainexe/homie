@@ -63,6 +63,7 @@ class Language extends ExpressionLanguage
                 unset($this->lazyLoad[$function->getName()]);
                 $this->addFunction($function);
             }
+            unset($this->lazyLoad[$functionName]);
         }
 
         return $this->functions[$functionName];

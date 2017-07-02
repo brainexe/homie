@@ -42,8 +42,7 @@ class RegisterProvider implements CompilerPassInterface
                 $language->addMethodCall('lazyRegister', [
                     $function->getName(),
                     new ServiceClosureArgument(
-                        new Reference($serviceId),
-                        'getFunctions'
+                        new Reference($serviceId)
                     )
                 ]);
             }
