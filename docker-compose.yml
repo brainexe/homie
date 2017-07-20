@@ -1,0 +1,59 @@
+version: '2'
+services:
+  redis:
+    build: docker/redis
+    volumes:
+      - redis-data:/var/lib/redis
+
+  nginx:
+    build: docker/nginx
+    volumes:
+        - .:/www/homie
+        - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+     - "8080:80"
+    links:
+     - php
+    networks:
+      back-tier:
+        aliases:
+          - "homie.local"
+  php:
+    build: docker/php
+    volumes:
+      - .:/www/homie
+      - ./docker/php/php-ini-overrides.ini:/etc/php/7.1/fpm/conf.d/99-overrides.ini
+    links:
+      - redis
+
+  homie:
+    build:
+      context: .
+      dockerfile: docker/homie/Dockerfile
+    volumes:
+      - .:/www/homie
+
+  asset-builder:
+    build:
+      context: .
+      dockerfile: docker/asset-builder/Dockerfile
+    volumes:
+      - .:/www/homie
+      - /www/homie/node_modules
+
+  pm2:
+    build:
+      context: .
+      dockerfile: docker/pm2/Dockerfile
+    volumes:
+      - .:/www/homie
+
+volumes:
+  redis-data:
+    driver: local
+
+networks:
+  front-tier:
+    driver: bridge
+  back-tier:
+    driver: bridge
