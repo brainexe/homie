@@ -11,4 +11,4 @@ RUN apk --update add git \
 
 VOLUME /www/homie/node_modules
 
-CMD node ./nodejs/pm2_start.js && sleep 100000000
+CMD ["node", "./nodejs/pm2_start.js", "--no-deamon"]

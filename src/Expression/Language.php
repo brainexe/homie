@@ -58,7 +58,7 @@ class Language extends ExpressionLanguage
     {
         if (isset($this->lazyLoad[$functionName])) {
             $functions = $this->lazyLoad[$functionName];
-            foreach ($functions() as $function) {
+            foreach ($functions()->getFunctions() as $function) {
                 /** @var ExpressionFunction $function */
                 unset($this->lazyLoad[$function->getName()]);
                 $this->addFunction($function);

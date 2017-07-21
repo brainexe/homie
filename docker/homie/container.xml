@@ -2,5 +2,6 @@
 <container xmlns="http://symfony.com/schema/dic/services">
     <parameters>
         <parameter key="redis.connection">redis://redis:6379/</parameter>
+        <parameter key="system.user"/>
     </parameters>
 </container>

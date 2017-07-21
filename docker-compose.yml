@@ -13,25 +13,33 @@ services:
     ports:
      - "8080:80"
     links:
-     - php
+     - php-fpm
     networks:
       back-tier:
         aliases:
           - "homie.local"
-  php:
-    build: docker/php
+  php-fpm:
+    build: docker/php-fpm
     volumes:
       - .:/www/homie
       - ./docker/php/php-ini-overrides.ini:/etc/php/7.1/fpm/conf.d/99-overrides.ini
     links:
-      - redis
+      - homie
+    networks:
+      back-tier:
 
   homie:
     build:
       context: .
       dockerfile: docker/homie/Dockerfile
+    entrypoint: ["php", "./console"]
     volumes:
       - .:/www/homie
+    user: $UID
+    links:
+      - redis
+    networks:
+      back-tier:
 
   asset-builder:
     build:
@@ -40,6 +48,7 @@ services:
     volumes:
       - .:/www/homie
       - /www/homie/node_modules
+    user: $UID
 
   pm2:
     build:
@@ -47,6 +56,9 @@ services:
       dockerfile: docker/pm2/Dockerfile
     volumes:
       - .:/www/homie
+    links:
+      - homie
+    user: $UID
 
 volumes:
   redis-data:

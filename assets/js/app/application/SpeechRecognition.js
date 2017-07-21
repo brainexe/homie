@@ -1,6 +1,6 @@
 
 App.run(/*@ngInject*/ function($rootScope, $uibModal, Speech, UserManagementSettings, Flash) {
-    var globalRecognition = window.speechRecognition || window.webkitSpeechRecognition;
+    var globalRecognition = window.webkitSpeechRecognition || window.speechRecognition;
     if (!globalRecognition) {
         console.log("window.speechRecognition is not supported!");
 
@@ -29,7 +29,7 @@ App.run(/*@ngInject*/ function($rootScope, $uibModal, Speech, UserManagementSett
 
         recognition.onerror = function(event) {
             $rootScope.speechRecognition.interim_transcript = "Error: " + event.error;
-            console.error(event);
+            console.error("Error: " + event);
         };
 
         function onEnter(event) {
@@ -44,7 +44,7 @@ App.run(/*@ngInject*/ function($rootScope, $uibModal, Speech, UserManagementSett
         };
 
         recognition.onresult = function(event) {
-            console.debug(event)
+            console.debug("Result: " + event);
             $rootScope.speechRecognition.interim_transcript = '';
             $rootScope.speechRecognition.final_transcript = '';
             if (typeof event.results === 'undefined') {
