@@ -3,8 +3,7 @@
   "minimum-stability":"dev",
   "authors": [
     {
-      "name": "Matze",
-      "email": "matze@mdoetsch.de"
+      "name": "Matthias Dötsch",
     }
   ],
   "autoload": {
